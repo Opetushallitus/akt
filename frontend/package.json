@@ -2,7 +2,6 @@
   "name": "akt-frontend",
   "version": "0.0.1",
   "description": "Authorised Translator’s System",
-  "main": "index.js",
   "scripts": {
     "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
     "format": "prettier --check \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
@@ -36,6 +35,8 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^11.2.6",
     "mini-css-extract-plugin": "^2.4.3",
     "prettier": "^2.4.1",
     "sass": "^1.43.4",
@@ -45,5 +46,18 @@
     "webpack": "^5.61.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.4.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json}": [
+      "eslint --fix"
+    ],
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
   }
 }
