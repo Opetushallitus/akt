@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = (env) => {
-  const mode = env.production ? "production" : "development";
+  const mode = env.prod ? "production" : "development";
 
   return {
     mode,
@@ -36,7 +36,7 @@ module.exports = (env) => {
         {
           test: /\.s?css$/,
           use: [
-            env.production ? MiniCssExtractPlugin.loader : "style-loader",
+            env.prod ? MiniCssExtractPlugin.loader : "style-loader",
             "css-loader",
             "sass-loader",
           ],
@@ -47,6 +47,7 @@ module.exports = (env) => {
     resolve: {
       extensions: [".js", ".jsx", ".ts", ".tsx"],
     },
+    devtool: env.prod ? "source-map" : "cheap-module-source-map",
     stats: "errors-only",
   };
 };
