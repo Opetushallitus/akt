@@ -3,8 +3,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = (env) => {
+  const mode = env.production ? "production" : "development";
+
   return {
-    mode: "development",
+    mode,
     entry: path.join(__dirname, "..", "frontend", "src", "index.tsx"),
     output: {
       path: path.join(__dirname, "dist"),
