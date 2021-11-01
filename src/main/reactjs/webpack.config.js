@@ -7,7 +7,7 @@ module.exports = (env) => {
 
   return {
     mode,
-    entry: path.join(__dirname, '..', 'frontend', 'src', 'index.tsx'),
+    entry: path.join(__dirname, '..', 'reactjs', 'src', 'index.tsx'),
     output: {
       path: path.join(__dirname, 'dist'),
       filename: 'bundle.js',
@@ -17,13 +17,7 @@ module.exports = (env) => {
         filename: 'styles.css',
       }),
       new HtmlWebpackPlugin({
-        template: path.join(
-          __dirname,
-          '..',
-          'frontend',
-          'public',
-          'index.html'
-        ),
+        template: path.join(__dirname, '..', 'reactjs', 'public', 'index.html'),
       }),
     ],
     module: {
