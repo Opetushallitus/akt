@@ -1,7 +1,13 @@
-import { AppRouter } from './routers/AppRouter';
+import { Provider } from 'react-redux';
 
+import configureStore from './store/configureStore';
+import { AppRouter } from './routers/AppRouter';
 import './styles/styles.scss';
 
-export const App = () => {
-  return <AppRouter />;
-};
+const store = configureStore();
+
+export const App = () => (
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>
+);
