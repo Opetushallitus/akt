@@ -21,5 +21,15 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
-  "rules": {}
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [["builtin", "external"]],
+        "newlines-between": "always"
+      }
+    ]
+  }
 }
