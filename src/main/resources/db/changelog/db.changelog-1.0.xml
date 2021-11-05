@@ -14,15 +14,15 @@
                 <constraints nullable="false"/>
             </column>
             <column name="created_by" type="TEXT"/>
-            <column name="deleted_by" type="TEXT"/>
             <column name="modified_by" type="TEXT"/>
-            <column name="creation_time" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="deleted_by" type="TEXT"/>
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="modification_time" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="modified_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="deletion_time" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="deleted_at" type="TIMESTAMP WITH TIME ZONE"/>
 
             <column name="date" type="DATE">
                 <constraints nullable="false"/>
@@ -30,19 +30,19 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="2021-11-02-create-justification-table" author="terova">
-        <createTable tableName="justification">
+    <changeSet id="2021-11-02-create-authorisation_basis-table" author="terova">
+        <createTable tableName="authorisation_basis">
             <column name="name" type="VARCHAR(255)">
-                <constraints primaryKey="true" primaryKeyName="justification_pkey"/>
+                <constraints primaryKey="true" primaryKeyName="authorisation_basis_pkey"/>
             </column>
         </createTable>
-        <insert tableName="justification">
+        <insert tableName="authorisation_basis">
             <column name="name" value="AUT"/>
         </insert>
-        <insert tableName="justification">
+        <insert tableName="authorisation_basis">
             <column name="name" value="KKT"/>
         </insert>
-        <insert tableName="justification">
+        <insert tableName="authorisation_basis">
             <column name="name" value="VIR"/>
         </insert>
     </changeSet>
@@ -56,15 +56,15 @@
                 <constraints nullable="false"/>
             </column>
             <column name="created_by" type="TEXT"/>
-            <column name="deleted_by" type="TEXT"/>
             <column name="modified_by" type="TEXT"/>
-            <column name="creation_time" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="deleted_by" type="TEXT"/>
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="modification_time" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="modified_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="deletion_time" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="deleted_at" type="TIMESTAMP WITH TIME ZONE"/>
 
             <column name="onr_oid" type="TEXT">
                 <constraints nullable="false"/>
@@ -81,20 +81,20 @@
                 <constraints nullable="false"/>
             </column>
             <column name="created_by" type="TEXT"/>
-            <column name="deleted_by" type="TEXT"/>
             <column name="modified_by" type="TEXT"/>
-            <column name="creation_time" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="deleted_by" type="TEXT"/>
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="modification_time" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="modified_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="deletion_time" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="deleted_at" type="TIMESTAMP WITH TIME ZONE"/>
 
             <column name="translator_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="justification_name" type="VARCHAR(255)">
+            <column name="basis" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="meeting_date_id" type="BIGINT"/>
@@ -107,9 +107,9 @@
                                  referencedTableName="translator" referencedColumnNames="translator_id"
                                  constraintName="fk_authorisation_translator"
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
-        <addForeignKeyConstraint baseTableName="authorisation" baseColumnNames="justification_name"
-                                 referencedTableName="justification" referencedColumnNames="name"
-                                 constraintName="fk_authorisation_justification"
+        <addForeignKeyConstraint baseTableName="authorisation" baseColumnNames="basis"
+                                 referencedTableName="authorisation_basis" referencedColumnNames="name"
+                                 constraintName="fk_authorisation_authorisation_basis"
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
         <addForeignKeyConstraint baseTableName="authorisation" baseColumnNames="meeting_date_id"
                                  referencedTableName="meeting_date" referencedColumnNames="meeting_date_id"
@@ -117,11 +117,11 @@
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
         <sql>
             ALTER TABLE authorisation
-                ADD CONSTRAINT ck_authorisation_by_justification
-                    CHECK (justification_name = 'AUT' AND meeting_date_id IS NOT NULL AND aut_date IS NOT NULL AND kkt_check IS     NULL AND vir_date IS NULL     AND assurance_date IS NOT NULL
-                        OR justification_name = 'KKT' AND meeting_date_id IS NOT NULL AND aut_date IS NULL     AND kkt_check IS NOT NULL AND vir_date IS NULL     AND assurance_date IS NOT NULL
-                        OR justification_name = 'VIR' AND meeting_date_id IS NOT NULL AND aut_date IS NULL     AND kkt_check IS     NULL AND vir_date IS NOT NULL AND assurance_date IS NOT NULL
-                        OR justification_name = 'VIR' AND meeting_date_id IS NULL     AND aut_date IS NULL     AND kkt_check IS     NULL AND vir_date IS NOT NULL AND assurance_date IS NULL)
+                ADD CONSTRAINT ck_authorisation_by_basis
+                    CHECK (basis = 'AUT' AND meeting_date_id IS NOT NULL AND aut_date IS NOT NULL AND kkt_check IS     NULL AND vir_date IS     NULL AND assurance_date IS NOT NULL
+                        OR basis = 'KKT' AND meeting_date_id IS NOT NULL AND aut_date IS     NULL AND kkt_check IS NOT NULL AND vir_date IS     NULL AND assurance_date IS NOT NULL
+                        OR basis = 'VIR' AND meeting_date_id IS NOT NULL AND aut_date IS     NULL AND kkt_check IS     NULL AND vir_date IS NOT NULL AND assurance_date IS NOT NULL
+                        OR basis = 'VIR' AND meeting_date_id IS     NULL AND aut_date IS     NULL AND kkt_check IS     NULL AND vir_date IS NOT NULL AND assurance_date IS NULL)
         </sql>
     </changeSet>
 
@@ -134,15 +134,15 @@
                 <constraints nullable="false"/>
             </column>
             <column name="created_by" type="TEXT"/>
-            <column name="deleted_by" type="TEXT"/>
             <column name="modified_by" type="TEXT"/>
-            <column name="creation_time" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="deleted_by" type="TEXT"/>
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="modification_time" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="modified_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="deletion_time" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="deleted_at" type="TIMESTAMP WITH TIME ZONE"/>
 
             <column name="authorisation_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -166,24 +166,24 @@
         </createIndex>
     </changeSet>
 
-    <changeSet id="2021-11-02-create-validity-table" author="terova">
-        <createTable tableName="validity">
-            <column autoIncrement="true" name="validity_id" type="BIGSERIAL">
-                <constraints primaryKey="true" primaryKeyName="validity_pkey"/>
+    <changeSet id="2021-11-02-create-authorisation_term-table" author="terova">
+        <createTable tableName="authorisation_term">
+            <column autoIncrement="true" name="authorisation_term_id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="authorisation_term_pkey"/>
             </column>
             <column name="version" type="INT" defaultValueNumeric="0">
                 <constraints nullable="false"/>
             </column>
             <column name="created_by" type="TEXT"/>
-            <column name="deleted_by" type="TEXT"/>
             <column name="modified_by" type="TEXT"/>
-            <column name="creation_time" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="deleted_by" type="TEXT"/>
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="modification_time" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="modified_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="deletion_time" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="deleted_at" type="TIMESTAMP WITH TIME ZONE"/>
 
             <column name="authorisation_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -193,44 +193,40 @@
             </column>
             <column name="end_date" type="DATE"/>
         </createTable>
-        <addForeignKeyConstraint baseTableName="validity" baseColumnNames="authorisation_id"
+        <addForeignKeyConstraint baseTableName="authorisation_term" baseColumnNames="authorisation_id"
                                  referencedTableName="authorisation" referencedColumnNames="authorisation_id"
-                                 constraintName="fk_validity_authorisation"
+                                 constraintName="fk_authorisation_term_authorisation"
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
         <sql><![CDATA[
-            ALTER TABLE validity
-                ADD CONSTRAINT ck_validity_end_date
+            ALTER TABLE authorisation_term
+                ADD CONSTRAINT ck_authorisation_term_end_date
                     CHECK (end_date IS NULL OR begin_date < end_date)
             ]]></sql>
-        <!--TODO create trigger which checks that if end date is null then authorisation.justification_name='VIR' ? -->
     </changeSet>
 
-    <changeSet id="2021-11-02-create-validity_reminder-table" author="terova">
-        <createTable tableName="validity_reminder">
-            <column autoIncrement="true" name="validity_reminder_id" type="BIGSERIAL">
-                <constraints primaryKey="true" primaryKeyName="validity_reminder_pkey"/>
+    <changeSet id="2021-11-02-create-email-table" author="terova">
+        <createTable tableName="email">
+            <column autoIncrement="true" name="email_id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="email_pkey"/>
             </column>
             <column name="version" type="INT" defaultValueNumeric="0">
                 <constraints nullable="false"/>
             </column>
             <column name="created_by" type="TEXT"/>
-            <column name="deleted_by" type="TEXT"/>
             <column name="modified_by" type="TEXT"/>
-            <column name="creation_time" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="deleted_by" type="TEXT"/>
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="modification_time" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="modified_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="deletion_time" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="deleted_at" type="TIMESTAMP WITH TIME ZONE"/>
 
-            <column name="validity_id" type="BIGINT">
+            <column name="sender" type="text">
                 <constraints nullable="false"/>
             </column>
-            <column name="from" type="text">
-                <constraints nullable="false"/>
-            </column>
-            <column name="to" type="text">
+            <column name="recipient" type="text">
                 <constraints nullable="false"/>
             </column>
             <column name="subject" type="text">
@@ -242,9 +238,41 @@
             <column name="sent" type="TIMESTAMP WITH TIME ZONE"/>
             <column name="error" type="text"/>
         </createTable>
-        <addForeignKeyConstraint baseTableName="validity_reminder" baseColumnNames="validity_id"
-                                 referencedTableName="validity" referencedColumnNames="validity_id"
-                                 constraintName="fk_validity_reminder_validity"
+    </changeSet>
+
+    <changeSet id="2021-11-02-create-authorisation_term_reminder-table" author="terova">
+        <createTable tableName="authorisation_term_reminder">
+            <column autoIncrement="true" name="authorisation_term_reminder_id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="authorisation_term_reminder_pkey"/>
+            </column>
+            <column name="version" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="TEXT"/>
+            <column name="modified_by" type="TEXT"/>
+            <column name="deleted_by" type="TEXT"/>
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="TIMESTAMP WITH TIME ZONE"/>
+
+            <column name="authorisation_term_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="authorisation_term_reminder" baseColumnNames="authorisation_term_id"
+                                 referencedTableName="authorisation_term" referencedColumnNames="authorisation_term_id"
+                                 constraintName="fk_authorisation_term_reminder_authorisation_term"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="authorisation_term_reminder" baseColumnNames="email_id"
+                                 referencedTableName="email" referencedColumnNames="email_id"
+                                 constraintName="fk_authorisation_term_reminder_email"
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
     </changeSet>
 
