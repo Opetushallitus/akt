@@ -1,7 +1,13 @@
-import React from 'react';
+import { Provider } from 'react-redux';
 
+import configureStore from './store/configureStore';
+import { AppRouter } from './routers/AppRouter';
 import './styles/styles.scss';
 
-export const App = () => {
-  return <h1>Hello World!</h1>;
-};
+const store = configureStore();
+
+export const App = () => (
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>
+);
