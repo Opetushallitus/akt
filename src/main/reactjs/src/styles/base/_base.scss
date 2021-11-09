@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.app {
+  display: grid;
+  grid-template-rows: fit-content($size-appbar) auto fit-content($size-footer);
+  grid-template-areas:
+    'appbar'
+    'content'
+    'footer';
+  height: 100%;
+}
+
+.appbar {
+  grid-area: appbar;
+}
+
+.content {
+  grid-area: content;
+  display: flex;
+  background-color: $color-background;
+}
+
+.footer {
+  grid-area: footer;
+}

@@ -1,6 +1,4 @@
 import { FC } from 'react';
-import { Button } from '@mui/material';
+import { Box } from '@mui/material';
 
-export const HomePage: FC = () => (
-  <Button variant="contained">Hello World</Button>
-);
+export const HomePage: FC = () => <Box></Box>;

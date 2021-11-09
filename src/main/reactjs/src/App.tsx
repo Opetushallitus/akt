@@ -1,13 +1,16 @@
 import { Provider } from 'react-redux';
+import { ThemeProvider } from '@mui/material/styles';
 
-import configureStore from './store/configureStore';
+import { theme } from './configs/materialUI';
+import { store } from './configs/redux';
 import { AppRouter } from './routers/AppRouter';
-import './styles/styles.scss';
 
-const store = configureStore();
+import './styles/styles.scss';
 
 export const App = () => (
   <Provider store={store}>
-    <AppRouter />
+    <ThemeProvider theme={theme}>
+      <AppRouter />
+    </ThemeProvider>
   </Provider>
 );
