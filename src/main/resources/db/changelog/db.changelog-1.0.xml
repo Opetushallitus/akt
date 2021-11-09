@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
-<databaseChangeLog
+<databaseChangeLog logicalFilePath="migrations.xml"
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
@@ -153,7 +153,9 @@
             <column name="to_lang" type="VARCHAR(10)">
                 <constraints nullable="false"/>
             </column>
-            <column name="permission_to_publish" type="BOOL"/>
+            <column name="permission_to_publish" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
         <addForeignKeyConstraint baseTableName="language_pair" baseColumnNames="authorisation_id"
                                  referencedTableName="authorisation" referencedColumnNames="authorisation_id"
@@ -235,7 +237,7 @@
             <column name="body" type="text">
                 <constraints nullable="false"/>
             </column>
-            <column name="sent" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="sent_at" type="TIMESTAMP WITH TIME ZONE"/>
             <column name="error" type="text"/>
         </createTable>
     </changeSet>
