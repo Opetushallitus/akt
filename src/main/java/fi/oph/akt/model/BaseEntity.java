@@ -6,7 +6,11 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Version;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @MappedSuperclass
 public class BaseEntity {
 
@@ -57,62 +61,6 @@ public class BaseEntity {
 
 		final String currentUser = getCurrentUserId();
 		setModifiedBy(currentUser);
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(final int version) {
-		this.version = version;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(final String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(final String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-
-	public String getDeletedBy() {
-		return deletedBy;
-	}
-
-	public void setDeletedBy(final String deletedBy) {
-		this.deletedBy = deletedBy;
-	}
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(final LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDateTime getModifiedAt() {
-		return modifiedAt;
-	}
-
-	public void setModifiedAt(final LocalDateTime modifiedAt) {
-		this.modifiedAt = modifiedAt;
-	}
-
-	public LocalDateTime getDeletedAt() {
-		return deletedAt;
-	}
-
-	public void setDeletedAt(final LocalDateTime deletedAt) {
-		this.deletedAt = deletedAt;
 	}
 
 }

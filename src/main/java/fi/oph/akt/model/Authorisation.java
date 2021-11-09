@@ -13,7 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "authorisation")
 public class Authorisation extends BaseEntity {
@@ -52,85 +56,5 @@ public class Authorisation extends BaseEntity {
 
 	@OneToMany(mappedBy = "authorisations")
 	private Collection<AuthorisationTerm> validities;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(final long authorisationId) {
-		this.id = authorisationId;
-	}
-
-	public LocalDate getAutDate() {
-		return autDate;
-	}
-
-	public void setAutDate(final LocalDate autDate) {
-		this.autDate = autDate;
-	}
-
-	public String getKktCheck() {
-		return kktCheck;
-	}
-
-	public void setKktCheck(final String kktCheck) {
-		this.kktCheck = kktCheck;
-	}
-
-	public LocalDate getVirDate() {
-		return virDate;
-	}
-
-	public void setVirDate(final LocalDate virDate) {
-		this.virDate = virDate;
-	}
-
-	public LocalDate getAssuranceDate() {
-		return assuranceDate;
-	}
-
-	public void setAssuranceDate(final LocalDate assuranceDate) {
-		this.assuranceDate = assuranceDate;
-	}
-
-	public Translator getTranslator() {
-		return translator;
-	}
-
-	public void setTranslator(final Translator translatorByTranslatorId) {
-		this.translator = translatorByTranslatorId;
-	}
-
-	public Justification getBasis() {
-		return basis;
-	}
-
-	public void setBasis(final Justification justificationByJustificationName) {
-		this.basis = justificationByJustificationName;
-	}
-
-	public MeetingDate getMeetingDate() {
-		return meetingDate;
-	}
-
-	public void setMeetingDate(final MeetingDate meetingDateByMeetingDateId) {
-		this.meetingDate = meetingDateByMeetingDateId;
-	}
-
-	public Collection<LanguagePair> getLanguagePairs() {
-		return languagePairs;
-	}
-
-	public void setLanguagePairs(final Collection<LanguagePair> languagePairsByAuthorisationId) {
-		this.languagePairs = languagePairsByAuthorisationId;
-	}
-
-	public Collection<AuthorisationTerm> getValidities() {
-		return validities;
-	}
-
-	public void setValidities(final Collection<AuthorisationTerm> validitiesByAuthorisationId) {
-		this.validities = validitiesByAuthorisationId;
-	}
 
 }

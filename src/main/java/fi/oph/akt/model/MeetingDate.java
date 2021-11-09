@@ -9,7 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "meeting_date")
 public class MeetingDate extends BaseEntity {
@@ -24,29 +28,5 @@ public class MeetingDate extends BaseEntity {
 
 	@OneToMany(mappedBy = "meetingDate")
 	private Collection<Authorisation> authorisations;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(final long meetingDateId) {
-		this.id = meetingDateId;
-	}
-
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public void setDate(final LocalDate date) {
-		this.date = date;
-	}
-
-	public Collection<Authorisation> getAuthorisations() {
-		return authorisations;
-	}
-
-	public void setAuthorisations(final Collection<Authorisation> authorisationsByMeetingDateId) {
-		this.authorisations = authorisationsByMeetingDateId;
-	}
 
 }

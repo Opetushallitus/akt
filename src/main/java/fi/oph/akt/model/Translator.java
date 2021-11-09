@@ -8,7 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "translator")
 public class Translator extends BaseEntity {
@@ -23,29 +27,5 @@ public class Translator extends BaseEntity {
 
 	@OneToMany(mappedBy = "translator")
 	private Collection<Authorisation> authorisations;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(final long translatorId) {
-		this.id = translatorId;
-	}
-
-	public String getOnrOid() {
-		return onrOid;
-	}
-
-	public void setOnrOid(final String onrOid) {
-		this.onrOid = onrOid;
-	}
-
-	public Collection<Authorisation> getAuthorisations() {
-		return authorisations;
-	}
-
-	public void setAuthorisations(final Collection<Authorisation> authorisationsByTranslatorId) {
-		this.authorisations = authorisationsByTranslatorId;
-	}
 
 }

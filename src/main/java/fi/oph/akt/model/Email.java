@@ -7,7 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "email")
 public class Email extends BaseEntity {
@@ -34,61 +38,5 @@ public class Email extends BaseEntity {
 
 	@Column(name = "error", length = -1)
 	private String error;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(final long emailId) {
-		this.id = emailId;
-	}
-
-	public String getSender() {
-		return sender;
-	}
-
-	public void setSender(final String sender) {
-		this.sender = sender;
-	}
-
-	public String getRecipient() {
-		return recipient;
-	}
-
-	public void setRecipient(final String recipient) {
-		this.recipient = recipient;
-	}
-
-	public String getSubject() {
-		return subject;
-	}
-
-	public void setSubject(final String subject) {
-		this.subject = subject;
-	}
-
-	public String getBody() {
-		return body;
-	}
-
-	public void setBody(final String body) {
-		this.body = body;
-	}
-
-	public Instant getSent() {
-		return sent;
-	}
-
-	public void setSent(final Instant sent) {
-		this.sent = sent;
-	}
-
-	public String getError() {
-		return error;
-	}
-
-	public void setError(final String error) {
-		this.error = error;
-	}
 
 }
