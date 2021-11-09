@@ -1,6 +1,6 @@
 package fi.oph.akt.model;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,7 +34,7 @@ public class Email extends BaseEntity {
 	private String body;
 
 	@Column(name = "sent_at")
-	private Instant sent;
+	private LocalDateTime sentAt;
 
 	@Column(name = "error", length = -1)
 	private String error;
