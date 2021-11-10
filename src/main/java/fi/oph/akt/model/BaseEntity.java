@@ -18,13 +18,13 @@ public class BaseEntity {
 	@Column(name = "version", nullable = false)
 	private int version;
 
-	@Column(name = "created_by", length = -1)
+	@Column(name = "created_by")
 	private String createdBy;
 
-	@Column(name = "modified_by", length = -1)
+	@Column(name = "modified_by")
 	private String modifiedBy;
 
-	@Column(name = "deleted_by", length = -1)
+	@Column(name = "deleted_by")
 	private String deletedBy;
 
 	@Column(name = "created_at", nullable = false)

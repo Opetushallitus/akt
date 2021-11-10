@@ -34,7 +34,7 @@ public class LanguagePair extends BaseEntity {
 	@Column(name = "permission_to_publish", nullable = false)
 	private boolean permissionToPublish;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "authorisation_id", referencedColumnName = "authorisation_id", nullable = false)
 	private Authorisation authorisation;
 

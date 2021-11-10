@@ -39,22 +39,22 @@ public class Authorisation extends BaseEntity {
 	@Column(name = "assurance_date")
 	private LocalDate assuranceDate;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "translator_id", referencedColumnName = "translator_id", nullable = false)
 	private Translator translator;
 
 	@Column(name = "basis", nullable = false)
 	@Enumerated(value = EnumType.STRING)
-	private Justification basis;
+	private AuthorisationBasis basis;
 
 	@ManyToOne
 	@JoinColumn(name = "meeting_date_id", referencedColumnName = "meeting_date_id")
 	private MeetingDate meetingDate;
 
-	@OneToMany(mappedBy = "authorisations")
+	@OneToMany(mappedBy = "authorisation")
 	private Collection<LanguagePair> languagePairs;
 
-	@OneToMany(mappedBy = "authorisations")
-	private Collection<AuthorisationTerm> validities;
+	@OneToMany(mappedBy = "authorisation")
+	private Collection<AuthorisationTerm> terms;
 
 }

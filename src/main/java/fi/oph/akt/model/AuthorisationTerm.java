@@ -31,11 +31,11 @@ public class AuthorisationTerm extends BaseEntity {
 	@Column(name = "end_date")
 	private LocalDate endDate;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "authorisation_id", referencedColumnName = "authorisation_id", nullable = false)
 	private Authorisation authorisation;
 
 	@OneToMany(mappedBy = "authorisationTerm")
-	private Collection<AuthorisationTermReminder> authorisationTermReminders;
+	private Collection<AuthorisationTermReminder> reminders;
 
 }

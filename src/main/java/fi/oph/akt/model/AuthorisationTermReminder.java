@@ -23,7 +23,7 @@ public class AuthorisationTermReminder extends BaseEntity {
 	@Column(name = "authorisation_term_reminder_id", nullable = false)
 	private long id;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "authorisation_term_id", referencedColumnName = "authorisation_term_id", nullable = false)
 	private AuthorisationTerm authorisationTerm;
 

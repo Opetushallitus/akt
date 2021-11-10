@@ -1,6 +1,6 @@
 package fi.oph.akt.model;
 
-public enum Justification {
+public enum AuthorisationBasis {
 
 	AUT, KKT, VIR
 
