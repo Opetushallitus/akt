@@ -30,7 +30,7 @@ public class Authorisation extends BaseEntity {
 	@Column(name = "aut_date")
 	private LocalDate autDate;
 
-	@Column(name = "kkt_check", length = -1)
+	@Column(name = "kkt_check")
 	private String kktCheck;
 
 	@Column(name = "vir_date")

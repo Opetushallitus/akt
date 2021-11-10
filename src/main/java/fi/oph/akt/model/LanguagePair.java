@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,9 +23,11 @@ public class LanguagePair extends BaseEntity {
 	@Column(name = "language_pair_id", nullable = false)
 	private long id;
 
+	@Size(min = 1, max = 10)
 	@Column(name = "from_lang", nullable = false, length = 10)
 	private String fromLang;
 
+	@Size(min = 1, max = 10)
 	@Column(name = "to_lang", nullable = false, length = 10)
 	private String toLang;
 
@@ -33,6 +36,6 @@ public class LanguagePair extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "authorisation_id", referencedColumnName = "authorisation_id", nullable = false)
-	private Authorisation authorisations;
+	private Authorisation authorisation;
 
 }

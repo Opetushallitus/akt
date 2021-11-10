@@ -21,22 +21,22 @@ public class Email extends BaseEntity {
 	@Column(name = "email_id", nullable = false)
 	private long id;
 
-	@Column(name = "sender", nullable = false, length = -1)
+	@Column(name = "sender", nullable = false)
 	private String sender;
 
-	@Column(name = "recipient", nullable = false, length = -1)
+	@Column(name = "recipient", nullable = false)
 	private String recipient;
 
-	@Column(name = "subject", nullable = false, length = -1)
+	@Column(name = "subject", nullable = false)
 	private String subject;
 
-	@Column(name = "body", nullable = false, length = -1)
+	@Column(name = "body", nullable = false)
 	private String body;
 
 	@Column(name = "sent_at")
 	private LocalDateTime sentAt;
 
-	@Column(name = "error", length = -1)
+	@Column(name = "error")
 	private String error;
 
 }

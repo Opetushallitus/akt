@@ -33,7 +33,7 @@ public class AuthorisationTerm extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "authorisation_id", referencedColumnName = "authorisation_id", nullable = false)
-	private Authorisation authorisations;
+	private Authorisation authorisation;
 
 	@OneToMany(mappedBy = "authorisationTerm")
 	private Collection<AuthorisationTermReminder> authorisationTermReminders;
