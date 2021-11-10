@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +40,7 @@ public class Authorisation extends BaseEntity {
 	@Column(name = "assurance_date")
 	private LocalDate assuranceDate;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "translator_id", referencedColumnName = "translator_id", nullable = false)
 	private Translator translator;
 
@@ -47,7 +48,7 @@ public class Authorisation extends BaseEntity {
 	@Enumerated(value = EnumType.STRING)
 	private AuthorisationBasis basis;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "meeting_date_id", referencedColumnName = "meeting_date_id")
 	private MeetingDate meetingDate;
 

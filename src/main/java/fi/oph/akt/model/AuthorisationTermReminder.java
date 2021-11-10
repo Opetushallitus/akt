@@ -2,6 +2,7 @@ package fi.oph.akt.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,11 +24,11 @@ public class AuthorisationTermReminder extends BaseEntity {
 	@Column(name = "authorisation_term_reminder_id", nullable = false)
 	private long id;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "authorisation_term_id", referencedColumnName = "authorisation_term_id", nullable = false)
 	private AuthorisationTerm authorisationTerm;
 
-	@OneToOne(optional = false)
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "email_id", referencedColumnName = "email_id", nullable = false)
 	private Email email;
 

@@ -2,6 +2,7 @@ package fi.oph.akt.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +35,7 @@ public class LanguagePair extends BaseEntity {
 	@Column(name = "permission_to_publish", nullable = false)
 	private boolean permissionToPublish;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "authorisation_id", referencedColumnName = "authorisation_id", nullable = false)
 	private Authorisation authorisation;
 
