@@ -5,5 +5,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
+  jpa:
+    open-in-view: false
+    show-sql: true
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
