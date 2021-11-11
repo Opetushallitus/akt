@@ -1,5 +1,6 @@
-package fi.oph.akt.api.search;
+package fi.oph.akt.service;
 
+import fi.oph.akt.api.dto.PublicTranslatorDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTerm;
@@ -7,8 +8,12 @@ import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import java.time.LocalDate;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.UUID;
+
+import fi.oph.akt.onr.HenkiloDtoFactory;
+import fi.oph.akt.onr.OnrApiMock;
+import fi.oph.akt.onr.TranslatorDetailsFactory;
+import fi.oph.akt.onr.model.yhteystieto.YhteystietoUtil;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,38 +25,53 @@ import org.springframework.data.domain.Page;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-@Import(SearchService.class)
-class SearchServiceTest {
+@Import({ TranslatorService.class, OnrApiMock.class, TranslatorDetailsFactory.class, YhteystietoUtil.class,
+		HenkiloDtoFactory.class })
+class TranslatorServiceTest {
 
 	@Autowired
 	private TestEntityManager entityManager;
 
 	@Autowired
-	private SearchService searchService;
+	private TranslatorService translatorService;
 
 	@Test
-	public void testListAll() {
+	public void listPublicTranslatorsTest() {
 
-		createTranslator("listed starts today", true, LocalDate.now(), LocalDate.now().plusDays(1));
-		createTranslator("listed ends today", true, LocalDate.now().minusDays(1), LocalDate.now());
-		createTranslator("not public", false, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10));
-		createTranslator("term passed", true, LocalDate.now().minusDays(10), LocalDate.now().minusDays(1));
-		createTranslator("term in future", true, LocalDate.now().plusDays(1), LocalDate.now().plusDays(10));
+		// Term active
+		createTranslator(LocalDate.now(), LocalDate.now().plusDays(1), true);
 
-		final Page<TranslatorDTO> translatorDTOS = searchService.listAll(null);
-		assertEquals(2, translatorDTOS.getSize());
-		assertEquals(Set.of("listed starts today", "listed ends today"),
-				translatorDTOS.stream().map(TranslatorDTO::lastName).collect(Collectors.toSet()));
+		// Term active
+		createTranslator(LocalDate.now().minusDays(1), LocalDate.now(), true);
+
+		// Term active (no end date)
+		createTranslator(LocalDate.now(), null, true);
+
+		// Term active but no permission given
+		createTranslator(LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), false);
+
+		// Term ended
+		createTranslator(LocalDate.now().minusDays(10), LocalDate.now().minusDays(1), true);
+
+		// Term in future
+		createTranslator(LocalDate.now().plusDays(1), LocalDate.now().plusDays(10), true);
+
+		// Term in future (no end date)
+		createTranslator(LocalDate.now().plusDays(1), null, true);
+
+		final Page<PublicTranslatorDTO> translatorDTOS = translatorService.listPublicTranslators(null);
+
+		assertEquals(3, translatorDTOS.getSize());
 	}
 
-	private void createTranslator(final String oid, final boolean permissionToPublish, final LocalDate beginDate,
-			final LocalDate endDate) {
+	private void createTranslator(final LocalDate beginDate, final LocalDate endDate,
+			final boolean permissionToPublish) {
 
 		final MeetingDate meetingDate = new MeetingDate();
 		meetingDate.setDate(LocalDate.now());
 
 		final Translator translator = new Translator();
-		translator.setOnrOid(oid);
+		translator.setOnrOid(UUID.randomUUID().toString());
 
 		final Authorisation authorisation = new Authorisation();
 		authorisation.setTranslator(translator);
@@ -65,12 +85,13 @@ class SearchServiceTest {
 		languagePair.setFromLang("fi");
 		languagePair.setToLang("en");
 		languagePair.setPermissionToPublish(permissionToPublish);
-		authorisation.setLanguagePairs(Lists.list(languagePair));
 
 		final AuthorisationTerm term = new AuthorisationTerm();
 		term.setAuthorisation(authorisation);
 		term.setBeginDate(beginDate);
 		term.setEndDate(endDate);
+
+		authorisation.setLanguagePairs(Lists.list(languagePair));
 		authorisation.setTerms(Lists.list(term));
 
 		translator.setAuthorisations(Lists.list(authorisation));

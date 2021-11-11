@@ -1,4 +1,4 @@
-package fi.oph.akt.api.search;
+package fi.oph.akt.api.dto;
 
 import lombok.Builder;
 import lombok.NonNull;

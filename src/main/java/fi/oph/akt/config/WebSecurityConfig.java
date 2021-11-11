@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(
 						"/",
-						"/api/v1/search/**"
+						"/api/v1/translator/**"
 				).permitAll()
 
 				.antMatchers(
