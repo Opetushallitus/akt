@@ -44,6 +44,7 @@ module.exports = (env) => {
     },
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     },
     devtool: env.prod ? 'source-map' : 'cheap-module-source-map',
     devServer: {

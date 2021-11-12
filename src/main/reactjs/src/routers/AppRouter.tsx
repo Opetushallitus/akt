@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Footer from '../components/layouts/Footer';
-import Header from '../components/layouts/Header';
-import { HomePage } from '../pages/HomePage';
+import Footer from 'components/layouts/Footer';
+import Header from 'components/layouts/Header';
+import { HomePage } from 'pages/HomePage';
 
 export const AppRouter: FC = () => (
   <BrowserRouter>
