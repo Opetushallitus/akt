@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = (env) => {
   const mode = env.prod ? 'production' : 'development';
@@ -18,6 +19,9 @@ module.exports = (env) => {
       }),
       new HtmlWebpackPlugin({
         template: path.join(__dirname, '..', 'reactjs', 'public', 'index.html'),
+      }),
+      new ESLintPlugin({
+        extensions: ['ts', 'tsx'],
       }),
     ],
     module: {
@@ -50,6 +54,6 @@ module.exports = (env) => {
       compress: true,
       port: 4000,
     },
-    stats: 'errors-only',
+    stats: 'errors-warnings',
   };
 };
