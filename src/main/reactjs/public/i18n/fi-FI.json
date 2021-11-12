@@ -7,6 +7,18 @@
         "sv": "På Svenska",
         "en": "In English"
       }
+    },
+    "component": {
+      "table": {
+        "pagination": {
+          "rows_per_page": "Näytä sivulla"
+        }
+      }
+    },
+    "interpreter": {
+      "name": "Nimi",
+      "language_pairs": "Kieliparit",
+      "area_of_operation": "Toiminta-alue"
     }
   }
 }
