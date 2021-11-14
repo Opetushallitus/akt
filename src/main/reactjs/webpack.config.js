@@ -19,6 +19,7 @@ module.exports = (env) => {
       }),
       new HtmlWebpackPlugin({
         template: path.join(__dirname, '..', 'reactjs', 'public', 'index.html'),
+        favicon: path.join(__dirname, '..', 'reactjs', 'public', 'favicon.ico'),
       }),
       new ESLintPlugin({
         extensions: ['ts', 'tsx'],
