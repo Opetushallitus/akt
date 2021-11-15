@@ -1,19 +1,20 @@
-import { ChangeEvent, FC, useState } from 'react';
 import {
   Box,
   Grid,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
   TableCell,
-  TablePagination,
   Checkbox,
   Paper,
+  TableHead,
+  TableRow,
 } from '@mui/material';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { StyledTableRow } from 'components/tables/Table';
+import {
+  StyledTableRow,
+  PaginatedTable,
+  Selectable,
+} from 'components/tables/Table';
 import { H1, H3, Text } from 'components/elements/Text';
 
 interface LanguagePair {
@@ -54,44 +55,56 @@ const testData: Array<InterpreterDetails> = [
   },
 ];
 
+const ListingHeader = ({
+  selectedItems,
+  totalItems,
+  toggleAllSelected,
+}: {
+  selectedItems: number;
+  totalItems: number;
+  toggleAllSelected(selected: boolean): void;
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <TableHead>
+      <TableRow>
+        <TableCell padding="checkbox">
+          <Checkbox
+            checked={selectedItems == totalItems}
+            indeterminate={selectedItems > 0 && selectedItems < totalItems}
+            onChange={(event) => toggleAllSelected(event.target.checked)}
+          ></Checkbox>
+        </TableCell>
+        <TableCell>
+          <H3>{t('interpreter.name')}</H3>
+        </TableCell>
+        <TableCell>
+          <H3>{t('interpreter.language_pairs')}</H3>
+        </TableCell>
+        <TableCell>
+          <H3>{t('interpreter.area_of_operation')}</H3>
+        </TableCell>
+      </TableRow>
+    </TableHead>
+  );
+};
+
 const InterpreterListing = ({
   interpreters,
 }: {
   interpreters: Array<InterpreterDetails>;
 }) => {
   const [selected, setSelected] = useState<Set<number>>(new Set());
-  const { t } = useTranslation();
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const handleRowsPerPageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPage(0);
-    setRowsPerPage(parseInt(event.target.value, 10));
-  };
-
-  const handleRowClick = (rowIdx: number) => {
-    if (selected.has(rowIdx)) {
-      setSelected((prev) => {
-        return new Set(Array.from(prev).filter((x) => x != rowIdx));
-      });
-    } else {
-      setSelected((prev) => new Set(prev.add(rowIdx)));
-    }
-  };
 
   const interpreterDetailsRow = (
     { name, languagePairs, areasOfOperation }: InterpreterDetails,
-    idx: number
+    { selected, toggleSelected }: Selectable
   ) => {
-    const isRowSelected = selected.has(idx);
-
     return (
-      <StyledTableRow
-        key={page * rowsPerPage + idx}
-        selected={isRowSelected}
-        onClick={() => handleRowClick(idx)}
-      >
+      <StyledTableRow selected={selected} onClick={toggleSelected}>
         <TableCell padding="checkbox">
-          <Checkbox checked={isRowSelected} />
+          <Checkbox checked={selected} />
         </TableCell>
         <TableCell>
           <Text>{name}</Text>
@@ -111,56 +124,28 @@ const InterpreterListing = ({
       </StyledTableRow>
     );
   };
+
+  const toggleAllSelected = (allSelected: boolean) => {
+    if (allSelected) {
+      setSelected(new Set(Array.from(new Array(interpreters.length).keys())));
+    } else {
+      setSelected(new Set());
+    }
+  };
   return (
     <Paper elevation={3}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell padding="checkbox">
-              <Checkbox
-                checked={selected.size == interpreters.length}
-                indeterminate={
-                  selected.size > 0 && selected.size < interpreters.length
-                }
-                onChange={(event) => {
-                  if (event.target.checked) {
-                    setSelected(
-                      new Set(Array.from(new Array(interpreters.length).keys()))
-                    );
-                  } else {
-                    setSelected(new Set());
-                  }
-                }}
-              ></Checkbox>
-            </TableCell>
-            <TableCell>
-              <H3>{t('interpreter.name')}</H3>
-            </TableCell>
-            <TableCell>
-              <H3>{t('interpreter.language_pairs')}</H3>
-            </TableCell>
-            <TableCell>
-              <H3>{t('interpreter.area_of_operation')}</H3>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {interpreters
-            .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
-            .map((value, idx) =>
-              interpreterDetailsRow(value, page * rowsPerPage + idx)
-            )}
-        </TableBody>
-      </Table>
-      <TablePagination
-        count={interpreters.length}
-        component="div"
-        onPageChange={(_event, newPage) => setPage(newPage)}
-        page={page}
-        onRowsPerPageChange={handleRowsPerPageChange}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[10, 20, 50]}
-        labelRowsPerPage={t('component.table.pagination.rows_per_page')}
+      <PaginatedTable
+        selectedIndices={selected}
+        setSelectedIndices={setSelected}
+        data={interpreters}
+        getRowDetails={interpreterDetailsRow}
+        header={
+          <ListingHeader
+            selectedItems={selected.size}
+            totalItems={interpreters.length}
+            toggleAllSelected={toggleAllSelected}
+          />
+        }
       />
     </Paper>
   );
