@@ -64,7 +64,7 @@ export function PaginatedTable<T>({
   return (
     <>
       <Table>
-        {header ? header : null}
+        {header}
         <TableBody>
           {data
             .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
