@@ -1,5 +1,12 @@
 {
-  "header": {
-    "title": "AKT"
+  "akt": {
+    "header": {
+      "title": "AKT",
+      "lang": {
+        "fi": "Suomeksi",
+        "sv": "På Svenska",
+        "en": "In English"
+      }
+    }
   }
 }
