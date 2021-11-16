@@ -11,6 +11,8 @@ const langFI = 'fi-FI';
 const langSV = 'sv-SE';
 const langEN = 'en-GB';
 
+const supportedLangs = [langFI, langSV, langEN];
+
 const resources = {
   [langFI]: {
     translation: transFI,
@@ -41,20 +43,25 @@ export const initI18n = () => {
     .use(initReactI18next)
     .init({
       resources,
+      lng: langFI,
       fallbackLng: langFI,
       load: 'currentOnly',
       debug: process.env.NODE_ENV === 'development',
     });
 };
 
-export const getCurrentLanguage = (): string => {
+export const getCurrentLang = (): string => {
   return i18n.language;
 };
 
-export const changeLanguage = (language: string) => {
+export const getSupportedLangs = (): string[] => {
+  return supportedLangs;
+};
+
+export const changeLang = (language: string) => {
   return i18n.changeLanguage(language);
 };
 
-export const onLanguageChanged = (callback: (language: string) => void) => {
+export const onLangChanged = (callback: (language: string) => void) => {
   return i18n.on('languageChanged', callback);
 };
