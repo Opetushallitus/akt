@@ -29,6 +29,8 @@ interface PaginatedTableProps<T> {
   setSelectedIndices(selected: SetterType<Set<number>> | Set<number>): void;
   data: Array<T>;
   getRowDetails: RowDetailsFn<T>;
+  initialRowsPerPage: number;
+  rowsPerPageOptions: Array<number | { value: number; label: string }>;
 }
 
 export function PaginatedTable<T>({
@@ -37,9 +39,11 @@ export function PaginatedTable<T>({
   setSelectedIndices,
   data,
   getRowDetails,
+  initialRowsPerPage,
+  rowsPerPageOptions,
 }: PaginatedTableProps<T>) {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
   const handleRowsPerPageChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPage(0);
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -56,8 +60,6 @@ export function PaginatedTable<T>({
       setSelectedIndices((prev) => new Set(prev.add(rowIdx)));
     }
   };
-
-  // TODO Customizable pagination options
 
   return (
     <>
@@ -86,7 +88,7 @@ export function PaginatedTable<T>({
         page={page}
         onRowsPerPageChange={handleRowsPerPageChange}
         rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[10, 20, 50]}
+        rowsPerPageOptions={rowsPerPageOptions}
         labelRowsPerPage={t('component.table.pagination.rows_per_page')}
       />
     </>
