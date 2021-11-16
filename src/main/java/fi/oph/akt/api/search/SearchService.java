@@ -39,14 +39,13 @@ public class SearchService {
 			return createTranslatorDTO(t.getId(), name[0], name[1],
 					findTranslatorLanguagePairs(translatorLanguagePairs, t));
 		}).toList();
-		return new PageImpl(result, translatorIds.getPageable(), translatorIds.getTotalElements());
+		return new PageImpl<>(result, translatorIds.getPageable(), translatorIds.getTotalElements());
 	}
 
 	private Stream<TranslatorLanguagePairProjection> findTranslatorLanguagePairs(
 			final List<TranslatorLanguagePairProjection> translatorLanguagePairs, final Translator t) {
-		final Stream<TranslatorLanguagePairProjection> languagePairs = translatorLanguagePairs.stream()
-				.filter(tlp -> tlp.translatorId() == t.getId());
-		return languagePairs;
+
+		return translatorLanguagePairs.stream().filter(tlp -> tlp.translatorId() == t.getId());
 	}
 
 	private TranslatorDTO createTranslatorDTO(final long translatorId, final String lastName, final String firstName,
