@@ -7,6 +7,9 @@ import fi.oph.akt.repository.TranslatorRepository;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.annotation.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,15 +23,15 @@ public class SearchService {
 	private LanguagePairRepository languagePairRepository;
 
 	@Transactional(readOnly = true)
-	public List<TranslatorDTO> listAll() {
-		final List<Long> translatorIds = translatorRepository.findIDsForPublicListing();
+	public Page<TranslatorDTO> listAll(Pageable pageable) {
+		final Page<Long> translatorIds = translatorRepository.findIDsForPublicListing(pageable);
 
 		final List<TranslatorLanguagePairProjection> translatorLanguagePairs = languagePairRepository
-				.findTranslatorLanguagePairsForPublicListing(translatorIds);
+				.findTranslatorLanguagePairsForPublicListing(translatorIds.getContent());
 
 		// TODO Instead of fetching Translators, fetch personal data by translatorIds
 		final List<Translator> all = translatorRepository.findAllById(translatorIds);
-		return all.stream().map((t) -> {
+		final List<TranslatorDTO> result = all.stream().map((t) -> {
 			String[] name = t.getOnrOid().split(", ");
 			if (name.length < 2) {
 				name = new String[] { t.getOnrOid(), t.getOnrOid() };
@@ -36,6 +39,7 @@ public class SearchService {
 			return createTranslatorDTO(t.getId(), name[0], name[1],
 					findTranslatorLanguagePairs(translatorLanguagePairs, t));
 		}).toList();
+		return new PageImpl(result, translatorIds.getPageable(), translatorIds.getTotalElements());
 	}
 
 	private Stream<TranslatorLanguagePairProjection> findTranslatorLanguagePairs(

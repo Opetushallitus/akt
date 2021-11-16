@@ -7,7 +7,6 @@ import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.assertj.core.util.Lists;
@@ -16,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,15 +32,15 @@ class SearchServiceTest {
 	@Test
 	public void testListAll() {
 
-		createTranslator("listed1, starts today", true, LocalDate.now(), LocalDate.now().plusDays(1));
-		createTranslator("listed2, ends today", true, LocalDate.now().minusDays(1), LocalDate.now());
-		createTranslator("valid but not public", false, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10));
-		createTranslator("valid but term passed", true, LocalDate.now().minusDays(10), LocalDate.now().minusDays(1));
-		createTranslator("valid but term in future", true, LocalDate.now().plusDays(1), LocalDate.now().plusDays(10));
+		createTranslator("listed starts today", true, LocalDate.now(), LocalDate.now().plusDays(1));
+		createTranslator("listed ends today", true, LocalDate.now().minusDays(1), LocalDate.now());
+		createTranslator("not public", false, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10));
+		createTranslator("term passed", true, LocalDate.now().minusDays(10), LocalDate.now().minusDays(1));
+		createTranslator("term in future", true, LocalDate.now().plusDays(1), LocalDate.now().plusDays(10));
 
-		final List<TranslatorDTO> translatorDTOS = searchService.listAll();
-		assertEquals(2, translatorDTOS.size());
-		assertEquals(Set.of("listed1", "listed2"),
+		final Page<TranslatorDTO> translatorDTOS = searchService.listAll(null);
+		assertEquals(2, translatorDTOS.getSize());
+		assertEquals(Set.of("listed starts today", "listed ends today"),
 				translatorDTOS.stream().map(TranslatorDTO::lastName).collect(Collectors.toSet()));
 	}
 

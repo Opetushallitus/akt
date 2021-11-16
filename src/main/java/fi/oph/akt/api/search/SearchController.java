@@ -1,8 +1,9 @@
 package fi.oph.akt.api.search;
 
-import java.util.List;
-import java.util.Map;
 import javax.annotation.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +19,8 @@ public class SearchController {
 	private SearchService searchService;
 
 	@GetMapping(path = "")
-	public List<TranslatorDTO> listAll() {
-		return searchService.listAll();
-	}
-
-	@GetMapping(path = "/one")
-	public Map<String, String> getOne() {
-		return Map.of("Hello", "one World!");
+	public Page<TranslatorDTO> listAll(@PageableDefault(size = 10_000) Pageable pageable) {
+		return searchService.listAll(pageable);
 	}
 
 }

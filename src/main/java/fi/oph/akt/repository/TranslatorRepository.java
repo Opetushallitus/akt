@@ -1,7 +1,8 @@
 package fi.oph.akt.repository;
 
 import fi.oph.akt.model.Translator;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,6 +16,6 @@ public interface TranslatorRepository extends JpaRepository<Translator, Long> {
 			" WHERE pair.permissionToPublish=true" +
 			" AND CURRENT_DATE BETWEEN term.beginDate AND term.endDate")
 	// @formatter:on
-	List<Long> findIDsForPublicListing();
+	Page<Long> findIDsForPublicListing(Pageable pageable);
 
 }
