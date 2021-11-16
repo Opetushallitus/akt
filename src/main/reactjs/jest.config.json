@@ -1,0 +1,7 @@
+{
+  "testEnvironment": "jsdom",
+  "moduleDirectories": ["node_modules", "src"],
+  "setupFiles": ["./src/tests/jest/__mocks__/globalMocks.ts"],
+  "testPathIgnorePatterns": ["./src/tests/cypress"],
+  "setupFilesAfterEnv": ["./jest-setup.ts"]
+}
