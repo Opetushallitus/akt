@@ -44,7 +44,9 @@ class HenkiloDtoFactory {
 			"Noronen", "Ojala", "Paavola", "Pitkänen", "Räsänen", "Saarinen", "Salo", "Salonen", "Toivonen", "Tuominen",
 			"Turunen", "Valtonen", "Virtanen", "Väisänen" };
 
-	private static final String[] identityNumbers = { "091104A8482", "160101A636W", "040807A495T", "120202A2542" };
+	private static final String[] identityNumbers = { "060105A910A", "260875-9507", "040352-904K", "130208A919P",
+			"240636-9187", "080716A957T", "120137-9646", "180720A968M", "020713A978U", "130730-960R", "151084-927A",
+			"240714A9723", "290338-944C", "280554-9389" };
 
 	private static final String[] streets = { "Malminkatu", "Runebergintie", "Sibeliuksenkuja", "Veturitie",
 			"Pirkkolantie" };
@@ -72,8 +74,7 @@ class HenkiloDtoFactory {
 				.kutsumanimi(nickname).sukunimi(surnames[rand.nextInt(surnames.length)])
 				.aidinkieli(new KielisyysDto("fi", "suomi")).build();
 
-		henkiloDto.setSyntymaaika(
-				LocalDate.parse(henkiloDto.getHetu().substring(0, 6), DateTimeFormatter.ofPattern("ddMMyy")));
+		henkiloDto.setSyntymaaika(getBirthDateByIdentityNumber(henkiloDto.getHetu()));
 
 		Set<YhteystietoDto> yhteystiedot = new HashSet<>();
 		yhteystiedot
@@ -94,6 +95,12 @@ class HenkiloDtoFactory {
 		henkiloDto.getYhteystiedotRyhma().add(yhteystiedotRyhma);
 
 		return henkiloDto;
+	}
+
+	private static LocalDate getBirthDateByIdentityNumber(String identityNumber) {
+		LocalDate date = LocalDate.parse(identityNumber.substring(0, 6), DateTimeFormatter.ofPattern("ddMMyy"));
+
+		return identityNumber.charAt(6) == '-' ? date.minusYears(100) : date;
 	}
 
 }
