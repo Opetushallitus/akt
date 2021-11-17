@@ -1,0 +1,17 @@
+.lang-selector {
+  display: flex;
+  align-items: center;
+
+  &__icon {
+    margin-right: 2px;
+  }
+
+  & &__select {
+    margin-top: 2px;
+
+    &,
+    & > svg {
+      color: $color-text;
+    }
+  }
+}

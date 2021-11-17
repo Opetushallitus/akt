@@ -6,7 +6,7 @@
     "lib": ["DOM", "ESNext"],
     "jsx": "react-jsx",
     "noEmit": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true,
@@ -14,5 +14,5 @@
     "resolveJsonModule": true,
     "baseUrl": "src"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "./jest-setup.ts", "src/tests/tsconfig.json"]
 }
