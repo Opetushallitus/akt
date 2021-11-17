@@ -1,6 +1,7 @@
 package fi.oph.akt.service;
 
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
+import fi.oph.akt.api.dto.TranslatorDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTerm;
@@ -16,11 +17,13 @@ import fi.oph.akt.onr.TranslatorDetailsFactory;
 import fi.oph.akt.onr.model.yhteystieto.YhteystietoUtil;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -36,8 +39,27 @@ class TranslatorServiceTest {
 	private TranslatorService translatorService;
 
 	@Test
-	public void listPublicTranslatorsTest() {
+	public void listTranslatorsTest() {
+		createVariousTranslators();
 
+		Pageable pageable = Mockito.mock(Pageable.class);
+		Mockito.when(pageable.isUnpaged()).thenReturn(true);
+
+		final Page<TranslatorDTO> translatorDTOS = translatorService.listTranslators(pageable);
+
+		assertEquals(7, translatorDTOS.getSize());
+	}
+
+	@Test
+	public void listPublicTranslatorsTest() {
+		createVariousTranslators();
+
+		final Page<PublicTranslatorDTO> translatorDTOS = translatorService.listPublicTranslators(null);
+
+		assertEquals(3, translatorDTOS.getSize());
+	}
+
+	private void createVariousTranslators() {
 		// Term active
 		createTranslator(LocalDate.now(), LocalDate.now().plusDays(1), true);
 
@@ -58,10 +80,6 @@ class TranslatorServiceTest {
 
 		// Term in future (no end date)
 		createTranslator(LocalDate.now().plusDays(1), null, true);
-
-		final Page<PublicTranslatorDTO> translatorDTOS = translatorService.listPublicTranslators(null);
-
-		assertEquals(3, translatorDTOS.getSize());
 	}
 
 	private void createTranslator(final LocalDate beginDate, final LocalDate endDate,

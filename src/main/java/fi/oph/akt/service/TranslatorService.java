@@ -38,8 +38,8 @@ public class TranslatorService {
 
 		final Map<String, TranslatorDetails> translatorDetails = getTranslatorsDetails(translators.stream());
 
-		final List<TranslatorLanguagePairProjection> translatorLanguagePairs = getLanguagePairProjections(
-				translators.stream());
+		final List<TranslatorLanguagePairProjection> translatorLanguagePairs = languagePairRepository
+				.findTranslatorLanguagePairs(translators.stream().map(Translator::getId).toList());
 
 		final List<TranslatorDTO> result = translators.stream().map(t -> {
 			final TranslatorDetails details = translatorDetails.get(t.getOnrOid());
@@ -60,8 +60,8 @@ public class TranslatorService {
 
 		final Map<String, TranslatorDetails> translatorDetails = getTranslatorsDetails(translators.stream());
 
-		final List<TranslatorLanguagePairProjection> translatorLanguagePairs = getLanguagePairProjections(
-				translators.stream());
+		final List<TranslatorLanguagePairProjection> translatorLanguagePairs = languagePairRepository
+				.findTranslatorLanguagePairsForPublicListing(translators.stream().map(Translator::getId).toList());
 
 		final List<PublicTranslatorDTO> result = translators.stream().map(t -> {
 			final TranslatorDetails details = translatorDetails.get(t.getOnrOid());
@@ -76,11 +76,6 @@ public class TranslatorService {
 
 	private Map<String, TranslatorDetails> getTranslatorsDetails(Stream<Translator> translators) {
 		return onrApiMock.getTranslatorDetailsByOids(translators.map(Translator::getOnrOid).toList());
-	}
-
-	private List<TranslatorLanguagePairProjection> getLanguagePairProjections(Stream<Translator> translators) {
-		return languagePairRepository
-				.findTranslatorLanguagePairsForPublicListing(translators.map(Translator::getId).toList());
 	}
 
 	private List<LanguagePairDTO> getLanguagePairDTOs(
