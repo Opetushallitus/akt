@@ -7,9 +7,6 @@ import { AppRouter } from 'routers/AppRouter';
 import { initI18n } from 'configs/i18n';
 
 import 'styles/styles.scss';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
 
 // Initialize I18next
 initI18n();
