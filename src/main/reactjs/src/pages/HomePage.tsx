@@ -80,10 +80,10 @@ const ListingHeader = ({
           <H3>{t('akt.interpreter.name')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('akt.interpreter.language_pairs')}</H3>
+          <H3>{t('akt.interpreter.languagePairs')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('akt.interpreter.area_of_operation')}</H3>
+          <H3>{t('akt.interpreter.areaOfOperation')}</H3>
         </TableCell>
       </TableRow>
     </TableHead>

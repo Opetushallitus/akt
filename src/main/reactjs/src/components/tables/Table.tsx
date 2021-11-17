@@ -89,7 +89,7 @@ export function PaginatedTable<T>({
         onRowsPerPageChange={handleRowsPerPageChange}
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={rowsPerPageOptions}
-        labelRowsPerPage={t('akt.component.table.pagination.rows_per_page')}
+        labelRowsPerPage={t('akt.component.table.pagination.rowsPerPage')}
         labelDisplayedRows={({ from, to, count }) =>
           `${from} - ${to} / ${count}`
         }

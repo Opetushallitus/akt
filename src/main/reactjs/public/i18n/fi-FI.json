@@ -11,14 +11,14 @@
     "component": {
       "table": {
         "pagination": {
-          "rows_per_page": "Näytä sivulla"
+          "rowsPerPage": "Näytä sivulla"
         }
       }
     },
     "interpreter": {
       "name": "Nimi",
-      "language_pairs": "Kieliparit",
-      "area_of_operation": "Toiminta-alue"
+      "languagePairs": "Kieliparit",
+      "areaOfOperation": "Toiminta-alue"
     }
   }
 }
