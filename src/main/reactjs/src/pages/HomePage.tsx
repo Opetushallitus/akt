@@ -22,7 +22,7 @@ interface LanguagePair {
   to: string;
 }
 
-interface InterpreterDetails {
+export interface InterpreterDetails {
   name: string;
   languagePairs: Array<LanguagePair>;
   areasOfOperation: Array<string>;
@@ -77,13 +77,13 @@ const ListingHeader = ({
           ></Checkbox>
         </TableCell>
         <TableCell>
-          <H3>{t('interpreter.name')}</H3>
+          <H3>{t('akt.interpreter.name')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('interpreter.language_pairs')}</H3>
+          <H3>{t('akt.interpreter.language_pairs')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('interpreter.area_of_operation')}</H3>
+          <H3>{t('akt.interpreter.area_of_operation')}</H3>
         </TableCell>
       </TableRow>
     </TableHead>
