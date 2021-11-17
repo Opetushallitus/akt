@@ -7,7 +7,7 @@ Create local PostgreSQL database
 
 ```sh
 docker build  -f db/Dockerfile  -t postgres-akt .
-docker run postgres-akt -p 5432:5432
+docker run -p 5432:5432 postgres-akt
 ```
 
 Java code style https://github.com/spring-io/spring-javaformat
