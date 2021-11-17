@@ -22,13 +22,13 @@ interface LanguagePair {
   to: string;
 }
 
-export interface InterpreterDetails {
+export interface TranslatorDetails {
   name: string;
   languagePairs: Array<LanguagePair>;
   areasOfOperation: Array<string>;
 }
 
-const testData: Array<InterpreterDetails> = [
+const testData: Array<TranslatorDetails> = [
   {
     name: 'Essi Esimerkki',
     languagePairs: [
@@ -77,28 +77,28 @@ const ListingHeader = ({
           ></Checkbox>
         </TableCell>
         <TableCell>
-          <H3>{t('akt.interpreter.name')}</H3>
+          <H3>{t('akt.translator.name')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('akt.interpreter.languagePairs')}</H3>
+          <H3>{t('akt.translator.languagePairs')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('akt.interpreter.areaOfOperation')}</H3>
+          <H3>{t('akt.translator.areaOfOperation')}</H3>
         </TableCell>
       </TableRow>
     </TableHead>
   );
 };
 
-const InterpreterListing = ({
-  interpreters,
+const TranslatorListing = ({
+  translators,
 }: {
-  interpreters: Array<InterpreterDetails>;
+  translators: Array<TranslatorDetails>;
 }) => {
   const [selected, setSelected] = useState<Set<number>>(new Set());
 
-  const interpreterDetailsRow = (
-    { name, languagePairs, areasOfOperation }: InterpreterDetails,
+  const translatorDetailsRow = (
+    { name, languagePairs, areasOfOperation }: TranslatorDetails,
     { selected, toggleSelected }: Selectable
   ) => {
     return (
@@ -127,7 +127,7 @@ const InterpreterListing = ({
 
   const toggleAllSelected = (allSelected: boolean) => {
     if (allSelected) {
-      setSelected(new Set(Array.from(new Array(interpreters.length).keys())));
+      setSelected(new Set(Array.from(new Array(translators.length).keys())));
     } else {
       setSelected(new Set());
     }
@@ -137,12 +137,12 @@ const InterpreterListing = ({
       <PaginatedTable
         selectedIndices={selected}
         setSelectedIndices={setSelected}
-        data={interpreters}
-        getRowDetails={interpreterDetailsRow}
+        data={translators}
+        getRowDetails={translatorDetailsRow}
         header={
           <ListingHeader
             selectedItems={selected.size}
-            totalItems={interpreters.length}
+            totalItems={translators.length}
             toggleAllSelected={toggleAllSelected}
           />
         }
@@ -172,8 +172,8 @@ export const HomePage: FC = () => (
         </Box>
       </Grid>
       <Grid item>
-        <InterpreterListing
-          interpreters={[
+        <TranslatorListing
+          translators={[
             ...testData,
             ...testData,
             ...testData,

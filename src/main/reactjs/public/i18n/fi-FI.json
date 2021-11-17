@@ -15,7 +15,7 @@
         }
       }
     },
-    "interpreter": {
+    "translator": {
       "name": "Nimi",
       "languagePairs": "Kieliparit",
       "areaOfOperation": "Toiminta-alue"
