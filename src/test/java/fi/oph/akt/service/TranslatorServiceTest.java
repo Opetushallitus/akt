@@ -11,10 +11,7 @@ import fi.oph.akt.model.Translator;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import fi.oph.akt.onr.HenkiloDtoFactory;
-import fi.oph.akt.onr.OnrApiMock;
-import fi.oph.akt.onr.TranslatorDetailsFactory;
-import fi.oph.akt.onr.model.yhteystieto.YhteystietoUtil;
+import fi.oph.akt.onr.OnrServiceMock;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -28,8 +25,7 @@ import org.springframework.data.domain.Pageable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-@Import({ TranslatorService.class, OnrApiMock.class, TranslatorDetailsFactory.class, YhteystietoUtil.class,
-		HenkiloDtoFactory.class })
+@Import({ TranslatorService.class, OnrServiceMock.class })
 class TranslatorServiceTest {
 
 	@Autowired

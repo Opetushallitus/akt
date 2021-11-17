@@ -13,7 +13,7 @@ import java.util.List;
 
 // TODO: unfinished implementation
 @Service
-public class OnrApiImpl extends OnrApi {
+public class OnrService extends OnrApi {
 
 	private final String onrApiUrl = "https://virkailija.testiopintopolku.fi/oppijanumerorekisteri-service";
 

@@ -5,7 +5,7 @@ import fi.oph.akt.api.dto.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.TranslatorDTO;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.model.TranslatorDetails;
-import fi.oph.akt.onr.OnrApiMock;
+import fi.oph.akt.onr.OnrServiceMock;
 import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorLanguagePairProjection;
 import fi.oph.akt.repository.TranslatorRepository;
@@ -30,7 +30,7 @@ public class TranslatorService {
 
 	@Resource
 	// TODO (OPHAKTKEH-52): use actual API outside local environment
-	private OnrApiMock onrApiMock;
+	private OnrServiceMock onrServiceMock;
 
 	@Transactional(readOnly = true)
 	public Page<TranslatorDTO> listTranslators(Pageable pageable) {
@@ -43,6 +43,7 @@ public class TranslatorService {
 
 		final List<TranslatorDTO> result = translators.stream().map(t -> {
 			final TranslatorDetails details = translatorDetails.get(t.getOnrOid());
+
 			final List<LanguagePairDTO> languagePairDTOs = getLanguagePairDTOs(translatorLanguagePairs, t);
 
 			return TranslatorDTO.builder().id(t.getId()).oid(t.getOnrOid()).details(details)
@@ -65,6 +66,7 @@ public class TranslatorService {
 
 		final List<PublicTranslatorDTO> result = translators.stream().map(t -> {
 			final TranslatorDetails details = translatorDetails.get(t.getOnrOid());
+
 			final List<LanguagePairDTO> languagePairDTOs = getLanguagePairDTOs(translatorLanguagePairs, t);
 
 			return PublicTranslatorDTO.builder().id(t.getId()).lastName(details.surname()).firstName(details.nickname())
@@ -75,14 +77,16 @@ public class TranslatorService {
 	}
 
 	private Map<String, TranslatorDetails> getTranslatorsDetails(Stream<Translator> translators) {
-		return onrApiMock.getTranslatorDetailsByOids(translators.map(Translator::getOnrOid).toList());
+		return onrServiceMock.getTranslatorDetailsByOids(translators.map(Translator::getOnrOid).toList());
 	}
 
 	private List<LanguagePairDTO> getLanguagePairDTOs(
 			final List<TranslatorLanguagePairProjection> translatorLanguagePairs, final Translator t) {
 
 		return translatorLanguagePairs.stream().filter(tlp -> tlp.translatorId() == t.getId())
-				.map(tlp -> LanguagePairDTO.builder().fromLang(tlp.fromLang()).toLang(tlp.toLang()).build()).toList();
+				.map(tlp -> LanguagePairDTO.builder().fromLang(tlp.fromLang()).toLang(tlp.toLang())
+						.permissionToPublish(tlp.permissionToPublish()).build())
+				.toList();
 	}
 
 }

@@ -10,35 +10,50 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 @Service
-public class HenkiloDtoFactory {
+public class OnrServiceMock extends OnrApi {
 
-	private final String[] menFirstNames = { "Antti", "Eero", "Ilkka", "Jari", "Juha", "Matti", "Pekka", "Timo" };
+	@Override
+	public List<HenkiloDto> getHenkiloDtos(List<String> oids) {
+		return oids.stream().map(HenkiloDtoFactory::createHenkiloDto).toList();
+	}
 
-	private final String[] menSecondNames = { "Iiro", "Jukka", "Kalle", "Kari", "Marko", "Mikko", "Tapani", "Ville" };
+}
 
-	private final String[] womenFirstNames = { "Anneli", "Ella", "Hanna", "Iiris", "Liisa", "Maria", "Ninni", "Viivi" };
+class HenkiloDtoFactory {
 
-	private final String[] womenSecondNames = { "Anna", "Iida", "Kerttu", "Kristiina", "Marjatta", "Ronja", "Sara" };
+	private static final String[] menFirstNames = { "Antti", "Eero", "Ilkka", "Jari", "Juha", "Matti", "Pekka",
+			"Timo" };
 
-	private final String[] surnames = { "Aaltonen", "Alanen", "Eskola", "Hakala", "Heikkinen", "Heinonen", "Hiltunen",
-			"Hirvonen", "Hämäläinen", "Kallio", "Karjalainen", "Kinnunen", "Korhonen", "Koskinen", "Laakso", "Lahtinen",
-			"Laine", "Lehtonen", "Leinonen", "Leppänen", "Manninen", "Mattila", "Mäkinen", "Nieminen", "Noronen",
-			"Ojala", "Paavola", "Pitkänen", "Räsänen", "Saarinen", "Salo", "Salonen", "Toivonen", "Tuominen", "Turunen",
-			"Valtonen", "Virtanen", "Väisänen" };
+	private static final String[] menSecondNames = { "Iiro", "Jukka", "Kalle", "Kari", "Marko", "Mikko", "Tapani",
+			"Ville" };
 
-	private final String[] identityNumbers = { "091104A8482", "160101A636W", "040807A495T", "120202A2542" };
+	private static final String[] womenFirstNames = { "Anneli", "Ella", "Hanna", "Iiris", "Liisa", "Maria", "Ninni",
+			"Viivi" };
 
-	private final String[] streets = { "Malminkatu", "Runebergintie", "Sibeliuksenkuja", "Veturitie", "Pirkkolantie" };
+	private static final String[] womenSecondNames = { "Anna", "Iida", "Kerttu", "Kristiina", "Marjatta", "Ronja",
+			"Sara" };
 
-	private final String[] postalCodes = { "00100", "01200", "06100", "13500", "31600", "48600", "54460" };
+	private static final String[] surnames = { "Aaltonen", "Alanen", "Eskola", "Hakala", "Heikkinen", "Heinonen",
+			"Hiltunen", "Hirvonen", "Hämäläinen", "Kallio", "Karjalainen", "Kinnunen", "Korhonen", "Koskinen", "Laakso",
+			"Lahtinen", "Laine", "Lehtonen", "Leinonen", "Leppänen", "Manninen", "Mattila", "Mäkinen", "Nieminen",
+			"Noronen", "Ojala", "Paavola", "Pitkänen", "Räsänen", "Saarinen", "Salo", "Salonen", "Toivonen", "Tuominen",
+			"Turunen", "Valtonen", "Virtanen", "Väisänen" };
 
-	private final String[] towns = { "Helsinki", "Turku", "Hämeenlinna", "Kuopio", "Lahti", "Porvoo", "Vantaa" };
+	private static final String[] identityNumbers = { "091104A8482", "160101A636W", "040807A495T", "120202A2542" };
 
-	public HenkiloDto createHenkiloDto(String oid) {
+	private static final String[] streets = { "Malminkatu", "Runebergintie", "Sibeliuksenkuja", "Veturitie",
+			"Pirkkolantie" };
+
+	private static final String[] postalCodes = { "00100", "01200", "06100", "13500", "31600", "48600", "54460" };
+
+	private static final String[] towns = { "Helsinki", "Turku", "Hämeenlinna", "Kuopio", "Lahti", "Porvoo", "Vantaa" };
+
+	public static HenkiloDto createHenkiloDto(String oid) {
 		Random rand = new Random();
 		String nickname;
 		String secondName;

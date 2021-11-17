@@ -23,6 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(
 						"/",
+						"/favicon.ico",
 						"/api/v1/translator/**"
 				).permitAll()
 
