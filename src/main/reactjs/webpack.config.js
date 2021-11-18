@@ -41,15 +41,6 @@ module.exports = (env) => {
           ],
           exclude: /node_modules/,
         },
-        {
-          test: /\.css$/,
-          use: [
-            env.prod ? MiniCssExtractPlugin.loader : 'style-loader',
-            'css-loader',
-            'sass-loader',
-          ],
-          include: /node_modules\/@fontsource\/roboto/,
-        },
       ],
     },
     resolve: {
