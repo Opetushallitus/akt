@@ -31,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						"/akt/*.css",
 						"/akt/*.css.map",
 						"/akt/favicon.ico",
+						"/akt/api/actuator/**",
 						"/akt/api/v1/translator/**"
 				).permitAll()
 
