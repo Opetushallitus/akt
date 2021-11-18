@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/translator", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/akt/api/v1/translator", produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
 public class TranslatorController {
 

@@ -23,8 +23,8 @@ mvn clean install
 ```
 
 ## Run
-Build with command
+
 ```sh
-mvn clean install spring-boot:run
+mvn spring-boot:run
 ```
-and open browser to http://localhost:8080/
+and open browser to http://localhost:8080/akt/
