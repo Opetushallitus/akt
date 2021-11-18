@@ -14,7 +14,8 @@ public interface TranslatorRepository extends JpaRepository<Translator, Long> {
 			" JOIN aut.terms term" +
 			" JOIN aut.languagePairs pair" +
 			" WHERE pair.permissionToPublish=true" +
-			" AND CURRENT_DATE BETWEEN term.beginDate AND term.endDate")
+			" AND CURRENT_DATE >= term.beginDate" +
+			" AND (CURRENT_DATE <= term.endDate OR term.endDate IS NULL)")
 	// @formatter:on
 	Page<Long> findIDsForPublicListing(Pageable pageable);
 

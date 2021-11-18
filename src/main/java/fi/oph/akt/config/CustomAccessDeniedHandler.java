@@ -3,6 +3,7 @@ package fi.oph.akt.config;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
 public class CustomAccessDeniedHandler {
@@ -14,7 +15,7 @@ public class CustomAccessDeniedHandler {
 			LOG.error("AccessDeniedHandler", e);
 			if (!response.isCommitted()) {
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-				response.setContentType("application/json");
+				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 				response.getWriter().print("{\"status\": \"FORBIDDEN\"}");
 				response.getWriter().flush();
 				response.getWriter().close();
