@@ -30,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						"/akt/*.js.map",
 						"/akt/*.css",
 						"/akt/*.css.map",
+						"/akt/*.woff",
+						"/akt/*.woff2",
 						"/akt/favicon.ico",
 						"/akt/api/actuator/**",
 						"/akt/api/v1/translator/**"
