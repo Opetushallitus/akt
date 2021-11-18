@@ -23,6 +23,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(
 						"/",
+						"/*.html",
+						"/*.js",
+						"/*.css",
 						"/favicon.ico",
 						"/akt/api/actuator/**",
 						"/api/v1/translator/**"
