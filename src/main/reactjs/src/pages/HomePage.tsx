@@ -16,17 +16,7 @@ import {
   Selectable,
 } from 'components/tables/Table';
 import { H1, H3, Text } from 'components/elements/Text';
-
-interface LanguagePair {
-  from: string;
-  to: string;
-}
-
-export interface TranslatorDetails {
-  name: string;
-  languagePairs: Array<LanguagePair>;
-  areasOfOperation: Array<string>;
-}
+import { TranslatorDetails } from 'interfaces/translator';
 
 const testData: Array<TranslatorDetails> = [
   {
