@@ -23,6 +23,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(
 						"/",
+						"/*.html",
+						"/*.js",
+						"/*.css",
 						"/favicon.ico",
 						"/api/v1/translator/**"
 				).permitAll()

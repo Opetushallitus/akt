@@ -1,7 +1,10 @@
 # AKT - Auktorisoidun kääntäjän tutkintojärjestelmä
 
+* Maven 3.1+
 * JDK 17
 * PostgreSQL 13.4
+* node v14.18.1 (no need to install if you only build)
+* npm 8.1.3 (no need to install if you only build)
 
 Create local PostgreSQL database
 
@@ -9,4 +12,19 @@ Create local PostgreSQL database
 docker run --name postgres-akt -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres:13.4
 ```
 
-Java code style https://github.com/spring-io/spring-javaformat
+Java code style https://github.com/spring-io/spring-javaformat is enforced on build.
+
+## Build
+
+Project build downloads and installs correct node and npm versions, no need to install them for build.
+
+```sh
+mvn clean install
+```
+
+## Run
+Build with command
+```sh
+mvn clean install spring-boot:run
+```
+and open browser to http://localhost:8080/
