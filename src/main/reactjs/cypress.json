@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost:4000",
+  "baseUrl": "http://localhost:4000/akt",
   "video": false,
   "runMode": 1,
   "openMode": 1,
