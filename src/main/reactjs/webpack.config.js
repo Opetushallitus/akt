@@ -15,7 +15,7 @@ module.exports = (env) => {
     },
     plugins: [
       new MiniCssExtractPlugin({
-        filename: 'styles.css',
+        filename: '[name].css',
       }),
       new HtmlWebpackPlugin({
         template: path.join(__dirname, '..', 'reactjs', 'public', 'index.html'),

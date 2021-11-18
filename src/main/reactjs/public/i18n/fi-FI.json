@@ -7,6 +7,18 @@
         "sv": "På Svenska",
         "en": "In English"
       }
+    },
+    "component": {
+      "table": {
+        "pagination": {
+          "rowsPerPage": "Näytä sivulla"
+        }
+      }
+    },
+    "translator": {
+      "name": "Nimi",
+      "languagePairs": "Kieliparit",
+      "hometown": "Asuinkunta"
     }
   }
 }
