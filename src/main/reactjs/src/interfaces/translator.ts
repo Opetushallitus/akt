@@ -6,5 +6,5 @@ interface LanguagePair {
 export interface TranslatorDetails {
   name: string;
   languagePairs: Array<LanguagePair>;
-  areasOfOperation: Array<string>;
+  hometown: string;
 }

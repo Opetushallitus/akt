@@ -25,12 +25,12 @@ const testData: Array<TranslatorDetails> = [
       { from: 'suomi', to: 'englanti' },
       { from: 'suomi', to: 'espanja' },
     ],
-    areasOfOperation: ['Uusimaa', 'Pirkanmaa'],
+    hometown: 'Helsinki',
   },
   {
     name: 'Teuvo Testitapaus',
     languagePairs: [{ from: 'suomi', to: 'englanti' }],
-    areasOfOperation: ['Koko Suomi'],
+    hometown: 'Kittilä',
   },
   {
     name: 'Maisa Moniosaaja',
@@ -41,7 +41,7 @@ const testData: Array<TranslatorDetails> = [
       { from: 'ranska', to: 'suomi' },
       { from: 'englanti', to: 'suomi' },
     ],
-    areasOfOperation: ['Koko Suomi'],
+    hometown: 'Espoo',
   },
 ];
 
@@ -73,7 +73,7 @@ const ListingHeader = ({
           <H3>{t('akt.translator.languagePairs')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('akt.translator.areaOfOperation')}</H3>
+          <H3>{t('akt.translator.hometown')}</H3>
         </TableCell>
       </TableRow>
     </TableHead>
@@ -88,7 +88,7 @@ const TranslatorListing = ({
   const [selected, setSelected] = useState<Set<number>>(new Set());
 
   const translatorDetailsRow = (
-    { name, languagePairs, areasOfOperation }: TranslatorDetails,
+    { name, languagePairs, hometown }: TranslatorDetails,
     { selected, toggleSelected }: Selectable
   ) => {
     return (
@@ -107,9 +107,7 @@ const TranslatorListing = ({
           ))}
         </TableCell>
         <TableCell>
-          {areasOfOperation.map((area, j) => (
-            <Text key={j}>{area}</Text>
-          ))}
+          <Text>{hometown}</Text>
         </TableCell>
       </StyledTableRow>
     );
