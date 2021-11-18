@@ -8,30 +8,13 @@ import {
 import { ChangeEvent, Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { PaginatedTableProps } from 'interfaces/table';
+
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(even)': {
     backgroundColor: theme.palette.action.hover,
   },
 }));
-
-type SetterType<T> = (val: T) => void;
-
-export interface Selectable {
-  selected: boolean;
-  toggleSelected(): void;
-}
-
-type RowDetailsFn<T> = (details: T, selectionProps: Selectable) => JSX.Element;
-
-interface PaginatedTableProps<T> {
-  header?: JSX.Element;
-  selectedIndices: Set<number>;
-  setSelectedIndices(selected: SetterType<Set<number>> | Set<number>): void;
-  data: Array<T>;
-  getRowDetails: RowDetailsFn<T>;
-  initialRowsPerPage: number;
-  rowsPerPageOptions: Array<number | { value: number; label: string }>;
-}
 
 export function PaginatedTable<T>({
   header,

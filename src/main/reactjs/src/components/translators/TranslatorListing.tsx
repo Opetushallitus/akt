@@ -4,7 +4,36 @@ import { useTranslation } from 'react-i18next';
 
 import { H3, Text } from 'components/elements/Text';
 import { TranslatorDetails } from 'interfaces/translator';
-import { PaginatedTable, Selectable, StyledTableRow } from '../tables/Table';
+import { PaginatedTable, StyledTableRow } from '../tables/Table';
+import { Selectable } from 'interfaces/selectable';
+
+const translatorDetailsRow = (
+  translator: TranslatorDetails,
+  selectionProps: Selectable
+) => {
+  const { name, languagePairs, hometown } = translator;
+  const { selected, toggleSelected } = selectionProps;
+  return (
+    <StyledTableRow selected={selected} onClick={toggleSelected}>
+      <TableCell padding="checkbox">
+        <Checkbox checked={selected} />
+      </TableCell>
+      <TableCell>
+        <Text>{name}</Text>
+      </TableCell>
+      <TableCell>
+        {languagePairs.map(({ from, to }, j) => (
+          <Text key={j}>
+            {from} - {to}
+          </Text>
+        ))}
+      </TableCell>
+      <TableCell>
+        <Text>{hometown}</Text>
+      </TableCell>
+    </StyledTableRow>
+  );
+};
 
 const ListingHeader = ({
   selectedItems,
@@ -47,33 +76,6 @@ export const TranslatorListing = ({
   translators: Array<TranslatorDetails>;
 }) => {
   const [selected, setSelected] = useState<Set<number>>(new Set());
-
-  const translatorDetailsRow = (
-    { name, languagePairs, hometown }: TranslatorDetails,
-    { selected, toggleSelected }: Selectable
-  ) => {
-    return (
-      <StyledTableRow selected={selected} onClick={toggleSelected}>
-        <TableCell padding="checkbox">
-          <Checkbox checked={selected} />
-        </TableCell>
-        <TableCell>
-          <Text>{name}</Text>
-        </TableCell>
-        <TableCell>
-          {languagePairs.map(({ from, to }, j) => (
-            <Text key={j}>
-              {from} - {to}
-            </Text>
-          ))}
-        </TableCell>
-        <TableCell>
-          <Text>{hometown}</Text>
-        </TableCell>
-      </StyledTableRow>
-    );
-  };
-
   const toggleAllSelected = (allSelected: boolean) => {
     if (allSelected) {
       setSelected(new Set(Array.from(new Array(translators.length).keys())));
