@@ -23,16 +23,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(
 						"/",
-						"/*.html",
-						"/*.js",
-						"/*.css",
-						"/favicon.ico",
+						"/akt",
+						"/akt/",
+						"/akt/*.html",
+						"/akt/*.js",
+						"/akt/*.js.map",
+						"/akt/*.css",
+						"/akt/*.css.map",
+						"/akt/favicon.ico",
 						"/akt/api/actuator/**",
-						"/api/v1/translator/**"
+						"/akt/api/v1/translator/**"
 				).permitAll()
 
 				.antMatchers(
-						"/api/v1/admin/**"
+						"/akt/api/v1/admin/**"
 				).access("hasRole('VIRKAILIJA')")
 
 				.anyRequest().denyAll()
