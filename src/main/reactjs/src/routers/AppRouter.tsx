@@ -13,7 +13,7 @@ export const AppRouter: FC = () => (
       </div>
       <div className="content">
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/akt" element={<HomePage />} />
         </Routes>
       </div>
       <div className="footer">

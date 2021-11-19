@@ -5,6 +5,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = (env) => {
   const mode = env.prod ? 'production' : 'development';
+  const contextPath = '/akt';
 
   return {
     mode,
@@ -12,6 +13,7 @@ module.exports = (env) => {
     output: {
       path: path.join(__dirname, 'dist'),
       filename: 'bundle.js',
+      publicPath: contextPath,
     },
     plugins: [
       new MiniCssExtractPlugin({
@@ -49,7 +51,7 @@ module.exports = (env) => {
     },
     devtool: env.prod ? 'source-map' : 'cheap-module-source-map',
     devServer: {
-      open: true,
+      open: [contextPath],
       static: {
         directory: path.join(__dirname, 'public'),
       },
