@@ -1,7 +1,7 @@
 # AKT - Auktorisoidun kääntäjän tutkintojärjestelmä
 
 - JDK 17
-- PostgreSQL 13.4
+- PostgreSQL 11.2
 
 Create local PostgreSQL database
 
