@@ -10,14 +10,22 @@ public class MvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("redirect:/akt/index.html");
-		registry.addViewController("/akt").setViewName("redirect:/akt/index.html");
-		registry.addViewController("/akt/").setViewName("redirect:/akt/index.html");
+		registry.addViewController("/").setViewName("redirect:/akt");
 	}
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/akt/**").addResourceLocations("classpath:static/");
+		// @formatter:off
+		registry.addResourceHandler(
+				"/akt/*.js",
+				"/akt/*.js.map",
+				"/akt/*.css",
+				"/akt/*.css.map",
+				"/akt/*.ico",
+				"/akt/*.woff",
+				"/akt/*.woff2"
+		).addResourceLocations("classpath:static/");
+		// @formatter:on
 	}
 
 }
