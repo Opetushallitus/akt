@@ -15,12 +15,12 @@ cache:
     - "$HOME/.npm"
     - "$HOME/.cache"
 
-#env:
-#  global:
-#    # AWS_ACCESS_KEY_ID
-#    - secure: ???
-#    # AWS_SECRET_ACCESS_KEY
-#    - secure: ???
+env:
+  global:
+    # AWS_ACCESS_KEY_ID
+    - secure: sFxrivN1RohkvHdUBHW2tDVVcnDaph0iV0IobcvKy70IpUz/zpBFb630dE0bHy67KImoQFDEbIoPVBUEcoTsqZXCd5wzAMsIB/KiNY+Pub+cG/1wfL7V9xlCfiYyBFxxCKGcwVDa5fUSVMEzOHYxKAHhjOhk43BEdAB9ASpPXgrVqF772WT2rnzEU8P1YaqoMWw4/mcaK8FdNy3ZcuvcTZm2JWBPg2P/22YmxOANx3BSVXgkllAuLTxQjbK/1ecBcmTaPYXQbMozvpmzqjlZmCyBS90f5ClA9haWuzPTgAk03X2Z3zNEkKXooG2GVeehrez/k57+Wfu4+I4SuoNwhW6fHnJREJF5FhgvFT+N58tImZJLhlTfiM8/fPxHo6TTP3acWK1UfaJswrpe7J8CyaQvBgkPEuez2BqGAgeq0Ee2buNG9QeU3IftqRh+Koys36/0jRL+wiM+8akZr+ftR/xTThK7hRmqeTqpEq9jUmehf48a5IDbDVFHjOPhl/xjJ4JZ7IZWAJrV5SmVeeM0T6mhBIcBNmdoC0hXmvKlbpy6NdVBavA6pAIkubGlc1hMvc6QpQZrGi2tUyehi6cG3J8hFofKSI/S17kucIlT831uqWul0oetfHvblq1RKNR7ONh7XRmfVlzwgq3/U/y+tKPcTunYBQW1veQhVqLq5z0=
+    # AWS_SECRET_ACCESS_KEY
+    - secure: KKGpbE0JRSQo3g4Q1n2UX8YO+mvNx97qUVhYHB1uoAIhgKU6Uhf/0vU7O7GaWzoTq71vPK+mXZDAAZ5GUeSf0K6dnmlpJulUwo+ThqJe2RNT7TxSiQ359iBdHnIqbHpSSU0xxT873N9beUnm/KGJ2mCLQLe7TNQJo4qBfM89gQLvrKmGAWrSmv83dlEtwDbI+WXJTGjxNS4GRKuu7IiUBTUCq3QZHkPpbjpPRh8RyHBzZCda+IizgS6VeWmDQEwMtPfKPfQDg2lsCLtU/PDET4SOJkHK+Bti33rvIu68DGfTOHa4eCA+CsT/zgLCqb0nYpP68/t8agxz+AbUEc00BgCTozZVuPUePKBM7uujcOHJpbbIH9Vjv9LQcyZRaU734975fB69OTR9+KvPI1ODm54OkWlsWADDn1x2OmY8ftgFN8HDoJVuHS1DYyB1nx7n3KVzZxgwhJSc4rU0Pgf903Yl6Toxyr34xDZIL3iajFWnfkMpypQuzXQSRka5Uv2c3NcqI/VnZgUj6rSSVF+/MLcfLHFzpDJUu8MAJtToBwBpTSotDycLyJgJ75wllE8/mvxFV+Jjc/m6uXiuDRJjZHCroDIl8KbHd8Ok6J92obnS9Hs8UvhOABMvjk5AK2tYXxlYNdXr9AionEIiMTS7J6QB12oB0k2Gjrw+hniSrxY=
 
 install:
   - git clone https://github.com/Opetushallitus/ci-tools.git
@@ -28,12 +28,18 @@ install:
   - export ARTIFACT_NAME="akt"
 
 script:
+#  - npm run --prefix src/main/reactjs test:jest
+#  - npm run --prefix src/main/reactjs test:cypress
+
+  - mvn clean package -B -DskipTests -Dbranch=${TRAVIS_BRANCH} -Drevision=${TRAVIS_COMMIT} -DbuildNumber=${TRAVIS_BUILD_NUMBER}
+  - mv target/akt-*.jar $DOCKER_BUILD_DIR/artifact/${ARTIFACT_NAME}.jar
+
   - export BASE_IMAGE="baseimage-fatjar-openjdk17:master"
-#  - ./ci-tools/common/pull-image.sh
-#  - ./ci-tools/build/build-fatjar.sh $ARTIFACT_NAME
-#
-#deploy:
-#  - provider: script
-#    script: "./ci-tools/build/upload-image.sh $ARTIFACT_NAME"
-#    on:
-#      all_branches: true
+  - ./ci-tools/common/pull-image.sh
+  - ./ci-tools/build/build-fatjar.sh $ARTIFACT_NAME
+
+deploy:
+  - provider: script
+    script: "./ci-tools/build/upload-image.sh $ARTIFACT_NAME"
+    on:
+      all_branches: true
