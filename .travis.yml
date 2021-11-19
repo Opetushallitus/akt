@@ -1,0 +1,39 @@
+sudo: required
+language: java
+jdk:
+  - openjdk17
+
+node_js:
+  - "lts/*"
+
+services:
+  - docker
+
+cache:
+  directories:
+    - "$HOME/.m2"
+    - "$HOME/.npm"
+    - "$HOME/.cache"
+
+#env:
+#  global:
+#    # AWS_ACCESS_KEY_ID
+#    - secure: ???
+#    # AWS_SECRET_ACCESS_KEY
+#    - secure: ???
+
+install:
+  - git clone https://github.com/Opetushallitus/ci-tools.git
+  - source ci-tools/common/setup-tools.sh
+  - export ARTIFACT_NAME="akt"
+
+script:
+  - export BASE_IMAGE="baseimage-fatjar-openjdk17:master"
+#  - ./ci-tools/common/pull-image.sh
+#  - ./ci-tools/build/build-fatjar.sh $ARTIFACT_NAME
+#
+#deploy:
+#  - provider: script
+#    script: "./ci-tools/build/upload-image.sh $ARTIFACT_NAME"
+#    on:
+#      all_branches: true
