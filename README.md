@@ -29,3 +29,18 @@ mvn clean install
 mvn spring-boot:run
 ```
 and open browser to http://localhost:8080/akt/
+
+## API documentation
+
+### OpenAPI
+
+http://localhost:8080/akt/api/api-docs
+
+### Swagger
+
+http://localhost:8080/akt/api/swagger-ui.html
+
+In order to make requests work in swagger ui, application must be run with parameter
+```
+mvn spring-boot:run -Dtomcat.util.http.parser.HttpParser.requestTargetAllow=|{}
+```
