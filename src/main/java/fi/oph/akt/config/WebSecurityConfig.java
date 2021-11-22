@@ -21,16 +21,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.formLogin().and()
 				.authorizeRequests()
 
-				.antMatchers(
-						"/",
-						"/favicon.ico",
-						"/akt/api/actuator/**",
-						"/api/v1/translator/**"
-				).permitAll()
+				.antMatchers("/akt/api/v1/admin/**").access("hasRole('VIRKAILIJA')")
 
-				.antMatchers(
-						"/api/v1/admin/**"
-				).access("hasRole('VIRKAILIJA')")
+				.antMatchers("/", "/akt/**").permitAll()
 
 				.anyRequest().denyAll()
 				.and()

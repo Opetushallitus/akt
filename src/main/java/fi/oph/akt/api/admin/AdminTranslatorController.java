@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping(value = "/api/v1/admin/translator", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/akt/api/v1/admin/translator", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminTranslatorController {
 
 	@Resource
