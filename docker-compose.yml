@@ -1,6 +1,5 @@
 version: "3.8"
 services:
-  # Note: backend needs dockerized postgres in order to run!
   backend:
     build: .
     ports:
@@ -10,6 +9,15 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+
   frontend:
     build: src/main/reactjs
     ports:
@@ -20,6 +28,17 @@ services:
     volumes:
       - ./src/main/reactjs:/app/reactjs
       - nodemodules:/app/reactjs/node_modules
+
+  postgres:
+    build: db
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - akt-dev
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=postgres
 
 networks:
   akt-dev: {}
