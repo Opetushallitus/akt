@@ -18,8 +18,11 @@ services:
       - akt-dev
     working_dir: /app/reactjs
     volumes:
-      - ./src/main/reactjs/public:/app/reactjs/public
-      - ./src/main/reactjs/src:/app/reactjs/src
+      - ./src/main/reactjs:/app/reactjs
+      - nodemodules:/app/reactjs/node_modules
 
 networks:
   akt-dev: {}
+
+volumes:
+  nodemodules: {}
