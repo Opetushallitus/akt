@@ -33,8 +33,8 @@ const testData: Array<TranslatorDetails> = [
 ];
 
 export const HomePage: FC = () => (
-  <Box sx={{ width: 800, padding: '2em' }}>
-    <Grid container rowSpacing={2} direction="column">
+  <Box>
+    <Grid container rowSpacing={4} direction="column">
       <Grid item>
         <Box>
           <H1>Auktorisoitujen kääntäjien rekisteri</H1>
