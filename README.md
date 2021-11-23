@@ -23,6 +23,11 @@ Project build downloads and installs correct node and npm versions, no need to i
 mvn clean install
 ```
 
+or
+
+```sh
+./mvnw clean install
+```
 ## Run
 
 ```sh
