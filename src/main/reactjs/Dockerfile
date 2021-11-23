@@ -1,12 +1,15 @@
-FROM node:14-slim
-
+FROM node:14.18.1
+ARG npmversion=npm@8.1.3
 WORKDIR /app/reactjs
 
-ADD package.json ./
+# Pin npm version globally so that it won't get overwritten 
+# by the package.json copied in later steps. 
+RUN npm i -g --silent ${npmversion}
 
-RUN npm i --silent
+COPY package*.json ./
+RUN npm ci --silent
 
-ADD . ./
+COPY . ./
 
 RUN npm run build
 
