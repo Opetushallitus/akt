@@ -1,4 +1,4 @@
-FROM node:14.18.1
+FROM node:14.18.1-slim
 ARG npmversion=npm@8.1.3
 WORKDIR /app/reactjs
 
