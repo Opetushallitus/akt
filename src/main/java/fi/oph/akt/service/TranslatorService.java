@@ -5,12 +5,17 @@ import fi.oph.akt.api.dto.PublicLanguagePairDTO;
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.TranslatorDTO;
 import fi.oph.akt.api.dto.TranslatorDetailsDTO;
+import fi.oph.akt.audit.AktOperation;
+import fi.oph.akt.audit.AuditUtil;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.model.TranslatorDetails;
 import fi.oph.akt.onr.OnrServiceMock;
 import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorLanguagePairProjection;
 import fi.oph.akt.repository.TranslatorRepository;
+import fi.vm.sade.auditlog.Audit;
+import fi.vm.sade.auditlog.Changes;
+import fi.vm.sade.auditlog.Target;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -21,8 +26,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static java.util.stream.Collectors.joining;
+
 @Service
 public class TranslatorService {
+
+	@Resource
+	private Audit audit;
 
 	@Resource
 	private TranslatorRepository translatorRepository;
@@ -53,6 +63,10 @@ public class TranslatorService {
 					.languagePairs(languagePairDTOs).build();
 		}).toList();
 
+		audit.log(
+				AuditUtil.getUser(), AktOperation.LIST_TRANSLATORS, new Target.Builder()
+						.setField("oids", result.stream().map(TranslatorDTO::oid).collect(joining(","))).build(),
+				new Changes.Builder().build());
 		return new PageImpl<>(result, translators.getPageable(), translators.getTotalElements());
 	}
 

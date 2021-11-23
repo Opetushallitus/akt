@@ -13,6 +13,21 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>akt</name>
 	<description>Authorised Translator’s System</description>
+
+	<repositories>
+		<repository>
+			<id>oph-sade-artifactory-snapshots</id>
+			<url>https://artifactory.opintopolku.fi/artifactory/oph-sade-snapshot-local</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>oph-sade-artifactory-releases</id>
+			<url>https://artifactory.opintopolku.fi/artifactory/oph-sade-release-local</url>
+		</repository>
+	</repositories>
+
 	<properties>
 		<java.version>17</java.version>
 		<maven.compiler.source>17</maven.compiler.source>
@@ -82,6 +97,23 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-data-rest</artifactId>
 			<version>${springdoc-openapi.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>fi.vm.sade</groupId>
+			<artifactId>auditlogger</artifactId>
+			<version>9.2.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>fi.vm.sade.java-utils</groupId>
+			<artifactId>java-http</artifactId>
+			<version>0.6.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>

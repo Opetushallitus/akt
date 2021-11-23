@@ -2,16 +2,16 @@ package fi.oph.akt.service;
 
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.TranslatorDTO;
+import fi.oph.akt.config.AuditConfiguration;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
+import fi.oph.akt.onr.OnrServiceMock;
 import java.time.LocalDate;
 import java.util.UUID;
-
-import fi.oph.akt.onr.OnrServiceMock;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -25,7 +25,7 @@ import org.springframework.data.domain.Pageable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-@Import({ TranslatorService.class, OnrServiceMock.class })
+@Import({ TranslatorService.class, OnrServiceMock.class, AuditConfiguration.class })
 class TranslatorServiceTest {
 
 	@Autowired
