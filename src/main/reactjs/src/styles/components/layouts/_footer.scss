@@ -1,0 +1,20 @@
+.footer {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  &__container {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 1.5rem;
+    font-size: 1rem;
+    color: $color-secondary;
+
+    & > a {
+      text-transform: initial;
+      padding: 6px 0;
+    }
+  }
+}

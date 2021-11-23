@@ -1,5 +1,5 @@
+import { FC } from 'react';
 import { Typography, TypographyVariant } from '@mui/material';
-import React, { FC } from 'react';
 
 const variantInDiv = (
   variant: TypographyVariant,

@@ -1,5 +1,18 @@
 .header {
-  &__title {
+  &__left {
     flex-grow: 1;
+
+    &__logo {
+      height: 5.5rem;
+    }
+  }
+
+  &__right {
+    display: flex;
+    gap: 2rem;
+
+    & > a {
+      text-transform: lowercase;
+    }
   }
 }

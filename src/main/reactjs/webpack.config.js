@@ -12,12 +12,12 @@ module.exports = (env) => {
     entry: path.join(__dirname, '..', 'reactjs', 'src', 'index.tsx'),
     output: {
       path: path.join(__dirname, 'dist'),
-      filename: 'bundle.js',
+      filename: 'js/bundle.js',
       publicPath: contextPath,
     },
     plugins: [
       new MiniCssExtractPlugin({
-        filename: '[name].css',
+        filename: 'css/[name].css',
       }),
       new HtmlWebpackPlugin({
         template: path.join(__dirname, '..', 'reactjs', 'public', 'index.html'),
@@ -42,6 +42,20 @@ module.exports = (env) => {
             'sass-loader',
           ],
           exclude: /node_modules/,
+        },
+        {
+          test: /\.(woff(2)?|ttf|eot)$/,
+          type: 'asset/resource',
+          generator: {
+            filename: 'assets/fonts/[name][ext]',
+          },
+        },
+        {
+          test: /\.svg$/,
+          type: 'asset/resource',
+          generator: {
+            filename: 'assets/svg/[name][ext]',
+          },
         },
       ],
     },

@@ -16,10 +16,11 @@ const translatorDetailsRow = (
   return (
     <StyledTableRow selected={selected} onClick={toggleSelected}>
       <TableCell padding="checkbox">
-        <Checkbox checked={selected} />
-      </TableCell>
-      <TableCell>
-        <Text>{name}</Text>
+        <Checkbox
+          className="translator-listing__checkbox"
+          checked={selected}
+          color="secondary"
+        />
       </TableCell>
       <TableCell>
         {languagePairs.map(({ from, to }, j) => (
@@ -27,6 +28,9 @@ const translatorDetailsRow = (
             {from} - {to}
           </Text>
         ))}
+      </TableCell>
+      <TableCell>
+        <Text>{name}</Text>
       </TableCell>
       <TableCell>
         <Text>{hometown}</Text>
@@ -54,16 +58,18 @@ const ListingHeader = ({
             checked={selectedItems == totalItems}
             indeterminate={selectedItems > 0 && selectedItems < totalItems}
             onChange={(event) => toggleAllSelected(event.target.checked)}
+            color="secondary"
+            className="translator-listing__checkbox"
           ></Checkbox>
         </TableCell>
         <TableCell>
-          <H3>{t('akt.translator.name')}</H3>
+          <H3>{t('akt.pages.translator.languagePairs')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('akt.translator.languagePairs')}</H3>
+          <H3>{t('akt.pages.translator.name')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('akt.translator.hometown')}</H3>
+          <H3>{t('akt.pages.translator.hometown')}</H3>
         </TableCell>
       </TableRow>
     </TableHead>
@@ -85,6 +91,7 @@ export const TranslatorListing = ({
   };
   return (
     <PaginatedTable
+      className="translator-listing"
       selectedIndices={selected}
       setSelectedIndices={setSelected}
       data={translators}

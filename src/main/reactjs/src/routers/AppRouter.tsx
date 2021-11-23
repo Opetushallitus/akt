@@ -11,11 +11,13 @@ export const AppRouter: FC = () => (
       <div className="appbar">
         <Header />
       </div>
-      <div className="content">
-        <Routes>
-          <Route path="/akt" element={<HomePage />} />
-        </Routes>
-      </div>
+      <main className="content">
+        <div className="content__container">
+          <Routes>
+            <Route path="/akt" element={<HomePage />} />
+          </Routes>
+        </div>
+      </main>
       <div className="footer">
         <Footer />
       </div>

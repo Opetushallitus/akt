@@ -1,24 +1,55 @@
 {
   "akt": {
-    "header": {
-      "title": "AKT",
-      "lang": {
-        "fi": "Suomeksi",
-        "sv": "På Svenska",
-        "en": "In English"
-      }
-    },
     "component": {
+      "header": {
+        "lang": {
+          "fi": "Suomeksi",
+          "sv": "På Svenska",
+          "en": "In English"
+        },
+        "ophLink": {
+          "text": "oph.fi",
+          "address": "https://www.oph.fi/fi"
+        },
+        "logo": {
+          "alt": "Etusivu"
+        }
+      },
       "table": {
         "pagination": {
           "rowsPerPage": "Näytä sivulla"
         }
+      },
+      "footer": {
+        "links": {
+          "aktHomepage": {
+            "text": "AKT Kotisivu",
+            "link": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/kieli-ja-kaantajatutkinnot/auktorisoidun-kaantajan-tutkinto"
+          },
+          "accessibility": {
+            "text": "Saavutettavuusseloste",
+            "link": "https://www.oph.fi/fi/tietoa-meista/opetushallituksen-saavutettavuusseloste"
+          },
+          "mail": {
+            "text": "AKT neuvonta:",
+            "link": "akt@oph.fi",
+            "workingTime": "(Vastaukset virka-aikana)"
+          }
+        },
+        "address": {
+          "street": "Hakaniemenranta 6",
+          "zipCity": "PL 380, 00531 Helsinki",
+          "phone": "Puhelin +358 29 533 1000",
+          "fax": "Faksi +358 29 533 1035"
+        }
       }
     },
-    "translator": {
-      "name": "Nimi",
-      "languagePairs": "Kieliparit",
-      "hometown": "Asuinkunta"
+    "pages": {
+      "translator": {
+        "name": "Nimi",
+        "languagePairs": "Kieliparit",
+        "hometown": "Asuinkunta"
+      }
     }
   }
 }
