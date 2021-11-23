@@ -28,6 +28,12 @@ body,
   grid-area: content;
   display: flex;
   background-color: $color-background;
+
+  &__container {
+    padding: 3rem;
+    max-width: 1280px;
+    margin: 2rem auto;
+  }
 }
 
 .footer {

@@ -9,7 +9,9 @@
 
 // Components
 @import 'components/layouts/header';
+@import 'components/layouts/footer';
 @import 'components/i18n/lang-selector';
+@import 'components/translators/translator-listing';
 
 // Fonts
 @import '@fontsource/roboto/400.css';
