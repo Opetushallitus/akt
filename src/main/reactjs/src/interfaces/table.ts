@@ -12,4 +12,5 @@ export interface PaginatedTableProps<T> {
   getRowDetails: RowDetailsFn<T>;
   initialRowsPerPage: number;
   rowsPerPageOptions: Array<number | { value: number; label: string }>;
+  className: string;
 }

@@ -24,6 +24,7 @@ export function PaginatedTable<T>({
   getRowDetails,
   initialRowsPerPage,
   rowsPerPageOptions,
+  className,
 }: PaginatedTableProps<T>) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
@@ -46,7 +47,7 @@ export function PaginatedTable<T>({
 
   return (
     <>
-      <Table>
+      <Table className={className}>
         {header}
         <TableBody>
           {data
