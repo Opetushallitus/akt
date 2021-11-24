@@ -5,6 +5,6 @@
 # joka asettaa tomcatin ympäristökohtaiset arvot.
 #
 
-spring.datasource.url={{host_postgresql_akt}}
-spring.datasource.username={{postgres_app_user}}
-spring.datasource.password={{host_postgresql_akt_app_password}}
+postgresql.url={{host_postgresql_akt}}
+postgresql.username={{postgres_app_user}}
+postgresql.password={{host_postgresql_akt_app_password}}
