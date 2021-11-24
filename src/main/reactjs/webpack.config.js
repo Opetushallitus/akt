@@ -71,6 +71,9 @@ module.exports = (env) => {
       },
       compress: true,
       port: 4000,
+      proxy: {
+        '/akt/api': env.proxy
+      },
     },
     stats: 'errors-warnings',
   };

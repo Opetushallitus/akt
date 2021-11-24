@@ -6,16 +6,25 @@
 - node v14.18.1 (no need to install if you only build)
 - npm 8.1.3 (no need to install if you only build)
 
-Create local PostgreSQL database
+## Developing with docker-compose
+
+Bring up the DB, backend and frontend containers:
 
 ```sh
-docker build  -f db/Dockerfile  -t postgres-akt .
-docker run -d -p 5432:5432 postgres-akt
+docker-compose up
 ```
 
-Java code style https://github.com/spring-io/spring-javaformat is enforced on build.
+Or bring up individual services according to your needs:
+```sh
+docker-compose up postgres frontend
+```
 
-## Build and Run
+The website is served by the frontend container at `http://localhost:4000/akt`.
+The frontend container supports hot reload of frontend resources.
+
+## Working with Maven
+### Build and Run
+
 
 Project build downloads and installs correct node and npm versions, no need to install them for build.
 
