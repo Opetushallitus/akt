@@ -1,8 +1,8 @@
-FROM maven:3.8.4-openjdk-17-slim
+FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
 ADD . ./
-RUN mvn clean install -DskipTests
+RUN ./mvnw clean install -DskipTests -Dskip.npm
 
-CMD ["mvn", "spring-boot:run"]
+CMD ["./mvnw", "spring-boot:run", "-Dskip.npm"]
