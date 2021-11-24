@@ -6,4 +6,4 @@ RUN npm ci --silent
 
 COPY . ./
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start:docker-compose"]
