@@ -2,26 +2,38 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = (env) => {
   const mode = env.prod ? 'production' : 'development';
-  const contextPath = '/akt';
 
   return {
     mode,
     entry: path.join(__dirname, '..', 'reactjs', 'src', 'index.tsx'),
     output: {
       path: path.join(__dirname, 'dist'),
-      filename: 'js/bundle.js',
-      publicPath: contextPath,
+      filename: 'static/js/bundle.js',
     },
     plugins: [
       new MiniCssExtractPlugin({
-        filename: 'css/[name].css',
+        filename: 'static/css/[name].css',
       }),
       new HtmlWebpackPlugin({
         template: path.join(__dirname, '..', 'reactjs', 'public', 'index.html'),
-        favicon: path.join(__dirname, '..', 'reactjs', 'public', 'favicon.ico'),
+      }),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.join(
+              __dirname,
+              '..',
+              'reactjs',
+              'public',
+              'favicon.ico'
+            ),
+            to: 'static/assets/ico/[name][ext]',
+          },
+        ],
       }),
       new ESLintPlugin({
         extensions: ['ts', 'tsx'],
@@ -47,14 +59,14 @@ module.exports = (env) => {
           test: /\.(woff(2)?|ttf|eot)$/,
           type: 'asset/resource',
           generator: {
-            filename: 'assets/fonts/[name][ext]',
+            filename: 'static/assets/fonts/[name][ext]',
           },
         },
         {
           test: /\.svg$/,
           type: 'asset/resource',
           generator: {
-            filename: 'assets/svg/[name][ext]',
+            filename: 'static/assets/svg/[name][ext]',
           },
         },
       ],
@@ -65,14 +77,13 @@ module.exports = (env) => {
     },
     devtool: env.prod ? 'source-map' : 'cheap-module-source-map',
     devServer: {
-      open: [contextPath],
       static: {
         directory: path.join(__dirname, 'public'),
       },
       compress: true,
       port: 4000,
       proxy: {
-        '/akt/api': env.proxy
+        '/akt/api': env.proxy,
       },
     },
     stats: 'errors-warnings',

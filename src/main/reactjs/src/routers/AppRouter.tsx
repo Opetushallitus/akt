@@ -14,7 +14,7 @@ export const AppRouter: FC = () => (
       <main className="content">
         <div className="content__container">
           <Routes>
-            <Route path="/akt" element={<HomePage />} />
+            <Route path="/" element={<HomePage />} />
           </Routes>
         </div>
       </main>
