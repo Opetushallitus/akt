@@ -23,7 +23,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers("/akt/api/v1/admin/**").access("hasRole('VIRKAILIJA')")
 
-				.antMatchers("/", "/akt/**").permitAll()
+				.antMatchers("/", "/akt/**",
+						"/aktassets/**" // TODO This is a fix for a webpack bug
+				).permitAll()
 
 				.anyRequest().denyAll()
 				.and()
