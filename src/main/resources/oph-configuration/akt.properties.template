@@ -1,0 +1,3 @@
+postgresql.url={{host_postgresql_akt}}
+postgresql.username={{postgres_app_user}}
+postgresql.password={{host_postgresql_akt_app_password}}

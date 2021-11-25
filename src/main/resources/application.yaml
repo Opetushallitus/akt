@@ -4,9 +4,9 @@ server:
     enabled: true
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
+    url: ${postgresql.url:jdbc:postgresql://localhost:5432/postgres}
+    username: ${postgresql.username:postgres}
+    password: ${postgresql.password:postgres}
   jpa:
     open-in-view: false
     show-sql: true
