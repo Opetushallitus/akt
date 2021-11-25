@@ -17,22 +17,15 @@ public class MvcConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		// @formatter:off
 		registry.addResourceHandler(
-				"/akt/**/*.js",
-				"/akt/**/*.js.map",
-				"/akt/**/*.css",
-				"/akt/**/*.css.map",
-				"/akt/**/*.ico",
-				"/akt/**/*.woff",
-				"/akt/**/*.woff2",
-				"/akt/**/*.svg"
+				"/**/*.js",
+				"/**/*.js.map",
+				"/**/*.css",
+				"/**/*.css.map",
+				"/**/*.ico",
+				"/**/*.woff",
+				"/**/*.woff2",
+				"/**/*.svg"
 		).addResourceLocations("classpath:static/");
-
-		// TODO This is a fix for a webpack bug
-		registry.addResourceHandler(
-				"/aktassets/**/*.woff",
-				"/aktassets/**/*.woff2",
-				"/aktassets/**/*.svg"
-		).addResourceLocations("classpath:static/assets/");
 		// @formatter:on
 	}
 
