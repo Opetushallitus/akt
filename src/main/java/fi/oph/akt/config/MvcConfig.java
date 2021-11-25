@@ -26,6 +26,13 @@ public class MvcConfig implements WebMvcConfigurer {
 				"/akt/**/*.woff2",
 				"/akt/**/*.svg"
 		).addResourceLocations("classpath:static/");
+
+		// TODO This is a fix for a webpack bug
+		registry.addResourceHandler(
+				"/aktassets/**/*.woff",
+				"/aktassets/**/*.woff2",
+				"/aktassets/**/*.svg"
+		).addResourceLocations("classpath:static/assets/");
 		// @formatter:on
 	}
 
