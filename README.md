@@ -46,11 +46,11 @@ and open browser to http://localhost:8080/akt/
 
 ### OpenAPI
 
-http://localhost:8080/akt/api/api-docs
+http://localhost:8080/api/api-docs
 
 ### Swagger
 
-http://localhost:8080/akt/api/swagger-ui.html
+http://localhost:8080/api/swagger-ui.html
 
 In order to make requests work in swagger ui, application must be run with parameter
 
