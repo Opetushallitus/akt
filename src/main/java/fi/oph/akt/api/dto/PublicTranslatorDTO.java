@@ -4,9 +4,11 @@ import java.util.List;
 import lombok.Builder;
 import lombok.NonNull;
 
-public record PublicTranslatorDTO(long id, @NonNull String firstName, @NonNull String lastName,
-		@NonNull List<PublicLanguagePairDTO> languagePairs) {
+public record PublicTranslatorDTO(long id, @NonNull String firstName, @NonNull String lastName, String town,
+		String country, @NonNull List<PublicLanguagePairDTO> languagePairs) {
 
+	// Workaround for bug in IntelliJ lombok plugin
+	// https://github.com/mplushnikov/lombok-intellij-plugin/issues/764
 	@Builder
 	public PublicTranslatorDTO {
 	}
