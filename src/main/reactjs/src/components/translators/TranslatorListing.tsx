@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { H3, Text } from 'components/elements/Text';
 import { TranslatorDetails } from 'interfaces/translator';
-import { PaginatedTable, StyledTableRow } from '../tables/Table';
+import { PaginatedTable } from '../tables/Table';
 import { Selectable } from 'interfaces/selectable';
 
 const translatorDetailsRow = (
@@ -14,7 +14,7 @@ const translatorDetailsRow = (
   const { name, languagePairs, hometown } = translator;
   const { selected, toggleSelected } = selectionProps;
   return (
-    <StyledTableRow selected={selected} onClick={toggleSelected}>
+    <TableRow selected={selected} onClick={toggleSelected}>
       <TableCell padding="checkbox">
         <Checkbox
           className="translator-listing__checkbox"
@@ -35,33 +35,17 @@ const translatorDetailsRow = (
       <TableCell>
         <Text>{hometown}</Text>
       </TableCell>
-    </StyledTableRow>
+    </TableRow>
   );
 };
 
-const ListingHeader = ({
-  selectedItems,
-  totalItems,
-  toggleAllSelected,
-}: {
-  selectedItems: number;
-  totalItems: number;
-  toggleAllSelected(selected: boolean): void;
-}) => {
+const ListingHeader = () => {
   const { t } = useTranslation();
 
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            checked={selectedItems == totalItems}
-            indeterminate={selectedItems > 0 && selectedItems < totalItems}
-            onChange={(event) => toggleAllSelected(event.target.checked)}
-            color="secondary"
-            className="translator-listing__checkbox"
-          ></Checkbox>
-        </TableCell>
+        <TableCell padding="checkbox"></TableCell>
         <TableCell>
           <H3>{t('akt.pages.translator.languagePairs')}</H3>
         </TableCell>
@@ -82,13 +66,7 @@ export const TranslatorListing = ({
   translators: Array<TranslatorDetails>;
 }) => {
   const [selected, setSelected] = useState<Set<number>>(new Set());
-  const toggleAllSelected = (allSelected: boolean) => {
-    if (allSelected) {
-      setSelected(new Set(Array.from(new Array(translators.length).keys())));
-    } else {
-      setSelected(new Set());
-    }
-  };
+
   return (
     <PaginatedTable
       className="translator-listing"
@@ -96,13 +74,7 @@ export const TranslatorListing = ({
       setSelectedIndices={setSelected}
       data={translators}
       getRowDetails={translatorDetailsRow}
-      header={
-        <ListingHeader
-          selectedItems={selected.size}
-          totalItems={translators.length}
-          toggleAllSelected={toggleAllSelected}
-        />
-      }
+      header={<ListingHeader />}
       initialRowsPerPage={10}
       rowsPerPageOptions={[10, 20, 50]}
     />

@@ -22,7 +22,7 @@ management:
   endpoints:
     enabled-by-default: false
     web:
-      base-path: "/akt/api/actuator"
+      base-path: "/api/actuator"
       exposure:
         include: "health,info"
   endpoint:
@@ -32,6 +32,6 @@ management:
       enabled: true
 springdoc:
   swagger-ui:
-    path: /akt/api/swagger-ui.html
+    path: /api/swagger-ui.html
   api-docs:
-    path: /akt/api/api-docs
+    path: /api/api-docs

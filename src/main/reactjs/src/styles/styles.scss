@@ -6,10 +6,12 @@
 
 // Base
 @import 'base/base';
+@import 'base/common';
 
 // Components
 @import 'components/layouts/header';
 @import 'components/layouts/footer';
+@import 'components/table/table';
 @import 'components/i18n/lang-selector';
 @import 'components/translators/translator-listing';
 

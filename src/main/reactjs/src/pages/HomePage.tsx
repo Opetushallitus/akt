@@ -51,7 +51,7 @@ export const HomePage: FC = () => (
         </Box>
       </Grid>
       <Grid item>
-        <Paper elevation={3}>
+        <Paper elevation={3} className="table-container">
           <TranslatorListing
             translators={[
               ...testData,
