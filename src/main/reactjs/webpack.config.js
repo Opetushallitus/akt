@@ -82,6 +82,7 @@ module.exports = (env) => {
     },
     devtool: env.prod ? 'source-map' : 'cheap-module-source-map',
     devServer: {
+      open: true,
       static: {
         directory: path.join(__dirname, 'public'),
       },

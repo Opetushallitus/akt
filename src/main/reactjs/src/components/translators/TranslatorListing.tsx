@@ -66,13 +66,7 @@ export const TranslatorListing = ({
   translators: Array<TranslatorDetails>;
 }) => {
   const [selected, setSelected] = useState<Set<number>>(new Set());
-  const toggleAllSelected = (allSelected: boolean) => {
-    if (allSelected) {
-      setSelected(new Set(Array.from(new Array(translators.length).keys())));
-    } else {
-      setSelected(new Set());
-    }
-  };
+
   return (
     <PaginatedTable
       className="translator-listing"
@@ -80,13 +74,7 @@ export const TranslatorListing = ({
       setSelectedIndices={setSelected}
       data={translators}
       getRowDetails={translatorDetailsRow}
-      header={
-        <ListingHeader
-          selectedItems={selected.size}
-          totalItems={translators.length}
-          toggleAllSelected={toggleAllSelected}
-        />
-      }
+      header={<ListingHeader />}
       initialRowsPerPage={10}
       rowsPerPageOptions={[10, 20, 50]}
     />
