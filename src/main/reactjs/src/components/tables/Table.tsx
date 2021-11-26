@@ -1,20 +1,8 @@
-import {
-  styled,
-  Table,
-  TableBody,
-  TablePagination,
-  TableRow,
-} from '@mui/material';
+import { Table, TableBody, TablePagination } from '@mui/material';
 import { ChangeEvent, Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { PaginatedTableProps } from 'interfaces/table';
-
-export const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(even)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-}));
 
 export function PaginatedTable<T>({
   header,
@@ -47,7 +35,7 @@ export function PaginatedTable<T>({
 
   return (
     <>
-      <Table className={className}>
+      <Table className={`${className} table`}>
         {header}
         <TableBody>
           {data
