@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = (env) => {
   const mode = env.prod ? 'production' : 'development';
@@ -15,6 +16,9 @@ module.exports = (env) => {
       filename: 'static/js/bundle.js',
     },
     plugins: [
+      new CompressionPlugin({
+        algorithm: 'gzip',
+      }),
       new MiniCssExtractPlugin({
         filename: 'static/css/[name].css',
       }),
