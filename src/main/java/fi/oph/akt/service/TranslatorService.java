@@ -1,8 +1,10 @@
 package fi.oph.akt.service;
 
 import fi.oph.akt.api.dto.LanguagePairDTO;
+import fi.oph.akt.api.dto.PublicLanguagePairDTO;
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.TranslatorDTO;
+import fi.oph.akt.api.dto.TranslatorDetailsDTO;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.model.TranslatorDetails;
 import fi.oph.akt.onr.OnrServiceMock;
@@ -43,14 +45,44 @@ public class TranslatorService {
 
 		final List<TranslatorDTO> result = translators.stream().map(t -> {
 			final TranslatorDetails details = translatorDetails.get(t.getOnrOid());
+			final TranslatorDetailsDTO detailsDTO = createTranslatorDetailsDTO(details);
 
 			final List<LanguagePairDTO> languagePairDTOs = getLanguagePairDTOs(translatorLanguagePairs, t);
 
-			return TranslatorDTO.builder().id(t.getId()).oid(t.getOnrOid()).details(details)
+			return TranslatorDTO.builder().id(t.getId()).oid(t.getOnrOid()).details(detailsDTO)
 					.languagePairs(languagePairDTOs).build();
 		}).toList();
 
 		return new PageImpl<>(result, translators.getPageable(), translators.getTotalElements());
+	}
+
+	private TranslatorDetailsDTO createTranslatorDetailsDTO(TranslatorDetails details) {
+		// @formatter:off
+		return TranslatorDetailsDTO.builder()
+				.nickname(details.nickname())
+				.firstNames(details.firstNames())
+				.surname(details.surname())
+				.email(details.email())
+				.phone(details.phone())
+				.mobilePhone(details.mobilePhone())
+				.street(details.street())
+				.postalCode(details.postalCode())
+				.town(details.town())
+				.country(details.country())
+				.birthDate(details.birthDate())
+				.identityNumber(details.identityNumber())
+				.nativeLanguage(details.nativeLanguage())
+				.build();
+		// @formatter:on
+	}
+
+	private List<LanguagePairDTO> getLanguagePairDTOs(
+			final List<TranslatorLanguagePairProjection> translatorLanguagePairs, final Translator t) {
+
+		return translatorLanguagePairs.stream().filter(tlp -> tlp.translatorId() == t.getId())
+				.map(tlp -> LanguagePairDTO.builder().fromLang(tlp.fromLang()).toLang(tlp.toLang())
+						.permissionToPublish(tlp.permissionToPublish()).build())
+				.toList();
 	}
 
 	@Transactional(readOnly = true)
@@ -67,10 +99,10 @@ public class TranslatorService {
 		final List<PublicTranslatorDTO> result = translators.stream().map(t -> {
 			final TranslatorDetails details = translatorDetails.get(t.getOnrOid());
 
-			final List<LanguagePairDTO> languagePairDTOs = getLanguagePairDTOs(translatorLanguagePairs, t);
+			final List<PublicLanguagePairDTO> languagePairDTOs = getPublicLanguagePairDTOs(translatorLanguagePairs, t);
 
 			return PublicTranslatorDTO.builder().id(t.getId()).lastName(details.surname()).firstName(details.nickname())
-					.languagePairs(languagePairDTOs).build();
+					.town(details.town()).country(details.country()).languagePairs(languagePairDTOs).build();
 		}).toList();
 
 		return new PageImpl<>(result, translatorIds.getPageable(), translatorIds.getTotalElements());
@@ -80,12 +112,11 @@ public class TranslatorService {
 		return onrServiceMock.getTranslatorDetailsByOids(translators.map(Translator::getOnrOid).toList());
 	}
 
-	private List<LanguagePairDTO> getLanguagePairDTOs(
+	private List<PublicLanguagePairDTO> getPublicLanguagePairDTOs(
 			final List<TranslatorLanguagePairProjection> translatorLanguagePairs, final Translator t) {
 
 		return translatorLanguagePairs.stream().filter(tlp -> tlp.translatorId() == t.getId())
-				.map(tlp -> LanguagePairDTO.builder().fromLang(tlp.fromLang()).toLang(tlp.toLang())
-						.permissionToPublish(tlp.permissionToPublish()).build())
+				.map(tlp -> PublicLanguagePairDTO.builder().fromLang(tlp.fromLang()).toLang(tlp.toLang()).build())
 				.toList();
 	}
 
