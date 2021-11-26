@@ -1,0 +1,16 @@
+.table {
+  & > tbody {
+    tr:nth-child(even) {
+      background: $color-primary-light;
+    }
+
+    tr:hover {
+      background: $color-blue-200;
+    }
+
+    & tr[class*='selected'],
+    & tr[class*='selected']:hover {
+      background: $color-blue-200;
+    }
+  }
+}
