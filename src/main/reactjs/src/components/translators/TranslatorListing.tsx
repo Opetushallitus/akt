@@ -11,7 +11,7 @@ const translatorDetailsRow = (
   translator: TranslatorDetails,
   selectionProps: Selectable
 ) => {
-  const { name, languagePairs, hometown } = translator;
+  const { name, languagePairs, town } = translator;
   const { selected, toggleSelected } = selectionProps;
   return (
     <TableRow selected={selected} onClick={toggleSelected}>
@@ -33,7 +33,7 @@ const translatorDetailsRow = (
         <Text>{name}</Text>
       </TableCell>
       <TableCell>
-        <Text>{hometown}</Text>
+        <Text>{town}</Text>
       </TableCell>
     </TableRow>
   );

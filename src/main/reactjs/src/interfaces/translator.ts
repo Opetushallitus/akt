@@ -4,7 +4,26 @@ interface LanguagePair {
 }
 
 export interface TranslatorDetails {
+  id: number;
   name: string;
   languagePairs: Array<LanguagePair>;
-  hometown: string;
+  town: string;
+  country: string;
+}
+
+export interface ApiTranslatorDetails {
+  id: number;
+  firstName: string;
+  lastName: string;
+  languagePairs: [
+    { fromLang: string; toLang: string; permissionToPublish: boolean }
+  ];
+  town: string;
+  country: string;
+}
+
+export interface PublicTranslatorListApiResponse {
+  content: Array<ApiTranslatorDetails>;
+  numberOfElements: number;
+  totalElements: number;
 }
