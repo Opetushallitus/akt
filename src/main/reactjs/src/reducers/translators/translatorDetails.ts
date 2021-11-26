@@ -7,8 +7,7 @@ interface TranslatorDetailsState {
   allTranslators: Array<TranslatorDetails>;
 }
 
-interface TranslatorDetailsAction extends Action {
-  type: string;
+interface TranslatorDetailsAction extends Action<string> {
   translatorDetails?: Array<TranslatorDetails>;
   error?: Error;
 }
