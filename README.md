@@ -15,16 +15,17 @@ docker-compose up
 ```
 
 Or bring up individual services according to your needs:
+
 ```sh
 docker-compose up postgres frontend
 ```
 
-The website is served by the frontend container at `http://localhost:4000/akt`.
+The website is served by the frontend container at `http://localhost:4000`.
 The frontend container supports hot reload of frontend resources.
 
 ## Working with Maven
-### Build and Run
 
+### Build and Run
 
 Project build downloads and installs correct node and npm versions, no need to install them for build.
 
@@ -40,7 +41,7 @@ or using Maven Wrapper
 ./mvnw spring-boot:run
 ```
 
-and open browser to http://localhost:8080/akt/
+and open browser to http://localhost:8080
 
 ## API documentation
 
