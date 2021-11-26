@@ -8,10 +8,11 @@ import { useAppDispatch, useAppSelector } from 'configs/redux';
 export const HomePage: FC = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch({ type: 'TRANSLATOR_DETAILS/INITIALISE', payload: {} });
+    dispatch({ type: 'TRANSLATOR_DETAILS/LOAD' });
   }, [dispatch]);
   const storedTranslators = useAppSelector((state) => state.translatorDetails);
   // TODO Handle error and loading statuses.
+  // TODO Use suspense to avoid flickering?
   return (
     <Box>
       <Grid container rowSpacing={4} direction="column">

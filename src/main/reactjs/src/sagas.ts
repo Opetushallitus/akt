@@ -37,7 +37,7 @@ function* getTranslatorDetails() {
 }
 
 function* watchTranslatorDetails() {
-  yield takeLatest('TRANSLATOR_DETAILS/INITIALISE', getTranslatorDetails);
+  yield takeLatest('TRANSLATOR_DETAILS/LOAD', getTranslatorDetails);
 }
 
 export default function* rootSaga() {
