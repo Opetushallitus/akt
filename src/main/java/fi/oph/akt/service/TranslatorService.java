@@ -71,7 +71,6 @@ public class TranslatorService {
 				.country(details.country())
 				.birthDate(details.birthDate())
 				.identityNumber(details.identityNumber())
-				.nativeLanguage(details.nativeLanguage())
 				.build();
 		// @formatter:on
 	}

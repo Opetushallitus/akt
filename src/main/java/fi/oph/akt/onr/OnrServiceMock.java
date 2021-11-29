@@ -3,6 +3,7 @@ package fi.oph.akt.onr;
 import fi.oph.akt.onr.model.HenkiloDto;
 import fi.oph.akt.onr.model.KielisyysDto;
 import fi.oph.akt.onr.model.yhteystieto.YhteystiedotRyhmaDto;
+import fi.oph.akt.onr.model.yhteystieto.YhteystiedotRyhmakuvausType;
 import fi.oph.akt.onr.model.yhteystieto.YhteystietoDto;
 import fi.oph.akt.onr.model.yhteystieto.YhteystietoType;
 import org.springframework.stereotype.Service;
@@ -90,6 +91,8 @@ class HenkiloDtoFactory {
 
 		YhteystiedotRyhmaDto yhteystiedotRyhma = new YhteystiedotRyhmaDto();
 		yhteystiedotRyhma.setYhteystieto(yhteystiedot);
+		yhteystiedotRyhma.setRyhmaAlkuperaTieto("alkupera1");
+		yhteystiedotRyhma.setRyhmaKuvaus(YhteystiedotRyhmakuvausType.VAKINAINEN_KOTIMAAN_OSOITE_TYYPPI);
 
 		henkiloDto.setYhteystiedotRyhma(new HashSet<>());
 		henkiloDto.getYhteystiedotRyhma().add(yhteystiedotRyhma);
