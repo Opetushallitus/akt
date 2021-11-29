@@ -1,4 +1,4 @@
-import i18n from 'i18next';
+import i18n, { use, changeLanguage } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
@@ -43,8 +43,7 @@ declare module 'react-i18next' {
 }
 
 export const initI18n = () => {
-  return i18n
-    .use(initReactI18next)
+  return use(initReactI18next)
     .use(LanguageDetector)
     .init({
       resources,
@@ -64,7 +63,7 @@ export const getSupportedLangs = (): string[] => {
 };
 
 export const changeLang = (language: string) => {
-  return i18n.changeLanguage(language);
+  return changeLanguage(language);
 };
 
 export const onLangChanged = (callback: (language: string) => void) => {
