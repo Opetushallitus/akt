@@ -11,8 +11,6 @@ export const HomePage: FC = () => {
     dispatch({ type: 'TRANSLATOR_DETAILS/LOAD' });
   }, [dispatch]);
   const storedTranslators = useAppSelector((state) => state.translatorDetails);
-  // TODO Handle error and loading statuses.
-  // TODO Use suspense to avoid flickering?
   return (
     <Box>
       <Grid container rowSpacing={4} direction="column">
@@ -33,7 +31,10 @@ export const HomePage: FC = () => {
         </Grid>
         <Grid item>
           <Paper elevation={3}>
-            <TranslatorListing translators={storedTranslators.allTranslators} />
+            <TranslatorListing
+              status={storedTranslators.status}
+              translators={storedTranslators.allTranslators}
+            />
           </Paper>
         </Grid>
       </Grid>

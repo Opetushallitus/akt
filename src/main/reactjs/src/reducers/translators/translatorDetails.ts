@@ -1,9 +1,10 @@
 import { Action, Reducer } from 'redux';
 
 import { TranslatorDetails } from 'interfaces/translator';
+import { ApiResponseStatus } from 'interfaces/api';
 
 interface TranslatorDetailsState {
-  status: 'NOT_LOADED' | 'LOADING' | 'LOADED' | 'ERROR';
+  status: ApiResponseStatus;
   allTranslators: Array<TranslatorDetails>;
 }
 

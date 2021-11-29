@@ -50,6 +50,9 @@
         "languagePairs": "Kieliparit",
         "hometown": "Asuinkunta"
       }
+    },
+    "errors": {
+      "loadingFailed": "Tietojen lataus epäonnistui."
     }
   }
 }

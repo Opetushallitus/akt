@@ -1,11 +1,14 @@
 import { TableCell, Checkbox, TableHead, TableRow } from '@mui/material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Box } from '@mui/system';
 
 import { H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
 import { TranslatorDetails } from 'interfaces/translator';
 import { Selectable } from 'interfaces/selectable';
+import { ApiResponseStatus } from 'interfaces/api';
+import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 
 const translatorDetailsRow = (
   translator: TranslatorDetails,
@@ -61,22 +64,50 @@ const ListingHeader = () => {
 };
 
 export const TranslatorListing = ({
+  status,
   translators,
 }: {
+  status: ApiResponseStatus;
   translators: Array<TranslatorDetails>;
 }) => {
   const [selected, setSelected] = useState<Set<number>>(new Set());
-
-  return (
-    <PaginatedTable
-      className="translator-listing"
-      selectedIndices={selected}
-      setSelectedIndices={setSelected}
-      data={translators}
-      getRowDetails={translatorDetailsRow}
-      header={<ListingHeader />}
-      initialRowsPerPage={10}
-      rowsPerPageOptions={[10, 20, 50]}
-    />
-  );
+  const { t } = useTranslation();
+  switch (status) {
+    case 'NOT_LOADED':
+    case 'LOADING':
+      return (
+        <Box
+          minHeight="10vh"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <ProgressIndicator />
+        </Box>
+      );
+    case 'ERROR':
+      return (
+        <Box
+          minHeight="10vh"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <H3>{t('akt.errors.loadingFailed')}</H3>
+        </Box>
+      );
+    case 'LOADED':
+      return (
+        <PaginatedTable
+          className="translator-listing"
+          selectedIndices={selected}
+          setSelectedIndices={setSelected}
+          data={translators}
+          getRowDetails={translatorDetailsRow}
+          header={<ListingHeader />}
+          initialRowsPerPage={10}
+          rowsPerPageOptions={[10, 20, 50]}
+        />
+      );
+  }
 };
