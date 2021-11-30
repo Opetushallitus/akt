@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { H3, Text } from 'components/elements/Text';
+import { PaginatedTable } from 'components/tables/Table';
 import { TranslatorDetails } from 'interfaces/translator';
-import { PaginatedTable } from '../tables/Table';
 import { Selectable } from 'interfaces/selectable';
 
 const translatorDetailsRow = (

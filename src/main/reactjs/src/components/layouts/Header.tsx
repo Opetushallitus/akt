@@ -6,7 +6,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Svg } from 'components/elements/Svg';
 import { ExtLink } from 'components/elements/ExtLink';
 import { LangSelector } from 'components/i18n/LangSelector';
-import Logo from '../../../public/assets/svg/logo.svg';
+import Logo from 'public/assets/svg/logo.svg';
 
 const Header: FC = () => {
   const { t } = useTranslation();
