@@ -1,6 +1,6 @@
 package fi.oph.akt.onr.model;
 
-import fi.oph.akt.onr.model.yhteystieto.YhteystiedotRyhmaDto;
+import fi.oph.akt.onr.model.contactDetails.ContactDetailsGroupDto;
 import fi.oph.akt.onr.model.yksilointivirhe.YksilointiVirheDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -67,7 +67,7 @@ public class HenkiloDto implements Serializable {
 
 	private Date vtjsynced;
 
-	private Set<YhteystiedotRyhmaDto> yhteystiedotRyhma;
+	private Set<ContactDetailsGroupDto> yhteystiedotRyhma;
 
 	private Set<YksilointiVirheDto> yksilointivirheet;
 

@@ -16,8 +16,8 @@ public class CustomOrderComparator<T> implements Comparator<T> {
 
 	private final List<T> ordering;
 
-	public CustomOrderComparator(List<T> order) {
-		this.ordering = requireNonNull(order);
+	public CustomOrderComparator(List<T> ordering) {
+		this.ordering = requireNonNull(ordering);
 	}
 
 	@Override

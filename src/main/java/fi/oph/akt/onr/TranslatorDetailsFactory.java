@@ -2,10 +2,7 @@ package fi.oph.akt.onr;
 
 import fi.oph.akt.model.TranslatorDetails;
 import fi.oph.akt.onr.model.HenkiloDto;
-import fi.oph.akt.onr.model.yhteystieto.YhteystiedotRyhmaDto;
-import fi.oph.akt.onr.model.yhteystieto.YhteystiedotRyhmakuvausType;
-import fi.oph.akt.onr.model.yhteystieto.YhteystietoDto;
-import fi.oph.akt.onr.model.yhteystieto.YhteystietoType;
+import fi.oph.akt.onr.model.contactDetails.*;
 import fi.oph.akt.util.CustomOrderComparator;
 
 import java.util.Comparator;
@@ -16,59 +13,59 @@ import static java.util.Comparator.*;
 
 public class TranslatorDetailsFactory {
 
-	private static final String aktSource = "alkupera8";
-
-	private static final Comparator<String> ytrComparator = new CustomOrderComparator<>(
-			YhteystiedotRyhmakuvausType.prioritisedOrdering);
+	private static final Comparator<String> groupsComparator = new CustomOrderComparator<>(
+			ContactDetailsGroupType.prioritisedOrdering);
 
 	public static TranslatorDetails createByHenkiloDto(HenkiloDto henkilo) {
 		// @formatter:off
-		List<YhteystiedotRyhmaDto> ytrs = getOrderedYtrList(henkilo);
+		List<ContactDetailsGroupDto> groups = getOrderedContactDetailsGroups(henkilo);
 
 		return TranslatorDetails.builder()
 				.nickname(henkilo.getKutsumanimi())
 				.firstNames(henkilo.getEtunimet())
 				.surname(henkilo.getSukunimi())
-				.email(getValue(ytrs, YhteystietoType.YHTEYSTIETO_SAHKOPOSTI))
-				.phone(getValue(ytrs, YhteystietoType.YHTEYSTIETO_PUHELINNUMERO))
-				.mobilePhone(getValue(ytrs, YhteystietoType.YHTEYSTIETO_MATKAPUHELINNUMERO))
-				.street(getValue(ytrs, YhteystietoType.YHTEYSTIETO_KATUOSOITE))
-				.postalCode(getValue(ytrs, YhteystietoType.YHTEYSTIETO_POSTINUMERO))
-				.town(getValue(ytrs, YhteystietoType.YHTEYSTIETO_KAUPUNKI))
-				.country(getValue(ytrs, YhteystietoType.YHTEYSTIETO_MAA))
+				.email(getValue(groups, YhteystietoTyyppi.YHTEYSTIETO_SAHKOPOSTI))
+				.phone(getValue(groups, YhteystietoTyyppi.YHTEYSTIETO_PUHELINNUMERO))
+				.mobilePhone(getValue(groups, YhteystietoTyyppi.YHTEYSTIETO_MATKAPUHELINNUMERO))
+				.street(getValue(groups, YhteystietoTyyppi.YHTEYSTIETO_KATUOSOITE))
+				.postalCode(getValue(groups, YhteystietoTyyppi.YHTEYSTIETO_POSTINUMERO))
+				.town(getValue(groups, YhteystietoTyyppi.YHTEYSTIETO_KAUPUNKI))
+				.country(getValue(groups, YhteystietoTyyppi.YHTEYSTIETO_MAA))
 				.birthDate(henkilo.getSyntymaaika())
-				.identityNumber(henkilo.getHetu()).build();
+				.identityNumber(henkilo.getHetu())
+				.build();
 		// @formatter:on
 	}
 
-	private static List<YhteystiedotRyhmaDto> getOrderedYtrList(HenkiloDto henkiloDto) {
+	private static List<ContactDetailsGroupDto> getOrderedContactDetailsGroups(HenkiloDto henkiloDto) {
 		// @formatter:off
-		List<YhteystiedotRyhmaDto> aktYtrs = henkiloDto
+		List<ContactDetailsGroupDto> aktGroups = henkiloDto
 				.getYhteystiedotRyhma()
 				.stream()
-				.filter(ytr -> ytr.getRyhmaAlkuperaTieto().equals(aktSource))
+				.filter(group -> group.getSource().equals(ContactDetailsGroupSource.AKT))
 				.collect(Collectors.toList()); // mutable list
 
-		List<YhteystiedotRyhmaDto> otherYtrs = henkiloDto
+		List<ContactDetailsGroupDto> otherGroups = henkiloDto
 				.getYhteystiedotRyhma()
 				.stream()
-				.sorted(comparing(YhteystiedotRyhmaDto::getRyhmaKuvaus, nullsLast(ytrComparator.thenComparing(naturalOrder()))))
-				.filter(ytr -> !ytr.getRyhmaKuvaus().equals(YhteystiedotRyhmakuvausType.KOTIOSOITE_TYYPPI))
+				.sorted(comparing(ContactDetailsGroupDto::getType, nullsLast(groupsComparator.thenComparing(naturalOrder()))))
+				.filter(group -> !group.getType().equals(ContactDetailsGroupType.HOME_ADDRESS))
 				.toList();
 
-		aktYtrs.addAll(otherYtrs);
-		return aktYtrs;
+		aktGroups.addAll(otherGroups);
+		return aktGroups;
 		// @formatter:on
 	}
 
-	private static String getValue(List<YhteystiedotRyhmaDto> orderedYtrs, YhteystietoType yhteystietoType) {
+	private static String getValue(List<ContactDetailsGroupDto> contactDetailsGroups,
+			YhteystietoTyyppi yhteystietoTyyppi) {
 		// @formatter:off
-		return orderedYtrs
+		return contactDetailsGroups
 				.stream()
-				.flatMap(ytr -> ytr.getYhteystieto().stream())
-				.filter(yt -> yt.getYhteystietoTyyppi() == yhteystietoType)
-				.filter(yt -> yt.getYhteystietoArvo() != null && !yt.getYhteystietoArvo().isEmpty())
-				.map(YhteystietoDto::getYhteystietoArvo)
+				.flatMap(group -> group.getDetailsSet().stream())
+				.filter(details -> details.getYhteystietoTyyppi() == yhteystietoTyyppi)
+				.filter(details -> details.getValue() != null && !details.getValue().isEmpty())
+				.map(ContactDetailsDto::getValue)
 				.findFirst()
 				.orElse(null);
 		// @formatter:on
