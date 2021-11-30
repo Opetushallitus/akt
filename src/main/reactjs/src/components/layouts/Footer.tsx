@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Text } from 'components/elements/Text';
 import { ExtLink } from 'components/elements/ExtLink';
 import { Svg } from 'components/elements/Svg';
-import Logo from '../../../public/assets/svg/logo.svg';
+import Logo from 'public/assets/svg/logo.svg';
 
 const Footer: FC = () => {
   const { t } = useTranslation();

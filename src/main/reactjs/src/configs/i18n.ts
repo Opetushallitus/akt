@@ -2,9 +2,9 @@ import i18n, { use, changeLanguage } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-import transFI from '../../public/i18n/fi-FI.json';
-import transSV from '../../public/i18n/sv-SE.json';
-import transEN from '../../public/i18n/en-GB.json';
+import transFI from 'public/i18n/fi-FI.json';
+import transSV from 'public/i18n/sv-SE.json';
+import transEN from 'public/i18n/en-GB.json';
 
 // Defaults and resources
 const langFI = 'fi-FI';
