@@ -18,7 +18,7 @@ public class ContactDetailsGroupType {
 
 	public static final String APPLICATION_ADDRESS = "yhteystietotyyppi6";
 
-	public static final String OTHER_ADDRESS = "yhteystietotyyppi6";
+	public static final String OTHER_ADDRESS = "yhteystietotyyppi7";
 
 	public static final String VTJ_ELECTRONIC_ADDRESS = "yhteystietotyyppi8";
 
