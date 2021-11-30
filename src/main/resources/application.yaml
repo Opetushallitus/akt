@@ -22,7 +22,7 @@ management:
   endpoints:
     enabled-by-default: false
     web:
-      base-path: "/api/actuator"
+      base-path: "/akt/api/actuator"
       exposure:
         include: "health,info"
   endpoint:
