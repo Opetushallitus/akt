@@ -4,11 +4,12 @@ import { FC, useEffect } from 'react';
 import { H1, Text } from 'components/elements/Text';
 import { TranslatorListing } from 'components/translators/TranslatorListing';
 import { useAppDispatch, useAppSelector } from 'redux/config';
+import { TRANSLATOR_DETAILS_LOAD } from 'redux/actionTypes/translatorDetails';
 
 export const HomePage: FC = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch({ type: 'TRANSLATOR_DETAILS/LOAD' });
+    dispatch({ type: TRANSLATOR_DETAILS_LOAD });
   }, [dispatch]);
   const storedTranslators = useAppSelector((state) => state.translatorDetails);
   return (

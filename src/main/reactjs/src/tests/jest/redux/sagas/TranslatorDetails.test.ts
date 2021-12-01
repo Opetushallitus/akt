@@ -13,6 +13,7 @@ import {
   getTranslatorsFromApi,
   forceGetTranslatorsFromApi,
 } from 'redux/sagas/TranslatorDetails';
+import { TRANSLATOR_DETAILS_ERROR, TRANSLATOR_DETAILS_LOAD, TRANSLATOR_DETAILS_LOADING, TRANSLATOR_DETAILS_RECEIVED } from 'redux/actionTypes/translatorDetails';
 
 const toApiResponse = (apiResponse: Array<ApiTranslatorDetails>) => {
   const response = {
@@ -55,11 +56,11 @@ describe('Saga:TranslatorDetails', () => {
   it('starting the translator details saga should first invoke a LOADING action', () => {
     const genObject = watchTranslatorDetails();
     expect(genObject.next().value).toEqual(
-      takeLatest('TRANSLATOR_DETAILS/LOAD', getTranslatorsFromApi)
+      takeLatest(TRANSLATOR_DETAILS_LOAD, getTranslatorsFromApi)
     );
     const genTranslatorDetails = getTranslatorsFromApi();
     expect(genTranslatorDetails.next().value).toEqual(
-      put({ type: 'TRANSLATOR_DETAILS/LOADING' })
+      put({ type: TRANSLATOR_DETAILS_LOADING })
     );
   });
 
@@ -77,8 +78,8 @@ describe('Saga:TranslatorDetails', () => {
     );
 
     expect(dispatched).toEqual([
-      { type: 'TRANSLATOR_DETAILS/LOADING' },
-      { type: 'TRANSLATOR_DETAILS/ERROR', error: 'Error!' },
+      { type: TRANSLATOR_DETAILS_LOADING },
+      { type: TRANSLATOR_DETAILS_ERROR, error: 'Error!' },
     ]);
   });
 
@@ -101,9 +102,9 @@ describe('Saga:TranslatorDetails', () => {
     );
 
     expect(dispatched).toEqual([
-      { type: 'TRANSLATOR_DETAILS/LOADING' },
+      { type: TRANSLATOR_DETAILS_LOADING },
       {
-        type: 'TRANSLATOR_DETAILS/RECEIVED',
+        type: TRANSLATOR_DETAILS_RECEIVED,
         translatorDetails: expectedStoredTranslatorDetails,
       },
     ]);
