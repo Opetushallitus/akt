@@ -2,25 +2,26 @@ package fi.oph.akt.onr;
 
 import fi.oph.akt.model.TranslatorDetails;
 import fi.oph.akt.onr.model.HenkiloDto;
-import fi.oph.akt.onr.model.contactDetails.*;
+
+import fi.oph.akt.onr.model.contactDetails.ContactDetailsDto;
+import fi.oph.akt.onr.model.contactDetails.ContactDetailsGroupDto;
+import fi.oph.akt.onr.model.contactDetails.ContactDetailsGroupSource;
+import fi.oph.akt.onr.model.contactDetails.ContactDetailsGroupType;
+import fi.oph.akt.onr.model.contactDetails.YhteystietoTyyppi;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@DataJpaTest
 public class TranslatorDetailsFactoryTest {
 
 	@Test
 	public void createByHenkiloDtoShouldReturnTranslatorDetails() {
 		HenkiloDto henkiloDto = createBasicHenkiloDto();
 
-		henkiloDto.setYhteystiedotRyhma(new HashSet<>());
-		henkiloDto.getYhteystiedotRyhma().add(createVtjContactDetails());
+		henkiloDto.setYhteystiedotRyhma(Set.of(createVtjContactDetails()));
 
 		TranslatorDetails details = TranslatorDetailsFactory.createByHenkiloDto(henkiloDto);
 
@@ -42,9 +43,7 @@ public class TranslatorDetailsFactoryTest {
 	public void createByHenkiloDtoShouldPrioritiseAktContactDetails() {
 		HenkiloDto henkiloDto = createBasicHenkiloDto();
 
-		henkiloDto.setYhteystiedotRyhma(new HashSet<>());
-		henkiloDto.getYhteystiedotRyhma().add(createVtjContactDetails());
-		henkiloDto.getYhteystiedotRyhma().add(createAktContactDetails());
+		henkiloDto.setYhteystiedotRyhma(Set.of(createVtjContactDetails(), createAktContactDetails()));
 
 		TranslatorDetails details = TranslatorDetailsFactory.createByHenkiloDto(henkiloDto);
 
@@ -76,15 +75,15 @@ public class TranslatorDetailsFactoryTest {
 
 	private ContactDetailsGroupDto createVtjContactDetails() {
 		ContactDetailsGroupDto contactDetailsGroup = new ContactDetailsGroupDto();
-		Set<ContactDetailsDto> contactDetailsSet = new HashSet<>();
 
-		contactDetailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_SAHKOPOSTI, "anna.mattila@test.fi"));
-		contactDetailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_PUHELINNUMERO, "+358401234567"));
-		contactDetailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_MATKAPUHELINNUMERO, "+358402345678"));
-		contactDetailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KATUOSOITE, "Testitie 1"));
-		contactDetailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_POSTINUMERO, "00100"));
-		contactDetailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KAUPUNKI, "Helsinki"));
-		contactDetailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_MAA, "Suomi"));
+		Set<ContactDetailsDto> contactDetailsSet = Set.of(
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_SAHKOPOSTI, "anna.mattila@test.fi"),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_PUHELINNUMERO, "+358401234567"),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_MATKAPUHELINNUMERO, "+358402345678"),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KATUOSOITE, "Testitie 1"),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_POSTINUMERO, "00100"),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KAUPUNKI, "Helsinki"),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_MAA, "Suomi"));
 
 		contactDetailsGroup.setType(ContactDetailsGroupType.VTJ_REGULAR_DOMESTIC_ADDRESS);
 		contactDetailsGroup.setSource(ContactDetailsGroupSource.VTJ);
@@ -95,13 +94,13 @@ public class TranslatorDetailsFactoryTest {
 
 	private ContactDetailsGroupDto createAktContactDetails() {
 		ContactDetailsGroupDto contactDetailsGroup = new ContactDetailsGroupDto();
-		Set<ContactDetailsDto> contactDetailsSet = new HashSet<>();
 
-		contactDetailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_SAHKOPOSTI, "anna.mattila@akt.fi"));
-		contactDetailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_PUHELINNUMERO, "+358401122334"));
-		contactDetailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KATUOSOITE, "Kääntäjäntie 2"));
+		Set<ContactDetailsDto> contactDetailsSet = Set.of(
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_SAHKOPOSTI, "anna.mattila@akt.fi"),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_PUHELINNUMERO, "+358401122334"),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KATUOSOITE, "Kääntäjäntie 2"));
 
-		contactDetailsGroup.setType(ContactDetailsGroupType.APPLICATION_ADDRESS);
+		contactDetailsGroup.setType(ContactDetailsGroupType.CONTACT_DETAILS_FILLED_FOR_APPLICATION);
 		contactDetailsGroup.setSource(ContactDetailsGroupSource.AKT);
 		contactDetailsGroup.setDetailsSet(contactDetailsSet);
 

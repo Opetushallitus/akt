@@ -1,7 +1,5 @@
 package fi.oph.akt.onr.model.contactDetails;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ContactDetailsGroupType {
@@ -16,7 +14,7 @@ public class ContactDetailsGroupType {
 
 	public static final String VTJ_REGULAR_FOREIGN_ADDRESS = "yhteystietotyyppi5";
 
-	public static final String APPLICATION_ADDRESS = "yhteystietotyyppi6";
+	public static final String CONTACT_DETAILS_FILLED_FOR_APPLICATION = "yhteystietotyyppi6";
 
 	public static final String OTHER_ADDRESS = "yhteystietotyyppi7";
 
@@ -30,8 +28,8 @@ public class ContactDetailsGroupType {
 
 	public static final String VTJ_FOREIGN_POSTAL_ADDRESS = "yhteystietotyyppi12";
 
-	public static final List<String> prioritisedOrdering = new ArrayList<>(Arrays.asList(VTJ_TEMPORARY_DOMESTIC_ADDRESS,
+	public static final List<String> prioritisedOrdering = List.of(VTJ_TEMPORARY_DOMESTIC_ADDRESS,
 			VTJ_TEMPORARY_FOREIGN_ADDRESS, VTJ_REGULAR_DOMESTIC_ADDRESS, VTJ_REGULAR_FOREIGN_ADDRESS,
-			VTJ_DOMESTIC_POSTAL_ADDRESS, VTJ_FOREIGN_POSTAL_ADDRESS, VTJ_ELECTRONIC_ADDRESS));
+			VTJ_DOMESTIC_POSTAL_ADDRESS, VTJ_FOREIGN_POSTAL_ADDRESS, VTJ_ELECTRONIC_ADDRESS);
 
 }

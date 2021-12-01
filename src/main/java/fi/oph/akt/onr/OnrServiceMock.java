@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -78,23 +77,24 @@ class HenkiloDtoFactory {
 
 		henkiloDto.setSyntymaaika(getBirthDateByIdentityNumber(henkiloDto.getHetu()));
 
-		henkiloDto.setYhteystiedotRyhma(new HashSet<>());
-		henkiloDto.getYhteystiedotRyhma().add(createAktContactDetails(henkiloDto, rand));
-		henkiloDto.getYhteystiedotRyhma().add(createVtjContactDetails(rand));
+		henkiloDto
+				.setYhteystiedotRyhma(Set.of(createAktContactDetails(henkiloDto, rand), createVtjContactDetails(rand)));
 
 		return henkiloDto;
 	}
 
 	private static ContactDetailsGroupDto createAktContactDetails(HenkiloDto henkiloDto, Random rand) {
 		ContactDetailsGroupDto detailsGroup = new ContactDetailsGroupDto();
-		Set<ContactDetailsDto> detailsSet = new HashSet<>();
 
-		detailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_SAHKOPOSTI,
-				henkiloDto.getKutsumanimi().toLowerCase() + "." + henkiloDto.getSukunimi().toLowerCase() + "@akt.fi"));
-		detailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_PUHELINNUMERO,
-				"+35840" + (1000000 + rand.nextInt(9000000))));
+		String email = henkiloDto.getKutsumanimi().toLowerCase() + "." + henkiloDto.getSukunimi().toLowerCase()
+				+ "@akt.fi";
+		String phone = "+35840" + (1000000 + rand.nextInt(9000000));
 
-		detailsGroup.setType(ContactDetailsGroupType.APPLICATION_ADDRESS);
+		Set<ContactDetailsDto> detailsSet = Set.of(
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_SAHKOPOSTI, email),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_PUHELINNUMERO, phone));
+
+		detailsGroup.setType(ContactDetailsGroupType.CONTACT_DETAILS_FILLED_FOR_APPLICATION);
 		detailsGroup.setSource(ContactDetailsGroupSource.AKT);
 		detailsGroup.setDetailsSet(detailsSet);
 
@@ -103,15 +103,13 @@ class HenkiloDtoFactory {
 
 	private static ContactDetailsGroupDto createVtjContactDetails(Random rand) {
 		ContactDetailsGroupDto detailsGroup = new ContactDetailsGroupDto();
-		Set<ContactDetailsDto> detailsSet = new HashSet<>();
 
-		detailsSet.add(
-				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KATUOSOITE, streets[rand.nextInt(streets.length)]));
-		detailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_POSTINUMERO,
-				postalCodes[rand.nextInt(postalCodes.length)]));
-		detailsSet
-				.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KAUPUNKI, towns[rand.nextInt(towns.length)]));
-		detailsSet.add(new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_MAA, "Suomi"));
+		Set<ContactDetailsDto> detailsSet = Set.of(
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KATUOSOITE, streets[rand.nextInt(streets.length)]),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_POSTINUMERO,
+						postalCodes[rand.nextInt(postalCodes.length)]),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KAUPUNKI, towns[rand.nextInt(towns.length)]),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_MAA, "Suomi"));
 
 		detailsGroup.setType(ContactDetailsGroupType.VTJ_REGULAR_DOMESTIC_ADDRESS);
 		detailsGroup.setSource(ContactDetailsGroupSource.VTJ);

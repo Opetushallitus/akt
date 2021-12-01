@@ -2,7 +2,11 @@ package fi.oph.akt.onr;
 
 import fi.oph.akt.model.TranslatorDetails;
 import fi.oph.akt.onr.model.HenkiloDto;
-import fi.oph.akt.onr.model.contactDetails.*;
+import fi.oph.akt.onr.model.contactDetails.ContactDetailsDto;
+import fi.oph.akt.onr.model.contactDetails.ContactDetailsGroupDto;
+import fi.oph.akt.onr.model.contactDetails.ContactDetailsGroupSource;
+import fi.oph.akt.onr.model.contactDetails.ContactDetailsGroupType;
+import fi.oph.akt.onr.model.contactDetails.YhteystietoTyyppi;
 import fi.oph.akt.util.CustomOrderComparator;
 
 import java.util.Comparator;
