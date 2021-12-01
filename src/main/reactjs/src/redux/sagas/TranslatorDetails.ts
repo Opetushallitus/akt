@@ -1,7 +1,8 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosResponse } from 'axios';
 
-import { fetch } from 'api';
+import axiosInstance from 'configs/axios';
+import { ApiEndpoints } from 'enums/apiEndpoints';
 import {
   ApiTranslatorDetails,
   PublicTranslatorListApiResponse,
@@ -40,7 +41,7 @@ export function* getTranslatorsFromApi() {
     yield put({ type: 'TRANSLATOR_DETAILS/LOADING' });
     // TODO Add runtime validation (io-ts) for API response?
     const apiResults: AxiosResponse<PublicTranslatorListApiResponse> =
-      yield call(fetch, 'translator');
+      yield call(axiosInstance.get, ApiEndpoints.PublicTranslatorDetails);
     yield call(storeApiResults, apiResults);
   } catch (error) {
     yield put({ type: 'TRANSLATOR_DETAILS/ERROR', error });

@@ -2,7 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { AxiosResponse } from 'axios';
 import { runSaga } from '@redux-saga/core';
 
-import * as api from 'api';
+import axiosInstance from 'configs/axios';
 import {
   PublicTranslatorListApiResponse,
   ApiTranslatorDetails,
@@ -64,7 +64,7 @@ describe('Saga:TranslatorDetails', () => {
   });
 
   it('if API call returns an error, an ERROR action should be invoked', async () => {
-    jest.spyOn(api, 'fetch').mockImplementationOnce(() => {
+    jest.spyOn(axiosInstance, 'get').mockImplementationOnce(() => {
       throw 'Error!';
     });
     type dispatchAction = { type: string; error?: string };
@@ -89,7 +89,7 @@ describe('Saga:TranslatorDetails', () => {
       return Promise.resolve(toApiResponse(expectedApiTranslatorDetails));
     };
 
-    jest.spyOn(api, 'fetch').mockImplementationOnce(returnMockResponse);
+    jest.spyOn(axiosInstance, 'get').mockImplementationOnce(returnMockResponse);
 
     type dispatchAction = { type: string; error?: string };
     const dispatched = [] as Array<dispatchAction>;
