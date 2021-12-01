@@ -1,7 +1,7 @@
 import { Action, Reducer } from 'redux';
 
 import { TranslatorDetails } from 'interfaces/translator';
-import { ApiResponseStatus } from 'interfaces/api';
+import { ApiResponseStatus } from 'enums/api';
 import {
   TRANSLATOR_DETAILS_ERROR,
   TRANSLATOR_DETAILS_LOADING,
@@ -21,17 +21,20 @@ interface TranslatorDetailsAction extends Action<string> {
 export const translatorDetailsReducer: Reducer<
   TranslatorDetailsState,
   TranslatorDetailsAction
-> = (state = { status: 'NOT_LOADED', allTranslators: [] }, action) => {
+> = (
+  state = { status: ApiResponseStatus.NotLoaded, allTranslators: [] },
+  action
+) => {
   switch (action.type) {
     case TRANSLATOR_DETAILS_LOADING:
-      return { status: 'LOADING', allTranslators: [] };
+      return { status: ApiResponseStatus.Loading, allTranslators: [] };
     case TRANSLATOR_DETAILS_RECEIVED:
       return {
-        status: 'LOADED',
+        status: ApiResponseStatus.Loaded,
         allTranslators: action.translatorDetails as Array<TranslatorDetails>,
       };
     case TRANSLATOR_DETAILS_ERROR:
-      return { status: 'ERROR', allTranslators: [] };
+      return { status: ApiResponseStatus.Error, allTranslators: [] };
     default:
       return state;
   }

@@ -2,7 +2,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosResponse } from 'axios';
 
 import axiosInstance from 'configs/axios';
-import { ApiEndpoints } from 'enums/apiEndpoints';
+import { ApiEndpoints } from 'enums/api';
 import {
   ApiTranslatorDetails,
   PublicTranslatorListApiResponse,

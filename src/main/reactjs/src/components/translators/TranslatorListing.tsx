@@ -7,8 +7,8 @@ import { H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
 import { TranslatorDetails } from 'interfaces/translator';
 import { Selectable } from 'interfaces/selectable';
-import { ApiResponseStatus } from 'interfaces/api';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
+import { ApiResponseStatus } from 'enums/api';
 
 const translatorDetailsRow = (
   translator: TranslatorDetails,
@@ -73,8 +73,8 @@ export const TranslatorListing = ({
   const [selected, setSelected] = useState<Set<number>>(new Set());
   const { t } = useTranslation();
   switch (status) {
-    case 'NOT_LOADED':
-    case 'LOADING':
+    case ApiResponseStatus.NotLoaded:
+    case ApiResponseStatus.Loading:
       return (
         <Box
           minHeight="10vh"
@@ -85,7 +85,7 @@ export const TranslatorListing = ({
           <ProgressIndicator />
         </Box>
       );
-    case 'ERROR':
+    case ApiResponseStatus.Error:
       return (
         <Box
           minHeight="10vh"
@@ -96,7 +96,7 @@ export const TranslatorListing = ({
           <H3>{t('akt.errors.loadingFailed')}</H3>
         </Box>
       );
-    case 'LOADED':
+    case ApiResponseStatus.Loaded:
       return (
         <PaginatedTable
           className="translator-listing"
