@@ -13,7 +13,12 @@ import {
   getTranslatorsFromApi,
   forceGetTranslatorsFromApi,
 } from 'redux/sagas/TranslatorDetails';
-import { TRANSLATOR_DETAILS_ERROR, TRANSLATOR_DETAILS_LOAD, TRANSLATOR_DETAILS_LOADING, TRANSLATOR_DETAILS_RECEIVED } from 'redux/actionTypes/translatorDetails';
+import {
+  TRANSLATOR_DETAILS_ERROR,
+  TRANSLATOR_DETAILS_LOAD,
+  TRANSLATOR_DETAILS_LOADING,
+  TRANSLATOR_DETAILS_RECEIVED,
+} from 'redux/actionTypes/translatorDetails';
 
 const toApiResponse = (apiResponse: Array<ApiTranslatorDetails>) => {
   const response = {
