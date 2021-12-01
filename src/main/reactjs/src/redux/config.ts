@@ -1,6 +1,6 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-import configureStore from 'store/configureStore';
+import configureStore from 'redux/store/configureStore';
 
 export const store = configureStore();
 

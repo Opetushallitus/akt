@@ -12,7 +12,7 @@ import {
   watchTranslatorDetails,
   getTranslatorsFromApi,
   forceGetTranslatorsFromApi,
-} from 'sagas';
+} from 'redux/sagas/TranslatorDetails';
 
 const toApiResponse = (apiResponse: Array<ApiTranslatorDetails>) => {
   const response = {

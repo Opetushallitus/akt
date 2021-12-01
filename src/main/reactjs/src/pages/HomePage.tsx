@@ -3,7 +3,7 @@ import { FC, useEffect } from 'react';
 
 import { H1, Text } from 'components/elements/Text';
 import { TranslatorListing } from 'components/translators/TranslatorListing';
-import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { useAppDispatch, useAppSelector } from 'redux/config';
 
 export const HomePage: FC = () => {
   const dispatch = useAppDispatch();

@@ -2,7 +2,7 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 
 import { theme } from 'configs/materialUI';
-import { store } from 'configs/redux';
+import { store } from 'redux/config';
 import { AppRouter } from 'routers/AppRouter';
 import { initI18n } from 'configs/i18n';
 
