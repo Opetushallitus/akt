@@ -16,12 +16,12 @@ export function PaginatedTable<T>({
 }: PaginatedTableProps<T>) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
+  const { t } = useTranslation();
+
   const handleRowsPerPageChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPage(0);
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(+event.target.value);
   };
-
-  const { t } = useTranslation();
 
   const handleRowClick = (rowIdx: number) => {
     if (selectedIndices.has(rowIdx)) {
@@ -35,24 +35,6 @@ export function PaginatedTable<T>({
 
   return (
     <>
-      <Table className={`${className} table`}>
-        {header}
-        <TableBody>
-          {data
-            .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
-            .map((val, idx) => {
-              const i = page * rowsPerPage + idx;
-              return (
-                <Fragment key={i}>
-                  {getRowDetails(val, {
-                    selected: selectedIndices.has(i),
-                    toggleSelected: () => handleRowClick(i),
-                  })}
-                </Fragment>
-              );
-            })}
-        </TableBody>
-      </Table>
       <TablePagination
         count={data.length}
         component="div"
@@ -66,6 +48,24 @@ export function PaginatedTable<T>({
           `${from} - ${to} / ${count}`
         }
       />
+      <Table className={`${className} table`}>
+        {header}
+        <TableBody>
+          {data
+            .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+            .map((val, idx) => {
+              const i = page * rowsPerPage + idx;
+              return (
+                <Fragment key={i}>
+                  {getRowDetails(val, t, {
+                    selected: selectedIndices.has(i),
+                    toggleSelected: () => handleRowClick(i),
+                  })}
+                </Fragment>
+              );
+            })}
+        </TableBody>
+      </Table>
     </>
   );
 }

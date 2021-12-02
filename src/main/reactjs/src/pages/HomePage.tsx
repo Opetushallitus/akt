@@ -1,40 +1,36 @@
-import { Box, Grid, Paper } from '@mui/material';
 import { FC, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Box, Grid, Paper } from '@mui/material';
 
+import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { H1, Text } from 'components/elements/Text';
 import { TranslatorListing } from 'components/translators/TranslatorListing';
-import { useAppDispatch, useAppSelector } from 'redux/config';
-import { TRANSLATOR_DETAILS_LOAD } from 'redux/actionTypes/translatorDetails';
+import { loadTranslatorDetails } from 'redux/actions/translatorDetails';
+import { translatorDetailsSelector } from 'redux/selectors/translatorDetails';
 
 export const HomePage: FC = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const storedTranslators = useAppSelector(translatorDetailsSelector);
+
   useEffect(() => {
-    dispatch({ type: TRANSLATOR_DETAILS_LOAD });
+    dispatch(loadTranslatorDetails);
   }, [dispatch]);
-  const storedTranslators = useAppSelector((state) => state.translatorDetails);
+
   return (
     <Box>
       <Grid container rowSpacing={4} direction="column">
         <Grid item>
           <Box>
-            <H1>Auktorisoitujen kääntäjien rekisteri</H1>
-            <Text>
-              Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä
-              auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä
-              joko nimen tai käännöskielen mukaan. Hakutuloksista saat esiin
-              tiedot auktorisoidun kääntäjän nimestä, asuinkunnasta sekä siitä,
-              mistä kielestä mihin kieleen hänellä on oikeus toimia
-              auktorisoituna kääntäjänä. Tutkintolautakunta ei valitettavasti
-              voi julkaista kääntäjien yhteystietoja. Yhteystiedot voi pyytää
-              sähköpostilla osoitteesta <b>auktoris.lautakunta@oph.fi</b>
-            </Text>
+            <H1>{t('akt.pages.homepage.title')}</H1>
+            <Text>{t('akt.pages.homepage.description')}</Text>
           </Box>
         </Grid>
         <Grid item>
           <Paper elevation={3}>
             <TranslatorListing
               status={storedTranslators.status}
-              translators={storedTranslators.allTranslators}
+              translators={storedTranslators.translators}
             />
           </Paper>
         </Grid>

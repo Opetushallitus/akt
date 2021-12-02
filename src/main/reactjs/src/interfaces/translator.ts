@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 
-import { ApiResponseStatus } from 'enums/api';
+import { APIResponseStatus } from 'enums/api';
 
 interface LanguagePair {
   fromLang: string;
@@ -23,7 +23,7 @@ export interface PublicTranslatorListApiResponse {
 }
 
 export interface TranslatorDetailsState {
-  status: ApiResponseStatus;
+  status: APIResponseStatus;
   translators: Array<TranslatorDetails>;
 }
 export interface TranslatorDetailsAction extends Action<string> {

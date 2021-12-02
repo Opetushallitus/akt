@@ -1,6 +1,7 @@
+import { FC, useState } from 'react';
 import { TableCell, Checkbox, TableHead, TableRow } from '@mui/material';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import { Box } from '@mui/system';
 
 import { H3, Text } from 'components/elements/Text';
@@ -8,14 +9,16 @@ import { PaginatedTable } from 'components/tables/Table';
 import { TranslatorDetails } from 'interfaces/translator';
 import { Selectable } from 'interfaces/selectable';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
-import { ApiResponseStatus } from 'enums/api';
+import { APIResponseStatus } from 'enums/api';
 
-const translatorDetailsRow = (
+const getTranslatorDetailsRow = (
   translator: TranslatorDetails,
+  t: TFunction,
   selectionProps: Selectable
 ) => {
-  const { name, languagePairs, town } = translator;
+  const { firstName, lastName, languagePairs, town } = translator;
   const { selected, toggleSelected } = selectionProps;
+
   return (
     <TableRow selected={selected} onClick={toggleSelected}>
       <TableCell padding="checkbox">
@@ -26,14 +29,16 @@ const translatorDetailsRow = (
         />
       </TableCell>
       <TableCell>
-        {languagePairs.map(({ from, to }, j) => (
-          <Text key={j}>
-            {from} - {to}
+        {languagePairs.map(({ fromLang, toLang }, k) => (
+          <Text key={k}>
+            {t(`akt.pages.translator.languages.${fromLang}`)}
+            {` - `}
+            {t(`akt.pages.translator.languages.${toLang}`)}
           </Text>
         ))}
       </TableCell>
       <TableCell>
-        <Text>{name}</Text>
+        <Text>{`${firstName} ${lastName}`}</Text>
       </TableCell>
       <TableCell>
         <Text>{town}</Text>
@@ -42,7 +47,7 @@ const translatorDetailsRow = (
   );
 };
 
-const ListingHeader = () => {
+const ListingHeader: FC = () => {
   const { t } = useTranslation();
 
   return (
@@ -67,14 +72,15 @@ export const TranslatorListing = ({
   status,
   translators,
 }: {
-  status: ApiResponseStatus;
+  status: APIResponseStatus;
   translators: Array<TranslatorDetails>;
 }) => {
   const [selected, setSelected] = useState<Set<number>>(new Set());
   const { t } = useTranslation();
+
   switch (status) {
-    case ApiResponseStatus.NotLoaded:
-    case ApiResponseStatus.Loading:
+    case APIResponseStatus.NotLoaded:
+    case APIResponseStatus.Loading:
       return (
         <Box
           minHeight="10vh"
@@ -85,7 +91,7 @@ export const TranslatorListing = ({
           <ProgressIndicator />
         </Box>
       );
-    case ApiResponseStatus.Error:
+    case APIResponseStatus.Error:
       return (
         <Box
           minHeight="10vh"
@@ -96,14 +102,14 @@ export const TranslatorListing = ({
           <H3>{t('akt.errors.loadingFailed')}</H3>
         </Box>
       );
-    case ApiResponseStatus.Loaded:
+    case APIResponseStatus.Loaded:
       return (
         <PaginatedTable
           className="translator-listing"
           selectedIndices={selected}
           setSelectedIndices={setSelected}
           data={translators}
-          getRowDetails={translatorDetailsRow}
+          getRowDetails={getTranslatorDetailsRow}
           header={<ListingHeader />}
           initialRowsPerPage={10}
           rowsPerPageOptions={[10, 20, 50]}
