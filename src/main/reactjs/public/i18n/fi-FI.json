@@ -18,7 +18,8 @@
       "table": {
         "pagination": {
           "rowsPerPage": "Näytä sivulla"
-        }
+        },
+        "selectedItems": "valittu"
       },
       "footer": {
         "links": {

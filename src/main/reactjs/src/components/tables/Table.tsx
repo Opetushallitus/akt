@@ -3,6 +3,7 @@ import { ChangeEvent, Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { PaginatedTableProps } from 'interfaces/table';
+import { H3 } from 'components/elements/Text';
 
 export function PaginatedTable<T>({
   header,
@@ -35,19 +36,27 @@ export function PaginatedTable<T>({
 
   return (
     <>
-      <TablePagination
-        count={data.length}
-        component="div"
-        onPageChange={(_event, newPage) => setPage(newPage)}
-        page={page}
-        onRowsPerPageChange={handleRowsPerPageChange}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={rowsPerPageOptions}
-        labelRowsPerPage={t('akt.component.table.pagination.rowsPerPage')}
-        labelDisplayedRows={({ from, to, count }) =>
-          `${from} - ${to} / ${count}`
-        }
-      />
+      <div className="table__head-box">
+        {selectedIndices.size > 0 && (
+          <H3>{`${selectedIndices.size} ${t(
+            'akt.component.table.selectedItems'
+          )}`}</H3>
+        )}
+        <TablePagination
+          className="table__head-box__pagination"
+          count={data.length}
+          component="div"
+          onPageChange={(_event, newPage) => setPage(newPage)}
+          page={page}
+          onRowsPerPageChange={handleRowsPerPageChange}
+          rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={rowsPerPageOptions}
+          labelRowsPerPage={t('akt.component.table.pagination.rowsPerPage')}
+          labelDisplayedRows={({ from, to, count }) =>
+            `${from} - ${to} / ${count}`
+          }
+        />
+      </div>
       <Table className={`${className} table`}>
         {header}
         <TableBody>

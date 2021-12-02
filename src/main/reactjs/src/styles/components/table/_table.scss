@@ -1,4 +1,15 @@
 .table {
+  &__head-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+
+    &__pagination {
+      margin-left: auto;
+    }
+  }
+
   & > tbody {
     tr:nth-child(even) {
       background: $color-primary-light;
