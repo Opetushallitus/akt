@@ -43,6 +43,27 @@ or using Maven Wrapper
 
 and open browser to http://localhost:8080
 
+## Frontend
+
+In order to keep code clean and easily maintainable please use the following VS Code Extensions.
+
+- [prettier]
+- [eslint]
+
+### Running tests
+
+End-to-end tests:
+
+```sh
+npm run test:cypress
+```
+
+Unit and Integretion tests
+
+```sh
+npm run test:jest
+```
+
 ## API documentation
 
 ### OpenAPI
@@ -58,3 +79,6 @@ In order to make requests work in swagger ui, application must be run with param
 ```
 mvn spring-boot:run -Dtomcat.util.http.parser.HttpParser.requestTargetAllow=|{}
 ```
+
+[prettier]: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+[eslint]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
