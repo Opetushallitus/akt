@@ -20,7 +20,7 @@ import {
   expectedTranslatorDetails,
 } from 'tests/jest/__fixtures__/translatorDetails';
 
-describe('Saga:TranslatorDetails', () => {
+describe('Saga:translatorDetails', () => {
   it('should invoke a LOADING action', () => {
     const genObject = watchFetchTranslatorDetails();
     const genTranslatorDetails = fetchTranslatorDetails();
@@ -34,12 +34,12 @@ describe('Saga:TranslatorDetails', () => {
     );
   });
 
-  it('should invole an ERROR action in case of API fails', async () => {
-    const dispatched: DispatchAction[] = [];
+  it('should invoke an ERROR action in case of API fails', async () => {
     jest.spyOn(axiosInstance, 'get').mockImplementationOnce(() => {
       throw 'Error!';
     });
 
+    const dispatched: DispatchAction[] = [];
     await dispatchSaga(dispatched, callFetchTranslatorDetails);
 
     expect(dispatched).toEqual([
@@ -49,7 +49,6 @@ describe('Saga:TranslatorDetails', () => {
   });
 
   it('should transform and store API results', async () => {
-    const dispatched: DispatchAction[] = [];
     const mockResponse = (
       _endpoint: string
     ): Promise<AxiosResponse<PublicTranslatorListApiResponse>> => {
@@ -57,6 +56,7 @@ describe('Saga:TranslatorDetails', () => {
     };
     jest.spyOn(axiosInstance, 'get').mockImplementationOnce(mockResponse);
 
+    const dispatched: DispatchAction[] = [];
     await dispatchSaga(dispatched, callFetchTranslatorDetails);
 
     expect(dispatched).toEqual([

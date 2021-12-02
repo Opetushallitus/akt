@@ -29,6 +29,9 @@ const getTranslatorDetailsRow = (
         />
       </TableCell>
       <TableCell>
+        <Text>{`${lastName} ${firstName}`}</Text>
+      </TableCell>
+      <TableCell>
         {languagePairs.map(({ fromLang, toLang }, k) => (
           <Text key={k}>
             {t(`akt.pages.translator.languages.${fromLang}`)}
@@ -36,9 +39,6 @@ const getTranslatorDetailsRow = (
             {t(`akt.pages.translator.languages.${toLang}`)}
           </Text>
         ))}
-      </TableCell>
-      <TableCell>
-        <Text>{`${firstName} ${lastName}`}</Text>
       </TableCell>
       <TableCell>
         <Text>{town}</Text>
@@ -55,13 +55,13 @@ const ListingHeader: FC = () => {
       <TableRow>
         <TableCell padding="checkbox"></TableCell>
         <TableCell>
-          <H3>{t('akt.pages.translator.languagePairs')}</H3>
-        </TableCell>
-        <TableCell>
           <H3>{t('akt.pages.translator.name')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('akt.pages.translator.hometown')}</H3>
+          <H3>{t('akt.pages.translator.languagePairs')}</H3>
+        </TableCell>
+        <TableCell>
+          <H3>{t('akt.pages.translator.town')}</H3>
         </TableCell>
       </TableRow>
     </TableHead>

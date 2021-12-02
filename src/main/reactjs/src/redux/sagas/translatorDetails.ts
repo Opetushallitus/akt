@@ -24,7 +24,6 @@ export function* storeApiResults(
 
 export function* fetchTranslatorDetails() {
   try {
-    console.log('Loading');
     yield put({ type: TRANSLATOR_DETAILS_LOADING });
     // TODO Add runtime validation (io-ts) for API response?
     const apiResults: AxiosResponse<PublicTranslatorListApiResponse> =

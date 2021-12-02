@@ -3,9 +3,9 @@
     "component": {
       "header": {
         "lang": {
-          "fi": "Suomeksi",
-          "sv": "På Svenska",
-          "en": "In English"
+          "fi": "suomeksi",
+          "sv": "på svenska",
+          "en": "in English"
         },
         "ophLink": {
           "text": "oph.fi",
@@ -48,15 +48,15 @@
     "pages": {
       "homepage": {
         "title": "Auktorisoitujen kääntäjien rekisteri",
-        "description": "Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä joko nimen tai käännöskielen mukaan. Hakutuloksista saat esiin tiedot auktorisoidun kääntäjän nimestä, asuinkunnasta sekä siitä, mistä kielestä mihin kieleen hänellä on oikeus toimia auktorisoituna kääntäjänä. Tutkintolautakunta ei valitettavasti voi julkaista kääntäjien yhteystietoja. Yhteystiedot voi pyytää alla olevalla hakukoneella."
+        "description": "Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä joko nimen tai käännöskielen mukaan. Hakutuloksista saat esiin tiedot auktorisoidun kääntäjän nimestä, asuinkunnasta sekä siitä, mistä kielestä mihin kieleen hänellä on oikeus toimia auktorisoituna kääntäjänä. Tutkintolautakunta ei valitettavasti voi julkaista kääntäjien yhteystietoja. Voit jättää valitsemellesi kääntäjille yhteydenottopyynnön alla olevalla hakulomakkeella."
       },
       "translator": {
         "name": "Nimi",
         "languagePairs": "Kieliparit",
-        "hometown": "Asuinkunta",
+        "town": "Asuinkunta",
         "languages": {
-          "fi": "Suomi",
-          "sv": "Ruotsi"
+          "fi": "suomi",
+          "sv": "ruotsi"
         }
       }
     },
