@@ -1,29 +1,32 @@
+import { Action } from 'redux';
+
+import { ApiResponseStatus } from 'enums/api';
+
 interface LanguagePair {
-  from: string;
-  to: string;
+  fromLang: string;
+  toLang: string;
 }
 
 export interface TranslatorDetails {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   languagePairs: Array<LanguagePair>;
   town: string;
   country: string;
 }
 
-export interface ApiTranslatorDetails {
-  id: number;
-  firstName: string;
-  lastName: string;
-  languagePairs: [
-    { fromLang: string; toLang: string; permissionToPublish: boolean }
-  ];
-  town: string;
-  country: string;
-}
-
 export interface PublicTranslatorListApiResponse {
-  content: Array<ApiTranslatorDetails>;
+  content: Array<TranslatorDetails>;
   numberOfElements: number;
   totalElements: number;
+}
+
+export interface TranslatorDetailsState {
+  status: ApiResponseStatus;
+  translators: Array<TranslatorDetails>;
+}
+export interface TranslatorDetailsAction extends Action<string> {
+  translatorDetails?: Array<TranslatorDetails>;
+  error?: Error;
 }
