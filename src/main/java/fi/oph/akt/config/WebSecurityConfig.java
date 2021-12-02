@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -18,15 +19,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
 		http
+				.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+
 				.formLogin().and()
+
 				.authorizeRequests()
-
 				.antMatchers("/api/v1/admin/**").access("hasRole('VIRKAILIJA')")
-
 				.antMatchers("/", "/**").permitAll()
-
 				.anyRequest().denyAll()
 				.and()
+
 				.exceptionHandling()
 				.accessDeniedHandler(CustomAccessDeniedHandler.create())
 		;
