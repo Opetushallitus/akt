@@ -45,7 +45,7 @@ export function PaginatedTable<T>({
         )}`}
       />
     ) : (
-      <H2>Kääntäjät</H2>
+      <H2>{t('akt.component.table.title')}</H2>
     );
 
   return (

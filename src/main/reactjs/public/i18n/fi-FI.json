@@ -16,6 +16,7 @@
         }
       },
       "table": {
+        "title": "Kääntäjät",
         "pagination": {
           "rowsPerPage": "Näytä sivulla"
         },
