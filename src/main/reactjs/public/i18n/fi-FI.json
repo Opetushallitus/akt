@@ -3,9 +3,9 @@
     "component": {
       "header": {
         "lang": {
-          "fi": "suomeksi",
-          "sv": "på svenska",
-          "en": "in English"
+          "fi": "Suomeksi",
+          "sv": "På Svenska",
+          "en": "In English"
         },
         "ophLink": {
           "text": "oph.fi",
