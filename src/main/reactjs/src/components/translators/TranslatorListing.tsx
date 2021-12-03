@@ -1,18 +1,24 @@
+import { FC, useState } from 'react';
 import { TableCell, Checkbox, TableHead, TableRow } from '@mui/material';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
+import { Box } from '@mui/system';
 
 import { H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
 import { TranslatorDetails } from 'interfaces/translator';
 import { Selectable } from 'interfaces/selectable';
+import { ProgressIndicator } from 'components/elements/ProgressIndicator';
+import { APIResponseStatus } from 'enums/api';
 
-const translatorDetailsRow = (
+const getTranslatorDetailsRow = (
   translator: TranslatorDetails,
+  t: TFunction,
   selectionProps: Selectable
 ) => {
-  const { name, languagePairs, hometown } = translator;
+  const { firstName, lastName, languagePairs, town } = translator;
   const { selected, toggleSelected } = selectionProps;
+
   return (
     <TableRow selected={selected} onClick={toggleSelected}>
       <TableCell padding="checkbox">
@@ -23,23 +29,25 @@ const translatorDetailsRow = (
         />
       </TableCell>
       <TableCell>
-        {languagePairs.map(({ from, to }, j) => (
-          <Text key={j}>
-            {from} - {to}
+        <Text>{`${lastName} ${firstName}`}</Text>
+      </TableCell>
+      <TableCell>
+        {languagePairs.map(({ fromLang, toLang }, k) => (
+          <Text key={k}>
+            {t(`akt.pages.translator.languages.${fromLang}`)}
+            {` - `}
+            {t(`akt.pages.translator.languages.${toLang}`)}
           </Text>
         ))}
       </TableCell>
       <TableCell>
-        <Text>{name}</Text>
-      </TableCell>
-      <TableCell>
-        <Text>{hometown}</Text>
+        <Text>{town}</Text>
       </TableCell>
     </TableRow>
   );
 };
 
-const ListingHeader = () => {
+const ListingHeader: FC = () => {
   const { t } = useTranslation();
 
   return (
@@ -47,13 +55,13 @@ const ListingHeader = () => {
       <TableRow>
         <TableCell padding="checkbox"></TableCell>
         <TableCell>
-          <H3>{t('akt.pages.translator.languagePairs')}</H3>
-        </TableCell>
-        <TableCell>
           <H3>{t('akt.pages.translator.name')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('akt.pages.translator.hometown')}</H3>
+          <H3>{t('akt.pages.translator.languagePairs')}</H3>
+        </TableCell>
+        <TableCell>
+          <H3>{t('akt.pages.translator.town')}</H3>
         </TableCell>
       </TableRow>
     </TableHead>
@@ -61,22 +69,51 @@ const ListingHeader = () => {
 };
 
 export const TranslatorListing = ({
+  status,
   translators,
 }: {
+  status: APIResponseStatus;
   translators: Array<TranslatorDetails>;
 }) => {
   const [selected, setSelected] = useState<Set<number>>(new Set());
+  const { t } = useTranslation();
 
-  return (
-    <PaginatedTable
-      className="translator-listing"
-      selectedIndices={selected}
-      setSelectedIndices={setSelected}
-      data={translators}
-      getRowDetails={translatorDetailsRow}
-      header={<ListingHeader />}
-      initialRowsPerPage={10}
-      rowsPerPageOptions={[10, 20, 50]}
-    />
-  );
+  switch (status) {
+    case APIResponseStatus.NotLoaded:
+    case APIResponseStatus.Loading:
+      return (
+        <Box
+          minHeight="10vh"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <ProgressIndicator />
+        </Box>
+      );
+    case APIResponseStatus.Error:
+      return (
+        <Box
+          minHeight="10vh"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <H3>{t('akt.errors.loadingFailed')}</H3>
+        </Box>
+      );
+    case APIResponseStatus.Loaded:
+      return (
+        <PaginatedTable
+          className="translator-listing"
+          selectedIndices={selected}
+          setSelectedIndices={setSelected}
+          data={translators}
+          getRowDetails={getTranslatorDetailsRow}
+          header={<ListingHeader />}
+          initialRowsPerPage={10}
+          rowsPerPageOptions={[10, 20, 50]}
+        />
+      );
+  }
 };
