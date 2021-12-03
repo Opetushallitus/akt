@@ -35,11 +35,11 @@ describe('Saga:translatorDetails', () => {
   });
 
   it('should invoke an ERROR action in case of API fails', async () => {
+    const dispatched: DispatchAction[] = [];
     jest.spyOn(axiosInstance, 'get').mockImplementationOnce(() => {
       throw 'Error!';
     });
 
-    const dispatched: DispatchAction[] = [];
     await dispatchSaga(dispatched, callFetchTranslatorDetails);
 
     expect(dispatched).toEqual([
@@ -49,6 +49,7 @@ describe('Saga:translatorDetails', () => {
   });
 
   it('should transform and store API results', async () => {
+    const dispatched: DispatchAction[] = [];
     const mockResponse = (
       _endpoint: string
     ): Promise<AxiosResponse<PublicTranslatorListApiResponse>> => {
@@ -56,7 +57,6 @@ describe('Saga:translatorDetails', () => {
     };
     jest.spyOn(axiosInstance, 'get').mockImplementationOnce(mockResponse);
 
-    const dispatched: DispatchAction[] = [];
     await dispatchSaga(dispatched, callFetchTranslatorDetails);
 
     expect(dispatched).toEqual([

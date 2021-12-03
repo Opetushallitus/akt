@@ -1,9 +1,9 @@
-import { Table, TableBody, TablePagination } from '@mui/material';
+import { Table, TableBody, TablePagination, Chip } from '@mui/material';
 import { ChangeEvent, Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { PaginatedTableProps } from 'interfaces/table';
-import { H3 } from 'components/elements/Text';
+import { H2 } from 'components/elements/Text';
 
 export function PaginatedTable<T>({
   header,
@@ -34,14 +34,24 @@ export function PaginatedTable<T>({
     }
   };
 
+  const showNumOfSelecteds = () =>
+    selectedIndices.size > 0 ? (
+      <Chip
+        color="secondary"
+        variant="outlined"
+        className="table__head-box__chip"
+        label={`${selectedIndices.size} ${t(
+          'akt.component.table.selectedItems'
+        )}`}
+      />
+    ) : (
+      <H2>Kääntäjät</H2>
+    );
+
   return (
     <>
       <div className="table__head-box">
-        {selectedIndices.size > 0 && (
-          <H3>{`${selectedIndices.size} ${t(
-            'akt.component.table.selectedItems'
-          )}`}</H3>
-        )}
+        {showNumOfSelecteds()}
         <TablePagination
           className="table__head-box__pagination"
           count={data.length}

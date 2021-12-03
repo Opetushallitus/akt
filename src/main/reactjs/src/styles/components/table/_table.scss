@@ -1,12 +1,19 @@
 .table {
+  table-layout: fixed;
+
   &__head-box {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
+    padding-left: 1.3rem;
 
     &__pagination {
       margin-left: auto;
+    }
+
+    & &__chip {
+      font-size: 1.5rem;
+      font-weight: bold;
     }
   }
 
