@@ -20,6 +20,19 @@ Or bring up individual services according to your needs:
 docker-compose up postgres frontend
 ```
 
+Or bring up individual services according to your needs:
+
+```sh
+docker-compose up postgres frontend
+```
+
+In case of errors, clean cache and recreate volumes: 
+
+```sh
+docker-compose down
+docker-compose up --build --force-recreate --renew-anon-volumes
+```
+
 The website is served by the frontend container at `http://localhost:4000`.
 The frontend container supports hot reload of frontend resources.
 

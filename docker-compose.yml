@@ -25,7 +25,7 @@ services:
     working_dir: /app/reactjs
     volumes:
       - ./src/main/reactjs:/app/reactjs
-      - nodemodules:/app/reactjs/node_modules
+      - /app/reactjs/node_modules
 
   postgres:
     build: db
