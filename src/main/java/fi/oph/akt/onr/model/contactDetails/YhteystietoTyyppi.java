@@ -1,8 +1,8 @@
-package fi.oph.akt.onr.model.yhteystieto;
+package fi.oph.akt.onr.model.contactDetails;
 
 import java.util.function.Function;
 
-public enum YhteystietoType {
+public enum YhteystietoTyyppi {
 
 	YHTEYSTIETO_SAHKOPOSTI(ReadableYhteystiedot::getSahkoposti, WritableYhteystiedot::setSahkoposti),
 
@@ -25,7 +25,7 @@ public enum YhteystietoType {
 
 	private final Setter<WritableYhteystiedot, String> setter;
 
-	YhteystietoType(Function<ReadableYhteystiedot, String> getter, Setter<WritableYhteystiedot, String> setter) {
+	YhteystietoTyyppi(Function<ReadableYhteystiedot, String> getter, Setter<WritableYhteystiedot, String> setter) {
 		this.getter = getter;
 		this.setter = setter;
 	}

@@ -15,11 +15,11 @@ import java.util.List;
 @Service
 public class OnrService extends OnrApi {
 
-	private final String onrApiUrl = "https://virkailija.testiopintopolku.fi/oppijanumerorekisteri-service";
+	private final String onrApiUrl = "https://virkailija.untuvaopintopolku.fi/oppijanumerorekisteri-service";
 
 	WebClient onrClient = WebClient.builder().baseUrl(onrApiUrl)
 			.defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
-			.defaultHeader("Caller-Id", "1.2.246.562.10.00000000001.yki").build();
+			.defaultHeader("Caller-Id", "1.2.246.562.10.00000000001.akt").build();
 
 	@Override
 	public List<HenkiloDto> getHenkiloDtos(List<String> oids) {

@@ -1,15 +1,11 @@
 package fi.oph.akt.onr;
 
 import fi.oph.akt.onr.model.HenkiloDto;
-import fi.oph.akt.onr.model.KielisyysDto;
-import fi.oph.akt.onr.model.yhteystieto.YhteystiedotRyhmaDto;
-import fi.oph.akt.onr.model.yhteystieto.YhteystietoDto;
-import fi.oph.akt.onr.model.yhteystieto.YhteystietoType;
+import fi.oph.akt.onr.model.contactDetails.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -48,8 +44,8 @@ class HenkiloDtoFactory {
 			"240636-9187", "080716A957T", "120137-9646", "180720A968M", "020713A978U", "130730-960R", "151084-927A",
 			"240714A9723", "290338-944C", "280554-9389" };
 
-	private static final String[] streets = { "Malminkatu", "Runebergintie", "Sibeliuksenkuja", "Veturitie",
-			"Pirkkolantie" };
+	private static final String[] streets = { "Malminkatu 1", "Runebergintie 2", "Sibeliuksenkuja 3", "Veturitie 4",
+			"Pirkkolantie 123" };
 
 	private static final String[] postalCodes = { "00100", "01200", "06100", "13500", "31600", "48600", "54460" };
 
@@ -69,32 +65,57 @@ class HenkiloDtoFactory {
 			secondName = womenSecondNames[rand.nextInt(womenSecondNames.length)];
 		}
 
-		HenkiloDto henkiloDto = HenkiloDto.builder().oidHenkilo(oid)
-				.hetu(identityNumbers[rand.nextInt(identityNumbers.length)]).etunimet(nickname + " " + secondName)
-				.kutsumanimi(nickname).sukunimi(surnames[rand.nextInt(surnames.length)])
-				.aidinkieli(new KielisyysDto("fi", "suomi")).build();
+		//@formatter:off
+		HenkiloDto henkiloDto = HenkiloDto.builder()
+				.oidHenkilo(oid)
+				.hetu(identityNumbers[rand.nextInt(identityNumbers.length)])
+				.etunimet(nickname + " " + secondName)
+				.kutsumanimi(nickname)
+				.sukunimi(surnames[rand.nextInt(surnames.length)])
+				.build();
+		//@formatter:on
 
 		henkiloDto.setSyntymaaika(getBirthDateByIdentityNumber(henkiloDto.getHetu()));
 
-		Set<YhteystietoDto> yhteystiedot = new HashSet<>();
-		yhteystiedot
-				.add(new YhteystietoDto(YhteystietoType.YHTEYSTIETO_KATUOSOITE, streets[rand.nextInt(streets.length)]));
-		yhteystiedot.add(new YhteystietoDto(YhteystietoType.YHTEYSTIETO_POSTINUMERO,
-				postalCodes[rand.nextInt(postalCodes.length)]));
-		yhteystiedot.add(new YhteystietoDto(YhteystietoType.YHTEYSTIETO_KAUPUNKI, towns[rand.nextInt(towns.length)]));
-		yhteystiedot.add(new YhteystietoDto(YhteystietoType.YHTEYSTIETO_MAA, "Suomi"));
-		yhteystiedot.add(new YhteystietoDto(YhteystietoType.YHTEYSTIETO_SAHKOPOSTI,
-				henkiloDto.getKutsumanimi() + "." + henkiloDto.getSukunimi() + "@test.fi"));
-		yhteystiedot.add(new YhteystietoDto(YhteystietoType.YHTEYSTIETO_PUHELINNUMERO,
-				"+35840" + (1000000 + rand.nextInt(9000000))));
-
-		YhteystiedotRyhmaDto yhteystiedotRyhma = new YhteystiedotRyhmaDto();
-		yhteystiedotRyhma.setYhteystieto(yhteystiedot);
-
-		henkiloDto.setYhteystiedotRyhma(new HashSet<>());
-		henkiloDto.getYhteystiedotRyhma().add(yhteystiedotRyhma);
+		henkiloDto
+				.setYhteystiedotRyhma(Set.of(createAktContactDetails(henkiloDto, rand), createVtjContactDetails(rand)));
 
 		return henkiloDto;
+	}
+
+	private static ContactDetailsGroupDto createAktContactDetails(HenkiloDto henkiloDto, Random rand) {
+		ContactDetailsGroupDto detailsGroup = new ContactDetailsGroupDto();
+
+		String email = henkiloDto.getKutsumanimi().toLowerCase() + "." + henkiloDto.getSukunimi().toLowerCase()
+				+ "@akt.fi";
+		String phone = "+35840" + (1000000 + rand.nextInt(9000000));
+
+		Set<ContactDetailsDto> detailsSet = Set.of(
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_SAHKOPOSTI, email),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_PUHELINNUMERO, phone));
+
+		detailsGroup.setType(ContactDetailsGroupType.CONTACT_DETAILS_FILLED_FOR_APPLICATION);
+		detailsGroup.setSource(ContactDetailsGroupSource.AKT);
+		detailsGroup.setDetailsSet(detailsSet);
+
+		return detailsGroup;
+	}
+
+	private static ContactDetailsGroupDto createVtjContactDetails(Random rand) {
+		ContactDetailsGroupDto detailsGroup = new ContactDetailsGroupDto();
+
+		Set<ContactDetailsDto> detailsSet = Set.of(
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KATUOSOITE, streets[rand.nextInt(streets.length)]),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_POSTINUMERO,
+						postalCodes[rand.nextInt(postalCodes.length)]),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KAUPUNKI, towns[rand.nextInt(towns.length)]),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_MAA, "Suomi"));
+
+		detailsGroup.setType(ContactDetailsGroupType.VTJ_REGULAR_DOMESTIC_ADDRESS);
+		detailsGroup.setSource(ContactDetailsGroupSource.VTJ);
+		detailsGroup.setDetailsSet(detailsSet);
+
+		return detailsGroup;
 	}
 
 	private static LocalDate getBirthDateByIdentityNumber(String identityNumber) {

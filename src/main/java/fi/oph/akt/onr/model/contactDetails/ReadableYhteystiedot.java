@@ -1,4 +1,4 @@
-package fi.oph.akt.onr.model.yhteystieto;
+package fi.oph.akt.onr.model.contactDetails;
 
 public interface ReadableYhteystiedot {
 

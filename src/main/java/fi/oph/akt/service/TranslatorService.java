@@ -69,9 +69,6 @@ public class TranslatorService {
 				.postalCode(details.postalCode())
 				.town(details.town())
 				.country(details.country())
-				.birthDate(details.birthDate())
-				.identityNumber(details.identityNumber())
-				.nativeLanguage(details.nativeLanguage())
 				.build();
 		// @formatter:on
 	}
