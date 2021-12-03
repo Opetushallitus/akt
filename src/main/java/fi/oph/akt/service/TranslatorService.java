@@ -11,18 +11,25 @@ import fi.oph.akt.onr.OnrServiceMock;
 import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorLanguagePairProjection;
 import fi.oph.akt.repository.TranslatorRepository;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StopWatch;
 
 @Service
 public class TranslatorService {
+
+	private static final Logger LOG = LoggerFactory.getLogger(TranslatorService.class);
 
 	@Resource
 	private TranslatorRepository translatorRepository;
@@ -40,8 +47,9 @@ public class TranslatorService {
 
 		final Map<String, TranslatorDetails> translatorDetails = getTranslatorsDetails(translators.stream());
 
-		final List<TranslatorLanguagePairProjection> translatorLanguagePairs = languagePairRepository
-				.findTranslatorLanguagePairs(translators.stream().map(Translator::getId).toList());
+		final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs = languagePairRepository
+				.findTranslatorLanguagePairs(translators.stream().map(Translator::getId).toList()).stream()
+				.collect(Collectors.groupingBy(TranslatorLanguagePairProjection::translatorId));
 
 		final List<TranslatorDTO> result = translators.stream().map(t -> {
 			final TranslatorDetails details = translatorDetails.get(t.getOnrOid());
@@ -74,9 +82,9 @@ public class TranslatorService {
 	}
 
 	private List<LanguagePairDTO> getLanguagePairDTOs(
-			final List<TranslatorLanguagePairProjection> translatorLanguagePairs, final Translator t) {
+			final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs, final Translator t) {
 
-		return translatorLanguagePairs.stream().filter(tlp -> tlp.translatorId() == t.getId())
+		return translatorLanguagePairs.getOrDefault(t.getId(), Collections.emptyList()).stream()
 				.map(tlp -> LanguagePairDTO.builder().fromLang(tlp.fromLang()).toLang(tlp.toLang())
 						.permissionToPublish(tlp.permissionToPublish()).build())
 				.toList();
@@ -84,15 +92,27 @@ public class TranslatorService {
 
 	@Transactional(readOnly = true)
 	public Page<PublicTranslatorDTO> listPublicTranslators(Pageable pageable) {
+		final StopWatch st = new StopWatch();
+
+		st.start("findIDsForPublicListing");
 		final Page<Long> translatorIds = translatorRepository.findIDsForPublicListing(pageable);
+		st.stop();
 
+		st.start("findAllById");
 		final List<Translator> translators = translatorRepository.findAllById(translatorIds);
+		st.stop();
 
+		st.start("getTranslatorsDetails");
 		final Map<String, TranslatorDetails> translatorDetails = getTranslatorsDetails(translators.stream());
+		st.stop();
 
-		final List<TranslatorLanguagePairProjection> translatorLanguagePairs = languagePairRepository
-				.findTranslatorLanguagePairsForPublicListing(translators.stream().map(Translator::getId).toList());
+		st.start("findTranslatorLanguagePairsForPublicListing");
+		final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs = languagePairRepository
+				.findTranslatorLanguagePairsForPublicListing(translators.stream().map(Translator::getId).toList())
+				.stream().collect(Collectors.groupingBy(TranslatorLanguagePairProjection::translatorId));
+		st.stop();
 
+		st.start("translators.stream()");
 		final List<PublicTranslatorDTO> result = translators.stream().map(t -> {
 			final TranslatorDetails details = translatorDetails.get(t.getOnrOid());
 
@@ -102,6 +122,8 @@ public class TranslatorService {
 					.town(details.town()).country(details.country()).languagePairs(languagePairDTOs).build();
 		}).toList();
 
+		st.stop();
+		LOG.info(st.prettyPrint());
 		return new PageImpl<>(result, translatorIds.getPageable(), translatorIds.getTotalElements());
 	}
 
@@ -110,9 +132,9 @@ public class TranslatorService {
 	}
 
 	private List<PublicLanguagePairDTO> getPublicLanguagePairDTOs(
-			final List<TranslatorLanguagePairProjection> translatorLanguagePairs, final Translator t) {
+			final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs, final Translator t) {
 
-		return translatorLanguagePairs.stream().filter(tlp -> tlp.translatorId() == t.getId())
+		return translatorLanguagePairs.getOrDefault(t.getId(), Collections.emptyList()).stream()
 				.map(tlp -> PublicLanguagePairDTO.builder().fromLang(tlp.fromLang()).toLang(tlp.toLang()).build())
 				.toList();
 	}
