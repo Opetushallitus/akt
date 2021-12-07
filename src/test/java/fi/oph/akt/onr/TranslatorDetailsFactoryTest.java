@@ -1,6 +1,5 @@
 package fi.oph.akt.onr;
 
-import fi.oph.akt.model.TranslatorDetails;
 import fi.oph.akt.onr.model.HenkiloDto;
 import fi.oph.akt.onr.model.contactDetails.ContactDetailsDto;
 import fi.oph.akt.onr.model.contactDetails.ContactDetailsGroupDto;
@@ -24,9 +23,8 @@ public class TranslatorDetailsFactoryTest {
 
 		TranslatorDetails details = TranslatorDetailsFactory.createByHenkiloDto(henkiloDto);
 
-		assertEquals("Anna", details.nickname());
-		assertEquals("Anna Maija", details.firstNames());
-		assertEquals("Mattila", details.surname());
+		assertEquals("Anna", details.firstName());
+		assertEquals("Mattila", details.lastName());
 		assertEquals("anna.mattila@test.fi", details.email());
 		assertEquals("+358401234567", details.phone());
 		assertEquals("+358402345678", details.mobilePhone());
@@ -46,9 +44,8 @@ public class TranslatorDetailsFactoryTest {
 
 		TranslatorDetails details = TranslatorDetailsFactory.createByHenkiloDto(henkiloDto);
 
-		assertEquals("Anna", details.nickname());
-		assertEquals("Anna Maija", details.firstNames());
-		assertEquals("Mattila", details.surname());
+		assertEquals("Anna", details.firstName());
+		assertEquals("Mattila", details.lastName());
 		assertEquals("anna.mattila@akt.fi", details.email());
 		assertEquals("+358401122334", details.phone());
 		assertEquals("+358402345678", details.mobilePhone());
@@ -63,7 +60,6 @@ public class TranslatorDetailsFactoryTest {
 	private HenkiloDto createBasicHenkiloDto() {
 		//@formatter:off
 		return HenkiloDto.builder()
-				.etunimet("Anna Maija")
 				.kutsumanimi("Anna")
 				.sukunimi("Mattila")
 				.syntymaaika(LocalDate.parse("1983-01-27"))

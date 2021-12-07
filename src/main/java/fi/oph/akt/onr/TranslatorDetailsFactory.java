@@ -1,6 +1,5 @@
 package fi.oph.akt.onr;
 
-import fi.oph.akt.model.TranslatorDetails;
 import fi.oph.akt.onr.model.HenkiloDto;
 import fi.oph.akt.onr.model.contactDetails.ContactDetailsDto;
 import fi.oph.akt.onr.model.contactDetails.ContactDetailsGroupDto;
@@ -13,21 +12,18 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.Comparator.*;
-
 public class TranslatorDetailsFactory {
 
 	private static final Comparator<String> groupsComparator = new CustomOrderComparator<>(
 			ContactDetailsGroupType.prioritisedOrdering);
 
-	public static TranslatorDetails createByHenkiloDto(HenkiloDto henkilo) {
+	public static TranslatorDetails createByHenkiloDto(HenkiloDto henkiloDto) {
 		// @formatter:off
-		List<ContactDetailsGroupDto> groups = getOrderedContactDetailsGroups(henkilo);
+		List<ContactDetailsGroupDto> groups = getOrderedContactDetailsGroups(henkiloDto);
 
 		return TranslatorDetails.builder()
-				.nickname(henkilo.getKutsumanimi())
-				.firstNames(henkilo.getEtunimet())
-				.surname(henkilo.getSukunimi())
+				.firstName(henkiloDto.getKutsumanimi())
+				.lastName(henkiloDto.getSukunimi())
 				.email(getValue(groups, YhteystietoTyyppi.YHTEYSTIETO_SAHKOPOSTI))
 				.phone(getValue(groups, YhteystietoTyyppi.YHTEYSTIETO_PUHELINNUMERO))
 				.mobilePhone(getValue(groups, YhteystietoTyyppi.YHTEYSTIETO_MATKAPUHELINNUMERO))
@@ -35,8 +31,8 @@ public class TranslatorDetailsFactory {
 				.postalCode(getValue(groups, YhteystietoTyyppi.YHTEYSTIETO_POSTINUMERO))
 				.town(getValue(groups, YhteystietoTyyppi.YHTEYSTIETO_KAUPUNKI))
 				.country(getValue(groups, YhteystietoTyyppi.YHTEYSTIETO_MAA))
-				.birthDate(henkilo.getSyntymaaika())
-				.identityNumber(henkilo.getHetu())
+				.birthDate(henkiloDto.getSyntymaaika())
+				.identityNumber(henkiloDto.getHetu())
 				.build();
 		// @formatter:on
 	}
@@ -52,7 +48,7 @@ public class TranslatorDetailsFactory {
 		List<ContactDetailsGroupDto> otherGroups = henkiloDto
 				.getYhteystiedotRyhma()
 				.stream()
-				.sorted(comparing(ContactDetailsGroupDto::getType, nullsLast(groupsComparator.thenComparing(naturalOrder()))))
+				.sorted(Comparator.comparing(ContactDetailsGroupDto::getType, Comparator.nullsLast(groupsComparator.thenComparing(Comparator.naturalOrder()))))
 				.filter(group -> !group.getType().equals(ContactDetailsGroupType.HOME_ADDRESS))
 				.toList();
 

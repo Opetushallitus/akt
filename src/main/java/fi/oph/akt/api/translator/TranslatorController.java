@@ -1,7 +1,7 @@
 package fi.oph.akt.api.translator;
 
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
-import fi.oph.akt.service.TranslatorService;
+import fi.oph.akt.service.PublicTranslatorService;
 import io.swagger.v3.oas.annotations.Parameter;
 import javax.annotation.Resource;
 import org.springframework.data.domain.Page;
@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class TranslatorController {
 
 	@Resource
-	private TranslatorService translatorService;
+	private PublicTranslatorService publicTranslatorService;
 
 	@GetMapping(path = "")
 	public Page<PublicTranslatorDTO> listAll(@RequestParam(required = false) Integer size,
 			@RequestParam(required = false) Integer page,
 			@Parameter(hidden = true) @PageableDefault(size = 10_000) Pageable pageable) {
 
-		return translatorService.listPublicTranslators(pageable);
+		return publicTranslatorService.list(pageable);
 	}
 
 }
