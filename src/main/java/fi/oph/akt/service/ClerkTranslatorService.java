@@ -14,9 +14,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.Resource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,8 +31,8 @@ public class ClerkTranslatorService {
 	private OnrServiceMock onrServiceMock;
 
 	@Transactional(readOnly = true)
-	public Page<ClerkTranslatorDTO> list(Pageable pageable) {
-		final Page<Translator> translators = translatorRepository.findAll(pageable);
+	public List<ClerkTranslatorDTO> list() {
+		final List<Translator> translators = translatorRepository.findAll();
 
 		final Map<String, TranslatorDetails> translatorDetails = getTranslatorsDetails(translators.stream());
 
@@ -43,15 +40,13 @@ public class ClerkTranslatorService {
 				.findTranslatorLanguagePairs(translators.stream().map(Translator::getId).toList()).stream()
 				.collect(Collectors.groupingBy(TranslatorLanguagePairProjection::translatorId));
 
-		final List<ClerkTranslatorDTO> result = translators.stream().map(translator -> {
+		return translators.stream().map(translator -> {
 			final TranslatorDetails details = translatorDetails.get(translator.getOnrOid());
 			final List<ClerkLanguagePairDTO> languagePairDTOs = getLanguagePairDTOs(translatorLanguagePairs,
 					translator);
 
 			return createClerkTranslatorDTO(translator, details, languagePairDTOs);
 		}).toList();
-
-		return new PageImpl<>(result, translators.getPageable(), translators.getTotalElements());
 	}
 
 	private Map<String, TranslatorDetails> getTranslatorsDetails(Stream<Translator> translators) {

@@ -11,15 +11,9 @@ export interface TranslatorDetails {
   id: number;
   firstName: string;
   lastName: string;
-  languagePairs: Array<LanguagePair>;
   town: string;
   country: string;
-}
-
-export interface PublicTranslatorListApiResponse {
-  content: Array<TranslatorDetails>;
-  numberOfElements: number;
-  totalElements: number;
+  languagePairs: Array<LanguagePair>;
 }
 
 export interface TranslatorDetailsState {

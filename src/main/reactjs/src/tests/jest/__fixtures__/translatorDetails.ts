@@ -1,21 +1,16 @@
 import { TranslatorDetails } from 'interfaces/translator';
 
-export const createApiResponse = (apiResponse: Array<TranslatorDetails>) => {
-  const response = {
-    data: {
-      content: apiResponse,
-      numberOfElements: 1,
-      totalElements: 1,
-    },
+export const createApiResponse = (publicTranslators: Array<TranslatorDetails>) => {
+  return {
+    data: publicTranslators,
     status: 200,
     statusText: 'ok',
     headers: {},
     config: {},
   };
-  return response;
 };
 
-export const expectedTranslatorDetails: Array<TranslatorDetails> = [
+export const expectedPublicTranslators: Array<TranslatorDetails> = [
   {
     id: 1,
     firstName: 'Testi',
