@@ -32,11 +32,11 @@ const getTranslatorDetailsRow = (
         <Text>{`${lastName} ${firstName}`}</Text>
       </TableCell>
       <TableCell>
-        {languagePairs.map(({ fromLang, toLang }, k) => (
+        {languagePairs.map(({ from, to }, k) => (
           <Text key={k}>
-            {t(`akt.pages.translator.languages.${fromLang}`)}
+            {t(`akt.pages.translator.languages.${from}`)}
             {` - `}
-            {t(`akt.pages.translator.languages.${toLang}`)}
+            {t(`akt.pages.translator.languages.${to}`)}
           </Text>
         ))}
       </TableCell>

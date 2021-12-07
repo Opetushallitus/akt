@@ -20,7 +20,7 @@ export const expectedTranslatorDetails: Array<TranslatorDetails> = [
     id: 1,
     firstName: 'Testi',
     lastName: 'Esimerkki',
-    languagePairs: [{ fromLang: 'fi', toLang: 'sv' }],
+    languagePairs: [{ from: 'fi', to: 'sv' }],
     town: 'Espoo',
     country: 'Suomi',
   },

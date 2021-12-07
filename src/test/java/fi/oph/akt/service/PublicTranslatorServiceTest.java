@@ -1,7 +1,6 @@
 package fi.oph.akt.service;
 
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
-import fi.oph.akt.api.dto.TranslatorDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTerm;
@@ -14,45 +13,31 @@ import java.util.UUID;
 import fi.oph.akt.onr.OnrServiceMock;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-@Import({ TranslatorService.class, OnrServiceMock.class })
-class TranslatorServiceTest {
+@Import({ PublicTranslatorService.class, OnrServiceMock.class })
+class PublicTranslatorServiceTest {
 
 	@Autowired
 	private TestEntityManager entityManager;
 
 	@Autowired
-	private TranslatorService translatorService;
+	private PublicTranslatorService publicTranslatorService;
 
 	@Test
-	public void listTranslatorsTest() {
+	public void listShouldReturnTranslatorsWithActiveTermAndHavingLanguagePairsWithPermissionToBePublished() {
 		createVariousTranslators();
 
-		Pageable pageable = Mockito.mock(Pageable.class);
-		Mockito.when(pageable.isUnpaged()).thenReturn(true);
+		final Page<PublicTranslatorDTO> publicTranslatorDTOS = publicTranslatorService.list(null);
 
-		final Page<TranslatorDTO> translatorDTOS = translatorService.listTranslators(pageable);
-
-		assertEquals(7, translatorDTOS.getSize());
-	}
-
-	@Test
-	public void listPublicTranslatorsTest() {
-		createVariousTranslators();
-
-		final Page<PublicTranslatorDTO> translatorDTOS = translatorService.listPublicTranslators(null);
-
-		assertEquals(3, translatorDTOS.getSize());
+		assertEquals(3, publicTranslatorDTOS.getSize());
 	}
 
 	private void createVariousTranslators() {

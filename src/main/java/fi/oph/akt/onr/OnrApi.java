@@ -1,6 +1,5 @@
 package fi.oph.akt.onr;
 
-import fi.oph.akt.model.TranslatorDetails;
 import fi.oph.akt.onr.model.HenkiloDto;
 
 import java.util.HashMap;

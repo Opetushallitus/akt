@@ -3,8 +3,8 @@ import { Action } from 'redux';
 import { APIResponseStatus } from 'enums/api';
 
 interface LanguagePair {
-  fromLang: string;
-  toLang: string;
+  from: string;
+  to: string;
 }
 
 export interface TranslatorDetails {

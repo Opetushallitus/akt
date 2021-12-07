@@ -1,7 +1,7 @@
-package fi.oph.akt.api.admin;
+package fi.oph.akt.api.clerk;
 
-import fi.oph.akt.api.dto.TranslatorDTO;
-import fi.oph.akt.service.TranslatorService;
+import fi.oph.akt.api.dto.ClerkTranslatorDTO;
+import fi.oph.akt.service.ClerkTranslatorService;
 import io.swagger.v3.oas.annotations.Parameter;
 import javax.annotation.Resource;
 import org.springframework.data.domain.Page;
@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/admin/translator", produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminTranslatorController {
+@RequestMapping(value = "/api/v1/clerk/translator", produces = MediaType.APPLICATION_JSON_VALUE)
+public class ClerkTranslatorController {
 
 	@Resource
-	private TranslatorService translatorService;
+	private ClerkTranslatorService clerkTranslatorService;
 
 	@GetMapping(path = "")
-	public Page<TranslatorDTO> listTranslators(@RequestParam(required = false) Integer size,
+	public Page<ClerkTranslatorDTO> list(@RequestParam(required = false) Integer size,
 			@RequestParam(required = false) Integer page,
 			@Parameter(hidden = true) @PageableDefault(size = 10_000) Pageable pageable) {
 
-		return translatorService.listTranslators(pageable);
+		return clerkTranslatorService.list(pageable);
 	}
 
 }
