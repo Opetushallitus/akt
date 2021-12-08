@@ -8,18 +8,16 @@ import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import fi.oph.akt.onr.OnrServiceMock;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -37,12 +35,9 @@ class ClerkTranslatorServiceTest {
 	public void listShouldReturnAllTranslators() {
 		createVariousTranslators();
 
-		Pageable pageable = Mockito.mock(Pageable.class);
-		Mockito.when(pageable.isUnpaged()).thenReturn(true);
+		final List<ClerkTranslatorDTO> clerkTranslatorDTOS = clerkTranslatorService.list();
 
-		final Page<ClerkTranslatorDTO> clerkTranslatorDTOS = clerkTranslatorService.list(pageable);
-
-		assertEquals(7, clerkTranslatorDTOS.getSize());
+		assertEquals(7, clerkTranslatorDTOS.size());
 	}
 
 	private void createVariousTranslators() {

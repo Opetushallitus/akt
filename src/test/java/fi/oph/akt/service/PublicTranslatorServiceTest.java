@@ -8,6 +8,7 @@ import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import fi.oph.akt.onr.OnrServiceMock;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.Page;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -35,9 +35,9 @@ class PublicTranslatorServiceTest {
 	public void listShouldReturnTranslatorsWithActiveTermAndHavingLanguagePairsWithPermissionToBePublished() {
 		createVariousTranslators();
 
-		final Page<PublicTranslatorDTO> publicTranslatorDTOS = publicTranslatorService.list(null);
+		final List<PublicTranslatorDTO> publicTranslatorDTOS = publicTranslatorService.list();
 
-		assertEquals(3, publicTranslatorDTOS.getSize());
+		assertEquals(3, publicTranslatorDTOS.size());
 	}
 
 	private void createVariousTranslators() {

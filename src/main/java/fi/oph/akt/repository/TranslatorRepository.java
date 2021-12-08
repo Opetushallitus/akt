@@ -1,10 +1,10 @@
 package fi.oph.akt.repository;
 
 import fi.oph.akt.model.Translator;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 public interface TranslatorRepository extends JpaRepository<Translator, Long> {
 
@@ -17,6 +17,6 @@ public interface TranslatorRepository extends JpaRepository<Translator, Long> {
 			" AND CURRENT_DATE >= term.beginDate" +
 			" AND (CURRENT_DATE <= term.endDate OR term.endDate IS NULL)")
 	// @formatter:on
-	Page<Long> findIDsForPublicListing(Pageable pageable);
+	List<Long> findIDsForPublicListing();
 
 }

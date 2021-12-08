@@ -16,9 +16,6 @@ import java.util.stream.Stream;
 import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StopWatch;
@@ -39,11 +36,11 @@ public class PublicTranslatorService {
 	private OnrServiceMock onrServiceMock;
 
 	@Transactional(readOnly = true)
-	public Page<PublicTranslatorDTO> list(Pageable pageable) {
+	public List<PublicTranslatorDTO> list() {
 		final StopWatch st = new StopWatch();
 
 		st.start("findIDsForPublicListing");
-		final Page<Long> translatorIds = translatorRepository.findIDsForPublicListing(pageable);
+		final List<Long> translatorIds = translatorRepository.findIDsForPublicListing();
 		st.stop();
 
 		st.start("findAllById");
@@ -68,10 +65,10 @@ public class PublicTranslatorService {
 
 			return createPublicTranslatorDTO(translator, details, languagePairDTOs);
 		}).toList();
-
 		st.stop();
+
 		LOG.info(st.prettyPrint());
-		return new PageImpl<>(result, translatorIds.getPageable(), translatorIds.getTotalElements());
+		return result;
 	}
 
 	private Map<String, TranslatorDetails> getTranslatorsDetails(Stream<Translator> translators) {
