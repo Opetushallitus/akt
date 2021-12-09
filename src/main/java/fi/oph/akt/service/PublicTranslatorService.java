@@ -11,6 +11,8 @@ import fi.oph.akt.repository.TranslatorRepository;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.Resource;
@@ -85,12 +87,18 @@ public class PublicTranslatorService {
 	private PublicTranslatorDTO createPublicTranslatorDTO(Translator translator, TranslatorDetails details,
 			List<PublicLanguagePairDTO> languagePairDTOS) {
 		// @formatter:off
+
+		String country = Optional
+				.ofNullable(details.country())
+				.filter(c -> !(Set.of("suomi", "finland").contains(c.toLowerCase())))
+				.orElse(null);
+
 		return PublicTranslatorDTO.builder()
 				.id(translator.getId())
 				.firstName(details.firstName())
 				.lastName(details.lastName())
 				.town(details.town())
-				.country(details.country())
+				.country(country)
 				.languagePairs(languagePairDTOS)
 				.build();
 		// @formatter:on
