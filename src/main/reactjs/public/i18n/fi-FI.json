@@ -56,8 +56,27 @@
         "languagePairs": "Kieliparit",
         "town": "Asuinkunta",
         "languages": {
+          "bn": "bengali",
+          "bo": "tiibet",
+          "ca": "katalaani",
+          "cs": "tšekki",
+          "da": "tanska",
+          "de": "saksa",
+          "el": "kreikka",
+          "en": "englanti",
+          "et": "viro",
           "fi": "suomi",
-          "sv": "ruotsi"
+          "fj": "fidži",
+          "fo": "fääri",
+          "fr": "ranska",
+          "ga": "iiri",
+          "he": "heprea",
+          "hr": "kroatia",
+          "hu": "unkari",
+          "ru": "venäjä",
+          "sv": "ruotsi",
+          "tt": "tataari",
+          "ty": "tahiti"
         }
       }
     },
