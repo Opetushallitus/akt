@@ -73,13 +73,21 @@ public class PublicTranslatorService {
 		}).toList();
 		st.stop();
 
+		st.start("getLanguagePairListDTO()");
+		LanguagePairListDTO languagePairListDTO = getLanguagePairListDTO();
+		st.stop();
+
+		st.start("getDistinctTowns");
+		List<String> towns = getDistinctTowns(translatorDetails.values());
+		st.stop();
+
 		LOG.info(st.prettyPrint());
 
 		// @formatter:off
 		return PublicTranslatorListDTO.builder()
 				.translators(publicTranslatorDTOS)
-				.langs(getLanguagePairListDTO())
-				.towns(getDistinctTowns(translatorDetails.values()))
+				.langs(languagePairListDTO)
+				.towns(towns)
 				.build();
 		// @formatter:on
 	}
