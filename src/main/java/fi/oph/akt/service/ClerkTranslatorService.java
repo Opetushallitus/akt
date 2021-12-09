@@ -11,8 +11,6 @@ import fi.oph.akt.repository.TranslatorRepository;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.Resource;
@@ -67,12 +65,6 @@ public class ClerkTranslatorService {
 	private ClerkTranslatorDTO createClerkTranslatorDTO(Translator translator, TranslatorDetails details,
 			List<ClerkLanguagePairDTO> languagePairDTOS) {
 		// @formatter:off
-
-		String country = Optional
-				.ofNullable(details.country())
-				.filter(c -> !(Set.of("suomi", "finland").contains(c.toLowerCase())))
-				.orElse(null);
-
         return ClerkTranslatorDTO.builder()
                 .id(translator.getId())
                 .oid(translator.getOnrOid())
@@ -84,7 +76,7 @@ public class ClerkTranslatorService {
                 .street(details.street())
                 .postalCode(details.postalCode())
                 .town(details.town())
-                .country(country)
+                .country(details.country())
                 .languagePairs(languagePairDTOS)
                 .build();
         // @formatter:on
