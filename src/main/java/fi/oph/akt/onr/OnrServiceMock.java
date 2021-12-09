@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class OnrServiceMock extends OnrApi {
@@ -60,7 +61,10 @@ class HenkiloDtoFactory {
 			"54460");
 
 	private final Iterator<String> towns = cyclicIter("Helsinki", "Turku", "Hämeenlinna", "Kuopio", "Lahti", "Porvoo",
-			"Vantaa");
+			"Vantaa", "Järvenpää", "Kouvola", "Tampere", "Oulu", "Rovaniemi", "Kajaani", "Joensuu", "Uusikaupunki",
+			"Kuopio", "Kotka");
+
+	private final Iterator<String> countries = cyclicIter("Suomi", "suomi", "SUOMI", "Finland", "", "Latvia");
 
 	private boolean genderToggle = false;
 
@@ -119,17 +123,29 @@ class HenkiloDtoFactory {
 	private ContactDetailsGroupDto createVtjContactDetails() {
 		ContactDetailsGroupDto detailsGroup = new ContactDetailsGroupDto();
 
+		String country = countries.next();
+		boolean foreignCountry = country.equalsIgnoreCase("Latvia");
+
 		Set<ContactDetailsDto> detailsSet = Set.of(
-				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KATUOSOITE, streets.next()),
-				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_POSTINUMERO, postalCodes.next()),
-				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KAUPUNKI, towns.next()),
-				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_MAA, "Suomi"));
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KATUOSOITE,
+						reverseIf(foreignCountry, streets.next())),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_POSTINUMERO,
+						reverseIf(foreignCountry, postalCodes.next())),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_KAUPUNKI, reverseIf(foreignCountry, towns.next())),
+				new ContactDetailsDto(YhteystietoTyyppi.YHTEYSTIETO_MAA, country));
 
 		detailsGroup.setType(ContactDetailsGroupType.VTJ_REGULAR_DOMESTIC_ADDRESS);
 		detailsGroup.setSource(ContactDetailsGroupSource.VTJ);
 		detailsGroup.setDetailsSet(detailsSet);
 
 		return detailsGroup;
+	}
+
+	private static String reverseIf(boolean reverse, String str) {
+		if (reverse) {
+			return StringUtils.capitalize(new StringBuffer(str.toLowerCase()).reverse().toString());
+		}
+		return str;
 	}
 
 	private LocalDate getBirthDateByIdentityNumber(String identityNumber) {
