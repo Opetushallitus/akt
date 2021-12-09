@@ -94,11 +94,11 @@ INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_pu
 );
 INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
     SELECT authorisation_id, 'hr', 'hu', true
-    FROM authorisation where authorisation.authorisation_id % 403 = 0
+    FROM authorisation where authorisation.authorisation_id % 601 = 0
 );
 INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
     SELECT authorisation_id, 'tt', 'ty', true
-    FROM authorisation where authorisation.authorisation_id % 407 = 0
+    FROM authorisation where authorisation.authorisation_id % 607 = 0
 );
 
 -- en - not published
