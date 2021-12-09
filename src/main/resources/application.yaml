@@ -7,6 +7,8 @@ spring:
     url: ${postgresql.url:jdbc:postgresql://localhost:5432/postgres}
     username: ${postgresql.username:postgres}
     password: ${postgresql.password:postgres}
+  jackson:
+    default-property-inclusion: non_null
   jpa:
     open-in-view: false
     show-sql: true

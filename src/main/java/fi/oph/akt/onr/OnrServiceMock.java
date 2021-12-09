@@ -32,17 +32,11 @@ class HenkiloDtoFactory {
 		return new CyclicIterable<String>(List.of(values)).iterator();
 	}
 
-	private final Iterator<String> menFirstNames = cyclicIter("Antti", "Eero", "Ilkka", "Jari", "Juha", "Matti",
-			"Pekka", "Timo");
+	private final Iterator<String> menNames = cyclicIter("Antti", "Eero", "Ilkka", "Jari", "Juha", "Matti", "Pekka",
+			"Timo", "Iiro", "Jukka", "Kalle", "Kari", "Marko", "Mikko", "Tapani", "Ville");
 
-	private final Iterator<String> menSecondNames = cyclicIter("Iiro", "Jukka", "Kalle", "Kari", "Marko", "Mikko",
-			"Tapani", "Ville");
-
-	private final Iterator<String> womenFirstNames = cyclicIter("Anneli", "Ella", "Hanna", "Iiris", "Liisa", "Maria",
-			"Ninni", "Viivi");
-
-	private final Iterator<String> womenSecondNames = cyclicIter("Anna", "Iida", "Kerttu", "Kristiina", "Marjatta",
-			"Ronja", "Sara");
+	private final Iterator<String> womenNames = cyclicIter("Anneli", "Ella", "Hanna", "Iiris", "Liisa", "Maria",
+			"Ninni", "Viivi", "Anna", "Iida", "Kerttu", "Kristiina", "Marjatta", "Ronja", "Sara");
 
 	private final Iterator<String> surnames = cyclicIter("Aaltonen", "Alanen", "Eskola", "Hakala", "Heikkinen",
 			"Heinonen", "Hiltunen", "Hirvonen", "Hämäläinen", "Kallio", "Karjalainen", "Kinnunen", "Korhonen",
@@ -71,25 +65,14 @@ class HenkiloDtoFactory {
 	private final AtomicInteger phoneNumberCounter = new AtomicInteger();
 
 	public HenkiloDto createHenkiloDto(String oid) {
-		String nickname;
-		String secondName;
-
-		if (genderToggle) {
-			nickname = menFirstNames.next();
-			secondName = menSecondNames.next();
-		}
-		else {
-			nickname = womenFirstNames.next();
-			secondName = womenSecondNames.next();
-		}
+		String firstName = genderToggle ? menNames.next() : womenNames.next();
 		genderToggle = !genderToggle;
 
 		//@formatter:off
 		HenkiloDto henkiloDto = HenkiloDto.builder()
 				.oidHenkilo(oid)
 				.hetu(identityNumbers.next())
-				.etunimet(nickname + " " + secondName)
-				.kutsumanimi(nickname)
+				.kutsumanimi(firstName)
 				.sukunimi(surnames.next())
 				.build();
 		//@formatter:on
