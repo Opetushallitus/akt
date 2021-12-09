@@ -1,6 +1,8 @@
 package fi.oph.akt.service;
 
+import fi.oph.akt.api.dto.LanguagePairListDTO;
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
+import fi.oph.akt.api.dto.PublicTranslatorListDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTerm;
@@ -20,6 +22,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @Import({ PublicTranslatorService.class, OnrServiceMock.class })
@@ -32,12 +35,24 @@ class PublicTranslatorServiceTest {
 	private PublicTranslatorService publicTranslatorService;
 
 	@Test
-	public void listShouldReturnTranslatorsWithActiveTermAndHavingLanguagePairsWithPermissionToBePublished() {
+	public void getListDTOShouldReturnTranslatorsWithActiveTermAndHavingLanguagePairsWithPermissionToBePublished() {
 		createVariousTranslators();
 
-		final List<PublicTranslatorDTO> publicTranslatorDTOS = publicTranslatorService.list();
+		final PublicTranslatorListDTO publicTranslatorListDTO = publicTranslatorService.getListDTO();
+		final List<PublicTranslatorDTO> translators = publicTranslatorListDTO.translators();
 
-		assertEquals(3, publicTranslatorDTOS.size());
+		assertEquals(3, translators.size());
+	}
+
+	@Test
+	public void getListDTOShouldReturnDistinctFromAndToLanguages() {
+		createVariousTranslators();
+
+		final PublicTranslatorListDTO publicTranslatorListDTO = publicTranslatorService.getListDTO();
+		final LanguagePairListDTO langs = publicTranslatorListDTO.langs();
+
+		assertEquals(List.of("fi"), langs.from());
+		assertEquals(List.of("en"), langs.to());
 	}
 
 	private void createVariousTranslators() {
