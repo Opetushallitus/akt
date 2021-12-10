@@ -3,7 +3,7 @@ package fi.oph.akt.service;
 import fi.oph.akt.api.dto.LanguagePairListDTO;
 import fi.oph.akt.api.dto.PublicLanguagePairDTO;
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
-import fi.oph.akt.api.dto.PublicTranslatorListDTO;
+import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.onr.TranslatorDetails;
 import fi.oph.akt.onr.OnrServiceMock;
@@ -42,7 +42,7 @@ public class PublicTranslatorService {
 	private OnrServiceMock onrServiceMock;
 
 	@Transactional(readOnly = true)
-	public PublicTranslatorListDTO getListDTO() {
+	public PublicTranslatorResponseDTO listTranslators() {
 		final StopWatch st = new StopWatch();
 
 		st.start("findIDsForPublicListing");
@@ -84,7 +84,7 @@ public class PublicTranslatorService {
 		LOG.info(st.prettyPrint());
 
 		// @formatter:off
-		return PublicTranslatorListDTO.builder()
+		return PublicTranslatorResponseDTO.builder()
 				.translators(publicTranslatorDTOS)
 				.langs(languagePairListDTO)
 				.towns(towns)
