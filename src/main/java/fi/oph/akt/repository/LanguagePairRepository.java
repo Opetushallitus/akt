@@ -15,4 +15,10 @@ public interface LanguagePairRepository extends JpaRepository<LanguagePair, Long
 			+ " JOIN lp.authorisation a JOIN a.translator t WHERE lp.permissionToPublish=true AND t.id IN ?1")
 	List<TranslatorLanguagePairProjection> findTranslatorLanguagePairsForPublicListing(Iterable<Long> translatorIds);
 
+	@Query("SELECT DISTINCT lp.fromLang FROM LanguagePair lp ORDER BY lp.fromLang")
+	List<String> getDistinctFromLangs();
+
+	@Query("SELECT DISTINCT lp.toLang FROM LanguagePair lp ORDER BY lp.toLang")
+	List<String> getDistinctToLangs();
+
 }
