@@ -122,7 +122,7 @@ class TranslatorControllerTest {
 		final JSONObject data = validContactRequestData();
 		data.put("translatorIds", List.of("a", "b"));
 
-		postContactRequest(data).andExpect(status().isInternalServerError());
+		postContactRequest(data).andExpect(status().isBadRequest());
 	}
 
 	private JSONObject validContactRequestData() {
