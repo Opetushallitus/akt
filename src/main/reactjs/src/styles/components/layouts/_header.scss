@@ -1,4 +1,9 @@
 .header {
+  &__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   &__left {
     flex-grow: 1;
 

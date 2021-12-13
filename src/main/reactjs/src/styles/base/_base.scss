@@ -12,26 +12,27 @@ body,
 
 .app {
   display: grid;
-  grid-template-rows: fit-content($size-appbar) auto fit-content($size-footer);
+  grid-template-rows: fit-content($size-header) auto fit-content($size-footer);
   grid-template-areas:
-    'appbar'
+    'header'
     'content'
     'footer';
   height: 100%;
 }
 
-.appbar {
-  grid-area: appbar;
+.header {
+  grid-area: header;
 }
 
 .content {
   grid-area: content;
   display: flex;
-  background-color: $color-background;
+  background-color: $color-background-public;
+  margin-top: 1rem;
 
   &__container {
     padding: 3rem;
-    max-width: 1280px;
+    max-width: $breakpoint-xl;
     margin: 2rem auto;
   }
 }

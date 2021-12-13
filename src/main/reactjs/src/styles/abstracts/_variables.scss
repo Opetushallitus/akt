@@ -2,18 +2,24 @@ $color-primary: #ffffff;
 $color-primary-light: #f5f5f5;
 $color-primary-dark: #cccccc;
 
-$color-secondary: #0a789c;
+$color-secondary: #0041dc;
 $color-secondary-light: #159ecb;
-$color-secondary-dark: #00526c;
+$color-secondary-dark: #000a48;
 
-$color-text-primary: #2a2a2a;
+$color-text-primary: #000a48;
 $color-text-secondary: #ffffff;
 
-$color-background: #f0f3f7;
+$color-background-public: #ffffff;
+$color-background-clerk: #f0f3f7;
 
 $color-grey-700: #666666;
 
-$color-blue-200: #f6fcff;
+$color-blue-200: #f2f5fd;
 
-$size-appbar: 4.5rem;
+$size-header: 4.5rem;
 $size-footer: 5rem;
+
+$breakpoint-sm: 64rem;
+$breakpoint-md: 80rem;
+$breakpoint-lg: 96rem;
+$breakpoint-xl: 128rem;
