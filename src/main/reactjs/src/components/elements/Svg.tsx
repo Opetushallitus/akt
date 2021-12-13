@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 export const Svg: FC<{
-  className: string;
+  className?: string;
   src: string;
   alt: string;
 }> = ({ className, src, alt }) => {

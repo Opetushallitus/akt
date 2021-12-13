@@ -1,18 +1,24 @@
 import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
-import {
-  FormControl,
-  Select,
-  MenuItem,
-  SelectChangeEvent,
-} from '@mui/material';
+import { SelectChangeEvent } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 
-import { changeLang, getCurrentLang, getSupportedLangs } from 'configs/i18n';
+import { Dropdown } from 'components/elements/Dropdown';
+import {
+  changeLang,
+  getCurrentLang,
+  getSupportedLangs,
+  useAppTranslation,
+} from 'configs/i18n';
 
 export const LangSelector: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useAppTranslation({ keyPrefix: 'akt.component.header' });
   const [finnish, swedish, english] = getSupportedLangs();
+
+  const values = new Map<string, string>([
+    [t('lang.fi'), finnish],
+    [t('lang.sv'), swedish],
+    [t('lang.en'), english],
+  ]);
 
   const handleLangChange = (event: SelectChangeEvent) => {
     changeLang(event.target.value);
@@ -21,27 +27,15 @@ export const LangSelector: FC = () => {
   return (
     <div className="lang-selector">
       <LanguageIcon className="lang-selector__icon" fontSize="small" />
-      <FormControl>
-        <Select
-          autoWidth
-          disableUnderline
-          variant="standard"
-          value={getCurrentLang()}
-          onChange={handleLangChange}
-          className="lang-selector__select"
-          data-testid="lang-selector"
-        >
-          <MenuItem value={finnish}>
-            {t('akt.component.header.lang.fi')}
-          </MenuItem>
-          <MenuItem value={swedish}>
-            {t('akt.component.header.lang.sv')}
-          </MenuItem>
-          <MenuItem value={english}>
-            {t('akt.component.header.lang.en')}
-          </MenuItem>
-        </Select>
-      </FormControl>
+      <Dropdown
+        disableUnderline
+        values={values}
+        variant="standard"
+        value={getCurrentLang()}
+        onChange={handleLangChange}
+        className="lang-selector__select"
+        data-testid="lang-selector"
+      />
     </div>
   );
 };

@@ -16,11 +16,29 @@ export interface TranslatorDetails {
   languagePairs: Array<LanguagePair>;
 }
 
-export interface TranslatorDetailsState {
-  status: APIResponseStatus;
-  translators: Array<TranslatorDetails>;
+export interface PublicTranslatorFilter {
+  fromLang: string;
+  toLang: string;
+  name: string;
+  town: string;
 }
-export interface TranslatorDetailsAction extends Action<string> {
-  translatorDetails?: Array<TranslatorDetails>;
+
+export interface PublicTranslatorResponse {
+  translators: Array<TranslatorDetails>;
+  langs: { from: Array<string>; to: Array<string> };
+  towns: string[];
+}
+
+export interface TranslatorDetailsState extends PublicTranslatorResponse {
+  status: APIResponseStatus;
+  selectedTranslators: Array<number>;
+  filters: PublicTranslatorFilter;
+}
+
+export interface TranslatorDetailsAction
+  extends Action<string>,
+    Partial<PublicTranslatorResponse> {
+  index?: number;
+  filters?: PublicTranslatorFilter;
   error?: Error;
 }

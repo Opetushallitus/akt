@@ -1,8 +1,7 @@
 import { TFunction } from 'i18next';
 
 import { Selectable } from 'interfaces/selectable';
-
-type SetterType<T> = (val: T) => void;
+import { TranslatorDetailsAction } from 'interfaces/translator';
 
 type RowDetailsFn<T> = (
   details: T,
@@ -12,8 +11,9 @@ type RowDetailsFn<T> = (
 
 export interface PaginatedTableProps<T> {
   header?: JSX.Element;
-  selectedIndices: Set<number>;
-  setSelectedIndices(selected: SetterType<Set<number>> | Set<number>): void;
+  selectedIndices: Array<number>;
+  setSelectedIndices(index: number): TranslatorDetailsAction;
+  removeSelectedIndices(index: number): TranslatorDetailsAction;
   data: Array<T>;
   getRowDetails: RowDetailsFn<T>;
   initialRowsPerPage: number;
