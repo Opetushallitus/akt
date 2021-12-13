@@ -4,23 +4,21 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Footer from 'components/layouts/Footer';
 import Header from 'components/layouts/Header';
 import { HomePage } from 'pages/HomePage';
+import { NotFoundPage } from 'pages/NotFoundPage';
 
 export const AppRouter: FC = () => (
   <BrowserRouter>
     <div className="app">
-      <div className="appbar">
-        <Header />
-      </div>
+      <Header />
       <main className="content">
         <div className="content__container">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
       </main>
-      <div className="footer">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   </BrowserRouter>
 );
