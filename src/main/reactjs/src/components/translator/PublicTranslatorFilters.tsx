@@ -81,7 +81,7 @@ export const PublicTranslatorFilters = ({
               showError={
                 showFieldError && Utils.isEmptyString(filters.fromLang)
               }
-              label={t('languagePair.fromPh')}
+              label={t('languagePair.fromPlaceholder')}
               helperText={t('languagePair.fromHelperText')}
               id="filters-from-lang"
               variant="outlined"
@@ -92,7 +92,7 @@ export const PublicTranslatorFilters = ({
             <Dropdown
               showInputLabel
               showError={showFieldError && Utils.isEmptyString(filters.toLang)}
-              label={t('languagePair.toPh')}
+              label={t('languagePair.toPlaceholder')}
               helperText={t('languagePair.toHelperText')}
               id="filters-to-lang"
               variant="outlined"
@@ -106,7 +106,7 @@ export const PublicTranslatorFilters = ({
           <H3>{t('name.title')}</H3>
           <TextField
             id="outlined-search"
-            label={t('name.ph')}
+            label={t('name.placeholder')}
             type="search"
             value={filters.name}
             InputProps={{
@@ -123,7 +123,7 @@ export const PublicTranslatorFilters = ({
           <H3> {t('town.title')}</H3>
           <Dropdown
             showInputLabel
-            label={t('town.ph')}
+            label={t('town.placeholder')}
             id="filters-town"
             variant="outlined"
             values={Utils.createMapFromArray(towns)}

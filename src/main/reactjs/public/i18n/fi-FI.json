@@ -51,18 +51,18 @@
       "publicTranslatorFilters": {
         "languagePair": {
           "title": "Haku Kieliparilla",
-          "fromPh": "Mistä *",
+          "fromPlaceholder": "Mistä *",
           "fromHelperText": "Valitse kieli",
-          "toPh": "Mihin *",
+          "toPlaceholder": "Mihin *",
           "toHelperText": "Valitse kieli"
         },
         "name": {
           "title": "Haku nimellä",
-          "ph": "Nimi"
+          "placeholder": "Nimi"
         },
         "town": {
           "title": "Haku asuinkunnalla",
-          "ph": "Asuinkunta"
+          "placeholder": "Asuinkunta"
         },
         "languages": {
           "bn": "bengali",
