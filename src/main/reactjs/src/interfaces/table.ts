@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
+import { Action } from 'redux';
 
 import { Selectable } from 'interfaces/selectable';
-import { TranslatorDetailsAction } from 'interfaces/translator';
 
 type RowDetailsFn<T> = (
   details: T,
@@ -12,8 +12,8 @@ type RowDetailsFn<T> = (
 export interface PaginatedTableProps<T> {
   header?: JSX.Element;
   selectedIndices: Array<number>;
-  addSelectedIndex(index: number): TranslatorDetailsAction;
-  removeSelectedIndex(index: number): TranslatorDetailsAction;
+  addSelectedIndex(index: number): Action<string>;
+  removeSelectedIndex(index: number): Action<string>;
   data: Array<T>;
   getRowDetails: RowDetailsFn<T>;
   initialRowsPerPage: number;
