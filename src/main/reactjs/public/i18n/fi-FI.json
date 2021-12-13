@@ -16,7 +16,7 @@
         }
       },
       "table": {
-        "title": "Kääntäjät",
+        "title": "Hakutulokset",
         "pagination": {
           "rowsPerPage": "Näytä sivulla"
         },
@@ -43,18 +43,27 @@
           "zipCity": "PL 380, 00531 Helsinki",
           "phone": "Puhelin +358 29 533 1000",
           "fax": "Faksi +358 29 533 1035"
+        },
+        "logo": {
+          "alt": "Etusivu"
         }
-      }
-    },
-    "pages": {
-      "homepage": {
-        "title": "Auktorisoitujen kääntäjien rekisteri",
-        "description": "Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä joko nimen tai käännöskielen mukaan. Hakutuloksista saat esiin tiedot auktorisoidun kääntäjän nimestä, asuinkunnasta sekä siitä, mistä kielestä mihin kieleen hänellä on oikeus toimia auktorisoituna kääntäjänä. Tutkintolautakunta ei valitettavasti voi julkaista kääntäjien yhteystietoja. Voit jättää valitsemellesi kääntäjille yhteydenottopyynnön alla olevalla hakulomakkeella."
       },
-      "translator": {
-        "name": "Nimi",
-        "languagePairs": "Kieliparit",
-        "town": "Asuinkunta",
+      "publicTranslatorFilters": {
+        "languagePair": {
+          "title": "Haku Kieliparilla",
+          "fromPh": "Mistä *",
+          "fromHelperText": "Valitse kieli",
+          "toPh": "Mihin *",
+          "toHelperText": "Valitse kieli"
+        },
+        "name": {
+          "title": "Haku nimellä",
+          "ph": "Nimi"
+        },
+        "town": {
+          "title": "Haku asuinkunnalla",
+          "ph": "Asuinkunta"
+        },
         "languages": {
           "bn": "bengali",
           "bo": "tiibet",
@@ -77,7 +86,35 @@
           "sv": "ruotsi",
           "tt": "tataari",
           "ty": "tahiti"
+        },
+        "buttons": {
+          "empty": "Tyhjännä Valinnat",
+          "search": "Hae"
         }
+      }
+    },
+    "pages": {
+      "homepage": {
+        "title": "Auktorisoitujen kääntäjien rekisteri",
+        "description": "Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä joko nimen tai käännöskielen mukaan. Voit jättää valitsemellesi kääntäjille yhteydenottopyynnön alla olevalla hakulomakkeella.",
+        "filters": {
+          "title": "Hae auktroisoitua kääntäjää"
+        },
+        "noSearchResults": "Ei hakutuloksia",
+        "buttons": {
+          "search": "Hae",
+          "empty": "Tyhjennä valinnat"
+        }
+      },
+      "translator": {
+        "name": "Nimi",
+        "languagePairs": "Kieliparit",
+        "town": "Asuinkunta"
+      },
+      "notFoundPage": {
+        "title": "Valitettavasti etsimääsi sivua ei löytynyt",
+        "description": "Osoite saattaa olla väärä tai vanhentunut. Voit palata etusivulle alla olevasta napista",
+        "homePageBtn": "Etusivu"
       }
     },
     "errors": {
