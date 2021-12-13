@@ -1,7 +1,6 @@
 .footer {
-  display: flex;
-  flex: 1;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, auto));
   justify-content: space-evenly;
 
   &__container {

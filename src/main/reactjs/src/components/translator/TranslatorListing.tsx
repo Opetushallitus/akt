@@ -1,23 +1,30 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { TableCell, Checkbox, TableHead, TableRow } from '@mui/material';
-import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { Box } from '@mui/system';
 
 import { H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
+import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 import { TranslatorDetails } from 'interfaces/translator';
 import { Selectable } from 'interfaces/selectable';
-import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 import { APIResponseStatus } from 'enums/api';
+import { useAppSelector } from 'configs/redux';
+import { useAppTranslation } from 'configs/i18n';
+import {
+  addSelectedTranslator,
+  removeSelectedTranslator,
+} from 'redux/actions/translatorDetails';
+import { publicTranslatorsSelector } from 'redux/selectors/translatorDetails';
 
 const getTranslatorDetailsRow = (
   translator: TranslatorDetails,
   t: TFunction,
   selectionProps: Selectable
 ) => {
-  const { firstName, lastName, languagePairs, town } = translator;
+  const { firstName, lastName, languagePairs, town, country } = translator;
   const { selected, toggleSelected } = selectionProps;
+  const townInfo = `${town}${country ? `, ${country}` : ''}`;
 
   return (
     <TableRow selected={selected} onClick={toggleSelected}>
@@ -34,34 +41,34 @@ const getTranslatorDetailsRow = (
       <TableCell>
         {languagePairs.map(({ from, to }, k) => (
           <Text key={k}>
-            {t(`akt.pages.translator.languages.${from}`)}
+            {t(`publicTranslatorFilters.languages.${from}`)}
             {` - `}
-            {t(`akt.pages.translator.languages.${to}`)}
+            {t(`publicTranslatorFilters.languages.${to}`)}
           </Text>
         ))}
       </TableCell>
       <TableCell>
-        <Text>{town}</Text>
+        <Text>{townInfo}</Text>
       </TableCell>
     </TableRow>
   );
 };
 
 const ListingHeader: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useAppTranslation({ keyPrefix: 'akt.pages.translator' });
 
   return (
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox"></TableCell>
         <TableCell>
-          <H3>{t('akt.pages.translator.name')}</H3>
+          <H3>{t('name')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('akt.pages.translator.languagePairs')}</H3>
+          <H3>{t('languagePairs')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('akt.pages.translator.town')}</H3>
+          <H3>{t('town')}</H3>
         </TableCell>
       </TableRow>
     </TableHead>
@@ -75,8 +82,8 @@ export const TranslatorListing = ({
   status: APIResponseStatus;
   translators: Array<TranslatorDetails>;
 }) => {
-  const [selected, setSelected] = useState<Set<number>>(new Set());
-  const { t } = useTranslation();
+  const { t } = useAppTranslation({ keyPrefix: 'akt' });
+  const { selectedTranslators } = useAppSelector(publicTranslatorsSelector);
 
   switch (status) {
     case APIResponseStatus.NotLoaded:
@@ -99,15 +106,16 @@ export const TranslatorListing = ({
           justifyContent="center"
           alignItems="center"
         >
-          <H3>{t('akt.errors.loadingFailed')}</H3>
+          <H3>{t('errors.loadingFailed')}</H3>
         </Box>
       );
     case APIResponseStatus.Loaded:
       return (
         <PaginatedTable
           className="translator-listing"
-          selectedIndices={selected}
-          addSelectedIndex={setSelected}
+          selectedIndices={selectedTranslators}
+          addSelectedIndex={addSelectedTranslator}
+          removeSelectedIndex={removeSelectedTranslator}
           data={translators}
           getRowDetails={getTranslatorDetailsRow}
           header={<ListingHeader />}

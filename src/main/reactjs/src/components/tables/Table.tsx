@@ -1,14 +1,16 @@
-import { Table, TableBody, TablePagination, Chip } from '@mui/material';
+import { Table, TableBody, TablePagination } from '@mui/material';
 import { ChangeEvent, Fragment, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { PaginatedTableProps } from 'interfaces/table';
 import { H2 } from 'components/elements/Text';
+import { useAppDispatch } from 'configs/redux';
+import { useAppTranslation } from 'configs/i18n';
 
 export function PaginatedTable<T>({
   header,
   selectedIndices,
-  setSelectedIndices,
+  addSelectedIndex,
+  removeSelectedIndex,
   data,
   getRowDetails,
   initialRowsPerPage,
@@ -17,41 +19,33 @@ export function PaginatedTable<T>({
 }: PaginatedTableProps<T>) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
-  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const { t } = useAppTranslation({ keyPrefix: 'akt.component' });
 
   const handleRowsPerPageChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPage(0);
     setRowsPerPage(+event.target.value);
   };
 
-  const handleRowClick = (rowIdx: number) => {
-    if (selectedIndices.has(rowIdx)) {
-      setSelectedIndices((prev) => {
-        return new Set(Array.from(prev).filter((x) => x != rowIdx));
-      });
+  const handleRowClick = (index: number) => {
+    if (selectedIndices.includes(index)) {
+      dispatch(removeSelectedIndex(index));
     } else {
-      setSelectedIndices((prev) => new Set(prev.add(rowIdx)));
+      dispatch(addSelectedIndex(index));
     }
   };
 
-  const showNumOfSelecteds = () =>
-    selectedIndices.size > 0 ? (
-      <Chip
-        color="secondary"
-        variant="outlined"
-        className="table__head-box__chip"
-        label={`${selectedIndices.size} ${t(
-          'akt.component.table.selectedItems'
-        )}`}
-      />
+  const showNumOfSelected = () =>
+    selectedIndices.length > 0 ? (
+      <H2>{`${selectedIndices.length} ${t('table.selectedItems')}`}</H2>
     ) : (
-      <H2>{t('akt.component.table.title')}</H2>
+      <H2>{t('table.title')}</H2>
     );
 
   return (
     <>
       <div className="table__head-box">
-        {showNumOfSelecteds()}
+        {showNumOfSelected()}
         <TablePagination
           className="table__head-box__pagination"
           count={data.length}
@@ -61,7 +55,7 @@ export function PaginatedTable<T>({
           onRowsPerPageChange={handleRowsPerPageChange}
           rowsPerPage={rowsPerPage}
           rowsPerPageOptions={rowsPerPageOptions}
-          labelRowsPerPage={t('akt.component.table.pagination.rowsPerPage')}
+          labelRowsPerPage={t('table.pagination.rowsPerPage')}
           labelDisplayedRows={({ from, to, count }) =>
             `${from} - ${to} / ${count}`
           }
@@ -72,12 +66,12 @@ export function PaginatedTable<T>({
         <TableBody>
           {data
             .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
-            .map((val, idx) => {
-              const i = page * rowsPerPage + idx;
+            .map((val, index) => {
+              const i = page * rowsPerPage + index;
               return (
                 <Fragment key={i}>
                   {getRowDetails(val, t, {
-                    selected: selectedIndices.has(i),
+                    selected: selectedIndices.includes(i),
                     toggleSelected: () => handleRowClick(i),
                   })}
                 </Fragment>

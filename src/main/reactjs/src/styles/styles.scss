@@ -14,6 +14,11 @@
 @import 'components/table/table';
 @import 'components/i18n/lang-selector';
 @import 'components/translators/translator-listing';
+@import 'components/translators/public-translator-filters';
+
+// Pages
+@import 'pages/homepage';
+@import 'pages/not-found-page';
 
 // Vendors
 @import 'vendors/init-spinner';

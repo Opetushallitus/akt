@@ -1,5 +1,9 @@
 import i18n, { use, changeLanguage } from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import {
+  initReactI18next,
+  useTranslation,
+  UseTranslationOptions,
+} from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 import transFI from 'public/i18n/fi-FI.json';
@@ -53,6 +57,9 @@ export const initI18n = () => {
       debug: process.env.NODE_ENV === 'development',
     });
 };
+
+export const useAppTranslation = (options: UseTranslationOptions<string>) =>
+  useTranslation(undefined, options);
 
 export const getCurrentLang = (): string => {
   return i18n.language;
