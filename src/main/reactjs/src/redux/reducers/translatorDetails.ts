@@ -4,6 +4,8 @@ import { APIResponseStatus } from 'enums/api';
 import {
   TranslatorDetailsState,
   TranslatorDetailsAction,
+  TranslatorDetails,
+  LanguagePairResponse,
 } from 'interfaces/translator';
 import {
   TRANSLATOR_DETAILS_ERROR,
@@ -45,9 +47,9 @@ export const translatorDetailsReducer: Reducer<
       return {
         ...state,
         status: APIResponseStatus.Loaded,
-        translators: action.translators,
-        langs: action.langs,
-        towns: action.towns,
+        translators: <Array<TranslatorDetails>>action.translators,
+        langs: <LanguagePairResponse>action.langs,
+        towns: <Array<string>>action.towns,
       };
     case TRANSLATOR_DETAILS_ERROR:
       return { ...state, status: APIResponseStatus.Error };
