@@ -4,17 +4,47 @@ import { createTheme } from '@mui/material/styles';
 const primaryColor = '#FFFFFF';
 const primaryLightColor = '#F5F5F5';
 const primaryDarkColor = '#CCCCCC';
-const secondaryColor = '#0A789C';
+const secondaryColor = '#0041dc';
 const secondaryLightColor = '#159ECB';
-const secondaryDarkColor = '#00526C';
-const primaryHeadingColor = '#2A2A2A';
+const secondaryDarkColor = '#000a48';
+const primaryHeadingColor = '#000a48';
 const secondaryHeadingColor = '#FFFFFF';
+const grey700Color = '#666666';
 
 const fontWeightBold = 700;
 const fontWeightMedium = 500;
 const fontWeightRegular = 400;
 
 export const theme = createTheme({
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: secondaryDarkColor,
+          },
+          color: grey700Color,
+        },
+      },
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          '&.Mui-focused': {
+            color: grey700Color,
+          },
+          color: grey700Color,
+        },
+      },
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: grey700Color,
+        },
+      },
+    },
+  },
   palette: {
     primary: {
       main: primaryColor,
