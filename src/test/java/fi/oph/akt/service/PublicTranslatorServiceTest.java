@@ -1,6 +1,6 @@
 package fi.oph.akt.service;
 
-import fi.oph.akt.api.dto.LanguagePairResponseDTO;
+import fi.oph.akt.api.dto.LanguagePairsDictDTO;
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Authorisation;
@@ -49,10 +49,10 @@ class PublicTranslatorServiceTest {
 		createVariousTranslators();
 
 		final PublicTranslatorResponseDTO responseDTO = publicTranslatorService.listTranslators();
-		final LanguagePairResponseDTO languagePairResponseDTO = responseDTO.langs();
+		final LanguagePairsDictDTO languagePairsDictDTO = responseDTO.langs();
 
-		assertEquals(List.of("fi"), languagePairResponseDTO.from());
-		assertEquals(List.of("en"), languagePairResponseDTO.to());
+		assertEquals(List.of("fi"), languagePairsDictDTO.from());
+		assertEquals(List.of("en"), languagePairsDictDTO.to());
 	}
 
 	private void createVariousTranslators() {

@@ -1,6 +1,6 @@
 package fi.oph.akt.service;
 
-import fi.oph.akt.api.dto.LanguagePairResponseDTO;
+import fi.oph.akt.api.dto.LanguagePairsDictDTO;
 import fi.oph.akt.api.dto.PublicLanguagePairDTO;
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
@@ -73,8 +73,8 @@ public class PublicTranslatorService {
 		}).toList();
 		st.stop();
 
-		st.start("getLanguagePairResponseDTO()");
-		LanguagePairResponseDTO languagePairResponseDTO = getLanguagePairResponseDTO();
+		st.start("getLanguagePairsDictDTO()");
+		LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
 		st.stop();
 
 		st.start("getDistinctTowns");
@@ -86,7 +86,7 @@ public class PublicTranslatorService {
 		// @formatter:off
 		return PublicTranslatorResponseDTO.builder()
 				.translators(publicTranslatorDTOS)
-				.langs(languagePairResponseDTO)
+				.langs(languagePairsDictDTO)
 				.towns(towns)
 				.build();
 		// @formatter:on
@@ -123,11 +123,11 @@ public class PublicTranslatorService {
 		// @formatter:on
 	}
 
-	private LanguagePairResponseDTO getLanguagePairResponseDTO() {
+	private LanguagePairsDictDTO getLanguagePairsDictDTO() {
 		List<String> fromLangs = languagePairRepository.getDistinctFromLangs();
 		List<String> toLangs = languagePairRepository.getDistinctToLangs();
 
-		return LanguagePairResponseDTO.builder().from(fromLangs).to(toLangs).build();
+		return LanguagePairsDictDTO.builder().from(fromLangs).to(toLangs).build();
 	}
 
 	private List<String> getDistinctTowns(Collection<TranslatorDetails> translatorDetails) {
