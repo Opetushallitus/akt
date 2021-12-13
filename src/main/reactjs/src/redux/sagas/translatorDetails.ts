@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 
 import axiosInstance from 'configs/axios';
 import { APIEndpoints } from 'enums/api';
-import { TranslatorDetails } from 'interfaces/translator';
+import { PublicTranslatorResponse } from 'interfaces/translator';
 import {
   TRANSLATOR_DETAILS_ERROR,
   TRANSLATOR_DETAILS_LOAD,
@@ -12,13 +12,14 @@ import {
 } from 'redux/actionTypes/translatorDetails';
 
 export function* storeApiResults(
-  apiResults: AxiosResponse<Array<TranslatorDetails>>
+  apiResults: AxiosResponse<PublicTranslatorResponse>
 ) {
-  const translatorDetails = apiResults.data;
-
+  const { translators, langs, towns } = apiResults.data;
   yield put({
     type: TRANSLATOR_DETAILS_RECEIVED,
-    translatorDetails,
+    translators,
+    langs,
+    towns,
   });
 }
 
@@ -26,7 +27,7 @@ export function* fetchTranslatorDetails() {
   try {
     yield put({ type: TRANSLATOR_DETAILS_LOADING });
     // TODO Add runtime validation (io-ts) for API response?
-    const apiResults: AxiosResponse<Array<TranslatorDetails>> = yield call(
+    const apiResults: AxiosResponse<PublicTranslatorResponse> = yield call(
       axiosInstance.get,
       APIEndpoints.PublicTranslatorDetails
     );
