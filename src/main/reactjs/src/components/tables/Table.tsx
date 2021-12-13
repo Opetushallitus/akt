@@ -9,8 +9,8 @@ import { useAppTranslation } from 'configs/i18n';
 export function PaginatedTable<T>({
   header,
   selectedIndices,
-  setSelectedIndices,
-  removeSelectedIndices,
+  addSelectedIndex,
+  removeSelectedIndex,
   data,
   getRowDetails,
   initialRowsPerPage,
@@ -29,9 +29,9 @@ export function PaginatedTable<T>({
 
   const handleRowClick = (index: number) => {
     if (selectedIndices.includes(index)) {
-      dispatch(removeSelectedIndices(index));
+      dispatch(removeSelectedIndex(index));
     } else {
-      dispatch(setSelectedIndices(index));
+      dispatch(addSelectedIndex(index));
     }
   };
 
@@ -71,8 +71,8 @@ export function PaginatedTable<T>({
               return (
                 <Fragment key={i}>
                   {getRowDetails(val, t, {
-                    selected: selectedIndices.includes(index),
-                    toggleSelected: () => handleRowClick(index),
+                    selected: selectedIndices.includes(i),
+                    toggleSelected: () => handleRowClick(i),
                   })}
                 </Fragment>
               );

@@ -12,8 +12,8 @@ type RowDetailsFn<T> = (
 export interface PaginatedTableProps<T> {
   header?: JSX.Element;
   selectedIndices: Array<number>;
-  setSelectedIndices(index: number): TranslatorDetailsAction;
-  removeSelectedIndices(index: number): TranslatorDetailsAction;
+  addSelectedIndex(index: number): TranslatorDetailsAction;
+  removeSelectedIndex(index: number): TranslatorDetailsAction;
   data: Array<T>;
   getRowDetails: RowDetailsFn<T>;
   initialRowsPerPage: number;

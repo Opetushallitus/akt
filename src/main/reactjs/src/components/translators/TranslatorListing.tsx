@@ -107,7 +107,7 @@ export const TranslatorListing = ({
         <PaginatedTable
           className="translator-listing"
           selectedIndices={selected}
-          setSelectedIndices={setSelected}
+          addSelectedIndex={setSelected}
           data={translators}
           getRowDetails={getTranslatorDetailsRow}
           header={<ListingHeader />}

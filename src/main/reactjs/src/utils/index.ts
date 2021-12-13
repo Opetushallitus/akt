@@ -11,8 +11,6 @@ export class Utils {
     prefix: string | undefined = undefined
   ) {
     const prfxKey = prefix ? `${prefix}.` : '';
-    return new Map(
-      array.map((i) => [t ? `${t(`${prfxKey}${i}`)}` : i.toLowerCase(), i])
-    );
+    return new Map(array.map((i) => [t ? `${t(`${prfxKey}${i}`)}` : i, i]));
   }
 }

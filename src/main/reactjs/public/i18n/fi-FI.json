@@ -50,7 +50,7 @@
       },
       "publicTranslatorFilters": {
         "languagePair": {
-          "title": "Haku Kieliparilla",
+          "title": "Haku kieliparilla",
           "fromPlaceholder": "Mistä *",
           "fromHelperText": "Valitse kieli",
           "toPlaceholder": "Mihin *",
@@ -88,7 +88,7 @@
           "ty": "tahiti"
         },
         "buttons": {
-          "empty": "Tyhjännä Valinnat",
+          "empty": "Tyhjennä Valinnat",
           "search": "Hae"
         }
       }
@@ -98,13 +98,9 @@
         "title": "Auktorisoitujen kääntäjien rekisteri",
         "description": "Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä joko nimen tai käännöskielen mukaan. Voit jättää valitsemellesi kääntäjille yhteydenottopyynnön alla olevalla hakulomakkeella.",
         "filters": {
-          "title": "Hae auktroisoitua kääntäjää"
+          "title": "Hae auktorisoitua kääntäjää"
         },
-        "noSearchResults": "Ei hakutuloksia",
-        "buttons": {
-          "search": "Hae",
-          "empty": "Tyhjennä valinnat"
-        }
+        "noSearchResults": "Ei hakutuloksia"
       },
       "translator": {
         "name": "Nimi",
