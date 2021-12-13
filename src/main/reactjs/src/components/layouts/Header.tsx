@@ -13,7 +13,7 @@ const Header: FC = () => {
 
   return (
     <AppBar className="header" position="static">
-      <Toolbar className="header__toollbar">
+      <Toolbar className="header__toolbar">
         <IconButton
           size="large"
           edge="start"
