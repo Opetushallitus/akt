@@ -32,7 +32,7 @@ class TranslatorControllerTest {
 	}
 
 	@Test
-	public void testValidContactRequestWithoutPhone() throws Exception {
+	public void testValidContactRequestWithoutPhoneNumber() throws Exception {
 		final JSONObject data = validContactRequestData();
 		data.remove("phoneNumber");
 
@@ -40,7 +40,73 @@ class TranslatorControllerTest {
 	}
 
 	@Test
-	public void testValidContactRequestWithLongMessage() throws Exception {
+	public void testContactRequestWithEmptyData() throws Exception {
+		final JSONObject data = new JSONObject();
+
+		postContactRequest(data).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void testContactRequestWithEmptyFirstName() throws Exception {
+		final JSONObject data = validContactRequestData();
+		data.put("firstName", "");
+
+		postContactRequest(data).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void testContactRequestWithTooLongFirstName() throws Exception {
+		final JSONObject data = validContactRequestData();
+		data.put("firstName",
+				"WaxVbJSntexphcbtspCbeMKXzPmUXfCRphxCLjqrRvZEhVUrfAySyQdfcejYVBqaPqbMzRvzGwpAPyehsaLznJuYHXTZfWVsDmkYttYFanBLTjFsNKvuMrYyffneqUPfnkxfbFrpzkPTqWnMrcDLUVjynzztpbKxmgAcHLYewFBFHtcBeaHuJqHcJbrvxGvNWABqFxfdhMdBGFHEtqmGtYmQCfmSvChtxHHcbCVvDbRJtjqTKqrTVLxdSdYhvFnF");
+
+		postContactRequest(data).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void testContactRequestWithEmptyLastName() throws Exception {
+		final JSONObject data = validContactRequestData();
+		data.put("lastName", "");
+
+		postContactRequest(data).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void testContactRequestWithTooLongLastName() throws Exception {
+		final JSONObject data = validContactRequestData();
+		data.put("lastName",
+				"NzfRbZruLuzCEXcusXfJWrCxGpnjtwALPyyxdzftnnghQnemgAQxSyzAYytzKydPWfLsrMpFHLhLrNsnKavCpWmMqpPaWBzXKCtZFgQgeBSVBnjrRgRbVdTbzJMaLfANqMJerFsDCMXqQXMZSBueuepcndGhspMYcGDtPpdynZvKdXsxJXgWektZpGqBvpFwPGHkHCpgaddCrfRxzSVrMdEPPfzPrndSkfuHrBzCgePFxFVwjzaSgBzySwqCvyAv");
+
+		postContactRequest(data).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void testContactRequestWithInvalidEmail() throws Exception {
+		final JSONObject data = validContactRequestData();
+		data.put("email", "foo2bar");
+
+		postContactRequest(data).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void testContactRequestWithTooLongPhoneNumber() throws Exception {
+		final JSONObject data = validContactRequestData();
+		data.put("phoneNumber",
+				"6426964339863655628753222276825267943468538864682295278496996689949538473539347967484559387922889756692769924433976993273939225377669572974465346992344578543452378338256936373278886975557744296638849349759328262554939624782784889998562886446766259696848979");
+
+		postContactRequest(data).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void testContactRequestWithEmptyMessage() throws Exception {
+		final JSONObject data = validContactRequestData();
+		data.put("message", "");
+
+		postContactRequest(data).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void testContactRequestWithTooLongMessage() throws Exception {
 		final JSONObject data = validContactRequestData();
 		final String message = """
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo sapien quis nulla placerat ullamcorper. Etiam et vulputate tellus. Nullam eget semper eros, non aliquam mi. Quisque a ex fermentum ipsum tincidunt interdum vel ac enim. Phasellus consectetur felis id lacinia tincidunt. Nam ullamcorper, mi sit amet dictum finibus, ligula ipsum pharetra justo, eget consectetur neque lacus ut quam. Ut dictum quam quis sagittis luctus. Integer at aliquam tellus, in ornare dui. Nullam tempor faucibus nisi at efficitur.
@@ -63,48 +129,9 @@ class TranslatorControllerTest {
 
 					Vestibulum quis massa arcu. Integer interdum semper vulputate. Suspendisse lobortis dignissim dolor, ut hendrerit ante pellentesque eget. Praesent id metus elit. Maecenas ut dui ut erat mattis porta at nec justo. Vivamus pretium fringilla aliquam. In facilisis justo vitae mi convallis sagittis. Mauris placerat vitae nunc a blandit. Vestibulum a massa nisi. Nulla malesuada magna a lectus pretium dapibus.
 
-					Nunc laoreet sapien pellentesque sapien lobortis finibus. Nam convallis egestas nisl id consectetur. Proin ultricies vulputate tortor eget consectetur. Ut eget sagittis neque. Nullam malesuada urna eros, vitae varius tortor lacinia vitae. Mauris egestas posuere metus, at ultricies mi cursus et. Nulla non ligula sem. Quisque sagittis velit et placerat maximus.
+					Nunc laoreet sapien pellentesque sapien lobortis finibus. Nam convallis egestas nisl id consectetur. Proin ultricies vulputate tortor eget consectetur. Ut eget sagittis neque. Nullam malesuada urna eros, vitae varius tortor lacinia vitae. Mauris egestas posuere metus, at ultricies mi cursus et. Nulla non ligula sem. Quisque sagittis velit et placerat maximus. Phasellus at suscipit nibh, nec tristique leo.
 				""";
 		data.put("message", message);
-
-		postContactRequest(data).andExpect(status().isCreated());
-	}
-
-	@Test
-	public void testContactRequestWithEmptyData() throws Exception {
-		final JSONObject data = new JSONObject();
-
-		postContactRequest(data).andExpect(status().isBadRequest());
-	}
-
-	@Test
-	public void testContactRequestWithEmptyFirstName() throws Exception {
-		final JSONObject data = validContactRequestData();
-		data.put("firstName", "");
-
-		postContactRequest(data).andExpect(status().isBadRequest());
-	}
-
-	@Test
-	public void testContactRequestWithEmptyLastName() throws Exception {
-		final JSONObject data = validContactRequestData();
-		data.put("lastName", "");
-
-		postContactRequest(data).andExpect(status().isBadRequest());
-	}
-
-	@Test
-	public void testContactRequestWithInvalidEmail() throws Exception {
-		final JSONObject data = validContactRequestData();
-		data.put("email", "foo2bar");
-
-		postContactRequest(data).andExpect(status().isBadRequest());
-	}
-
-	@Test
-	public void testContactRequestWithEmptyMessage() throws Exception {
-		final JSONObject data = validContactRequestData();
-		data.put("message", "");
 
 		postContactRequest(data).andExpect(status().isBadRequest());
 	}
