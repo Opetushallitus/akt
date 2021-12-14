@@ -8,6 +8,7 @@ import fi.oph.akt.repository.ContactRequestRepository;
 import fi.oph.akt.repository.ContactRequestTranslatorRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,6 +25,7 @@ public class ContactRequestService {
 	@Resource
 	private TranslatorRepository translatorRepository;
 
+	@Transactional(noRollbackFor = IllegalArgumentException.class)
 	public ContactRequest createContactRequest(ContactRequestDTO contactRequestDTO) {
 		final List<Translator> translators = translatorRepository.findAllById(contactRequestDTO.translatorIds());
 
