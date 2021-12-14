@@ -1,5 +1,6 @@
 package fi.oph.akt.api.translator;
 
+import fi.oph.akt.service.ContactRequestService;
 import fi.oph.akt.service.PublicTranslatorService;
 import java.util.List;
 import javax.annotation.Resource;
@@ -23,6 +24,9 @@ class TranslatorControllerTest {
 
 	@MockBean
 	private PublicTranslatorService publicTranslatorService;
+
+	@MockBean
+	private ContactRequestService contactRequestService;
 
 	@Test
 	public void testValidContactRequest() throws Exception {

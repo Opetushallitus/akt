@@ -24,6 +24,13 @@ public class ControllerExceptionAdvice {
 		return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<Object> handleIllegalArgumentException(final IllegalArgumentException ex) {
+		LOG.error("IllegalArgumentException: " + ex.getMessage());
+
+		return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+	}
+
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<Object> handleHttpMessageNotReadableException(final HttpMessageNotReadableException ex) {
 		LOG.error("HttpMessageNotReadableException: " + ex.getMessage());

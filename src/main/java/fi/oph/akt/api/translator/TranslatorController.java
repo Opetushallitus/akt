@@ -2,6 +2,7 @@ package fi.oph.akt.api.translator;
 
 import fi.oph.akt.api.dto.ContactRequestDTO;
 import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
+import fi.oph.akt.service.ContactRequestService;
 import fi.oph.akt.service.PublicTranslatorService;
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -25,6 +26,9 @@ public class TranslatorController {
 	private static final Logger LOG = LoggerFactory.getLogger(TranslatorController.class);
 
 	@Resource
+	private ContactRequestService contactRequestService;
+
+	@Resource
 	private PublicTranslatorService publicTranslatorService;
 
 	@GetMapping(path = "")
@@ -36,6 +40,7 @@ public class TranslatorController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void sendContactRequest(@Valid @RequestBody ContactRequestDTO contactRequestDTO) {
 		LOG.info("contactRequest " + contactRequestDTO);
+		contactRequestService.createContactRequest(contactRequestDTO);
 	}
 
 }
