@@ -37,11 +37,13 @@ export const Dropdown = ({
     <FormControl fullWidth error={showError}>
       {showInputLabel && <InputLabel id={id}>{label}</InputLabel>}
       <Select autoWidth {...selectProps}>
-        {Array.from(values).map(([key, value], index) => (
-          <MenuItem key={index} value={value}>
-            {key}
-          </MenuItem>
-        ))}
+        {Array.from(values)
+          .sort()
+          .map(([key, value], index) => (
+            <MenuItem key={index} value={value}>
+              {key}
+            </MenuItem>
+          ))}
       </Select>
       {showError && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
