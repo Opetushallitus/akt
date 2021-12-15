@@ -278,4 +278,75 @@
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
     </changeSet>
 
+    <changeSet id="2021-12-14-create-contact_request-table" author="mikhuttu">
+        <createTable tableName="contact_request">
+            <column autoIncrement="true" name="contact_request_id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="contact_request_pkey"/>
+            </column>
+            <column name="version" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="TEXT"/>
+            <column name="modified_by" type="TEXT"/>
+            <column name="deleted_by" type="TEXT"/>
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="TIMESTAMP WITH TIME ZONE"/>
+
+            <column name="first_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="TEXT" />
+            <column name="message" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2021-12-14-create-contact_request_translator-table" author="mikhuttu">
+        <createTable tableName="contact_request_translator">
+            <column autoIncrement="true" name="contact_request_translator_id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="contact_request_translator_pkey"/>
+            </column>
+            <column name="version" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="TEXT"/>
+            <column name="modified_by" type="TEXT"/>
+            <column name="deleted_by" type="TEXT"/>
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="TIMESTAMP WITH TIME ZONE"/>
+
+            <column name="contact_request_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="translator_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="contact_request_translator" baseColumnNames="contact_request_id"
+                                 referencedTableName="contact_request" referencedColumnNames="contact_request_id"
+                                 constraintName="fk_contact_request_translator_contact_request"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="contact_request_translator" baseColumnNames="translator_id"
+                                 referencedTableName="translator" referencedColumnNames="translator_id"
+                                 constraintName="fk_contact_request_translator_translator"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
 </databaseChangeLog>
