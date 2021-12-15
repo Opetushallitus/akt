@@ -21,6 +21,7 @@ export const Dropdown = ({
   disableUnderline,
   helperText,
   showError,
+  sortByKeys,
 }: DropdownProps) => {
   const selectProps = {
     value,
@@ -32,18 +33,18 @@ export const Dropdown = ({
     ...(id && { labelId: id }),
     ...(dataTestId && { 'data-testid': dataTestId }),
   };
+  const valuesArray = Array.from(values);
+  const valuesToShow = sortByKeys ? valuesArray.sort() : valuesArray;
 
   return (
     <FormControl fullWidth error={showError}>
       {showInputLabel && <InputLabel id={id}>{label}</InputLabel>}
       <Select autoWidth {...selectProps}>
-        {Array.from(values)
-          .sort()
-          .map(([key, value], index) => (
-            <MenuItem key={index} value={value}>
-              {key}
-            </MenuItem>
-          ))}
+        {valuesToShow.map(([key, value], index) => (
+          <MenuItem key={index} value={value}>
+            {key}
+          </MenuItem>
+        ))}
       </Select>
       {showError && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
