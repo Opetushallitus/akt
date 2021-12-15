@@ -25,11 +25,13 @@ public class ContactRequestService {
 	@Resource
 	private TranslatorRepository translatorRepository;
 
-	@Transactional(noRollbackFor = IllegalArgumentException.class)
+	@Transactional
 	public ContactRequest createContactRequest(ContactRequestDTO contactRequestDTO) {
-		final List<Translator> translators = translatorRepository.findAllById(contactRequestDTO.translatorIds());
+		final List<Long> translatorIds = contactRequestDTO.translatorIds().stream().distinct().toList();
 
-		if (translators.size() == contactRequestDTO.translatorIds().size()) {
+		final List<Translator> translators = translatorRepository.findAllById(translatorIds);
+
+		if (translators.size() == translatorIds.size()) {
 			ContactRequest contactRequest = new ContactRequest();
 
 			contactRequest.setFirstName(contactRequestDTO.firstName());
@@ -49,6 +51,8 @@ public class ContactRequestService {
 			}).toList();
 
 			contactRequestTranslatorRepository.saveAll(contactRequestTranslators);
+
+			// TODO (OPHAKTKEH-114): create email
 
 			return savedContactRequest;
 		}

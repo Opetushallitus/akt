@@ -54,11 +54,32 @@ class ContactRequestServiceTest {
 		assertEquals(3, contactRequestTranslators.size());
 
 		contactRequestTranslators.forEach(ctr -> {
-			assertEquals(ctr.getContactRequest().getId(), contactRequest.getId());
+			assertEquals(contactRequest.getId(), ctr.getContactRequest().getId());
 		});
 
-		assertEquals(contactRequestTranslators.stream().map(ContactRequestTranslator::getTranslator)
-				.map(Translator::getId).sorted().toList(), translatorIds.stream().sorted().toList());
+		assertEquals(translatorIds.stream().sorted().toList(), contactRequestTranslators.stream()
+				.map(ContactRequestTranslator::getTranslator).map(Translator::getId).sorted().toList());
+	}
+
+	@Test
+	public void createContactRequestShouldSaveValidRequestWithDuplicateTranslatorIds() {
+		createTranslators(2);
+		final long translatorId = translatorRepository.findAll().get(0).getId();
+		List<Long> translatorIds = List.of(translatorId, translatorId);
+
+		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds);
+
+		ContactRequest contactRequest = contactRequestService.createContactRequest(contactRequestDTO);
+		List<ContactRequestTranslator> contactRequestTranslators = contactRequestTranslatorRepository.findAll();
+
+		assertEquals(contactRequestDTO.message(), contactRequest.getMessage());
+
+		assertEquals(1, contactRequestTranslators.size());
+
+		ContactRequestTranslator ctr = contactRequestTranslators.get(0);
+
+		assertEquals(contactRequest.getId(), ctr.getContactRequest().getId());
+		assertEquals(translatorId, ctr.getTranslator().getId());
 	}
 
 	@Test
