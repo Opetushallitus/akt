@@ -14,7 +14,7 @@ export const ExtLink: FC<ButtonProps & ExtLinkProps> = ({
       rel="noreferrer"
       component={Link}
       variant="text"
-      color="secondary"
+      color="inherit"
       href={href}
       endIcon={endIcon}
     >

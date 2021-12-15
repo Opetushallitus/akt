@@ -5,7 +5,7 @@ import {
   TranslatorDetailsState,
   TranslatorDetailsAction,
   TranslatorDetails,
-  LanguagePairResponse,
+  LanguagePairsDict,
 } from 'interfaces/translator';
 import {
   TRANSLATOR_DETAILS_ERROR,
@@ -48,7 +48,7 @@ export const translatorDetailsReducer: Reducer<
         ...state,
         status: APIResponseStatus.Loaded,
         translators: <Array<TranslatorDetails>>action.translators,
-        langs: <LanguagePairResponse>action.langs,
+        langs: <LanguagePairsDict>action.langs,
         towns: <Array<string>>action.towns,
       };
     case TRANSLATOR_DETAILS_ERROR:
