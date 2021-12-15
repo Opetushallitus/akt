@@ -1,5 +1,7 @@
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, CircularProgressProps } from '@mui/material';
 
-export const ProgressIndicator = () => (
-  <CircularProgress className="progress-indicator" color="info" />
+export const ProgressIndicator = (props: CircularProgressProps) => (
+  <div className="progress-indicator">
+    <CircularProgress {...props} />
+  </div>
 );
