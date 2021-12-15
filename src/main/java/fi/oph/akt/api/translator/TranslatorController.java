@@ -1,7 +1,7 @@
 package fi.oph.akt.api.translator;
 
 import fi.oph.akt.api.dto.ContactRequestDTO;
-import fi.oph.akt.api.dto.PublicTranslatorListDTO;
+import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
 import fi.oph.akt.service.PublicTranslatorService;
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -28,8 +28,8 @@ public class TranslatorController {
 	private PublicTranslatorService publicTranslatorService;
 
 	@GetMapping(path = "")
-	public PublicTranslatorListDTO list() {
-		return publicTranslatorService.getListDTO();
+	public PublicTranslatorResponseDTO list() {
+		return publicTranslatorService.listTranslators();
 	}
 
 	@PostMapping("/contact-request")

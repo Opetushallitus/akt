@@ -1,9 +1,9 @@
 package fi.oph.akt.service;
 
-import fi.oph.akt.api.dto.LanguagePairListDTO;
+import fi.oph.akt.api.dto.LanguagePairsDictDTO;
 import fi.oph.akt.api.dto.PublicLanguagePairDTO;
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
-import fi.oph.akt.api.dto.PublicTranslatorListDTO;
+import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.onr.TranslatorDetails;
 import fi.oph.akt.onr.OnrServiceMock;
@@ -42,7 +42,7 @@ public class PublicTranslatorService {
 	private OnrServiceMock onrServiceMock;
 
 	@Transactional(readOnly = true)
-	public PublicTranslatorListDTO getListDTO() {
+	public PublicTranslatorResponseDTO listTranslators() {
 		final StopWatch st = new StopWatch();
 
 		st.start("findIDsForPublicListing");
@@ -73,8 +73,8 @@ public class PublicTranslatorService {
 		}).toList();
 		st.stop();
 
-		st.start("getLanguagePairListDTO()");
-		LanguagePairListDTO languagePairListDTO = getLanguagePairListDTO();
+		st.start("getLanguagePairsDictDTO()");
+		LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
 		st.stop();
 
 		st.start("getDistinctTowns");
@@ -84,9 +84,9 @@ public class PublicTranslatorService {
 		LOG.info(st.prettyPrint());
 
 		// @formatter:off
-		return PublicTranslatorListDTO.builder()
+		return PublicTranslatorResponseDTO.builder()
 				.translators(publicTranslatorDTOS)
-				.langs(languagePairListDTO)
+				.langs(languagePairsDictDTO)
 				.towns(towns)
 				.build();
 		// @formatter:on
@@ -123,11 +123,11 @@ public class PublicTranslatorService {
 		// @formatter:on
 	}
 
-	private LanguagePairListDTO getLanguagePairListDTO() {
+	private LanguagePairsDictDTO getLanguagePairsDictDTO() {
 		List<String> fromLangs = languagePairRepository.getDistinctFromLangs();
 		List<String> toLangs = languagePairRepository.getDistinctToLangs();
 
-		return LanguagePairListDTO.builder().from(fromLangs).to(toLangs).build();
+		return LanguagePairsDictDTO.builder().from(fromLangs).to(toLangs).build();
 	}
 
 	private List<String> getDistinctTowns(Collection<TranslatorDetails> translatorDetails) {

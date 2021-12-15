@@ -1,8 +1,8 @@
 package fi.oph.akt.service;
 
-import fi.oph.akt.api.dto.LanguagePairListDTO;
+import fi.oph.akt.api.dto.LanguagePairsDictDTO;
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
-import fi.oph.akt.api.dto.PublicTranslatorListDTO;
+import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTerm;
@@ -35,24 +35,24 @@ class PublicTranslatorServiceTest {
 	private PublicTranslatorService publicTranslatorService;
 
 	@Test
-	public void getListDTOShouldReturnTranslatorsWithActiveTermAndHavingLanguagePairsWithPermissionToBePublished() {
+	public void listTranslatorsShouldReturnTranslatorsWithActiveTermAndHavingLanguagePairsWithPermissionToBePublished() {
 		createVariousTranslators();
 
-		final PublicTranslatorListDTO publicTranslatorListDTO = publicTranslatorService.getListDTO();
-		final List<PublicTranslatorDTO> translators = publicTranslatorListDTO.translators();
+		final PublicTranslatorResponseDTO responseDTO = publicTranslatorService.listTranslators();
+		final List<PublicTranslatorDTO> translators = responseDTO.translators();
 
 		assertEquals(3, translators.size());
 	}
 
 	@Test
-	public void getListDTOShouldReturnDistinctFromAndToLanguages() {
+	public void listTranslatorsShouldReturnDistinctFromAndToLanguages() {
 		createVariousTranslators();
 
-		final PublicTranslatorListDTO publicTranslatorListDTO = publicTranslatorService.getListDTO();
-		final LanguagePairListDTO langs = publicTranslatorListDTO.langs();
+		final PublicTranslatorResponseDTO responseDTO = publicTranslatorService.listTranslators();
+		final LanguagePairsDictDTO languagePairsDictDTO = responseDTO.langs();
 
-		assertEquals(List.of("fi"), langs.from());
-		assertEquals(List.of("en"), langs.to());
+		assertEquals(List.of("fi"), languagePairsDictDTO.from());
+		assertEquals(List.of("en"), languagePairsDictDTO.to());
 	}
 
 	private void createVariousTranslators() {
