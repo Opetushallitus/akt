@@ -2,6 +2,7 @@ package fi.oph.akt;
 
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
+import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
@@ -44,6 +45,15 @@ public class Factory {
 		languagePair.setPermissionToPublish(true);
 
 		return languagePair;
+	}
+
+	public static AuthorisationTerm authorisationTerm(Authorisation authorisation) {
+		final AuthorisationTerm authorisationTerm = new AuthorisationTerm();
+		authorisationTerm.setAuthorisation(authorisation);
+		authorisationTerm.setBeginDate(LocalDate.now());
+		authorisationTerm.setEndDate(LocalDate.now().plusYears(1));
+
+		return authorisationTerm;
 	}
 
 }
