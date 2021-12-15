@@ -88,16 +88,7 @@ export const TranslatorListing = ({
   switch (status) {
     case APIResponseStatus.NotLoaded:
     case APIResponseStatus.Loading:
-      return (
-        <Box
-          minHeight="10vh"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <ProgressIndicator />
-        </Box>
-      );
+      return <ProgressIndicator color="secondary" />;
     case APIResponseStatus.Error:
       return (
         <Box
