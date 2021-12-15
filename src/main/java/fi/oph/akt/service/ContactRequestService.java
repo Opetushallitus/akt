@@ -6,6 +6,7 @@ import fi.oph.akt.model.ContactRequestTranslator;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.ContactRequestRepository;
 import fi.oph.akt.repository.ContactRequestTranslatorRepository;
+import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,32 +24,44 @@ public class ContactRequestService {
 	private ContactRequestTranslatorRepository contactRequestTranslatorRepository;
 
 	@Resource
+	private LanguagePairRepository languagePairRepository;
+
+	@Resource
 	private TranslatorRepository translatorRepository;
 
 	@Transactional
 	public ContactRequest createContactRequest(ContactRequestDTO contactRequestDTO) {
-		final List<Long> translatorIds = contactRequestDTO.translatorIds().stream().distinct().toList();
+		final List<Long> distinctTranslatorIds = contactRequestDTO.translatorIds().stream().distinct().toList();
+		final List<Translator> translators = translatorRepository.findAllById(distinctTranslatorIds);
 
-		final List<Translator> translators = translatorRepository.findAllById(translatorIds);
+		validateContactRequestDTO(contactRequestDTO, distinctTranslatorIds, translators);
 
-		if (translators.size() == translatorIds.size()) {
-			ContactRequest contactRequest = makeContactRequest(contactRequestDTO);
-			ContactRequest savedContactRequest = contactRequestRepository.save(contactRequest);
+		ContactRequest contactRequest = saveContactRequest(contactRequestDTO);
+		saveContactRequestTranslators(translators, contactRequest);
 
-			List<ContactRequestTranslator> contactRequestTranslators = makeContactRequestTranslators(translators,
-					savedContactRequest);
-			contactRequestTranslatorRepository.saveAll(contactRequestTranslators);
+		// TODO (OPHAKTKEH-114): create email
 
-			// TODO (OPHAKTKEH-114): create email
+		return contactRequest;
+	}
 
-			return savedContactRequest;
-		}
-		else {
+	private void validateContactRequestDTO(ContactRequestDTO contactRequestDTO, List<Long> translatorIds,
+			List<Translator> translators) {
+
+		List<String> fromLangs = languagePairRepository.getDistinctFromLangs();
+		List<String> toLangs = languagePairRepository.getDistinctToLangs();
+
+		if (translators.size() != translatorIds.size()) {
 			throw new IllegalArgumentException("Each translator by provided translatorIds not found");
+		}
+		else if (!fromLangs.contains(contactRequestDTO.fromLang())) {
+			throw new IllegalArgumentException("Invalid fromLang " + contactRequestDTO.fromLang());
+		}
+		else if (!toLangs.contains(contactRequestDTO.toLang())) {
+			throw new IllegalArgumentException("Invalid toLang " + contactRequestDTO.toLang());
 		}
 	}
 
-	private ContactRequest makeContactRequest(ContactRequestDTO contactRequestDTO) {
+	private ContactRequest saveContactRequest(ContactRequestDTO contactRequestDTO) {
 		ContactRequest contactRequest = new ContactRequest();
 
 		contactRequest.setFirstName(contactRequestDTO.firstName());
@@ -59,19 +72,20 @@ public class ContactRequestService {
 		contactRequest.setFromLang(contactRequestDTO.fromLang());
 		contactRequest.setToLang(contactRequestDTO.toLang());
 
-		return contactRequest;
+		return contactRequestRepository.save(contactRequest);
 	}
 
-	private List<ContactRequestTranslator> makeContactRequestTranslators(List<Translator> translators,
-			ContactRequest contactRequest) {
+	private void saveContactRequestTranslators(List<Translator> translators, ContactRequest contactRequest) {
 
-		return translators.stream().map(translator -> {
+		List<ContactRequestTranslator> contactRequestTranslators = translators.stream().map(translator -> {
 			ContactRequestTranslator contactRequestTranslator = new ContactRequestTranslator();
 			contactRequestTranslator.setContactRequest(contactRequest);
 			contactRequestTranslator.setTranslator(translator);
 
 			return contactRequestTranslator;
 		}).toList();
+
+		contactRequestTranslatorRepository.saveAll(contactRequestTranslators);
 	}
 
 }

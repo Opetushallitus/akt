@@ -6,8 +6,6 @@ import fi.oph.akt.service.ContactRequestService;
 import fi.oph.akt.service.PublicTranslatorService;
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -23,8 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class TranslatorController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(TranslatorController.class);
-
 	@Resource
 	private ContactRequestService contactRequestService;
 
@@ -39,7 +35,6 @@ public class TranslatorController {
 	@PostMapping("/contact-request")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void sendContactRequest(@Valid @RequestBody ContactRequestDTO contactRequestDTO) {
-		LOG.info("contactRequest " + contactRequestDTO);
 		contactRequestService.createContactRequest(contactRequestDTO);
 	}
 
