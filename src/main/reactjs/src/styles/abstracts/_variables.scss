@@ -9,8 +9,8 @@ $color-secondary-dark: #000a48;
 $color-text-primary: #000a48;
 $color-text-secondary: #ffffff;
 
-$color-background-public: #ffffff;
-$color-background-clerk: #f0f3f7;
+$color-background-root: #f0f3f7;
+$color-background-content: #ffffff;
 
 $color-grey-700: #666666;
 
@@ -23,3 +23,4 @@ $breakpoint-sm: 64rem;
 $breakpoint-md: 80rem;
 $breakpoint-lg: 96rem;
 $breakpoint-xl: 128rem;
+$breakpoint-xxl: 160rem;

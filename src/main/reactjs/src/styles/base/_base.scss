@@ -8,6 +8,7 @@ body,
   height: 100%;
   font-family: Roboto;
   font-size: 62.5%;
+  background-color: $color-background-root;
 }
 
 .app {
@@ -18,17 +19,19 @@ body,
     'content'
     'footer';
   height: 100%;
+  max-width: $breakpoint-xxl;
+  margin: auto;
 }
 
 .header {
   grid-area: header;
+  z-index: 1;
 }
 
 .content {
   grid-area: content;
   display: flex;
-  background-color: $color-background-public;
-  margin-top: 1rem;
+  background-color: $color-background-content;
 
   &__container {
     padding: 3rem;
