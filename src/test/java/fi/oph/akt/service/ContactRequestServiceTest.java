@@ -50,6 +50,8 @@ class ContactRequestServiceTest {
 		assertEquals(contactRequestDTO.email(), contactRequest.getEmail());
 		assertEquals(contactRequestDTO.phoneNumber(), contactRequest.getPhoneNumber());
 		assertEquals(contactRequestDTO.message(), contactRequest.getMessage());
+		assertEquals(contactRequestDTO.fromLang(), contactRequest.getFromLang());
+		assertEquals(contactRequestDTO.toLang(), contactRequest.getToLang());
 
 		assertEquals(3, contactRequestTranslators.size());
 
@@ -110,6 +112,8 @@ class ContactRequestServiceTest {
 				.email("foo@bar")
 				.phoneNumber("+358123")
 				.message("lorem ipsum")
+				.fromLang("fi")
+				.toLang("en")
 				.translatorIds(translatorIds)
 				.build();
 		// @formatter:on

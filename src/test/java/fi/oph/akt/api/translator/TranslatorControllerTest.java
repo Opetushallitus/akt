@@ -115,6 +115,38 @@ class TranslatorControllerTest {
 	}
 
 	@Test
+	public void testContactRequestWithEmptyFromLang() throws Exception {
+		final JSONObject data = validContactRequestData();
+		data.put("fromLang", "");
+
+		postContactRequest(data).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void testContactRequestWithTooLongFromLang() throws Exception {
+		final JSONObject data = validContactRequestData();
+		data.put("fromLang", "x".repeat(11));
+
+		postContactRequest(data).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void testContactRequestWithEmptyToLang() throws Exception {
+		final JSONObject data = validContactRequestData();
+		data.put("toLang", "");
+
+		postContactRequest(data).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void testContactRequestWithTooLongToLang() throws Exception {
+		final JSONObject data = validContactRequestData();
+		data.put("toLang", "x".repeat(11));
+
+		postContactRequest(data).andExpect(status().isBadRequest());
+	}
+
+	@Test
 	public void testContactRequestWithNoTranslatorIds() throws Exception {
 		final JSONObject data = validContactRequestData();
 		data.put("translatorIds", List.of());
@@ -137,6 +169,8 @@ class TranslatorControllerTest {
 		data.put("email", "foo@bar");
 		data.put("phoneNumber", "0409876543");
 		data.put("message", "Lorem ipsum dolor sit amet");
+		data.put("fromLang", "fi");
+		data.put("toLang", "en");
 		data.put("translatorIds", List.of(56, 4));
 
 		return data;

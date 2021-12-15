@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 
 @Getter
@@ -37,6 +38,14 @@ public class ContactRequest extends BaseEntity {
 
 	@Column(name = "message", nullable = false)
 	private String message;
+
+	@Size(min = 1, max = 10)
+	@Column(name = "from_lang", nullable = false, length = 10)
+	private String fromLang;
+
+	@Size(min = 1, max = 10)
+	@Column(name = "to_lang", nullable = false, length = 10)
+	private String toLang;
 
 	@OneToMany(mappedBy = "contactRequest")
 	private Collection<ContactRequestTranslator> contactRequestTranslators;
