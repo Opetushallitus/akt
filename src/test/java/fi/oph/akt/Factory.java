@@ -12,18 +12,18 @@ import java.util.UUID;
 
 public class Factory {
 
-	public static Translator translator() {
-		final Translator translator = new Translator();
-		translator.setOnrOid(UUID.randomUUID().toString());
-
-		return translator;
-	}
-
 	public static MeetingDate meetingDate() {
 		final MeetingDate meetingDate = new MeetingDate();
 		meetingDate.setDate(LocalDate.now());
 
 		return meetingDate;
+	}
+
+	public static Translator translator() {
+		final Translator translator = new Translator();
+		translator.setOnrOid(UUID.randomUUID().toString());
+
+		return translator;
 	}
 
 	public static Authorisation authorisation(Translator translator, MeetingDate meetingDate) {

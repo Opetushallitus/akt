@@ -47,16 +47,17 @@ public class ContactRequestService {
 	private void validateContactRequestDTO(ContactRequestDTO contactRequestDTO, List<Long> translatorIds,
 			List<Translator> translators) {
 
-		List<String> fromLangs = languagePairRepository.getDistinctFromLangs();
-		List<String> toLangs = languagePairRepository.getDistinctToLangs();
-
 		if (translators.size() != translatorIds.size()) {
 			throw new IllegalArgumentException("Each translator by provided translatorIds not found");
 		}
-		else if (!fromLangs.contains(contactRequestDTO.fromLang())) {
+
+		List<String> fromLangs = languagePairRepository.getDistinctFromLangs();
+		if (!fromLangs.contains(contactRequestDTO.fromLang())) {
 			throw new IllegalArgumentException("Invalid fromLang " + contactRequestDTO.fromLang());
 		}
-		else if (!toLangs.contains(contactRequestDTO.toLang())) {
+
+		List<String> toLangs = languagePairRepository.getDistinctToLangs();
+		if (!toLangs.contains(contactRequestDTO.toLang())) {
 			throw new IllegalArgumentException("Invalid toLang " + contactRequestDTO.toLang());
 		}
 	}

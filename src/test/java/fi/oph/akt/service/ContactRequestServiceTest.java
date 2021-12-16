@@ -17,6 +17,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,7 +42,9 @@ class ContactRequestServiceTest {
 
 	@Test
 	public void createContactRequestShouldSaveValidRequest() {
-		initTranslators(3);
+		MeetingDate meetingDate = createMeetingDate();
+		initTranslators(meetingDate, 3);
+
 		List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
 
 		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, "en", "de");
@@ -62,13 +66,15 @@ class ContactRequestServiceTest {
 			assertEquals(contactRequest.getId(), ctr.getContactRequest().getId());
 		});
 
-		assertEquals(translatorIds.stream().sorted().toList(), contactRequestTranslators.stream()
-				.map(ContactRequestTranslator::getTranslator).map(Translator::getId).sorted().toList());
+		assertEquals(Set.copyOf(translatorIds), contactRequestTranslators.stream()
+				.map(ContactRequestTranslator::getTranslator).map(Translator::getId).collect(Collectors.toSet()));
 	}
 
 	@Test
 	public void createContactRequestShouldSaveValidRequestWithDuplicateTranslatorIds() {
-		initTranslators(2);
+		MeetingDate meetingDate = createMeetingDate();
+		initTranslators(meetingDate, 2);
+
 		final long translatorId = translatorRepository.findAll().get(0).getId();
 		List<Long> translatorIds = List.of(translatorId, translatorId);
 
@@ -89,7 +95,9 @@ class ContactRequestServiceTest {
 
 	@Test
 	public void createContactRequestShouldThrowIllegalArgumentExceptionForNonExistingTranslatorIds() {
-		initTranslators(1);
+		MeetingDate meetingDate = createMeetingDate();
+		initTranslators(meetingDate, 1);
+
 		List<Long> translatorIds = List.of(0L);
 
 		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, "en", "de");
@@ -100,7 +108,9 @@ class ContactRequestServiceTest {
 
 	@Test
 	public void createContactRequestShouldThrowIllegalArgumentExceptionForNonExistingFromLang() {
-		initTranslators(1);
+		MeetingDate meetingDate = createMeetingDate();
+		initTranslators(meetingDate, 1);
+
 		List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
 
 		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, "fi", "de");
@@ -111,7 +121,9 @@ class ContactRequestServiceTest {
 
 	@Test
 	public void createContactRequestShouldThrowIllegalArgumentExceptionForNonExistingToLang() {
-		initTranslators(1);
+		MeetingDate meetingDate = createMeetingDate();
+		initTranslators(meetingDate, 1);
+
 		List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
 
 		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, "en", "sv");
@@ -120,19 +132,24 @@ class ContactRequestServiceTest {
 				() -> contactRequestService.createContactRequest(contactRequestDTO));
 	}
 
-	private void initTranslators(int size) {
+	private MeetingDate createMeetingDate() {
+		final MeetingDate meetingDate = Factory.meetingDate();
+		entityManager.persist(meetingDate);
+
+		return meetingDate;
+	}
+
+	private void initTranslators(MeetingDate meetingDate, int size) {
 
 		IntStream.range(0, size).forEach(n -> {
 			final Translator translator = Factory.translator();
-			final MeetingDate meetingDate = Factory.meetingDate();
 			final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-			final LanguagePair languagePair = Factory.languagePair(authorisation);
 
+			final LanguagePair languagePair = Factory.languagePair(authorisation);
 			languagePair.setFromLang("en");
 			languagePair.setToLang("de");
 
 			entityManager.persist(translator);
-			entityManager.persist(meetingDate);
 			entityManager.persist(authorisation);
 			entityManager.persist(languagePair);
 		});

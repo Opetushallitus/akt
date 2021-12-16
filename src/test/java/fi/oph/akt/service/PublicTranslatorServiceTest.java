@@ -33,7 +33,10 @@ class PublicTranslatorServiceTest {
 
 	@Test
 	public void listTranslatorsShouldReturnTranslatorsWithActiveTermAndHavingLanguagePairsWithPermissionToBePublished() {
-		createVariousTranslators();
+		final MeetingDate meetingDate = Factory.meetingDate();
+		entityManager.persist(meetingDate);
+
+		createVariousTranslators(meetingDate);
 
 		final PublicTranslatorResponseDTO responseDTO = publicTranslatorService.listTranslators();
 		final List<PublicTranslatorDTO> translators = responseDTO.translators();
@@ -43,7 +46,10 @@ class PublicTranslatorServiceTest {
 
 	@Test
 	public void listTranslatorsShouldReturnDistinctFromAndToLanguages() {
-		createVariousTranslators();
+		final MeetingDate meetingDate = Factory.meetingDate();
+		entityManager.persist(meetingDate);
+
+		createVariousTranslators(meetingDate);
 
 		final PublicTranslatorResponseDTO responseDTO = publicTranslatorService.listTranslators();
 		final LanguagePairsDictDTO languagePairsDictDTO = responseDTO.langs();
@@ -52,34 +58,33 @@ class PublicTranslatorServiceTest {
 		assertEquals(List.of("en"), languagePairsDictDTO.to());
 	}
 
-	private void createVariousTranslators() {
+	private void createVariousTranslators(MeetingDate meetingDate) {
 		// Term active
-		createTranslator(LocalDate.now(), LocalDate.now().plusDays(1), true);
+		createTranslator(meetingDate, LocalDate.now(), LocalDate.now().plusDays(1), true);
 
 		// Term active
-		createTranslator(LocalDate.now().minusDays(1), LocalDate.now(), true);
+		createTranslator(meetingDate, LocalDate.now().minusDays(1), LocalDate.now(), true);
 
 		// Term active (no end date)
-		createTranslator(LocalDate.now(), null, true);
+		createTranslator(meetingDate, LocalDate.now(), null, true);
 
 		// Term active but no permission given
-		createTranslator(LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), false);
+		createTranslator(meetingDate, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), false);
 
 		// Term ended
-		createTranslator(LocalDate.now().minusDays(10), LocalDate.now().minusDays(1), true);
+		createTranslator(meetingDate, LocalDate.now().minusDays(10), LocalDate.now().minusDays(1), true);
 
 		// Term in future
-		createTranslator(LocalDate.now().plusDays(1), LocalDate.now().plusDays(10), true);
+		createTranslator(meetingDate, LocalDate.now().plusDays(1), LocalDate.now().plusDays(10), true);
 
 		// Term in future (no end date)
-		createTranslator(LocalDate.now().plusDays(1), null, true);
+		createTranslator(meetingDate, LocalDate.now().plusDays(1), null, true);
 	}
 
-	private void createTranslator(final LocalDate beginDate, final LocalDate endDate,
+	private void createTranslator(final MeetingDate meetingDate, final LocalDate beginDate, final LocalDate endDate,
 			final boolean permissionToPublish) {
 
 		final Translator translator = Factory.translator();
-		final MeetingDate meetingDate = Factory.meetingDate();
 		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
 
 		final LanguagePair languagePair = Factory.languagePair(authorisation);
@@ -92,7 +97,6 @@ class PublicTranslatorServiceTest {
 		authorisationTerm.setEndDate(endDate);
 
 		entityManager.persist(translator);
-		entityManager.persist(meetingDate);
 		entityManager.persist(authorisation);
 		entityManager.persist(languagePair);
 		entityManager.persist(authorisationTerm);
