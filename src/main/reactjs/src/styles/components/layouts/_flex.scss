@@ -1,0 +1,25 @@
+.rows {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.columns {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+}
+
+.flex-end {
+    justify-content: flex-end;
+}
+
+.grow {
+    flex-grow: 1;
+}
+
+.gapped {
+    gap: 2rem;
+}
+

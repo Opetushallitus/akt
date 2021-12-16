@@ -10,6 +10,7 @@ const secondaryDarkColor = '#000a48';
 const primaryHeadingColor = '#000a48';
 const secondaryHeadingColor = '#FFFFFF';
 const grey700Color = '#666666';
+const grey600Color = '#999999';
 
 const fontWeightBold = 700;
 const fontWeightMedium = 500;
@@ -41,6 +42,30 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           color: grey700Color,
+        },
+      },
+    },
+    MuiStepIcon: {
+      styleOverrides: {
+        root: {
+          '&.Mui-completed': {
+            color: secondaryColor,
+          },
+          '&.Mui-active': {
+            color: secondaryColor,
+          },
+        },
+        text: {
+          fill: primaryColor,
+        },
+      },
+    },
+    MuiStepLabel: {
+      styleOverrides: {
+        label: {
+          '&.Mui-disabled': {
+            color: grey600Color,
+          },
         },
       },
     },
@@ -86,6 +111,7 @@ export const theme = createTheme({
       fontSize: '1.6rem',
       fontWeight: fontWeightRegular,
       lineHeight: '2.4rem',
+      color: primaryHeadingColor,
     },
   },
 });

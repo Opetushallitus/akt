@@ -1,0 +1,11 @@
+.dialog__success {
+  .MuiDialog-paper {
+    border-top: 1vh $color-green-600 solid;
+  }
+}
+
+.dialog__error {
+  .MuiDialog-paper {
+    border-top: 1vh $color-red-500 solid;
+  }
+}
