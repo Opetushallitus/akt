@@ -113,13 +113,22 @@ const StepHeading = ({ step }: { step: string }) => {
   );
 };
 
-const VerifyTranslatorsStep = () => {
+const VerifyTranslatorsStep = ({
+  disableNext,
+}: {
+  disableNext: (disabled: boolean) => void;
+}) => {
   const translators = useAppSelector(selectedPublicTranslatorsForLanguagePair);
 
   const dispatch = useAppDispatch();
 
   const deselectTranslator = (id: number) =>
     dispatch(removeSelectedTranslator(id));
+
+  useEffect(
+    () => disableNext(translators.length == 0),
+    [disableNext, translators]
+  );
 
   return (
     <div className="rows">
@@ -243,7 +252,11 @@ const FillContactDetailsStep = ({
   );
 };
 
-const WriteMessageStep = () => {
+const WriteMessageStep = ({
+  disableNext,
+}: {
+  disableNext: (disabled: boolean) => void;
+}) => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
@@ -251,6 +264,8 @@ const WriteMessageStep = () => {
     (state) => state.contactRequest.request
   ) as ContactRequest;
   const dispatch = useAppDispatch();
+
+  useEffect(() => disableNext(request.message === ''), [disableNext, request]);
 
   return (
     <div className="rows">
@@ -491,6 +506,7 @@ export const ContactRequestForm = () => {
     }
   }, [requestStatus, setSpinnerOpen, setSuccessDialogOpen, setErrorDialogOpen]);
 
+  const disableNextCb = (disabled: boolean) => setDisableNext(disabled);
   return (
     <>
       <Grid item>
@@ -511,13 +527,13 @@ export const ContactRequestForm = () => {
                   </Step>
                 ))}
               </Stepper>
-              {step == 0 && <VerifyTranslatorsStep />}
-              {step == 1 && (
-                <FillContactDetailsStep
-                  disableNext={(disabled: boolean) => setDisableNext(disabled)}
-                />
+              {step == 0 && (
+                <VerifyTranslatorsStep disableNext={disableNextCb} />
               )}
-              {step == 2 && <WriteMessageStep />}
+              {step == 1 && (
+                <FillContactDetailsStep disableNext={disableNextCb} />
+              )}
+              {step == 2 && <WriteMessageStep disableNext={disableNextCb} />}
               {step == 3 && <PreviewAndSendStep />}
               <SuccessDialog
                 open={successDialogOpen}
