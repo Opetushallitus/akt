@@ -1,14 +1,14 @@
 import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
+import { WithId } from 'interfaces/withId';
 
-interface LanguagePair {
+export interface LanguagePair {
   from: string;
   to: string;
 }
 
-export interface TranslatorDetails {
-  id: number;
+export interface TranslatorDetails extends WithId {
   firstName: string;
   lastName: string;
   town: string;
