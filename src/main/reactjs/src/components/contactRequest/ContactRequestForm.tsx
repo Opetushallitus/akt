@@ -12,8 +12,15 @@ import {
   DialogContent,
   DialogTitle,
   DialogActions,
+  TextFieldProps,
 } from '@mui/material';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 import { H1, H2, H3, Text } from 'components/elements/Text';
@@ -27,7 +34,7 @@ import {
 } from 'redux/actions/contactRequest';
 import { displayUiState } from 'redux/actions/navigation';
 import { removeSelectedTranslator } from 'redux/actions/translatorDetails';
-import { ContactRequest } from 'interfaces/contactRequest';
+import { ContactDetails, ContactRequest } from 'interfaces/contactRequest';
 import { APIResponseStatus } from 'enums/api';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 
@@ -127,16 +134,73 @@ const VerifyTranslatorsStep = () => {
   );
 };
 
-const FillContactDetailsStep = () => {
+const ContactDetailsField = ({
+  contactDetailsField,
+  errorStatusCallback,
+  ...rest
+}: TextFieldProps & {
+  contactDetailsField: keyof ContactDetails;
+  errorStatusCallback: (field: keyof ContactDetails, error: boolean) => void;
+}) => {
+  const contactDetails = useAppSelector(
+    (state) => state.contactRequest.request
+  ) as ContactRequest;
+  const dispatch = useAppDispatch();
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.contactRequestForm',
+  });
+  const [fieldStateChanged, setFieldStateChanged] = useState(false);
+  const isError =
+    fieldStateChanged && contactDetails[contactDetailsField] == '';
+  useEffect(
+    () => errorStatusCallback(contactDetailsField, isError),
+    [isError, contactDetailsField, errorStatusCallback]
+  );
+  return (
+    <TextField
+      error={isError}
+      label={t(contactDetailsField)}
+      value={contactDetails[contactDetailsField]}
+      onChange={(e) => {
+        setFieldStateChanged(true);
+        const updated = Object.assign({}, contactDetails);
+        updated[contactDetailsField] = e.target.value;
+        dispatch(setContactRequest(updated));
+      }}
+      {...rest}
+    />
+  );
+};
+
+const FillContactDetailsStep = ({
+  onErrorStateChanged,
+}: {
+  onErrorStateChanged: (disabled: boolean) => void;
+}) => {
   const translators = useSelectedTranslatorDetails();
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
 
-  const contactDetails = useAppSelector(
-    (state) => state.contactRequest.request
-  ) as ContactRequest;
-  const dispatch = useAppDispatch();
+  const [fieldErrors, setFieldErrors] = useState({
+    firstName: false,
+    lastName: false,
+    email: false,
+    phoneNumber: false,
+  });
+
+  const fieldErrorCallback = (field: keyof ContactDetails, error: boolean) =>
+    setFieldErrors((state) => {
+      const newState = Object.assign({}, state);
+      newState[field] = error;
+      return newState;
+    });
+  const memoizedFieldErrorCallback = useCallback(fieldErrorCallback, []);
+
+  useEffect(
+    () => onErrorStateChanged(Object.values(fieldErrors).some((v) => v)),
+    [fieldErrors, onErrorStateChanged]
+  );
 
   return (
     <div className="rows">
@@ -150,56 +214,24 @@ const FillContactDetailsStep = () => {
         </Text>
         <div className="rows gapped">
           <H3>{t('steps.1')}</H3>
-          <TextField
-            label={t('firstName')}
-            value={contactDetails.firstName}
-            onChange={(e) =>
-              dispatch(
-                setContactRequest(
-                  Object.assign({}, contactDetails, {
-                    firstName: e.target.value,
-                  })
-                )
-              )
-            }
+          <ContactDetailsField
+            contactDetailsField="firstName"
+            errorStatusCallback={memoizedFieldErrorCallback}
             required
           />
-          <TextField
-            label={t('lastName')}
-            value={contactDetails.lastName}
-            onChange={(e) =>
-              dispatch(
-                setContactRequest(
-                  Object.assign({}, contactDetails, {
-                    lastName: e.target.value,
-                  })
-                )
-              )
-            }
+          <ContactDetailsField
+            contactDetailsField="lastName"
+            errorStatusCallback={memoizedFieldErrorCallback}
             required
           />
-          <TextField
-            label={t('email')}
-            value={contactDetails.email}
-            onChange={(e) =>
-              dispatch(
-                setContactRequest(
-                  Object.assign({}, contactDetails, { email: e.target.value })
-                )
-              )
-            }
+          <ContactDetailsField
+            contactDetailsField="email"
+            errorStatusCallback={memoizedFieldErrorCallback}
             required
           />
-          <TextField
-            label={t('phoneNumber')}
-            value={contactDetails.phoneNumber}
-            onChange={(e) =>
-              dispatch(
-                setContactRequest(
-                  Object.assign({}, contactDetails, { phone: e.target.value })
-                )
-              )
-            }
+          <ContactDetailsField
+            contactDetailsField="phoneNumber"
+            errorStatusCallback={memoizedFieldErrorCallback}
           />
         </div>
       </div>
@@ -349,11 +381,13 @@ const ControlButtons = ({
   onChangeStep,
   step,
   maxStep,
+  disableNext,
 }: {
   onCancelRequest: () => void;
   onChangeStep: Dispatch<SetStateAction<number>>;
   step: number;
   maxStep: number;
+  disableNext: boolean;
 }) => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
@@ -366,7 +400,6 @@ const ControlButtons = ({
   const submit = () => {
     dispatch(sendContactRequest(contactRequest));
   };
-  // TODO Disable submit if data is not valid (no translators selected, empty message, missing required contact details)
   return (
     <div className="columns flex-end gapped">
       <Button variant="outlined" color="secondary" onClick={onCancelRequest}>
@@ -388,6 +421,7 @@ const ControlButtons = ({
         <Button
           variant="contained"
           color="secondary"
+          disabled={disableNext}
           onClick={() => onChangeStep(incrementStep)}
         >
           {t('buttons.next')}
@@ -450,6 +484,7 @@ export const ContactRequestForm = () => {
 
   // Local component state
   const [step, setStep] = useState(0);
+  const [disableNext, setDisableNext] = useState(false);
   const maxStep = 3;
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [errorDialogOpen, setErrorDialogOpen] = useState(false);
@@ -496,7 +531,13 @@ export const ContactRequestForm = () => {
                 ))}
               </Stepper>
               {step == 0 && <VerifyTranslatorsStep />}
-              {step == 1 && <FillContactDetailsStep />}
+              {step == 1 && (
+                <FillContactDetailsStep
+                  onErrorStateChanged={(disabled: boolean) =>
+                    setDisableNext(disabled)
+                  }
+                />
+              )}
               {step == 2 && <WriteMessageStep />}
               {step == 3 && <PreviewAndSendStep />}
               <SuccessDialog
@@ -513,6 +554,7 @@ export const ContactRequestForm = () => {
               <ControlButtons
                 step={step}
                 maxStep={maxStep}
+                disableNext={disableNext}
                 onChangeStep={setStep}
                 onCancelRequest={onCancelRequest}
               />
