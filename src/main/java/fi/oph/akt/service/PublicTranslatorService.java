@@ -5,12 +5,11 @@ import fi.oph.akt.api.dto.PublicLanguagePairDTO;
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Translator;
-import fi.oph.akt.onr.TranslatorDetails;
 import fi.oph.akt.onr.OnrServiceMock;
+import fi.oph.akt.onr.TranslatorDetails;
 import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorLanguagePairProjection;
 import fi.oph.akt.repository.TranslatorRepository;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -45,12 +44,8 @@ public class PublicTranslatorService {
 	public PublicTranslatorResponseDTO listTranslators() {
 		final StopWatch st = new StopWatch();
 
-		st.start("findIDsForPublicListing");
-		final List<Long> translatorIds = translatorRepository.findIDsForPublicListing();
-		st.stop();
-
-		st.start("findAllById");
-		final List<Translator> translators = translatorRepository.findAllById(translatorIds);
+		st.start("findTranslatorsForPublicListing");
+		final List<Translator> translators = translatorRepository.findTranslatorsForPublicListing();
 		st.stop();
 
 		st.start("getTranslatorsDetails");
