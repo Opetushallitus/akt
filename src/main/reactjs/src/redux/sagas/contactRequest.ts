@@ -12,12 +12,29 @@ import {
 
 export function* sendContactRequest(action: Action) {
   if (isContactRequestSendAction(action)) {
-    const request = action.request;
+    const {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      languagePair,
+      translatorIds,
+      message,
+    } = action.request;
     try {
       yield call(
         axiosInstance.post,
         APIEndpoints.ContactRequest,
-        JSON.stringify(request)
+        JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          translatorIds,
+          message,
+          fromLang: languagePair.from,
+          toLang: languagePair.to,
+        })
       );
       yield put({ type: CONTACT_REQUEST_SUCCESS });
     } catch (error) {

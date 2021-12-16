@@ -5,7 +5,7 @@ import { LanguagePair } from './translator';
 
 export interface ContactRequest {
   email: string;
-  phone?: string;
+  phoneNumber?: string;
   firstName: string;
   lastName: string;
   message: string;

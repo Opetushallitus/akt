@@ -121,7 +121,7 @@
         "firstName": "Etunimi",
         "lastName": "Sukunimi",
         "email": "Sähköpostiosoite",
-        "phone": "Puhelinnumero",
+        "phoneNumber": "Puhelinnumero",
         "contactInfo": "Yhteystiedot",
         "message": "Viesti",
         "writeMessageHereLabel": "Kirjoita viestisi tähän",

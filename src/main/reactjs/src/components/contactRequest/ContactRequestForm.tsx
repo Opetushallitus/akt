@@ -76,10 +76,10 @@ const DisplayContactInfo = () => {
         <H3>{t('email')}</H3>
         <Text>{contactInfo.email}</Text>
       </div>
-      {contactInfo.phone && (
+      {contactInfo.phoneNumber && (
         <div className="rows">
-          <H3>{t('phone')}</H3>
-          <Text>{contactInfo.phone}</Text>
+          <H3>{t('phoneNumber')}</H3>
+          <Text>{contactInfo.phoneNumber}</Text>
         </div>
       )}
     </div>
@@ -191,8 +191,8 @@ const FillContactDetailsStep = () => {
             required
           />
           <TextField
-            label={t('phone')}
-            value={contactDetails.phone}
+            label={t('phoneNumber')}
+            value={contactDetails.phoneNumber}
             onChange={(e) =>
               dispatch(
                 setContactRequest(
@@ -428,7 +428,7 @@ const useResetContactRequestState = () => {
         firstName: '',
         lastName: '',
         message: '',
-        phone: '',
+        phoneNumber: '',
       })
     );
   }, [dispatch, from, to, translatorIds]);
