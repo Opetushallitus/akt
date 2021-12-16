@@ -18,7 +18,7 @@ import {
 } from 'redux/actionTypes/translatorDetails';
 
 const defaultState = {
-  status: APIResponseStatus.NotLoaded,
+  status: APIResponseStatus.NotStarted,
   selectedTranslators: [],
   translators: [],
   filters: {
@@ -41,12 +41,12 @@ export const translatorDetailsReducer: Reducer<
     case TRANSLATOR_DETAILS_LOADING:
       return {
         ...state,
-        status: APIResponseStatus.Loading,
+        status: APIResponseStatus.InProgress,
       };
     case TRANSLATOR_DETAILS_RECEIVED:
       return {
         ...state,
-        status: APIResponseStatus.Loaded,
+        status: APIResponseStatus.Success,
         translators: <Array<TranslatorDetails>>action.translators,
         langs: <LanguagePairsDict>action.langs,
         towns: <Array<string>>action.towns,
