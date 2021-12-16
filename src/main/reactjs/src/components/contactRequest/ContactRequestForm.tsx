@@ -333,7 +333,7 @@ const ErrorDialog = ({
     <Dialog className="dialog__error" open={open} onClose={cleanUp}>
       <DialogTitle>{t('title')}</DialogTitle>
       <DialogContent>
-        <Text>{t('description')}</Text>
+        <Text>{t('description')} akt@oph.fi</Text>
       </DialogContent>
       <DialogActions>
         <Button variant="contained" color="secondary" onClick={() => cleanUp()}>

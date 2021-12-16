@@ -1,7 +1,6 @@
 import { Reducer } from 'redux';
 
 import {
-  //ContactRequest,
   ContactRequestAction,
   ContactRequestState,
 } from 'interfaces/contactRequest';
