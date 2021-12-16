@@ -28,4 +28,7 @@ public class Translator extends BaseEntity {
 	@OneToMany(mappedBy = "translator")
 	private Collection<Authorisation> authorisations;
 
+	@OneToMany(mappedBy = "translator")
+	private Collection<ContactRequestTranslator> contactRequestTranslators;
+
 }

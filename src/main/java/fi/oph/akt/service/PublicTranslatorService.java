@@ -32,10 +32,10 @@ public class PublicTranslatorService {
 	private static final Logger LOG = LoggerFactory.getLogger(PublicTranslatorService.class);
 
 	@Resource
-	private TranslatorRepository translatorRepository;
+	private LanguagePairRepository languagePairRepository;
 
 	@Resource
-	private LanguagePairRepository languagePairRepository;
+	private TranslatorRepository translatorRepository;
 
 	@Resource
 	// TODO (OPHAKTKEH-52): use actual API outside local environment
