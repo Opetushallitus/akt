@@ -23,14 +23,14 @@ export interface PublicTranslatorFilter {
   town: string;
 }
 
-export interface LanguagePairResponse {
+export interface LanguagePairsDict {
   from: Array<string>;
   to: Array<string>;
 }
 
 export interface PublicTranslatorResponse {
   translators: Array<TranslatorDetails>;
-  langs: LanguagePairResponse;
+  langs: LanguagePairsDict;
   towns: string[];
 }
 

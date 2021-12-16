@@ -4,15 +4,15 @@
 
   &__icon {
     margin-right: 2px;
-    color: $color-secondary;
   }
 
   & &__select {
     margin-top: 2px;
 
     &,
+    &__icon,
     & > svg {
-      color: $color-secondary;
+      color: $color-secondary-dark;
     }
   }
 }

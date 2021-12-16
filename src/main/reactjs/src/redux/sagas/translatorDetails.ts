@@ -11,10 +11,17 @@ import {
   TRANSLATOR_DETAILS_RECEIVED,
 } from 'redux/actionTypes/translatorDetails';
 
-export function* storeApiResults(
-  apiResults: AxiosResponse<PublicTranslatorResponse>
-) {
-  const { translators, langs, towns } = apiResults.data;
+// Helpers
+const mapPublicTranslationResponse = (response: PublicTranslatorResponse) => {
+  const translators = response.translators
+    .map((t) => t.languagePairs.map((l) => ({ ...t, languagePairs: [l] })))
+    .reduce((prev, current) => [...prev, ...current]);
+
+  return { ...response, translators };
+};
+
+export function* storeApiResults(apiResults: PublicTranslatorResponse) {
+  const { translators, langs, towns } = apiResults;
   yield put({
     type: TRANSLATOR_DETAILS_RECEIVED,
     translators,
@@ -27,11 +34,13 @@ export function* fetchTranslatorDetails() {
   try {
     yield put({ type: TRANSLATOR_DETAILS_LOADING });
     // TODO Add runtime validation (io-ts) for API response?
-    const apiResults: AxiosResponse<PublicTranslatorResponse> = yield call(
+    const apiResponse: AxiosResponse<PublicTranslatorResponse> = yield call(
       axiosInstance.get,
       APIEndpoints.PublicTranslatorDetails
     );
-    yield call(storeApiResults, apiResults);
+    const mappedResponse = mapPublicTranslationResponse(apiResponse.data);
+
+    yield call(storeApiResults, mappedResponse);
   } catch (error) {
     yield put({ type: TRANSLATOR_DETAILS_ERROR, error });
   }

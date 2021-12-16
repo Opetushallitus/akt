@@ -11,6 +11,7 @@ export interface DropdownProps {
   disableUnderline?: boolean;
   helperText?: string;
   showError?: boolean;
+  sortByKeys?: boolean;
   variant: 'standard' | 'outlined' | 'filled' | undefined;
   value: string;
   onChange: (event: SelectChangeEvent<string>) => void;

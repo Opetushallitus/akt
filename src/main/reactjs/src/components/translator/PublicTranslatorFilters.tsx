@@ -78,6 +78,7 @@ export const PublicTranslatorFilters = ({
           <div className="public-translator-filters__filter__language-pair">
             <Dropdown
               showInputLabel
+              sortByKeys
               showError={
                 showFieldError && Utils.isEmptyString(filters.fromLang)
               }
@@ -91,6 +92,7 @@ export const PublicTranslatorFilters = ({
             />
             <Dropdown
               showInputLabel
+              sortByKeys
               showError={showFieldError && Utils.isEmptyString(filters.toLang)}
               label={t('languagePair.toPlaceholder')}
               helperText={t('languagePair.toHelperText')}
@@ -123,6 +125,7 @@ export const PublicTranslatorFilters = ({
           <H3> {t('town.title')}</H3>
           <Dropdown
             showInputLabel
+            sortByKeys
             label={t('town.placeholder')}
             id="filters-town"
             variant="outlined"

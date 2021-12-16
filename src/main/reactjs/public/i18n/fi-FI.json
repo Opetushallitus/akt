@@ -24,25 +24,31 @@
       },
       "footer": {
         "links": {
-          "aktHomepage": {
-            "text": "AKT Kotisivu",
-            "link": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/kieli-ja-kaantajatutkinnot/auktorisoidun-kaantajan-tutkinto"
+          "opintopolku": {
+            "text": "Opintopolku",
+            "link": "https://opintopolku.fi/konfo/fi"
           },
           "accessibility": {
             "text": "Saavutettavuusseloste",
             "link": "https://www.oph.fi/fi/tietoa-meista/opetushallituksen-saavutettavuusseloste"
           },
-          "mail": {
-            "text": "AKT neuvonta:",
-            "link": "akt@oph.fi",
-            "workingTime": "(Vastaukset virka-aikana)"
+          "aktHomepage": {
+            "text": "Tietoa auktorisoidun kääntäjän tutkinnosta",
+            "link": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/kieli-ja-kaantajatutkinnot/auktorisoidun-kaantajan-tutkinto"
           }
         },
         "address": {
+          "name": "Opetushallitus",
           "street": "Hakaniemenranta 6",
           "zipCity": "PL 380, 00531 Helsinki",
-          "phone": "Puhelin +358 29 533 1000",
-          "fax": "Faksi +358 29 533 1035"
+          "phone": {
+            "title": "Puhelin",
+            "number": "+358 29 533 1000"
+          },
+          "fax": {
+            "title": "Faksi",
+            "number": "+358 29 533 1035"
+          }
         },
         "logo": {
           "alt": "Etusivu"

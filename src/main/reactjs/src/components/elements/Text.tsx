@@ -1,20 +1,20 @@
-import { FC } from 'react';
-import { Typography, TypographyVariant } from '@mui/material';
+import { Typography, TypographyVariant, TypographyProps } from '@mui/material';
 
-const variantInDiv = (
-  variant: TypographyVariant,
-  children: React.ReactNode
-) => (
-  <Typography variant={variant} component="div">
-    {children}
-  </Typography>
-);
+const variantInDiv = (variant: TypographyVariant, props: TypographyProps) => {
+  const { children, ...rest } = props;
 
-export const H1: FC = ({ children }) => variantInDiv('h1', children);
-export const H2: FC = ({ children }) => variantInDiv('h2', children);
-export const H3: FC = ({ children }) => variantInDiv('h3', children);
-export const H4: FC = ({ children }) => variantInDiv('h4', children);
-export const H5: FC = ({ children }) => variantInDiv('h5', children);
-export const H6: FC = ({ children }) => variantInDiv('h6', children);
+  return (
+    <Typography variant={variant} {...rest}>
+      {children}
+    </Typography>
+  );
+};
 
-export const Text: FC = ({ children }) => variantInDiv('body1', children);
+export const H1 = (props: TypographyProps) => variantInDiv('h1', props);
+export const H2 = (props: TypographyProps) => variantInDiv('h2', props);
+export const H3 = (props: TypographyProps) => variantInDiv('h3', props);
+export const H4 = (props: TypographyProps) => variantInDiv('h4', props);
+export const H5 = (props: TypographyProps) => variantInDiv('h5', props);
+export const H6 = (props: TypographyProps) => variantInDiv('h6', props);
+
+export const Text = (props: TypographyProps) => variantInDiv('body1', props);
