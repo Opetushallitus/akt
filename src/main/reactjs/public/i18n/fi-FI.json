@@ -22,6 +22,9 @@
         },
         "selectedItems": "valittu"
       },
+      "callToAction": {
+        "contact": "Ota yhteyttä"
+      },
       "footer": {
         "links": {
           "opintopolku": {
@@ -97,6 +100,41 @@
           "empty": "Tyhjennä Valinnat",
           "search": "Hae"
         }
+      },
+      "contactRequestForm": {
+        "title": "Yhteydenottopyynnön jättäminen",
+        "description": "Tällä yhteydenottolomakkeella voit jättää valitsemillesi kääntäjille yhteydenottopyynnön. Kirjoitathan viestiin mahdollisimman tarkan kuvauksen tarvittavasta käännöstyöstä.",
+        "buttons": {
+          "cancel": "Peruuta",
+          "previous": "Takaisin",
+          "next": "Seuraava",
+          "submit": "Lähetä"
+        },
+        "steps": {
+          "0": "Vahvista kääntäjät",
+          "1": "Täytä yhteystiedot",
+          "2": "Kirjoita viesti",
+          "3": "Esikatsele ja lähetä",
+          "4": "Valmis"
+        },
+        "chosenTranslatorsForLanguagePair": "Valitut kääntäjät kieliparista",
+        "firstName": "Etunimi",
+        "lastName": "Sukunimi",
+        "email": "Sähköpostiosoite",
+        "phone": "Puhelinnumero",
+        "contactInfo": "Yhteystiedot",
+        "message": "Viesti",
+        "writeMessageHereLabel": "Kirjoita viestisi tähän",
+        "successDialog": {
+          "title": "Yhteydenottopyyntösi lähetettiin onnistuneesti!",
+          "description": "Sinuun ollaan yhteydessä.",
+          "continue": "Jatka"
+        },
+        "errorDialog": {
+          "title": "Virhe lähetettäessä yhteydenottopyyntöä.",
+          "description": "Kokeile myöhemmin uudelleen. Jos ongelma toistuu, ota yhteyttä sähköpostilla: ",
+          "back": "Takaisin"
+        }
       }
     },
     "pages": {
@@ -106,7 +144,8 @@
         "filters": {
           "title": "Hae auktorisoitua kääntäjää"
         },
-        "noSearchResults": "Ei hakutuloksia"
+        "noSearchResults": "Ei hakutuloksia",
+        "requestContact": "Ota yhteyttä"
       },
       "translator": {
         "name": "Nimi",
