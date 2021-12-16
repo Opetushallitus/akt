@@ -5,12 +5,18 @@ import fi.oph.akt.api.dto.PublicLanguagePairDTO;
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Translator;
-import fi.oph.akt.onr.TranslatorDetails;
 import fi.oph.akt.onr.OnrServiceMock;
+import fi.oph.akt.onr.TranslatorDetails;
 import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorLanguagePairProjection;
 import fi.oph.akt.repository.TranslatorRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StopWatch;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -19,12 +25,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.annotation.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StopWatch;
 
 @Service
 public class PublicTranslatorService {
@@ -45,12 +45,8 @@ public class PublicTranslatorService {
 	public PublicTranslatorResponseDTO listTranslators() {
 		final StopWatch st = new StopWatch();
 
-		st.start("findIDsForPublicListing");
-		final List<Long> translatorIds = translatorRepository.findIDsForPublicListing();
-		st.stop();
-
-		st.start("findAllById");
-		final List<Translator> translators = translatorRepository.findAllById(translatorIds);
+		st.start("findTranslatorsForPublicListing");
+		final List<Translator> translators = translatorRepository.findTranslatorsForPublicListing();
 		st.stop();
 
 		st.start("getTranslatorsDetails");

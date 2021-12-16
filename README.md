@@ -56,6 +56,17 @@ or using Maven Wrapper
 
 and open browser to http://localhost:8080
 
+## Backend
+
+Code format for Java code is Spring Java Format.
+
+Imports are formatted as IntelliJ default, except that `ìmport *` is disabled:
+Code Style -> Java -> Imports:
+```
+Class count to use import with '*': 999
+Names count to use static import with '*': 999
+```
+
 ## Frontend
 
 In order to keep code clean and easily maintainable please use the following VS Code Extensions.
