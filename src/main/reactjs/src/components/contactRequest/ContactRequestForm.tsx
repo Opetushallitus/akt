@@ -37,6 +37,7 @@ import { removeSelectedTranslator } from 'redux/actions/translatorDetails';
 import { ContactDetails, ContactRequest } from 'interfaces/contactRequest';
 import { APIResponseStatus } from 'enums/api';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
+import { selectedPublicTranslatorsForLanguagePair } from 'redux/selectors/translatorDetails';
 
 const decrementStep = (step: number) => step - 1;
 const incrementStep = (step: number) => step + 1;
@@ -58,6 +59,14 @@ const ChosenTranslatorsHeading = () => {
       {t('publicTranslatorFilters.languages.' + toLang)}{' '}
     </H3>
   );
+};
+
+const RenderChosenTranslators = () => {
+  const translators = useAppSelector(selectedPublicTranslatorsForLanguagePair);
+  const translatorsString = translators
+    .map(({ firstName, lastName }) => firstName + ' ' + lastName)
+    .join(', ');
+  return <Text>{translatorsString}</Text>;
 };
 
 const DisplayContactInfo = () => {
@@ -105,7 +114,7 @@ const StepHeading = ({ step }: { step: string }) => {
 };
 
 const VerifyTranslatorsStep = () => {
-  const translators = useSelectedTranslatorDetails();
+  const translators = useAppSelector(selectedPublicTranslatorsForLanguagePair);
 
   const dispatch = useAppDispatch();
 
@@ -177,7 +186,6 @@ const FillContactDetailsStep = ({
 }: {
   disableNext: (disabled: boolean) => void;
 }) => {
-  const translators = useSelectedTranslatorDetails();
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
@@ -207,11 +215,7 @@ const FillContactDetailsStep = ({
       <StepHeading step="1" />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
-        <Text>
-          {translators
-            .map(({ firstName, lastName }) => firstName + ' ' + lastName)
-            .join(', ')}
-        </Text>
+        <RenderChosenTranslators />
         <div className="rows gapped">
           <H3>{t('steps.1')}</H3>
           <ContactDetailsField
@@ -240,7 +244,6 @@ const FillContactDetailsStep = ({
 };
 
 const WriteMessageStep = () => {
-  const translators = useSelectedTranslatorDetails();
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
@@ -254,11 +257,7 @@ const WriteMessageStep = () => {
       <StepHeading step="2" />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
-        <Text>
-          {translators
-            .map(({ firstName, lastName }) => firstName + ' ' + lastName)
-            .join(', ')}
-        </Text>
+        <RenderChosenTranslators />
         <DisplayContactInfo />
         <div className="rows gapped">
           <H3>{t('steps.2')}</H3>
@@ -284,7 +283,6 @@ const WriteMessageStep = () => {
 };
 
 const PreviewAndSendStep = () => {
-  const translators = useSelectedTranslatorDetails();
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
@@ -297,11 +295,7 @@ const PreviewAndSendStep = () => {
       <StepHeading step="3" />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
-        <Text>
-          {translators
-            .map(({ firstName, lastName }) => firstName + ' ' + lastName)
-            .join(', ')}
-        </Text>
+        <RenderChosenTranslators />
         <DisplayContactInfo />
         <H3>{t('message')}</H3>
         <Text>{request.message}</Text>
@@ -429,19 +423,6 @@ const ControlButtons = ({
       )}
     </div>
   );
-};
-
-const useSelectedTranslatorDetails = () => {
-  const selectedTranslatorIds = useAppSelector(
-    (state) => state.translatorDetails.selectedTranslators
-  );
-  const allTranslators = useAppSelector(
-    (state) => state.translatorDetails.translators
-  );
-  const selectedTranslators = allTranslators.filter(({ id }) =>
-    selectedTranslatorIds.includes(id)
-  );
-  return selectedTranslators;
 };
 
 const useResetContactRequestState = () => {
