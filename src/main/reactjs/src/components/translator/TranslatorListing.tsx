@@ -1,5 +1,11 @@
 import { FC } from 'react';
-import { TableCell, Checkbox, TableHead, TableRow } from '@mui/material';
+import {
+  TableCell,
+  Checkbox,
+  TableHead,
+  TableRow,
+  Button,
+} from '@mui/material';
 import { TFunction } from 'i18next';
 import { Box } from '@mui/system';
 
@@ -9,13 +15,15 @@ import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 import { TranslatorDetails } from 'interfaces/translator';
 import { Selectable } from 'interfaces/selectable';
 import { APIResponseStatus } from 'enums/api';
-import { useAppSelector } from 'configs/redux';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { useAppTranslation } from 'configs/i18n';
 import {
   addSelectedTranslator,
   removeSelectedTranslator,
 } from 'redux/actions/translatorDetails';
 import { publicTranslatorsSelector } from 'redux/selectors/translatorDetails';
+import { UiStates } from 'enums/app';
+import { displayUiState } from 'redux/actions/navigation';
 
 const getTranslatorDetailsRow = (
   translator: TranslatorDetails,
@@ -75,6 +83,22 @@ const ListingHeader: FC = () => {
   );
 };
 
+const ContactRequestButton = () => {
+  const { selectedTranslators } = useAppSelector(publicTranslatorsSelector);
+  const { t } = useAppTranslation({ keyPrefix: 'akt.pages.homepage' });
+  const dispatch = useAppDispatch();
+  return (
+    <Button
+      color="secondary"
+      variant="contained"
+      onClick={() => dispatch(displayUiState(UiStates.ContactRequest))}
+      disabled={selectedTranslators.length == 0}
+    >
+      {t('requestContact')}
+    </Button>
+  );
+};
+
 export const TranslatorListing = ({
   status,
   translators,
@@ -86,8 +110,8 @@ export const TranslatorListing = ({
   const { selectedTranslators } = useAppSelector(publicTranslatorsSelector);
 
   switch (status) {
-    case APIResponseStatus.NotLoaded:
-    case APIResponseStatus.Loading:
+    case APIResponseStatus.NotStarted:
+    case APIResponseStatus.InProgress:
       return <ProgressIndicator color="secondary" />;
     case APIResponseStatus.Error:
       return (
@@ -100,7 +124,7 @@ export const TranslatorListing = ({
           <H3>{t('errors.loadingFailed')}</H3>
         </Box>
       );
-    case APIResponseStatus.Loaded:
+    case APIResponseStatus.Success:
       return (
         <PaginatedTable
           className="translator-listing"
@@ -112,6 +136,7 @@ export const TranslatorListing = ({
           header={<ListingHeader />}
           initialRowsPerPage={10}
           rowsPerPageOptions={[10, 20, 50]}
+          callToAction={<ContactRequestButton />}
         />
       );
   }
