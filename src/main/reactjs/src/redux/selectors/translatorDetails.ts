@@ -38,10 +38,13 @@ const filterByName = (
   publicTranslator: TranslatorDetails,
   filters: PublicTranslatorFilter
 ) => {
-  const isNameIncluded =
-    `${publicTranslator.firstName} ${publicTranslator.lastName}`
-      .toLowerCase()
-      .includes(filters.name.toLowerCase());
+  const nameCombs = [
+    `${publicTranslator.firstName} ${publicTranslator.lastName}`,
+    `${publicTranslator.lastName} ${publicTranslator.firstName}`,
+  ];
+  const isNameIncluded = nameCombs.some((name) =>
+    name.toLowerCase().includes(filters.name.toLowerCase().trim())
+  );
 
   return isNameIncluded;
 };
