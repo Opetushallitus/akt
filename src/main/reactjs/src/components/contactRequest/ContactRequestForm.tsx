@@ -136,11 +136,11 @@ const VerifyTranslatorsStep = () => {
 
 const ContactDetailsField = ({
   contactDetailsField,
-  errorStatusCallback,
+  isValidCallback,
   ...rest
 }: TextFieldProps & {
   contactDetailsField: keyof ContactDetails;
-  errorStatusCallback: (field: keyof ContactDetails, error: boolean) => void;
+  isValidCallback: (field: keyof ContactDetails, error: boolean) => void;
 }) => {
   const contactDetails = useAppSelector(
     (state) => state.contactRequest.request
@@ -150,15 +150,15 @@ const ContactDetailsField = ({
     keyPrefix: 'akt.component.contactRequestForm',
   });
   const [fieldStateChanged, setFieldStateChanged] = useState(false);
-  const isError =
-    fieldStateChanged && contactDetails[contactDetailsField] == '';
+  const isError = contactDetails[contactDetailsField] == '';
+  const { required } = rest;
   useEffect(
-    () => errorStatusCallback(contactDetailsField, isError),
-    [isError, contactDetailsField, errorStatusCallback]
+    () => isValidCallback(contactDetailsField, !!required && isError),
+    [isError, contactDetailsField, isValidCallback, required]
   );
   return (
     <TextField
-      error={isError}
+      error={fieldStateChanged && isError}
       label={t(contactDetailsField)}
       value={contactDetails[contactDetailsField]}
       onChange={(e) => {
@@ -173,9 +173,9 @@ const ContactDetailsField = ({
 };
 
 const FillContactDetailsStep = ({
-  onErrorStateChanged,
+  disableNext,
 }: {
-  onErrorStateChanged: (disabled: boolean) => void;
+  disableNext: (disabled: boolean) => void;
 }) => {
   const translators = useSelectedTranslatorDetails();
   const { t } = useAppTranslation({
@@ -198,8 +198,8 @@ const FillContactDetailsStep = ({
   const memoizedFieldErrorCallback = useCallback(fieldErrorCallback, []);
 
   useEffect(
-    () => onErrorStateChanged(Object.values(fieldErrors).some((v) => v)),
-    [fieldErrors, onErrorStateChanged]
+    () => disableNext(Object.values(fieldErrors).some((v) => v)),
+    [fieldErrors, disableNext]
   );
 
   return (
@@ -216,22 +216,22 @@ const FillContactDetailsStep = ({
           <H3>{t('steps.1')}</H3>
           <ContactDetailsField
             contactDetailsField="firstName"
-            errorStatusCallback={memoizedFieldErrorCallback}
+            isValidCallback={memoizedFieldErrorCallback}
             required
           />
           <ContactDetailsField
             contactDetailsField="lastName"
-            errorStatusCallback={memoizedFieldErrorCallback}
+            isValidCallback={memoizedFieldErrorCallback}
             required
           />
           <ContactDetailsField
             contactDetailsField="email"
-            errorStatusCallback={memoizedFieldErrorCallback}
+            isValidCallback={memoizedFieldErrorCallback}
             required
           />
           <ContactDetailsField
             contactDetailsField="phoneNumber"
-            errorStatusCallback={memoizedFieldErrorCallback}
+            isValidCallback={memoizedFieldErrorCallback}
           />
         </div>
       </div>
@@ -533,9 +533,7 @@ export const ContactRequestForm = () => {
               {step == 0 && <VerifyTranslatorsStep />}
               {step == 1 && (
                 <FillContactDetailsStep
-                  onErrorStateChanged={(disabled: boolean) =>
-                    setDisableNext(disabled)
-                  }
+                  disableNext={(disabled: boolean) => setDisableNext(disabled)}
                 />
               )}
               {step == 2 && <WriteMessageStep />}
