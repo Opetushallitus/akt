@@ -1,4 +1,4 @@
-import { IconButton, TextField } from '@mui/material';
+import { IconButton, Step, StepLabel, Stepper, TextField } from '@mui/material';
 import { useEffect, useState, useCallback } from 'react';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
@@ -14,6 +14,14 @@ import {
   selectedPublicTranslatorsForLanguagePair,
 } from 'redux/selectors/translatorDetails';
 import { ValidatedContactDetailsField } from './ValidatedContactDetailsField';
+
+const stepsByIndex = {
+  0: 'verifySelectedTranslators',
+  1: 'fillContactDetails',
+  2: 'writeMessage',
+  3: 'previewAndSend',
+  4: 'done',
+};
 
 const ChosenTranslatorsHeading = () => {
   const { filters } = useAppSelector(publicTranslatorsSelector);
@@ -81,6 +89,21 @@ const StepHeading = ({ step }: { step: string }) => {
   );
 };
 
+export const ContactRequestStepper = ({ step }: { step: number }) => {
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.contactRequestForm.steps',
+  });
+  return (
+    <Stepper className="contact-request-form__stepper" activeStep={step}>
+      {Object.values(stepsByIndex).map((v) => (
+        <Step key={v}>
+          <StepLabel>{t(v)}</StepLabel>
+        </Step>
+      ))}
+    </Stepper>
+  );
+};
+
 export const VerifyTranslatorsStep = ({
   disableNext,
 }: {
@@ -100,7 +123,7 @@ export const VerifyTranslatorsStep = ({
 
   return (
     <div className="rows">
-      <StepHeading step="0" />
+      <StepHeading step={stepsByIndex[0]} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         {translators.map(({ id, firstName, lastName }) => (
@@ -151,12 +174,12 @@ export const FillContactDetailsStep = ({
 
   return (
     <div className="rows">
-      <StepHeading step="1" />
+      <StepHeading step={stepsByIndex[1]} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         <RenderChosenTranslators />
         <div className="rows gapped">
-          <H3>{t('steps.1')}</H3>
+          <H3>{t('steps.' + stepsByIndex[1])}</H3>
           <ValidatedContactDetailsField
             contactDetailsField="firstName"
             isValidCallback={memoizedFieldErrorCallback}
@@ -198,13 +221,13 @@ export const WriteMessageStep = ({
 
   return (
     <div className="rows">
-      <StepHeading step="2" />
+      <StepHeading step={stepsByIndex[2]} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         <RenderChosenTranslators />
         <DisplayContactInfo />
         <div className="rows gapped">
-          <H3>{t('steps.2')}</H3>
+          <H3>{t('steps.' + stepsByIndex[2])}</H3>
           <TextField
             label={t('formLabels.writeMessageHere')}
             value={request.message}
@@ -235,7 +258,7 @@ export const PreviewAndSendStep = () => {
 
   return (
     <div className="rows">
-      <StepHeading step="3" />
+      <StepHeading step={stepsByIndex[3]} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         <RenderChosenTranslators />

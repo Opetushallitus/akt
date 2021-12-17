@@ -1,12 +1,4 @@
-import {
-  Grid,
-  Paper,
-  Button,
-  Box,
-  Stepper,
-  StepLabel,
-  Step,
-} from '@mui/material';
+import { Grid, Paper, Button, Box } from '@mui/material';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { H1, Text } from 'components/elements/Text';
@@ -31,6 +23,7 @@ import {
   FillContactDetailsStep,
   WriteMessageStep,
   PreviewAndSendStep,
+  ContactRequestStepper,
 } from 'components/contactRequest/Steps';
 
 const decrementStep = (step: number) => step - 1;
@@ -138,16 +131,7 @@ export const ContactRequestForm = () => {
         <Paper elevation={3}>
           <Box className="contact-request-form__form-container-box">
             <Box className="contact-request-form__inner-content-box">
-              <Stepper
-                className="contact-request-form__stepper"
-                activeStep={step}
-              >
-                {[0, 1, 2, 3, 4].map((e) => (
-                  <Step key={e}>
-                    <StepLabel>{t('steps.' + e)}</StepLabel>
-                  </Step>
-                ))}
-              </Stepper>
+              <ContactRequestStepper step={step} />
               {step == 0 && (
                 <VerifyTranslatorsStep disableNext={disableNextCb} />
               )}

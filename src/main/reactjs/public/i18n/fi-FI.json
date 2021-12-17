@@ -111,11 +111,11 @@
           "submit": "Lähetä"
         },
         "steps": {
-          "0": "Vahvista kääntäjät",
-          "1": "Täytä yhteystiedot",
-          "2": "Kirjoita viesti",
-          "3": "Esikatsele ja lähetä",
-          "4": "Valmis"
+          "verifySelectedTranslators": "Vahvista kääntäjät",
+          "fillContactDetails": "Täytä yhteystiedot",
+          "writeMessage": "Kirjoita viesti",
+          "previewAndSend": "Esikatsele ja lähetä",
+          "done": "Valmis"
         },
         "chosenTranslatorsForLanguagePair": "Valitut kääntäjät kieliparista",
         "formLabels": {
