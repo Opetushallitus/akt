@@ -1,7 +1,11 @@
 import { Button } from '@mui/material';
 import { useState } from 'react';
 
-import { ErrorDialog, SuccessDialog } from 'components/dialogs/Dialog';
+import {
+  ErrorDialog,
+  SuccessDialog,
+  NeutralDialog,
+} from 'components/dialogs/Dialog';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { UIStates } from 'enums/app';
@@ -65,6 +69,47 @@ export const ErrorDialogWrapper = () => {
       }
       open={open}
       onClose={cleanUp}
+    />
+  );
+};
+
+export const CancelRequestDialog = ({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) => {
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.contactRequestForm.cancelRequestDialog',
+  });
+  const dispatch = useAppDispatch();
+  const cleanUp = () => {
+    dispatch(resetContactRequest);
+    dispatch(displayUIState(UIStates.PublicTranslatorListing));
+    onClose();
+  };
+
+  return (
+    <NeutralDialog
+      title={t('title')}
+      content={<Text>{t('description')}</Text>}
+      actions={
+        <>
+          <Button variant="outlined" color="secondary" onClick={onClose}>
+            {t('back')}
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => cleanUp()}
+          >
+            {t('yes')}
+          </Button>
+        </>
+      }
+      open={open}
+      onClose={onClose}
     />
   );
 };

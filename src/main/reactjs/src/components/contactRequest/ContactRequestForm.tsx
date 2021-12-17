@@ -12,22 +12,20 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { H1, Text } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { UIStates } from 'enums/app';
 import {
-  resetContactRequest,
   sendContactRequest,
   setContactRequest,
 } from 'redux/actions/contactRequest';
-import { displayUIState } from 'redux/actions/navigation';
 import { ContactRequest } from 'interfaces/contactRequest';
 import { APIResponseStatus } from 'enums/api';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 import { publicTranslatorsSelector } from 'redux/selectors/translatorDetails';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import {
+  CancelRequestDialog,
   ErrorDialogWrapper,
   SuccessDialogWrapper,
-} from 'components/contactRequest/ConnectedDialogs';
+} from 'components/contactRequest/ConnectedDialog';
 import {
   VerifyTranslatorsStep,
   FillContactDetailsStep,
@@ -118,12 +116,8 @@ export const ContactRequestForm = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
+
   // Redux
-  const dispatch = useAppDispatch();
-  const onCancelRequest = () => {
-    dispatch(resetContactRequest);
-    dispatch(displayUIState(UIStates.PublicTranslatorListing));
-  };
   useResetContactRequestState();
   const { status: requestStatus } = useAppSelector(contactRequestSelector);
 
@@ -131,6 +125,7 @@ export const ContactRequestForm = () => {
   const [step, setStep] = useState(0);
   const [disableNext, setDisableNext] = useState(false);
   const maxStep = 3;
+  const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
 
   const disableNextCb = (disabled: boolean) => setDisableNext(disabled);
   return (
@@ -170,6 +165,10 @@ export const ContactRequestForm = () => {
               {requestStatus == APIResponseStatus.InProgress && (
                 <ProgressIndicator />
               )}
+              <CancelRequestDialog
+                open={cancelDialogOpen}
+                onClose={() => setCancelDialogOpen(false)}
+              />
             </Box>
             {step <= maxStep && (
               <ControlButtons
@@ -177,7 +176,7 @@ export const ContactRequestForm = () => {
                 maxStep={maxStep}
                 disableNext={disableNext}
                 onChangeStep={setStep}
-                onCancelRequest={onCancelRequest}
+                onCancelRequest={() => setCancelDialogOpen(true)}
               />
             )}
           </Box>

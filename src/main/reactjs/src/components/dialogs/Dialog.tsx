@@ -2,20 +2,17 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogProps,
   DialogTitle,
 } from '@mui/material';
+
+import { StyledDialogProps } from 'interfaces/styledDialog';
 
 const StyledDialog = ({
   title,
   content,
   actions,
   ...rest
-}: DialogProps & {
-  title: string;
-  content: JSX.Element;
-  actions: JSX.Element;
-}) => (
+}: StyledDialogProps) => (
   <Dialog className={rest.className} open={rest.open} onClose={rest.onClose}>
     <DialogTitle>{title}</DialogTitle>
     <DialogContent>{content}</DialogContent>
@@ -23,40 +20,14 @@ const StyledDialog = ({
   </Dialog>
 );
 
-export const SuccessDialog = ({
-  title,
-  content,
-  actions,
-  ...rest
-}: DialogProps & {
-  title: string;
-  content: JSX.Element;
-  actions: JSX.Element;
-}) => (
-  <StyledDialog
-    className="dialog__success"
-    title={title}
-    content={content}
-    actions={actions}
-    {...rest}
-  />
+export const SuccessDialog = (props: StyledDialogProps) => (
+  <StyledDialog className="dialog__success" {...props} />
 );
 
-export const ErrorDialog = ({
-  title,
-  content,
-  actions,
-  ...rest
-}: DialogProps & {
-  title: string;
-  content: JSX.Element;
-  actions: JSX.Element;
-}) => (
-  <StyledDialog
-    className="dialog__error"
-    title={title}
-    content={content}
-    actions={actions}
-    {...rest}
-  />
+export const ErrorDialog = (props: StyledDialogProps) => (
+  <StyledDialog className="dialog__error" {...props} />
+);
+
+export const NeutralDialog = (props: StyledDialogProps) => (
+  <StyledDialog className="dialog__neutral" {...props} />
 );

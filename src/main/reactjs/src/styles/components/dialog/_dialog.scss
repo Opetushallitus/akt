@@ -1,11 +1,21 @@
-.dialog__success {
-  .MuiDialog-paper {
-    border-top: 1vh $color-green-600 solid;
-  }
-}
+.dialog {
 
-.dialog__error {
-  .MuiDialog-paper {
-    border-top: 1vh $color-red-500 solid;
+  &__success {
+    .MuiDialog-paper {
+      border-top: 1vh $color-green-600 solid;
+    }
   }
+
+  &__error {
+    .MuiDialog-paper {
+      border-top: 1vh $color-red-500 solid;
+    }
+  }
+
+  &__neutral {
+    .MuiDialog-paper {
+      border-top: 1vh $color-secondary solid;
+    }
+  }
+
 }

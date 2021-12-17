@@ -136,6 +136,12 @@
           "title": "Virhe lähetettäessä yhteydenottopyyntöä.",
           "description": "Kokeile myöhemmin uudelleen. Jos ongelma toistuu, ota yhteyttä sähköpostilla: ",
           "back": "Takaisin"
+        },
+        "cancelRequestDialog": {
+          "title": "Peruuta yhteydenottopyyntö",
+          "description": "Haluatko peruuttaa yhteydenottopyynnön? Menetät täyttämäsi tiedot",
+          "back": "Takaisin",
+          "yes": "Kyllä"
         }
       }
     },
