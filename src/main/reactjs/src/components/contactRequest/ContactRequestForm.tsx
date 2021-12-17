@@ -275,21 +275,16 @@ const PreviewAndSendStep = () => {
   );
 };
 
-const SuccessDialogWrapper = ({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) => {
+const SuccessDialogWrapper = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm.successDialog',
   });
   const dispatch = useAppDispatch();
+  const [open, setOpen] = useState(true);
   const cleanUp = () => {
     dispatch(resetContactRequest);
     dispatch(displayUIState(UIStates.PublicTranslatorListing));
-    onClose();
+    setOpen(false);
   };
 
   return (
@@ -307,22 +302,17 @@ const SuccessDialogWrapper = ({
   );
 };
 
-const ErrorDialogWrapper = ({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) => {
+const ErrorDialogWrapper = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm.errorDialog',
   });
   const dispatch = useAppDispatch();
   const request = useAppSelector(contactRequestSelector)
     .request as ContactRequest;
+  const [open, setOpen] = useState(true);
   const cleanUp = () => {
     dispatch(setContactRequest(request));
-    onClose();
+    setOpen(false);
   };
 
   return (
@@ -433,29 +423,6 @@ export const ContactRequestForm = () => {
   const [step, setStep] = useState(0);
   const [disableNext, setDisableNext] = useState(false);
   const maxStep = 3;
-  const [successDialogOpen, setSuccessDialogOpen] = useState(false);
-  const [errorDialogOpen, setErrorDialogOpen] = useState(false);
-  const [spinnerOpen, setSpinnerOpen] = useState(false);
-
-  useEffect(() => {
-    switch (requestStatus) {
-      case APIResponseStatus.InProgress:
-        setSpinnerOpen(true);
-        return;
-      case APIResponseStatus.Success:
-        setSpinnerOpen(false);
-        setSuccessDialogOpen(true);
-        return;
-      case APIResponseStatus.Error:
-        setSpinnerOpen(false);
-        setErrorDialogOpen(true);
-        return;
-      default:
-        setSpinnerOpen(false);
-        setSuccessDialogOpen(false);
-        setErrorDialogOpen(false);
-    }
-  }, [requestStatus, setSpinnerOpen, setSuccessDialogOpen, setErrorDialogOpen]);
 
   const disableNextCb = (disabled: boolean) => setDisableNext(disabled);
   return (
@@ -486,15 +453,15 @@ export const ContactRequestForm = () => {
               )}
               {step == 2 && <WriteMessageStep disableNext={disableNextCb} />}
               {step == 3 && <PreviewAndSendStep />}
-              <SuccessDialogWrapper
-                open={successDialogOpen}
-                onClose={() => setSuccessDialogOpen(false)}
-              />
-              <ErrorDialogWrapper
-                open={errorDialogOpen}
-                onClose={() => setErrorDialogOpen(false)}
-              />
-              {spinnerOpen && <ProgressIndicator />}
+              {requestStatus == APIResponseStatus.Success && (
+                <SuccessDialogWrapper />
+              )}
+              {requestStatus == APIResponseStatus.Error && (
+                <ErrorDialogWrapper />
+              )}
+              {requestStatus == APIResponseStatus.InProgress && (
+                <ProgressIndicator />
+              )}
             </Box>
             {step <= maxStep && (
               <ControlButtons
