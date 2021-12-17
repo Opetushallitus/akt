@@ -37,18 +37,18 @@ import { removeSelectedTranslator } from 'redux/actions/translatorDetails';
 import { ContactDetails, ContactRequest } from 'interfaces/contactRequest';
 import { APIResponseStatus } from 'enums/api';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
-import { selectedPublicTranslatorsForLanguagePair } from 'redux/selectors/translatorDetails';
+import {
+  publicTranslatorsSelector,
+  selectedPublicTranslatorsForLanguagePair,
+} from 'redux/selectors/translatorDetails';
+import { contactRequestSelector } from 'redux/selectors/contactRequest';
 
 const decrementStep = (step: number) => step - 1;
 const incrementStep = (step: number) => step + 1;
 
 const ChosenTranslatorsHeading = () => {
-  const fromLang = useAppSelector(
-    (state) => state.translatorDetails.filters.fromLang
-  );
-  const toLang = useAppSelector(
-    (state) => state.translatorDetails.filters.toLang
-  );
+  const { filters } = useAppSelector(publicTranslatorsSelector);
+  const { fromLang, toLang } = filters;
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component',
   });
@@ -73,29 +73,28 @@ const DisplayContactInfo = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
-  const contactInfo = useAppSelector(
-    (state) => state.contactRequest.request
-  ) as ContactRequest;
+  const request = useAppSelector(contactRequestSelector)
+    .request as ContactRequest;
 
   return (
     <div className="rows gapped">
       <H2>{t('contactInfo')}</H2>
       <div className="rows">
         <H3>{t('firstName')}</H3>
-        <Text>{contactInfo.firstName}</Text>
+        <Text>{request.firstName}</Text>
       </div>
       <div className="rows">
         <H3>{t('lastName')}</H3>
-        <Text>{contactInfo.lastName}</Text>
+        <Text>{request.lastName}</Text>
       </div>
       <div className="rows">
         <H3>{t('email')}</H3>
-        <Text>{contactInfo.email}</Text>
+        <Text>{request.email}</Text>
       </div>
-      {contactInfo.phoneNumber && (
+      {request.phoneNumber && (
         <div className="rows">
           <H3>{t('phoneNumber')}</H3>
-          <Text>{contactInfo.phoneNumber}</Text>
+          <Text>{request.phoneNumber}</Text>
         </div>
       )}
     </div>
@@ -160,9 +159,8 @@ const ContactDetailsField = ({
   contactDetailsField: keyof ContactDetails;
   isValidCallback: (field: keyof ContactDetails, error: boolean) => void;
 }) => {
-  const contactDetails = useAppSelector(
-    (state) => state.contactRequest.request
-  ) as ContactRequest;
+  const contactDetails = useAppSelector(contactRequestSelector)
+    .request as ContactRequest;
   const dispatch = useAppDispatch();
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
@@ -260,9 +258,8 @@ const WriteMessageStep = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
-  const request = useAppSelector(
-    (state) => state.contactRequest.request
-  ) as ContactRequest;
+  const request = useAppSelector(contactRequestSelector)
+    .request as ContactRequest;
   const dispatch = useAppDispatch();
 
   useEffect(() => disableNext(request.message === ''), [disableNext, request]);
@@ -301,9 +298,8 @@ const PreviewAndSendStep = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
-  const request = useAppSelector(
-    (state) => state.contactRequest.request
-  ) as ContactRequest;
+  const request = useAppSelector(contactRequestSelector)
+    .request as ContactRequest;
 
   return (
     <div className="rows">
@@ -362,9 +358,8 @@ const ErrorDialog = ({
     keyPrefix: 'akt.component.contactRequestForm.errorDialog',
   });
   const dispatch = useAppDispatch();
-  const request = useAppSelector(
-    (state) => state.contactRequest.request
-  ) as ContactRequest;
+  const request = useAppSelector(contactRequestSelector)
+    .request as ContactRequest;
   const cleanUp = () => {
     dispatch(setContactRequest(request));
     onClose();
@@ -403,11 +398,10 @@ const ControlButtons = ({
   });
 
   const dispatch = useAppDispatch();
-  const contactRequest = useAppSelector(
-    (state) => state.contactRequest.request
-  ) as ContactRequest;
+  const request = useAppSelector(contactRequestSelector)
+    .request as ContactRequest;
   const submit = () => {
-    dispatch(sendContactRequest(contactRequest));
+    dispatch(sendContactRequest(request));
   };
   return (
     <div className="columns flex-end gapped">
@@ -442,18 +436,15 @@ const ControlButtons = ({
 
 const useResetContactRequestState = () => {
   const dispatch = useAppDispatch();
-  const from = useAppSelector(
-    (state) => state.translatorDetails.filters.fromLang
+  const { filters, selectedTranslators } = useAppSelector(
+    publicTranslatorsSelector
   );
-  const to = useAppSelector((state) => state.translatorDetails.filters.toLang);
-  const translatorIds = useAppSelector(
-    (state) => state.translatorDetails.selectedTranslators
-  );
+  const { fromLang: from, toLang: to } = filters;
   useEffect(() => {
     dispatch(
       setContactRequest({
         languagePair: { from, to },
-        translatorIds,
+        translatorIds: selectedTranslators,
         email: '',
         firstName: '',
         lastName: '',
@@ -461,7 +452,7 @@ const useResetContactRequestState = () => {
         phoneNumber: '',
       })
     );
-  }, [dispatch, from, to, translatorIds]);
+  }, [dispatch, from, to, selectedTranslators]);
 };
 
 export const ContactRequestForm = () => {
@@ -476,7 +467,7 @@ export const ContactRequestForm = () => {
     dispatch(displayUIState(UIStates.PublicTranslatorListing));
   };
   useResetContactRequestState();
-  const requestStatus = useAppSelector((state) => state.contactRequest.status);
+  const { status: requestStatus } = useAppSelector(contactRequestSelector);
 
   // Local component state
   const [step, setStep] = useState(0);
