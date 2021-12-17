@@ -8,11 +8,6 @@ import {
   Step,
   IconButton,
   TextField,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogActions,
-  TextFieldProps,
 } from '@mui/material';
 import {
   Dispatch,
@@ -42,6 +37,8 @@ import {
   selectedPublicTranslatorsForLanguagePair,
 } from 'redux/selectors/translatorDetails';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
+import { ErrorDialog, SuccessDialog } from 'components/dialogs/Dialog';
+import { ValidatedContactDetailsField } from 'components/contactRequest/ValidatedContactDetailsField';
 
 const decrementStep = (step: number) => step - 1;
 const incrementStep = (step: number) => step + 1;
@@ -151,43 +148,6 @@ const VerifyTranslatorsStep = ({
   );
 };
 
-const ContactDetailsField = ({
-  contactDetailsField,
-  isValidCallback,
-  ...rest
-}: TextFieldProps & {
-  contactDetailsField: keyof ContactDetails;
-  isValidCallback: (field: keyof ContactDetails, error: boolean) => void;
-}) => {
-  const contactDetails = useAppSelector(contactRequestSelector)
-    .request as ContactRequest;
-  const dispatch = useAppDispatch();
-  const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.contactRequestForm',
-  });
-  const [fieldStateChanged, setFieldStateChanged] = useState(false);
-  const isError = contactDetails[contactDetailsField] == '';
-  const { required } = rest;
-  useEffect(
-    () => isValidCallback(contactDetailsField, !!required && isError),
-    [isError, contactDetailsField, isValidCallback, required]
-  );
-  return (
-    <TextField
-      error={fieldStateChanged && isError}
-      label={t(contactDetailsField)}
-      value={contactDetails[contactDetailsField]}
-      onChange={(e) => {
-        setFieldStateChanged(true);
-        const updated = Object.assign({}, contactDetails);
-        updated[contactDetailsField] = e.target.value;
-        dispatch(setContactRequest(updated));
-      }}
-      {...rest}
-    />
-  );
-};
-
 const FillContactDetailsStep = ({
   disableNext,
 }: {
@@ -225,22 +185,22 @@ const FillContactDetailsStep = ({
         <RenderChosenTranslators />
         <div className="rows gapped">
           <H3>{t('steps.1')}</H3>
-          <ContactDetailsField
+          <ValidatedContactDetailsField
             contactDetailsField="firstName"
             isValidCallback={memoizedFieldErrorCallback}
             required
           />
-          <ContactDetailsField
+          <ValidatedContactDetailsField
             contactDetailsField="lastName"
             isValidCallback={memoizedFieldErrorCallback}
             required
           />
-          <ContactDetailsField
+          <ValidatedContactDetailsField
             contactDetailsField="email"
             isValidCallback={memoizedFieldErrorCallback}
             required
           />
-          <ContactDetailsField
+          <ValidatedContactDetailsField
             contactDetailsField="phoneNumber"
             isValidCallback={memoizedFieldErrorCallback}
           />
@@ -315,7 +275,7 @@ const PreviewAndSendStep = () => {
   );
 };
 
-const SuccessDialog = ({
+const SuccessDialogWrapper = ({
   open,
   onClose,
 }: {
@@ -333,21 +293,21 @@ const SuccessDialog = ({
   };
 
   return (
-    <Dialog className="dialog__success" open={open} onClose={cleanUp}>
-      <DialogTitle>{t('title')}</DialogTitle>
-      <DialogContent>
-        <Text>{t('description')}</Text>
-      </DialogContent>
-      <DialogActions>
+    <SuccessDialog
+      title={t('title')}
+      content={<Text>{t('description')}</Text>}
+      actions={
         <Button variant="contained" color="secondary" onClick={() => cleanUp()}>
           {t('continue')}
         </Button>
-      </DialogActions>
-    </Dialog>
+      }
+      open={open}
+      onClose={cleanUp}
+    />
   );
 };
 
-const ErrorDialog = ({
+const ErrorDialogWrapper = ({
   open,
   onClose,
 }: {
@@ -366,17 +326,17 @@ const ErrorDialog = ({
   };
 
   return (
-    <Dialog className="dialog__error" open={open} onClose={cleanUp}>
-      <DialogTitle>{t('title')}</DialogTitle>
-      <DialogContent>
-        <Text>{t('description')} akt@oph.fi</Text>
-      </DialogContent>
-      <DialogActions>
+    <ErrorDialog
+      title={t('title')}
+      content={<Text>{t('description')} akt@oph.fi</Text>}
+      actions={
         <Button variant="contained" color="secondary" onClick={() => cleanUp()}>
           {t('back')}
         </Button>
-      </DialogActions>
-    </Dialog>
+      }
+      open={open}
+      onClose={cleanUp}
+    />
   );
 };
 
@@ -526,11 +486,11 @@ export const ContactRequestForm = () => {
               )}
               {step == 2 && <WriteMessageStep disableNext={disableNextCb} />}
               {step == 3 && <PreviewAndSendStep />}
-              <SuccessDialog
+              <SuccessDialogWrapper
                 open={successDialogOpen}
                 onClose={() => setSuccessDialogOpen(false)}
               />
-              <ErrorDialog
+              <ErrorDialogWrapper
                 open={errorDialogOpen}
                 onClose={() => setErrorDialogOpen(false)}
               />
