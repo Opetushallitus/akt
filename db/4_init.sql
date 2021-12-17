@@ -73,31 +73,59 @@ INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_pu
 );
 -- misc languages
 INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'bn', 'bo', true
+    SELECT authorisation_id, 'bn', 'fi', true
     FROM authorisation where authorisation.authorisation_id % 393 = 0
 );
 INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'ca', 'cs', true
+    SELECT authorisation_id, 'bo', 'sv', true
+    FROM authorisation where authorisation.authorisation_id % 393 = 0
+);
+INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
+    SELECT authorisation_id, 'fi', 'cs', true
     FROM authorisation where authorisation.authorisation_id % 397 = 0
 );
 INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'da', 'el', true
+    SELECT authorisation_id, 'sv', 'ca', true
+    FROM authorisation where authorisation.authorisation_id % 397 = 0
+);
+INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
+    SELECT authorisation_id, 'da', 'fi', true
     FROM authorisation where authorisation.authorisation_id % 399 = 0
 );
 INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'fj', 'fo', true
+    SELECT authorisation_id, 'el', 'sv', true
     FROM authorisation where authorisation.authorisation_id % 399 = 0
 );
 INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'ga', 'he', true
+    SELECT authorisation_id, 'fi', 'fo', true
+    FROM authorisation where authorisation.authorisation_id % 399 = 0
+);
+INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
+    SELECT authorisation_id, 'sv', 'fj', true
+    FROM authorisation where authorisation.authorisation_id % 399 = 0
+);
+INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
+    SELECT authorisation_id, 'ga', 'fi', true
     FROM authorisation where authorisation.authorisation_id % 401 = 0
 );
 INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'hr', 'hu', true
+    SELECT authorisation_id, 'he', 'sv', true
+    FROM authorisation where authorisation.authorisation_id % 401 = 0
+);
+INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
+    SELECT authorisation_id, 'fi', 'hu', true
     FROM authorisation where authorisation.authorisation_id % 601 = 0
 );
 INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'tt', 'ty', true
+    SELECT authorisation_id, 'sv', 'hr', true
+    FROM authorisation where authorisation.authorisation_id % 601 = 0
+);
+INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
+    SELECT authorisation_id, 'tt', 'fi', true
+    FROM authorisation where authorisation.authorisation_id % 607 = 0
+);
+INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
+    SELECT authorisation_id, 'ty', 'sv', true
     FROM authorisation where authorisation.authorisation_id % 607 = 0
 );
 

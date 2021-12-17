@@ -28,6 +28,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Import({ ContactRequestService.class })
 class ContactRequestServiceTest {
 
+	public static final String FROM_LANG = "de";
+
+	public static final String TO_LANG = "sv";
+
 	@Autowired
 	private TestEntityManager entityManager;
 
@@ -47,7 +51,7 @@ class ContactRequestServiceTest {
 
 		List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
 
-		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, "en", "de");
+		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
 
 		ContactRequest contactRequest = contactRequestService.createContactRequest(contactRequestDTO);
 		List<ContactRequestTranslator> contactRequestTranslators = contactRequestTranslatorRepository.findAll();
@@ -78,7 +82,7 @@ class ContactRequestServiceTest {
 		final long translatorId = translatorRepository.findAll().get(0).getId();
 		List<Long> translatorIds = List.of(translatorId, translatorId);
 
-		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, "en", "de");
+		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
 
 		ContactRequest contactRequest = contactRequestService.createContactRequest(contactRequestDTO);
 		List<ContactRequestTranslator> contactRequestTranslators = contactRequestTranslatorRepository.findAll();
@@ -100,7 +104,7 @@ class ContactRequestServiceTest {
 
 		List<Long> translatorIds = List.of(0L);
 
-		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, "en", "de");
+		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
 
 		assertThrows(IllegalArgumentException.class,
 				() -> contactRequestService.createContactRequest(contactRequestDTO));
@@ -113,7 +117,7 @@ class ContactRequestServiceTest {
 
 		List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
 
-		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, "fi", "de");
+		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, "xx", TO_LANG);
 
 		assertThrows(IllegalArgumentException.class,
 				() -> contactRequestService.createContactRequest(contactRequestDTO));
@@ -126,7 +130,7 @@ class ContactRequestServiceTest {
 
 		List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
 
-		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, "en", "sv");
+		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, "xx");
 
 		assertThrows(IllegalArgumentException.class,
 				() -> contactRequestService.createContactRequest(contactRequestDTO));
@@ -146,8 +150,8 @@ class ContactRequestServiceTest {
 			final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
 
 			final LanguagePair languagePair = Factory.languagePair(authorisation);
-			languagePair.setFromLang("en");
-			languagePair.setToLang("de");
+			languagePair.setFromLang(FROM_LANG);
+			languagePair.setToLang(TO_LANG);
 
 			entityManager.persist(translator);
 			entityManager.persist(authorisation);
