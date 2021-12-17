@@ -1,16 +1,16 @@
 import { Action, Reducer } from 'redux';
 
-import { UiStates } from 'enums/app';
-import { UiState } from 'interfaces/uiState';
-import { isDisplayUiStateAction } from 'redux/actionTypes/navigation';
+import { UIStates } from 'enums/app';
+import { UIState } from 'interfaces/UIState';
+import { isDisplayUIStateAction } from 'redux/actionTypes/navigation';
 
-const defaultState = { state: UiStates.PublicTranslatorListing };
+const defaultState = { state: UIStates.PublicTranslatorListing };
 
-export const uiStateReducer: Reducer<UiState, Action> = (
+export const UIStateReducer: Reducer<UIState, Action> = (
   state = defaultState,
   action
 ) => {
-  if (isDisplayUiStateAction(action)) {
+  if (isDisplayUIStateAction(action)) {
     return { state: action.state };
   }
   return state;

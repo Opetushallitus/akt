@@ -5,7 +5,7 @@ import createSagaMiddleware from '@redux-saga/core';
 import { translatorDetailsReducer } from 'redux/reducers/translatorDetails';
 import rootSaga from 'redux/sagas/index';
 import { contactRequestReducer } from 'redux/reducers/contactRequest';
-import { uiStateReducer } from 'redux/reducers/navigation';
+import { UIStateReducer } from 'redux/reducers/navigation';
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewareEnhancer = applyMiddleware(sagaMiddleware);
@@ -16,7 +16,7 @@ export default () => {
     combineReducers({
       translatorDetails: translatorDetailsReducer,
       contactRequest: contactRequestReducer,
-      uiState: uiStateReducer,
+      UIState: UIStateReducer,
     }),
     composeEnhancers(middlewareEnhancer)
   );

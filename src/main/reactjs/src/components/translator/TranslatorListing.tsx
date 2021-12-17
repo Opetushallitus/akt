@@ -22,8 +22,8 @@ import {
   removeSelectedTranslator,
 } from 'redux/actions/translatorDetails';
 import { publicTranslatorsSelector } from 'redux/selectors/translatorDetails';
-import { UiStates } from 'enums/app';
-import { displayUiState } from 'redux/actions/navigation';
+import { UIStates } from 'enums/app';
+import { displayUIState } from 'redux/actions/navigation';
 
 const getTranslatorDetailsRow = (
   translator: TranslatorDetails,
@@ -91,7 +91,7 @@ const ContactRequestButton = () => {
     <Button
       color="secondary"
       variant="contained"
-      onClick={() => dispatch(displayUiState(UiStates.ContactRequest))}
+      onClick={() => dispatch(displayUIState(UIStates.ContactRequest))}
       disabled={selectedTranslators.length == 0}
     >
       {t('requestContact')}

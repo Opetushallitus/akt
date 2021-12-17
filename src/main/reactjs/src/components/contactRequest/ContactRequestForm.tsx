@@ -26,13 +26,13 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { H1, H2, H3, Text } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { UiStates } from 'enums/app';
+import { UIStates } from 'enums/app';
 import {
   resetContactRequest,
   sendContactRequest,
   setContactRequest,
 } from 'redux/actions/contactRequest';
-import { displayUiState } from 'redux/actions/navigation';
+import { displayUIState } from 'redux/actions/navigation';
 import { removeSelectedTranslator } from 'redux/actions/translatorDetails';
 import { ContactDetails, ContactRequest } from 'interfaces/contactRequest';
 import { APIResponseStatus } from 'enums/api';
@@ -332,7 +332,7 @@ const SuccessDialog = ({
   const dispatch = useAppDispatch();
   const cleanUp = () => {
     dispatch(resetContactRequest);
-    dispatch(displayUiState(UiStates.PublicTranslatorListing));
+    dispatch(displayUIState(UIStates.PublicTranslatorListing));
     onClose();
   };
 
@@ -473,7 +473,7 @@ export const ContactRequestForm = () => {
   const dispatch = useAppDispatch();
   const onCancelRequest = () => {
     dispatch(resetContactRequest);
-    dispatch(displayUiState(UiStates.PublicTranslatorListing));
+    dispatch(displayUIState(UIStates.PublicTranslatorListing));
   };
   useResetContactRequestState();
   const requestStatus = useAppSelector((state) => state.contactRequest.status);

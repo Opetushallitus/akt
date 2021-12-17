@@ -6,7 +6,7 @@ export enum AppPages {
   HomePage = '/',
 }
 
-export enum UiStates {
+export enum UIStates {
   PublicTranslatorListing = 'PublicTranslatorListing',
   ContactRequest = 'ContactRequest',
 }

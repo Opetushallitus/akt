@@ -11,8 +11,8 @@ import {
   selectFilteredPublicTranslators,
 } from 'redux/selectors/translatorDetails';
 import { PublicTranslatorFilters } from 'components/translator/PublicTranslatorFilters';
-import { uiStateSelector } from 'redux/selectors/navigation';
-import { UiStates } from 'enums/app';
+import { UIStateSelector } from 'redux/selectors/navigation';
+import { UIStates } from 'enums/app';
 import { ContactRequestForm } from 'components/contactRequest/ContactRequestForm';
 
 export const TranslatorsGrid = () => {
@@ -55,7 +55,7 @@ export const HomePage: FC = () => {
     dispatch(loadTranslatorDetails);
   }, [dispatch]);
 
-  const { state: currentUiState } = useAppSelector(uiStateSelector);
+  const { state: currentUIState } = useAppSelector(UIStateSelector);
 
   return (
     <Box className="homepage">
@@ -65,7 +65,7 @@ export const HomePage: FC = () => {
         direction="column"
         className="homepage__grid-container"
       >
-        {currentUiState == UiStates.ContactRequest ? (
+        {currentUIState == UIStates.ContactRequest ? (
           <ContactRequestForm />
         ) : (
           <TranslatorsGrid />
