@@ -40,7 +40,7 @@ const RenderChosenTranslators = () => {
 
 const DisplayContactInfo = () => {
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.contactRequestForm',
+    keyPrefix: 'akt.component.contactRequestForm.formLabels',
   });
   const request = useAppSelector(contactRequestSelector)
     .request as ContactRequest;
@@ -206,7 +206,7 @@ export const WriteMessageStep = ({
         <div className="rows gapped">
           <H3>{t('steps.2')}</H3>
           <TextField
-            label={t('writeMessageHereLabel')}
+            label={t('formLabels.writeMessageHere')}
             value={request.message}
             onChange={(e) =>
               dispatch(
@@ -228,7 +228,7 @@ export const WriteMessageStep = ({
 
 export const PreviewAndSendStep = () => {
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.contactRequestForm',
+    keyPrefix: 'akt.component.contactRequestForm.formLabels',
   });
   const request = useAppSelector(contactRequestSelector)
     .request as ContactRequest;

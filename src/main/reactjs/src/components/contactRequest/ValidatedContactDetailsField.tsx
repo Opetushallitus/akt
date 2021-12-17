@@ -19,7 +19,7 @@ export const ValidatedContactDetailsField = ({
     .request as ContactRequest;
   const dispatch = useAppDispatch();
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.contactRequestForm',
+    keyPrefix: 'akt.component.contactRequestForm.formLabels',
   });
   const [fieldStateChanged, setFieldStateChanged] = useState(false);
   const isError = contactDetails[contactDetailsField] == '';
