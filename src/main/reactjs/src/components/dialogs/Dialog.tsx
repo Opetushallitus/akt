@@ -11,9 +11,11 @@ const StyledDialog = ({
   title,
   content,
   actions,
-  ...rest
+  className,
+  open,
+  onClose,
 }: StyledDialogProps) => (
-  <Dialog className={rest.className} open={rest.open} onClose={rest.onClose}>
+  <Dialog className={className} open={open} onClose={onClose}>
     <DialogTitle>{title}</DialogTitle>
     <DialogContent>{content}</DialogContent>
     <DialogActions>{actions}</DialogActions>
