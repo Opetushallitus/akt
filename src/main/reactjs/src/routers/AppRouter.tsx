@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Footer from 'components/layouts/Footer';
 import Header from 'components/layouts/Header';
-import { HomePage } from 'pages/HomePage';
+import { HomePage } from 'pages/PublicTranslatorsHomePage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 
 export const AppRouter: FC = () => (

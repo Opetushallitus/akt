@@ -1,21 +1,17 @@
-import { FC, useEffect, useState } from 'react';
-import { Box, Grid, Paper } from '@mui/material';
+import { Grid, Paper } from '@mui/material';
+import { useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { H1, H2, Text } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
-import { H1, Text, H2 } from 'components/elements/Text';
-import { TranslatorListing } from 'components/translator/TranslatorListing';
-import { loadTranslatorDetails } from 'redux/actions/translatorDetails';
+import { useAppSelector } from 'configs/redux';
 import {
   publicTranslatorsSelector,
   selectFilteredPublicTranslators,
 } from 'redux/selectors/translatorDetails';
 import { PublicTranslatorFilters } from 'components/translator/PublicTranslatorFilters';
-import { UIStateSelector } from 'redux/selectors/navigation';
-import { UIStates } from 'enums/app';
-import { ContactRequestForm } from 'components/contactRequest/ContactRequestForm';
+import { TranslatorListing } from 'components/translator/TranslatorListing';
 
-export const TranslatorsGrid = () => {
+export const PublicTranslatorsGrid = () => {
   // I18
   const { t } = useAppTranslation({ keyPrefix: 'akt.pages.homepage' });
   // Redux
@@ -45,32 +41,5 @@ export const TranslatorsGrid = () => {
         {hasNoResults && <H2>{t('noSearchResults')}</H2>}
       </Grid>
     </>
-  );
-};
-
-export const HomePage: FC = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(loadTranslatorDetails);
-  }, [dispatch]);
-
-  const { state: currentUIState } = useAppSelector(UIStateSelector);
-
-  return (
-    <Box className="homepage">
-      <Grid
-        container
-        rowSpacing={4}
-        direction="column"
-        className="homepage__grid-container"
-      >
-        {currentUIState == UIStates.ContactRequest ? (
-          <ContactRequestForm />
-        ) : (
-          <TranslatorsGrid />
-        )}
-      </Grid>
-    </Box>
   );
 };
