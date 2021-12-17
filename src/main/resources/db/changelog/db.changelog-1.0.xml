@@ -306,7 +306,7 @@
             <column name="email" type="TEXT">
                 <constraints nullable="false"/>
             </column>
-            <column name="phone_number" type="TEXT" />
+            <column name="phone_number" type="TEXT"/>
             <column name="message" type="TEXT">
                 <constraints nullable="false"/>
             </column>
@@ -353,6 +353,15 @@
                                  referencedTableName="translator" referencedColumnNames="translator_id"
                                  constraintName="fk_contact_request_translator_translator"
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
+    <changeSet id="2021-12-17-add-language_pair-check-constraint" author="terova">
+        <sql><![CDATA[
+            ALTER TABLE language_pair
+                ADD CONSTRAINT ck_language_pair_from_to CHECK (from_lang <> to_lang AND
+                                                                (from_lang IN ('fi', 'sv') OR to_lang IN ('fi', 'sv')))
+            ]]>
+        </sql>
     </changeSet>
 
 </databaseChangeLog>
