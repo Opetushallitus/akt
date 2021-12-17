@@ -2,7 +2,6 @@ import { Table, TableBody, TablePagination } from '@mui/material';
 import { ChangeEvent, Fragment, useState } from 'react';
 
 import { PaginatedTableProps } from 'interfaces/table';
-import { H2 } from 'components/elements/Text';
 import { useAppDispatch } from 'configs/redux';
 import { useAppTranslation } from 'configs/i18n';
 import { WithId } from 'interfaces/withId';
@@ -17,7 +16,6 @@ export function PaginatedTable<T extends WithId>({
   initialRowsPerPage,
   rowsPerPageOptions,
   className,
-  callToAction,
 }: PaginatedTableProps<T>): JSX.Element {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
@@ -37,36 +35,23 @@ export function PaginatedTable<T extends WithId>({
     }
   };
 
-  const showNumOfSelected = () =>
-    selectedIndices.length > 0 ? (
-      <H2>{`${selectedIndices.length} ${t('table.selectedItems')}`}</H2>
-    ) : (
-      <H2>{t('table.title')}</H2>
-    );
-
   return (
     <>
       <div className="table__head-box">
-        <div className="rows">
-          <div className="columns">
-            <div className="grow">{showNumOfSelected()}</div>
-            {callToAction}
-          </div>
-          <TablePagination
-            className="table__head-box__pagination"
-            count={data.length}
-            component="div"
-            onPageChange={(_event, newPage) => setPage(newPage)}
-            page={page}
-            onRowsPerPageChange={handleRowsPerPageChange}
-            rowsPerPage={rowsPerPage}
-            rowsPerPageOptions={rowsPerPageOptions}
-            labelRowsPerPage={t('table.pagination.rowsPerPage')}
-            labelDisplayedRows={({ from, to, count }) =>
-              `${from} - ${to} / ${count}`
-            }
-          />
-        </div>
+        <TablePagination
+          className="table__head-box__pagination"
+          count={data.length}
+          component="div"
+          onPageChange={(_event, newPage) => setPage(newPage)}
+          page={page}
+          onRowsPerPageChange={handleRowsPerPageChange}
+          rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={rowsPerPageOptions}
+          labelRowsPerPage={t('table.pagination.rowsPerPage')}
+          labelDisplayedRows={({ from, to, count }) =>
+            `${from} - ${to} / ${count}`
+          }
+        />
       </div>
       <Table className={`${className} table`}>
         {header}

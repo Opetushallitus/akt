@@ -9,7 +9,7 @@ import {
 import { TFunction } from 'i18next';
 import { Box } from '@mui/system';
 
-import { H3, Text } from 'components/elements/Text';
+import { H2, H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 import { TranslatorDetails } from 'interfaces/translator';
@@ -99,6 +99,20 @@ const ContactRequestButton = () => {
   );
 };
 
+const SelectedTranslatorsHeading = () => {
+  const { selectedTranslators: selectedIndices } = useAppSelector(
+    publicTranslatorsSelector
+  );
+
+  const { t } = useAppTranslation({ keyPrefix: 'akt.component.table' });
+
+  return selectedIndices.length > 0 ? (
+    <H2>{`${selectedIndices.length} ${t('selectedItems')}`}</H2>
+  ) : (
+    <H2>{t('title')}</H2>
+  );
+};
+
 export const TranslatorListing = ({
   status,
   translators,
@@ -126,18 +140,25 @@ export const TranslatorListing = ({
       );
     case APIResponseStatus.Success:
       return (
-        <PaginatedTable
-          className="translator-listing"
-          selectedIndices={selectedTranslators}
-          addSelectedIndex={addSelectedTranslator}
-          removeSelectedIndex={removeSelectedTranslator}
-          data={translators}
-          getRowDetails={getTranslatorDetailsRow}
-          header={<ListingHeader />}
-          initialRowsPerPage={10}
-          rowsPerPageOptions={[10, 20, 50]}
-          callToAction={<ContactRequestButton />}
-        />
+        <>
+          <div className="columns">
+            <div className="grow">
+              <SelectedTranslatorsHeading />
+            </div>
+            <ContactRequestButton />
+          </div>
+          <PaginatedTable
+            className="translator-listing"
+            selectedIndices={selectedTranslators}
+            addSelectedIndex={addSelectedTranslator}
+            removeSelectedIndex={removeSelectedTranslator}
+            data={translators}
+            getRowDetails={getTranslatorDetailsRow}
+            header={<ListingHeader />}
+            initialRowsPerPage={10}
+            rowsPerPageOptions={[10, 20, 50]}
+          />
+        </>
       );
   }
 };
