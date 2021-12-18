@@ -16,11 +16,10 @@ exports[`LangSelector should render LangSelector correctly 1`] = `
     />
   </svg>
   <div
-    className="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
+    className="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
   >
     <div
       className="MuiInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl lang-selector__select css-1aa5qj0-MuiInputBase-root-MuiInput-root"
-      data-testid="lang-selector"
       onClick={[Function]}
     >
       <div
@@ -34,7 +33,7 @@ exports[`LangSelector should render LangSelector correctly 1`] = `
         role="button"
         tabIndex={0}
       >
-        akt.component.header.lang.fi
+        lang.fi
       </div>
       <input
         aria-hidden={true}

@@ -2,7 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { AxiosResponse } from 'axios';
 
 import axiosInstance from 'configs/axios';
-import { TranslatorDetails } from 'interfaces/translator';
+import { PublicTranslatorResponse } from 'interfaces/translator';
 import {
   watchFetchTranslatorDetails,
   fetchTranslatorDetails,
@@ -16,8 +16,8 @@ import {
 } from 'redux/actionTypes/translatorDetails';
 import { DispatchAction, dispatchSaga } from 'tests/jest/__commons__/index';
 import {
-  createApiResponse,
-  expectedPublicTranslators,
+  createResponse,
+  expectedResponse,
 } from 'tests/jest/__fixtures__/translatorDetails';
 
 describe('Saga:translatorDetails', () => {
@@ -52,8 +52,8 @@ describe('Saga:translatorDetails', () => {
     const dispatched: DispatchAction[] = [];
     const mockResponse = (
       _endpoint: string
-    ): Promise<AxiosResponse<Array<TranslatorDetails>>> => {
-      return Promise.resolve(createApiResponse(expectedPublicTranslators));
+    ): Promise<AxiosResponse<PublicTranslatorResponse>> => {
+      return Promise.resolve(createResponse(expectedResponse));
     };
     jest.spyOn(axiosInstance, 'get').mockImplementationOnce(mockResponse);
 
@@ -63,7 +63,7 @@ describe('Saga:translatorDetails', () => {
       { type: TRANSLATOR_DETAILS_LOADING },
       {
         type: TRANSLATOR_DETAILS_RECEIVED,
-        translatorDetails: expectedPublicTranslators,
+        ...expectedResponse,
       },
     ]);
   });
