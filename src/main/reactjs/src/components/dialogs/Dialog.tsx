@@ -31,5 +31,5 @@ export const ErrorDialog = (props: StyledDialogProps) => (
 );
 
 export const NeutralDialog = (props: StyledDialogProps) => (
-  <StyledDialog className="dialog__neutral" {...props} />
+  <StyledDialog className="dialog__info" {...props} />
 );

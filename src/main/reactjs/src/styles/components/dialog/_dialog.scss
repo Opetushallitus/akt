@@ -1,21 +1,24 @@
-.dialog {
+@mixin top-border($color) {
+  border-top: 1rem $color solid;
+  border-radius: 0px;
+}
 
+.dialog {
   &__success {
-    .MuiDialog-paper {
-      border-top: 1vh $color-green-600 solid;
+    & [role='dialog'] {
+      @include top-border($color-green-600);
     }
   }
 
   &__error {
-    .MuiDialog-paper {
-      border-top: 1vh $color-red-500 solid;
+    & [role='dialog'] {
+      @include top-border($color-red-500);
     }
   }
 
-  &__neutral {
-    .MuiDialog-paper {
-      border-top: 1vh $color-secondary solid;
+  &__info {
+    & [role='dialog'] {
+      @include top-border($color-secondary);
     }
   }
-
 }
