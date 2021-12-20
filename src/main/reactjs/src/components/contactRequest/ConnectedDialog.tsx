@@ -4,7 +4,7 @@ import { useState } from 'react';
 import {
   ErrorDialog,
   SuccessDialog,
-  NeutralDialog,
+  InfoDialog,
 } from 'components/dialogs/Dialog';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
@@ -91,7 +91,7 @@ export const CancelRequestDialog = ({
   };
 
   return (
-    <NeutralDialog
+    <InfoDialog
       title={t('title')}
       content={<Text>{t('description')}</Text>}
       actions={

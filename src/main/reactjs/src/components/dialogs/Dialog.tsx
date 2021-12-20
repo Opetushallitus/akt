@@ -30,6 +30,6 @@ export const ErrorDialog = (props: StyledDialogProps) => (
   <StyledDialog className="dialog__error" {...props} />
 );
 
-export const NeutralDialog = (props: StyledDialogProps) => (
+export const InfoDialog = (props: StyledDialogProps) => (
   <StyledDialog className="dialog__info" {...props} />
 );
