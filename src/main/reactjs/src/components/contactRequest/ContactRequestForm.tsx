@@ -25,6 +25,8 @@ import {
   PreviewAndSendStep,
   ContactRequestStepper,
 } from 'components/contactRequest/Steps';
+import { ContactRequestFormStep } from 'enums/contactRequest';
+import { ErrorDialog } from 'components/dialogs/Dialog';
 
 const decrementStep = (step: number) => step - 1;
 const incrementStep = (step: number) => step + 1;
@@ -104,6 +106,42 @@ const useResetContactRequestState = () => {
   }, [dispatch, from, to, selectedTranslators]);
 };
 
+const StepContents = ({
+  step,
+  disableNext,
+}: {
+  step: number;
+  disableNext: (disabled: boolean) => void;
+}) => {
+  switch (step) {
+    case ContactRequestFormStep.VerifyTranslators:
+      return <VerifyTranslatorsStep disableNext={disableNext} />;
+    case ContactRequestFormStep.FillContactDetails:
+      return <FillContactDetailsStep disableNext={disableNext} />;
+    case ContactRequestFormStep.WriteMessage:
+      return <WriteMessageStep disableNext={disableNext} />;
+    case ContactRequestFormStep.PreviewAndSend:
+      return <PreviewAndSendStep />;
+    default:
+      return <> </>;
+  }
+};
+
+const StatusNotifications = () => {
+  const { status } = useAppSelector(contactRequestSelector);
+
+  switch (status) {
+    case APIResponseStatus.Success:
+      return <SuccessDialogWrapper />;
+    case APIResponseStatus.Error:
+      return <ErrorDialogWrapper />;
+    case APIResponseStatus.InProgress:
+      return <ProgressIndicator />;
+    default:
+      return <> </>;
+  }
+};
+
 export const ContactRequestForm = () => {
   // I18
   const { t } = useAppTranslation({
@@ -112,7 +150,6 @@ export const ContactRequestForm = () => {
 
   // Redux
   useResetContactRequestState();
-  const { status: requestStatus } = useAppSelector(contactRequestSelector);
 
   // Local component state
   const [step, setStep] = useState(0);
@@ -132,23 +169,8 @@ export const ContactRequestForm = () => {
           <Box className="contact-request-form__form-container-box">
             <Box className="contact-request-form__inner-content-box">
               <ContactRequestStepper step={step} />
-              {step == 0 && (
-                <VerifyTranslatorsStep disableNext={disableNextCb} />
-              )}
-              {step == 1 && (
-                <FillContactDetailsStep disableNext={disableNextCb} />
-              )}
-              {step == 2 && <WriteMessageStep disableNext={disableNextCb} />}
-              {step == 3 && <PreviewAndSendStep />}
-              {requestStatus == APIResponseStatus.Success && (
-                <SuccessDialogWrapper />
-              )}
-              {requestStatus == APIResponseStatus.Error && (
-                <ErrorDialogWrapper />
-              )}
-              {requestStatus == APIResponseStatus.InProgress && (
-                <ProgressIndicator />
-              )}
+              <StepContents step={step} disableNext={disableNextCb} />
+              <StatusNotifications />
               <CancelRequestDialog
                 open={cancelDialogOpen}
                 onClose={() => setCancelDialogOpen(false)}
