@@ -1,11 +1,28 @@
 import { TextField, TextFieldProps } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Dispatch } from 'react';
 
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector, useAppDispatch } from 'configs/redux';
-import { ContactDetails, ContactRequest } from 'interfaces/contactRequest';
+import {
+  ContactDetails,
+  ContactRequest,
+  ContactRequestAction,
+} from 'interfaces/contactRequest';
 import { setContactRequest } from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
+
+const onContactDetailsFieldChange = (
+  dispatch: Dispatch<ContactRequestAction>,
+  setFieldStateChanged: (changed: boolean) => void,
+  request: ContactRequest,
+  field: keyof ContactDetails,
+  newValue: string
+) => {
+  setFieldStateChanged(true);
+  const updated = Object.assign({}, request);
+  updated[field] = newValue;
+  dispatch(setContactRequest(updated));
+};
 
 export const ValidatedContactDetailsField = ({
   contactDetailsField,
@@ -17,10 +34,10 @@ export const ValidatedContactDetailsField = ({
 }) => {
   const contactDetails = useAppSelector(contactRequestSelector)
     .request as ContactRequest;
-  const dispatch = useAppDispatch();
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm.formLabels',
   });
+  const dispatch = useAppDispatch();
   const [fieldStateChanged, setFieldStateChanged] = useState(false);
   const isError = contactDetails[contactDetailsField] == '';
   const { required } = rest;
@@ -33,12 +50,15 @@ export const ValidatedContactDetailsField = ({
       error={fieldStateChanged && isError}
       label={t(contactDetailsField)}
       value={contactDetails[contactDetailsField]}
-      onChange={(e) => {
-        setFieldStateChanged(true);
-        const updated = Object.assign({}, contactDetails);
-        updated[contactDetailsField] = e.target.value;
-        dispatch(setContactRequest(updated));
-      }}
+      onChange={(e) =>
+        onContactDetailsFieldChange(
+          dispatch,
+          setFieldStateChanged,
+          contactDetails,
+          contactDetailsField,
+          e.target.value
+        )
+      }
       {...rest}
     />
   );
