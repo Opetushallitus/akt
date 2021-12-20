@@ -1,5 +1,8 @@
 @mixin top-border($color) {
   border-top: 1rem $color solid;
+}
+
+@mixin no-border-radius {
   border-radius: 0px;
 }
 
@@ -7,18 +10,21 @@
   &__success {
     & [role='dialog'] {
       @include top-border($color-green-600);
+      @include no-border-radius;
     }
   }
 
   &__error {
     & [role='dialog'] {
       @include top-border($color-red-500);
+      @include no-border-radius;
     }
   }
 
   &__info {
     & [role='dialog'] {
       @include top-border($color-secondary);
+      @include no-border-radius;
     }
   }
 }
