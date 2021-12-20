@@ -192,6 +192,7 @@ export const FillContactDetailsStep = ({
           />
           <ValidatedContactDetailsField
             contactDetailsField="email"
+            type="email"
             isValidCallback={memoizedFieldErrorCallback}
             required
           />
