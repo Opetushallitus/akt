@@ -8,7 +8,7 @@ import { ContactRequestForm } from 'components/contactRequest/ContactRequestForm
 import { PublicTranslatorsGrid } from 'components/translator/PublicTranslatorsList';
 import { loadTranslatorDetails } from 'redux/actions/translatorDetails';
 
-export const HomePage: FC = () => {
+export const PublicHomePage: FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
