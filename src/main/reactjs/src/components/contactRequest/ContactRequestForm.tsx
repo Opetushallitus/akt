@@ -26,7 +26,6 @@ import {
   ContactRequestStepper,
 } from 'components/contactRequest/Steps';
 import { ContactRequestFormStep } from 'enums/contactRequest';
-import { ErrorDialog } from 'components/dialogs/Dialog';
 
 const decrementStep = (step: number) => step - 1;
 const incrementStep = (step: number) => step + 1;
@@ -34,6 +33,7 @@ const incrementStep = (step: number) => step + 1;
 const ControlButtons = ({
   onCancelRequest,
   onChangeStep,
+  minStep,
   step,
   maxStep,
   disableNext,
@@ -41,6 +41,7 @@ const ControlButtons = ({
   onCancelRequest: () => void;
   onChangeStep: Dispatch<SetStateAction<number>>;
   step: number;
+  minStep: number;
   maxStep: number;
   disableNext: boolean;
 }) => {
@@ -63,7 +64,7 @@ const ControlButtons = ({
         variant="contained"
         color="secondary"
         onClick={() => onChangeStep(decrementStep)}
-        disabled={step == 0}
+        disabled={step == minStep}
       >
         {t('buttons.previous')}
       </Button>
@@ -179,6 +180,7 @@ export const ContactRequestForm = () => {
             {step <= maxStep && (
               <ControlButtons
                 step={step}
+                minStep={0}
                 maxStep={maxStep}
                 disableNext={disableNext}
                 onChangeStep={setStep}
