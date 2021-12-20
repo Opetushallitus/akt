@@ -26,7 +26,7 @@ Or bring up individual services according to your needs:
 docker-compose up postgres frontend
 ```
 
-In case of errors, clean cache and recreate volumes: 
+In case of errors, clean cache and recreate volumes:
 
 ```sh
 docker-compose down
@@ -62,6 +62,7 @@ Code format for Java code is Spring Java Format.
 
 Imports are formatted as IntelliJ default, except that `ìmport *` is disabled:
 Code Style -> Java -> Imports:
+
 ```
 Class count to use import with '*': 999
 Names count to use static import with '*': 999
@@ -86,6 +87,7 @@ Unit and Integretion tests
 
 ```sh
 npm run test:jest
+npm run test:jest -- -u  # Regenerate snapshots
 ```
 
 ## API documentation
