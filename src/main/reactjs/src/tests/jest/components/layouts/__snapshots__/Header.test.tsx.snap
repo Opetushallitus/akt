@@ -5,7 +5,7 @@ exports[`Header should render Header correctly 1`] = `
   className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionStatic header css-hip9hq-MuiPaper-root-MuiAppBar-root"
 >
   <div
-    className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-1t29gy6-MuiToolbar-root"
+    className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular header__toolbar css-1t29gy6-MuiToolbar-root"
   >
     <button
       aria-label="menu"
@@ -30,7 +30,7 @@ exports[`Header should render Header correctly 1`] = `
       className="header__left"
     >
       <img
-        alt="akt.component.header.logo.alt"
+        alt="logo.alt"
         className="header__left__logo"
         src="test"
       />
@@ -39,8 +39,8 @@ exports[`Header should render Header correctly 1`] = `
       className="header__right"
     >
       <a
-        className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways MuiButton-root MuiButton-text MuiButton-textSecondary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-kanbz0-MuiTypography-root-MuiLink-root-MuiButtonBase-root-MuiButton-root"
-        href="akt.component.header.ophLink.address"
+        className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButtonBase-root  css-wluzjo-MuiTypography-root-MuiLink-root-MuiButtonBase-root-MuiButton-root"
+        href="ophLink.address"
         onBlur={[Function]}
         onContextMenu={[Function]}
         onDragLeave={[Function]}
@@ -57,7 +57,7 @@ exports[`Header should render Header correctly 1`] = `
         tabIndex={0}
         target="_blank"
       >
-        akt.component.header.ophLink.text
+        ophLink.text
         <span
           className="MuiButton-endIcon MuiButton-iconSizeMedium css-9tj150-MuiButton-endIcon"
         >
@@ -89,11 +89,10 @@ exports[`Header should render Header correctly 1`] = `
           />
         </svg>
         <div
-          className="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
+          className="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
         >
           <div
             className="MuiInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl lang-selector__select css-1aa5qj0-MuiInputBase-root-MuiInput-root"
-            data-testid="lang-selector"
             onClick={[Function]}
           >
             <div
@@ -107,7 +106,7 @@ exports[`Header should render Header correctly 1`] = `
               role="button"
               tabIndex={0}
             >
-              akt.component.header.lang.fi
+              lang.fi
             </div>
             <input
               aria-hidden={true}
