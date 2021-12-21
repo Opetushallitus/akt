@@ -5,3 +5,4 @@ postgresql.password={{host_postgresql_akt_app_password}}
 url-alb={{host_alb}}
 email.sending-enabled=true
 ryhmasahkoposti-service-url=${url-alb}/ryhmasahkoposti-service/email/firewall
+koodisto.languages-url=${url-alb}/koodisto-service/rest/json/kieli/koodi

@@ -1,5 +1,6 @@
 package fi.oph.akt.config;
 
+import fi.oph.akt.service.KoodistoService;
 import fi.oph.akt.service.email.sender.EmailSender;
 import fi.oph.akt.service.email.sender.EmailSenderNoOp;
 import fi.oph.akt.service.email.sender.EmailSenderViestintapalvelu;
@@ -27,9 +28,19 @@ public class AppConfig {
 	@ConditionalOnProperty(name = "akt.email.sending-enabled", havingValue = "true")
 	public EmailSender emailSender(@Value("${akt.email.ryhmasahkoposti-service-url}") String emailServiceUrl) {
 		LOG.info("emailServiceUrl:{}", emailServiceUrl);
-		final WebClient webClient = WebClient.builder().baseUrl(emailServiceUrl)
-				.defaultHeader("Caller-Id", "1.2.246.562.10.00000000001.akt").build();
+		final WebClient webClient = webClientBuilderWithCallerId().baseUrl(emailServiceUrl).build();
 		return new EmailSenderViestintapalvelu(webClient);
+	}
+
+	@Bean
+	public KoodistoService koodistoService(@Value("${akt.koodisto.languages-url}") String koodistoLanguagesUrl) {
+		LOG.info("koodistoLanguagesUrl:{}", koodistoLanguagesUrl);
+		final WebClient webClient = webClientBuilderWithCallerId().baseUrl(koodistoLanguagesUrl).build();
+		return new KoodistoService(webClient);
+	}
+
+	private static WebClient.Builder webClientBuilderWithCallerId() {
+		return WebClient.builder().defaultHeader("Caller-Id", "1.2.246.562.10.00000000001.akt");
 	}
 
 }
