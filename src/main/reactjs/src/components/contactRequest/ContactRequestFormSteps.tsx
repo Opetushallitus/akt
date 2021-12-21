@@ -43,7 +43,11 @@ const RenderChosenTranslators = () => {
   const translatorsString = translators
     .map(({ firstName, lastName }) => firstName + ' ' + lastName)
     .join(', ');
-  return <Text>{translatorsString}</Text>;
+  return (
+    <Text data-testid="contact-request-form-chosen-translators">
+      {translatorsString}
+    </Text>
+  );
 };
 
 const DisplayContactInfo = () => {
@@ -58,20 +62,28 @@ const DisplayContactInfo = () => {
       <H2>{t('contactInfo')}</H2>
       <div className="rows">
         <H3>{t('firstName')}</H3>
-        <Text>{request.firstName}</Text>
+        <Text data-testid="contact-request-form-contact-info-first-name">
+          {request.firstName}
+        </Text>
       </div>
       <div className="rows">
         <H3>{t('lastName')}</H3>
-        <Text>{request.lastName}</Text>
+        <Text data-testid="contact-request-form-contact-info-last-name">
+          {request.lastName}
+        </Text>
       </div>
       <div className="rows">
         <H3>{t('email')}</H3>
-        <Text>{request.email}</Text>
+        <Text data-testid="contact-request-form-contact-info-email">
+          {request.email}
+        </Text>
       </div>
       {request.phoneNumber && (
         <div className="rows">
           <H3>{t('phoneNumber')}</H3>
-          <Text>{request.phoneNumber}</Text>
+          <Text data-testid="contact-request-form-contact-info-phone-number">
+            {request.phoneNumber}
+          </Text>
         </div>
       )}
     </div>
@@ -127,7 +139,11 @@ export const VerifyTranslatorsStep = ({
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         {translators.map(({ id, firstName, lastName }) => (
-          <div className="columns" key={id}>
+          <div
+            className="columns"
+            key={id}
+            data-testid={`contact-request-form-chosen-translator-id-${id}`}
+          >
             <div className="grow">
               <Text>
                 {firstName} {lastName}
@@ -266,7 +282,9 @@ export const PreviewAndSendStep = () => {
         <RenderChosenTranslators />
         <DisplayContactInfo />
         <H3>{t('message')}</H3>
-        <Text>{request.message}</Text>
+        <Text data-testid="contact-request-form-message">
+          {request.message}
+        </Text>
       </div>
     </div>
   );

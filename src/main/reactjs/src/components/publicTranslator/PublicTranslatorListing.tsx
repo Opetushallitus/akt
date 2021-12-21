@@ -35,7 +35,11 @@ const getPublicTranslatorRow = (
   const townInfo = `${town}${country ? `, ${country}` : ''}`;
 
   return (
-    <TableRow selected={selected} onClick={toggleSelected}>
+    <TableRow
+      data-testid={`public-translator-row-id-${translator.id}`}
+      selected={selected}
+      onClick={toggleSelected}
+    >
       <TableCell padding="checkbox">
         <Checkbox
           className="translator-listing__checkbox"
@@ -93,6 +97,7 @@ const ContactRequestButton = () => {
       variant="contained"
       onClick={() => dispatch(displayUIState(UIStates.ContactRequest))}
       disabled={selectedTranslators.length == 0}
+      data-testid="public-translators-contact-request-btn"
     >
       {t('requestContact')}
     </Button>
@@ -106,10 +111,11 @@ const SelectedTranslatorsHeading = () => {
 
   const { t } = useAppTranslation({ keyPrefix: 'akt.component.table' });
 
-  return selectedIndices.length > 0 ? (
-    <H2>{`${selectedIndices.length} ${t('selectedItems')}`}</H2>
-  ) : (
-    <H2>{t('title')}</H2>
+  const selected = selectedIndices.length;
+  return (
+    <H2 data-testid="public-translators-selected-count">
+      {selected > 0 ? `${selected} ${t('selectedItems')}` : t('title')}
+    </H2>
   );
 };
 

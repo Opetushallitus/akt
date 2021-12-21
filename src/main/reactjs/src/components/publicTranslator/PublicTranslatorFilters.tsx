@@ -150,6 +150,7 @@ export const PublicTranslatorFilters = ({
           variant="contained"
           size="large"
           onClick={handleSearchBtnClick}
+          data-testid="public-translator-search-btn"
         >
           {t('buttons.search')}
         </Button>

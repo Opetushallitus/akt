@@ -35,7 +35,12 @@ export const SuccessDialogWrapper = () => {
       title={t('title')}
       content={<Text>{t('description')}</Text>}
       actions={
-        <Button variant="contained" color="secondary" onClick={() => cleanUp()}>
+        <Button
+          data-testid="success-dialog-continue-btn"
+          variant="contained"
+          color="secondary"
+          onClick={() => cleanUp()}
+        >
           {t('continue')}
         </Button>
       }
