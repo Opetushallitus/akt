@@ -97,6 +97,49 @@
           "empty": "Tyhjennä Valinnat",
           "search": "Hae"
         }
+      },
+      "contactRequestForm": {
+        "title": "Yhteydenottopyynnön jättäminen",
+        "description": "Tällä yhteydenottolomakkeella voit jättää valitsemillesi kääntäjille yhteydenottopyynnön. Kirjoitathan viestiin mahdollisimman tarkan kuvauksen tarvittavasta käännöstyöstä.",
+        "buttons": {
+          "cancel": "Peruuta",
+          "previous": "Takaisin",
+          "next": "Seuraava",
+          "submit": "Lähetä"
+        },
+        "steps": {
+          "verifySelectedTranslators": "Vahvista kääntäjät",
+          "fillContactDetails": "Täytä yhteystiedot",
+          "writeMessage": "Kirjoita viesti",
+          "previewAndSend": "Esikatsele ja lähetä",
+          "done": "Valmis"
+        },
+        "chosenTranslatorsForLanguagePair": "Valitut kääntäjät kieliparista",
+        "formLabels": {
+          "firstName": "Etunimi",
+          "lastName": "Sukunimi",
+          "email": "Sähköpostiosoite",
+          "phoneNumber": "Puhelinnumero",
+          "contactInfo": "Yhteystiedot",
+          "message": "Viesti",
+          "writeMessageHere": "Kirjoita viestisi tähän"
+        },
+        "successDialog": {
+          "title": "Yhteydenottopyyntösi lähetettiin onnistuneesti!",
+          "description": "Sinuun ollaan yhteydessä.",
+          "continue": "Jatka"
+        },
+        "errorDialog": {
+          "title": "Virhe lähetettäessä yhteydenottopyyntöä.",
+          "description": "Kokeile myöhemmin uudelleen. Jos ongelma toistuu, ota yhteyttä sähköpostilla: ",
+          "back": "Takaisin"
+        },
+        "cancelRequestDialog": {
+          "title": "Peruuta yhteydenottopyyntö",
+          "description": "Haluatko peruuttaa yhteydenottopyynnön? Menetät täyttämäsi tiedot",
+          "back": "Takaisin",
+          "yes": "Kyllä"
+        }
       }
     },
     "pages": {
@@ -106,7 +149,8 @@
         "filters": {
           "title": "Hae auktorisoitua kääntäjää"
         },
-        "noSearchResults": "Ei hakutuloksia"
+        "noSearchResults": "Ei hakutuloksia",
+        "requestContact": "Ota yhteyttä"
       },
       "translator": {
         "name": "Nimi",

@@ -5,3 +5,8 @@ export enum AppConstants {
 export enum AppPages {
   HomePage = '/',
 }
+
+export enum UIStates {
+  PublicTranslatorListing = 'PublicTranslatorListing',
+  ContactRequest = 'ContactRequest',
+}

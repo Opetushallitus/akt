@@ -22,6 +22,19 @@ export const selectFilteredPublicTranslators = createSelector(
   }
 );
 
+export const selectedPublicTranslatorsForLanguagePair = createSelector(
+  (state: RootState) => state.translatorDetails.selectedTranslators,
+  (state: RootState) => state.translatorDetails.translators,
+  (state: RootState) => state.translatorDetails.filters,
+  (selectedTranslators, translators, filters) => {
+    const selectedIds = new Set(selectedTranslators);
+    const filtered = translators
+      .filter(({ id }) => selectedIds.has(id))
+      .filter((t) => filterByLanguagePair(t, filters));
+    return filtered;
+  }
+);
+
 // Helpers
 const filterByLanguagePair = (
   publicTranslator: TranslatorDetails,
