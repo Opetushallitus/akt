@@ -24,7 +24,7 @@ import {
   WriteMessageStep,
   PreviewAndSendStep,
   ContactRequestStepper,
-} from 'components/contactRequest/Steps';
+} from 'components/contactRequest/ContactRequestFormSteps';
 import { ContactRequestFormStep } from 'enums/contactRequest';
 
 const decrementStep = (step: number) => step - 1;
