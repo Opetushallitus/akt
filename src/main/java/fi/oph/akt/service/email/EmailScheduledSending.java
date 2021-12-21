@@ -22,6 +22,10 @@ public class EmailScheduledSending {
 
 	private static final String INITIAL_DELAY = "PT10S";
 
+	private static final String LOCK_AT_LEAST = "PT10S";
+
+	private static final String LOCK_AT_MOST = "PT2H";
+
 	public static final int BATCH_SIZE = 10;
 
 	@Resource
@@ -30,14 +34,13 @@ public class EmailScheduledSending {
 	@Resource
 	private final EmailService emailService;
 
-	// TODO Move constants to config?
 	@Scheduled(fixedDelayString = FIXED_DELAY, initialDelayString = INITIAL_DELAY)
-	@SchedulerLock(name = "pollEmailsToSend", lockAtLeastFor = FIXED_DELAY)
+	@SchedulerLock(name = "pollEmailsToSend", lockAtLeastFor = LOCK_AT_LEAST, lockAtMostFor = LOCK_AT_MOST)
 	public void pollEmailsToSend() {
 		LOG.debug("pollEmailsToSend");
-		final List<Long> emailsToSend = emailRepository.findEmailsToSend(PageRequest.of(0, BATCH_SIZE));
-		LOG.debug("emailsToSend.size {}", emailsToSend.size());
-		emailsToSend.forEach(emailService::sendEmail);
+		final List<Long> emailsBatch = emailRepository.findEmailsToSend(PageRequest.of(0, BATCH_SIZE));
+		LOG.debug("sending emailsBatch size {}", emailsBatch.size());
+		emailsBatch.forEach(emailService::sendEmail);
 	}
 
 }
