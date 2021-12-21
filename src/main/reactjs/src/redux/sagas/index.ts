@@ -1,8 +1,8 @@
 import { all } from 'redux-saga/effects';
 
-import { watchFetchTranslatorDetails } from 'redux/sagas/translatorDetails';
+import { watchFetchPublicTranslators } from 'redux/sagas/publicTranslator';
 import { watchContactRequest } from './contactRequest';
 
 export default function* rootSaga() {
-  yield all([watchFetchTranslatorDetails(), watchContactRequest()]);
+  yield all([watchFetchPublicTranslators(), watchContactRequest()]);
 }

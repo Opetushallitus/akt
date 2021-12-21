@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
-import { LanguagePair } from 'interfaces/translator';
+import { PublicLanguagePair } from 'interfaces/translator';
 
 export interface ContactDetails {
   email: string;
@@ -13,7 +13,7 @@ export interface ContactDetails {
 export interface ContactRequest extends ContactDetails {
   message: string;
   translatorIds: Array<number>;
-  languagePair: LanguagePair;
+  languagePair: PublicLanguagePair;
 }
 
 export interface ContactRequestState {

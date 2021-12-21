@@ -3,17 +3,17 @@ import { Action } from 'redux';
 import { APIResponseStatus } from 'enums/api';
 import { WithId } from 'interfaces/withId';
 
-export interface LanguagePair {
+export interface PublicLanguagePair {
   from: string;
   to: string;
 }
 
-export interface TranslatorDetails extends WithId {
+export interface PublicTranslator extends WithId {
   firstName: string;
   lastName: string;
   town: string;
   country: string;
-  languagePairs: Array<LanguagePair>;
+  languagePairs: Array<PublicLanguagePair>;
 }
 
 export interface PublicTranslatorFilter {
@@ -29,18 +29,18 @@ export interface LanguagePairsDict {
 }
 
 export interface PublicTranslatorResponse {
-  translators: Array<TranslatorDetails>;
+  translators: Array<PublicTranslator>;
   langs: LanguagePairsDict;
   towns: string[];
 }
 
-export interface TranslatorDetailsState extends PublicTranslatorResponse {
+export interface PublicTranslatorState extends PublicTranslatorResponse {
   status: APIResponseStatus;
   selectedTranslators: Array<number>;
   filters: PublicTranslatorFilter;
 }
 
-export interface TranslatorDetailsAction
+export interface PublicTranslatorAction
   extends Action<string>,
     Partial<PublicTranslatorResponse> {
   index?: number;

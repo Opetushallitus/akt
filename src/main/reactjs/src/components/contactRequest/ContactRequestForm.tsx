@@ -11,7 +11,7 @@ import {
 import { ContactRequest } from 'interfaces/contactRequest';
 import { APIResponseStatus } from 'enums/api';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
-import { publicTranslatorsSelector } from 'redux/selectors/translatorDetails';
+import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import {
   CancelRequestDialog,
@@ -24,7 +24,7 @@ import {
   WriteMessageStep,
   PreviewAndSendStep,
   ContactRequestStepper,
-} from 'components/contactRequest/Steps';
+} from 'components/contactRequest/ContactRequestFormSteps';
 import { ContactRequestFormStep } from 'enums/contactRequest';
 
 const decrementStep = (step: number) => step - 1;

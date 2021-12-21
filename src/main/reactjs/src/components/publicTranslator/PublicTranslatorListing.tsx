@@ -12,7 +12,7 @@ import { Box } from '@mui/system';
 import { H2, H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
-import { TranslatorDetails } from 'interfaces/translator';
+import { PublicTranslator } from 'interfaces/translator';
 import { Selectable } from 'interfaces/selectable';
 import { APIResponseStatus } from 'enums/api';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
@@ -20,13 +20,13 @@ import { useAppTranslation } from 'configs/i18n';
 import {
   addSelectedTranslator,
   removeSelectedTranslator,
-} from 'redux/actions/translatorDetails';
-import { publicTranslatorsSelector } from 'redux/selectors/translatorDetails';
+} from 'redux/actions/publicTranslator';
+import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { UIStates } from 'enums/app';
 import { displayUIState } from 'redux/actions/navigation';
 
-const getTranslatorDetailsRow = (
-  translator: TranslatorDetails,
+const getPublicTranslatorRow = (
+  translator: PublicTranslator,
   t: TFunction,
   selectionProps: Selectable
 ) => {
@@ -113,12 +113,12 @@ const SelectedTranslatorsHeading = () => {
   );
 };
 
-export const TranslatorListing = ({
+export const PublicTranslatorListing = ({
   status,
   translators,
 }: {
   status: APIResponseStatus;
-  translators: Array<TranslatorDetails>;
+  translators: Array<PublicTranslator>;
 }) => {
   const { t } = useAppTranslation({ keyPrefix: 'akt' });
   const { selectedTranslators } = useAppSelector(publicTranslatorsSelector);
@@ -153,7 +153,7 @@ export const TranslatorListing = ({
             addSelectedIndex={addSelectedTranslator}
             removeSelectedIndex={removeSelectedTranslator}
             data={translators}
-            getRowDetails={getTranslatorDetailsRow}
+            getRowDetails={getPublicTranslatorRow}
             header={<ListingHeader />}
             initialRowsPerPage={10}
             rowsPerPageOptions={[10, 20, 50]}
