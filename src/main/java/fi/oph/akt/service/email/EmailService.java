@@ -1,6 +1,7 @@
 package fi.oph.akt.service.email;
 
 import fi.oph.akt.model.Email;
+import fi.oph.akt.model.EmailType;
 import fi.oph.akt.repository.EmailRepository;
 import fi.oph.akt.service.email.sender.EmailSender;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,9 @@ public class EmailService {
 	private final EmailSender emailSender;
 
 	@Transactional
-	public Long saveEmail(final EmailData emailData) {
+	public Long saveEmail(final EmailType type, final EmailData emailData) {
 		final Email email = new Email();
+		email.setEmailType(type);
 		emailData.copyToEmail(email);
 		return emailRepository.saveAndFlush(email).getId();
 	}

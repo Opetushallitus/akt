@@ -1,7 +1,6 @@
 package fi.oph.akt.service.email.sender;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import fi.oph.akt.model.EmailType;
 import fi.oph.akt.service.email.EmailData;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -37,8 +36,8 @@ class EmailSenderViestintapalveluTest {
 		mockWebServer.enqueue(new MockResponse().setResponseCode(200)
 				.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).setBody("{\"id\":\"12345\"}"));
 
-		final EmailData emailData = EmailData.builder().type(EmailType.CONTACT_REQUEST).sender("lähettäjä")
-				.recipient("vastaanottaja@invalid").subject("testiotsikko").body("testiviesti").build();
+		final EmailData emailData = EmailData.builder().sender("lähettäjä").recipient("vastaanottaja@invalid")
+				.subject("testiotsikko").body("testiviesti").build();
 
 		final String senderId = sender.sendEmail(emailData);
 		assertEquals("12345", senderId);

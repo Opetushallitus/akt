@@ -1,9 +1,10 @@
 package fi.oph.akt.repository;
 
 import fi.oph.akt.model.LanguagePair;
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 public interface LanguagePairRepository extends JpaRepository<LanguagePair, Long> {
 

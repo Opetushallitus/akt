@@ -49,9 +49,9 @@ class EmailServiceTest {
 
 	@Test
 	public void testMailIsSaved() throws JsonProcessingException {
-		final EmailData emailData = EmailData.builder().type(EmailType.CONTACT_REQUEST).sender("lähettäjä")
-				.recipient("vastaanottaja@invalid").subject("testiotsikko").body("testiviesti").build();
-		final Long savedId = emailService.saveEmail(emailData);
+		final EmailData emailData = EmailData.builder().sender("lähettäjä").recipient("vastaanottaja@invalid")
+				.subject("testiotsikko").body("testiviesti").build();
+		final Long savedId = emailService.saveEmail(EmailType.CONTACT_REQUEST, emailData);
 
 		final List<Email> all = emailRepository.findAll();
 		assertEquals(1, all.size());

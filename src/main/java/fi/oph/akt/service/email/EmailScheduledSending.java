@@ -1,15 +1,15 @@
 package fi.oph.akt.service.email;
 
 import fi.oph.akt.repository.EmailRepository;
-import java.util.List;
-import javax.annotation.Resource;
-
 import lombok.RequiredArgsConstructor;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
