@@ -3,7 +3,7 @@ import { Action } from 'redux';
 import { APIResponseStatus } from 'enums/api';
 import { WithId } from 'interfaces/withId';
 
-export interface LanguagePair {
+export interface PublicLanguagePair {
   from: string;
   to: string;
 }
@@ -13,7 +13,7 @@ export interface PublicTranslator extends WithId {
   lastName: string;
   town: string;
   country: string;
-  languagePairs: Array<LanguagePair>;
+  languagePairs: Array<PublicLanguagePair>;
 }
 
 export interface PublicTranslatorFilter {
