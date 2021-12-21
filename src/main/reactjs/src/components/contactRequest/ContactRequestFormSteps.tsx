@@ -230,6 +230,7 @@ export const WriteMessageStep = ({
         <div className="rows gapped">
           <H3>{t('steps.' + stepsByIndex[2])}</H3>
           <TextField
+            id="contact-request-form-message-field"
             label={t('formLabels.writeMessageHere')}
             value={request.message}
             onChange={(e) =>
