@@ -14,8 +14,8 @@ import { useAppSelector, useAppDispatch } from 'configs/redux';
 import {
   addPublicTranslatorFilter,
   emptyPublicTranslatorFilters,
-} from 'redux/actions/translatorDetails';
-import { publicTranslatorsSelector } from 'redux/selectors/translatorDetails';
+} from 'redux/actions/publicTranslator';
+import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { Utils } from 'utils/index';
 
 export const PublicTranslatorFilters = ({

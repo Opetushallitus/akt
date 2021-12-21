@@ -7,12 +7,12 @@ import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector, useAppDispatch } from 'configs/redux';
 import { ContactDetails, ContactRequest } from 'interfaces/contactRequest';
 import { setContactRequest } from 'redux/actions/contactRequest';
-import { removeSelectedTranslator } from 'redux/actions/translatorDetails';
+import { removeSelectedTranslator } from 'redux/actions/publicTranslator';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import {
   publicTranslatorsSelector,
   selectedPublicTranslatorsForLanguagePair,
-} from 'redux/selectors/translatorDetails';
+} from 'redux/selectors/publicTranslator';
 import { ValidatedContactDetailsField } from './ValidatedContactDetailsField';
 
 const stepsByIndex = {

@@ -7,7 +7,7 @@ import { useAppSelector } from 'configs/redux';
 import {
   publicTranslatorsSelector,
   selectFilteredPublicTranslators,
-} from 'redux/selectors/translatorDetails';
+} from 'redux/selectors/publicTranslator';
 import { PublicTranslatorFilters } from 'components/translator/PublicTranslatorFilters';
 import { TranslatorListing } from 'components/translator/TranslatorListing';
 

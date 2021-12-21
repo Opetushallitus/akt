@@ -2,20 +2,20 @@ import { Reducer } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
 import {
-  TranslatorDetailsState,
-  TranslatorDetailsAction,
-  TranslatorDetails,
+  PublicTranslatorState,
+  PublicTranslatorAction,
+  PublicTranslator,
   LanguagePairsDict,
 } from 'interfaces/translator';
 import {
-  TRANSLATOR_DETAILS_ERROR,
-  TRANSLATOR_DETAILS_LOADING,
-  TRANSLATOR_DETAILS_RECEIVED,
-  TRANSLATOR_DETAILS_ADD_SELECTED,
-  TRANSLATOR_DETAILS_REMOVE_SELECTED,
-  TRANSLATOR_DETAILS_ADD_FILTERS,
-  TRANSLATOR_DETAILS_EMPTY_FILTERS,
-} from 'redux/actionTypes/translatorDetails';
+  PUBLIC_TRANSLATOR_ERROR,
+  PUBLIC_TRANSLATOR_LOADING,
+  PUBLIC_TRANSLATOR_RECEIVED,
+  PUBLIC_TRANSLATOR_ADD_SELECTED,
+  PUBLIC_TRANSLATOR_REMOVE_SELECTED,
+  PUBLIC_TRANSLATOR_ADD_FILTERS,
+  PUBLIC_TRANSLATOR_EMPTY_FILTERS,
+} from 'redux/actionTypes/publicTranslator';
 
 const defaultState = {
   status: APIResponseStatus.NotStarted,
@@ -31,46 +31,46 @@ const defaultState = {
   towns: [],
 };
 
-export const translatorDetailsReducer: Reducer<
-  TranslatorDetailsState,
-  TranslatorDetailsAction
+export const publicTranslatorReducer: Reducer<
+  PublicTranslatorState,
+  PublicTranslatorAction
 > = (state = defaultState, action) => {
   const index = action.index as number;
 
   switch (action.type) {
-    case TRANSLATOR_DETAILS_LOADING:
+    case PUBLIC_TRANSLATOR_LOADING:
       return {
         ...state,
         status: APIResponseStatus.InProgress,
       };
-    case TRANSLATOR_DETAILS_RECEIVED:
+    case PUBLIC_TRANSLATOR_RECEIVED:
       return {
         ...state,
         status: APIResponseStatus.Success,
-        translators: <Array<TranslatorDetails>>action.translators,
+        translators: <Array<PublicTranslator>>action.translators,
         langs: <LanguagePairsDict>action.langs,
         towns: <Array<string>>action.towns,
       };
-    case TRANSLATOR_DETAILS_ERROR:
+    case PUBLIC_TRANSLATOR_ERROR:
       return { ...state, status: APIResponseStatus.Error };
-    case TRANSLATOR_DETAILS_ADD_SELECTED:
+    case PUBLIC_TRANSLATOR_ADD_SELECTED:
       return {
         ...state,
         selectedTranslators: [...state.selectedTranslators, index],
       };
-    case TRANSLATOR_DETAILS_REMOVE_SELECTED:
+    case PUBLIC_TRANSLATOR_REMOVE_SELECTED:
       return {
         ...state,
         selectedTranslators: state.selectedTranslators.filter(
           (idx) => idx !== index
         ),
       };
-    case TRANSLATOR_DETAILS_ADD_FILTERS:
+    case PUBLIC_TRANSLATOR_ADD_FILTERS:
       return {
         ...state,
         filters: { ...state.filters, ...action.filters },
       };
-    case TRANSLATOR_DETAILS_EMPTY_FILTERS:
+    case PUBLIC_TRANSLATOR_EMPTY_FILTERS:
       return {
         ...state,
         filters: { ...defaultState.filters },

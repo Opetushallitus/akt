@@ -11,7 +11,7 @@ import {
 import { ContactRequest } from 'interfaces/contactRequest';
 import { APIResponseStatus } from 'enums/api';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
-import { publicTranslatorsSelector } from 'redux/selectors/translatorDetails';
+import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import {
   CancelRequestDialog,

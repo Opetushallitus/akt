@@ -3,15 +3,15 @@ import { createSelector } from 'reselect';
 import { RootState } from 'configs/redux';
 import {
   PublicTranslatorFilter,
-  TranslatorDetails,
+  PublicTranslator,
 } from 'interfaces/translator';
 
 export const publicTranslatorsSelector = (state: RootState) =>
-  state.translatorDetails;
+  state.publicTranslator;
 
 export const selectFilteredPublicTranslators = createSelector(
-  (state: RootState) => state.translatorDetails.translators,
-  (state: RootState) => state.translatorDetails.filters,
+  (state: RootState) => state.publicTranslator.translators,
+  (state: RootState) => state.publicTranslator.filters,
   (translators, filters) => {
     const filteredArray = translators
       .filter((t) => filterByLanguagePair(t, filters))
@@ -23,9 +23,9 @@ export const selectFilteredPublicTranslators = createSelector(
 );
 
 export const selectedPublicTranslatorsForLanguagePair = createSelector(
-  (state: RootState) => state.translatorDetails.selectedTranslators,
-  (state: RootState) => state.translatorDetails.translators,
-  (state: RootState) => state.translatorDetails.filters,
+  (state: RootState) => state.publicTranslator.selectedTranslators,
+  (state: RootState) => state.publicTranslator.translators,
+  (state: RootState) => state.publicTranslator.filters,
   (selectedTranslators, translators, filters) => {
     const selectedIds = new Set(selectedTranslators);
     const filtered = translators
@@ -37,7 +37,7 @@ export const selectedPublicTranslatorsForLanguagePair = createSelector(
 
 // Helpers
 const filterByLanguagePair = (
-  publicTranslator: TranslatorDetails,
+  publicTranslator: PublicTranslator,
   filters: PublicTranslatorFilter
 ) => {
   return publicTranslator.languagePairs.find(
@@ -48,7 +48,7 @@ const filterByLanguagePair = (
 };
 
 const filterByName = (
-  publicTranslator: TranslatorDetails,
+  publicTranslator: PublicTranslator,
   filters: PublicTranslatorFilter
 ) => {
   const nameCombs = [
