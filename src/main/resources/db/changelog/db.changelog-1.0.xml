@@ -364,7 +364,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="2021-12-15-create-shedlock-table" author="terova">
+    <changeSet id="2021-12-21-create-shedlock-table" author="terova">
         <createTable tableName="shedlock">
             <column name="name" type="VARCHAR(64)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -381,7 +381,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="2021-12-17-add-enum-email_type" author="terova">
+    <changeSet id="2021-12-21-add-enum-email_type" author="terova">
         <createTable tableName="email_type">
             <column name="name" type="VARCHAR(255)">
                 <constraints primaryKey="true" primaryKeyName="email_type_pkey"/>
