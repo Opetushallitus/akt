@@ -4,3 +4,4 @@ postgresql.password={{host_postgresql_akt_app_password}}
 
 url-alb={{host_alb}}
 ryhmasahkoposti-service=${url-alb}/ryhmasahkoposti-service/email/firewall
+email.sending.enabled=true
