@@ -1,5 +1,6 @@
 package fi.oph.akt.service.email;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import fi.oph.akt.Factory;
 import fi.oph.akt.model.Email;
 import fi.oph.akt.model.EmailType;
@@ -22,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @DataJpaTest
 class EmailServiceTest {
@@ -46,7 +48,7 @@ class EmailServiceTest {
 	}
 
 	@Test
-	public void testMailIsSaved() {
+	public void testMailIsSaved() throws JsonProcessingException {
 		final EmailData emailData = EmailData.builder().type(EmailType.CONTACT_REQUEST).sender("lähettäjä")
 				.recipient("vastaanottaja@invalid").subject("testiotsikko").body("testiviesti").build();
 		final Long savedId = emailService.saveEmail(emailData);
@@ -62,17 +64,20 @@ class EmailServiceTest {
 		assertEquals("testiviesti", persistedEmail.getBody());
 		assertNull(persistedEmail.getSentAt());
 		assertNull(persistedEmail.getError());
+		assertNull(persistedEmail.getExtId());
 	}
 
 	@Test
-	public void testMailIsSent() {
+	public void testMailIsSent() throws JsonProcessingException {
 		final Email email = Factory.email(EmailType.CONTACT_REQUEST);
 		final Email savedEmail = entityManager.persist(email);
+		when(emailSenderMock.sendEmail(any())).thenReturn("12345");
 
 		emailService.sendEmail(savedEmail.getId());
 
 		final Email updatedEmail = emailRepository.getById(savedEmail.getId());
 		assertNotNull(updatedEmail.getSentAt());
+		assertEquals("12345", updatedEmail.getExtId());
 		assertNull(updatedEmail.getError());
 
 		verify(emailSenderMock).sendEmail(emailDataCaptor.capture());
@@ -83,7 +88,7 @@ class EmailServiceTest {
 	}
 
 	@Test
-	public void testMailSendingFailed() {
+	public void testMailSendingFailed() throws JsonProcessingException {
 		final Email email = Factory.email(EmailType.CONTACT_REQUEST);
 		final Email savedEmail = entityManager.persist(email);
 
@@ -93,6 +98,7 @@ class EmailServiceTest {
 
 		final Email updatedEmail = emailRepository.getById(savedEmail.getId());
 		assertNull(updatedEmail.getSentAt());
+		assertNull(updatedEmail.getExtId());
 		assertEquals("error msg", updatedEmail.getError());
 	}
 

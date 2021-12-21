@@ -1,9 +1,10 @@
 package fi.oph.akt.service.email.sender;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import fi.oph.akt.service.email.EmailData;
 
 public interface EmailSender {
 
-	void sendEmail(EmailData emailData);
+	String sendEmail(EmailData emailData) throws JsonProcessingException;
 
 }

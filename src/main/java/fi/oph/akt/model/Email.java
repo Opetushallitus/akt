@@ -46,4 +46,7 @@ public class Email extends BaseEntity {
 	@Enumerated(value = EnumType.STRING)
 	private EmailType emailType;
 
+	@Column(name = "ext_id", nullable = false)
+	private String extId;
+
 }

@@ -37,8 +37,9 @@ public class EmailService {
 		final Email email = emailRepository.getById(emailId);
 		try {
 			final EmailData emailData = EmailData.createFromEmail(email);
-			emailSender.sendEmail(emailData);
+			final String extId = emailSender.sendEmail(emailData);
 			email.setSentAt(LocalDateTime.now());
+			email.setExtId(extId);
 		}
 		catch (final Exception e) {
 			LOG.error("Exception when sending email", e);

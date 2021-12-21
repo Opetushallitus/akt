@@ -401,4 +401,10 @@
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
     </changeSet>
 
+    <changeSet id="2021-12-21-add-column-email_ext_id" author="terova">
+        <addColumn tableName="email">
+            <column name="ext_id" type="TEXT"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
