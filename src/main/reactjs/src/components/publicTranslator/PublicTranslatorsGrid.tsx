@@ -8,8 +8,8 @@ import {
   publicTranslatorsSelector,
   selectFilteredPublicTranslators,
 } from 'redux/selectors/publicTranslator';
-import { PublicTranslatorFilters } from 'components/translator/PublicTranslatorFilters';
-import { TranslatorListing } from 'components/translator/TranslatorListing';
+import { PublicTranslatorFilters } from 'components/publicTranslator/PublicTranslatorFilters';
+import { PublicTranslatorListing } from 'components/publicTranslator/PublicTranslatorListing';
 
 export const PublicTranslatorsGrid = () => {
   // I18
@@ -36,7 +36,7 @@ export const PublicTranslatorsGrid = () => {
       </Grid>
       <Grid item className="homepage__grid-container__result-box">
         {hasResults && (
-          <TranslatorListing status={status} translators={translators} />
+          <PublicTranslatorListing status={status} translators={translators} />
         )}
         {hasNoResults && <H2>{t('noSearchResults')}</H2>}
       </Grid>

@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { UIStateSelector } from 'redux/selectors/navigation';
 import { UIStates } from 'enums/app';
 import { ContactRequestForm } from 'components/contactRequest/ContactRequestForm';
-import { PublicTranslatorsGrid } from 'components/translator/PublicTranslatorsList';
+import { PublicTranslatorsGrid } from 'components/publicTranslator/PublicTranslatorsGrid';
 import { loadPublicTranslators } from 'redux/actions/publicTranslator';
 
 export const PublicHomePage: FC = () => {

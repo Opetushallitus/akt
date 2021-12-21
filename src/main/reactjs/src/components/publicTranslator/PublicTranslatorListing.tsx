@@ -113,7 +113,7 @@ const SelectedTranslatorsHeading = () => {
   );
 };
 
-export const TranslatorListing = ({
+export const PublicTranslatorListing = ({
   status,
   translators,
 }: {
