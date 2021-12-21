@@ -35,8 +35,11 @@ public class EmailService {
 
 	@Transactional
 	public void sendEmail(final long emailId) {
-		LOG.debug("Going to send email id:{}", emailId);
-		final Email email = emailRepository.getById(emailId);
+		LOG.debug("Trying to send email id:{}", emailId);
+		emailRepository.findById(emailId).ifPresent(this::send);
+	}
+
+	private void send(final Email email) {
 		try {
 			final EmailData emailData = EmailData.createFromEmail(email);
 			final String extId = emailSender.sendEmail(emailData);
