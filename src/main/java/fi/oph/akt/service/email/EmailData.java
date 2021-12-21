@@ -21,11 +21,4 @@ public record EmailData(@NonNull String sender, @NonNull String recipient, @NonN
 				.body(email.getBody()).build();
         // @formatter:on
 	}
-
-	public void copyToEmail(final Email email) {
-		email.setSender(this.sender());
-		email.setRecipient(this.recipient());
-		email.setSubject(this.subject());
-		email.setBody(this.body());
-	}
 }

@@ -3,5 +3,5 @@ postgresql.username={{postgres_app_user}}
 postgresql.password={{host_postgresql_akt_app_password}}
 
 url-alb={{host_alb}}
-ryhmasahkoposti-service=${url-alb}/ryhmasahkoposti-service/email/firewall
-email.sending.enabled=true
+email.sending-enabled=true
+ryhmasahkoposti-service-url=${url-alb}/ryhmasahkoposti-service/email/firewall

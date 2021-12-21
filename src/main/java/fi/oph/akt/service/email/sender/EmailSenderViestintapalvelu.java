@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,33 +19,37 @@ public class EmailSenderViestintapalvelu implements EmailSender {
 
 	private static final Logger LOG = LoggerFactory.getLogger(EmailSenderViestintapalvelu.class);
 
+	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
 	private final WebClient webClient;
 
 	@Override
 	public String sendEmail(final EmailData emailData) throws JsonProcessingException {
-		final Map<String, Object> email = new HashMap<>();
-		email.put("html", true);
-		email.put("charset", "UTF-8");
-
-		email.put("sender", emailData.sender());
-		email.put("subject", emailData.subject());
-		email.put("body", emailData.body());
-
-		final Map<String, Object> recipient = new HashMap<>();
-		recipient.put("email", emailData.recipient());
-
-		final Map<String, Object> data = new HashMap<>();
-		data.put("email", email);
-		data.put("recipient", List.of(recipient));
-		LOG.debug("Data:{}", data);
-
-		final Mono<String> response = webClient.post().contentType(MediaType.APPLICATION_JSON).bodyValue(data)
+		final Map<String, Object> postData = createPostData(emailData);
+		final Mono<String> response = webClient.post().contentType(MediaType.APPLICATION_JSON).bodyValue(postData)
 				.retrieve().bodyToMono(String.class);
 		final String result = response.block();
-		LOG.debug("WebClient response:{}", result);
+		LOG.debug("WebClient result:{}", result);
+		return parseExternalId(result);
+	}
 
-		final ObjectMapper mapper = new ObjectMapper();
-		final Map<String, String> map = mapper.readValue(result, new TypeReference<>() {
+	private Map<String, Object> createPostData(EmailData emailData) {
+		// @formatter:off
+		final Map<String, Object> data = Map.of(
+				"email", Map.of(
+						"html", true,
+						"charset", "UTF-8",
+						"sender", emailData.sender(),
+						"subject", emailData.subject(),
+						"body", emailData.body()),
+				"recipient", List.of(Map.of("email", emailData.recipient())));
+		// @formatter:on
+		LOG.debug("Data:{}", data);
+		return data;
+	}
+
+	private String parseExternalId(String result) throws JsonProcessingException {
+		final Map<String, String> map = OBJECT_MAPPER.readValue(result, new TypeReference<>() {
 		});
 		return map.get("id");
 	}

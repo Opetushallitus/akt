@@ -13,8 +13,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import static junit.framework.TestCase.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EmailSenderViestintapalveluTest {
 
@@ -39,8 +39,9 @@ class EmailSenderViestintapalveluTest {
 		final EmailData emailData = EmailData.builder().sender("lähettäjä").recipient("vastaanottaja@invalid")
 				.subject("testiotsikko").body("testiviesti").build();
 
-		final String senderId = sender.sendEmail(emailData);
-		assertEquals("12345", senderId);
+		final String extId = sender.sendEmail(emailData);
+
+		assertEquals("12345", extId);
 
 		final RecordedRequest request = mockWebServer.takeRequest();
 		final String source = request.getBody().readUtf8();

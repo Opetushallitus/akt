@@ -46,7 +46,7 @@ class EmailScheduledSendingTest {
 	}
 
 	@Test
-	public void testSendEmails() {
+	public void testPollEmailsToSendSendsOnlyUnsentEmails() {
 		createEmail(LocalDateTime.now(), null); // sent
 		final long unsentId = createEmail(null, null).getId();
 		createEmail(LocalDateTime.now(), "error msg"); // sentWasInError

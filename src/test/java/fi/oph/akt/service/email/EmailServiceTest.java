@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 @DataJpaTest
@@ -48,7 +49,7 @@ class EmailServiceTest {
 	}
 
 	@Test
-	public void testMailIsSaved() throws JsonProcessingException {
+	public void saveEmailTest() {
 		final EmailData emailData = EmailData.builder().sender("lähettäjä").recipient("vastaanottaja@invalid")
 				.subject("testiotsikko").body("testiviesti").build();
 		final Long savedId = emailService.saveEmail(EmailType.CONTACT_REQUEST, emailData);
@@ -58,6 +59,7 @@ class EmailServiceTest {
 
 		final Email persistedEmail = all.get(0);
 		assertEquals(savedId, persistedEmail.getId());
+		assertEquals(EmailType.CONTACT_REQUEST, persistedEmail.getEmailType());
 		assertEquals("lähettäjä", persistedEmail.getSender());
 		assertEquals("vastaanottaja@invalid", persistedEmail.getRecipient());
 		assertEquals("testiotsikko", persistedEmail.getSubject());
@@ -68,7 +70,7 @@ class EmailServiceTest {
 	}
 
 	@Test
-	public void testMailIsSent() throws JsonProcessingException {
+	public void sendEmailSuccessTest() throws JsonProcessingException {
 		final Email email = Factory.email(EmailType.CONTACT_REQUEST);
 		final Email savedEmail = entityManager.persist(email);
 		when(emailSenderMock.sendEmail(any())).thenReturn("12345");
@@ -88,7 +90,7 @@ class EmailServiceTest {
 	}
 
 	@Test
-	public void testMailSendingFailed() throws JsonProcessingException {
+	public void sendEmailFailureTest() throws JsonProcessingException {
 		final Email email = Factory.email(EmailType.CONTACT_REQUEST);
 		final Email savedEmail = entityManager.persist(email);
 
@@ -100,6 +102,16 @@ class EmailServiceTest {
 		assertNull(updatedEmail.getSentAt());
 		assertNull(updatedEmail.getExtId());
 		assertEquals("error msg", updatedEmail.getError());
+	}
+
+	@Test
+	public void sendEmailNonExistingIdTest() {
+		// sanity check to make sure there are no emails in database
+		assertEquals(0, emailRepository.findAll().size());
+
+		emailService.sendEmail(111);
+
+		verifyNoInteractions(emailSenderMock);
 	}
 
 }

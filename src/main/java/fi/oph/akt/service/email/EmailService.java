@@ -29,7 +29,10 @@ public class EmailService {
 	public Long saveEmail(final EmailType type, final EmailData emailData) {
 		final Email email = new Email();
 		email.setEmailType(type);
-		emailData.copyToEmail(email);
+		email.setSender(emailData.sender());
+		email.setRecipient(emailData.recipient());
+		email.setSubject(emailData.subject());
+		email.setBody(emailData.body());
 		return emailRepository.saveAndFlush(email).getId();
 	}
 
@@ -47,7 +50,7 @@ public class EmailService {
 			email.setExtId(extId);
 		}
 		catch (final Exception e) {
-			LOG.error("Exception when sending email", e);
+			LOG.error("Exception when sending email id:" + email.getId(), e);
 			email.setError(e.getMessage());
 		}
 	}
