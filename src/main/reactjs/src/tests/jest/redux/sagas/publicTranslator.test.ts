@@ -6,7 +6,7 @@ import { PublicTranslatorResponse } from 'interfaces/translator';
 import {
   watchFetchPublicTranslators,
   fetchPublicTranslators,
-  callFetchTranslatorDetails,
+  callFetchPublicTranslators,
 } from 'redux/sagas/publicTranslator';
 import {
   PUBLIC_TRANSLATOR_ERROR,
@@ -20,16 +20,16 @@ import {
   expectedResponse,
 } from 'tests/jest/__fixtures__/publicTranslator';
 
-describe('Saga:translatorDetails', () => {
+describe('Saga: publicTranslators', () => {
   it('should invoke a LOADING action', () => {
     const genObject = watchFetchPublicTranslators();
-    const genTranslatorDetails = fetchPublicTranslators();
+    const genPublicTranslators = fetchPublicTranslators();
 
     expect(genObject.next().value).toEqual(
       takeLatest(PUBLIC_TRANSLATOR_LOAD, fetchPublicTranslators)
     );
 
-    expect(genTranslatorDetails.next().value).toEqual(
+    expect(genPublicTranslators.next().value).toEqual(
       put({ type: PUBLIC_TRANSLATOR_LOADING })
     );
   });
@@ -40,7 +40,7 @@ describe('Saga:translatorDetails', () => {
       throw 'Error!';
     });
 
-    await dispatchSaga(dispatched, callFetchTranslatorDetails);
+    await dispatchSaga(dispatched, callFetchPublicTranslators);
 
     expect(dispatched).toEqual([
       { type: PUBLIC_TRANSLATOR_LOADING },
@@ -57,7 +57,7 @@ describe('Saga:translatorDetails', () => {
     };
     jest.spyOn(axiosInstance, 'get').mockImplementationOnce(mockResponse);
 
-    await dispatchSaga(dispatched, callFetchTranslatorDetails);
+    await dispatchSaga(dispatched, callFetchPublicTranslators);
 
     expect(dispatched).toEqual([
       { type: PUBLIC_TRANSLATOR_LOADING },

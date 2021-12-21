@@ -46,7 +46,7 @@ export function* fetchPublicTranslators() {
   }
 }
 
-export function* callFetchTranslatorDetails() {
+export function* callFetchPublicTranslators() {
   yield call(fetchPublicTranslators);
 }
 
