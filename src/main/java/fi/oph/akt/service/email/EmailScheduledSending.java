@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -34,9 +35,9 @@ public class EmailScheduledSending {
 	@SchedulerLock(name = "pollEmailsToSend", lockAtLeastFor = FIXED_DELAY)
 	public void pollEmailsToSend() {
 		LOG.debug("pollEmailsToSend");
-		final List<Long> emailsToSend = emailRepository.findEmailsToSend();
+		final List<Long> emailsToSend = emailRepository.findEmailsToSend(PageRequest.of(0, BATCH_SIZE));
 		LOG.debug("emailsToSend.size {}", emailsToSend.size());
-		emailsToSend.subList(0, Math.min(emailsToSend.size(), BATCH_SIZE)).forEach(emailService::sendEmail);
+		emailsToSend.forEach(emailService::sendEmail);
 	}
 
 }
