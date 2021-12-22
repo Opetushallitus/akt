@@ -39,6 +39,7 @@ public class EmailSenderViestintapalvelu implements EmailSender {
 				"email", Map.of(
 						"html", true,
 						"charset", "UTF-8",
+						"callingProcess", "akt",
 						"sender", emailData.sender(),
 						"subject", emailData.subject(),
 						"body", emailData.body()),

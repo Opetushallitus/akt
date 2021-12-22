@@ -49,6 +49,7 @@ class EmailSenderViestintapalveluTest {
 
 		assertThat(body).extractingJsonPathBooleanValue("$.email.html").isEqualTo(true);
 		assertThat(body).extractingJsonPathStringValue("$.email.charset").isEqualTo("UTF-8");
+		assertThat(body).extractingJsonPathStringValue("$.email.callingProcess").isEqualTo("akt");
 		assertThat(body).extractingJsonPathStringValue("$.email.sender").isEqualTo("lähettäjä");
 		assertThat(body).extractingJsonPathStringValue("$.email.subject").isEqualTo("testiotsikko");
 		assertThat(body).extractingJsonPathStringValue("$.email.body").isEqualTo("testiviesti");
