@@ -11,12 +11,14 @@ import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.service.email.EmailData;
 import fi.oph.akt.service.email.EmailService;
+import fi.oph.akt.util.TemplateRenderer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +35,9 @@ public class ContactRequestService {
 
 	@Resource
 	private final LanguagePairRepository languagePairRepository;
+
+	@Resource
+	private final TemplateRenderer templateRenderer;
 
 	@Resource
 	private final TranslatorRepository translatorRepository;
@@ -98,22 +103,22 @@ public class ContactRequestService {
 
 	private void saveContactRequestEmails(ContactRequestDTO contactRequestDTO, List<Translator> translators) {
 		// @formatter:off
-		String phoneNumber = contactRequestDTO.phoneNumber() != null ? contactRequestDTO.phoneNumber() : "";
+		Map<String, Object> templateParams = Map.of(
+				"name", contactRequestDTO.firstName().trim() + " " + contactRequestDTO.lastName().trim(),
+				"email", contactRequestDTO.email().trim(),
+				"phone", contactRequestDTO.phoneNumber() != null ? contactRequestDTO.phoneNumber().trim() : "",
+				"message", contactRequestDTO.message().trim()
+		);
 
-		String emailBody = contactRequestDTO.message().trim() + "\n\n" +
-				"Lähettäjän yhteystiedot\n" +
-				"-----------------------\n" +
-				contactRequestDTO.firstName() + " " + contactRequestDTO.lastName() + "\n" +
-				contactRequestDTO.email() + "\n" +
-				phoneNumber;
+		String emailBody = templateRenderer.renderContactRequestEmailBody(templateParams);
 
 		translators.forEach(translator -> {
 			// TODO: replace recipient with translator's email address
 			EmailData emailData = EmailData.builder()
-					.sender("auktoris@oph.fi")
+					.sender("AKT")
 					.recipient("translator" + translator.getId() + "@test.fi")
 					.subject("Yhteydenotto kääntäjärekisteristä")
-					.body(emailBody.trim()).build();
+					.body(emailBody).build();
 
 			emailService.saveEmail(EmailType.CONTACT_REQUEST, emailData);
 		});

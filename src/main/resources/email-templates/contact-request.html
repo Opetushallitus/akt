@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fi">
+    <body>
+        <p>
+            Hei,
+        </p>
+        <br/>
+
+        <p>
+            Sinuun on otettu yhteyttä auktorisoitua käännöstyötä varten. Ohessa sinulle jätetty viesti sekä tiedot sen lähettäjästä.
+        </p>
+        <br/>
+
+        <p>
+            [[${message}]]
+        </p>
+        <br/>
+
+        <p>
+            <strong>Lähettäjän tiedot</strong>
+        </p>
+        <p>
+            <span th:text="${name}"></span>
+        </p>
+        <p>
+            <span th:text="${email}"></span>
+        </p>
+        <p th:unless="${phone.isEmpty()}">
+            <span th:text="${phone}"></span>
+            <br/>
+        </p>
+
+        <p>
+            Älä vastaa tähän viestiin - viesti on lähetetty automaattisesti.
+        </p>
+        <p>
+            Ystävällisin terveisin<br/>
+            Opintopolku
+        </p>
+    </body>
+</html>

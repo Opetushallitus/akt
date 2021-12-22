@@ -14,6 +14,7 @@ import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.service.email.EmailData;
 import fi.oph.akt.service.email.EmailService;
+import fi.oph.akt.util.TemplateRenderer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -24,16 +25,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @DataJpaTest
 class ContactRequestServiceTest {
@@ -56,6 +58,9 @@ class ContactRequestServiceTest {
 	@Resource
 	private LanguagePairRepository languagePairRepository;
 
+	@MockBean
+	private TemplateRenderer templateRenderer;
+
 	@Resource
 	private TranslatorRepository translatorRepository;
 
@@ -67,8 +72,10 @@ class ContactRequestServiceTest {
 
 	@BeforeEach
 	public void setup() {
+		when(templateRenderer.renderContactRequestEmailBody(any())).thenReturn("hello world");
+
 		contactRequestService = new ContactRequestService(contactRequestRepository, contactRequestTranslatorRepository,
-				emailService, languagePairRepository, translatorRepository);
+				emailService, languagePairRepository, templateRenderer, translatorRepository);
 	}
 
 	@Test
@@ -110,6 +117,17 @@ class ContactRequestServiceTest {
 
 		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
 
+		// @formatter:off
+		Map<String, Object> templateParams = Map.of(
+				"name", "Foo Bar",
+				"email", "foo@bar",
+				"phone", "+358123",
+				"message", "lorem ipsum"
+		);
+		// @formatter:on
+
+		when(templateRenderer.renderContactRequestEmailBody(templateParams)).thenReturn("Foo Bar, lorem ipsum");
+
 		contactRequestService.createContactRequest(contactRequestDTO);
 
 		verify(emailService, times(3)).saveEmail(any(), emailDataCaptor.capture());
@@ -119,9 +137,9 @@ class ContactRequestServiceTest {
 		assertEquals(3, emailDatas.size());
 
 		emailDatas.forEach(emailData -> {
-			assertEquals("auktoris@oph.fi", emailData.sender());
+			assertEquals("AKT", emailData.sender());
 			assertEquals("Yhteydenotto kääntäjärekisteristä", emailData.subject());
-			assertTrue(emailData.body().contains(contactRequestDTO.message()));
+			assertEquals("Foo Bar, lorem ipsum", emailData.body());
 		});
 	}
 
