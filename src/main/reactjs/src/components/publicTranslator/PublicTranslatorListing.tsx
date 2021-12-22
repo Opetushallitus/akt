@@ -36,7 +36,7 @@ const getPublicTranslatorRow = (
 
   return (
     <TableRow
-      data-testid={`public-translator-row-id-${translator.id}`}
+      data-testid={`public-translators__id-${translator.id}-row`}
       selected={selected}
       onClick={toggleSelected}
     >
@@ -97,7 +97,7 @@ const ContactRequestButton = () => {
       variant="contained"
       onClick={() => dispatch(displayUIState(UIStates.ContactRequest))}
       disabled={selectedTranslators.length == 0}
-      data-testid="public-translators-contact-request-btn"
+      data-testid="public-translators__contact-request-btn"
     >
       {t('requestContact')}
     </Button>
@@ -113,7 +113,7 @@ const SelectedTranslatorsHeading = () => {
 
   const selected = selectedIndices.length;
   return (
-    <H2 data-testid="public-translators-selected-count">
+    <H2 data-testid="public-translators__selected-count-heading">
       {selected > 0 ? `${selected} ${t('selectedItems')}` : t('title')}
     </H2>
   );

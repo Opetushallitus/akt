@@ -4,11 +4,11 @@ import { APIEndpoints } from 'enums/api';
 
 const LOAD_PUBLIC_TRANSLATORS_API_CALL = 'loadPublicTranslators';
 const SUBMIT_CONTACT_REQUEST_API_CALL = 'sendContactRequest';
-const NEXT_BUTTON_ID = 'contact-request-form-controls-next-btn';
-const CANCEL_BUTTON_ID = 'contact-request-form-controls-cancel-btn';
-const SUBMIT_BUTTON_ID = 'contact-request-form-controls-submit-btn';
-const SUCCESS_DIALOG_CONTINUE_BUTTON_ID = 'success-dialog-continue-btn';
-const ERROR_DIALOG_CONTINUE_BUTTON_ID = 'error-dialog-back-btn';
+const NEXT_BUTTON_ID = 'contact-request-form__next-btn';
+const CANCEL_BUTTON_ID = 'contact-request-form__cancel-btn';
+const SUBMIT_BUTTON_ID = 'contact-request-form__submit-btn';
+const SUCCESS_DIALOG_CONTINUE_BUTTON_ID = 'success-dialog__continue-btn';
+const ERROR_DIALOG_CONTINUE_BUTTON_ID = 'error-dialog__back-btn';
 
 const TRANSLATOR_NAMES_BY_IDS = {
   '2': 'Anneli Aaltonen',
@@ -28,15 +28,15 @@ const searchTranslatorsFromFiToSv = () => {
   cy.findByLabelText(/mihin/i).click();
   cy.findByRole('option', { name: 'ruotsi' }).click();
 
-  cy.findByTestId('public-translator-search-btn').click();
+  cy.findByTestId('public-translator-filters__search-btn').click();
 };
 
 const selectTranslatorRows = () => {
   Object.keys(TRANSLATOR_NAMES_BY_IDS).forEach((id) =>
-    cy.findByTestId(`public-translator-row-id-${id}`).click()
+    cy.findByTestId(`public-translators__id-${id}-row`).click()
   );
 
-  expectText('public-translators-selected-count', '3 valittu');
+  expectText('public-translators__selected-count-heading', '3 valittu');
 };
 
 beforeEach(() => {
@@ -49,11 +49,11 @@ beforeEach(() => {
 
   searchTranslatorsFromFiToSv();
   selectTranslatorRows();
-  cy.findByTestId('public-translators-contact-request-btn').click();
+  cy.findByTestId('public-translators__contact-request-btn').click();
 });
 
 const deselectTranslator = (id: string) => {
-  cy.findByTestId(`contact-request-form-chosen-translator-id-${id}`)
+  cy.findByTestId(`contact-request-form__chosen-translator-id-${id}`)
     .findByTestId('DeleteOutlineIcon')
     .click();
 };
@@ -62,7 +62,7 @@ const expectText = (matcher: Matcher, text: string) =>
   cy.findByTestId(matcher).should('have.text', text);
 
 const expectPublicHomepageIsShown = () => {
-  expectText('homepage-title', 'Auktorisoitujen kääntäjien rekisteri');
+  expectText('homepage__title-heading', 'Auktorisoitujen kääntäjien rekisteri');
 };
 
 const fillContactDetails = () => {
@@ -90,13 +90,13 @@ describe('ContactRequestForm', () => {
     cy.findByTestId(CANCEL_BUTTON_ID).click();
     let cancelDialog = cy.findByRole('dialog');
     cancelDialog.should('contain.text', 'Peruuta yhteydenottopyyntö');
-    cancelDialog.findByTestId('cancel-dialog-back-btn').click();
+    cancelDialog.findByTestId('cancel-dialog__back-btn').click();
     cancelDialog.should('not.exist');
 
     cy.findByTestId(CANCEL_BUTTON_ID).click();
     cancelDialog = cy.findByRole('dialog');
     cancelDialog.should('contain.text', 'Peruuta yhteydenottopyyntö');
-    cancelDialog.findByTestId('cancel-dialog-yes-btn').click();
+    cancelDialog.findByTestId('cancel-dialog__yes-btn').click();
     expectPublicHomepageIsShown();
   });
 
@@ -128,7 +128,10 @@ describe('ContactRequestForm', () => {
     cy.findByTestId(ERROR_DIALOG_CONTINUE_BUTTON_ID);
 
     // Verify last step is shown after dialog is closed
-    expectText('step-heading-previewAndSend', 'Esikatsele ja lähetä');
+    expectText(
+      'contact-request-form__step-heading-previewAndSend',
+      'Esikatsele ja lähetä'
+    );
   });
 
   it('should show a success dialog in the end after happy path is completed', () => {
@@ -148,24 +151,15 @@ describe('ContactRequestForm', () => {
 
     // Step: preview and send
     expectText(
-      'contact-request-form-chosen-translators',
+      'contact-request-form__chosen-translators-text',
       'Ella Eskola, Liisa Hämäläinen'
     );
 
-    expectText(
-      'contact-request-form-contact-info-first-name',
-      CONTACT_DETAILS.firstName
-    );
+    expectText('contact-info__first-name-text', CONTACT_DETAILS.firstName);
 
-    expectText(
-      'contact-request-form-contact-info-last-name',
-      CONTACT_DETAILS.lastName
-    );
+    expectText('contact-info__last-name-text', CONTACT_DETAILS.lastName);
 
-    expectText(
-      'contact-request-form-contact-info-email',
-      CONTACT_DETAILS.email
-    );
+    expectText('contact-info__email-text', CONTACT_DETAILS.email);
 
     cy.intercept(APIEndpoints.ContactRequest, { statusCode: 201 }).as(
       SUBMIT_CONTACT_REQUEST_API_CALL

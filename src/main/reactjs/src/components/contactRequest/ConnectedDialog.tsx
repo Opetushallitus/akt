@@ -36,7 +36,7 @@ export const SuccessDialogWrapper = () => {
       content={<Text>{t('description')}</Text>}
       actions={
         <Button
-          data-testid="success-dialog-continue-btn"
+          data-testid="success-dialog__continue-btn"
           variant="contained"
           color="secondary"
           onClick={() => cleanUp()}
@@ -69,7 +69,7 @@ export const ErrorDialogWrapper = () => {
       content={<Text>{t('description')} akt@oph.fi</Text>}
       actions={
         <Button
-          data-testid="error-dialog-back-btn"
+          data-testid="error-dialog__back-btn"
           variant="contained"
           color="secondary"
           onClick={() => cleanUp()}
@@ -107,7 +107,7 @@ export const CancelRequestDialog = ({
       actions={
         <>
           <Button
-            data-testid="cancel-dialog-back-btn"
+            data-testid="cancel-dialog__back-btn"
             variant="outlined"
             color="secondary"
             onClick={onClose}
@@ -115,7 +115,7 @@ export const CancelRequestDialog = ({
             {t('back')}
           </Button>
           <Button
-            data-testid="cancel-dialog-yes-btn"
+            data-testid="cancel-dialog__yes-btn"
             variant="contained"
             color="secondary"
             onClick={() => cleanUp()}

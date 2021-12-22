@@ -61,7 +61,7 @@ const ControlButtons = ({
         variant="outlined"
         color="secondary"
         onClick={onCancelRequest}
-        data-testid="contact-request-form-controls-cancel-btn"
+        data-testid="contact-request-form__cancel-btn"
       >
         {t('buttons.cancel')}
       </Button>
@@ -70,7 +70,7 @@ const ControlButtons = ({
         color="secondary"
         onClick={() => onChangeStep(decrementStep)}
         disabled={step == minStep}
-        data-testid="contact-request-form-controls-previous-btn"
+        data-testid="contact-request-form__previous-btn"
       >
         {t('buttons.previous')}
       </Button>
@@ -79,7 +79,7 @@ const ControlButtons = ({
           variant="contained"
           color="secondary"
           onClick={() => submit()}
-          data-testid="contact-request-form-controls-submit-btn"
+          data-testid="contact-request-form__submit-btn"
         >
           {t('buttons.submit')}
         </Button>
@@ -89,7 +89,7 @@ const ControlButtons = ({
           color="secondary"
           disabled={disableNext}
           onClick={() => onChangeStep(incrementStep)}
-          data-testid="contact-request-form-controls-next-btn"
+          data-testid="contact-request-form__next-btn"
         >
           {t('buttons.next')}
         </Button>

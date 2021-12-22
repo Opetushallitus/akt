@@ -47,7 +47,7 @@ export const ValidatedContactDetailsField = ({
   );
   return (
     <TextField
-      id={`contact-details-field-${contactDetailsField}`}
+      id={`contact-details__${contactDetailsField}-field`}
       error={fieldStateChanged && isError}
       label={t(contactDetailsField)}
       value={contactDetails[contactDetailsField]}

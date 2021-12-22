@@ -44,7 +44,7 @@ const RenderChosenTranslators = () => {
     .map(({ firstName, lastName }) => firstName + ' ' + lastName)
     .join(', ');
   return (
-    <Text data-testid="contact-request-form-chosen-translators">
+    <Text data-testid="contact-request-form__chosen-translators-text">
       {translatorsString}
     </Text>
   );
@@ -62,26 +62,24 @@ const DisplayContactInfo = () => {
       <H2>{t('contactInfo')}</H2>
       <div className="rows">
         <H3>{t('firstName')}</H3>
-        <Text data-testid="contact-request-form-contact-info-first-name">
+        <Text data-testid="contact-info__first-name-text">
           {request.firstName}
         </Text>
       </div>
       <div className="rows">
         <H3>{t('lastName')}</H3>
-        <Text data-testid="contact-request-form-contact-info-last-name">
+        <Text data-testid="contact-info__last-name-text">
           {request.lastName}
         </Text>
       </div>
       <div className="rows">
         <H3>{t('email')}</H3>
-        <Text data-testid="contact-request-form-contact-info-email">
-          {request.email}
-        </Text>
+        <Text data-testid="contact-info__email-text">{request.email}</Text>
       </div>
       {request.phoneNumber && (
         <div className="rows">
           <H3>{t('phoneNumber')}</H3>
-          <Text data-testid="contact-request-form-contact-info-phone-number">
+          <Text data-testid="contact-info__phone-number-text">
             {request.phoneNumber}
           </Text>
         </div>
@@ -96,7 +94,7 @@ const StepHeading = ({ step }: { step: string }) => {
   });
   return (
     <div
-      data-testid={`step-heading-${step}`}
+      data-testid={`contact-request-form__step-heading-${step}`}
       className="contact-request-form__heading"
     >
       <H1>{t(step)}</H1>
@@ -145,7 +143,7 @@ export const VerifyTranslatorsStep = ({
           <div
             className="columns"
             key={id}
-            data-testid={`contact-request-form-chosen-translator-id-${id}`}
+            data-testid={`contact-request-form__chosen-translator-id-${id}`}
           >
             <div className="grow">
               <Text>
@@ -249,7 +247,7 @@ export const WriteMessageStep = ({
         <div className="rows gapped">
           <H3>{t('steps.' + stepsByIndex[2])}</H3>
           <TextField
-            id="contact-request-form-message-field"
+            id="contact-request-form__message-field"
             label={t('formLabels.writeMessageHere')}
             value={request.message}
             onChange={(e) =>
@@ -285,7 +283,7 @@ export const PreviewAndSendStep = () => {
         <RenderChosenTranslators />
         <DisplayContactInfo />
         <H3>{t('message')}</H3>
-        <Text data-testid="contact-request-form-message">
+        <Text data-testid="contact-request-form__message-text">
           {request.message}
         </Text>
       </div>
