@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Button } from '@mui/material';
 
 import { H1, Text } from 'components/elements/Text';
-import { AppPages } from 'enums/app';
+import { AppRoutes } from 'enums/app';
 import { useAppTranslation } from 'configs/i18n';
 
 export const NotFoundPage: FC = () => {
@@ -16,7 +16,7 @@ export const NotFoundPage: FC = () => {
         className="not-found-page__btn"
         color="secondary"
         variant="contained"
-        href={AppPages.HomePage}
+        href={AppRoutes.HomePage}
       >
         {t('homePageBtn')}
       </Button>
