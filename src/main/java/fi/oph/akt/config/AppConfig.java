@@ -36,14 +36,14 @@ public class AppConfig {
 		return new EmailSenderViestintapalvelu(webClient);
 	}
 
-	@Bean(name = "emailTemplateEngine")
+	@Bean(name = "templateEngine")
 	public SpringTemplateEngine templateEngine(final ApplicationContext applicationContext) {
 		// SpringResourceTemplateResolver automatically integrates with Spring's own
 		// resource resolution infrastructure, which is highly recommended.
 		final SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
 
 		templateResolver.setApplicationContext(applicationContext);
-		templateResolver.setPrefix("classpath:/email-templates/");
+		templateResolver.setPrefix("classpath:/static/");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode(TemplateMode.HTML);
 

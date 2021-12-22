@@ -10,14 +10,14 @@ import java.util.Map;
 @Service
 public class TemplateRenderer {
 
-	@Resource(name = "emailTemplateEngine")
-	private TemplateEngine emailTemplateEngine;
+	@Resource(name = "templateEngine")
+	private TemplateEngine templateEngine;
 
 	public String renderContactRequestEmailBody(Map<String, Object> params) {
 		Context context = new Context();
 		context.setVariables(params);
 
-		return emailTemplateEngine.process("contact-request", context);
+		return templateEngine.process("contact-request", context);
 	}
 
 }
