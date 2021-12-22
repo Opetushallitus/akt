@@ -4,6 +4,8 @@ export enum AppConstants {
 
 export enum AppPages {
   HomePage = '/',
+  ClerkPage = '/akt-virkailija',
+  NotFoundPage = '*',
 }
 
 export enum UIStates {
