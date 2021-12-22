@@ -17,18 +17,14 @@
         <br/>
 
         <p>
-            <strong>Lähettäjän tiedot</strong>
+            <strong>Lähettäjän tiedot</strong><br/>
+            <span th:text="${name}"></span><br/>
+            <span th:text="${email}"></span><br/>
+            <span th:unless="${phone.isEmpty()}">
+                <span th:text="${phone}"></span><br/>
+            </span>
         </p>
-        <p>
-            <span th:text="${name}"></span>
-        </p>
-        <p>
-            <span th:text="${email}"></span>
-        </p>
-        <p th:unless="${phone.isEmpty()}">
-            <span th:text="${phone}"></span>
-            <br/>
-        </p>
+        <br/>
 
         <p>
             Älä vastaa tähän viestiin - viesti on lähetetty automaattisesti.
