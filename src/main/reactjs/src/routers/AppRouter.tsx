@@ -6,7 +6,7 @@ import Header from 'components/layouts/Header';
 import { PublicHomePage } from 'pages/PublicHomePage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { ClerkHomePage } from 'pages/ClerkHomePage';
-import { AppPages } from 'enums/app';
+import { AppRoutes } from 'enums/app';
 
 export const AppRouter: FC = () => (
   <BrowserRouter>
@@ -15,9 +15,9 @@ export const AppRouter: FC = () => (
       <main className="content">
         <div className="content__container">
           <Routes>
-            <Route path={AppPages.HomePage} element={<PublicHomePage />} />
-            <Route path={AppPages.ClerkPage} element={<ClerkHomePage />} />
-            <Route path={AppPages.NotFoundPage} element={<NotFoundPage />} />
+            <Route path={AppRoutes.HomePage} element={<PublicHomePage />} />
+            <Route path={AppRoutes.ClerkPage} element={<ClerkHomePage />} />
+            <Route path={AppRoutes.NotFoundPage} element={<NotFoundPage />} />
           </Routes>
         </div>
       </main>
