@@ -25,7 +25,7 @@ export const PublicTranslatorsGrid = () => {
   return (
     <>
       <Grid item>
-        <H1>{t('title')}</H1>
+        <H1 data-testid="homepage-title">{t('title')}</H1>
         <Text>{t('description')}</Text>
       </Grid>
       <Grid item>

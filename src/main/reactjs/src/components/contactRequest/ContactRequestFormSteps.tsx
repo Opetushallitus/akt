@@ -95,7 +95,10 @@ const StepHeading = ({ step }: { step: string }) => {
     keyPrefix: 'akt.component.contactRequestForm.steps',
   });
   return (
-    <div className="contact-request-form__heading">
+    <div
+      data-testid={`step-heading-${step}`}
+      className="contact-request-form__heading"
+    >
       <H1>{t(step)}</H1>
     </div>
   );

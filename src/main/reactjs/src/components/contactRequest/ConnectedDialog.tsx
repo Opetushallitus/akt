@@ -68,7 +68,12 @@ export const ErrorDialogWrapper = () => {
       title={t('title')}
       content={<Text>{t('description')} akt@oph.fi</Text>}
       actions={
-        <Button variant="contained" color="secondary" onClick={() => cleanUp()}>
+        <Button
+          data-testid="error-dialog-back-btn"
+          variant="contained"
+          color="secondary"
+          onClick={() => cleanUp()}
+        >
           {t('back')}
         </Button>
       }
@@ -101,10 +106,16 @@ export const CancelRequestDialog = ({
       content={<Text>{t('description')}</Text>}
       actions={
         <>
-          <Button variant="outlined" color="secondary" onClick={onClose}>
+          <Button
+            data-testid="cancel-dialog-back-btn"
+            variant="outlined"
+            color="secondary"
+            onClick={onClose}
+          >
             {t('back')}
           </Button>
           <Button
+            data-testid="cancel-dialog-yes-btn"
             variant="contained"
             color="secondary"
             onClick={() => cleanUp()}
