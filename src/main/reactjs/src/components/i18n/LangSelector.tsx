@@ -34,7 +34,7 @@ export const LangSelector: FC = () => {
         value={getCurrentLang()}
         onChange={handleLangChange}
         className="lang-selector__select"
-        data-testid="lang-selector"
+        dataTestId="lang-selector"
       />
     </div>
   );
