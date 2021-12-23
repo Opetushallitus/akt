@@ -1,4 +1,5 @@
 import { Matcher } from '@testing-library/dom';
+import { RouteHandler } from 'cypress/types/net-stubbing';
 
 import { onContactRequestForm } from '../support/page-objects/contactRequestForm';
 import { onPublicTranslatorFilters } from '../support/page-objects/publicTranslatorFilters';
@@ -7,10 +8,6 @@ import { onCancelDialog } from '../support/page-objects/cancelDialog';
 import { onErrorDialog } from '../support/page-objects/errorDialog';
 import { onSuccessDialog } from '../support/page-objects/successDialog';
 import { APIEndpoints } from 'enums/api';
-import { RouteHandler } from 'cypress/types/net-stubbing';
-
-const LOAD_PUBLIC_TRANSLATORS_API_CALL = 'loadPublicTranslators';
-const SUBMIT_CONTACT_REQUEST_API_CALL = 'sendContactRequest';
 
 const TRANSLATOR_NAMES_BY_IDS = {
   '2': 'Anneli Aaltonen',
