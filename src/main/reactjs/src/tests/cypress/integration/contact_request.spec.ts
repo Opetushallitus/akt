@@ -7,6 +7,7 @@ import { onCancelDialog } from '../support/page-objects/cancelDialog';
 import { onErrorDialog } from '../support/page-objects/errorDialog';
 import { onSuccessDialog } from '../support/page-objects/successDialog';
 import { APIEndpoints } from 'enums/api';
+import { RouteHandler } from 'cypress/types/net-stubbing';
 
 const LOAD_PUBLIC_TRANSLATORS_API_CALL = 'loadPublicTranslators';
 const SUBMIT_CONTACT_REQUEST_API_CALL = 'sendContactRequest';
@@ -37,14 +38,23 @@ const selectTranslatorRows = () => {
   );
 };
 
+const runWithIntercept = (
+  endpoint: APIEndpoints,
+  response: RouteHandler,
+  effect: () => void
+) => {
+  const alias = `intercepted-${endpoint}`;
+  cy.intercept(endpoint, response).as(alias);
+  effect();
+  cy.wait(`@${alias}`);
+};
+
 beforeEach(() => {
-  cy.intercept(APIEndpoints.PublicTranslator, {
-    fixture: 'public_translators.json',
-  }).as(LOAD_PUBLIC_TRANSLATORS_API_CALL);
-
-  cy.openPublicHomePage();
-  cy.wait(`@${LOAD_PUBLIC_TRANSLATORS_API_CALL}`);
-
+  runWithIntercept(
+    APIEndpoints.PublicTranslator,
+    { fixture: 'public_translators.json' },
+    () => cy.openPublicHomePage()
+  );
   searchTranslatorsFromFiToSv();
   selectTranslatorRows();
   onPublicTranslatorsListing.openContactRequest();
@@ -105,6 +115,13 @@ const writeMessageStep = () => {
   assertNextEnabled();
 };
 
+const previewAndSendStep = () => {
+  onContactRequestForm.next();
+
+  assertSelectedTranslators();
+  assertContactDetails();
+};
+
 describe('ContactRequestForm', () => {
   it('should not allow proceeding if all translators are deselected', () => {
     onContactRequestForm.elements.nextButton().should('be.enabled');
@@ -132,16 +149,11 @@ describe('ContactRequestForm', () => {
     verifyTranslatorsStep();
     fillContactDetailsStep();
     writeMessageStep();
+    previewAndSendStep();
 
-    // Step: preview and send
-    onContactRequestForm.next();
-    cy.intercept(APIEndpoints.ContactRequest, { statusCode: 400 }).as(
-      SUBMIT_CONTACT_REQUEST_API_CALL
+    runWithIntercept(APIEndpoints.ContactRequest, { statusCode: 400 }, () =>
+      onContactRequestForm.submit()
     );
-
-    onContactRequestForm.submit();
-
-    cy.wait(`@${SUBMIT_CONTACT_REQUEST_API_CALL}`);
 
     onErrorDialog.expectText('Virhe lähetettäessä yhteydenottopyyntöä.');
     onErrorDialog.back();
@@ -157,20 +169,11 @@ describe('ContactRequestForm', () => {
     verifyTranslatorsStep();
     fillContactDetailsStep();
     writeMessageStep();
+    previewAndSendStep();
 
-    // Step: preview and send
-    onContactRequestForm.next();
-
-    assertSelectedTranslators();
-    assertContactDetails();
-
-    cy.intercept(APIEndpoints.ContactRequest, { statusCode: 201 }).as(
-      SUBMIT_CONTACT_REQUEST_API_CALL
+    runWithIntercept(APIEndpoints.ContactRequest, { statusCode: 200 }, () =>
+      onContactRequestForm.submit()
     );
-
-    onContactRequestForm.submit();
-
-    cy.wait(`@${SUBMIT_CONTACT_REQUEST_API_CALL}`);
 
     onSuccessDialog.expectText(
       'Yhteydenottopyyntösi lähetettiin onnistuneesti!'
