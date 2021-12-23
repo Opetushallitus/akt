@@ -1,14 +1,15 @@
 import { Matcher } from '@testing-library/dom';
 
+import { onContactRequestForm } from '../support/page-objects/contactRequestForm';
+import { onPublicTranslatorFilters } from '../support/page-objects/publicTranslatorFilters';
+import { onPublicTranslatorsListing } from '../support/page-objects/publicTranslatorsListing';
+import { onCancelDialog } from '../support/page-objects/cancelDialog';
+import { onErrorDialog } from '../support/page-objects/errorDialog';
+import { onSuccessDialog } from '../support/page-objects/successDialog';
 import { APIEndpoints } from 'enums/api';
 
 const LOAD_PUBLIC_TRANSLATORS_API_CALL = 'loadPublicTranslators';
 const SUBMIT_CONTACT_REQUEST_API_CALL = 'sendContactRequest';
-const NEXT_BUTTON_ID = 'contact-request-form__next-btn';
-const CANCEL_BUTTON_ID = 'contact-request-form__cancel-btn';
-const SUBMIT_BUTTON_ID = 'contact-request-form__submit-btn';
-const SUCCESS_DIALOG_CONTINUE_BUTTON_ID = 'success-dialog__continue-btn';
-const ERROR_DIALOG_CONTINUE_BUTTON_ID = 'error-dialog__back-btn';
 
 const TRANSLATOR_NAMES_BY_IDS = {
   '2': 'Anneli Aaltonen',
@@ -22,21 +23,18 @@ const CONTACT_DETAILS = {
   email: 'valid@email.org',
 };
 
-const searchTranslatorsFromFiToSv = () => {
-  cy.findByLabelText(/mistä/i).click();
-  cy.findByRole('option', { name: 'suomi' }).click();
-  cy.findByLabelText(/mihin/i).click();
-  cy.findByRole('option', { name: 'ruotsi' }).click();
+const MESSAGE = 'Kirjoita viestisi tähän';
 
-  cy.findByTestId('public-translator-filters__search-btn').click();
+const searchTranslatorsFromFiToSv = () => {
+  onPublicTranslatorFilters.selectFromLang('suomi');
+  onPublicTranslatorFilters.selectToLang('ruotsi');
+  onPublicTranslatorFilters.search();
 };
 
 const selectTranslatorRows = () => {
   Object.keys(TRANSLATOR_NAMES_BY_IDS).forEach((id) =>
-    cy.findByTestId(`public-translators__id-${id}-row`).click()
+    onPublicTranslatorsListing.clickTranslatorRow(id)
   );
-
-  expectText('public-translators__selected-count-heading', '3 valittu');
 };
 
 beforeEach(() => {
@@ -44,19 +42,13 @@ beforeEach(() => {
     fixture: 'public_translators.json',
   }).as(LOAD_PUBLIC_TRANSLATORS_API_CALL);
 
-  cy.visit('/');
+  cy.openPublicHomePage();
   cy.wait(`@${LOAD_PUBLIC_TRANSLATORS_API_CALL}`);
 
   searchTranslatorsFromFiToSv();
   selectTranslatorRows();
-  cy.findByTestId('public-translators__contact-request-btn').click();
+  onPublicTranslatorsListing.openContactRequest();
 });
-
-const deselectTranslator = (id: string) => {
-  cy.findByTestId(`contact-request-form__chosen-translator-id-${id}`)
-    .findByTestId('DeleteOutlineIcon')
-    .click();
-};
 
 const expectText = (matcher: Matcher, text: string) =>
   cy.findByTestId(matcher).should('have.text', text);
@@ -65,67 +57,94 @@ const expectPublicHomepageIsShown = () => {
   expectText('homepage__title-heading', 'Auktorisoitujen kääntäjien rekisteri');
 };
 
-const fillContactDetails = () => {
-  cy.findByLabelText(/etunimi/i).type(CONTACT_DETAILS.firstName);
-  cy.findByLabelText(/sukunimi/i).type(CONTACT_DETAILS.lastName);
-  cy.findByLabelText(/sähköpostiosoite/i).type(CONTACT_DETAILS.email);
+const assertSelectedTranslators = () => {
+  expectText(
+    'contact-request-form__chosen-translators-text',
+    'Ella Eskola, Liisa Hämäläinen'
+  );
 };
 
-const writeMessage = () => {
-  cy.findByLabelText(/kirjoita viestisi tähän/i).type('Pyydetään käännösapua');
+const assertContactDetails = () => {
+  expectText('contact-info__first-name-text', CONTACT_DETAILS.firstName);
+  expectText('contact-info__last-name-text', CONTACT_DETAILS.lastName);
+  expectText('contact-info__email-text', CONTACT_DETAILS.email);
 };
 
-const nextStep = () => {
-  cy.findByTestId(NEXT_BUTTON_ID).click();
+const assertNextDisabled = () => {
+  onContactRequestForm.elements.nextButton().should('be.disabled');
+};
+
+const assertNextEnabled = () => {
+  onContactRequestForm.elements.nextButton().should('be.enabled');
+};
+
+const verifyTranslatorsStep = () => {
+  onContactRequestForm.deselectTranslator('2');
+};
+
+const fillContactDetailsStep = () => {
+  onContactRequestForm.next();
+  assertNextDisabled();
+
+  onContactRequestForm.fillFieldByLabel(/etunimi/i, CONTACT_DETAILS.firstName);
+  onContactRequestForm.fillFieldByLabel(/sukunimi/i, CONTACT_DETAILS.lastName);
+  onContactRequestForm.fillFieldByLabel(
+    /sähköpostiosoite/i,
+    CONTACT_DETAILS.email
+  );
+
+  assertNextEnabled();
+};
+
+const writeMessageStep = () => {
+  onContactRequestForm.next();
+  assertNextDisabled();
+
+  onContactRequestForm.fillFieldByLabel(/kirjoita viestisi tähän/i, MESSAGE);
+
+  assertNextEnabled();
 };
 
 describe('ContactRequestForm', () => {
   it('should not allow proceeding if all translators are deselected', () => {
-    cy.findByTestId(NEXT_BUTTON_ID).should('be.enabled');
-    Object.keys(TRANSLATOR_NAMES_BY_IDS).forEach(deselectTranslator);
-    cy.findByTestId(NEXT_BUTTON_ID).should('be.disabled');
+    onContactRequestForm.elements.nextButton().should('be.enabled');
+    Object.keys(TRANSLATOR_NAMES_BY_IDS).forEach((id) =>
+      onContactRequestForm.deselectTranslator(id)
+    );
+    onContactRequestForm.elements.nextButton().should('be.disabled');
   });
 
   it('should open a confirmation dialog when cancel button is clicked', () => {
-    cy.findByTestId(CANCEL_BUTTON_ID).click();
-    let cancelDialog = cy.findByRole('dialog');
-    cancelDialog.should('contain.text', 'Peruuta yhteydenottopyyntö');
-    cancelDialog.findByTestId('cancel-dialog__back-btn').click();
-    cancelDialog.should('not.exist');
+    // Click on cancel, then back out => return to contact request form
+    onContactRequestForm.cancel();
+    onCancelDialog.expectText('Peruuta yhteydenottopyyntö');
+    onCancelDialog.back();
 
-    cy.findByTestId(CANCEL_BUTTON_ID).click();
-    cancelDialog = cy.findByRole('dialog');
-    cancelDialog.should('contain.text', 'Peruuta yhteydenottopyyntö');
-    cancelDialog.findByTestId('cancel-dialog__yes-btn').click();
+    // Click on cancel, then confirm => return to home page
+    onContactRequestForm.cancel();
+    onCancelDialog.expectText('Peruuta yhteydenottopyyntö');
+    onCancelDialog.yes();
+
     expectPublicHomepageIsShown();
   });
 
   it('should show an error dialog if the backend returns an error', () => {
-    // Step: verify selected translators
-    nextStep();
-
-    // Step: fill contact details
-    fillContactDetails();
-    nextStep();
-
-    // Step: write message
-    writeMessage();
-    nextStep();
+    verifyTranslatorsStep();
+    fillContactDetailsStep();
+    writeMessageStep();
 
     // Step: preview and send
+    onContactRequestForm.next();
     cy.intercept(APIEndpoints.ContactRequest, { statusCode: 400 }).as(
       SUBMIT_CONTACT_REQUEST_API_CALL
     );
-    cy.findByTestId(SUBMIT_BUTTON_ID).click();
+
+    onContactRequestForm.submit();
 
     cy.wait(`@${SUBMIT_CONTACT_REQUEST_API_CALL}`);
 
-    cy.findByRole('dialog').should(
-      'contain.text',
-      'Virhe lähetettäessä yhteydenottopyyntöä.'
-    );
-
-    cy.findByTestId(ERROR_DIALOG_CONTINUE_BUTTON_ID);
+    onErrorDialog.expectText('Virhe lähetettäessä yhteydenottopyyntöä.');
+    onErrorDialog.back();
 
     // Verify last step is shown after dialog is closed
     expectText(
@@ -135,45 +154,28 @@ describe('ContactRequestForm', () => {
   });
 
   it('should show a success dialog in the end after happy path is completed', () => {
-    // Step: verify selected translators
-    deselectTranslator('2');
-    nextStep();
-
-    // Step: fill contact details
-    cy.findByTestId(NEXT_BUTTON_ID).should('be.disabled');
-    fillContactDetails();
-    nextStep();
-
-    // Step: write message
-    cy.findByTestId(NEXT_BUTTON_ID).should('be.disabled');
-    writeMessage();
-    nextStep();
+    verifyTranslatorsStep();
+    fillContactDetailsStep();
+    writeMessageStep();
 
     // Step: preview and send
-    expectText(
-      'contact-request-form__chosen-translators-text',
-      'Ella Eskola, Liisa Hämäläinen'
-    );
+    onContactRequestForm.next();
 
-    expectText('contact-info__first-name-text', CONTACT_DETAILS.firstName);
-
-    expectText('contact-info__last-name-text', CONTACT_DETAILS.lastName);
-
-    expectText('contact-info__email-text', CONTACT_DETAILS.email);
+    assertSelectedTranslators();
+    assertContactDetails();
 
     cy.intercept(APIEndpoints.ContactRequest, { statusCode: 201 }).as(
       SUBMIT_CONTACT_REQUEST_API_CALL
     );
-    cy.findByTestId(SUBMIT_BUTTON_ID).click();
+
+    onContactRequestForm.submit();
 
     cy.wait(`@${SUBMIT_CONTACT_REQUEST_API_CALL}`);
 
-    cy.findByRole('dialog').should(
-      'contain.text',
+    onSuccessDialog.expectText(
       'Yhteydenottopyyntösi lähetettiin onnistuneesti!'
     );
-
-    cy.findByTestId(SUCCESS_DIALOG_CONTINUE_BUTTON_ID).click();
+    onSuccessDialog.continue();
     expectPublicHomepageIsShown();
   });
 });
