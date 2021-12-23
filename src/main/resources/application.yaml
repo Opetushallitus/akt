@@ -18,8 +18,12 @@ spring:
     web:
       pageable:
         max-page-size: 10000
+  web:
+    resources:
+      static-locations: classpath:static/
   thymeleaf:
-    prefix: "classpath:static/"
+    prefix: classpath:static/
+    templateResolverOrder: 1
 management:
   endpoints:
     enabled-by-default: false
