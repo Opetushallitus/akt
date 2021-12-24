@@ -2,7 +2,6 @@ package fi.oph.akt.api;
 
 import fi.oph.akt.TestUtil;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,8 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ActiveProfiles("test-hsql")
 @AutoConfigureMockMvc
-@Disabled("Disabled, because these require static resources to be found. Run these test manually after mvn install.")
-class IndexControllerTest {
+class IndexControllerIntegrationTest {
 
 	private static String expectedIndexHtml;
 
@@ -54,7 +52,7 @@ class IndexControllerTest {
 	}
 
 	private void assertIndexHtml(String url) throws Exception {
-		assertGetContent(url, "text/html;charset=UTF-8", IndexControllerTest.expectedIndexHtml);
+		assertGetContent(url, "text/html;charset=UTF-8", IndexControllerIntegrationTest.expectedIndexHtml);
 	}
 
 	private void assertGetContent(String url, String expectedContentType, String expextedContent) throws Exception {
