@@ -36,6 +36,89 @@ class ContactRequestForm {
   fillFieldByLabel(label: Matcher, text: string) {
     this.elements.byLabel(label).type(text);
   }
+
+  isNextEnabled() {
+    this.elements.nextButton().should('be.enabled');
+  }
+
+  isNextDisabled() {
+    this.elements.nextButton().should('be.disabled');
+  }
 }
 
+export const TEST_TRANSLATOR_IDS = ['2', '4', '10'];
+
+export const TEST_CONTACT_DETAILS = {
+  firstName: 'Teemu',
+  lastName: 'Testaaja',
+  email: 'valid@email.org',
+};
+
+export const TEST_MESSAGE = 'Kirjoita viestisi tähän';
+
 export const onContactRequestForm = new ContactRequestForm();
+
+export const verifyTranslatorsStep = () => {
+  onContactRequestForm.deselectTranslator('2');
+};
+
+export const fillContactDetailsStep = () => {
+  onContactRequestForm.next();
+  onContactRequestForm.isNextDisabled();
+
+  onContactRequestForm.fillFieldByLabel(
+    /etunimi/i,
+    TEST_CONTACT_DETAILS.firstName
+  );
+  onContactRequestForm.fillFieldByLabel(
+    /sukunimi/i,
+    TEST_CONTACT_DETAILS.lastName
+  );
+  onContactRequestForm.fillFieldByLabel(
+    /sähköpostiosoite/i,
+    TEST_CONTACT_DETAILS.email
+  );
+
+  onContactRequestForm.isNextEnabled();
+};
+
+export const writeMessageStep = () => {
+  onContactRequestForm.next();
+  onContactRequestForm.isNextDisabled();
+
+  onContactRequestForm.fillFieldByLabel(
+    /kirjoita viestisi tähän/i,
+    TEST_MESSAGE
+  );
+
+  onContactRequestForm.isNextEnabled();
+};
+
+const assertSelectedTranslators = () => {
+  expectTextForId(
+    'contact-request-form__chosen-translators-text',
+    'Ella Eskola, Liisa Hämäläinen'
+  );
+};
+
+const assertContactDetails = () => {
+  expectTextForId(
+    'contact-info__first-name-text',
+    TEST_CONTACT_DETAILS.firstName
+  );
+  expectTextForId(
+    'contact-info__last-name-text',
+    TEST_CONTACT_DETAILS.lastName
+  );
+  expectTextForId('contact-info__email-text', TEST_CONTACT_DETAILS.email);
+};
+
+export const previewAndSendStep = () => {
+  onContactRequestForm.next();
+
+  assertSelectedTranslators();
+  assertContactDetails();
+};
+
+export const expectTextForId = (id: Matcher, text: string) =>
+  cy.findByTestId(id).should('have.text', text);
