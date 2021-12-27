@@ -13,6 +13,17 @@ class PublicTranslatorsListing {
   openContactRequest() {
     this.elements.contactRequestBtn().click();
   }
+
+  expectTranslatorVisible(id: string) {
+    cy.findByTestId(`public-translators__id-${id}-row`).should('be.visible');
+  }
+
+  expectTranslatorsCount(count: number) {
+    cy.findByTestId(`table__head-box__pagination`).should(
+      'contain.text',
+      `/ ${count}`
+    );
+  }
 }
 
 export const onPublicTranslatorsListing = new PublicTranslatorsListing();
