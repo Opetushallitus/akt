@@ -1,6 +1,6 @@
 package fi.oph.akt.config;
 
-import fi.oph.akt.service.KoodistoService;
+import fi.oph.akt.service.LanguageService;
 import fi.oph.akt.service.email.sender.EmailSender;
 import fi.oph.akt.service.email.sender.EmailSenderNoOp;
 import fi.oph.akt.service.email.sender.EmailSenderViestintapalvelu;
@@ -33,10 +33,10 @@ public class AppConfig {
 	}
 
 	@Bean
-	public KoodistoService koodistoService(@Value("${akt.koodisto.languages-url}") String koodistoLanguagesUrl) {
+	public LanguageService languageService(@Value("${akt.koodisto.languages-url}") String koodistoLanguagesUrl) {
 		LOG.info("koodistoLanguagesUrl:{}", koodistoLanguagesUrl);
 		final WebClient webClient = webClientBuilderWithCallerId().baseUrl(koodistoLanguagesUrl).build();
-		return new KoodistoService(webClient);
+		return new LanguageService(webClient);
 	}
 
 	private static WebClient.Builder webClientBuilderWithCallerId() {

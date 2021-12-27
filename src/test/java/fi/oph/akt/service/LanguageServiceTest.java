@@ -18,9 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class KoodistoServiceTest {
+class LanguageServiceTest {
 
-	private KoodistoService koodistoService;
+	private LanguageService languageService;
 
 	@BeforeEach
 	public void setup() throws IOException {
@@ -31,33 +31,18 @@ class KoodistoServiceTest {
 
 		final String mockWebServerBaseUrl = mockWebServer.url("/").url().toString();
 		final WebClient webClient = WebClient.builder().baseUrl(mockWebServerBaseUrl).build();
-		koodistoService = new KoodistoService(webClient);
+		languageService = new LanguageService(webClient);
 	}
 
 	@Test
-	public void testFilterUnOfficialLanguage() throws JsonProcessingException {
-		assertLanguages(KoodistoService.UNOFFICIAL_LANGUAGE);
-	}
+	public void testLanguageService() throws JsonProcessingException {
+		final List<LanguageDTO> languageDtos = languageService.allLanguages();
 
-	@Test
-	public void testFilterUnknownLanguage() throws JsonProcessingException {
-		assertLanguages(KoodistoService.UNKNOWN_LANGUAGE);
-	}
-
-	@Test
-	public void testFilterOtherLanguage() throws JsonProcessingException {
-		assertLanguages(KoodistoService.OTHER_LANGUAGE);
-	}
-
-	@Test
-	public void testFilterSignLanguage() throws JsonProcessingException {
-		assertLanguages(KoodistoService.SIGN_LANGUAGE);
-	}
-
-	private void assertLanguages(final String shouldNotContain) throws JsonProcessingException {
-		final List<LanguageDTO> languageDtos = koodistoService.allLanguages();
 		assertEquals(2, languageDtos.size());
-		assertFalse(languageDtos.stream().anyMatch(dto -> dto.code().equals(shouldNotContain)));
+		assertFalse(languageDtos.stream().anyMatch(dto -> dto.code().equals(LanguageService.UNOFFICIAL_LANGUAGE)));
+		assertFalse(languageDtos.stream().anyMatch(dto -> dto.code().equals(LanguageService.UNKNOWN_LANGUAGE)));
+		assertFalse(languageDtos.stream().anyMatch(dto -> dto.code().equals(LanguageService.OTHER_LANGUAGE)));
+		assertFalse(languageDtos.stream().anyMatch(dto -> dto.code().equals(LanguageService.SIGN_LANGUAGE)));
 		assertTrue(languageDtos.stream().anyMatch(dto -> dto.code().equals("FI")));
 		assertTrue(languageDtos.stream().anyMatch(dto -> dto.code().equals("SV")));
 	}

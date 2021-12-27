@@ -12,9 +12,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
-public class KoodistoService {
+public class LanguageService {
 
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -23,8 +24,8 @@ public class KoodistoService {
 	static final String OTHER_LANGUAGE = "XX";
 	static final String SIGN_LANGUAGE = "VK";
 
-	private static final List<String> FILTER_LANGUAGES = List.of(UNOFFICIAL_LANGUAGE, UNKNOWN_LANGUAGE, OTHER_LANGUAGE,
-			SIGN_LANGUAGE);
+	private static final Set<String> IGNORED_LANGUAGE_CODES = Set.of(UNOFFICIAL_LANGUAGE, UNKNOWN_LANGUAGE,
+			OTHER_LANGUAGE, SIGN_LANGUAGE);
 
 	private final WebClient webClient;
 
@@ -42,7 +43,7 @@ public class KoodistoService {
 	}
 
 	private List<LanguageDTO> toDTOs(List<KoodistoLang> koodistoLanguages) {
-		return koodistoLanguages.stream().filter(k -> !FILTER_LANGUAGES.contains(k.koodiArvo)).map(this::toDTO)
+		return koodistoLanguages.stream().filter(k -> !IGNORED_LANGUAGE_CODES.contains(k.koodiArvo)).map(this::toDTO)
 				.toList();
 	}
 
