@@ -1,13 +1,14 @@
 import { Matcher } from '@testing-library/dom';
-import { RouteHandler } from 'cypress/types/net-stubbing';
 
+import { APIEndpoints } from 'enums/api';
 import { onContactRequestForm } from '../support/page-objects/contactRequestForm';
 import { onPublicTranslatorFilters } from '../support/page-objects/publicTranslatorFilters';
 import { onPublicTranslatorsListing } from '../support/page-objects/publicTranslatorsListing';
 import { onCancelDialog } from '../support/page-objects/cancelDialog';
 import { onErrorDialog } from '../support/page-objects/errorDialog';
 import { onSuccessDialog } from '../support/page-objects/successDialog';
-import { APIEndpoints } from 'enums/api';
+import { runWithIntercept } from '../support/utils/api';
+import { onPublicHomePage } from '../support/page-objects/publicHomePage';
 
 const TRANSLATOR_NAMES_BY_IDS = {
   '2': 'Anneli Aaltonen',
@@ -35,17 +36,6 @@ const selectTranslatorRows = () => {
   );
 };
 
-const runWithIntercept = (
-  endpoint: APIEndpoints,
-  response: RouteHandler,
-  effect: () => void
-) => {
-  const alias = `intercepted-${endpoint}`;
-  cy.intercept(endpoint, response).as(alias);
-  effect();
-  cy.wait(`@${alias}`);
-};
-
 beforeEach(() => {
   runWithIntercept(
     APIEndpoints.PublicTranslator,
@@ -59,10 +49,6 @@ beforeEach(() => {
 
 const expectText = (matcher: Matcher, text: string) =>
   cy.findByTestId(matcher).should('have.text', text);
-
-const expectPublicHomepageIsShown = () => {
-  expectText('homepage__title-heading', 'Auktorisoitujen kääntäjien rekisteri');
-};
 
 const assertSelectedTranslators = () => {
   expectText(
@@ -139,7 +125,7 @@ describe('ContactRequestForm', () => {
     onCancelDialog.expectText('Peruuta yhteydenottopyyntö');
     onCancelDialog.yes();
 
-    expectPublicHomepageIsShown();
+    onPublicHomePage.isVisible();
   });
 
   it('should show an error dialog if the backend returns an error', () => {
@@ -176,6 +162,6 @@ describe('ContactRequestForm', () => {
       'Yhteydenottopyyntösi lähetettiin onnistuneesti!'
     );
     onSuccessDialog.continue();
-    expectPublicHomepageIsShown();
+    onPublicHomePage.isVisible();
   });
 });
