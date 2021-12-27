@@ -77,6 +77,7 @@ export const PublicTranslatorFilters = ({
           <H3>{t('languagePair.title')}</H3>
           <div className="public-translator-filters__filter__language-pair">
             <Dropdown
+              data-testid="public-translator-filters__from-language-select"
               showInputLabel
               sortByKeys
               showError={
@@ -91,6 +92,7 @@ export const PublicTranslatorFilters = ({
               onChange={handleFilterChange('fromLang')}
             />
             <Dropdown
+              data-testid="public-translator-filters__to-language-select"
               showInputLabel
               sortByKeys
               showError={showFieldError && Utils.isEmptyString(filters.toLang)}
@@ -107,6 +109,7 @@ export const PublicTranslatorFilters = ({
         <div className="public-translator-filters__filter">
           <H3>{t('name.title')}</H3>
           <TextField
+            data-testid="public-translator-filters__name-field"
             id="outlined-search"
             label={t('name.placeholder')}
             type="search"
@@ -124,6 +127,7 @@ export const PublicTranslatorFilters = ({
         <div className="public-translator-filters__filter">
           <H3> {t('town.title')}</H3>
           <Dropdown
+            data-testid="public-translator-filters__town-select"
             showInputLabel
             sortByKeys
             label={t('town.placeholder')}
@@ -137,6 +141,7 @@ export const PublicTranslatorFilters = ({
       </div>
       <div className="public-translator-filters__btn-box">
         <Button
+          data-testid="public-translator-filters__empty-btn"
           color="secondary"
           variant="outlined"
           onClick={handleEmptyBtnClick}
@@ -146,6 +151,7 @@ export const PublicTranslatorFilters = ({
           {t('buttons.empty')}
         </Button>
         <Button
+          data-testid="public-translator-filters__search-btn"
           color="secondary"
           variant="contained"
           size="large"

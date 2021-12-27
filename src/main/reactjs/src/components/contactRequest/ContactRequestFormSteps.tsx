@@ -43,7 +43,11 @@ const RenderChosenTranslators = () => {
   const translatorsString = translators
     .map(({ firstName, lastName }) => firstName + ' ' + lastName)
     .join(', ');
-  return <Text>{translatorsString}</Text>;
+  return (
+    <Text data-testid="contact-request-form__chosen-translators-text">
+      {translatorsString}
+    </Text>
+  );
 };
 
 const DisplayContactInfo = () => {
@@ -58,20 +62,26 @@ const DisplayContactInfo = () => {
       <H2>{t('contactInfo')}</H2>
       <div className="rows">
         <H3>{t('firstName')}</H3>
-        <Text>{request.firstName}</Text>
+        <Text data-testid="contact-info__first-name-text">
+          {request.firstName}
+        </Text>
       </div>
       <div className="rows">
         <H3>{t('lastName')}</H3>
-        <Text>{request.lastName}</Text>
+        <Text data-testid="contact-info__last-name-text">
+          {request.lastName}
+        </Text>
       </div>
       <div className="rows">
         <H3>{t('email')}</H3>
-        <Text>{request.email}</Text>
+        <Text data-testid="contact-info__email-text">{request.email}</Text>
       </div>
       {request.phoneNumber && (
         <div className="rows">
           <H3>{t('phoneNumber')}</H3>
-          <Text>{request.phoneNumber}</Text>
+          <Text data-testid="contact-info__phone-number-text">
+            {request.phoneNumber}
+          </Text>
         </div>
       )}
     </div>
@@ -83,7 +93,10 @@ const StepHeading = ({ step }: { step: string }) => {
     keyPrefix: 'akt.component.contactRequestForm.steps',
   });
   return (
-    <div className="contact-request-form__heading">
+    <div
+      data-testid={`contact-request-form__step-heading-${step}`}
+      className="contact-request-form__heading"
+    >
       <H1>{t(step)}</H1>
     </div>
   );
@@ -127,7 +140,11 @@ export const VerifyTranslatorsStep = ({
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         {translators.map(({ id, firstName, lastName }) => (
-          <div className="columns" key={id}>
+          <div
+            className="columns"
+            key={id}
+            data-testid={`contact-request-form__chosen-translator-id-${id}`}
+          >
             <div className="grow">
               <Text>
                 {firstName} {lastName}
@@ -230,6 +247,7 @@ export const WriteMessageStep = ({
         <div className="rows gapped">
           <H3>{t('steps.' + stepsByIndex[2])}</H3>
           <TextField
+            id="contact-request-form__message-field"
             label={t('formLabels.writeMessageHere')}
             value={request.message}
             onChange={(e) =>
@@ -265,7 +283,9 @@ export const PreviewAndSendStep = () => {
         <RenderChosenTranslators />
         <DisplayContactInfo />
         <H3>{t('message')}</H3>
-        <Text>{request.message}</Text>
+        <Text data-testid="contact-request-form__message-text">
+          {request.message}
+        </Text>
       </div>
     </div>
   );

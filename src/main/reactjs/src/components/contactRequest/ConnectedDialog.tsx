@@ -35,7 +35,12 @@ export const SuccessDialogWrapper = () => {
       title={t('title')}
       content={<Text>{t('description')}</Text>}
       actions={
-        <Button variant="contained" color="secondary" onClick={() => cleanUp()}>
+        <Button
+          data-testid="success-dialog__continue-btn"
+          variant="contained"
+          color="secondary"
+          onClick={() => cleanUp()}
+        >
           {t('continue')}
         </Button>
       }
@@ -63,7 +68,12 @@ export const ErrorDialogWrapper = () => {
       title={t('title')}
       content={<Text>{t('description')} akt@oph.fi</Text>}
       actions={
-        <Button variant="contained" color="secondary" onClick={() => cleanUp()}>
+        <Button
+          data-testid="error-dialog__back-btn"
+          variant="contained"
+          color="secondary"
+          onClick={() => cleanUp()}
+        >
           {t('back')}
         </Button>
       }
@@ -96,10 +106,16 @@ export const CancelRequestDialog = ({
       content={<Text>{t('description')}</Text>}
       actions={
         <>
-          <Button variant="outlined" color="secondary" onClick={onClose}>
+          <Button
+            data-testid="cancel-dialog__back-btn"
+            variant="outlined"
+            color="secondary"
+            onClick={onClose}
+          >
             {t('back')}
           </Button>
           <Button
+            data-testid="cancel-dialog__yes-btn"
             variant="contained"
             color="secondary"
             onClick={() => cleanUp()}

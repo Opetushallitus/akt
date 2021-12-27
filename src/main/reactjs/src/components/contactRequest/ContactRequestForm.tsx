@@ -57,7 +57,12 @@ const ControlButtons = ({
   };
   return (
     <div className="columns flex-end gapped">
-      <Button variant="outlined" color="secondary" onClick={onCancelRequest}>
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={onCancelRequest}
+        data-testid="contact-request-form__cancel-btn"
+      >
         {t('buttons.cancel')}
       </Button>
       <Button
@@ -65,11 +70,17 @@ const ControlButtons = ({
         color="secondary"
         onClick={() => onChangeStep(decrementStep)}
         disabled={step == minStep}
+        data-testid="contact-request-form__previous-btn"
       >
         {t('buttons.previous')}
       </Button>
       {step == maxStep ? (
-        <Button variant="contained" color="secondary" onClick={() => submit()}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => submit()}
+          data-testid="contact-request-form__submit-btn"
+        >
           {t('buttons.submit')}
         </Button>
       ) : (
@@ -78,6 +89,7 @@ const ControlButtons = ({
           color="secondary"
           disabled={disableNext}
           onClick={() => onChangeStep(incrementStep)}
+          data-testid="contact-request-form__next-btn"
         >
           {t('buttons.next')}
         </Button>
