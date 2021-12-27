@@ -1,10 +1,4 @@
 sudo: required
-language: java
-jdk:
-  - openjdk17
-
-node_js:
-  - "lts/*"
 
 services:
   - docker
@@ -27,17 +21,31 @@ install:
   - source ci-tools/common/setup-tools.sh
   - export ARTIFACT_NAME="akt"
 
-script:
-  - mvn clean install -Dbranch=${TRAVIS_BRANCH} -Drevision=${TRAVIS_COMMIT} -DbuildNumber=${TRAVIS_BUILD_NUMBER}
-  - mv target/akt-*.jar $DOCKER_BUILD_DIR/artifact/${ARTIFACT_NAME}.jar
-  - cp -vr src/main/resources/oph-configuration $DOCKER_BUILD_DIR/config/
+jobs:
+  include:
+    - stage: Frontend
+      language: node_js
+      node_js:
+        - "lts/*"
+      script:
+        - cd src/main/reactjs
+        - npm ci
+        - npm run qa
+        - kill $(jobs -p) || true
+    - stage: Backend
+      language: java
+      jdk:
+        - openjdk17
+      script:
+        - mvn clean install -Dbranch=${TRAVIS_BRANCH} -Drevision=${TRAVIS_COMMIT} -DbuildNumber=${TRAVIS_BUILD_NUMBER}
+        - mv target/akt-*.jar $DOCKER_BUILD_DIR/artifact/${ARTIFACT_NAME}.jar
+        - cp -vr src/main/resources/oph-configuration $DOCKER_BUILD_DIR/config/
 
-  - export BASE_IMAGE="baseimage-fatjar-openjdk17:master"
-  - ./ci-tools/common/pull-image.sh
-  - ./ci-tools/build/build-fatjar.sh $ARTIFACT_NAME
-
-deploy:
-  - provider: script
-    script: "./ci-tools/build/upload-image.sh $ARTIFACT_NAME"
-    on:
-      all_branches: true
+        - export BASE_IMAGE="baseimage-fatjar-openjdk17:master"
+        - ./ci-tools/common/pull-image.sh
+        - ./ci-tools/build/build-fatjar.sh $ARTIFACT_NAME
+      deploy:
+        - provider: script
+          script: "./ci-tools/build/upload-image.sh $ARTIFACT_NAME"
+          on:
+            all_branches: true
