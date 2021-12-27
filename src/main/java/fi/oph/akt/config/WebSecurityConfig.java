@@ -22,6 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
 
 				.formLogin().and()
+				.httpBasic().and()
 
 				.authorizeRequests()
 				.antMatchers("/api/v1/clerk/**").access("hasRole('VIRKAILIJA')")

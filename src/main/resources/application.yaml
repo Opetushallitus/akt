@@ -46,3 +46,5 @@ akt:
   email:
     sending-enabled: ${email.sending-enabled:false}
     ryhmasahkoposti-service-url: ${ryhmasahkoposti-service-url:null}
+  koodisto:
+    languages-url: ${koodisto.languages-url:https://virkailija.untuvaopintopolku.fi/koodisto-service/rest/json/kieli/koodi}
