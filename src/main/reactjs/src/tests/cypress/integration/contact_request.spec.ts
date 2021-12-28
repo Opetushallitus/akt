@@ -36,7 +36,7 @@ beforeEach(() => {
     { fixture: 'public_translators.json' },
     () => cy.openPublicHomePage()
   );
-  searchTranslatorsFromFiToSv();
+  onPublicTranslatorFilters.filterByLanguagePair('suomi', 'ruotsi');
   selectTranslatorRows();
   onPublicTranslatorsListing.openContactRequest();
 });

@@ -24,6 +24,10 @@ class PublicTranslatorsListing {
       `/ ${count}`
     );
   }
+
+  expectEmptyListing() {
+    cy.findByTestId('homepage__grid-container__result-box').should('be.empty');
+  }
 }
 
 export const onPublicTranslatorsListing = new PublicTranslatorsListing();

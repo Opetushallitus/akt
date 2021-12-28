@@ -14,23 +14,25 @@ class PublicTranslatorFilters {
     search: () => cy.findByTestId('public-translator-filters__search-btn'),
   };
 
-  selectFromLang(lang: string) {
+  filterByLanguagePair(from: string, to: string) {
     this.elements.fromLang().click();
-    selectOption(lang);
-  }
+    selectOption(from);
 
-  selectToLang(lang: string) {
     this.elements.toLang().click();
-    selectOption(lang);
+    selectOption(to);
+
+    this.search();
   }
 
-  selectTown(town: string) {
+  filterByName(name: string) {
+    this.elements.name().type(name);
+    this.search();
+  }
+
+  filterByTown(town: string) {
     this.elements.town().click();
     selectOption(town);
-  }
-
-  fillName(name: string) {
-    this.elements.name().type(name);
+    this.search();
   }
 
   emptySearch() {

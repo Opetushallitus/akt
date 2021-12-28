@@ -34,7 +34,11 @@ export const PublicTranslatorsGrid = () => {
           <PublicTranslatorFilters setShowTable={setShowTable} />
         </Paper>
       </Grid>
-      <Grid item className="homepage__grid-container__result-box">
+      <Grid
+        item
+        className="homepage__grid-container__result-box"
+        data-testid="homepage__grid-container__result-box"
+      >
         {hasResults && (
           <PublicTranslatorListing status={status} translators={translators} />
         )}
