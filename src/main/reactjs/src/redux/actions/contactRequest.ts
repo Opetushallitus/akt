@@ -5,7 +5,7 @@ import {
   CONTACT_REQUEST_SET,
 } from 'redux/actionTypes/contactRequest';
 
-export const setContactRequest = (request: ContactRequest) => ({
+export const setContactRequest = (request: Partial<ContactRequest>) => ({
   type: CONTACT_REQUEST_SET,
   request,
 });

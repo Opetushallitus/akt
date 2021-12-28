@@ -109,11 +109,6 @@ const useResetContactRequestState = () => {
       setContactRequest({
         languagePair: { from, to },
         translatorIds: selectedTranslators,
-        email: '',
-        firstName: '',
-        lastName: '',
-        message: '',
-        phoneNumber: '',
       })
     );
   }, [dispatch, from, to, selectedTranslators]);
