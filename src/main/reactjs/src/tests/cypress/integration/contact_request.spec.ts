@@ -26,7 +26,7 @@ const selectTranslatorRows = () => {
 beforeEach(() => {
   runWithIntercept(
     APIEndpoints.PublicTranslator,
-    { fixture: 'public_translators.json' },
+    { fixture: 'public_translators_50.json' },
     () => cy.openPublicHomePage()
   );
   onPublicTranslatorFilters.filterByLanguagePair('suomi', 'ruotsi');

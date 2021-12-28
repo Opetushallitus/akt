@@ -54,7 +54,8 @@ class ContactRequestForm {
   }
 }
 
-export const TEST_TRANSLATOR_IDS = ['2', '4', '10'];
+export const TEST_TRANSLATOR_IDS = ['602', '1940', '2080'];
+
 export const TEST_CONTACT_DETAILS = {
   firstName: 'Teemu',
   lastName: 'Testaaja',
@@ -66,7 +67,7 @@ export const LONG_TEST_MESSAGE = TEST_MESSAGE.repeat(50);
 export const onContactRequestForm = new ContactRequestForm();
 
 export const verifyTranslatorsStep = () => {
-  onContactRequestForm.deselectTranslator('2');
+  onContactRequestForm.deselectTranslator('1940');
 };
 
 export const fillContactDetailsStep = () => {
@@ -101,7 +102,7 @@ export const writeMessageStep = () => {
 const assertSelectedTranslators = () => {
   expectTextForId(
     'contact-request-form__chosen-translators-text',
-    'Ella Eskola, Liisa Hämäläinen'
+    'Ilkka Heinonen, Ninni Korhonen'
   );
 };
 
