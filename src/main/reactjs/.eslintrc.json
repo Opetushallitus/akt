@@ -47,6 +47,12 @@
       "warn",
       { "argsIgnorePattern": "^_" }
     ],
-    "no-console": "warn"
+    "no-console": "warn",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [".*"]
+      }
+    ]
   }
 }
