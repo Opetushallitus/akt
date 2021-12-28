@@ -1,6 +1,5 @@
 import { APIEndpoints } from 'enums/api';
 import {
-  TEST_MESSAGE,
   LONG_TEST_MESSAGE,
   expectTextForId,
   fillContactDetailsStep,
@@ -17,12 +16,6 @@ import { onErrorDialog } from 'tests/cypress/support/page-objects/errorDialog';
 import { onSuccessDialog } from 'tests/cypress/support/page-objects/successDialog';
 import { runWithIntercept } from 'tests/cypress/support/utils/api';
 import { onPublicHomePage } from 'tests/cypress/support/page-objects/publicHomePage';
-
-const searchTranslatorsFromFiToSv = () => {
-  onPublicTranslatorFilters.selectFromLang('suomi');
-  onPublicTranslatorFilters.selectToLang('ruotsi');
-  onPublicTranslatorFilters.search();
-};
 
 const selectTranslatorRows = () => {
   TEST_TRANSLATOR_IDS.forEach((id) =>
