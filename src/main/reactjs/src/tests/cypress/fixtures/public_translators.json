@@ -1,7 +1,7 @@
 {
   "langs": {
-    "from": ["fi", "sv", "ru", "et", "de", "fr"],
-    "to": ["fi", "sv", "ru", "et", "de", "fr"]
+    "from": ["FI", "SV", "RU", "ET", "DE", "FR"],
+    "to": ["FI", "SV", "RU", "ET", "DE", "FR"]
   },
   "towns": [
     "Helsinki",
@@ -30,8 +30,8 @@
       "town": "Helsinki",
       "languagePairs": [
         {
-          "from": "fi",
-          "to": "sv"
+          "from": "FI",
+          "to": "SV"
         }
       ]
     },
@@ -42,8 +42,8 @@
       "town": "Turku",
       "languagePairs": [
         {
-          "from": "sv",
-          "to": "fi"
+          "from": "SV",
+          "to": "FI"
         }
       ]
     },
@@ -54,8 +54,8 @@
       "town": "Hämeenlinna",
       "languagePairs": [
         {
-          "from": "fi",
-          "to": "sv"
+          "from": "FI",
+          "to": "SV"
         }
       ]
     },
@@ -66,12 +66,12 @@
       "town": "Kuopio",
       "languagePairs": [
         {
-          "from": "fi",
-          "to": "ru"
+          "from": "FI",
+          "to": "RU"
         },
         {
-          "from": "ru",
-          "to": "fi"
+          "from": "RU",
+          "to": "FI"
         }
       ]
     },
@@ -82,12 +82,12 @@
       "town": "Lahti",
       "languagePairs": [
         {
-          "from": "fi",
-          "to": "sv"
+          "from": "FI",
+          "to": "SV"
         },
         {
-          "from": "sv",
-          "to": "fi"
+          "from": "SV",
+          "to": "FI"
         }
       ]
     },
@@ -99,8 +99,8 @@
       "country": "Latvia",
       "languagePairs": [
         {
-          "from": "fi",
-          "to": "et"
+          "from": "FI",
+          "to": "ET"
         }
       ]
     },
@@ -111,8 +111,8 @@
       "town": "Vantaa",
       "languagePairs": [
         {
-          "from": "fi",
-          "to": "sv"
+          "from": "FI",
+          "to": "SV"
         }
       ]
     },
@@ -123,8 +123,8 @@
       "town": "Järvenpää",
       "languagePairs": [
         {
-          "from": "sv",
-          "to": "fi"
+          "from": "SV",
+          "to": "FI"
         }
       ]
     },
@@ -135,16 +135,16 @@
       "town": "Kouvola",
       "languagePairs": [
         {
-          "from": "fi",
-          "to": "sv"
+          "from": "FI",
+          "to": "SV"
         },
         {
-          "from": "fi",
-          "to": "ru"
+          "from": "FI",
+          "to": "RU"
         },
         {
-          "from": "ru",
-          "to": "fi"
+          "from": "RU",
+          "to": "FI"
         }
       ]
     },
@@ -155,12 +155,12 @@
       "town": "Tampere",
       "languagePairs": [
         {
-          "from": "et",
-          "to": "fi"
+          "from": "ET",
+          "to": "FI"
         },
         {
-          "from": "fi",
-          "to": "de"
+          "from": "FI",
+          "to": "DE"
         }
       ]
     },
@@ -171,12 +171,12 @@
       "town": "Oulu",
       "languagePairs": [
         {
-          "from": "fi",
-          "to": "sv"
+          "from": "FI",
+          "to": "SV"
         },
         {
-          "from": "sv",
-          "to": "fi"
+          "from": "SV",
+          "to": "FI"
         }
       ]
     },
@@ -188,8 +188,8 @@
       "country": "Latvia",
       "languagePairs": [
         {
-          "from": "de",
-          "to": "fi"
+          "from": "DE",
+          "to": "FI"
         }
       ]
     },
@@ -200,12 +200,12 @@
       "town": "Kajaani",
       "languagePairs": [
         {
-          "from": "fi",
-          "to": "sv"
+          "from": "FI",
+          "to": "SV"
         },
         {
-          "from": "fi",
-          "to": "et"
+          "from": "FI",
+          "to": "ET"
         }
       ]
     },
@@ -216,16 +216,16 @@
       "town": "Joensuu",
       "languagePairs": [
         {
-          "from": "sv",
-          "to": "fi"
+          "from": "SV",
+          "to": "FI"
         },
         {
-          "from": "fi",
-          "to": "ru"
+          "from": "FI",
+          "to": "RU"
         },
         {
-          "from": "ru",
-          "to": "fi"
+          "from": "RU",
+          "to": "FI"
         }
       ]
     },
@@ -236,8 +236,8 @@
       "town": "Uusikaupunki",
       "languagePairs": [
         {
-          "from": "fi",
-          "to": "sv"
+          "from": "FI",
+          "to": "SV"
         }
       ]
     },
@@ -248,12 +248,12 @@
       "town": "Kuopio",
       "languagePairs": [
         {
-          "from": "fi",
-          "to": "fr"
+          "from": "FI",
+          "to": "FR"
         },
         {
-          "from": "fr",
-          "to": "fi"
+          "from": "FR",
+          "to": "FI"
         }
       ]
     },
@@ -264,12 +264,12 @@
       "town": "Kotka",
       "languagePairs": [
         {
-          "from": "fi",
-          "to": "sv"
+          "from": "FI",
+          "to": "SV"
         },
         {
-          "from": "sv",
-          "to": "fi"
+          "from": "SV",
+          "to": "FI"
         }
       ]
     },
@@ -281,12 +281,12 @@
       "country": "Latvia",
       "languagePairs": [
         {
-          "from": "sv",
-          "to": "fr"
+          "from": "SV",
+          "to": "FR"
         },
         {
-          "from": "fr",
-          "to": "sv"
+          "from": "FR",
+          "to": "SV"
         }
       ]
     },
@@ -297,16 +297,16 @@
       "town": "Turku",
       "languagePairs": [
         {
-          "from": "fi",
-          "to": "sv"
+          "from": "FI",
+          "to": "SV"
         },
         {
-          "from": "fi",
-          "to": "ru"
+          "from": "FI",
+          "to": "RU"
         },
         {
-          "from": "ru",
-          "to": "fi"
+          "from": "RU",
+          "to": "FI"
         }
       ]
     },
@@ -317,12 +317,12 @@
       "town": "Hämeenlinna",
       "languagePairs": [
         {
-          "from": "sv",
-          "to": "fi"
+          "from": "SV",
+          "to": "FI"
         },
         {
-          "from": "fi",
-          "to": "et"
+          "from": "FI",
+          "to": "ET"
         }
       ]
     }

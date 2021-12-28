@@ -9,6 +9,8 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import transFI from 'public/i18n/fi-FI.json';
 import transSV from 'public/i18n/sv-SE.json';
 import transEN from 'public/i18n/en-GB.json';
+import { APIEndpoints } from 'enums/api';
+import axiosInstance from 'configs/axios';
 
 // Defaults and resources
 const langFI = 'fi-FI';
@@ -46,7 +48,23 @@ declare module 'react-i18next' {
   }
 }
 
-export const initI18n = () => {
+// Rest API types
+type I18nLanguagesResponse = {
+  [langFI]: I18nLanguage[];
+  [langSV]: I18nLanguage[];
+  [langEN]: I18nLanguage[];
+};
+type I18nLanguage = {
+  code: string;
+  name: string;
+};
+
+export const initI18n = async () => {
+  await initialize();
+  await loadTranslationsFromServer();
+};
+
+const initialize = () => {
   return use(initReactI18next)
     .use(LanguageDetector)
     .init({
@@ -55,6 +73,23 @@ export const initI18n = () => {
       fallbackLng: langFI,
       load: 'currentOnly',
       debug: process.env.NODE_ENV === 'development',
+    });
+};
+
+const loadTranslationsFromServer = () => {
+  return axiosInstance
+    .get<I18nLanguagesResponse>(APIEndpoints.I18nLanguages)
+    .then((result) => {
+      const addResource = (lng: string, i: I18nLanguage) =>
+        i18n.addResource(
+          lng,
+          'translation',
+          'akt.component.publicTranslatorFilters.languages.' + i.code,
+          i.name
+        );
+      result.data[langFI].forEach((i) => addResource(langFI, i));
+      result.data[langSV].forEach((i) => addResource(langSV, i));
+      result.data[langEN].forEach((i) => addResource(langEN, i));
     });
 };
 

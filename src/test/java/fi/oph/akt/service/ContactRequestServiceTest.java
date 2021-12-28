@@ -28,9 +28,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Import({ ContactRequestService.class })
 class ContactRequestServiceTest {
 
-	public static final String FROM_LANG = "de";
+	public static final String FROM_LANG = "DE";
 
-	public static final String TO_LANG = "sv";
+	public static final String TO_LANG = "SV";
 
 	@Autowired
 	private TestEntityManager entityManager;

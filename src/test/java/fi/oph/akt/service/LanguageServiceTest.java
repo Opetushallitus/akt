@@ -1,8 +1,8 @@
 package fi.oph.akt.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import fi.oph.akt.TestUtil;
 import fi.oph.akt.api.dto.LanguageDTO;
+import fi.oph.akt.api.dto.LocaleDTO;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -35,9 +36,16 @@ class LanguageServiceTest {
 	}
 
 	@Test
-	public void testLanguageService() throws JsonProcessingException {
-		final List<LanguageDTO> languageDtos = languageService.allLanguages();
+	public void testLanguageService() {
+		final Map<LocaleDTO, List<LanguageDTO>> languagesMap = languageService.allLanguages();
 
+		assertEquals(3, languagesMap.size());
+		verifyLanguageDTOs(languagesMap.get(LocaleDTO.FI));
+		verifyLanguageDTOs(languagesMap.get(LocaleDTO.SV));
+		verifyLanguageDTOs(languagesMap.get(LocaleDTO.EN));
+	}
+
+	private void verifyLanguageDTOs(final List<LanguageDTO> languageDtos) {
 		assertEquals(2, languageDtos.size());
 		assertFalse(languageDtos.stream().anyMatch(dto -> dto.code().equals(LanguageService.UNOFFICIAL_LANGUAGE)));
 		assertFalse(languageDtos.stream().anyMatch(dto -> dto.code().equals(LanguageService.UNKNOWN_LANGUAGE)));

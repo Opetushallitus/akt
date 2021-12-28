@@ -7,15 +7,15 @@ import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
-import java.time.LocalDate;
-import java.util.List;
-
 import fi.oph.akt.onr.OnrServiceMock;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
+
+import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -71,8 +71,8 @@ class ClerkTranslatorServiceTest {
 		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
 
 		final LanguagePair languagePair = Factory.languagePair(authorisation);
-		languagePair.setFromLang("fi");
-		languagePair.setToLang("en");
+		languagePair.setFromLang("FI");
+		languagePair.setToLang("EN");
 		languagePair.setPermissionToPublish(permissionToPublish);
 
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
