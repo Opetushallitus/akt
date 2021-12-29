@@ -30,10 +30,16 @@ const selectTranslatorRows = () => {
 
 beforeEach(() => {
   runWithIntercept(
-    APIEndpoints.PublicTranslator,
-    { fixture: 'public_translators.json' },
-    () => cy.openPublicHomePage()
+    APIEndpoints.I18nLanguages,
+    { fixture: 'i18n_languages.json' },
+    () =>
+      runWithIntercept(
+        APIEndpoints.PublicTranslator,
+        { fixture: 'public_translators.json' },
+        () => cy.openPublicHomePage()
+      )
   );
+
   searchTranslatorsFromFiToSv();
   selectTranslatorRows();
   onPublicTranslatorsListing.openContactRequest();

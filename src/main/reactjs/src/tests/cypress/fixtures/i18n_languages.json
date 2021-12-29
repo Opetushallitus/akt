@@ -1,0 +1,80 @@
+{
+  "fi-FI": [
+    {
+      "code": "FI",
+      "name": "suomi"
+    },
+    {
+      "code": "RU",
+      "name": "venäjä"
+    },
+    {
+      "code": "ET",
+      "name": "viro"
+    },
+    {
+      "code": "DE",
+      "name": "saksa"
+    },
+    {
+      "code": "FR",
+      "name": "ranska"
+    },
+    {
+      "code": "SV",
+      "name": "ruotsi"
+    }
+  ],
+  "sv-SE": [
+    {
+      "code": "FI",
+      "name": "finska"
+    },
+    {
+      "code": "RU",
+      "name": "ryska"
+    },
+    {
+      "code": "ET",
+      "name": "estniska"
+    },
+    {
+      "code": "DE",
+      "name": "tyska"
+    },
+    {
+      "code": "FR",
+      "name": "franska"
+    },
+    {
+      "code": "SV",
+      "name": "svenska"
+    }
+  ],
+  "en-GB": [
+    {
+      "code": "FI",
+      "name": "Finnish"
+    },
+    {
+      "code": "RU",
+      "name": "Russian"
+    },
+    {
+      "code": "ET",
+      "name": "Estonian"
+    },
+    {
+      "code": "DE",
+      "name": "German"
+    },
+    {
+      "code": "FR",
+      "name": "French"
+    },
+    {
+      "code": "SV",
+      "name": "Swedish"
+    }
+  ]
+}

@@ -77,6 +77,12 @@ In order to keep code clean and easily maintainable please use the following VS 
 
 ### Running tests
 
+All tests without backend server or development server:
+
+```sh
+npm run qa;pkill webpack #qa starts webpack to background
+```
+
 End-to-end tests:
 
 ```sh
