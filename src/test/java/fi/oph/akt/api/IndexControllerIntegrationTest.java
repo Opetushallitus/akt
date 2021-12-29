@@ -47,20 +47,20 @@ class IndexControllerIntegrationTest {
 
 	@Test
 	public void testStaticAssetIsReturned() throws Exception {
-		final String expectedContent = TestUtil.readResourceAsString("static/assets/svg/logo.svg");
+		final String expectedContent = TestUtil.readResourceAsString("static/static/assets/svg/logo.svg");
 		assertGetContent("/static/assets/svg/logo.svg", "image/svg+xml", expectedContent);
 	}
 
 	private void assertIndexHtml(String url) throws Exception {
-		assertGetContent(url, "text/html;charset=UTF-8", IndexControllerIntegrationTest.expectedIndexHtml);
+		assertGetContent(url, "text/html;charset=UTF-8", expectedIndexHtml);
 	}
 
-	private void assertGetContent(String url, String expectedContentType, String expextedContent) throws Exception {
+	private void assertGetContent(String url, String expectedContentType, String expectedContent) throws Exception {
 		// @formatter:off
 		mockMvc.perform(get(url))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(expectedContentType))
-				.andExpect(content().string(expextedContent));
+				.andExpect(content().string(expectedContent));
 		// @formatter:on
 	}
 
