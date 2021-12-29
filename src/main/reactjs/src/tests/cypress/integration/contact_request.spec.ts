@@ -1,5 +1,7 @@
 import { APIEndpoints } from 'enums/api';
 import {
+  TEST_MESSAGE,
+  LONG_TEST_MESSAGE,
   expectTextForId,
   fillContactDetailsStep,
   onContactRequestForm,
@@ -97,5 +99,72 @@ describe('ContactRequestForm', () => {
     );
     onSuccessDialog.continue();
     onPublicHomePage.isVisible();
+  });
+
+  // Form Validation Tests
+  it('should show an error if the required contact fields are not filled out', () => {
+    verifyTranslatorsStep();
+    onContactRequestForm.next();
+
+    onContactRequestForm.blurFieldByLabel(/etunimi/i);
+    onContactRequestForm.blurFieldByLabel(/sukunimi/i);
+    onContactRequestForm.blurFieldByLabel(/sähköpostiosoite/i);
+
+    cy.findAllByText(/tieto on pakollinen/i).should('have.length', 3);
+  });
+
+  it('should show an error if the format of email and phone number fields are not correct', () => {
+    verifyTranslatorsStep();
+    onContactRequestForm.next();
+
+    onContactRequestForm.fillFieldByLabel(
+      /sähköpostiosoite/i,
+      'wrong.email.com'
+    );
+    onContactRequestForm.fillFieldByLabel(
+      /puhelinnumero/i,
+      'wrong.phone.number'
+    );
+    onContactRequestForm.blurFieldByLabel(/puhelinnumero/i);
+
+    cy.findByText(/sähköpostiosoite on virheellinen/i).should('be.visible');
+    cy.findByText(/puhelinnumero on virheellinen/i).should('be.visible');
+  });
+
+  it('should show an error if the format of email and phone number fields are not correct', () => {
+    verifyTranslatorsStep();
+    onContactRequestForm.next();
+
+    onContactRequestForm.fillFieldByLabel(
+      /sähköpostiosoite/i,
+      'wrong.email.com'
+    );
+    onContactRequestForm.fillFieldByLabel(
+      /puhelinnumero/i,
+      'wrong.phone.number'
+    );
+    onContactRequestForm.blurFieldByLabel(/puhelinnumero/i);
+
+    onContactRequestForm.elements.nextButton().should('be.disabled');
+    cy.findByText(/sähköpostiosoite on virheellinen/i).should('be.visible');
+    cy.findByText(/puhelinnumero on virheellinen/i).should('be.visible');
+  });
+
+  it.only('should show an error if the message field is empty or its length exceeds the limit', () => {
+    verifyTranslatorsStep();
+    fillContactDetailsStep();
+    onContactRequestForm.next();
+
+    onContactRequestForm.blurFieldByLabel(/viesti/i);
+    cy.findByText(/tieto on pakollinen/i).should('be.visible');
+    onContactRequestForm.elements.nextButton().should('be.disabled');
+
+    onContactRequestForm.pasteToFieldByLabel(/viesti/i, LONG_TEST_MESSAGE);
+    onContactRequestForm.blurFieldByLabel(/viesti/i);
+
+    cy.findByText(/tekstin pituus ei saa ylittää 1000 merkkiä/i).should(
+      'be.visible'
+    );
+    onContactRequestForm.elements.nextButton().should('be.disabled');
   });
 });

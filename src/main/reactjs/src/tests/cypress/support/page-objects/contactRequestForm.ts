@@ -37,6 +37,14 @@ class ContactRequestForm {
     this.elements.byLabel(label).type(text);
   }
 
+  pasteToFieldByLabel(label: Matcher, text: string) {
+    this.elements.byLabel(label).clear().invoke('val', text).trigger('input');
+  }
+
+  blurFieldByLabel(label: Matcher) {
+    this.elements.byLabel(label).focus().blur();
+  }
+
   isNextEnabled() {
     this.elements.nextButton().should('be.enabled');
   }
@@ -47,14 +55,13 @@ class ContactRequestForm {
 }
 
 export const TEST_TRANSLATOR_IDS = ['2', '4', '10'];
-
 export const TEST_CONTACT_DETAILS = {
   firstName: 'Teemu',
   lastName: 'Testaaja',
   email: 'valid@email.org',
 };
-
 export const TEST_MESSAGE = 'Kirjoita viestisi tähän';
+export const LONG_TEST_MESSAGE = TEST_MESSAGE.repeat(50);
 
 export const onContactRequestForm = new ContactRequestForm();
 
