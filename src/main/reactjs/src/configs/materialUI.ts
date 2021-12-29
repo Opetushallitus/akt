@@ -69,6 +69,13 @@ export const theme = createTheme({
         },
       },
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          color: grey700Color,
+        },
+      },
+    },
   },
   palette: {
     primary: {
