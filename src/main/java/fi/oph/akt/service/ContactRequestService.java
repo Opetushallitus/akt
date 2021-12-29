@@ -102,27 +102,36 @@ public class ContactRequestService {
 	}
 
 	private void saveContactRequestEmails(ContactRequestDTO contactRequestDTO, List<Translator> translators) {
+		String requestEmail = contactRequestDTO.email().trim();
+
 		// @formatter:off
 		Map<String, Object> templateParams = Map.of(
 				"name", contactRequestDTO.firstName().trim() + " " + contactRequestDTO.lastName().trim(),
-				"email", contactRequestDTO.email().trim(),
+				"email", requestEmail,
 				"phone", contactRequestDTO.phoneNumber() != null ? contactRequestDTO.phoneNumber().trim() : "",
 				"message", contactRequestDTO.message().trim()
 		);
+		// @formatter:on
 
 		String emailBody = templateRenderer.renderContactRequestEmailBody(templateParams);
 
 		translators.forEach(translator -> {
 			// TODO: replace recipient with translator's email address
-			EmailData emailData = EmailData.builder()
-					.sender("AKT")
-					.recipient("translator" + translator.getId() + "@test.fi")
-					.subject("Yhteydenotto kääntäjärekisteristä")
-					.body(emailBody).build();
-
-			emailService.saveEmail(EmailType.CONTACT_REQUEST, emailData);
+			saveContactRequestEmail("translator" + translator.getId() + "@test.fi", emailBody);
 		});
+		saveContactRequestEmail(requestEmail, emailBody);
+	}
+
+	private void saveContactRequestEmail(String recipient, String body) {
+		// @formatter:off
+		EmailData emailData = EmailData.builder()
+				.sender("AKT")
+				.recipient(recipient)
+				.subject("Yhteydenotto kääntäjärekisteristä")
+				.body(body).build();
 		// @formatter:on
+
+		emailService.saveEmail(EmailType.CONTACT_REQUEST, emailData);
 	}
 
 }

@@ -109,9 +109,9 @@ class ContactRequestServiceTest {
 	}
 
 	@Test
-	public void createContactRequestShouldSaveEmailsToBeSentToGivenTranslators() {
+	public void createContactRequestShouldSaveEmailsToBeSent() {
 		MeetingDate meetingDate = createMeetingDate();
-		initTranslators(meetingDate, 3);
+		initTranslators(meetingDate, 2);
 
 		List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
 
@@ -134,13 +134,14 @@ class ContactRequestServiceTest {
 
 		List<EmailData> emailDatas = emailDataCaptor.getAllValues();
 
-		assertEquals(3, emailDatas.size());
+		assertEquals(3, emailDatas.size()); // 2 + 1 copy to foo@bar
 
 		emailDatas.forEach(emailData -> {
 			assertEquals("AKT", emailData.sender());
 			assertEquals("Yhteydenotto kääntäjärekisteristä", emailData.subject());
 			assertEquals("Foo Bar, lorem ipsum", emailData.body());
 		});
+		assertEquals(1, emailDatas.stream().filter(e -> e.recipient().equals("foo@bar")).count());
 	}
 
 	@Test
