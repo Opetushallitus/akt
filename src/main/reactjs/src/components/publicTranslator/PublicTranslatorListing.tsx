@@ -91,6 +91,7 @@ const ContactRequestButton = () => {
   const { selectedTranslators } = useAppSelector(publicTranslatorsSelector);
   const { t } = useAppTranslation({ keyPrefix: 'akt.pages.homepage' });
   const dispatch = useAppDispatch();
+
   return (
     <Button
       color="secondary"

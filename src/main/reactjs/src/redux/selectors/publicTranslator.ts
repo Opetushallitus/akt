@@ -31,6 +31,7 @@ export const selectedPublicTranslatorsForLanguagePair = createSelector(
     const filtered = translators
       .filter(({ id }) => selectedIds.has(id))
       .filter((t) => filterByLanguagePair(t, filters));
+
     return filtered;
   }
 );
