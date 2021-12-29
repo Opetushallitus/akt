@@ -72,14 +72,14 @@ export const DisplayContactInfo = () => {
       </div>
       <div className="rows">
         <H3>{t('email')}</H3>
-        <Text data-testid="contact-info__phone-number-text">
-          {request?.email}
-        </Text>
+        <Text data-testid="contact-info__email-text">{request?.email}</Text>
       </div>
       {request?.phoneNumber && (
         <div className="rows">
           <H3>{t('phoneNumber')}</H3>
-          <Text>{request.phoneNumber}</Text>
+          <Text data-testid="contact-info__phone-number-text">
+            {request.phoneNumber}
+          </Text>
         </div>
       )}
     </div>

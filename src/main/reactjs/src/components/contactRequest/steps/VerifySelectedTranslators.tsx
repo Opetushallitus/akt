@@ -34,15 +34,14 @@ export const VerifySelectedTranslators = ({
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         {translators.map(({ id, firstName, lastName }) => (
-          <div className="columns" key={id}>
-            <div
-              key={id}
-              data-testid={`contact-request-form__chosen-translator-id-${id}`}
-            >
-              <Text>
-                {firstName} {lastName}
-              </Text>
-            </div>
+          <div
+            className="columns"
+            key={id}
+            data-testid={`contact-request-form__chosen-translator-id-${id}`}
+          >
+            <Text>
+              {firstName} {lastName}
+            </Text>
             <IconButton onClick={() => deselectTranslator(id)}>
               <DeleteOutlineIcon className="contact-request-form__delete-outline-icon" />
             </IconButton>

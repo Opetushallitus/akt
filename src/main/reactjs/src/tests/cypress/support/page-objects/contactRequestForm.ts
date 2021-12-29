@@ -86,10 +86,7 @@ export const writeMessageStep = () => {
   onContactRequestForm.next();
   onContactRequestForm.isNextDisabled();
 
-  onContactRequestForm.fillFieldByLabel(
-    /kirjoita viestisi tähän/i,
-    TEST_MESSAGE
-  );
+  onContactRequestForm.fillFieldByLabel(/Viesti/i, TEST_MESSAGE);
 
   onContactRequestForm.isNextEnabled();
 };
