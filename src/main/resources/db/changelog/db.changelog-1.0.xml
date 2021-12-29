@@ -306,7 +306,7 @@
             <column name="email" type="TEXT">
                 <constraints nullable="false"/>
             </column>
-            <column name="phone_number" type="TEXT" />
+            <column name="phone_number" type="TEXT"/>
             <column name="message" type="TEXT">
                 <constraints nullable="false"/>
             </column>
@@ -353,6 +353,58 @@
                                  referencedTableName="translator" referencedColumnNames="translator_id"
                                  constraintName="fk_contact_request_translator_translator"
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
+    <changeSet id="2021-12-17-add-language_pair-check-constraint" author="terova">
+        <sql><![CDATA[
+            ALTER TABLE language_pair
+                ADD CONSTRAINT ck_language_pair_from_to CHECK (from_lang <> to_lang AND
+                                                                (from_lang IN ('fi', 'sv') OR to_lang IN ('fi', 'sv')))
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="2021-12-21-create-shedlock-table" author="terova">
+        <createTable tableName="shedlock">
+            <column name="name" type="VARCHAR(64)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="lock_until" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="locked_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="locked_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2021-12-21-add-enum-email_type" author="terova">
+        <createTable tableName="email_type">
+            <column name="name" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="email_type_pkey"/>
+            </column>
+        </createTable>
+        <insert tableName="email_type">
+            <column name="name" value="CONTACT_REQUEST"/>
+        </insert>
+        <addColumn tableName="email">
+            <column name="email_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="email" baseColumnNames="email_type"
+                                 referencedTableName="email_type" referencedColumnNames="name"
+                                 constraintName="fk_email_email_type"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
+    <changeSet id="2021-12-21-add-column-email_ext_id" author="terova">
+        <addColumn tableName="email">
+            <column name="ext_id" type="TEXT"/>
+        </addColumn>
     </changeSet>
 
 </databaseChangeLog>

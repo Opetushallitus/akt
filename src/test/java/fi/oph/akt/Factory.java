@@ -3,6 +3,8 @@ package fi.oph.akt;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTerm;
+import fi.oph.akt.model.Email;
+import fi.oph.akt.model.EmailType;
 import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
@@ -54,6 +56,16 @@ public class Factory {
 		authorisationTerm.setEndDate(LocalDate.now().plusYears(1));
 
 		return authorisationTerm;
+	}
+
+	public static Email email(final EmailType emailType) {
+		final Email email = new Email();
+		email.setEmailType(emailType);
+		email.setSender("Lasse Lähettäjä");
+		email.setRecipient("ville.vastaanottaja@invalid");
+		email.setSubject("Spostin otsikko");
+		email.setBody("Sisältö on tässä");
+		return email;
 	}
 
 }

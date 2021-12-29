@@ -13,8 +13,6 @@ describe('LangSelector', () => {
   it('should show the Finnish language as a default language', () => {
     render(<LangSelector />);
 
-    expect(
-      screen.getByText('akt.component.header.lang.fi')
-    ).toBeInTheDocument();
+    expect(screen.getByText('lang.fi')).toBeInTheDocument();
   });
 });

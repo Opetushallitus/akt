@@ -2,11 +2,11 @@ import { Table, TableBody, TablePagination } from '@mui/material';
 import { ChangeEvent, Fragment, useState } from 'react';
 
 import { PaginatedTableProps } from 'interfaces/table';
-import { H2 } from 'components/elements/Text';
 import { useAppDispatch } from 'configs/redux';
 import { useAppTranslation } from 'configs/i18n';
+import { WithId } from 'interfaces/withId';
 
-export function PaginatedTable<T>({
+export function PaginatedTable<T extends WithId>({
   header,
   selectedIndices,
   addSelectedIndex,
@@ -16,7 +16,7 @@ export function PaginatedTable<T>({
   initialRowsPerPage,
   rowsPerPageOptions,
   className,
-}: PaginatedTableProps<T>) {
+}: PaginatedTableProps<T>): JSX.Element {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
   const dispatch = useAppDispatch();
@@ -35,17 +35,9 @@ export function PaginatedTable<T>({
     }
   };
 
-  const showNumOfSelected = () =>
-    selectedIndices.length > 0 ? (
-      <H2>{`${selectedIndices.length} ${t('table.selectedItems')}`}</H2>
-    ) : (
-      <H2>{t('table.title')}</H2>
-    );
-
   return (
     <>
       <div className="table__head-box">
-        {showNumOfSelected()}
         <TablePagination
           className="table__head-box__pagination"
           count={data.length}
@@ -66,13 +58,13 @@ export function PaginatedTable<T>({
         <TableBody>
           {data
             .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
-            .map((val, index) => {
-              const i = page * rowsPerPage + index;
+            .map((val) => {
+              const id = val.id;
               return (
-                <Fragment key={i}>
+                <Fragment key={id}>
                   {getRowDetails(val, t, {
-                    selected: selectedIndices.includes(i),
-                    toggleSelected: () => handleRowClick(i),
+                    selected: selectedIndices.includes(id),
+                    toggleSelected: () => handleRowClick(id),
                   })}
                 </Fragment>
               );

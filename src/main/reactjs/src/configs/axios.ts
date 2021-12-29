@@ -8,6 +8,7 @@ axiosInstance.interceptors.request.use((config) => {
   config.headers = {
     ...config.headers,
     'Caller-Id': AppConstants.CallerID,
+    'Content-Type': 'application/json',
   };
   return config;
 });

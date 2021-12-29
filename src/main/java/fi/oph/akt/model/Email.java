@@ -1,14 +1,17 @@
 package fi.oph.akt.model;
 
-import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -38,5 +41,12 @@ public class Email extends BaseEntity {
 
 	@Column(name = "error")
 	private String error;
+
+	@Column(name = "email_type", nullable = false)
+	@Enumerated(value = EnumType.STRING)
+	private EmailType emailType;
+
+	@Column(name = "ext_id")
+	private String extId;
 
 }
