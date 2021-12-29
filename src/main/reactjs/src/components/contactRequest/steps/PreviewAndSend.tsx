@@ -1,4 +1,4 @@
-import { H3, Text } from 'components/elements/Text';
+import { H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';

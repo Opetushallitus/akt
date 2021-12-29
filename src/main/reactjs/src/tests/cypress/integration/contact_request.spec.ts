@@ -7,14 +7,14 @@ import {
   TEST_TRANSLATOR_IDS,
   verifyTranslatorsStep,
   writeMessageStep,
-} from '../support/page-objects/contactRequestForm';
-import { onPublicTranslatorFilters } from '../support/page-objects/publicTranslatorFilters';
-import { onPublicTranslatorsListing } from '../support/page-objects/publicTranslatorsListing';
-import { onCancelDialog } from '../support/page-objects/cancelDialog';
-import { onErrorDialog } from '../support/page-objects/errorDialog';
-import { onSuccessDialog } from '../support/page-objects/successDialog';
-import { runWithIntercept } from '../support/utils/api';
-import { onPublicHomePage } from '../support/page-objects/publicHomePage';
+} from 'tests/cypress/support/page-objects/contactRequestForm';
+import { onPublicTranslatorFilters } from 'tests/cypress/support/page-objects/publicTranslatorFilters';
+import { onPublicTranslatorsListing } from 'tests/cypress/support/page-objects/publicTranslatorsListing';
+import { onCancelDialog } from 'tests/cypress/support/page-objects/cancelDialog';
+import { onErrorDialog } from 'tests/cypress/support/page-objects/errorDialog';
+import { onSuccessDialog } from 'tests/cypress/support/page-objects/successDialog';
+import { runWithIntercept } from 'tests/cypress/support/utils/api';
+import { onPublicHomePage } from 'tests/cypress/support/page-objects/publicHomePage';
 
 const searchTranslatorsFromFiToSv = () => {
   onPublicTranslatorFilters.selectFromLang('suomi');

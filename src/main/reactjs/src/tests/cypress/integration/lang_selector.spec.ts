@@ -1,4 +1,4 @@
-import { onLangSelector } from '../support/page-objects/langSelector';
+import { onLangSelector } from 'tests/cypress/support/page-objects/langSelector';
 
 describe('LangSelector', () => {
   it('should show the Finnish language as a default language', () => {

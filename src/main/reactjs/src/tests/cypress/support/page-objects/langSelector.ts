@@ -3,6 +3,7 @@ class LangSelector {
     langSelector: () => cy.findByTestId('lang-selector'),
     option: (name: string) => {
       const regExp = new RegExp(name, 'i');
+
       return cy.findByRole('option', { name: regExp });
     },
   };
