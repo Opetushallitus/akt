@@ -13,5 +13,6 @@ export const UIStateReducer: Reducer<UIState, Action> = (
   if (isDisplayUIStateAction(action)) {
     return { state: action.state };
   }
+
   return state;
 };

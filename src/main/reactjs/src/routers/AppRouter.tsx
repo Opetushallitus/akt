@@ -15,8 +15,11 @@ export const AppRouter: FC = () => (
       <main className="content">
         <div className="content__container">
           <Routes>
-            <Route path={AppRoutes.HomePage} element={<PublicHomePage />} />
-            <Route path={AppRoutes.ClerkPage} element={<ClerkHomePage />} />
+            <Route
+              path={AppRoutes.PublicHomePage}
+              element={<PublicHomePage />}
+            />
+            <Route path={AppRoutes.ClerkHomePage} element={<ClerkHomePage />} />
             <Route path={AppRoutes.NotFoundPage} element={<NotFoundPage />} />
           </Routes>
         </div>

@@ -91,6 +91,7 @@ const ContactRequestButton = () => {
   const { selectedTranslators } = useAppSelector(publicTranslatorsSelector);
   const { t } = useAppTranslation({ keyPrefix: 'akt.pages.homepage' });
   const dispatch = useAppDispatch();
+
   return (
     <Button
       color="secondary"
@@ -112,6 +113,7 @@ const SelectedTranslatorsHeading = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.component.table' });
 
   const selected = selectedIndices.length;
+
   return (
     <H2 data-testid="public-translators__selected-count-heading">
       {selected > 0 ? `${selected} ${t('selectedItems')}` : t('title')}
