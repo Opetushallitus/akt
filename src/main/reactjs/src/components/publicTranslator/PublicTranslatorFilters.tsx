@@ -52,6 +52,7 @@ export const PublicTranslatorFilters = ({
 
   const isEmptyBtnDisabled = () => {
     const { fromLang, toLang, town, name } = filters;
+
     return !(!!fromLang || !!toLang || !!name || !!town);
   };
 

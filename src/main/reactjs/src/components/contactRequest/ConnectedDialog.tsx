@@ -7,16 +7,11 @@ import {
   InfoDialog,
 } from 'components/dialogs/Dialog';
 import { useAppTranslation } from 'configs/i18n';
-import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { useAppDispatch } from 'configs/redux';
 import { UIStates } from 'enums/app';
-import {
-  resetContactRequest,
-  setContactRequest,
-} from 'redux/actions/contactRequest';
+import { resetContactRequest } from 'redux/actions/contactRequest';
 import { displayUIState } from 'redux/actions/navigation';
 import { Text } from 'components/elements/Text';
-import { ContactRequest } from 'interfaces/contactRequest';
-import { contactRequestSelector } from 'redux/selectors/contactRequest';
 
 export const SuccessDialogWrapper = () => {
   const { t } = useAppTranslation({
@@ -54,12 +49,9 @@ export const ErrorDialogWrapper = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm.errorDialog',
   });
-  const dispatch = useAppDispatch();
-  const request = useAppSelector(contactRequestSelector)
-    .request as ContactRequest;
+
   const [open, setOpen] = useState(true);
   const cleanUp = () => {
-    dispatch(setContactRequest(request));
     setOpen(false);
   };
 

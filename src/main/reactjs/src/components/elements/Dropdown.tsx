@@ -23,6 +23,7 @@ export const Dropdown = ({
   const valuesToShow = sortByKeys ? valuesArray.sort() : valuesArray;
 
   const selectProps = { id, label, ...selectOnlyProps };
+
   return (
     <FormControl fullWidth error={showError}>
       {showInputLabel && <InputLabel id={id}>{label}</InputLabel>}

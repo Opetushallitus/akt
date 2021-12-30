@@ -16,7 +16,7 @@ export const NotFoundPage: FC = () => {
         className="not-found-page__btn"
         color="secondary"
         variant="contained"
-        href={AppRoutes.HomePage}
+        href={AppRoutes.PublicHomePage}
       >
         {t('homePageBtn')}
       </Button>
