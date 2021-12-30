@@ -90,6 +90,8 @@ const loadTranslationsFromServer = () => {
       result.data[langFI].forEach((i) => addResource(langFI, i));
       result.data[langSV].forEach((i) => addResource(langSV, i));
       result.data[langEN].forEach((i) => addResource(langEN, i));
+      // trigger rendering
+      i18n.emit('languageChanged');
     });
 };
 

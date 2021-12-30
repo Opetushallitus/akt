@@ -1,9 +1,5 @@
 import ReactDOM from 'react-dom';
 
-import { App } from './App';
-import { initI18n } from 'configs/i18n';
+import { App } from 'App';
 
-initI18n().then((_) => {
-  ReactDOM.render(<App />, document.getElementById('root'));
-  return;
-});
+ReactDOM.render(<App />, document.getElementById('root'));
