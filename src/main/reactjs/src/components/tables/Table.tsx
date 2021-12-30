@@ -1,10 +1,23 @@
-import { Table, TableBody, TablePagination } from '@mui/material';
+import {
+  LabelDisplayedRowsArgs,
+  Table,
+  TableBody,
+  TablePagination,
+} from '@mui/material';
 import { ChangeEvent, Fragment, useState } from 'react';
 
 import { PaginatedTableProps } from 'interfaces/table';
 import { useAppDispatch } from 'configs/redux';
 import { useAppTranslation } from 'configs/i18n';
 import { WithId } from 'interfaces/withId';
+
+const PaginationDisplayedRowsLabel = ({
+  from,
+  to,
+  count,
+}: LabelDisplayedRowsArgs) => {
+  return `${from} - ${to} / ${count}`;
+};
 
 export function PaginatedTable<T extends WithId>({
   header,
@@ -48,9 +61,7 @@ export function PaginatedTable<T extends WithId>({
           rowsPerPage={rowsPerPage}
           rowsPerPageOptions={rowsPerPageOptions}
           labelRowsPerPage={t('table.pagination.rowsPerPage')}
-          labelDisplayedRows={({ from, to, count }) =>
-            `${from} - ${to} / ${count}`
-          }
+          labelDisplayedRows={PaginationDisplayedRowsLabel}
         />
       </div>
       <Table className={`${className} table`}>

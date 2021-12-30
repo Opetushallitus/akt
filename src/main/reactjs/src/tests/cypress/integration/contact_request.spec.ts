@@ -1,6 +1,5 @@
 import { APIEndpoints } from 'enums/api';
 import {
-  TEST_MESSAGE,
   LONG_TEST_MESSAGE,
   expectTextForId,
   fillContactDetailsStep,
@@ -18,12 +17,6 @@ import { onSuccessDialog } from 'tests/cypress/support/page-objects/successDialo
 import { runWithIntercept } from 'tests/cypress/support/utils/api';
 import { onPublicHomePage } from 'tests/cypress/support/page-objects/publicHomePage';
 
-const searchTranslatorsFromFiToSv = () => {
-  onPublicTranslatorFilters.selectFromLang('suomi');
-  onPublicTranslatorFilters.selectToLang('ruotsi');
-  onPublicTranslatorFilters.search();
-};
-
 const selectTranslatorRows = () => {
   TEST_TRANSLATOR_IDS.forEach((id) =>
     onPublicTranslatorsListing.clickTranslatorRow(id)
@@ -33,10 +26,10 @@ const selectTranslatorRows = () => {
 beforeEach(() => {
   runWithIntercept(
     APIEndpoints.PublicTranslator,
-    { fixture: 'public_translators.json' },
+    { fixture: 'public_translators_50.json' },
     () => cy.openPublicHomePage()
   );
-  searchTranslatorsFromFiToSv();
+  onPublicTranslatorFilters.filterByLanguagePair('suomi', 'ruotsi');
   selectTranslatorRows();
   onPublicTranslatorsListing.openContactRequest();
 });
