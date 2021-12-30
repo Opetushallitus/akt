@@ -19,14 +19,11 @@ class PublicTranslatorsListing {
   }
 
   expectTranslatorsCount(count: number) {
-    cy.findByTestId(`table__head-box__pagination`).should(
-      'contain.text',
-      `/ ${count}`
-    );
+    cy.get('.table__head-box__pagination').should('contain.text', `/ ${count}`);
   }
 
   expectEmptyListing() {
-    cy.findByTestId('homepage__grid-container__result-box').should('be.empty');
+    cy.get('.homepage__grid-container__result-box').should('be.empty');
   }
 }
 
