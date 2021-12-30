@@ -24,7 +24,7 @@ export class Utils {
   ) {
     const MAX_TEXT_LENGTH = 1000;
     const EMAIL_REG_EXR = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    const TEL_REG_EXR = /\d{10,14}$/;
+    const TEL_REG_EXR = /\d{7,14}$/;
 
     if (required && value.length <= 0) {
       return TextBoxErrors.Required;
