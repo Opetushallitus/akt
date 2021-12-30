@@ -18,7 +18,7 @@ export interface ContactRequest extends ContactDetails {
 
 export interface ContactRequestState {
   status: APIResponseStatus;
-  request?: ContactRequest;
+  request?: Partial<ContactRequest>;
 }
 
 export interface ContactRequestAction extends Action {

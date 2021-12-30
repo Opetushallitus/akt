@@ -47,6 +47,16 @@
       "warn",
       { "argsIgnorePattern": "^_" }
     ],
-    "no-console": "warn"
+    "no-console": "warn",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [".*"]
+      }
+    ],
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "return" }
+    ]
   }
 }

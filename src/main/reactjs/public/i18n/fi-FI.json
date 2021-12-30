@@ -115,6 +115,7 @@
           "done": "Valmis"
         },
         "chosenTranslatorsForLanguagePair": "Valitut kääntäjät kieliparista",
+        "characters": "merkki(ä)",
         "formLabels": {
           "firstName": "Etunimi",
           "lastName": "Sukunimi",
@@ -122,7 +123,7 @@
           "phoneNumber": "Puhelinnumero",
           "contactInfo": "Yhteystiedot",
           "message": "Viesti",
-          "writeMessageHere": "Kirjoita viestisi tähän"
+          "writeMessageHere": "Viesti"
         },
         "successDialog": {
           "title": "Yhteydenottopyyntösi lähetettiin onnistuneesti!",
@@ -164,7 +165,13 @@
       }
     },
     "errors": {
-      "loadingFailed": "Tietojen lataus epäonnistui, yritä myöhemmin uudelleen."
+      "loadingFailed": "Tietojen lataus epäonnistui, yritä myöhemmin uudelleen.",
+      "textBox": {
+        "required": "Tieto on pakollinen",
+        "maxLength": "Tekstin pituus ei saa ylittää 1000 merkkiä",
+        "emailFormat": "Sähköpostiosoite on virheellinen",
+        "telFormat": "Puhelinnumero on virheellinen"
+      }
     }
   }
 }

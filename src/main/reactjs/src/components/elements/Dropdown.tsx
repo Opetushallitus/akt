@@ -4,37 +4,25 @@ import {
   InputLabel,
   MenuItem,
   FormHelperText,
+  SelectProps,
 } from '@mui/material';
 
 import { DropdownProps } from 'interfaces/dropdown';
 
 export const Dropdown = ({
-  className,
   showInputLabel,
   id,
-  value,
   label,
-  onChange,
   values,
-  variant,
-  dataTestId,
-  disableUnderline,
   helperText,
   showError,
   sortByKeys,
-}: DropdownProps) => {
-  const selectProps = {
-    value,
-    onChange,
-    variant,
-    ...(disableUnderline && { disableUnderline }),
-    ...(className && { className }),
-    ...(label && { label }),
-    ...(id && { labelId: id }),
-    ...(dataTestId && { 'data-testid': dataTestId }),
-  };
+  ...selectOnlyProps
+}: DropdownProps & SelectProps<string>) => {
   const valuesArray = Array.from(values);
   const valuesToShow = sortByKeys ? valuesArray.sort() : valuesArray;
+
+  const selectProps = { id, label, ...selectOnlyProps };
 
   return (
     <FormControl fullWidth error={showError}>

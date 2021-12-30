@@ -18,14 +18,12 @@ import {
   ErrorDialogWrapper,
   SuccessDialogWrapper,
 } from 'components/contactRequest/ConnectedDialog';
-import {
-  VerifyTranslatorsStep,
-  FillContactDetailsStep,
-  WriteMessageStep,
-  PreviewAndSendStep,
-  ContactRequestStepper,
-} from 'components/contactRequest/ContactRequestFormSteps';
 import { ContactRequestFormStep } from 'enums/contactRequest';
+import { VerifySelectedTranslators } from 'components/contactRequest/steps/VerifySelectedTranslators';
+import { FillContactDetails } from 'components/contactRequest/steps/FillContactDetails';
+import { WriteMessage } from 'components/contactRequest/steps/WriteMessage';
+import { PreviewAndSend } from 'components/contactRequest/steps/PreviewAndSend';
+import { ContactRequestStepper } from 'components/contactRequest/ContactRequestFormUtils';
 
 const decrementStep = (step: number) => step - 1;
 const incrementStep = (step: number) => step + 1;
@@ -55,9 +53,15 @@ const ControlButtons = ({
   const submit = () => {
     dispatch(sendContactRequest(request));
   };
+
   return (
-    <div className="columns flex-end gapped">
-      <Button variant="outlined" color="secondary" onClick={onCancelRequest}>
+    <div className="columns flex-end gapped m-margin-top">
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={onCancelRequest}
+        data-testid="contact-request-form__cancel-btn"
+      >
         {t('buttons.cancel')}
       </Button>
       <Button
@@ -65,11 +69,17 @@ const ControlButtons = ({
         color="secondary"
         onClick={() => onChangeStep(decrementStep)}
         disabled={step == minStep}
+        data-testid="contact-request-form__previous-btn"
       >
         {t('buttons.previous')}
       </Button>
       {step == maxStep ? (
-        <Button variant="contained" color="secondary" onClick={() => submit()}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => submit()}
+          data-testid="contact-request-form__submit-btn"
+        >
           {t('buttons.submit')}
         </Button>
       ) : (
@@ -78,33 +88,13 @@ const ControlButtons = ({
           color="secondary"
           disabled={disableNext}
           onClick={() => onChangeStep(incrementStep)}
+          data-testid="contact-request-form__next-btn"
         >
           {t('buttons.next')}
         </Button>
       )}
     </div>
   );
-};
-
-const useResetContactRequestState = () => {
-  const dispatch = useAppDispatch();
-  const { filters, selectedTranslators } = useAppSelector(
-    publicTranslatorsSelector
-  );
-  const { fromLang: from, toLang: to } = filters;
-  useEffect(() => {
-    dispatch(
-      setContactRequest({
-        languagePair: { from, to },
-        translatorIds: selectedTranslators,
-        email: '',
-        firstName: '',
-        lastName: '',
-        message: '',
-        phoneNumber: '',
-      })
-    );
-  }, [dispatch, from, to, selectedTranslators]);
 };
 
 const StepContents = ({
@@ -116,13 +106,13 @@ const StepContents = ({
 }) => {
   switch (step) {
     case ContactRequestFormStep.VerifyTranslators:
-      return <VerifyTranslatorsStep disableNext={disableNext} />;
+      return <VerifySelectedTranslators disableNext={disableNext} />;
     case ContactRequestFormStep.FillContactDetails:
-      return <FillContactDetailsStep disableNext={disableNext} />;
+      return <FillContactDetails disableNext={disableNext} />;
     case ContactRequestFormStep.WriteMessage:
-      return <WriteMessageStep disableNext={disableNext} />;
+      return <WriteMessage disableNext={disableNext} />;
     case ContactRequestFormStep.PreviewAndSend:
-      return <PreviewAndSendStep />;
+      return <PreviewAndSend />;
     default:
       return <> </>;
   }
@@ -143,32 +133,44 @@ const StatusNotifications = () => {
   }
 };
 
-export const ContactRequestForm = () => {
+export const ContactRequestPage = () => {
   // I18
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
-
-  // Redux
-  useResetContactRequestState();
-
-  // Local component state
+  // State
   const [step, setStep] = useState(0);
   const [disableNext, setDisableNext] = useState(false);
   const maxStep = 3;
   const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
+  // Redux
+  const dispatch = useAppDispatch();
+  const { filters, selectedTranslators } = useAppSelector(
+    publicTranslatorsSelector
+  );
+  const { fromLang: from, toLang: to } = filters;
+
+  useEffect(() => {
+    dispatch(
+      setContactRequest({
+        languagePair: { from, to },
+        translatorIds: selectedTranslators,
+      })
+    );
+  }, [dispatch, from, to, selectedTranslators]);
 
   const disableNextCb = (disabled: boolean) => setDisableNext(disabled);
+
   return (
-    <>
+    <div className="contact-request-form">
       <Grid item>
         <H1>{t('title')}</H1>
         <Text>{t('description')}</Text>
       </Grid>
-      <Grid item>
+      <Grid className="contact-request-form__grid" item>
         <Paper elevation={3}>
-          <Box className="contact-request-form__form-container-box">
-            <Box className="contact-request-form__inner-content-box">
+          <Box className="contact-request-form__grid__form-container">
+            <Box className="contact-request-form__grid__inner-container">
               <ContactRequestStepper step={step} />
               <StepContents step={step} disableNext={disableNextCb} />
               <StatusNotifications />
@@ -190,6 +192,6 @@ export const ContactRequestForm = () => {
           </Box>
         </Paper>
       </Grid>
-    </>
+    </div>
   );
 };

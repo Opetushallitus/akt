@@ -60,6 +60,7 @@ export function PaginatedTable<T extends WithId>({
             .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
             .map((val) => {
               const id = val.id;
+
               return (
                 <Fragment key={id}>
                   {getRowDetails(val, t, {

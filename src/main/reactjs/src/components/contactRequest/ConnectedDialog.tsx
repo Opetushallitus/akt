@@ -7,16 +7,11 @@ import {
   InfoDialog,
 } from 'components/dialogs/Dialog';
 import { useAppTranslation } from 'configs/i18n';
-import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { useAppDispatch } from 'configs/redux';
 import { UIStates } from 'enums/app';
-import {
-  resetContactRequest,
-  setContactRequest,
-} from 'redux/actions/contactRequest';
+import { resetContactRequest } from 'redux/actions/contactRequest';
 import { displayUIState } from 'redux/actions/navigation';
 import { Text } from 'components/elements/Text';
-import { ContactRequest } from 'interfaces/contactRequest';
-import { contactRequestSelector } from 'redux/selectors/contactRequest';
 
 export const SuccessDialogWrapper = () => {
   const { t } = useAppTranslation({
@@ -35,7 +30,12 @@ export const SuccessDialogWrapper = () => {
       title={t('title')}
       content={<Text>{t('description')}</Text>}
       actions={
-        <Button variant="contained" color="secondary" onClick={() => cleanUp()}>
+        <Button
+          data-testid="success-dialog__continue-btn"
+          variant="contained"
+          color="secondary"
+          onClick={() => cleanUp()}
+        >
           {t('continue')}
         </Button>
       }
@@ -49,12 +49,9 @@ export const ErrorDialogWrapper = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm.errorDialog',
   });
-  const dispatch = useAppDispatch();
-  const request = useAppSelector(contactRequestSelector)
-    .request as ContactRequest;
+
   const [open, setOpen] = useState(true);
   const cleanUp = () => {
-    dispatch(setContactRequest(request));
     setOpen(false);
   };
 
@@ -63,7 +60,12 @@ export const ErrorDialogWrapper = () => {
       title={t('title')}
       content={<Text>{t('description')} akt@oph.fi</Text>}
       actions={
-        <Button variant="contained" color="secondary" onClick={() => cleanUp()}>
+        <Button
+          data-testid="error-dialog__back-btn"
+          variant="contained"
+          color="secondary"
+          onClick={() => cleanUp()}
+        >
           {t('back')}
         </Button>
       }
@@ -96,10 +98,16 @@ export const CancelRequestDialog = ({
       content={<Text>{t('description')}</Text>}
       actions={
         <>
-          <Button variant="outlined" color="secondary" onClick={onClose}>
+          <Button
+            data-testid="cancel-dialog__back-btn"
+            variant="outlined"
+            color="secondary"
+            onClick={onClose}
+          >
             {t('back')}
           </Button>
           <Button
+            data-testid="cancel-dialog__yes-btn"
             variant="contained"
             color="secondary"
             onClick={() => cleanUp()}

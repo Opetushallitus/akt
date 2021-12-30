@@ -35,7 +35,11 @@ const getPublicTranslatorRow = (
   const townInfo = `${town}${country ? `, ${country}` : ''}`;
 
   return (
-    <TableRow selected={selected} onClick={toggleSelected}>
+    <TableRow
+      data-testid={`public-translators__id-${translator.id}-row`}
+      selected={selected}
+      onClick={toggleSelected}
+    >
       <TableCell padding="checkbox">
         <Checkbox
           className="translator-listing__checkbox"
@@ -87,12 +91,14 @@ const ContactRequestButton = () => {
   const { selectedTranslators } = useAppSelector(publicTranslatorsSelector);
   const { t } = useAppTranslation({ keyPrefix: 'akt.pages.homepage' });
   const dispatch = useAppDispatch();
+
   return (
     <Button
       color="secondary"
       variant="contained"
       onClick={() => dispatch(displayUIState(UIStates.ContactRequest))}
       disabled={selectedTranslators.length == 0}
+      data-testid="public-translators__contact-request-btn"
     >
       {t('requestContact')}
     </Button>
@@ -106,10 +112,12 @@ const SelectedTranslatorsHeading = () => {
 
   const { t } = useAppTranslation({ keyPrefix: 'akt.component.table' });
 
-  return selectedIndices.length > 0 ? (
-    <H2>{`${selectedIndices.length} ${t('selectedItems')}`}</H2>
-  ) : (
-    <H2>{t('title')}</H2>
+  const selected = selectedIndices.length;
+
+  return (
+    <H2 data-testid="public-translators__selected-count-heading">
+      {selected > 0 ? `${selected} ${t('selectedItems')}` : t('title')}
+    </H2>
   );
 };
 

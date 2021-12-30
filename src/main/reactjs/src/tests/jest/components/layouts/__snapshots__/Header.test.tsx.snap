@@ -93,6 +93,7 @@ exports[`Header should render Header correctly 1`] = `
         >
           <div
             className="MuiInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl lang-selector__select css-1aa5qj0-MuiInputBase-root-MuiInput-root"
+            data-testid="lang-selector"
             onClick={[Function]}
           >
             <div

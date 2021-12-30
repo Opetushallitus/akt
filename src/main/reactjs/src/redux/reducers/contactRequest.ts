@@ -13,7 +13,18 @@ import {
 } from 'redux/actionTypes/contactRequest';
 import { APIResponseStatus } from 'enums/api';
 
-const defaultState = { status: APIResponseStatus.NotStarted };
+const defaultState = {
+  status: APIResponseStatus.NotStarted,
+  request: {
+    languagePair: { from: '', to: '' },
+    translatorIds: [],
+    email: '',
+    firstName: '',
+    lastName: '',
+    message: '',
+    phoneNumber: '',
+  },
+};
 
 export const contactRequestReducer: Reducer<
   ContactRequestState,
@@ -21,7 +32,10 @@ export const contactRequestReducer: Reducer<
 > = (state = defaultState, action) => {
   switch (action.type) {
     case CONTACT_REQUEST_SET:
-      return { status: APIResponseStatus.NotStarted, request: action.request };
+      return {
+        ...state,
+        request: { ...state.request, ...action.request },
+      };
     case CONTACT_REQUEST_SEND:
       return { ...state, status: APIResponseStatus.InProgress };
     case CONTACT_REQUEST_ERROR:

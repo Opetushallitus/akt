@@ -1,5 +1,6 @@
 package fi.oph.akt.config;
 
+import fi.oph.akt.service.LanguageService;
 import fi.oph.akt.service.email.sender.EmailSender;
 import fi.oph.akt.service.email.sender.EmailSenderNoOp;
 import fi.oph.akt.service.email.sender.EmailSenderViestintapalvelu;
@@ -30,8 +31,7 @@ public class AppConfig {
 	@ConditionalOnProperty(name = "akt.email.sending-enabled", havingValue = "true")
 	public EmailSender emailSender(@Value("${akt.email.ryhmasahkoposti-service-url}") String emailServiceUrl) {
 		LOG.info("emailServiceUrl:{}", emailServiceUrl);
-		final WebClient webClient = WebClient.builder().baseUrl(emailServiceUrl)
-				.defaultHeader("Caller-Id", "1.2.246.562.10.00000000001.akt").build();
+		final WebClient webClient = webClientBuilderWithCallerId().baseUrl(emailServiceUrl).build();
 		return new EmailSenderViestintapalvelu(webClient);
 	}
 
@@ -44,6 +44,17 @@ public class AppConfig {
 		templateResolver.setTemplateMode(TemplateMode.HTML);
 		templateResolver.setOrder(2);
 		return templateResolver;
+	}
+
+	@Bean
+	public LanguageService languageService(@Value("${akt.koodisto.languages-url}") String koodistoLanguagesUrl) {
+		LOG.info("koodistoLanguagesUrl:{}", koodistoLanguagesUrl);
+		final WebClient webClient = webClientBuilderWithCallerId().baseUrl(koodistoLanguagesUrl).build();
+		return new LanguageService(webClient);
+	}
+
+	private static WebClient.Builder webClientBuilderWithCallerId() {
+		return WebClient.builder().defaultHeader("Caller-Id", "1.2.246.562.10.00000000001.akt");
 	}
 
 }

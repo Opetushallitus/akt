@@ -22,5 +22,6 @@ export default () => {
   );
 
   sagaMiddleware.run(rootSaga);
+
   return store;
 };
