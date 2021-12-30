@@ -17,7 +17,7 @@ export interface ComboBoxProps {
   onChange: (
     event: React.ChangeEvent<HTMLInputElement>,
     value: string,
-    reason: string,
+    reason: 'selectOption' | 'createOption' | 'removeOption' | 'blur' | 'clear',
     details?: string
   ) => void;
   getOptionLabel?: (option: [ComboBoxValue, ComboBoxValue]) => string;

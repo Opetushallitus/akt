@@ -27,16 +27,14 @@ export const ComboBox = ({
   const AutocompleteProps = {
     onChange,
     ...(getOptionLabel && { getOptionLabel }),
-    value,
     ...(className && { className }),
     ...(label && { label }),
     ...(dataTestId && { 'data-testid': dataTestId }),
     ...(disableClearable && { disableClearable }),
   };
+
   const valuesArray = Array.from(values);
-  const filteredValueArray = valuesArray.filter(
-    (v) => v[1] !== filterValue?.[1]
-  );
+  const filteredValueArray = valuesArray.filter((v) => v[1] !== filterValue);
   const initialValuesToShow = sortByKeys
     ? filteredValueArray.sort()
     : filteredValueArray;
@@ -51,15 +49,20 @@ export const ComboBox = ({
         primaryLangOptions.indexOf(b[1] as string)
       );
     });
+  // [[ComboBoxValue, ComboBoxValue], ...]
   const valuesToShow = [
     ...primaryValues,
     ...initialValuesToShow.filter((value) => !primaryValues.includes(value)),
   ];
+
+  const foundValue = valuesToShow.find((item) => item[1] === value);
+
   return (
     <FormControl fullWidth error={showError}>
       <Autocomplete
         disablePortal
         id={id}
+        value={value === '' ? null : foundValue}
         options={valuesToShow}
         renderInput={(params) => (
           <TextField

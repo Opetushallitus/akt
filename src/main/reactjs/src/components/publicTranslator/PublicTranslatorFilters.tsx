@@ -59,19 +59,26 @@ export const PublicTranslatorFilters = ({
     (filterName: string) =>
     (
       event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-      newValue?: string
+      newValue: string,
+      reason:
+        | 'selectOption'
+        | 'createOption'
+        | 'removeOption'
+        | 'blur'
+        | 'clear'
     ) => {
-      console.log(newValue[1]);
-      const eventValue = newValue[1];
-      console.log(filters);
-      setFilters({ ...filters, [filterName]: eventValue });
+      if (reason !== 'clear') {
+        const eventValue = newValue;
+        setFilters({ ...filters, [filterName]: eventValue[1] });
+      } else {
+        setFilters({ ...filters, [filterName]: '' });
+      }
     };
 
   const getOptionLabel = (option: [ComboBoxValue, ComboBoxValue]): string => {
     const label = option[0];
     return label !== undefined ? label.toString() : '';
   };
-
   return (
     <div className="public-translator-filters">
       <div className="public-translator-filters__filter-box">
@@ -82,7 +89,6 @@ export const PublicTranslatorFilters = ({
               data-testid="public-translator-filters__from-language-select"
               showInputLabel
               sortByKeys
-              disableClearable
               showError={
                 showFieldError && Utils.isEmptyString(filters.fromLang)
               }
@@ -90,8 +96,8 @@ export const PublicTranslatorFilters = ({
               helperText={t('languagePair.fromHelperText')}
               id="filters-from-lang"
               values={Utils.createMapFromArray(langs.from, t, 'languages')}
-              variant="outlined"
               value={filters.fromLang}
+              variant="outlined"
               filterValue={filters.toLang}
               primaryOptions={['fi', 'sv']}
               onChange={handleFilterChange('fromLang')}
@@ -101,14 +107,13 @@ export const PublicTranslatorFilters = ({
               data-testid="public-translator-filters__to-language-select"
               showInputLabel
               sortByKeys
-              disableClearable
               showError={showFieldError && Utils.isEmptyString(filters.toLang)}
               label={t('languagePair.toPlaceholder')}
               helperText={t('languagePair.toHelperText')}
               id="filters-to-lang"
               values={Utils.createMapFromArray(langs.to, t, 'languages')}
-              variant="outlined"
               value={filters.toLang}
+              variant="outlined"
               filterValue={filters.fromLang}
               primaryOptions={['fi', 'sv']}
               onChange={handleFilterChange('toLang')}
@@ -140,11 +145,12 @@ export const PublicTranslatorFilters = ({
             data-testid="public-translator-filters__town-select"
             showInputLabel
             sortByKeys
+            disableClearable
             label={t('town.placeholder')}
             id="filters-town"
             values={Utils.createMapFromArray(towns)}
-            variant="outlined"
             value={filters.town}
+            variant="outlined"
             onChange={handleFilterChange('town')}
             getOptionLabel={getOptionLabel}
           />
