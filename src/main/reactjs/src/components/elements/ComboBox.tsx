@@ -33,11 +33,30 @@ export const ComboBox = ({
     ...(disableClearable && { disableClearable }),
   };
 
+  const filterSelectedLang = (
+    langCode: string | undefined,
+    valuesArray: [string, string][]
+  ): [string, string][] => {
+    if (langCode) {
+      if (!primaryOptions?.includes(langCode)) {
+        return valuesArray.filter((v) => primaryOptions?.includes(v[1]));
+      } else {
+        return valuesArray;
+      }
+    } else {
+      return valuesArray;
+    }
+  };
+
   const valuesArray = Array.from(values);
   const filteredValueArray = valuesArray.filter((v) => v[1] !== filterValue);
+  const filteredValuesArray2 = filterSelectedLang(
+    filterValue,
+    filteredValueArray
+  );
   const initialValuesToShow = sortByKeys
-    ? filteredValueArray.sort()
-    : filteredValueArray;
+    ? filteredValuesArray2.sort()
+    : filteredValuesArray2;
   const primaryLangOptions = primaryOptions ?? [];
   const primaryValues = initialValuesToShow
     .filter((value) => {

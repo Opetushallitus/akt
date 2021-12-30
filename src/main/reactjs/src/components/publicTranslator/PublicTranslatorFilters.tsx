@@ -78,8 +78,10 @@ export const PublicTranslatorFilters = ({
 
   const getOptionLabel = (option: [ComboBoxValue, ComboBoxValue]): string => {
     const label = option[0];
+
     return label !== undefined ? label.toString() : '';
   };
+
   return (
     <div className="public-translator-filters">
       <div className="public-translator-filters__filter-box">
