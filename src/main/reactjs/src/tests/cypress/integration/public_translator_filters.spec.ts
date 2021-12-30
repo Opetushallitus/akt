@@ -23,7 +23,7 @@ describe('PublicTranslatorFilters', () => {
     onPublicTranslatorsListing.expectTranslatorsCount(1);
   });
 
-  it('reset button should clear filters and listed translators', () => {
+  it('should clear filters and listed translators when the reset button is clicked', () => {
     onPublicTranslatorFilters.filterByLanguagePair('suomi', 'ruotsi');
     onPublicTranslatorsListing.expectTranslatorsCount(27);
 
