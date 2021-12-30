@@ -54,7 +54,9 @@ or using Maven Wrapper
 ./mvnw spring-boot:run
 ```
 
-and open browser to http://localhost:8080
+and open browser to
+
+> <http://localhost:8080>
 
 ## Backend
 
@@ -63,7 +65,7 @@ Code format for Java code is Spring Java Format.
 Imports are formatted as IntelliJ default, except that `ìmport *` is disabled:
 Code Style -> Java -> Imports:
 
-```
+```text
 Class count to use import with '*': 999
 Names count to use static import with '*': 999
 ```
@@ -92,13 +94,23 @@ npm run test:jest -- -u  # Regenerate snapshots
 
 ## API documentation
 
+### Health check and general information
+
+Health check:
+
+> <http://localhost:8080/akt/api/actuator/health>
+
+General information about the running application:
+
+> <http://localhost:8080/akt/api/actuator/info>
+
 ### OpenAPI
 
-http://localhost:8080/api/api-docs
+> <http://localhost:8080/api/api-docs>
 
 ### Swagger
 
-http://localhost:8080/api/swagger-ui.html
+> <http://localhost:8080/api/swagger-ui.html>
 
 In order to make requests work in swagger ui, application must be run with parameter
 
