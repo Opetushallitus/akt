@@ -6,7 +6,6 @@ import Header from 'components/layouts/Header';
 import { PublicHomePage } from 'pages/PublicHomePage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { ClerkHomePage } from 'pages/ClerkHomePage';
-import { ContactRequestPage } from 'pages/ContactRequestPage';
 import { AppRoutes } from 'enums/app';
 
 export const AppRouter: FC = () => (
@@ -19,10 +18,6 @@ export const AppRouter: FC = () => (
             <Route
               path={AppRoutes.PublicHomePage}
               element={<PublicHomePage />}
-            />
-            <Route
-              path={`${AppRoutes.ContactRequestPage}`}
-              element={<ContactRequestPage />}
             />
             <Route path={AppRoutes.ClerkHomePage} element={<ClerkHomePage />} />
             <Route path={AppRoutes.NotFoundPage} element={<NotFoundPage />} />
