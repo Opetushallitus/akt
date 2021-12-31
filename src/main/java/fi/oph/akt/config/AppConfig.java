@@ -8,9 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 public class AppConfig {
@@ -30,6 +33,17 @@ public class AppConfig {
 		LOG.info("emailServiceUrl:{}", emailServiceUrl);
 		final WebClient webClient = webClientBuilderWithCallerId().baseUrl(emailServiceUrl).build();
 		return new EmailSenderViestintapalvelu(webClient);
+	}
+
+	@Bean
+	public SpringResourceTemplateResolver emailTemplateResolver(final ApplicationContext applicationContext) {
+		final SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+		templateResolver.setApplicationContext(applicationContext);
+		templateResolver.setPrefix("classpath:/email-templates/");
+		templateResolver.setSuffix(".html");
+		templateResolver.setTemplateMode(TemplateMode.HTML);
+		templateResolver.setOrder(2);
+		return templateResolver;
 	}
 
 	@Bean

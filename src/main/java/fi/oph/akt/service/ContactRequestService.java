@@ -3,31 +3,44 @@ package fi.oph.akt.service;
 import fi.oph.akt.api.dto.ContactRequestDTO;
 import fi.oph.akt.model.ContactRequest;
 import fi.oph.akt.model.ContactRequestTranslator;
+import fi.oph.akt.model.EmailType;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.ContactRequestRepository;
 import fi.oph.akt.repository.ContactRequestTranslatorRepository;
 import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorRepository;
+import fi.oph.akt.service.email.EmailData;
+import fi.oph.akt.service.email.EmailService;
+import fi.oph.akt.util.TemplateRenderer;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class ContactRequestService {
 
 	@Resource
-	private ContactRequestRepository contactRequestRepository;
+	private final ContactRequestRepository contactRequestRepository;
 
 	@Resource
-	private ContactRequestTranslatorRepository contactRequestTranslatorRepository;
+	private final ContactRequestTranslatorRepository contactRequestTranslatorRepository;
 
 	@Resource
-	private LanguagePairRepository languagePairRepository;
+	private final EmailService emailService;
 
 	@Resource
-	private TranslatorRepository translatorRepository;
+	private final LanguagePairRepository languagePairRepository;
+
+	@Resource
+	private final TemplateRenderer templateRenderer;
+
+	@Resource
+	private final TranslatorRepository translatorRepository;
 
 	@Transactional
 	public ContactRequest createContactRequest(ContactRequestDTO contactRequestDTO) {
@@ -38,8 +51,7 @@ public class ContactRequestService {
 
 		ContactRequest contactRequest = saveContactRequest(contactRequestDTO);
 		saveContactRequestTranslators(translators, contactRequest);
-
-		// TODO (OPHAKTKEH-114): create email
+		saveContactRequestEmails(contactRequestDTO, translators);
 
 		return contactRequest;
 	}
@@ -87,6 +99,39 @@ public class ContactRequestService {
 		}).toList();
 
 		contactRequestTranslatorRepository.saveAll(contactRequestTranslators);
+	}
+
+	private void saveContactRequestEmails(ContactRequestDTO contactRequestDTO, List<Translator> translators) {
+		String requestEmail = contactRequestDTO.email().trim();
+
+		// @formatter:off
+		Map<String, Object> templateParams = Map.of(
+				"name", contactRequestDTO.firstName().trim() + " " + contactRequestDTO.lastName().trim(),
+				"email", requestEmail,
+				"phone", contactRequestDTO.phoneNumber() != null ? contactRequestDTO.phoneNumber().trim() : "",
+				"message", contactRequestDTO.message().trim().split("\r?\n")
+		);
+		// @formatter:on
+
+		String emailBody = templateRenderer.renderContactRequestEmailBody(templateParams);
+
+		translators.forEach(translator -> {
+			// TODO: replace recipient with translator's email address
+			saveContactRequestEmail("translator" + translator.getId() + "@test.fi", emailBody);
+		});
+		saveContactRequestEmail(requestEmail, emailBody);
+	}
+
+	private void saveContactRequestEmail(String recipient, String body) {
+		// @formatter:off
+		EmailData emailData = EmailData.builder()
+				.sender("AKT")
+				.recipient(recipient)
+				.subject("Yhteydenotto kääntäjärekisteristä")
+				.body(body).build();
+		// @formatter:on
+
+		emailService.saveEmail(EmailType.CONTACT_REQUEST, emailData);
 	}
 
 }
