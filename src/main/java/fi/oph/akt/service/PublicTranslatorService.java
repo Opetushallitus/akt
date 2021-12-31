@@ -59,7 +59,7 @@ public class PublicTranslatorService {
 				.stream().collect(Collectors.groupingBy(TranslatorLanguagePairProjection::translatorId));
 		st.stop();
 
-		st.start("translators.stream()");
+		st.start("createPublicTranslatorDTOs");
 		final List<PublicTranslatorDTO> publicTranslatorDTOS = translators.stream().map(translator -> {
 			final TranslatorDetails details = translatorDetails.get(translator.getOnrOid());
 			final List<PublicLanguagePairDTO> languagePairDTOs = getPublicLanguagePairDTOs(translatorLanguagePairs,
@@ -69,7 +69,7 @@ public class PublicTranslatorService {
 		}).toList();
 		st.stop();
 
-		st.start("getLanguagePairsDictDTO()");
+		st.start("getLanguagePairsDictDTO");
 		LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
 		st.stop();
 
