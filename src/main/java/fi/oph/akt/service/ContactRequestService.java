@@ -109,7 +109,7 @@ public class ContactRequestService {
 				"name", contactRequestDTO.firstName().trim() + " " + contactRequestDTO.lastName().trim(),
 				"email", requestEmail,
 				"phone", contactRequestDTO.phoneNumber() != null ? contactRequestDTO.phoneNumber().trim() : "",
-				"message", contactRequestDTO.message().trim()
+				"message", contactRequestDTO.message().trim().split("\r?\n")
 		);
 		// @formatter:on
 

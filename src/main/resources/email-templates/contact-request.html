@@ -10,17 +10,14 @@
         <br/>
 
         <p>
-            [[${message}]]
+            <span th:each="line : ${message}">[[${line}]]<br/></span>
         </p>
-        <br/>
 
         <p>
             <strong>Lähettäjän tiedot</strong><br/>
             <span th:text="${name}"></span><br/>
             <span th:text="${email}"></span><br/>
-            <span th:unless="${phone.isEmpty()}">
-                <span th:text="${phone}"></span><br/>
-            </span>
+            <span th:unless="${phone.isEmpty()}">[[${phone}]]<br/></span>
         </p>
         <br/>
 
