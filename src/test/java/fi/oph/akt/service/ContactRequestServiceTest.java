@@ -25,7 +25,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -117,17 +116,6 @@ class ContactRequestServiceTest {
 
 		final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
 
-		// @formatter:off
-		Map<String, Object> templateParams = Map.of(
-				"name", "Foo Bar",
-				"email", "foo@bar",
-				"phone", "+358123",
-				"message", "lorem ipsum"
-		);
-		// @formatter:on
-
-		when(templateRenderer.renderContactRequestEmailBody(templateParams)).thenReturn("Foo Bar, lorem ipsum");
-
 		contactRequestService.createContactRequest(contactRequestDTO);
 
 		verify(emailService, times(3)).saveEmail(any(), emailDataCaptor.capture());
@@ -139,7 +127,7 @@ class ContactRequestServiceTest {
 		emailDatas.forEach(emailData -> {
 			assertEquals("AKT", emailData.sender());
 			assertEquals("Yhteydenotto kääntäjärekisteristä", emailData.subject());
-			assertEquals("Foo Bar, lorem ipsum", emailData.body());
+			assertEquals("hello world", emailData.body());
 		});
 		assertEquals(1, emailDatas.stream().filter(e -> e.recipient().equals("foo@bar")).count());
 	}
