@@ -42,8 +42,8 @@ public class Factory {
 	public static LanguagePair languagePair(Authorisation authorisation) {
 		final LanguagePair languagePair = new LanguagePair();
 		languagePair.setAuthorisation(authorisation);
-		languagePair.setFromLang("fi");
-		languagePair.setToLang("en");
+		languagePair.setFromLang("FI");
+		languagePair.setToLang("EN");
 		languagePair.setPermissionToPublish(true);
 
 		return languagePair;

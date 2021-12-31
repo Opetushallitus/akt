@@ -37,6 +37,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Import({ OnrServiceMock.class })
 class ClerkTranslatorServiceTest {
 
+	private static final String FI = "FI";
+
+	private static final String DE = "DE";
+
+	private static final String EN = "EN";
+
+	private static final String SV = "SV";
+
+	private static final String RU = "RU";
+
 	private ClerkTranslatorService clerkTranslatorService;
 
 	@Resource
@@ -95,10 +105,10 @@ class ClerkTranslatorServiceTest {
 		final LanguagePair languagePair2 = Factory.languagePair(authorisation);
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
-		languagePair1.setFromLang("sv");
-		languagePair1.setToLang("de");
-		languagePair2.setFromLang("fi");
-		languagePair2.setToLang("de");
+		languagePair1.setFromLang(SV);
+		languagePair1.setToLang(DE);
+		languagePair2.setFromLang(FI);
+		languagePair2.setToLang(DE);
 
 		entityManager.persist(meetingDate);
 		entityManager.persist(translator);
@@ -112,11 +122,11 @@ class ClerkTranslatorServiceTest {
 		List<String> toLangs = responseDTO.langs().to();
 
 		assertEquals(2, fromLangs.size());
-		assertEquals("fi", fromLangs.get(0));
-		assertEquals("sv", fromLangs.get(1));
+		assertEquals(FI, fromLangs.get(0));
+		assertEquals(SV, fromLangs.get(1));
 
 		assertEquals(1, toLangs.size());
-		assertEquals("de", toLangs.get(0));
+		assertEquals(DE, toLangs.get(0));
 	}
 
 	@Test
@@ -133,14 +143,14 @@ class ClerkTranslatorServiceTest {
 		LocalDate termEndDate = LocalDate.parse("2024-12-31");
 
 		authorisation.setBasis(AuthorisationBasis.AUT);
-		languagePair1.setFromLang("sv");
-		languagePair1.setToLang("de");
+		languagePair1.setFromLang(SV);
+		languagePair1.setToLang(DE);
 		languagePair1.setPermissionToPublish(true);
-		languagePair2.setFromLang("de");
-		languagePair2.setToLang("fi");
+		languagePair2.setFromLang(DE);
+		languagePair2.setToLang(FI);
 		languagePair2.setPermissionToPublish(true);
-		languagePair3.setFromLang("fi");
-		languagePair3.setToLang("sv");
+		languagePair3.setFromLang(FI);
+		languagePair3.setToLang(SV);
 		languagePair3.setPermissionToPublish(false);
 		authorisationTerm.setBeginDate(termBeginDate);
 		authorisationTerm.setEndDate(termEndDate);
@@ -175,15 +185,15 @@ class ClerkTranslatorServiceTest {
 
 		// @formatter:off
 		Optional<ClerkLanguagePairDTO> langPair1 = languagePairDTOS.stream()
-				.filter(lpDTO -> lpDTO.from().equals("sv") && lpDTO.to().equals("de") && lpDTO.permissionToPublish())
+				.filter(lpDTO -> lpDTO.from().equals(SV) && lpDTO.to().equals(DE) && lpDTO.permissionToPublish())
 				.findFirst();
 
 		Optional<ClerkLanguagePairDTO> langPair2 = languagePairDTOS.stream()
-				.filter(lpDTO -> lpDTO.from().equals("de") && lpDTO.to().equals("fi") && lpDTO.permissionToPublish())
+				.filter(lpDTO -> lpDTO.from().equals(DE) && lpDTO.to().equals(FI) && lpDTO.permissionToPublish())
 				.findFirst();
 
 		Optional<ClerkLanguagePairDTO> langPair3 = languagePairDTOS.stream()
-				.filter(lpDTO -> lpDTO.from().equals("fi") && lpDTO.to().equals("sv") && !lpDTO.permissionToPublish())
+				.filter(lpDTO -> lpDTO.from().equals(FI) && lpDTO.to().equals(SV) && !lpDTO.permissionToPublish())
 				.findFirst();
 		// @formatter:on
 
@@ -292,8 +302,8 @@ class ClerkTranslatorServiceTest {
 		LocalDate term1EndDate = term1BeginDate.plusYears(3);
 
 		authorisation1.setBasis(AuthorisationBasis.AUT);
-		languagePair1.setFromLang("ru");
-		languagePair1.setToLang("fi");
+		languagePair1.setFromLang(RU);
+		languagePair1.setToLang(FI);
 		authorisationTerm1.setBeginDate(term1BeginDate);
 		authorisationTerm1.setEndDate(term1EndDate);
 
@@ -307,8 +317,8 @@ class ClerkTranslatorServiceTest {
 		authorisation2.setBasis(AuthorisationBasis.KKT);
 		authorisation2.setAutDate(null);
 		authorisation2.setKktCheck("kkt-check");
-		languagePair2.setFromLang("fi");
-		languagePair2.setToLang("en");
+		languagePair2.setFromLang(FI);
+		languagePair2.setToLang(EN);
 		authorisationTerm2.setBeginDate(term2BeginDate);
 		authorisationTerm2.setEndDate(term2EndDate);
 
@@ -335,13 +345,13 @@ class ClerkTranslatorServiceTest {
 
 		assertEquals(term1BeginDate, autAuthorisationDTO.term().beginDate());
 		assertEquals(term1EndDate, autAuthorisationDTO.term().endDate());
-		assertEquals("ru", autAuthorisationDTO.languagePairs().get(0).from());
-		assertEquals("fi", autAuthorisationDTO.languagePairs().get(0).to());
+		assertEquals(RU, autAuthorisationDTO.languagePairs().get(0).from());
+		assertEquals(FI, autAuthorisationDTO.languagePairs().get(0).to());
 
 		assertEquals(term2BeginDate, kktAuthorisationDTO.term().beginDate());
 		assertEquals(term2EndDate, kktAuthorisationDTO.term().endDate());
-		assertEquals("fi", kktAuthorisationDTO.languagePairs().get(0).from());
-		assertEquals("en", kktAuthorisationDTO.languagePairs().get(0).to());
+		assertEquals(FI, kktAuthorisationDTO.languagePairs().get(0).from());
+		assertEquals(EN, kktAuthorisationDTO.languagePairs().get(0).to());
 	}
 
 	@Test

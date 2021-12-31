@@ -1,7 +1,5 @@
 package fi.oph.akt.api.clerk;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import fi.oph.akt.api.dto.LanguageDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
 import fi.oph.akt.service.ClerkTranslatorService;
 import fi.oph.akt.service.LanguageService;
@@ -11,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/api/v1/clerk/translator", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -28,9 +26,9 @@ public class ClerkTranslatorController {
 		return clerkTranslatorService.listTranslators();
 	}
 
-	@GetMapping(path = "/all-languages")
-	public List<LanguageDTO> allLanguages() throws JsonProcessingException {
-		return languageService.allLanguages();
+	@GetMapping(path = "/all-language-codes")
+	public Set<String> allLanguageCodes() {
+		return languageService.allLanguageCodes();
 	}
 
 }
