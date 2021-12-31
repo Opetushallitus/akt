@@ -10,10 +10,8 @@ import java.util.List;
 @Repository
 public interface AuthorisationRepository extends JpaRepository<Authorisation, Long> {
 
-	// @formatter:off
-    @Query("SELECT new fi.oph.akt.repository.TranslatorAuthorisationProjection(t.id, a) FROM Authorisation a"
-            + " JOIN a.translator t WHERE t.id IN ?1")
-    // @formatter:on
+	@Query("SELECT new fi.oph.akt.repository.TranslatorAuthorisationProjection(t.id, a.id, a.basis) FROM Authorisation a"
+			+ " JOIN a.translator t WHERE t.id IN ?1")
 	List<TranslatorAuthorisationProjection> findAuthorisationsByTranslators(Iterable<Long> translatorIds);
 
 }

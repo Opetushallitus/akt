@@ -1,6 +1,6 @@
 package fi.oph.akt.repository;
 
-import fi.oph.akt.model.AuthorisationTerm;
+import java.time.LocalDate;
 
-public record AuthorisationTermProjection(long authorisationId, AuthorisationTerm term) {
+public record AuthorisationTermProjection(long authorisationId, LocalDate beginDate, LocalDate endDate) {
 }

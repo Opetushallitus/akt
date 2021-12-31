@@ -10,10 +10,8 @@ import java.util.List;
 @Repository
 public interface AuthorisationTermRepository extends JpaRepository<AuthorisationTerm, Long> {
 
-	// @formatter:off
-    @Query("SELECT new fi.oph.akt.repository.AuthorisationTermProjection(a.id, at) FROM AuthorisationTerm at"
-            + " JOIN at.authorisation a WHERE a.id IN ?1")
-    // @formatter:on
+	@Query("SELECT new fi.oph.akt.repository.AuthorisationTermProjection(a.id, at.beginDate, at.endDate) FROM AuthorisationTerm at"
+			+ " JOIN at.authorisation a WHERE a.id IN ?1")
 	List<AuthorisationTermProjection> findTermsByAuthorisations(Iterable<Long> authorisationIds);
 
 }
