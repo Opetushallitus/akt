@@ -10,11 +10,11 @@ import java.util.List;
 @Repository
 public interface LanguagePairRepository extends JpaRepository<LanguagePair, Long> {
 
-	@Query("SELECT new fi.oph.akt.repository.TranslatorLanguagePairProjection(t.id, lp.fromLang, lp.toLang, lp.permissionToPublish) FROM LanguagePair lp"
-			+ " JOIN lp.authorisation a JOIN a.translator t WHERE t.id IN ?1")
-	List<TranslatorLanguagePairProjection> findTranslatorLanguagePairs(Iterable<Long> translatorIds);
+	@Query("SELECT new fi.oph.akt.repository.AuthorisationLanguagePairProjection(a.id, lp) FROM LanguagePair lp"
+			+ " JOIN lp.authorisation a WHERE a.id IN ?1")
+	List<AuthorisationLanguagePairProjection> findLanguagePairsByAuthorisations(Iterable<Long> authorisationIds);
 
-	@Query("SELECT new fi.oph.akt.repository.TranslatorLanguagePairProjection(t.id, lp.fromLang, lp.toLang, lp.permissionToPublish) FROM LanguagePair lp"
+	@Query("SELECT new fi.oph.akt.repository.TranslatorLanguagePairProjection(t.id, lp.fromLang, lp.toLang) FROM LanguagePair lp"
 			+ " JOIN lp.authorisation a JOIN a.translator t WHERE lp.permissionToPublish=true AND t.id IN ?1")
 	List<TranslatorLanguagePairProjection> findTranslatorLanguagePairsForPublicListing(Iterable<Long> translatorIds);
 
