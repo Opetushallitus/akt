@@ -153,6 +153,8 @@ public class ClerkTranslatorService {
 
 			authorisations.stream().map(TranslatorAuthorisationProjection::authorisationId).forEach(aId -> {
 				languagePairs.put(aId, authLanguagePairProjections.get(aId));
+
+				// `authTermProjections.get(aId)` may be null
 				terms.put(aId, authTermProjections.get(aId));
 			});
 
@@ -195,21 +197,39 @@ public class ClerkTranslatorService {
 			Map<Long, List<AuthorisationTermProjection>> termProjections) {
 
 		return authProjections.stream().map(authProjection -> {
+			// @formatter:off
 			long authorisationId = authProjection.authorisationId();
 
-			Optional<AuthorisationTermProjection> optionalTermProjection = termProjections.get(authorisationId).stream()
-					.min(authorisationTermProjectionComparator);
+			List<AuthorisationTermProjection> terms = termProjections.get(authorisationId);
+			AuthorisationTermDTO termDTO = null;
 
-			AuthorisationTermDTO termDTO = optionalTermProjection.map(termProjection -> AuthorisationTermDTO.builder()
-					.beginDate(termProjection.beginDate()).endDate(termProjection.endDate()).build()).orElse(null);
+			if (terms != null && !terms.isEmpty()) {
+				AuthorisationTermProjection termProjection = terms.stream()
+						.max(authorisationTermProjectionComparator)
+						.get();
 
-			List<ClerkLanguagePairDTO> languagePairDTOS = languagePairProjections.get(authorisationId).stream()
-					.map(lpp -> ClerkLanguagePairDTO.builder().from(lpp.fromLang()).to(lpp.toLang())
-							.permissionToPublish(lpp.permissionToPublish()).build())
+				termDTO = AuthorisationTermDTO.builder()
+						.beginDate(termProjection.beginDate())
+						.endDate(termProjection.endDate())
+						.build();
+			}
+
+			List<ClerkLanguagePairDTO> languagePairDTOS = languagePairProjections.get(authorisationId)
+					.stream()
+					.map(lpp -> ClerkLanguagePairDTO.builder()
+							.from(lpp.fromLang())
+							.to(lpp.toLang())
+							.permissionToPublish(lpp.permissionToPublish())
+							.build()
+					)
 					.toList();
 
-			return ClerkTranslatorAuthorisationDTO.builder().basis(authProjection.authorisationBasis()).term(termDTO)
-					.languagePairs(languagePairDTOS).build();
+			return ClerkTranslatorAuthorisationDTO.builder()
+					.basis(authProjection.authorisationBasis())
+					.term(termDTO)
+					.languagePairs(languagePairDTOS)
+					.build();
+			// @formatter:on
 		}).toList();
 	}
 
