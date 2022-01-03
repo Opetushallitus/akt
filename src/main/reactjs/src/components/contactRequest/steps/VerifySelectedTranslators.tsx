@@ -37,13 +37,13 @@ export const VerifySelectedTranslators = ({
           <div
             className="columns"
             key={id}
-            data-testid={`contact-request-form__chosen-translator-id-${id}`}
+            data-testid={`contact-request-page__chosen-translator-id-${id}`}
           >
             <Text>
               {firstName} {lastName}
             </Text>
             <IconButton onClick={() => deselectTranslator(id)}>
-              <DeleteOutlineIcon className="contact-request-form__delete-outline-icon" />
+              <DeleteOutlineIcon className="contact-request-page__delete-outline-icon" />
             </IconButton>
           </div>
         ))}

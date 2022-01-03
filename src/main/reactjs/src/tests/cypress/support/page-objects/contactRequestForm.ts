@@ -4,12 +4,12 @@ class ContactRequestForm {
   elements = {
     deselectTranslatorButton: (id: string) =>
       cy
-        .findByTestId(`contact-request-form__chosen-translator-id-${id}`)
+        .findByTestId(`contact-request-page__chosen-translator-id-${id}`)
         .findByTestId('DeleteOutlineIcon'),
-    previousButton: () => cy.findByTestId('contact-request-form__previous-btn'),
-    nextButton: () => cy.findByTestId('contact-request-form__next-btn'),
-    cancelButton: () => cy.findByTestId('contact-request-form__cancel-btn'),
-    submitButton: () => cy.findByTestId('contact-request-form__submit-btn'),
+    previousButton: () => cy.findByTestId('contact-request-page__previous-btn'),
+    nextButton: () => cy.findByTestId('contact-request-page__next-btn'),
+    cancelButton: () => cy.findByTestId('contact-request-page__cancel-btn'),
+    submitButton: () => cy.findByTestId('contact-request-page__submit-btn'),
     byLabel: (label: Matcher) => cy.findByLabelText(label),
   };
 
@@ -101,7 +101,7 @@ export const writeMessageStep = () => {
 
 const assertSelectedTranslators = () => {
   expectTextForId(
-    'contact-request-form__chosen-translators-text',
+    'contact-request-page__chosen-translators-text',
     'Ilkka Heinonen, Ninni Korhonen'
   );
 };

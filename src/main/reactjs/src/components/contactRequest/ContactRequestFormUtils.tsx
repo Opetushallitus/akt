@@ -1,13 +1,21 @@
-import { Step, StepLabel, Stepper } from '@mui/material';
+import { Dispatch, SetStateAction } from 'react';
+import { Step, StepLabel, Stepper, Button } from '@mui/material';
 
 import { H1, H2, H3, Text } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
-import { useAppSelector } from 'configs/redux';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import {
   publicTranslatorsSelector,
   selectedPublicTranslatorsForLanguagePair,
 } from 'redux/selectors/publicTranslator';
+import { ContactRequestFormStep } from 'enums/contactRequest';
+import { VerifySelectedTranslators } from 'components/contactRequest/steps/VerifySelectedTranslators';
+import { FillContactDetails } from 'components/contactRequest/steps/FillContactDetails';
+import { WriteMessage } from 'components/contactRequest/steps/WriteMessage';
+import { PreviewAndSend } from 'components/contactRequest/steps/PreviewAndSend';
+import { ContactRequest } from 'interfaces/contactRequest';
+import { sendContactRequest } from 'redux/actions/contactRequest';
 
 export const stepsByIndex = {
   0: 'verifySelectedTranslators',
@@ -27,7 +35,7 @@ export const ChosenTranslatorsHeading = () => {
   return (
     <div className="columns">
       <H3>{`${t('contactRequestForm.chosenTranslatorsForLanguagePair')}`}</H3>
-      <H3 className="contact-request-form__lang-pair">
+      <H3 className="contact-request-page__lang-pair">
         {`${t('publicTranslatorFilters.languages.' + fromLang)} - ${t(
           'publicTranslatorFilters.languages.' + toLang
         )}`}
@@ -43,7 +51,7 @@ export const RenderChosenTranslators = () => {
     .join(', ');
 
   return (
-    <Text data-testid="contact-request-form__chosen-translators-text">
+    <Text data-testid="contact-request-page__chosen-translators-text">
       {translatorsString}
     </Text>
   );
@@ -93,8 +101,8 @@ export const StepHeading = ({ step }: { step: string }) => {
 
   return (
     <div
-      className="contact-request-form__heading"
-      data-testid={`contact-request-form__step-heading-${step}`}
+      className="contact-request-page__heading"
+      data-testid={`contact-request-page__step-heading-${step}`}
     >
       <H1>{t(step)}</H1>
     </div>
@@ -107,7 +115,7 @@ export const ContactRequestStepper = ({ step }: { step: number }) => {
   });
 
   return (
-    <Stepper className="contact-request-form__stepper" activeStep={step}>
+    <Stepper className="contact-request-page__stepper" activeStep={step}>
       {Object.values(stepsByIndex).map((v) => (
         <Step key={v}>
           <StepLabel>{t(v)}</StepLabel>
@@ -115,4 +123,97 @@ export const ContactRequestStepper = ({ step }: { step: number }) => {
       ))}
     </Stepper>
   );
+};
+
+const decrementStep = (step: number) => step - 1;
+const incrementStep = (step: number) => step + 1;
+
+export const ControlButtons = ({
+  onCancelRequest,
+  onChangeStep,
+  minStep,
+  step,
+  maxStep,
+  disableNext,
+}: {
+  onCancelRequest: () => void;
+  onChangeStep: Dispatch<SetStateAction<number>>;
+  step: number;
+  minStep: number;
+  maxStep: number;
+  disableNext: boolean;
+}) => {
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.contactRequestForm',
+  });
+
+  const dispatch = useAppDispatch();
+  const request = useAppSelector(contactRequestSelector)
+    .request as ContactRequest;
+  const submit = () => {
+    dispatch(sendContactRequest(request));
+  };
+
+  return (
+    <div className="columns flex-end gapped m-margin-top">
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={onCancelRequest}
+        data-testid="contact-request-page__cancel-btn"
+      >
+        {t('buttons.cancel')}
+      </Button>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => onChangeStep(decrementStep)}
+        disabled={step == minStep}
+        data-testid="contact-request-page__previous-btn"
+      >
+        {t('buttons.previous')}
+      </Button>
+      {step == maxStep ? (
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => submit()}
+          data-testid="contact-request-page__submit-btn"
+        >
+          {t('buttons.submit')}
+        </Button>
+      ) : (
+        <Button
+          variant="contained"
+          color="secondary"
+          disabled={disableNext}
+          onClick={() => onChangeStep(incrementStep)}
+          data-testid="contact-request-page__next-btn"
+        >
+          {t('buttons.next')}
+        </Button>
+      )}
+    </div>
+  );
+};
+
+export const StepContents = ({
+  step,
+  disableNext,
+}: {
+  step: number;
+  disableNext: (disabled: boolean) => void;
+}) => {
+  switch (step) {
+    case ContactRequestFormStep.VerifyTranslators:
+      return <VerifySelectedTranslators disableNext={disableNext} />;
+    case ContactRequestFormStep.FillContactDetails:
+      return <FillContactDetails disableNext={disableNext} />;
+    case ContactRequestFormStep.WriteMessage:
+      return <WriteMessage disableNext={disableNext} />;
+    case ContactRequestFormStep.PreviewAndSend:
+      return <PreviewAndSend />;
+    default:
+      return <> </>;
+  }
 };

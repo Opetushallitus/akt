@@ -82,7 +82,7 @@ export const WriteMessage = ({
         <div className="rows gapped">
           <H3>{t(`component.contactRequestForm.steps.${stepsByIndex[2]}`)}</H3>
           <TextBox
-            id="contact-request-form__message-field"
+            id="contact-request-page__message-field"
             label={t(
               'component.contactRequestForm.formLabels.writeMessageHere'
             )}
