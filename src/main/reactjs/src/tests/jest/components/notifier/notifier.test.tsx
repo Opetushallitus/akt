@@ -4,7 +4,8 @@ import { render } from '@testing-library/react';
 import { DialogBox } from 'components/notification/DialogBox';
 import { Toast } from 'components/notification/Toast';
 import {
-  selectorState,
+  emptyNotifierState,
+  notifierState,
   toastsArray,
   dialogsArray,
 } from 'tests/jest/__fixtures__/notifier';
@@ -18,21 +19,23 @@ import {
   showNotifierToast,
 } from 'redux/actions/notifier';
 
-beforeEach(() => {
-  const appSelector = useAppSelector as jest.Mock<NotifierState>;
-  appSelector.mockImplementation(() => selectorState);
-});
-
 describe('DialogBox', () => {
-  it('should render DialogBox correctly', () => {
-    const { baseElement } = render(<DialogBox />);
+  it('should not render Dialog if there is no data', () => {
+    const { container } = render(<DialogBox />);
 
-    expect(baseElement).toMatchSnapshot();
+    expect(container).toBeEmptyDOMElement();
+  });
+
+  it('should render DialogBox correctly', () => {
+    initializeState(notifierState);
+    const { container } = render(<DialogBox />);
+
+    expect(container).toMatchSnapshot();
   });
 
   it('should show a Dialog when an action is dispatched', () => {
     const [dialog] = dialogsArray;
-    const previousState = { dialogs: [], toasts: [] };
+    const previousState = emptyNotifierState;
     const dialogCreator = showNotifierDialog(dialog);
 
     const newState = notifierReducer(previousState, dialogCreator);
@@ -52,7 +55,15 @@ describe('DialogBox', () => {
 });
 
 describe('Toast', () => {
+  it('should not render Toast if there is no data', () => {
+    initializeState(emptyNotifierState);
+    const { container } = render(<Toast />);
+
+    expect(container).toBeEmptyDOMElement();
+  });
+
   it('should render Toast correctly', () => {
+    initializeState(notifierState);
     const tree = renderer.create(<Toast />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -60,7 +71,7 @@ describe('Toast', () => {
 
   it('should show a Toast when an action is dispatched', () => {
     const [toast] = toastsArray;
-    const previousState = { dialogs: [], toasts: [] };
+    const previousState = emptyNotifierState;
     const toastCreator = showNotifierToast(toast);
 
     const newState = notifierReducer(previousState, toastCreator);
@@ -78,3 +89,9 @@ describe('Toast', () => {
     expect(newState).toEqual({ dialogs: [], toasts: [] });
   });
 });
+
+// Helpers and Mocks
+const initializeState = (state: NotifierState) => {
+  const appSelector = useAppSelector as jest.Mock<NotifierState>;
+  appSelector.mockImplementation(() => state);
+};

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   Button,
   Dialog,
@@ -13,43 +14,53 @@ import {
   executeNotifierAction,
   removeNotifierDialog,
 } from 'redux/actions/notifier';
+import { Notifier } from 'interfaces/notifier';
 
 export const DialogBox = () => {
   // Redux
   const dispatch = useAppDispatch();
   const { dialogs } = useAppSelector(notificationSelector);
-  const [dialog] = dialogs;
 
-  const showDialog = dialogs?.length > 0;
+  // State
+  const [activeDialog, setActiveDialog] = useState<Notifier | undefined>(
+    undefined
+  );
 
-  const handleDialogClose = () => {
-    dispatch(removeNotifierDialog(dialog?.id));
+  const handleDialogClose = (id: string) => {
+    dispatch(removeNotifierDialog(id));
   };
 
-  const dispatchAction = (action: string) => {
+  const dispatchAction = (action: string, id: string) => {
     dispatch(executeNotifierAction(action));
-    handleDialogClose();
+    handleDialogClose(id);
   };
+
+  useEffect(() => {
+    if (dialogs?.length > 0 && !activeDialog) {
+      const [dialog] = dialogs;
+      setActiveDialog(dialog);
+    }
+  }, [activeDialog, dialogs]);
 
   return (
     <>
-      {showDialog && (
+      {activeDialog && (
         <Dialog
-          className={`dialog-box--${dialog?.severity}`}
-          open={showDialog}
-          onClose={handleDialogClose}
+          className={`dialog-box--${activeDialog.severity}`}
+          open={!!activeDialog}
+          onClose={() => handleDialogClose(activeDialog.id)}
         >
-          <DialogTitle>{dialog?.title}</DialogTitle>
+          <DialogTitle>{activeDialog.title}</DialogTitle>
           <DialogContent>
-            <Text>{dialog?.description}</Text>
+            <Text>{activeDialog.description}</Text>
           </DialogContent>
           <DialogActions>
-            {dialog?.actions?.map((a, i) => (
+            {activeDialog.actions?.map((a, i) => (
               <Button
                 key={i}
                 variant={a.variant}
                 color="secondary"
-                onClick={() => dispatchAction(a.action)}
+                onClick={() => dispatchAction(a.action, activeDialog.id)}
               >
                 {a.title}
               </Button>

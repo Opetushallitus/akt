@@ -19,7 +19,7 @@ Or
 Start up a certain service:
 
 ```sh
-docker-compose up postgres frontend | backend | postgres
+docker-compose up frontend | backend | postgres
 ```
 
 In case of errors, clean cache and recreate volumes:

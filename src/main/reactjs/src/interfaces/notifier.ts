@@ -1,20 +1,22 @@
 import { Action } from 'redux';
 
-type NotifierType = 'dialog' | 'toast';
-type Severity = 'error' | 'info' | 'success' | 'warning';
-type Variant = 'text' | 'outlined' | 'contained' | undefined;
+import {
+  NotifierSeverity,
+  NotifierTypes,
+  NotifierButtonVariant,
+} from 'enums/app';
 
 export interface NotifierButtonAction {
   title: string;
-  variant: Variant;
+  variant: `${NotifierButtonVariant}`;
   action: string;
   payload?: unknown;
 }
 
 export interface Notifier {
   id: string;
-  type: NotifierType;
-  severity: Severity;
+  type: `${NotifierTypes}`;
+  severity: `${NotifierSeverity}`;
   title: string;
   description: string;
   timeOut?: number;

@@ -43,7 +43,9 @@ export const dialogsArray = [
   ),
 ];
 
-export const selectorState = {
+export const emptyNotifierState = { dialogs: [], toasts: [] };
+
+export const notifierState = {
   toasts: toastsArray,
   dialogs: dialogsArray,
 };
