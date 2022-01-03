@@ -32,35 +32,37 @@ export const ComboBox = ({
   };
 
   const filterSelectedLang = (
-    langCode: string | undefined,
-    valuesArray: [string, string][]
+    filterValue: string | undefined,
+    valuesArray: [string, string][],
+    primaryLangOptions: string[]
   ): [string, string][] => {
-    if (langCode) {
-      if (!primaryOptions?.includes(langCode)) {
-        return valuesArray.filter((v) => primaryOptions?.includes(v[1]));
+    const valuesArrayWithoutSelectedLang = valuesArray.filter(
+      (value) => value[1] !== filterValue
+    );
+    if (filterValue) {
+      if (!primaryLangOptions.includes(filterValue)) {
+        return valuesArrayWithoutSelectedLang.filter((value) =>
+          primaryLangOptions.includes(value[1])
+        );
       }
     }
 
-    return valuesArray;
+    return valuesArrayWithoutSelectedLang;
   };
-
-  const valuesArray = Array.from(values);
-  // Filter out the value selected in another combobox
-  const filteredValuesArray = valuesArray.filter(
-    (value) => value[1] !== filterValue
-  );
-  // Filter out all other values if values from primaryOptions are not selected in another combobox
-  const filteredValuesArray2 = filterSelectedLang(
-    filterValue,
-    filteredValuesArray
-  );
-
-  const initialValuesToShow = sortByKeys
-    ? filteredValuesArray2.sort()
-    : filteredValuesArray2;
   const primaryLangOptions = primaryOptions ?? [];
+  const valuesArray = Array.from(values);
+
+  const filteredValuesArray = filterSelectedLang(
+    filterValue,
+    valuesArray,
+    primaryLangOptions
+  );
+
+  const optionValuesToShow = sortByKeys
+    ? filteredValuesArray.sort()
+    : filteredValuesArray;
   // Sort option value pairs into order set in primaryOptions parameter
-  const primaryValues = initialValuesToShow
+  const primaryValues = optionValuesToShow
     .filter((value) => {
       return primaryLangOptions.indexOf(value[1]) >= 0;
     })
@@ -73,7 +75,7 @@ export const ComboBox = ({
   // Merge sorted primaryOptions and sorted values
   const valuesToShow = [
     ...primaryValues,
-    ...initialValuesToShow.filter((value) => !primaryValues.includes(value)),
+    ...optionValuesToShow.filter((value) => !primaryValues.includes(value)),
   ];
 
   // Find string value param in the filtered and sorted options array
