@@ -2,12 +2,23 @@
 
 # Fetch language list from koodisto, save returned json for backend to use, generate frontend localisation files.
 
-mkdir -p ../src/main/resources/koodisto/
+LANGS_LIST=../src/main/resources/koodisto/koodisto_kielet.json
+FRONTEND_PATH=../src/main/reactjs/public/i18n/koodisto/langs
 
-curl -H "Caller-Id:kehittaja-akt" "https://virkailija.opintopolku.fi/koodisto-service/rest/json/kieli/koodi" > ../src/main/resources/koodisto/koodisto_kielet.json
+curl -H "Caller-Id:kehittaja-akt" "https://virkailija.opintopolku.fi/koodisto-service/rest/json/kieli/koodi" --create-dirs -o $LANGS_LIST
 
-mkdir -p ../src/main/reactjs/public/i18n/koodisto/langs/
+function extract_frontend_localisation() {
+  lang=$1
+  locale=$2
+  jq_extract_cmd="[.[] | {key: .koodiArvo, value: .metadata[] | select(.kieli | contains(\"${lang}\")).nimi }] | sort_by(.key) | from_entries"
+  jq_obj_wrap_cmd='. | {akt:{component:{publicTranslatorFilters:{languages:.}}}}'
+  output="${FRONTEND_PATH}/${locale}.json"
+  echo "Command for jq: $jq_extract_cmd"
+  echo "Outputting to: $output"
+  jq "$jq_extract_cmd" $LANGS_LIST | jq "$jq_obj_wrap_cmd" >"${output}"
+  echo "ok"
+}
 
-jq '[.[] | {key: .koodiArvo, value: .metadata[]|select(.kieli | contains("FI")).nimi }]|from_entries' ../src/main/resources/koodisto/koodisto_kielet.json | jq '. | {akt:{component:{publicTranslatorFilters:{languages:.}}}}' > ../src/main/reactjs/public/i18n/koodisto/langs/fi-FI.json
-jq '[.[] | {key: .koodiArvo, value: .metadata[]|select(.kieli | contains("SV")).nimi }]|from_entries' ../src/main/resources/koodisto/koodisto_kielet.json | jq '. | {akt:{component:{publicTranslatorFilters:{languages:.}}}}' > ../src/main/reactjs/public/i18n/koodisto/langs/sv-SE.json
-jq '[.[] | {key: .koodiArvo, value: .metadata[]|select(.kieli | contains("EN")).nimi }]|from_entries' ../src/main/resources/koodisto/koodisto_kielet.json | jq '. | {akt:{component:{publicTranslatorFilters:{languages:.}}}}' > ../src/main/reactjs/public/i18n/koodisto/langs/en-GB.json
+extract_frontend_localisation 'FI' 'fi-FI'
+extract_frontend_localisation 'SV' 'sv-SE'
+extract_frontend_localisation 'EN' 'en-GB'
