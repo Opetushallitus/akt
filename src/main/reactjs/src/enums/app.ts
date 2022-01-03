@@ -27,3 +27,20 @@ export enum TextBoxErrors {
   EmailFormat = 'errors.textBox.emailFormat',
   TelFormat = 'errors.textBox.telFormat',
 }
+
+export enum NotifierTypes {
+  Dialog = 'dialog',
+  Toast = 'toast',
+}
+
+export enum NotifierSeverity {
+  Info = 'info',
+  Success = 'success',
+  Error = 'error',
+}
+
+export enum NotifierButtonVariant {
+  Text = 'text',
+  Outlined = 'outlined',
+  Contained = 'contained',
+}

@@ -72,7 +72,7 @@ describe('ContactRequestForm', () => {
 
     // Verify last step is shown after dialog is closed
     expectTextForId(
-      'contact-request-form__step-heading-previewAndSend',
+      'contact-request-page__step-heading-previewAndSend',
       'Esikatsele ja lähetä'
     );
   });
