@@ -2,7 +2,6 @@ export type ComboBoxValue = string | number | readonly string[] | undefined;
 export interface ComboBoxProps {
   id?: string;
   label?: string;
-  className?: string;
   dataTestId?: string;
   showInputLabel?: boolean;
   disableUnderline?: boolean;

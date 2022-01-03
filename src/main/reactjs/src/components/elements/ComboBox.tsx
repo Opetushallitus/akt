@@ -8,7 +8,6 @@ import {
 import { ComboBoxProps } from 'interfaces/combobox';
 
 export const ComboBox = ({
-  className,
   id,
   value,
   filterValue,
@@ -27,7 +26,6 @@ export const ComboBox = ({
   const AutocompleteProps = {
     onChange,
     ...(getOptionLabel && { getOptionLabel }),
-    ...(className && { className }),
     ...(label && { label }),
     ...(dataTestId && { 'data-testid': dataTestId }),
     ...(disableClearable && { disableClearable }),

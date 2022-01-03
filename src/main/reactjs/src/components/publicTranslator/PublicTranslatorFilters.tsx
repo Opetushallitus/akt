@@ -68,11 +68,14 @@ export const PublicTranslatorFilters = ({
         | 'blur'
         | 'clear'
     ) => {
-      if (reason !== 'clear') {
-        const eventValue = newValue;
-        setFilters({ ...filters, [filterName]: eventValue[1] });
-      } else {
+      if (reason === 'clear') {
         setFilters({ ...filters, [filterName]: '' });
+      } else {
+        const value =
+          event.target.id === 'outlined-search'
+            ? event.target.value
+            : newValue[1];
+        setFilters({ ...filters, [filterName]: value });
       }
     };
 
@@ -89,7 +92,7 @@ export const PublicTranslatorFilters = ({
           <H3>{t('languagePair.title')}</H3>
           <div className="public-translator-filters__filter__language-pair">
             <ComboBox
-              data-testid="public-translator-filters__from-language-select"
+              data-testid="public-translator-filters__from-language-combobox"
               showInputLabel
               sortByKeys
               showError={
@@ -107,7 +110,7 @@ export const PublicTranslatorFilters = ({
               getOptionLabel={getOptionLabel}
             />
             <ComboBox
-              data-testid="public-translator-filters__to-language-select"
+              data-testid="public-translator-filters__to-language-combobox"
               showInputLabel
               sortByKeys
               showError={showFieldError && Utils.isEmptyString(filters.toLang)}
@@ -145,7 +148,7 @@ export const PublicTranslatorFilters = ({
         <div className="public-translator-filters__filter">
           <H3> {t('town.title')}</H3>
           <ComboBox
-            data-testid="public-translator-filters__town-select"
+            data-testid="public-translator-filters__town-combobox"
             showInputLabel
             sortByKeys
             disableClearable
