@@ -9,7 +9,6 @@ import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
-import fi.oph.akt.onr.OnrServiceMock;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -22,7 +21,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-@Import({ PublicTranslatorService.class, OnrServiceMock.class })
+@Import({ PublicTranslatorService.class })
 class PublicTranslatorServiceTest {
 
 	@Autowired

@@ -11,17 +11,14 @@ import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
-import fi.oph.akt.onr.OnrServiceMock;
 import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
@@ -34,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
-@Import({ OnrServiceMock.class })
 class ClerkTranslatorServiceTest {
 
 	private static final String FI = "FI";
@@ -61,16 +57,13 @@ class ClerkTranslatorServiceTest {
 	@Resource
 	private TranslatorRepository translatorRepository;
 
-	@Autowired
-	private OnrServiceMock onrServiceMock;
-
 	@Resource
 	private TestEntityManager entityManager;
 
 	@BeforeEach
 	public void setup() {
 		clerkTranslatorService = new ClerkTranslatorService(authorisationRepository, authorisationTermRepository,
-				languagePairRepository, translatorRepository, onrServiceMock);
+				languagePairRepository, translatorRepository);
 	}
 
 	@Test
@@ -80,6 +73,7 @@ class ClerkTranslatorServiceTest {
 
 		IntStream.range(0, 3).forEach(n -> {
 			final Translator translator = Factory.translator();
+			translator.setSsn(null);
 			final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
 			final LanguagePair languagePair = Factory.languagePair(authorisation);
 			final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);

@@ -10,7 +10,6 @@ import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class Factory {
 
@@ -23,8 +22,8 @@ public class Factory {
 
 	public static Translator translator() {
 		final Translator translator = new Translator();
-		translator.setOnrOid(UUID.randomUUID().toString());
-
+		translator.setFirstName("foo");
+		translator.setLastName("bar");
 		return translator;
 	}
 

@@ -8,14 +8,12 @@ import fi.oph.akt.api.dto.clerk.ClerkTranslatorContactDetailsDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
 import fi.oph.akt.model.Translator;
-import fi.oph.akt.onr.TranslatorDetails;
-import fi.oph.akt.onr.OnrServiceMock;
 import fi.oph.akt.repository.AuthorisationLanguagePairProjection;
 import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.AuthorisationTermProjection;
 import fi.oph.akt.repository.AuthorisationTermRepository;
-import fi.oph.akt.repository.TranslatorAuthorisationProjection;
 import fi.oph.akt.repository.LanguagePairRepository;
+import fi.oph.akt.repository.TranslatorAuthorisationProjection;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.util.AuthorisationTermProjectionComparator;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +28,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -53,20 +51,12 @@ public class ClerkTranslatorService {
 	@Resource
 	private final TranslatorRepository translatorRepository;
 
-	@Resource
-	// TODO (OPHAKTKEH-52): use actual API outside local environment
-	private final OnrServiceMock onrServiceMock;
-
 	@Transactional(readOnly = true)
 	public ClerkTranslatorResponseDTO listTranslators() {
 		final StopWatch st = new StopWatch();
 
 		st.start("translatorRepository.findAll");
 		final List<Translator> translators = translatorRepository.findAll();
-		st.stop();
-
-		st.start("getTranslatorsDetails");
-		final Map<String, TranslatorDetails> translatorDetails = getTranslatorsDetails(translators.stream());
 		st.stop();
 
 		st.start("getTranslatorAuthorisationProjections");
@@ -82,8 +72,8 @@ public class ClerkTranslatorService {
 		st.stop();
 
 		st.start("createClerkTranslatorDTOs");
-		List<ClerkTranslatorDTO> clerkTranslatorDTOS = createClerkTranslatorDTOs(translators, translatorDetails,
-				translatorAuthProjections, authLanguagePairProjections, authTermProjections);
+		List<ClerkTranslatorDTO> clerkTranslatorDTOS = createClerkTranslatorDTOs(translators, translatorAuthProjections,
+				authLanguagePairProjections, authTermProjections);
 		st.stop();
 
 		st.start("getLanguagePairsDictDTO");
@@ -91,7 +81,7 @@ public class ClerkTranslatorService {
 		st.stop();
 
 		st.start("getDistinctTowns");
-		List<String> towns = getDistinctTowns(translatorDetails.values());
+		List<String> towns = getDistinctTowns(translators);
 		st.stop();
 
 		LOG.info(st.prettyPrint());
@@ -103,10 +93,6 @@ public class ClerkTranslatorService {
 				.towns(towns)
 				.build();
 		// @formatter:on
-	}
-
-	private Map<String, TranslatorDetails> getTranslatorsDetails(final Stream<Translator> translators) {
-		return onrServiceMock.getTranslatorDetailsByOids(translators.map(Translator::getOnrOid).toList());
 	}
 
 	private Map<Long, List<TranslatorAuthorisationProjection>> getTranslatorAuthorisationProjections() {
@@ -125,14 +111,11 @@ public class ClerkTranslatorService {
 	}
 
 	private List<ClerkTranslatorDTO> createClerkTranslatorDTOs(final List<Translator> translators,
-			final Map<String, TranslatorDetails> translatorDetails,
 			final Map<Long, List<TranslatorAuthorisationProjection>> translatorAuthProjections,
 			final Map<Long, List<AuthorisationLanguagePairProjection>> authLanguagePairProjections,
 			final Map<Long, List<AuthorisationTermProjection>> authTermProjections) {
 
 		return translators.stream().map(translator -> {
-			final TranslatorDetails details = translatorDetails.get(translator.getOnrOid());
-
 			final List<TranslatorAuthorisationProjection> authorisations = translatorAuthProjections
 					.get(translator.getId());
 
@@ -146,16 +129,16 @@ public class ClerkTranslatorService {
 				terms.put(aId, authTermProjections.get(aId));
 			});
 
-			return createClerkTranslatorDTO(translator, details, authorisations, languagePairs, terms);
+			return createClerkTranslatorDTO(translator, authorisations, languagePairs, terms);
 		}).toList();
 	}
 
-	private ClerkTranslatorDTO createClerkTranslatorDTO(Translator translator, TranslatorDetails translatorDetails,
+	private ClerkTranslatorDTO createClerkTranslatorDTO(Translator translator,
 			List<TranslatorAuthorisationProjection> authProjections,
 			Map<Long, List<AuthorisationLanguagePairProjection>> languagePairProjections,
 			Map<Long, List<AuthorisationTermProjection>> termProjections) {
 
-		ClerkTranslatorContactDetailsDTO contactDetailsDTO = getContactDetailsDTO(translatorDetails);
+		ClerkTranslatorContactDetailsDTO contactDetailsDTO = getContactDetailsDTO(translator);
 		List<ClerkTranslatorAuthorisationDTO> authorisationDTOS = getAuthorisationDTOs(authProjections,
 				languagePairProjections, termProjections);
 
@@ -163,18 +146,18 @@ public class ClerkTranslatorService {
 				.authorisations(authorisationDTOS).build();
 	}
 
-	private ClerkTranslatorContactDetailsDTO getContactDetailsDTO(TranslatorDetails details) {
+	private ClerkTranslatorContactDetailsDTO getContactDetailsDTO(Translator details) {
 		// @formatter:off
 		return ClerkTranslatorContactDetailsDTO.builder()
-				.firstName(details.firstName())
-				.lastName(details.lastName())
-				.email(details.email())
-				.phoneNumber(details.phone())
-				.identityNumber(details.identityNumber())
-				.street(details.street())
-				.postalCode(details.postalCode())
-				.town(details.town())
-				.country(details.country())
+				.firstName(details.getFirstName())
+				.lastName(details.getLastName())
+				.email(details.getEmail())
+				.phoneNumber(details.getPhone())
+				.identityNumber(details.getSsn())
+				.street(details.getStreet())
+				.postalCode(details.getPostalCode())
+				.town(details.getTown())
+				.country(details.getCountry())
 				.build();
 		// @formatter:on
 	}
@@ -228,8 +211,9 @@ public class ClerkTranslatorService {
 		return LanguagePairsDictDTO.builder().from(fromLangs).to(toLangs).build();
 	}
 
-	private List<String> getDistinctTowns(Collection<TranslatorDetails> translatorDetails) {
-		return translatorDetails.stream().map(TranslatorDetails::town).distinct().sorted().toList();
+	private List<String> getDistinctTowns(Collection<Translator> translatorDetails) {
+		return translatorDetails.stream().map(Translator::getTown).filter(Objects::nonNull).distinct().sorted()
+				.toList();
 	}
 
 }

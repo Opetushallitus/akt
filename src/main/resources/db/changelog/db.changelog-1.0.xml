@@ -433,4 +433,27 @@
         </sql>
     </changeSet>
 
+    <changeSet id="2022-01-07-add-person_details" author="terova">
+        <dropColumn tableName="translator">
+            <column name="onr_oid"/>
+        </dropColumn>
+        <addColumn tableName="translator">
+            <column name="ssn" type="VARCHAR(255)">
+                <constraints unique="true" />
+            </column>
+            <column name="first_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="TEXT"/>
+            <column name="phone_number" type="TEXT"/>
+            <column name="street" type="TEXT"/>
+            <column name="town" type="TEXT"/>
+            <column name="postal_code" type="TEXT"/>
+            <column name="country" type="TEXT"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
