@@ -30,6 +30,7 @@ export const ComboBox = ({
     ...(dataTestId && { 'data-testid': dataTestId }),
     ...(disableClearable && { disableClearable }),
   };
+
   const filterSelectedLang = (
     langCode: string | undefined,
     valuesArray: [string, string][]
@@ -37,24 +38,28 @@ export const ComboBox = ({
     if (langCode) {
       if (!primaryOptions?.includes(langCode)) {
         return valuesArray.filter((v) => primaryOptions?.includes(v[1]));
-      } else {
-        return valuesArray;
       }
-    } else {
-      return valuesArray;
     }
+
+    return valuesArray;
   };
 
   const valuesArray = Array.from(values);
-  const filteredValueArray = valuesArray.filter((v) => v[1] !== filterValue);
+  // Filter out the value selected in another combobox
+  const filteredValuesArray = valuesArray.filter(
+    (value) => value[1] !== filterValue
+  );
+  // Filter out all other values if values from primaryOptions are not selected in another combobox
   const filteredValuesArray2 = filterSelectedLang(
     filterValue,
-    filteredValueArray
+    filteredValuesArray
   );
+
   const initialValuesToShow = sortByKeys
     ? filteredValuesArray2.sort()
     : filteredValuesArray2;
   const primaryLangOptions = primaryOptions ?? [];
+  // Sort option value pairs into order set in primaryOptions parameter
   const primaryValues = initialValuesToShow
     .filter((value) => {
       return primaryLangOptions.indexOf(value[1]) >= 0;
@@ -65,11 +70,13 @@ export const ComboBox = ({
       );
     });
 
+  // Merge sorted primaryOptions and sorted values
   const valuesToShow = [
     ...primaryValues,
     ...initialValuesToShow.filter((value) => !primaryValues.includes(value)),
   ];
 
+  // Find string value param in the filtered and sorted options array
   const foundValue = valuesToShow.find((item) => item[1] === value);
 
   return (
@@ -77,8 +84,7 @@ export const ComboBox = ({
       <Autocomplete
         disablePortal
         id={id}
-        value={foundValue}
-        //value={value === '' ? null : foundValue}
+        value={value === '' ? null : foundValue}
         options={valuesToShow}
         renderInput={(params) => (
           <TextField
