@@ -1,7 +1,12 @@
 import { Utils } from 'utils';
-import { NotifierSeverity, NotifierTypes } from 'enums/app';
+import {
+  NotifierButtonVariant,
+  NotifierSeverity,
+  NotifierTypes,
+} from 'enums/app';
+import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
 
-const toasts = [
+export const toastsArray = [
   Utils.createNotifierToast(
     'Test Title 1',
     NotifierTypes.Toast,
@@ -22,28 +27,23 @@ const toasts = [
   ),
 ];
 
-const dialogs = [
-  Utils.createNotifierToast(
+export const dialogsArray = [
+  Utils.createNotifierDialog(
     'Test Title 1',
-    NotifierTypes.Toast,
-    NotifierSeverity.Error,
-    'Test Message 1'
-  ),
-  Utils.createNotifierToast(
-    'Test Title 2',
-    NotifierTypes.Toast,
+    NotifierTypes.Dialog,
     NotifierSeverity.Info,
-    'Test Message 2'
-  ),
-  Utils.createNotifierToast(
-    'Test Title 3',
-    NotifierTypes.Toast,
-    NotifierSeverity.Success,
-    'Test Message 3'
+    'Test Description 1',
+    [
+      {
+        title: 'Test Action 1',
+        variant: NotifierButtonVariant.Outlined,
+        action: NOTIFIER_ACTION_DO_NOTHING,
+      },
+    ]
   ),
 ];
 
 export const selectorState = {
-  toasts,
-  dialogs,
+  toasts: toastsArray,
+  dialogs: dialogsArray,
 };
