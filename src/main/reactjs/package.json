@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Authorised Translator’s System",
   "scripts": {
-    "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
+    "eslint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
+    "tslint": "tsc --pretty --noEmit",
     "format": "prettier --check \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "format:write": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "test:jest": "jest",
@@ -11,7 +12,7 @@
     "start": "webpack serve --config webpack.config.js --env proxy=http://localhost:8080",
     "start:docker-compose": "webpack serve --config webpack.config.js --env proxy=http://backend:8080",
     "start:ci:e2e": "webpack serve --config webpack.config.js --no-open & npm run test:cypress",
-    "qa": "npm run lint && npm run format && npm run test:jest && npm run start:ci:e2e",
+    "qa": "npm run eslint && npm run tslint && npm run tsc && npm run format && npm run test:jest && npm run start:ci:e2e",
     "build": "webpack --env prod"
   },
   "dependencies": {
