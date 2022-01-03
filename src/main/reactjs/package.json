@@ -4,7 +4,7 @@
   "description": "Authorised Translator’s System",
   "scripts": {
     "eslint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
-    "tslint": "tsc --pretty --noEmit",
+    "tslint": "npx tsc --pretty --noEmit",
     "format": "prettier --check \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "format:write": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "test:jest": "jest",
