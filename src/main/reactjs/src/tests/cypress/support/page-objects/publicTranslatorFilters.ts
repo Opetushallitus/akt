@@ -1,15 +1,18 @@
 const selectOption = (option: string) => {
-  cy.findByRole('option', { name: option }).click();
+  //cy.findByRole('option', { name: option }).click();
+  cy.contains(option).then((o) => {
+    o[0].click();
+  });
 };
 
 class PublicTranslatorFilters {
   elements = {
     fromLang: () =>
-      cy.findByTestId('public-translator-filters__from-language-select'),
+      cy.findByTestId('public-translator-filters__from-language-combobox'),
     toLang: () =>
-      cy.findByTestId('public-translator-filters__to-language-select'),
+      cy.findByTestId('public-translator-filters__to-language-combobox'),
     name: () => cy.findByTestId('public-translator-filters__name-field'),
-    town: () => cy.findByTestId('public-translator-filters__town-select'),
+    town: () => cy.findByTestId('public-translator-filters__town-combobox'),
     empty: () => cy.findByTestId('public-translator-filters__empty-btn'),
     search: () => cy.findByTestId('public-translator-filters__search-btn'),
   };

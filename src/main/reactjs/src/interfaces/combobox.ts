@@ -1,4 +1,5 @@
-export type ComboBoxValue = string | number | readonly string[] | undefined;
+//type ComboBoxValue = string | number | readonly string[] | undefined;
+
 export interface ComboBoxProps {
   id?: string;
   label?: string;
@@ -16,9 +17,8 @@ export interface ComboBoxProps {
   onChange: (
     event: React.ChangeEvent<HTMLInputElement>,
     value: string,
-    reason: 'selectOption' | 'createOption' | 'removeOption' | 'blur' | 'clear',
-    details?: string
+    reason: 'selectOption' | 'createOption' | 'removeOption' | 'blur' | 'clear'
   ) => void;
-  getOptionLabel?: (option: [ComboBoxValue, ComboBoxValue]) => string;
-  values: Map<ComboBoxValue, ComboBoxValue>;
+  getOptionLabel?: (option: [string, string]) => string;
+  values: Map<string, string>;
 }

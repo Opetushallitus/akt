@@ -12,7 +12,6 @@ import {
 } from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { Utils } from 'utils/index';
-import { ComboBoxValue } from 'interfaces/combobox';
 export const PublicTranslatorFilters = ({
   setShowTable,
 }: {
@@ -60,8 +59,8 @@ export const PublicTranslatorFilters = ({
     (filterName: string) =>
     (
       event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-      newValue: string,
-      reason:
+      newValue?: [string, string],
+      reason?:
         | 'selectOption'
         | 'createOption'
         | 'removeOption'
@@ -71,15 +70,15 @@ export const PublicTranslatorFilters = ({
       if (reason === 'clear') {
         setFilters({ ...filters, [filterName]: '' });
       } else {
-        const value =
-          event.target.id === 'outlined-search'
-            ? event.target.value
-            : newValue[1];
-        setFilters({ ...filters, [filterName]: value });
+        if (event.target.id === 'outlined-search') {
+          setFilters({ ...filters, [filterName]: event.target.value });
+        } else {
+          setFilters({ ...filters, [filterName]: newValue ? newValue[1] : '' });
+        }
       }
     };
 
-  const getOptionLabel = (option: [ComboBoxValue, ComboBoxValue]): string => {
+  const getOptionLabel = (option: [string, string]): string => {
     const label = option[0];
 
     return label !== undefined ? label.toString() : '';
@@ -92,7 +91,7 @@ export const PublicTranslatorFilters = ({
           <H3>{t('languagePair.title')}</H3>
           <div className="public-translator-filters__filter__language-pair">
             <ComboBox
-              data-testid="public-translator-filters__from-language-combobox"
+              dataTestId="public-translator-filters__from-language-combobox"
               showInputLabel
               sortByKeys
               showError={
@@ -110,7 +109,7 @@ export const PublicTranslatorFilters = ({
               getOptionLabel={getOptionLabel}
             />
             <ComboBox
-              data-testid="public-translator-filters__to-language-combobox"
+              dataTestId="public-translator-filters__to-language-combobox"
               showInputLabel
               sortByKeys
               showError={showFieldError && Utils.isEmptyString(filters.toLang)}
@@ -148,7 +147,7 @@ export const PublicTranslatorFilters = ({
         <div className="public-translator-filters__filter">
           <H3> {t('town.title')}</H3>
           <ComboBox
-            data-testid="public-translator-filters__town-combobox"
+            dataTestId="public-translator-filters__town-combobox"
             showInputLabel
             sortByKeys
             disableClearable

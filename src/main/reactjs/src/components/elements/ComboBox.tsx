@@ -30,7 +30,6 @@ export const ComboBox = ({
     ...(dataTestId && { 'data-testid': dataTestId }),
     ...(disableClearable && { disableClearable }),
   };
-
   const filterSelectedLang = (
     langCode: string | undefined,
     valuesArray: [string, string][]
@@ -58,15 +57,14 @@ export const ComboBox = ({
   const primaryLangOptions = primaryOptions ?? [];
   const primaryValues = initialValuesToShow
     .filter((value) => {
-      return primaryLangOptions.indexOf(value[1] as string) >= 0;
+      return primaryLangOptions.indexOf(value[1]) >= 0;
     })
     .sort((a, b) => {
       return (
-        primaryLangOptions.indexOf(a[1] as string) -
-        primaryLangOptions.indexOf(b[1] as string)
+        primaryLangOptions.indexOf(a[1]) - primaryLangOptions.indexOf(b[1])
       );
     });
-  // [[ComboBoxValue, ComboBoxValue], ...]
+
   const valuesToShow = [
     ...primaryValues,
     ...initialValuesToShow.filter((value) => !primaryValues.includes(value)),
@@ -79,7 +77,8 @@ export const ComboBox = ({
       <Autocomplete
         disablePortal
         id={id}
-        value={value === '' ? null : foundValue}
+        value={foundValue}
+        //value={value === '' ? null : foundValue}
         options={valuesToShow}
         renderInput={(params) => (
           <TextField
