@@ -458,7 +458,7 @@ class ClerkTranslatorServiceTest {
 
 		clerkTranslatorService.createInformalEmails(emailRequestDTO);
 
-		verify(emailService, times(1)).saveEmail(any(), emailDataCaptor.capture());
+		verify(emailService).saveEmail(any(), emailDataCaptor.capture());
 	}
 
 	@Test

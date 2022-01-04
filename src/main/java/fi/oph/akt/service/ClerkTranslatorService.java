@@ -249,11 +249,13 @@ public class ClerkTranslatorService {
 
 		translators.forEach(translator -> {
 			// @formatter:off
+			// TODO: replace recipient with translator's email address
 			EmailData emailData = EmailData.builder()
 					.sender("AKT")
 					.recipient("translator" + translator.getId() + "@test.fi")
 					.subject(emailRequestDTO.subject())
-					.body(emailRequestDTO.body()).build();
+					.body(emailRequestDTO.body())
+					.build();
 			// @formatter:on
 
 			emailService.saveEmail(EmailType.INFORMAL, emailData);
