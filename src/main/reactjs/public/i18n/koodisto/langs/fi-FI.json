@@ -3,8 +3,6 @@
     "component": {
       "publicTranslatorFilters": {
         "languages": {
-          "98": "ei virallinen kieli",
-          "99": "tuntematon",
           "AA": "afar",
           "AB": "abhaasi",
           "AE": "avesta",
@@ -188,12 +186,10 @@
           "UZ": "uzbekki",
           "VE": "venda",
           "VI": "vietnam",
-          "VK": "viittomakieli",
           "VO": "volapük",
           "WA": "valloni",
           "WO": "wolof",
           "XH": "xhosa",
-          "XX": "muu kieli",
           "YI": "jiddiš",
           "YO": "joruba",
           "ZA": "zhuang",

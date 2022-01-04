@@ -3,8 +3,6 @@
     "component": {
       "publicTranslatorFilters": {
         "languages": {
-          "98": "Non-official language",
-          "99": "Other",
           "AA": "Afar",
           "AB": "Abkhazian",
           "AE": "Avestan",
@@ -187,12 +185,10 @@
           "UZ": "Uzbek",
           "VE": "Venda",
           "VI": "Vietnamese",
-          "VK": "Sign language",
           "VO": "Volapük",
           "WA": "Walloon",
           "WO": "Wolof",
           "XH": "Xhosa",
-          "XX": "Other languages",
           "YI": "Yiddish",
           "YO": "Yoruba",
           "ZA": "Zhuang, Chuang",

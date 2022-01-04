@@ -3,8 +3,6 @@
     "component": {
       "publicTranslatorFilters": {
         "languages": {
-          "98": "inte officielt språk",
-          "99": "okänt",
           "AA": "afar",
           "AB": "abchaziska",
           "AE": "avestiska",
@@ -188,12 +186,10 @@
           "UZ": "uzbekiska",
           "VE": "venda",
           "VI": "vietnamesiska",
-          "VK": "teckenspråk",
           "VO": "volapyk",
           "WA": "vallonska",
           "WO": "wolof",
           "XH": "xhosa",
-          "XX": "övrigt språk",
           "YI": "jiddisch",
           "YO": "joruba",
           "ZA": "tšuang",
