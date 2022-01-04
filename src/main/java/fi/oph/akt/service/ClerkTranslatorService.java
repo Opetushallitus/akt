@@ -171,7 +171,6 @@ public class ClerkTranslatorService {
 				.identityNumber(details.identityNumber())
 				.street(details.street())
 				.postalCode(details.postalCode())
-				.city(details.town())
 				.town(details.town())
 				.build();
 		// @formatter:on
