@@ -7,6 +7,7 @@ import fi.oph.akt.api.dto.clerk.ClerkTranslatorAuthorisationDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorContactDetailsDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
+import fi.oph.akt.api.dto.clerk.InformalEmailRequestDTO;
 import fi.oph.akt.model.EmailType;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.onr.TranslatorDetails;
@@ -238,8 +239,8 @@ public class ClerkTranslatorService {
 		return translatorDetails.stream().map(TranslatorDetails::town).distinct().sorted().toList();
 	}
 
-	public void createInformalEmails(List<Long> translatorIds, String subject, String body) {
-		final List<Long> distinctTranslatorIds = translatorIds.stream().distinct().toList();
+	public void createInformalEmails(InformalEmailRequestDTO emailRequestDTO) {
+		final List<Long> distinctTranslatorIds = emailRequestDTO.translatorIds().stream().distinct().toList();
 		final List<Translator> translators = translatorRepository.findAllById(distinctTranslatorIds);
 
 		if (translators.size() != distinctTranslatorIds.size()) {
@@ -251,8 +252,8 @@ public class ClerkTranslatorService {
 			EmailData emailData = EmailData.builder()
 					.sender("AKT")
 					.recipient("translator" + translator.getId() + "@test.fi")
-					.subject(subject)
-					.body(body).build();
+					.subject(emailRequestDTO.subject())
+					.body(emailRequestDTO.body()).build();
 			// @formatter:on
 
 			emailService.saveEmail(EmailType.INFORMAL, emailData);

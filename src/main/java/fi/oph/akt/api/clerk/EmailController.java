@@ -1,6 +1,6 @@
 package fi.oph.akt.api.clerk;
 
-import fi.oph.akt.api.dto.clerk.InformalEmailDTO;
+import fi.oph.akt.api.dto.clerk.InformalEmailRequestDTO;
 import fi.oph.akt.service.ClerkTranslatorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,8 +22,8 @@ public class EmailController {
 
 	@PostMapping("/informal")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createInformalEmails(@Valid @RequestBody InformalEmailDTO emailDTO) {
-		clerkTranslatorService.createInformalEmails(emailDTO.translatorIds(), emailDTO.subject(), emailDTO.body());
+	public void createInformalEmails(@Valid @RequestBody InformalEmailRequestDTO emailRequestDTO) {
+		clerkTranslatorService.createInformalEmails(emailRequestDTO);
 	}
 
 }

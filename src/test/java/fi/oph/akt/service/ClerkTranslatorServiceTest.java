@@ -5,6 +5,7 @@ import fi.oph.akt.api.dto.clerk.ClerkLanguagePairDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorAuthorisationDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
+import fi.oph.akt.api.dto.clerk.InformalEmailRequestDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTerm;
@@ -418,7 +419,10 @@ class ClerkTranslatorServiceTest {
 
 		List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
 
-		clerkTranslatorService.createInformalEmails(translatorIds, "testiotsikko", "testiviesti");
+		InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO.builder().translatorIds(translatorIds)
+				.subject("otsikko").body("viesti").build();
+
+		clerkTranslatorService.createInformalEmails(emailRequestDTO);
 
 		verify(emailService, times(3)).saveEmail(any(), emailDataCaptor.capture());
 
@@ -428,8 +432,8 @@ class ClerkTranslatorServiceTest {
 
 		emailDatas.forEach(emailData -> {
 			assertEquals("AKT", emailData.sender());
-			assertEquals("testiotsikko", emailData.subject());
-			assertEquals("testiviesti", emailData.body());
+			assertEquals("otsikko", emailData.subject());
+			assertEquals("viesti", emailData.body());
 		});
 	}
 
@@ -449,15 +453,21 @@ class ClerkTranslatorServiceTest {
 
 		Long tId = translatorRepository.findAll().get(0).getId();
 
-		clerkTranslatorService.createInformalEmails(List.of(tId, tId), "testiotsikko", "testiviesti");
+		InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO.builder().translatorIds(List.of(tId, tId))
+				.subject("otsikko").body("viesti").build();
+
+		clerkTranslatorService.createInformalEmails(emailRequestDTO);
 
 		verify(emailService, times(1)).saveEmail(any(), emailDataCaptor.capture());
 	}
 
 	@Test
 	public void createInformalEmailsShouldThrowIllegalArgumentExceptionForNonExistingTranslatorIds() {
+		InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO.builder().translatorIds(List.of(1L))
+				.subject("otsikko").body("viesti").build();
+
 		assertThrows(IllegalArgumentException.class,
-				() -> clerkTranslatorService.createInformalEmails(List.of(1L), "testiotsikko", "testiviesti"));
+				() -> clerkTranslatorService.createInformalEmails(emailRequestDTO));
 	}
 
 }
