@@ -19,6 +19,7 @@ import { Utils } from 'utils';
 import { NotifierButtonVariant, NotifierSeverity } from 'enums/app';
 import {
   NOTIFIER_ACTION_CONTACT_REQUEST_RESET,
+  NOTIFIER_ACTION_CONTACT_REQUEST_EMPTY,
   NOTIFIER_ACTION_DO_NOTHING,
 } from 'redux/actionTypes/notifier';
 
@@ -81,7 +82,7 @@ export const ContactRequestPage = () => {
         {
           title: t('successDialog.continue'),
           variant: NotifierButtonVariant.Contained,
-          action: NOTIFIER_ACTION_CONTACT_REQUEST_RESET,
+          action: NOTIFIER_ACTION_CONTACT_REQUEST_EMPTY,
         },
       ]
     );
