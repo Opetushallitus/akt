@@ -32,7 +32,6 @@ export class Utils {
 
   static createNotifierDialog(
     title: string,
-    type: NotifierTypes,
     severity: NotifierSeverity,
     description: string,
     actions: NotifierButtonAction[],
@@ -41,7 +40,7 @@ export class Utils {
     const notifier: Notifier = {
       id: Utils.createUniqueId(),
       title,
-      type,
+      type: NotifierTypes.Dialog,
       severity,
       description,
       actions,
@@ -53,7 +52,6 @@ export class Utils {
 
   static createNotifierToast(
     title: string,
-    type: NotifierTypes,
     severity: NotifierSeverity,
     description: string,
     timeOut: number | undefined = 6000
@@ -61,7 +59,7 @@ export class Utils {
     const notifier: Notifier = {
       id: Utils.createUniqueId(),
       title,
-      type,
+      type: NotifierTypes.Toast,
       severity,
       description,
       actions: [],

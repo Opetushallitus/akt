@@ -16,11 +16,7 @@ import {
 } from 'components/contactRequest/ContactRequestFormUtils';
 import { showNotifierDialog } from 'redux/actions/notifier';
 import { Utils } from 'utils';
-import {
-  NotifierButtonVariant,
-  NotifierSeverity,
-  NotifierTypes,
-} from 'enums/app';
+import { NotifierButtonVariant, NotifierSeverity } from 'enums/app';
 import {
   NOTIFIER_ACTION_CONTACT_REQUEST_RESET,
   NOTIFIER_ACTION_DO_NOTHING,
@@ -57,7 +53,6 @@ export const ContactRequestPage = () => {
   const dispatchCancelNotifier = () => {
     const notifier = Utils.createNotifierDialog(
       t('cancelRequestDialog.title'),
-      NotifierTypes.Dialog,
       NotifierSeverity.Info,
       t('cancelRequestDialog.description'),
       [
@@ -80,7 +75,6 @@ export const ContactRequestPage = () => {
   const dispatchSuccessNotifier = () => {
     const notifier = Utils.createNotifierDialog(
       t('successDialog.title'),
-      NotifierTypes.Dialog,
       NotifierSeverity.Success,
       t('successDialog.description'),
       [
@@ -98,7 +92,6 @@ export const ContactRequestPage = () => {
   const dispatchErrorNotifier = () => {
     const notifier = Utils.createNotifierDialog(
       t('errorDialog.title'),
-      NotifierTypes.Dialog,
       NotifierSeverity.Error,
       t('errorDialog.description'),
       [
