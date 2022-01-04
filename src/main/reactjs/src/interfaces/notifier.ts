@@ -31,8 +31,8 @@ export interface Dialog extends Notifier {
 }
 
 export interface NotifierState {
-  dialogs: Array<Notifier>;
-  toasts: Array<Notifier>;
+  dialogs: Array<Dialog>;
+  toasts: Array<Toast>;
 }
 
 export interface NotifierAction extends Action {
