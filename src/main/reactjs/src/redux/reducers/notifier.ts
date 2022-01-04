@@ -1,6 +1,11 @@
 import { Reducer } from 'redux';
 
-import { NotifierState, NotifierAction, Notifier } from 'interfaces/notifier';
+import {
+  NotifierState,
+  NotifierAction,
+  Dialog,
+  Toast,
+} from 'interfaces/notifier';
 import {
   NOTIFIER_DIALOG_ADD,
   NOTIFIER_DIALOG_REMOVE,
@@ -21,7 +26,7 @@ export const notifierReducer: Reducer<NotifierState, NotifierAction> = (
     case NOTIFIER_DIALOG_ADD:
       return {
         ...state,
-        dialogs: [...state.dialogs, <Notifier>action.notifier],
+        dialogs: [...state.dialogs, <Dialog>action.notifier],
       };
     case NOTIFIER_DIALOG_REMOVE:
       return {
@@ -31,7 +36,7 @@ export const notifierReducer: Reducer<NotifierState, NotifierAction> = (
     case NOTIFIER_TOAST_ADD:
       return {
         ...state,
-        toasts: [...state.toasts, <Notifier>action.notifier],
+        toasts: [...state.toasts, <Toast>action.notifier],
       };
     case NOTIFIER_TOAST_REMOVE:
       return {
