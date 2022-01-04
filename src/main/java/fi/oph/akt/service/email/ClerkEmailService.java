@@ -6,6 +6,7 @@ import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.TranslatorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,6 +21,7 @@ public class ClerkEmailService {
 	@Resource
 	private final TranslatorRepository translatorRepository;
 
+	@Transactional
 	public void createInformalEmails(InformalEmailRequestDTO emailRequestDTO) {
 		final List<Long> distinctTranslatorIds = emailRequestDTO.translatorIds().stream().distinct().toList();
 		final List<Translator> translators = translatorRepository.findAllById(distinctTranslatorIds);
