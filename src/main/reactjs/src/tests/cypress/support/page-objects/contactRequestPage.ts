@@ -1,15 +1,15 @@
 import { Matcher } from '@testing-library/dom';
 
-class ContactRequestForm {
+class ContactRequestPage {
   elements = {
     deselectTranslatorButton: (id: string) =>
       cy
-        .findByTestId(`contact-request-form__chosen-translator-id-${id}`)
+        .findByTestId(`contact-request-page__chosen-translator-id-${id}`)
         .findByTestId('DeleteOutlineIcon'),
-    previousButton: () => cy.findByTestId('contact-request-form__previous-btn'),
-    nextButton: () => cy.findByTestId('contact-request-form__next-btn'),
-    cancelButton: () => cy.findByTestId('contact-request-form__cancel-btn'),
-    submitButton: () => cy.findByTestId('contact-request-form__submit-btn'),
+    previousButton: () => cy.findByTestId('contact-request-page__previous-btn'),
+    nextButton: () => cy.findByTestId('contact-request-page__next-btn'),
+    cancelButton: () => cy.findByTestId('contact-request-page__cancel-btn'),
+    submitButton: () => cy.findByTestId('contact-request-page__submit-btn'),
     byLabel: (label: Matcher) => cy.findByLabelText(label),
   };
 
@@ -64,44 +64,44 @@ export const TEST_CONTACT_DETAILS = {
 export const TEST_MESSAGE = 'Kirjoita viestisi tähän';
 export const LONG_TEST_MESSAGE = TEST_MESSAGE.repeat(50);
 
-export const onContactRequestForm = new ContactRequestForm();
+export const onContactRequestPage = new ContactRequestPage();
 
 export const verifyTranslatorsStep = () => {
-  onContactRequestForm.deselectTranslator('1940');
+  onContactRequestPage.deselectTranslator('1940');
 };
 
 export const fillContactDetailsStep = () => {
-  onContactRequestForm.next();
-  onContactRequestForm.isNextDisabled();
+  onContactRequestPage.next();
+  onContactRequestPage.isNextDisabled();
 
-  onContactRequestForm.fillFieldByLabel(
+  onContactRequestPage.fillFieldByLabel(
     /etunimi/i,
     TEST_CONTACT_DETAILS.firstName
   );
-  onContactRequestForm.fillFieldByLabel(
+  onContactRequestPage.fillFieldByLabel(
     /sukunimi/i,
     TEST_CONTACT_DETAILS.lastName
   );
-  onContactRequestForm.fillFieldByLabel(
+  onContactRequestPage.fillFieldByLabel(
     /sähköpostiosoite/i,
     TEST_CONTACT_DETAILS.email
   );
 
-  onContactRequestForm.isNextEnabled();
+  onContactRequestPage.isNextEnabled();
 };
 
 export const writeMessageStep = () => {
-  onContactRequestForm.next();
-  onContactRequestForm.isNextDisabled();
+  onContactRequestPage.next();
+  onContactRequestPage.isNextDisabled();
 
-  onContactRequestForm.fillFieldByLabel(/Viesti/i, TEST_MESSAGE);
+  onContactRequestPage.fillFieldByLabel(/Viesti/i, TEST_MESSAGE);
 
-  onContactRequestForm.isNextEnabled();
+  onContactRequestPage.isNextEnabled();
 };
 
 const assertSelectedTranslators = () => {
   expectTextForId(
-    'contact-request-form__chosen-translators-text',
+    'contact-request-page__chosen-translators-text',
     'Ilkka Heinonen, Ninni Korhonen'
   );
 };
@@ -119,7 +119,7 @@ const assertContactDetails = () => {
 };
 
 export const previewAndSendStep = () => {
-  onContactRequestForm.next();
+  onContactRequestPage.next();
 
   assertSelectedTranslators();
   assertContactDetails();

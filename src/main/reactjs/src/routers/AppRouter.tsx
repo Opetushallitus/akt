@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Footer from 'components/layouts/Footer';
 import Header from 'components/layouts/Header';
+import { Notifier } from 'components/notification/Notifier';
 import { PublicHomePage } from 'pages/PublicHomePage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { ClerkHomePage } from 'pages/ClerkHomePage';
@@ -14,6 +15,7 @@ export const AppRouter: FC = () => (
       <Header />
       <main className="content">
         <div className="content__container">
+          <Notifier />
           <Routes>
             <Route
               path={AppRoutes.PublicHomePage}

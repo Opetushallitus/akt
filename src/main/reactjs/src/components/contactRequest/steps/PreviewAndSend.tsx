@@ -26,7 +26,7 @@ export const PreviewAndSend = () => {
         <DisplayContactInfo />
         <H3>{t('message')}</H3>
         <TextBox
-          data-testid="contact-request-form__message-text"
+          data-testid="contact-request-page__message-text"
           variant="standard"
           defaultValue={request?.message}
           InputProps={{

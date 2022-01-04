@@ -9,21 +9,20 @@
 @import 'base/common';
 
 // Components
-@import 'components/elements/progress-indicator';
+@import 'components/layouts/flex';
 @import 'components/layouts/header';
 @import 'components/layouts/footer';
+@import 'components/elements/progress-indicator';
 @import 'components/table/table';
 @import 'components/i18n/lang-selector';
 @import 'components/translators/translator-listing';
 @import 'components/translators/public-translator-filters';
-@import 'components/contactRequest/contact-request-form';
-@import 'components/dialog/dialog';
+@import 'components/notification/dialog-box';
 
 // Pages
 @import 'pages/homepage';
+@import 'pages/contact-request-page';
 @import 'pages/not-found-page';
-@import 'components/dialog/dialog';
-@import 'components/layouts/flex';
 
 // Vendors
 @import 'vendors/init-spinner';
