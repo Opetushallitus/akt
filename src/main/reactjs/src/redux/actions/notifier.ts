@@ -5,9 +5,9 @@ import {
   NOTIFIER_TOAST_REMOVE,
 } from 'redux/actionTypes/notifier';
 import { dispatchOutsideComponent } from 'configs/redux';
-import { Notifier } from 'interfaces/notifier';
+import { Dialog, Toast } from 'interfaces/notifier';
 
-export const showNotifierDialog = (notifier: Notifier) => {
+export const showNotifierDialog = (notifier: Dialog) => {
   if (notifier.timeOut) {
     setTimeout(() => {
       dispatchOutsideComponent(removeNotifierDialog(notifier.id));
@@ -25,7 +25,7 @@ export const removeNotifierDialog = (id: string) => ({
   id,
 });
 
-export const showNotifierToast = (notifier: Notifier) => ({
+export const showNotifierToast = (notifier: Toast) => ({
   type: NOTIFIER_TOAST_ADD,
   notifier,
 });

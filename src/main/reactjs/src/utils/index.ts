@@ -6,7 +6,7 @@ import {
   TextBoxErrors,
   TextBoxTypes,
 } from 'enums/app';
-import { Notifier, NotifierButtonAction } from 'interfaces/notifier';
+import { Dialog, Toast, NotifierButtonAction } from 'interfaces/notifier';
 
 export class Utils {
   static isEmptyString(str: string) {
@@ -37,10 +37,10 @@ export class Utils {
     actions: NotifierButtonAction[],
     timeOut: number | undefined = undefined
   ) {
-    const notifier: Notifier = {
+    const notifier: Dialog = {
       id: Utils.createUniqueId(),
-      title,
       type: NotifierTypes.Dialog,
+      title,
       severity,
       description,
       actions,
@@ -56,10 +56,10 @@ export class Utils {
     description: string,
     timeOut: number | undefined = 6000
   ) {
-    const notifier: Notifier = {
+    const notifier: Toast = {
       id: Utils.createUniqueId(),
-      title,
       type: NotifierTypes.Toast,
+      title,
       severity,
       description,
       actions: [],

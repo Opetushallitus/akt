@@ -15,12 +15,19 @@ export interface NotifierButtonAction {
 
 export interface Notifier {
   id: string;
-  type: `${NotifierTypes}`;
   severity: `${NotifierSeverity}`;
   title: string;
   description: string;
   timeOut?: number;
   actions?: Array<NotifierButtonAction>;
+}
+
+export interface Toast extends Notifier {
+  type: NotifierTypes.Toast;
+}
+
+export interface Dialog extends Notifier {
+  type: NotifierTypes.Dialog;
 }
 
 export interface NotifierState {
