@@ -7,6 +7,7 @@ import fi.oph.akt.api.dto.clerk.ClerkTranslatorAuthorisationDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorContactDetailsDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
+import fi.oph.akt.model.EmailType;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.onr.TranslatorDetails;
 import fi.oph.akt.onr.OnrServiceMock;
@@ -17,7 +18,10 @@ import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.TranslatorAuthorisationProjection;
 import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorRepository;
+import fi.oph.akt.service.email.EmailData;
+import fi.oph.akt.service.email.EmailService;
 import fi.oph.akt.util.AuthorisationTermProjectionComparator;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -33,6 +37,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@RequiredArgsConstructor
 public class ClerkTranslatorService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ClerkTranslatorService.class);
@@ -40,20 +45,23 @@ public class ClerkTranslatorService {
 	private static final AuthorisationTermProjectionComparator authorisationTermProjectionComparator = new AuthorisationTermProjectionComparator();
 
 	@Resource
-	private AuthorisationRepository authorisationRepository;
+	private final AuthorisationRepository authorisationRepository;
 
 	@Resource
-	private AuthorisationTermRepository authorisationTermRepository;
+	private final AuthorisationTermRepository authorisationTermRepository;
 
 	@Resource
-	private LanguagePairRepository languagePairRepository;
+	private final EmailService emailService;
 
 	@Resource
-	private TranslatorRepository translatorRepository;
+	private final LanguagePairRepository languagePairRepository;
+
+	@Resource
+	private final TranslatorRepository translatorRepository;
 
 	@Resource
 	// TODO (OPHAKTKEH-52): use actual API outside local environment
-	private OnrServiceMock onrServiceMock;
+	private final OnrServiceMock onrServiceMock;
 
 	@Transactional(readOnly = true)
 	public ClerkTranslatorResponseDTO listTranslators() {
@@ -228,6 +236,27 @@ public class ClerkTranslatorService {
 
 	private List<String> getDistinctTowns(Collection<TranslatorDetails> translatorDetails) {
 		return translatorDetails.stream().map(TranslatorDetails::town).distinct().sorted().toList();
+	}
+
+	public void createInformalEmails(List<Long> translatorIds, String subject, String body) {
+		final List<Long> distinctTranslatorIds = translatorIds.stream().distinct().toList();
+		final List<Translator> translators = translatorRepository.findAllById(distinctTranslatorIds);
+
+		if (translators.size() != distinctTranslatorIds.size()) {
+			throw new IllegalArgumentException("Each translator by provided translatorIds not found");
+		}
+
+		translators.forEach(translator -> {
+			// @formatter:off
+			EmailData emailData = EmailData.builder()
+					.sender("AKT")
+					.recipient("translator" + translator.getId() + "@test.fi")
+					.subject(subject)
+					.body(body).build();
+			// @formatter:on
+
+			emailService.saveEmail(EmailType.INFORMAL, emailData);
+		});
 	}
 
 }

@@ -12,12 +12,23 @@ import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.onr.OnrServiceMock;
+import fi.oph.akt.repository.AuthorisationRepository;
+import fi.oph.akt.repository.AuthorisationTermRepository;
+import fi.oph.akt.repository.LanguagePairRepository;
+import fi.oph.akt.repository.TranslatorRepository;
+import fi.oph.akt.service.email.EmailData;
+import fi.oph.akt.service.email.EmailService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 
+import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -25,17 +36,47 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @DataJpaTest
-@Import({ ClerkTranslatorService.class, OnrServiceMock.class })
+@Import({ OnrServiceMock.class })
 class ClerkTranslatorServiceTest {
 
-	@Autowired
-	private TestEntityManager entityManager;
+	private ClerkTranslatorService clerkTranslatorService;
+
+	@Resource
+	private AuthorisationRepository authorisationRepository;
+
+	@Resource
+	private AuthorisationTermRepository authorisationTermRepository;
+
+	@MockBean
+	private EmailService emailService;
+
+	@Resource
+	private LanguagePairRepository languagePairRepository;
+
+	@Resource
+	private TranslatorRepository translatorRepository;
 
 	@Autowired
-	private ClerkTranslatorService clerkTranslatorService;
+	private OnrServiceMock onrServiceMock;
+
+	@Resource
+	private TestEntityManager entityManager;
+
+	@Captor
+	private ArgumentCaptor<EmailData> emailDataCaptor;
+
+	@BeforeEach
+	public void setup() {
+		clerkTranslatorService = new ClerkTranslatorService(authorisationRepository, authorisationTermRepository,
+				emailService, languagePairRepository, translatorRepository, onrServiceMock);
+	}
 
 	@Test
 	public void listShouldReturnAllTranslators() {
@@ -356,6 +397,67 @@ class ClerkTranslatorServiceTest {
 
 		assertEquals(term3BeginDate, authorisationDTO.term().beginDate());
 		assertEquals(term3EndDate, authorisationDTO.term().endDate());
+	}
+
+	@Test
+	public void createInformalEmailsShouldSaveEmailsToGivenTranslators() {
+		final MeetingDate meetingDate = Factory.meetingDate();
+		entityManager.persist(meetingDate);
+
+		IntStream.range(0, 3).forEach(n -> {
+			final Translator translator = Factory.translator();
+			final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+			final LanguagePair languagePair = Factory.languagePair(authorisation);
+			final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+
+			entityManager.persist(translator);
+			entityManager.persist(authorisation);
+			entityManager.persist(languagePair);
+			entityManager.persist(authorisationTerm);
+		});
+
+		List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
+
+		clerkTranslatorService.createInformalEmails(translatorIds, "testiotsikko", "testiviesti");
+
+		verify(emailService, times(3)).saveEmail(any(), emailDataCaptor.capture());
+
+		List<EmailData> emailDatas = emailDataCaptor.getAllValues();
+
+		assertEquals(3, emailDatas.size());
+
+		emailDatas.forEach(emailData -> {
+			assertEquals("AKT", emailData.sender());
+			assertEquals("testiotsikko", emailData.subject());
+			assertEquals("testiviesti", emailData.body());
+		});
+	}
+
+	@Test
+	public void createInformalEmailsShouldSaveEmailToGivenTranslatorsWithDuplicateTranslatorIds() {
+		final MeetingDate meetingDate = Factory.meetingDate();
+		final Translator translator = Factory.translator();
+		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+		final LanguagePair languagePair = Factory.languagePair(authorisation);
+		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+
+		entityManager.persist(meetingDate);
+		entityManager.persist(translator);
+		entityManager.persist(authorisation);
+		entityManager.persist(languagePair);
+		entityManager.persist(authorisationTerm);
+
+		Long tId = translatorRepository.findAll().get(0).getId();
+
+		clerkTranslatorService.createInformalEmails(List.of(tId, tId), "testiotsikko", "testiviesti");
+
+		verify(emailService, times(1)).saveEmail(any(), emailDataCaptor.capture());
+	}
+
+	@Test
+	public void createInformalEmailsShouldThrowIllegalArgumentExceptionForNonExistingTranslatorIds() {
+		assertThrows(IllegalArgumentException.class,
+				() -> clerkTranslatorService.createInformalEmails(List.of(1L), "testiotsikko", "testiviesti"));
 	}
 
 }
