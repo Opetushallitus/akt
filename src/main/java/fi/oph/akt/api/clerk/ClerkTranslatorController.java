@@ -26,7 +26,7 @@ public class ClerkTranslatorController {
 		return clerkTranslatorService.listTranslators();
 	}
 
-	@GetMapping(path = "/all-language-codes")
+	@GetMapping(path = "/lang-codes")
 	public Set<String> allLanguageCodes() {
 		return languageService.allLanguageCodes();
 	}
