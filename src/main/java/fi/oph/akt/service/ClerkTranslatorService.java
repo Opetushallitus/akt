@@ -7,8 +7,6 @@ import fi.oph.akt.api.dto.clerk.ClerkTranslatorAuthorisationDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorContactDetailsDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
-import fi.oph.akt.api.dto.clerk.InformalEmailRequestDTO;
-import fi.oph.akt.model.EmailType;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.onr.TranslatorDetails;
 import fi.oph.akt.onr.OnrServiceMock;
@@ -19,8 +17,6 @@ import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.TranslatorAuthorisationProjection;
 import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorRepository;
-import fi.oph.akt.service.email.EmailData;
-import fi.oph.akt.service.email.EmailService;
 import fi.oph.akt.util.AuthorisationTermProjectionComparator;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -50,9 +46,6 @@ public class ClerkTranslatorService {
 
 	@Resource
 	private final AuthorisationTermRepository authorisationTermRepository;
-
-	@Resource
-	private final EmailService emailService;
 
 	@Resource
 	private final LanguagePairRepository languagePairRepository;
@@ -237,29 +230,6 @@ public class ClerkTranslatorService {
 
 	private List<String> getDistinctTowns(Collection<TranslatorDetails> translatorDetails) {
 		return translatorDetails.stream().map(TranslatorDetails::town).distinct().sorted().toList();
-	}
-
-	public void createInformalEmails(InformalEmailRequestDTO emailRequestDTO) {
-		final List<Long> distinctTranslatorIds = emailRequestDTO.translatorIds().stream().distinct().toList();
-		final List<Translator> translators = translatorRepository.findAllById(distinctTranslatorIds);
-
-		if (translators.size() != distinctTranslatorIds.size()) {
-			throw new IllegalArgumentException("Each translator by provided translatorIds not found");
-		}
-
-		translators.forEach(translator -> {
-			// @formatter:off
-			// TODO: replace recipient with translator's email address
-			EmailData emailData = EmailData.builder()
-					.sender("AKT")
-					.recipient("translator" + translator.getId() + "@test.fi")
-					.subject(emailRequestDTO.subject())
-					.body(emailRequestDTO.body())
-					.build();
-			// @formatter:on
-
-			emailService.saveEmail(EmailType.INFORMAL, emailData);
-		});
 	}
 
 }
