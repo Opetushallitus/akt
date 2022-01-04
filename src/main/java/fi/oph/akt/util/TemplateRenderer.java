@@ -13,10 +13,19 @@ public class TemplateRenderer {
 
 	private final TemplateEngine templateEngine;
 
+	public String renderAuthorisationExpiryEmailBody(final Map<String, Object> params) {
+		return renderTemplate("authorisation-expiry", params);
+	}
+
 	public String renderContactRequestEmailBody(final Map<String, Object> params) {
+		return renderTemplate("contact-request", params);
+	}
+
+	private String renderTemplate(final String template, final Map<String, Object> params) {
 		final Context context = new Context();
 		context.setVariables(params);
-		return templateEngine.process("contact-request", context);
+
+		return templateEngine.process(template, context);
 	}
 
 }

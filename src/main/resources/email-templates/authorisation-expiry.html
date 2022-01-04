@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fi">
+    <body>
+        <p>
+            Hei,
+        </p>
+        <p>
+            Oikeutesi toimia auktorisoituna kääntäjänä päättyy [[${expiryDate}]]. Oikeutesi on päättymässä seuraavien kieliparien osalta:
+        </p>
+
+        <ul>
+            <li th:each="langPair : ${languagePairs}">[[${langPair}]]</li>
+        </ul>
+
+        <p>
+            Jatkaaksesi oikeuttasi toimia auktorisoituna kääntäjänä, ja jotta sinut voi jatkossakin löytää rekisteristämme, otathan yhteyttä meihin osoitteessa [[${contactEmail}]].
+        </p>
+        <br/>
+
+        <p>
+            Älä vastaa tähän viestiin - viesti on lähetetty automaattisesti.
+        </p>
+        <p>
+            Ystävällisin terveisin<br/>
+            Opintopolku
+        </p>
+    </body>
+</html>
