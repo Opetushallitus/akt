@@ -407,4 +407,8 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="2022-01-03-add-meeting_date-date-uniq" author="terova">
+        <addUniqueConstraint tableName="meeting_date" columnNames="date"/>
+    </changeSet>
+
 </databaseChangeLog>
