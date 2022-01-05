@@ -9,13 +9,13 @@ import { AuthorisationStatus } from 'enums/clerkTranslator';
 interface ContactDetails {
   firstName: string;
   lastName: string;
-  email: string;
-  phoneNumber: string;
-  identityNumber: string;
-  street: string;
-  postalCode: string;
-  town: string;
-  country: string;
+  email?: string;
+  phoneNumber?: string;
+  identityNumber?: string;
+  street?: string;
+  postalCode?: string;
+  town?: string;
+  country?: string;
 }
 
 export interface ClerkTranslator extends WithId {
