@@ -10,6 +10,7 @@ class ContactRequestPage {
     nextButton: () => cy.findByTestId('contact-request-page__next-btn'),
     cancelButton: () => cy.findByTestId('contact-request-page__cancel-btn'),
     submitButton: () => cy.findByTestId('contact-request-page__submit-btn'),
+    homepageButton: () => cy.findByTestId('contact-request-page__homepage-btn'),
     byLabel: (label: Matcher) => cy.findByLabelText(label),
   };
 
@@ -27,6 +28,10 @@ class ContactRequestPage {
 
   submit() {
     this.elements.submitButton().click();
+  }
+
+  homepage() {
+    this.elements.homepageButton().click();
   }
 
   deselectTranslator(id: string) {
@@ -51,6 +56,12 @@ class ContactRequestPage {
 
   isNextDisabled() {
     this.elements.nextButton().should('be.disabled');
+  }
+
+  expectRequestToBeSent() {
+    cy.findByText(
+      /Yhteydenottopyyntösi on lähetetty ja sinuun ollaan yhteydessä./i
+    ).should('be.visible');
   }
 }
 

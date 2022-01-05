@@ -7,10 +7,9 @@ import {
   CONTACT_REQUEST_ERROR,
   CONTACT_REQUEST_SEND,
   CONTACT_REQUEST_SUCCESS,
+  CONTACT_REQUEST_STEP_INCREASE,
   isContactRequestSendAction,
 } from 'redux/actionTypes/contactRequest';
-import { UIStates } from 'enums/app';
-import { DISPLAY_UI_STATE } from 'redux/actionTypes/navigation';
 
 export function* sendContactRequest(action: Action) {
   if (isContactRequestSendAction(action)) {
@@ -39,10 +38,7 @@ export function* sendContactRequest(action: Action) {
         })
       );
       yield put({ type: CONTACT_REQUEST_SUCCESS });
-      yield put({
-        type: DISPLAY_UI_STATE,
-        state: UIStates.PublicTranslatorListing,
-      });
+      yield put({ type: CONTACT_REQUEST_STEP_INCREASE });
     } catch (error) {
       yield put({ type: CONTACT_REQUEST_ERROR, error });
     }
