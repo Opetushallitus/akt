@@ -6,7 +6,7 @@ import { LanguagePairsDict } from 'interfaces/language';
 import { APIResponseStatus } from 'enums/api';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 
-interface ContactDetails {
+interface ClerkTranslatorContactDetails {
   firstName: string;
   lastName: string;
   email?: string;
@@ -19,7 +19,7 @@ interface ContactDetails {
 }
 
 export interface ClerkTranslator extends WithId {
-  contactDetails: ContactDetails;
+  contactDetails: ClerkTranslatorContactDetails;
   authorisations: Array<Authorisation>;
 }
 
