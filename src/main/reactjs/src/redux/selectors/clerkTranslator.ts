@@ -32,6 +32,26 @@ export const selectTranslatorsByAuthorisationStatus = createSelector(
   }
 );
 
+export const selectFilteredClerkTranslators = createSelector(
+  (state: RootState) => state.clerkTranslator.translators,
+  (state: RootState) => state.clerkTranslator.filters,
+  (translators, filters) => {
+    return translators.filter((t) =>
+      filterByAuthorisationStatus(t, filters.authorisationStatus)
+    );
+  }
+);
+
+export const selectFilteredSelectedIds = createSelector(
+  selectFilteredClerkTranslators,
+  (state: RootState) => state.clerkTranslator.selectedTranslators,
+  (filteredTranslators, selectedTranslators) => {
+    const filteredIds = new Set(filteredTranslators.map((t) => t.id));
+
+    return selectedTranslators.filter((id) => filteredIds.has(id));
+  }
+);
+
 // Helpers
 
 const isAuthorisationValid = ({ term }: Authorisation, now: Date) => {

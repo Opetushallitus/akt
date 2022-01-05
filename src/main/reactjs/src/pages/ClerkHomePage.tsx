@@ -3,9 +3,8 @@ import { Box, Button, Divider, Grid, Paper } from '@mui/material';
 
 import { H1, H2 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
-import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { useAppDispatch } from 'configs/redux';
 import { loadClerkTranslators } from 'redux/actions/clerkTranslator';
-import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
 import { ClerkTranslatorListing } from 'components/clerkTranslator/ClerkTranslatorListing';
 import {
   ListingFilters,
@@ -28,8 +27,6 @@ export const ClerkHomePage: FC = () => {
   useEffect(() => {
     dispatch(loadClerkTranslators);
   }, [dispatch]);
-
-  const { status, translators } = useAppSelector(clerkTranslatorsSelector);
 
   return (
     <Box className="homepage__clerk">
@@ -59,10 +56,7 @@ export const ClerkHomePage: FC = () => {
               <ListingFilters />
             </Grid>
             <Grid item>
-              <ClerkTranslatorListing
-                translators={translators}
-                status={status}
-              />
+              <ClerkTranslatorListing />
             </Grid>
           </Grid>
         </Paper>

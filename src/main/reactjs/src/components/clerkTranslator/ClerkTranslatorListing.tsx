@@ -17,7 +17,11 @@ import {
   selectAllFilteredTranslators,
   selectClerkTranslator,
 } from 'redux/actions/clerkTranslator';
-import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
+import {
+  clerkTranslatorsSelector,
+  selectFilteredClerkTranslators,
+  selectFilteredSelectedIds,
+} from 'redux/selectors/clerkTranslator';
 
 const getLanguagePairsWithAuthorisations = (translator: ClerkTranslator) => {
   return translator.authorisations.flatMap(({ basis, term, languagePairs }) =>
@@ -114,11 +118,9 @@ const ListingHeader: FC = () => {
   });
 
   const dispatch = useAppDispatch();
-  const { selectedTranslators, translators } = useAppSelector(
-    clerkTranslatorsSelector
-  );
-  // TODO This needs to correspond to "are all filtered translators selected" rather than "are all translators selected"!
-  const allSelected = selectedTranslators.length === translators.length;
+  const filteredCount = useAppSelector(selectFilteredClerkTranslators).length;
+  const selectedCount = useAppSelector(selectFilteredSelectedIds).length;
+  const allSelected = filteredCount > 0 && filteredCount === selectedCount;
 
   return (
     <TableHead>
@@ -127,7 +129,7 @@ const ListingHeader: FC = () => {
           <Checkbox
             color="secondary"
             checked={allSelected}
-            indeterminate={!allSelected && selectedTranslators.length > 0}
+            indeterminate={selectedCount > 0 && selectedCount < filteredCount}
             onClick={() => {
               if (allSelected) {
                 dispatch(deselectAllTranslators);
@@ -160,15 +162,11 @@ const ListingHeader: FC = () => {
   );
 };
 
-export const ClerkTranslatorListing = ({
-  status,
-  translators,
-}: {
-  status: APIResponseStatus;
-  translators: Array<ClerkTranslator>;
-}) => {
+export const ClerkTranslatorListing: FC = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt' });
-  const { selectedTranslators } = useAppSelector(clerkTranslatorsSelector);
+  const { status } = useAppSelector(clerkTranslatorsSelector);
+  const filteredTranslators = useAppSelector(selectFilteredClerkTranslators);
+  const filteredSelectedIds = useAppSelector(selectFilteredSelectedIds);
 
   switch (status) {
     case APIResponseStatus.NotStarted:
@@ -188,10 +186,10 @@ export const ClerkTranslatorListing = ({
     case APIResponseStatus.Success:
       return (
         <PaginatedTable
-          selectedIndices={selectedTranslators}
+          selectedIndices={filteredSelectedIds}
           addSelectedIndex={selectClerkTranslator}
           removeSelectedIndex={deselectClerkTranslator}
-          data={translators}
+          data={filteredTranslators}
           header={<ListingHeader />}
           getRowDetails={getClerkTranslatorRow}
           initialRowsPerPage={10}
