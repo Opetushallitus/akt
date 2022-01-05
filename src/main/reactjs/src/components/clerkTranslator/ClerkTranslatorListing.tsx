@@ -121,6 +121,7 @@ const ListingHeader: FC = () => {
   const filteredCount = useAppSelector(selectFilteredClerkTranslators).length;
   const selectedCount = useAppSelector(selectFilteredSelectedIds).length;
   const allSelected = filteredCount > 0 && filteredCount === selectedCount;
+  const indeterminate = selectedCount > 0 && selectedCount < filteredCount;
 
   return (
     <TableHead>
@@ -129,7 +130,7 @@ const ListingHeader: FC = () => {
           <Checkbox
             color="secondary"
             checked={allSelected}
-            indeterminate={selectedCount > 0 && selectedCount < filteredCount}
+            indeterminate={indeterminate}
             onClick={() => {
               if (allSelected) {
                 dispatch(deselectAllTranslators);
