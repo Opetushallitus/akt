@@ -71,7 +71,7 @@ export const ContactRequestPage = () => {
         dispatchErrorNotifier();
         break;
       case APIResponseStatus.InProgress:
-        return <ProgressIndicator />;
+        return <ProgressIndicator color="secondary" />;
       default:
         return <> </>;
     }

@@ -12,6 +12,7 @@ export enum AppRoutes {
 export enum Duration {
   Short = 3000,
   Medium = 6000,
+  MediumExtra = 9000,
   Long = 12000,
 }
 

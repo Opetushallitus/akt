@@ -27,7 +27,7 @@ export const Done = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       resetAndRedirect();
-    }, Duration.Medium);
+    }, Duration.MediumExtra);
 
     return () => clearTimeout(timer);
   });
