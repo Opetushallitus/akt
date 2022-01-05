@@ -5,7 +5,6 @@ import {
   PublicTranslatorState,
   PublicTranslatorAction,
   PublicTranslator,
-  LanguagePairsDict,
 } from 'interfaces/translator';
 import {
   PUBLIC_TRANSLATOR_ERROR,
@@ -16,6 +15,7 @@ import {
   PUBLIC_TRANSLATOR_ADD_FILTERS,
   PUBLIC_TRANSLATOR_EMPTY_FILTERS,
 } from 'redux/actionTypes/publicTranslator';
+import { LanguagePairsDict } from 'interfaces/language';
 
 const defaultState = {
   status: APIResponseStatus.NotStarted,
