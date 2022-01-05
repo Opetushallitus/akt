@@ -1,7 +1,8 @@
-.homepage__clerk {
+.clerk-homepage {
   & &__grid-container {
     padding: 2.5rem;
     padding-bottom: 4rem;
+    gap: 2rem;
 
     & > * {
       flex-grow: 1;

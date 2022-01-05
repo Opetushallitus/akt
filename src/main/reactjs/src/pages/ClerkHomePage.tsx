@@ -35,14 +35,14 @@ export const ClerkHomePage: FC = () => {
   }, [dispatch]);
 
   return (
-    <Box className="homepage__clerk">
+    <Box className="clerk-homepage">
       <div>
         <H1>{t('title')}</H1>
         <Paper elevation={3}>
           <Grid
             container
             direction="column"
-            className="homepage__clerk__grid-container gapped"
+            className="clerk-homepage__grid-container"
           >
             <Grid item>
               <RegisterHeading />
