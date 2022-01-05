@@ -12,12 +12,18 @@ import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.onr.OnrServiceMock;
+import fi.oph.akt.repository.AuthorisationRepository;
+import fi.oph.akt.repository.AuthorisationTermRepository;
+import fi.oph.akt.repository.LanguagePairRepository;
+import fi.oph.akt.repository.TranslatorRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
+import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -28,14 +34,34 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
-@Import({ ClerkTranslatorService.class, OnrServiceMock.class })
+@Import({ OnrServiceMock.class })
 class ClerkTranslatorServiceTest {
 
-	@Autowired
-	private TestEntityManager entityManager;
+	private ClerkTranslatorService clerkTranslatorService;
+
+	@Resource
+	private AuthorisationRepository authorisationRepository;
+
+	@Resource
+	private AuthorisationTermRepository authorisationTermRepository;
+
+	@Resource
+	private LanguagePairRepository languagePairRepository;
+
+	@Resource
+	private TranslatorRepository translatorRepository;
 
 	@Autowired
-	private ClerkTranslatorService clerkTranslatorService;
+	private OnrServiceMock onrServiceMock;
+
+	@Resource
+	private TestEntityManager entityManager;
+
+	@BeforeEach
+	public void setup() {
+		clerkTranslatorService = new ClerkTranslatorService(authorisationRepository, authorisationTermRepository,
+				languagePairRepository, translatorRepository, onrServiceMock);
+	}
 
 	@Test
 	public void listShouldReturnAllTranslators() {

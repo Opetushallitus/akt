@@ -128,7 +128,8 @@ public class ContactRequestService {
 				.sender("AKT")
 				.recipient(recipient)
 				.subject("Yhteydenotto kääntäjärekisteristä")
-				.body(body).build();
+				.body(body)
+				.build();
 		// @formatter:on
 
 		emailService.saveEmail(EmailType.CONTACT_REQUEST, emailData);

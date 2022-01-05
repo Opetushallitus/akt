@@ -18,6 +18,7 @@ import fi.oph.akt.repository.TranslatorAuthorisationProjection;
 import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.util.AuthorisationTermProjectionComparator;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@RequiredArgsConstructor
 public class ClerkTranslatorService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ClerkTranslatorService.class);
@@ -40,20 +42,20 @@ public class ClerkTranslatorService {
 	private static final AuthorisationTermProjectionComparator authorisationTermProjectionComparator = new AuthorisationTermProjectionComparator();
 
 	@Resource
-	private AuthorisationRepository authorisationRepository;
+	private final AuthorisationRepository authorisationRepository;
 
 	@Resource
-	private AuthorisationTermRepository authorisationTermRepository;
+	private final AuthorisationTermRepository authorisationTermRepository;
 
 	@Resource
-	private LanguagePairRepository languagePairRepository;
+	private final LanguagePairRepository languagePairRepository;
 
 	@Resource
-	private TranslatorRepository translatorRepository;
+	private final TranslatorRepository translatorRepository;
 
 	@Resource
 	// TODO (OPHAKTKEH-52): use actual API outside local environment
-	private OnrServiceMock onrServiceMock;
+	private final OnrServiceMock onrServiceMock;
 
 	@Transactional(readOnly = true)
 	public ClerkTranslatorResponseDTO listTranslators() {
