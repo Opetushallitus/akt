@@ -9,6 +9,12 @@ export enum AppRoutes {
   NotFoundPage = '*',
 }
 
+export enum Duration {
+  Short = 3000,
+  Medium = 6000,
+  Long = 12000,
+}
+
 export enum UIStates {
   PublicTranslatorListing = 'PublicTranslatorListing',
   ContactRequest = 'ContactRequest',

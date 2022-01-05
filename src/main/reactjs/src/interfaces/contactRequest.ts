@@ -2,6 +2,7 @@ import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
 import { PublicLanguagePair } from 'interfaces/translator';
+import { ContactRequestFormStep } from 'enums/contactRequest';
 
 export interface ContactDetails {
   email: string;
@@ -18,6 +19,7 @@ export interface ContactRequest extends ContactDetails {
 
 export interface ContactRequestState {
   status: APIResponseStatus;
+  activeStep: ContactRequestFormStep;
   request?: Partial<ContactRequest>;
 }
 

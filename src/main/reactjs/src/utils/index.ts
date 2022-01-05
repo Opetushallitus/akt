@@ -1,6 +1,7 @@
 import { TFunction } from 'i18next';
 
 import {
+  Duration,
   NotifierSeverity,
   NotifierTypes,
   TextBoxErrors,
@@ -54,7 +55,7 @@ export class Utils {
     title: string,
     severity: NotifierSeverity,
     description: string,
-    timeOut: number | undefined = 6000
+    timeOut: number | undefined = Duration.Medium
   ) {
     const notifier: Toast = {
       id: Utils.createUniqueId(),

@@ -11,11 +11,9 @@ import {
 } from 'tests/cypress/support/page-objects/contactRequestPage';
 import { onPublicTranslatorFilters } from 'tests/cypress/support/page-objects/publicTranslatorFilters';
 import { onPublicTranslatorsListing } from 'tests/cypress/support/page-objects/publicTranslatorsListing';
-import { onCancelDialog } from 'tests/cypress/support/page-objects/cancelDialog';
-import { onErrorDialog } from 'tests/cypress/support/page-objects/errorDialog';
-import { onSuccessDialog } from 'tests/cypress/support/page-objects/successDialog';
 import { runWithIntercept } from 'tests/cypress/support/utils/api';
 import { onPublicHomePage } from 'tests/cypress/support/page-objects/publicHomePage';
+import { onDialog } from 'tests/cypress/support/page-objects/dialog';
 
 const selectTranslatorRows = () => {
   TEST_TRANSLATOR_IDS.forEach((id) =>
@@ -46,13 +44,13 @@ describe('ContactRequestPage', () => {
   it('should open a confirmation dialog when cancel button is clicked', () => {
     // Click on cancel, then back out => return to contact request form
     onContactRequestPage.cancel();
-    onCancelDialog.expectText('Peruuta yhteydenottopyyntö');
-    onCancelDialog.back();
+    onDialog.expectText('Peruuta yhteydenottopyyntö');
+    onDialog.clickButtonByText('Takaisin');
 
     // Click on cancel, then confirm => return to home page
     onContactRequestPage.cancel();
-    onCancelDialog.expectText('Peruuta yhteydenottopyyntö');
-    onCancelDialog.yes();
+    onDialog.expectText('Peruuta yhteydenottopyyntö');
+    onDialog.clickButtonByText('Kyllä');
 
     onPublicHomePage.isVisible();
   });
@@ -67,8 +65,8 @@ describe('ContactRequestPage', () => {
       onContactRequestPage.submit()
     );
 
-    onErrorDialog.expectText('Virhe lähetettäessä yhteydenottopyyntöä.');
-    onErrorDialog.back();
+    onDialog.expectText('Virhe lähetettäessä yhteydenottopyyntöä.');
+    onDialog.clickButtonByText('Takaisin');
 
     // Verify last step is shown after dialog is closed
     expectTextForId(
@@ -87,10 +85,8 @@ describe('ContactRequestPage', () => {
       onContactRequestPage.submit()
     );
 
-    onSuccessDialog.expectText(
-      'Yhteydenottopyyntösi lähetettiin onnistuneesti!'
-    );
-    onSuccessDialog.continue();
+    onContactRequestPage.expectRequestToBeSent();
+    onContactRequestPage.homepage();
     onPublicHomePage.isVisible();
   });
 
@@ -143,7 +139,7 @@ describe('ContactRequestPage', () => {
     cy.findByText(/puhelinnumero on virheellinen/i).should('be.visible');
   });
 
-  it.only('should show an error if the message field is empty or its length exceeds the limit', () => {
+  it('should show an error if the message field is empty or its length exceeds the limit', () => {
     verifyTranslatorsStep();
     fillContactDetailsStep();
     onContactRequestPage.next();
