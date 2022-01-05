@@ -167,6 +167,10 @@
         "noSearchResults": "Ei hakutuloksia",
         "requestContact": "Ota yhteyttä"
       },
+      "clerkHomepage": {
+        "register": "Rekisteri",
+        "sendEmail": "Lähetä sähköposti"
+      },
       "translator": {
         "name": "Nimi",
         "languagePairs": "Kieliparit",

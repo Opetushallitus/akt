@@ -11,12 +11,18 @@ import {
   RegisterControls,
 } from 'components/clerkTranslator/ClerkTranslatorFilters';
 
-const RegisterHeading = () => <H2>Rekisteri</H2>;
+const RegisterHeading = () => {
+  const { t } = useAppTranslation({ keyPrefix: 'akt.pages.clerkHomepage' });
+
+  return <H2>{t('register')}</H2>;
+};
 
 const SendEmailButton = () => {
+  const { t } = useAppTranslation({ keyPrefix: 'akt.pages.clerkHomepage' });
+
   return (
     <Button color="secondary" variant="contained">
-      Lähetä sähköposti
+      {t('sendEmail')}
     </Button>
   );
 };
