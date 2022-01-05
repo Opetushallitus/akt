@@ -71,7 +71,7 @@
           "placeholder": "Asuinkunta"
         },
         "buttons": {
-          "empty": "Tyhjennä Valinnat",
+          "empty": "Tyhjennä valinnat",
           "search": "Hae"
         }
       },
@@ -94,6 +94,22 @@
           "authorised": "Auktorisoidut",
           "expiring": "Umpeutuvat",
           "expired": "Umpeutuneet"
+        },
+        "languagePair": {
+          "title": "Haku kieliparilla",
+          "fromPlaceholder": "Mistä",
+          "toPlaceholder": "Mihin"
+        },
+        "name": {
+          "title": "Haku nimellä",
+          "placeholder": "Nimi"
+        },
+        "town": {
+          "title": "Haku asuinkunnalla",
+          "placeholder": "Asuinkunta"
+        },
+        "buttons": {
+          "empty": "Tyhjennä valinnat"
         }
       },
       "contactRequestForm": {

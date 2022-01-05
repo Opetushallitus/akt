@@ -72,23 +72,26 @@ export const RegisterControls = () => {
 
 export const ListingFilters = () => {
   const dispatch = useAppDispatch();
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.clerkTranslatorFilters',
+  });
 
   return (
     <div className="columns gapped">
       <div className="rows">
-        <H3 className="">Haku kielittäin</H3>
+        <H3>{t('languagePair.title')}</H3>
         <div className="columns gapped">
-          <TextField />
-          <TextField />
+          <TextField placeholder={t('languagePair.fromPlaceholder')} />
+          <TextField placeholder={t('languagePair.toPlaceholder')} />
         </div>
       </div>
       <div className="rows">
-        <H3>Haku nimellä</H3>
-        <TextField />
+        <H3>{t('name.title')}</H3>
+        <TextField placeholder={t('name.placeholder')} />
       </div>
       <div className="rows">
-        <H3>Haku asuinkunnalla</H3>
-        <TextField />
+        <H3>{t('town.title')}</H3>
+        <TextField placeholder={t('town.placeholder')} />
       </div>
       <div className="grow" />
       <div className="rows">
@@ -97,7 +100,7 @@ export const ListingFilters = () => {
           variant="outlined"
           onClick={() => dispatch(resetClerkTranslatorFilters)}
         >
-          Tyhjennä valinnat
+          {t('buttons.empty')}
         </Button>
       </div>
     </div>
