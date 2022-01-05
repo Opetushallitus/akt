@@ -13,23 +13,7 @@ import {
   CLERK_TRANSLATOR_ERROR,
   CLERK_TRANSLATOR_RECEIVED,
 } from 'redux/actionTypes/clerkTranslators';
-import {
-  APIAuthorisationTerm,
-  AuthorisationTerm,
-} from 'interfaces/authorisation';
-
-const convertTerm = (
-  term?: APIAuthorisationTerm
-): AuthorisationTerm | undefined => {
-  if (term) {
-    const start = new Date(term.beginDate);
-    if (term.endDate) {
-      return { start, end: new Date(term.endDate) };
-    }
-
-    return { start };
-  }
-};
+import { APIUtils } from 'utils/api';
 
 const convertAPIResponse = (
   response: ClerkTranslatorAPIResponse
@@ -40,7 +24,7 @@ const convertAPIResponse = (
     ...t,
     authorisations: t.authorisations.map((a) => ({
       ...a,
-      term: convertTerm(a.term),
+      term: APIUtils.convertAPIAuthorisationTerm(a.term),
     })),
   }));
 
