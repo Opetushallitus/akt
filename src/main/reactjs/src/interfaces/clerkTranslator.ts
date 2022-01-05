@@ -15,7 +15,7 @@ interface ContactDetails {
   street: string;
   postalCode: string;
   town: string;
-  country?: string;
+  country: string;
 }
 
 export interface ClerkTranslator extends WithId {
