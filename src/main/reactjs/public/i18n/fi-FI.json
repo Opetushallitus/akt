@@ -75,6 +75,27 @@
           "search": "Hae"
         }
       },
+      "clerkTranslatorListing": {
+        "header": {
+          "name": "Nimi",
+          "languagePairs": "Kieliparit",
+          "authorisationBasis": "Auktorisointiperuste",
+          "authorisationBeginDate": "Auk. tod. pvm",
+          "authorisationEndDate": "Umpeutuu",
+          "permissionToPublish": "Julkaistu"
+        },
+        "permissionToPublish": {
+          "true": "Kyllä",
+          "false": "Ei"
+        }
+      },
+      "clerkTranslatorFilters": {
+        "authorisationStatus": {
+          "authorised": "Auktorisoidut",
+          "expiring": "Umpeutuvat",
+          "expired": "Umpeutuneet"
+        }
+      },
       "contactRequestForm": {
         "title": "Yhteydenottopyynnön jättäminen",
         "description": "Tällä yhteydenottolomakkeella voit jättää valitsemillesi kääntäjille yhteydenottopyynnön. Kirjoitathan viestiin mahdollisimman tarkan kuvauksen tarvittavasta käännöstyöstä.",
@@ -149,6 +170,10 @@
         "emailFormat": "Sähköpostiosoite on virheellinen",
         "telFormat": "Puhelinnumero on virheellinen"
       }
+    },
+    "values": {
+      "yes": "Kyllä",
+      "no": "Ei"
     }
   }
 }
