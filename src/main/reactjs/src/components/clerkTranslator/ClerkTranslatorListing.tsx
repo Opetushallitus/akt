@@ -22,6 +22,7 @@ import {
   selectFilteredClerkTranslators,
   selectFilteredSelectedIds,
 } from 'redux/selectors/clerkTranslator';
+import { Utils } from 'utils';
 
 const getLanguagePairsWithAuthorisations = (translator: ClerkTranslator) => {
   return translator.authorisations.flatMap(({ basis, term, languagePairs }) =>
@@ -34,15 +35,6 @@ const getLanguagePairsWithAuthorisations = (translator: ClerkTranslator) => {
       authorisationEnd: term?.end,
     }))
   );
-};
-
-const dateFormatter = new Intl.DateTimeFormat();
-const formatDate = (date?: Date) => {
-  if (!date) {
-    return '-';
-  }
-
-  return dateFormatter.format(date);
 };
 
 const getClerkTranslatorRow = (
@@ -86,14 +78,14 @@ const getClerkTranslatorRow = (
       <TableCell>
         <div className="rows">
           {languagesWithAuthorisations.map(({ authorisationStart }, idx) => (
-            <Text key={idx}>{formatDate(authorisationStart)}</Text>
+            <Text key={idx}>{Utils.formatDate(authorisationStart)}</Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
         <div className="rows">
           {languagesWithAuthorisations.map(({ authorisationEnd }, idx) => (
-            <Text key={idx}>{formatDate(authorisationEnd)}</Text>
+            <Text key={idx}>{Utils.formatDate(authorisationEnd)}</Text>
           ))}
         </div>
       </TableCell>
