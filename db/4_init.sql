@@ -1,8 +1,13 @@
 TRUNCATE translator CASCADE;
 TRUNCATE meeting_date CASCADE;
 
-INSERT INTO meeting_date(date)
-VALUES ('2020-12-24');
+INSERT INTO meeting_date(date) VALUES ('2020-10-03');
+INSERT INTO meeting_date(date) VALUES ('2021-04-09');
+INSERT INTO meeting_date(date) VALUES ('2021-12-20');
+INSERT INTO meeting_date(date) VALUES ('2022-02-15');
+INSERT INTO meeting_date(date) VALUES ('2022-08-30');
+INSERT INTO meeting_date(date) VALUES ('2022-11-01');
+INSERT INTO meeting_date(date) VALUES ('2025-01-01');
 
 INSERT INTO translator(identity_number, first_name, last_name, email, phone_number, street, town, postal_code, country)
 SELECT 'id' || i::text,
@@ -52,10 +57,10 @@ INSERT INTO authorisation(translator_id, basis, meeting_date_id, aut_date, kkt_c
                WHEN mod(translator_id, 17) = 0 THEN 'VIR'
                ELSE 'AUT' END,
            CASE
-               WHEN mod(translator_id, 11) = 0 THEN (SELECT max(meeting_date_id) FROM meeting_date)
-               WHEN mod(translator_id, 13) = 0 THEN (SELECT max(meeting_date_id) FROM meeting_date)
+               WHEN mod(translator_id, 11) = 0 THEN (SELECT meeting_date_id FROM meeting_date WHERE date = '2020-10-03')
+               WHEN mod(translator_id, 13) = 0 THEN (SELECT meeting_date_id FROM meeting_date WHERE date = '2021-04-09')
                WHEN mod(translator_id, 17) = 0 THEN NULL
-               ELSE (SELECT max(meeting_date_id) FROM meeting_date) END,
+               ELSE (SELECT meeting_date_id FROM meeting_date WHERE date = '2021-12-20') END,
            CASE
                WHEN mod(translator_id, 11) = 0 THEN NULL
                WHEN mod(translator_id, 13) = 0 THEN NULL

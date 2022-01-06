@@ -1,11 +1,13 @@
 package fi.oph.akt.service;
 
 import fi.oph.akt.Factory;
+import fi.oph.akt.api.dto.clerk.AuthorisationTermDTO;
 import fi.oph.akt.api.dto.clerk.ClerkLanguagePairDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorAuthorisationDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorContactDetailsDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
+import fi.oph.akt.api.dto.clerk.MeetingDateDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTerm;
@@ -15,6 +17,7 @@ import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.LanguagePairRepository;
+import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,6 +61,9 @@ class ClerkTranslatorServiceTest {
 	private LanguagePairRepository languagePairRepository;
 
 	@Resource
+	private MeetingDateRepository meetingDateRepository;
+
+	@Resource
 	private TranslatorRepository translatorRepository;
 
 	@Resource
@@ -66,7 +72,7 @@ class ClerkTranslatorServiceTest {
 	@BeforeEach
 	public void setup() {
 		clerkTranslatorService = new ClerkTranslatorService(authorisationRepository, authorisationTermRepository,
-				languagePairRepository, translatorRepository);
+				languagePairRepository, meetingDateRepository, translatorRepository);
 	}
 
 	@Test
@@ -119,8 +125,6 @@ class ClerkTranslatorServiceTest {
 		assertContactDetailsField(postalCodes, translators, ClerkTranslatorContactDetailsDTO::postalCode);
 		assertContactDetailsField(towns, translators, ClerkTranslatorContactDetailsDTO::town);
 		assertContactDetailsField(countries, translators, ClerkTranslatorContactDetailsDTO::country);
-
-		assertEquals(List.of("Kaupunki1", "Kaupunki2"), responseDTO.towns());
 	}
 
 	private void assertContactDetailsField(final List<String> expected, final List<ClerkTranslatorDTO> translators,
@@ -128,6 +132,40 @@ class ClerkTranslatorServiceTest {
 
 		assertEquals(expected,
 				translators.stream().map(ClerkTranslatorDTO::contactDetails).map(contactDetailsFieldGetter).toList());
+	}
+
+	@Test
+	public void listShouldReturnAllMeetingDates() {
+		final MeetingDate meetingDate1 = Factory.meetingDate();
+		final MeetingDate meetingDate2 = Factory.meetingDate();
+
+		meetingDate1.setDate(LocalDate.parse("2020-01-01"));
+		meetingDate2.setDate(LocalDate.parse("2020-10-06"));
+
+		entityManager.persist(meetingDate1);
+		entityManager.persist(meetingDate2);
+
+		final Translator translator = Factory.translator();
+		final Authorisation authorisation = Factory.authorisation(translator, meetingDate1);
+		final LanguagePair languagePair = Factory.languagePair(authorisation);
+		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+
+		entityManager.persist(meetingDate1);
+		entityManager.persist(meetingDate2);
+		entityManager.persist(translator);
+		entityManager.persist(authorisation);
+		entityManager.persist(languagePair);
+		entityManager.persist(authorisationTerm);
+
+		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
+
+		final List<MeetingDateDTO> meetingDateDTOS = responseDTO.meetingDates();
+		assertEquals(2, meetingDateDTOS.size());
+
+		assertEquals(meetingDate2.getId(), meetingDateDTOS.get(0).id());
+		assertEquals(meetingDate2.getDate(), meetingDateDTOS.get(0).date());
+		assertEquals(meetingDate1.getId(), meetingDateDTOS.get(1).id());
+		assertEquals(meetingDate1.getDate(), meetingDateDTOS.get(1).date());
 	}
 
 	@Test
@@ -203,7 +241,10 @@ class ClerkTranslatorServiceTest {
 		final LocalDate termBeginDate = LocalDate.parse("2022-01-01");
 		final LocalDate termEndDate = LocalDate.parse("2024-12-31");
 
+		meetingDate.setDate(LocalDate.parse("2021-11-15"));
 		authorisation.setBasis(AuthorisationBasis.AUT);
+		authorisation.setAutDate(LocalDate.parse("2021-12-31"));
+		authorisation.setAssuranceDate(LocalDate.parse("2021-12-01"));
 		languagePair1.setFromLang(SV);
 		languagePair1.setToLang(DE);
 		languagePair1.setPermissionToPublish(true);
@@ -225,23 +266,30 @@ class ClerkTranslatorServiceTest {
 		entityManager.persist(authorisationTerm);
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
-		final List<ClerkTranslatorDTO> translatorDTOS = responseDTO.translators();
 
+		final List<ClerkTranslatorDTO> translatorDTOS = responseDTO.translators();
 		assertEquals(1, translatorDTOS.size());
 
 		final ClerkTranslatorDTO translatorDTO = translatorDTOS.get(0);
-		final List<ClerkTranslatorAuthorisationDTO> authorisationDTOS = translatorDTO.authorisations();
 
+		final List<ClerkTranslatorAuthorisationDTO> authorisationDTOS = translatorDTO.authorisations();
 		assertEquals(1, authorisationDTOS.size());
 
 		final ClerkTranslatorAuthorisationDTO authorisationDTO = authorisationDTOS.get(0);
+		assertEquals(authorisation.getBasis(), authorisationDTO.basis());
+		assertEquals(authorisation.getAutDate(), authorisationDTO.autDate());
+		assertNull(authorisationDTO.kktCheck());
+		assertNull(authorisationDTO.virDate());
+		assertEquals(authorisation.getAssuranceDate(), authorisationDTO.assuranceDate());
+		assertEquals(meetingDate.getDate(), authorisationDTO.meetingDate());
 
-		assertEquals(AuthorisationBasis.AUT, authorisationDTO.basis());
-		assertEquals(termBeginDate, authorisationDTO.term().beginDate());
-		assertEquals(termEndDate, authorisationDTO.term().endDate());
+		final List<AuthorisationTermDTO> termDTOS = authorisationDTO.terms();
+		assertEquals(1, termDTOS.size());
+
+		assertEquals(termBeginDate, termDTOS.get(0).beginDate());
+		assertEquals(termEndDate, termDTOS.get(0).endDate());
 
 		final List<ClerkLanguagePairDTO> languagePairDTOS = authorisationDTO.languagePairs();
-
 		assertEquals(3, languagePairDTOS.size());
 
 		// @formatter:off
@@ -290,10 +338,15 @@ class ClerkTranslatorServiceTest {
 
 		final ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations()
 				.get(0);
+		assertEquals(authorisation.getBasis(), authorisationDTO.basis());
+		assertNull(authorisationDTO.autDate());
+		assertEquals(authorisation.getKktCheck(), authorisationDTO.kktCheck());
+		assertNull(authorisationDTO.virDate());
+		assertEquals(authorisation.getAssuranceDate(), authorisationDTO.assuranceDate());
+		assertEquals(meetingDate.getDate(), authorisationDTO.meetingDate());
 
-		assertEquals(AuthorisationBasis.KKT, authorisationDTO.basis());
-		assertEquals(termBeginDate, authorisationDTO.term().beginDate());
-		assertEquals(termEndDate, authorisationDTO.term().endDate());
+		assertEquals(termBeginDate, authorisationDTO.terms().get(0).beginDate());
+		assertEquals(termEndDate, authorisationDTO.terms().get(0).endDate());
 	}
 
 	@Test
@@ -322,10 +375,15 @@ class ClerkTranslatorServiceTest {
 
 		final ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations()
 				.get(0);
+		assertEquals(authorisation.getBasis(), authorisationDTO.basis());
+		assertNull(authorisationDTO.autDate());
+		assertNull(authorisationDTO.kktCheck());
+		assertEquals(authorisation.getVirDate(), authorisationDTO.virDate());
+		assertEquals(authorisation.getAssuranceDate(), authorisationDTO.assuranceDate());
+		assertEquals(meetingDate.getDate(), authorisationDTO.meetingDate());
 
-		assertEquals(AuthorisationBasis.VIR, authorisationDTO.basis());
-		assertEquals(termBeginDate, authorisationDTO.term().beginDate());
-		assertNull(authorisationDTO.term().endDate());
+		assertEquals(termBeginDate, authorisationDTO.terms().get(0).beginDate());
+		assertNull(authorisationDTO.terms().get(0).endDate());
 	}
 
 	@Test
@@ -347,22 +405,30 @@ class ClerkTranslatorServiceTest {
 
 		final ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations()
 				.get(0);
+		assertEquals(authorisation.getBasis(), authorisationDTO.basis());
+		assertNull(authorisationDTO.autDate());
+		assertNull(authorisationDTO.kktCheck());
+		assertEquals(authorisation.getVirDate(), authorisationDTO.virDate());
+		assertNull(authorisationDTO.assuranceDate());
+		assertNull(authorisationDTO.meetingDate());
 
-		assertNull(authorisationDTO.term());
+		assertNull(authorisationDTO.terms());
 	}
 
 	@Test
 	public void listShouldReturnProperDataForTranslatorWithMultipleAuthorisations() {
-		final MeetingDate meetingDate = Factory.meetingDate();
+		final MeetingDate meetingDate1 = Factory.meetingDate();
+		final MeetingDate meetingDate2 = Factory.meetingDate();
 		final Translator translator = Factory.translator();
 
-		meetingDate.setDate(LocalDate.parse("2015-01-01"));
+		meetingDate1.setDate(LocalDate.parse("2015-01-01"));
+		meetingDate2.setDate(LocalDate.parse("2018-06-01"));
 
-		final Authorisation authorisation1 = Factory.authorisation(translator, meetingDate);
+		final Authorisation authorisation1 = Factory.authorisation(translator, meetingDate1);
 		final LanguagePair languagePair1 = Factory.languagePair(authorisation1);
 		final AuthorisationTerm authorisationTerm1 = Factory.authorisationTerm(authorisation1);
 
-		final LocalDate term1BeginDate = meetingDate.getDate();
+		final LocalDate term1BeginDate = meetingDate1.getDate();
 		final LocalDate term1EndDate = term1BeginDate.plusYears(3);
 
 		authorisation1.setBasis(AuthorisationBasis.AUT);
@@ -371,11 +437,11 @@ class ClerkTranslatorServiceTest {
 		authorisationTerm1.setBeginDate(term1BeginDate);
 		authorisationTerm1.setEndDate(term1EndDate);
 
-		final Authorisation authorisation2 = Factory.authorisation(translator, meetingDate);
+		final Authorisation authorisation2 = Factory.authorisation(translator, meetingDate2);
 		final LanguagePair languagePair2 = Factory.languagePair(authorisation2);
 		final AuthorisationTerm authorisationTerm2 = Factory.authorisationTerm(authorisation2);
 
-		final LocalDate term2BeginDate = term1EndDate.plusYears(1);
+		final LocalDate term2BeginDate = meetingDate2.getDate();
 		final LocalDate term2EndDate = term2BeginDate.plusYears(3);
 
 		authorisation2.setBasis(AuthorisationBasis.KKT);
@@ -386,7 +452,8 @@ class ClerkTranslatorServiceTest {
 		authorisationTerm2.setBeginDate(term2BeginDate);
 		authorisationTerm2.setEndDate(term2EndDate);
 
-		entityManager.persist(meetingDate);
+		entityManager.persist(meetingDate1);
+		entityManager.persist(meetingDate2);
 		entityManager.persist(translator);
 		entityManager.persist(authorisation1);
 		entityManager.persist(languagePair1);
@@ -408,13 +475,15 @@ class ClerkTranslatorServiceTest {
 		final ClerkTranslatorAuthorisationDTO kktAuthorisationDTO = authorisationDTOS.stream()
 				.filter(dto -> dto.basis().equals(AuthorisationBasis.KKT)).toList().get(0);
 
-		assertEquals(term1BeginDate, autAuthorisationDTO.term().beginDate());
-		assertEquals(term1EndDate, autAuthorisationDTO.term().endDate());
+		assertEquals(meetingDate1.getDate(), autAuthorisationDTO.meetingDate());
+		assertEquals(term1BeginDate, autAuthorisationDTO.terms().get(0).beginDate());
+		assertEquals(term1EndDate, autAuthorisationDTO.terms().get(0).endDate());
 		assertEquals(RU, autAuthorisationDTO.languagePairs().get(0).from());
 		assertEquals(FI, autAuthorisationDTO.languagePairs().get(0).to());
 
-		assertEquals(term2BeginDate, kktAuthorisationDTO.term().beginDate());
-		assertEquals(term2EndDate, kktAuthorisationDTO.term().endDate());
+		assertEquals(meetingDate2.getDate(), kktAuthorisationDTO.meetingDate());
+		assertEquals(term2BeginDate, kktAuthorisationDTO.terms().get(0).beginDate());
+		assertEquals(term2EndDate, kktAuthorisationDTO.terms().get(0).endDate());
 		assertEquals(FI, kktAuthorisationDTO.languagePairs().get(0).from());
 		assertEquals(EN, kktAuthorisationDTO.languagePairs().get(0).to());
 	}
@@ -456,8 +525,15 @@ class ClerkTranslatorServiceTest {
 		final ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations()
 				.get(0);
 
-		assertEquals(term3BeginDate, authorisationDTO.term().beginDate());
-		assertEquals(term3EndDate, authorisationDTO.term().endDate());
+		final List<AuthorisationTermDTO> terms = authorisationDTO.terms();
+		assertEquals(3, terms.size());
+
+		assertEquals(term3BeginDate, terms.get(0).beginDate());
+		assertEquals(term3EndDate, terms.get(0).endDate());
+		assertEquals(term2BeginDate, terms.get(1).beginDate());
+		assertEquals(term2EndDate, terms.get(1).endDate());
+		assertEquals(term1BeginDate, terms.get(2).beginDate());
+		assertEquals(term1EndDate, terms.get(2).endDate());
 	}
 
 }

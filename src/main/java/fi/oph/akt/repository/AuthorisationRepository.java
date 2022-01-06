@@ -10,8 +10,8 @@ import java.util.List;
 @Repository
 public interface AuthorisationRepository extends JpaRepository<Authorisation, Long> {
 
-	@Query("SELECT new fi.oph.akt.repository.TranslatorAuthorisationProjection(a.translator.id, a.id, a.basis)"
-			+ " FROM Authorisation a")
+	@Query("SELECT new fi.oph.akt.repository.TranslatorAuthorisationProjection(a.translator.id, a.id, a.basis,"
+			+ " a.autDate, a.kktCheck, a.virDate, a.assuranceDate) FROM Authorisation a")
 	List<TranslatorAuthorisationProjection> listTranslatorAuthorisationProjections();
 
 }
