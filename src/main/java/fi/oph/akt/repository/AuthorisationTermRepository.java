@@ -14,4 +14,8 @@ public interface AuthorisationTermRepository extends JpaRepository<Authorisation
 			+ " FROM AuthorisationTerm at")
 	List<AuthorisationTermProjection> listAuthorisationTermProjections();
 
+	@Query("SELECT new fi.oph.akt.repository.AuthorisationTermProjection(at.authorisation.id, at.beginDate, at.endDate)"
+			+ " FROM AuthorisationTerm at WHERE at.authorisation.id IN ?1")
+	List<AuthorisationTermProjection> listAuthorisationTermProjectionsByAuthorisations(Iterable<Long> authorisationIds);
+
 }

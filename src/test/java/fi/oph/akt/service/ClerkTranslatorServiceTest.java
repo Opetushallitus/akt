@@ -1,6 +1,7 @@
 package fi.oph.akt.service;
 
 import fi.oph.akt.Factory;
+import fi.oph.akt.api.dto.clerk.AuthorisationTermDTO;
 import fi.oph.akt.api.dto.clerk.ClerkLanguagePairDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorAuthorisationDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
@@ -15,6 +16,7 @@ import fi.oph.akt.onr.OnrServiceMock;
 import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.LanguagePairRepository;
+import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,6 +51,9 @@ class ClerkTranslatorServiceTest {
 	private LanguagePairRepository languagePairRepository;
 
 	@Resource
+	private MeetingDateRepository meetingDateRepository;
+
+	@Resource
 	private TranslatorRepository translatorRepository;
 
 	@Autowired
@@ -60,7 +65,7 @@ class ClerkTranslatorServiceTest {
 	@BeforeEach
 	public void setup() {
 		clerkTranslatorService = new ClerkTranslatorService(authorisationRepository, authorisationTermRepository,
-				languagePairRepository, translatorRepository, onrServiceMock);
+				languagePairRepository, meetingDateRepository, translatorRepository, onrServiceMock);
 	}
 
 	@Test
@@ -154,23 +159,25 @@ class ClerkTranslatorServiceTest {
 		entityManager.persist(authorisationTerm);
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
-		List<ClerkTranslatorDTO> translatorDTOS = responseDTO.translators();
 
+		List<ClerkTranslatorDTO> translatorDTOS = responseDTO.translators();
 		assertEquals(1, translatorDTOS.size());
 
 		ClerkTranslatorDTO translatorDTO = translatorDTOS.get(0);
-		List<ClerkTranslatorAuthorisationDTO> authorisationDTOS = translatorDTO.authorisations();
 
+		List<ClerkTranslatorAuthorisationDTO> authorisationDTOS = translatorDTO.authorisations();
 		assertEquals(1, authorisationDTOS.size());
 
 		ClerkTranslatorAuthorisationDTO authorisationDTO = authorisationDTOS.get(0);
-
 		assertEquals(AuthorisationBasis.AUT, authorisationDTO.basis());
-		assertEquals(termBeginDate, authorisationDTO.term().beginDate());
-		assertEquals(termEndDate, authorisationDTO.term().endDate());
+
+		List<AuthorisationTermDTO> termDTOS = authorisationDTO.terms();
+		assertEquals(1, termDTOS.size());
+
+		assertEquals(termBeginDate, termDTOS.get(0).beginDate());
+		assertEquals(termEndDate, termDTOS.get(0).endDate());
 
 		List<ClerkLanguagePairDTO> languagePairDTOS = authorisationDTO.languagePairs();
-
 		assertEquals(3, languagePairDTOS.size());
 
 		// @formatter:off
@@ -220,8 +227,8 @@ class ClerkTranslatorServiceTest {
 		ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
 
 		assertEquals(AuthorisationBasis.KKT, authorisationDTO.basis());
-		assertEquals(termBeginDate, authorisationDTO.term().beginDate());
-		assertEquals(termEndDate, authorisationDTO.term().endDate());
+		assertEquals(termBeginDate, authorisationDTO.terms().get(0).beginDate());
+		assertEquals(termEndDate, authorisationDTO.terms().get(0).endDate());
 	}
 
 	@Test
@@ -251,8 +258,8 @@ class ClerkTranslatorServiceTest {
 		ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
 
 		assertEquals(AuthorisationBasis.VIR, authorisationDTO.basis());
-		assertEquals(termBeginDate, authorisationDTO.term().beginDate());
-		assertNull(authorisationDTO.term().endDate());
+		assertEquals(termBeginDate, authorisationDTO.terms().get(0).beginDate());
+		assertNull(authorisationDTO.terms().get(0).endDate());
 	}
 
 	@Test
@@ -274,7 +281,7 @@ class ClerkTranslatorServiceTest {
 
 		ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
 
-		assertNull(authorisationDTO.term());
+		assertNull(authorisationDTO.terms());
 	}
 
 	@Test
@@ -333,13 +340,13 @@ class ClerkTranslatorServiceTest {
 		ClerkTranslatorAuthorisationDTO kktAuthorisationDTO = authorisationDTOS.stream()
 				.filter(dto -> dto.basis().equals(AuthorisationBasis.KKT)).toList().get(0);
 
-		assertEquals(term1BeginDate, autAuthorisationDTO.term().beginDate());
-		assertEquals(term1EndDate, autAuthorisationDTO.term().endDate());
+		assertEquals(term1BeginDate, autAuthorisationDTO.terms().get(0).beginDate());
+		assertEquals(term1EndDate, autAuthorisationDTO.terms().get(0).endDate());
 		assertEquals("ru", autAuthorisationDTO.languagePairs().get(0).from());
 		assertEquals("fi", autAuthorisationDTO.languagePairs().get(0).to());
 
-		assertEquals(term2BeginDate, kktAuthorisationDTO.term().beginDate());
-		assertEquals(term2EndDate, kktAuthorisationDTO.term().endDate());
+		assertEquals(term2BeginDate, kktAuthorisationDTO.terms().get(0).beginDate());
+		assertEquals(term2EndDate, kktAuthorisationDTO.terms().get(0).endDate());
 		assertEquals("fi", kktAuthorisationDTO.languagePairs().get(0).from());
 		assertEquals("en", kktAuthorisationDTO.languagePairs().get(0).to());
 	}
@@ -380,8 +387,10 @@ class ClerkTranslatorServiceTest {
 
 		ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
 
-		assertEquals(term3BeginDate, authorisationDTO.term().beginDate());
-		assertEquals(term3EndDate, authorisationDTO.term().endDate());
+		assertEquals(1, authorisationDTO.terms().size());
+
+		assertEquals(term3BeginDate, authorisationDTO.terms().get(0).beginDate());
+		assertEquals(term3EndDate, authorisationDTO.terms().get(0).endDate());
 	}
 
 }

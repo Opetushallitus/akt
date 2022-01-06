@@ -2,11 +2,15 @@ package fi.oph.akt.api.clerk;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import fi.oph.akt.api.dto.LanguageDTO;
+import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
 import fi.oph.akt.service.ClerkTranslatorService;
 import fi.oph.akt.service.LanguageService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +30,12 @@ public class ClerkTranslatorController {
 	@GetMapping(path = "")
 	public ClerkTranslatorResponseDTO list() {
 		return clerkTranslatorService.listTranslators();
+	}
+
+	@GetMapping(path = "/{id}")
+	public ResponseEntity<ClerkTranslatorDTO> get(@PathVariable Long id) {
+		return clerkTranslatorService.findTranslator(id).map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
+				.orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
 	@GetMapping(path = "/all-languages")
