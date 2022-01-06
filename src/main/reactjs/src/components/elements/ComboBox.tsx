@@ -2,18 +2,23 @@ import {
   FormControl,
   FormHelperText,
   Autocomplete,
+  AutocompleteProps,
   TextField,
 } from '@mui/material';
 
-import { ComboBoxProps } from 'interfaces/combobox';
+import { ComboBoxOption, ComboBoxProps } from 'interfaces/combobox';
+
+type AutoCompleteComboBox = Omit<
+  AutocompleteProps<ComboBoxOption, false, true, false>,
+  'options' | 'renderInput'
+>;
 
 export const ComboBox = ({
   id,
-  value,
+  val,
   filterValue,
   primaryOptions,
   label,
-  onChange,
   values,
   variant,
   dataTestId,
@@ -22,20 +27,21 @@ export const ComboBox = ({
   sortByKeys,
   disableClearable,
   getOptionLabel,
-}: ComboBoxProps) => {
+  ...rest
+}: ComboBoxProps & AutoCompleteComboBox) => {
   const AutocompleteProps = {
-    onChange,
     ...(getOptionLabel && { getOptionLabel }),
     ...(label && { label }),
     ...(dataTestId && { 'data-testid': dataTestId }),
     ...(disableClearable && { disableClearable }),
+    ...rest,
   };
 
   const filterSelectedLang = (
     filterValue: string | undefined,
-    valuesArray: [string, string][],
+    valuesArray: Array<ComboBoxOption>,
     primaryLangOptions: string[]
-  ): [string, string][] => {
+  ): Array<ComboBoxOption> => {
     const valuesArrayWithoutSelectedLang = valuesArray.filter(
       (value) => value[1] !== filterValue
     );
@@ -79,14 +85,15 @@ export const ComboBox = ({
   ];
 
   // Find string value param in the filtered and sorted options array
-  const foundValue = valuesToShow.find((item) => item[1] === value);
+  const foundValue = valuesToShow.find((item) => item[1] === val);
 
   return (
     <FormControl fullWidth error={showError}>
       <Autocomplete
         disablePortal
         id={id}
-        value={value === '' ? null : foundValue}
+        value={val === '' ? undefined : foundValue}
+        {...AutocompleteProps}
         options={valuesToShow}
         renderInput={(params) => (
           <TextField
@@ -96,7 +103,6 @@ export const ComboBox = ({
             error={showError}
           />
         )}
-        {...AutocompleteProps}
       />
       {showError && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>

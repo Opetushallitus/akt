@@ -1,9 +1,10 @@
-import { useState, ChangeEvent, SetStateAction, Dispatch } from 'react';
+import { useState, SetStateAction, Dispatch } from 'react';
 import { TextField, InputAdornment, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { H3 } from 'components/elements/Text';
 import { ComboBox } from 'components/elements/ComboBox';
+import { ComboBoxOption } from 'interfaces/combobox';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector, useAppDispatch } from 'configs/redux';
 import {
@@ -12,6 +13,7 @@ import {
 } from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { Utils } from 'utils/index';
+
 export const PublicTranslatorFilters = ({
   setShowTable,
 }: {
@@ -55,12 +57,12 @@ export const PublicTranslatorFilters = ({
     return !(!!fromLang || !!toLang || !!name || !!town);
   };
 
-  const handleFilterChange =
+  const handleComboboxFilterChange =
     (filterName: string) =>
     (
-      event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-      newValue?: [string, string],
-      reason?:
+      event: React.SyntheticEvent<Element, Event>,
+      value: [string, string],
+      reason:
         | 'selectOption'
         | 'createOption'
         | 'removeOption'
@@ -70,16 +72,19 @@ export const PublicTranslatorFilters = ({
       if (reason === 'clear') {
         setFilters({ ...filters, [filterName]: '' });
       } else {
-        if (event.target.id === 'outlined-search') {
-          setFilters({ ...filters, [filterName]: event.target.value });
-        } else {
-          setFilters({ ...filters, [filterName]: newValue ? newValue[1] : '' });
-        }
+        setFilters({ ...filters, [filterName]: value ? value[1] : '' });
       }
     };
 
-  const getOptionLabel = (option: [string, string]): string => {
-    const label = option[0];
+  const handleTextFieldFilterChange =
+    (filterName: string) =>
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const target = event.target as HTMLInputElement;
+      setFilters({ ...filters, [filterName]: target.value });
+    };
+
+  const getOptionLabel = (option: ComboBoxOption): string => {
+    const label = option ? option[0] : undefined;
 
     return label !== undefined ? label.toString() : '';
   };
@@ -101,11 +106,11 @@ export const PublicTranslatorFilters = ({
               helperText={t('languagePair.fromHelperText')}
               id="filters-from-lang"
               values={Utils.createMapFromArray(langs.from, t, 'languages')}
-              value={filters.fromLang}
+              val={filters.fromLang}
               variant="outlined"
               filterValue={filters.toLang}
               primaryOptions={['fi', 'sv']}
-              onChange={handleFilterChange('fromLang')}
+              onChange={handleComboboxFilterChange('fromLang')}
               getOptionLabel={getOptionLabel}
             />
             <ComboBox
@@ -117,11 +122,11 @@ export const PublicTranslatorFilters = ({
               helperText={t('languagePair.toHelperText')}
               id="filters-to-lang"
               values={Utils.createMapFromArray(langs.to, t, 'languages')}
-              value={filters.toLang}
+              val={filters.toLang}
               variant="outlined"
               filterValue={filters.fromLang}
               primaryOptions={['fi', 'sv']}
-              onChange={handleFilterChange('toLang')}
+              onChange={handleComboboxFilterChange('toLang')}
               getOptionLabel={getOptionLabel}
             />
           </div>
@@ -141,7 +146,7 @@ export const PublicTranslatorFilters = ({
                 </InputAdornment>
               ),
             }}
-            onChange={handleFilterChange('name')}
+            onChange={handleTextFieldFilterChange('name')}
           />
         </div>
         <div className="public-translator-filters__filter">
@@ -150,13 +155,12 @@ export const PublicTranslatorFilters = ({
             dataTestId="public-translator-filters__town-combobox"
             showInputLabel
             sortByKeys
-            disableClearable
             label={t('town.placeholder')}
             id="filters-town"
             values={Utils.createMapFromArray(towns)}
-            value={filters.town}
+            val={filters.town}
             variant="outlined"
-            onChange={handleFilterChange('town')}
+            onChange={handleComboboxFilterChange('town')}
             getOptionLabel={getOptionLabel}
           />
         </div>
