@@ -1,5 +1,5 @@
 export type ComboBoxOption = [string, string];
-
+export type AutocompleteValue = ComboBoxOption | null;
 export interface ComboBoxProps {
   id?: string;
   label?: string;
@@ -15,4 +15,5 @@ export interface ComboBoxProps {
   getOptionLabel?: (option: ComboBoxOption) => string;
   values: Map<string, string>;
   val: string;
+  value?: ComboBoxOption | null;
 }

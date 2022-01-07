@@ -97,7 +97,6 @@ export const PublicTranslatorFilters = ({
           <div className="public-translator-filters__filter__language-pair">
             <ComboBox
               dataTestId="public-translator-filters__from-language-combobox"
-              showInputLabel
               sortByKeys
               showError={
                 showFieldError && Utils.isEmptyString(filters.fromLang)
@@ -115,7 +114,6 @@ export const PublicTranslatorFilters = ({
             />
             <ComboBox
               dataTestId="public-translator-filters__to-language-combobox"
-              showInputLabel
               sortByKeys
               showError={showFieldError && Utils.isEmptyString(filters.toLang)}
               label={t('languagePair.toPlaceholder')}
@@ -153,7 +151,6 @@ export const PublicTranslatorFilters = ({
           <H3> {t('town.title')}</H3>
           <ComboBox
             dataTestId="public-translator-filters__town-combobox"
-            showInputLabel
             sortByKeys
             label={t('town.placeholder')}
             id="filters-town"

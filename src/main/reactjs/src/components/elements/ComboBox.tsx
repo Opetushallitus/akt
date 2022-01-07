@@ -6,11 +6,15 @@ import {
   TextField,
 } from '@mui/material';
 
-import { ComboBoxOption, ComboBoxProps } from 'interfaces/combobox';
+import {
+  ComboBoxOption,
+  ComboBoxProps,
+  AutocompleteValue,
+} from 'interfaces/combobox';
 
 type AutoCompleteComboBox = Omit<
-  AutocompleteProps<ComboBoxOption, false, true, false>,
-  'options' | 'renderInput'
+  AutocompleteProps<AutocompleteValue, false, true, false>,
+  'options' | 'renderInput' | 'value' | 'getOptionLabel'
 >;
 
 export const ComboBox = ({
@@ -92,8 +96,8 @@ export const ComboBox = ({
       <Autocomplete
         disablePortal
         id={id}
-        value={val === '' ? undefined : foundValue}
         {...AutocompleteProps}
+        value={val === '' || !foundValue ? null : foundValue}
         options={valuesToShow}
         renderInput={(params) => (
           <TextField
