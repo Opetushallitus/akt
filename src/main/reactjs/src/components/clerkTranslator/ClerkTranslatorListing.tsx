@@ -56,7 +56,9 @@ const getClerkTranslatorRow = (
       <TableCell padding="checkbox">
         <Checkbox checked={selected} color="secondary" />
       </TableCell>
-      <TableCell>{`${firstName} ${lastName}`}</TableCell>
+      <TableCell>
+        <Text>{`${firstName} ${lastName}`}</Text>
+      </TableCell>
       <TableCell>
         <div className="rows">
           {languagesWithAuthorisations.map(({ from, to }, idx) => (
