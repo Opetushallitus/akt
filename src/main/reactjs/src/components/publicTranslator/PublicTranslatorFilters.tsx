@@ -43,7 +43,13 @@ export const PublicTranslatorFilters = ({
   // Redux
   const dispatch = useAppDispatch();
   const { langs, towns } = useAppSelector(publicTranslatorsSelector);
-
+  const fromLanguages = langs.from.map((langCode: string) =>
+    langCode.toUpperCase()
+  );
+  const toLanguages = langs.to.map((langCode: string) =>
+    langCode.toUpperCase()
+  );
+  const languages = { from: fromLanguages, to: toLanguages };
   const handleSearchBtnClick = () => {
     if (
       Utils.isEmptyString(filters.toLang) ||
@@ -139,10 +145,10 @@ export const PublicTranslatorFilters = ({
               label={t('languagePair.fromPlaceholder')}
               helperText={t('languagePair.fromHelperText')}
               id="filters-from-lang"
-              values={Utils.createMapFromArray(langs.from, t, 'languages')}
+              values={Utils.createMapFromArray(languages.from, t, 'languages')}
               variant="outlined"
               filterValue={filters.toLang}
-              primaryOptions={['fi', 'sv']}
+              primaryOptions={['FI', 'SV']}
               getOptionLabel={getOptionLabel}
             />
             <ComboBox
@@ -154,10 +160,10 @@ export const PublicTranslatorFilters = ({
               label={t('languagePair.toPlaceholder')}
               helperText={t('languagePair.toHelperText')}
               id="filters-to-lang"
-              values={Utils.createMapFromArray(langs.to, t, 'languages')}
+              values={Utils.createMapFromArray(languages.to, t, 'languages')}
               variant="outlined"
               filterValue={filters.fromLang}
-              primaryOptions={['fi', 'sv']}
+              primaryOptions={['FI', 'SV']}
               getOptionLabel={getOptionLabel}
             />
           </div>

@@ -61,7 +61,7 @@ export const ComboBox = ({
   };
   const primaryLangOptions = primaryOptions ?? [];
   const valuesArray = Array.from(values);
-
+  console.log(valuesArray);
   const filteredValuesArray = filterSelectedLang(
     filterValue,
     valuesArray,
