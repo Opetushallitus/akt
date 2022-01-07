@@ -1,5 +1,10 @@
 export type ComboBoxOption = [string, string];
 export type AutocompleteValue = ComboBoxOption | null;
+export interface PublicTranslatorComboBoxDetails {
+  toLang: string;
+  fromLang: string;
+  town: string;
+}
 export interface ComboBoxProps {
   id?: string;
   label?: string;

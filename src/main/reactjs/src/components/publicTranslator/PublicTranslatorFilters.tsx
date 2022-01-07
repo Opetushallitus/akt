@@ -4,7 +4,10 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import { H3 } from 'components/elements/Text';
 import { ComboBox } from 'components/elements/ComboBox';
-import { AutocompleteValue } from 'interfaces/combobox';
+import {
+  AutocompleteValue,
+  PublicTranslatorComboBoxDetails,
+} from 'interfaces/combobox';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector, useAppDispatch } from 'configs/redux';
 import {
@@ -110,6 +113,15 @@ export const PublicTranslatorFilters = ({
     return label !== undefined ? label.toString() : '';
   };
 
+  const getComboBoxAttributes = (
+    fieldName: keyof PublicTranslatorComboBoxDetails
+  ) => ({
+    onInputChange: handleComboboxInputChange(fieldName),
+    onChange: handleComboboxFilterChange(fieldName),
+    inputValue: inputValues[fieldName],
+    value: values[fieldName],
+  });
+
   return (
     <div className="public-translator-filters">
       <div className="public-translator-filters__filter-box">
@@ -119,6 +131,8 @@ export const PublicTranslatorFilters = ({
             <ComboBox
               dataTestId="public-translator-filters__from-language-combobox"
               sortByKeys
+              autoHighlight
+              {...getComboBoxAttributes('fromLang')}
               showError={
                 showFieldError && Utils.isEmptyString(filters.fromLang)
               }
@@ -126,30 +140,24 @@ export const PublicTranslatorFilters = ({
               helperText={t('languagePair.fromHelperText')}
               id="filters-from-lang"
               values={Utils.createMapFromArray(langs.from, t, 'languages')}
-              value={values.fromLang}
               variant="outlined"
               filterValue={filters.toLang}
               primaryOptions={['fi', 'sv']}
-              onChange={handleComboboxFilterChange('fromLang')}
-              onInputChange={handleComboboxInputChange('fromLang')}
-              inputValue={inputValues.fromLang}
               getOptionLabel={getOptionLabel}
             />
             <ComboBox
               dataTestId="public-translator-filters__to-language-combobox"
               sortByKeys
+              autoHighlight
+              {...getComboBoxAttributes('toLang')}
               showError={showFieldError && Utils.isEmptyString(filters.toLang)}
               label={t('languagePair.toPlaceholder')}
               helperText={t('languagePair.toHelperText')}
               id="filters-to-lang"
               values={Utils.createMapFromArray(langs.to, t, 'languages')}
-              value={values.toLang}
               variant="outlined"
               filterValue={filters.fromLang}
               primaryOptions={['fi', 'sv']}
-              onChange={handleComboboxFilterChange('toLang')}
-              onInputChange={handleComboboxInputChange('toLang')}
-              inputValue={inputValues.toLang}
               getOptionLabel={getOptionLabel}
             />
           </div>
@@ -177,14 +185,12 @@ export const PublicTranslatorFilters = ({
           <ComboBox
             dataTestId="public-translator-filters__town-combobox"
             sortByKeys
+            autoHighlight
+            {...getComboBoxAttributes('town')}
             label={t('town.placeholder')}
             id="filters-town"
             values={Utils.createMapFromArray(towns)}
-            value={values.town}
             variant="outlined"
-            onChange={handleComboboxFilterChange('town')}
-            onInputChange={handleComboboxInputChange('town')}
-            inputValue={inputValues.town}
             getOptionLabel={getOptionLabel}
           />
         </div>
