@@ -55,10 +55,7 @@ export const selectFilteredSelectedIds = createSelector(
 // Helpers
 
 const isAuthorisationValid = ({ term }: Authorisation, now: Date) => {
-  if (!term) {
-    return true;
-  }
-  if (!term.end) {
+  if (!term || !term.end) {
     return true;
   }
 
@@ -69,10 +66,7 @@ const isAuthorisationExpiringSoon = (
   { term }: Authorisation,
   expiringSoonThreshold: Date
 ) => {
-  if (!term) {
-    return false;
-  }
-  if (!term.end) {
+  if (!term || !term.end) {
     return false;
   }
 
