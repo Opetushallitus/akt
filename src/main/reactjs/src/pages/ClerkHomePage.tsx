@@ -1,15 +1,16 @@
 import { FC, useEffect } from 'react';
 import { Box, Button, Divider, Grid, Paper } from '@mui/material';
 
-import { H1, H2 } from 'components/elements/Text';
+import { H1, H2, Text } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
-import { useAppDispatch } from 'configs/redux';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { loadClerkTranslators } from 'redux/actions/clerkTranslator';
 import { ClerkTranslatorListing } from 'components/clerkTranslator/ClerkTranslatorListing';
 import {
   ListingFilters,
   RegisterControls,
 } from 'components/clerkTranslator/ClerkTranslatorFilters';
+import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
 
 export const ClerkHomePage: FC = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.pages.clerkHomepage' });
@@ -17,6 +18,7 @@ export const ClerkHomePage: FC = () => {
   useEffect(() => {
     dispatch(loadClerkTranslators);
   }, [dispatch]);
+  const { translators } = useAppSelector(clerkTranslatorsSelector);
 
   return (
     <Box className="clerk-homepage">
@@ -29,7 +31,10 @@ export const ClerkHomePage: FC = () => {
             className="clerk-homepage__grid-container"
           >
             <Grid item>
-              <H2>{t('register')}</H2>
+              <div className="columns gapped">
+                <H2>{t('register')}</H2>
+                <Text>{`(${translators.length})`}</Text>
+              </div>
             </Grid>
             <Grid item>
               <Divider />
