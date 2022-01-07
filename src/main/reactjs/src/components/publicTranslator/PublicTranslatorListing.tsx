@@ -19,7 +19,7 @@ import {
   removeSelectedTranslator,
 } from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
-import { UIStates, NotifierSeverity } from 'enums/app';
+import { UIStates, Severity } from 'enums/app';
 import { displayUIState } from 'redux/actions/navigation';
 import { showNotifierToast } from 'redux/actions/notifier';
 import { Utils } from 'utils/index';
@@ -64,7 +64,7 @@ const ListingRow = ({
     const { fromLang, toLang } = filters;
     if (Utils.isEmptyString(fromLang) || Utils.isEmptyString(toLang)) {
       const toast = Utils.createNotifierToast(
-        NotifierSeverity.Error,
+        Severity.Error,
         t('toasts.notDefinedLangPair')
       );
       dispatch(showNotifierToast(toast));
