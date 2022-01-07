@@ -14,7 +14,7 @@ import {
   executeNotifierAction,
   removeNotifierDialog,
 } from 'redux/actions/notifier';
-import { Notifier } from 'interfaces/notifier';
+import { Dialog as DialogType } from 'interfaces/notifier';
 
 export const DialogBox = () => {
   // Redux
@@ -22,7 +22,7 @@ export const DialogBox = () => {
   const { dialogs } = useAppSelector(notificationSelector);
 
   // State
-  const [activeDialog, setActiveDialog] = useState<Notifier | undefined>(
+  const [activeDialog, setActiveDialog] = useState<DialogType | undefined>(
     undefined
   );
 
