@@ -13,13 +13,10 @@ import {
   selectTranslatorsByAuthorisationStatus,
 } from 'redux/selectors/clerkTranslator';
 
-const AuthorisationStatusFilterButton = ({
-  status,
-  count,
-}: {
-  status: AuthorisationStatus;
-  count: number;
-}) => {
+export const RegisterControls = () => {
+  const { authorised, expiring, expired } = useAppSelector(
+    selectTranslatorsByAuthorisationStatus
+  );
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorFilters.authorisationStatus',
   });
@@ -30,42 +27,29 @@ const AuthorisationStatusFilterButton = ({
       addClerkTranslatorFilter({ ...filters, authorisationStatus: status })
     );
   };
-
-  return (
-    <Button
-      color="secondary"
-      variant={
-        filters.authorisationStatus === status ? 'contained' : 'outlined'
-      }
-      onClick={() => filterByAuthorisationStatus(status)}
-    >
-      <div className="columns gapped">
-        <div className="grow">{t(status)}</div>
-        <div>{`(${count})`}</div>
-      </div>
-    </Button>
-  );
-};
-
-export const RegisterControls = () => {
-  const { authorised, expiring, expired } = useAppSelector(
-    selectTranslatorsByAuthorisationStatus
-  );
+  const variantForStatus = (status: AuthorisationStatus) => {
+    return status === filters.authorisationStatus ? 'contained' : 'outlined';
+  };
 
   return (
     <>
-      <AuthorisationStatusFilterButton
-        status={AuthorisationStatus.Authorised}
-        count={authorised.length}
-      />
-      <AuthorisationStatusFilterButton
-        status={AuthorisationStatus.Expired}
-        count={expired.length}
-      />
-      <AuthorisationStatusFilterButton
-        status={AuthorisationStatus.Expiring}
-        count={expiring.length}
-      />
+      {[
+        { status: AuthorisationStatus.Authorised, count: authorised.length },
+        { status: AuthorisationStatus.Expiring, count: expiring.length },
+        { status: AuthorisationStatus.Expired, count: expired.length },
+      ].map(({ status, count }, i) => (
+        <Button
+          key={i}
+          color="secondary"
+          variant={variantForStatus(status)}
+          onClick={() => filterByAuthorisationStatus(status)}
+        >
+          <div className="columns gapped">
+            <div className="grow">{t(status)}</div>
+            <div>{`(${count})`}</div>
+          </div>
+        </Button>
+      ))}
     </>
   );
 };
