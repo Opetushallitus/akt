@@ -73,6 +73,9 @@
         "buttons": {
           "empty": "Tyhjennä valinnat",
           "search": "Hae"
+        },
+        "toasts": {
+          "notDefinedLangPair": "Valitse kielipari"
         }
       },
       "clerkTranslatorListing": {

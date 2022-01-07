@@ -28,7 +28,6 @@ export const PublicTranslatorFilters = ({
     keyPrefix: 'akt.component.publicTranslatorFilters',
   });
   // State
-  const [showFieldError, setShowFieldError] = useState(false);
   const defaultFiltersState = { fromLang: '', toLang: '', name: '', town: '' };
   const [filters, setFilters] = useState(defaultFiltersState);
   // Redux
@@ -36,22 +35,13 @@ export const PublicTranslatorFilters = ({
   const { langs, towns } = useAppSelector(publicTranslatorsSelector);
 
   const handleSearchBtnClick = () => {
-    if (
-      Utils.isEmptyString(filters.toLang) ||
-      Utils.isEmptyString(filters.fromLang)
-    ) {
-      setShowFieldError(true);
-    } else {
-      dispatch(addPublicTranslatorFilter(filters));
-      setShowFieldError(false);
-      setShowTable(true);
-    }
+    dispatch(addPublicTranslatorFilter(filters));
+    setShowTable(true);
   };
 
   const handleEmptyBtnClick = () => {
     setFilters(defaultFiltersState);
     dispatch(emptyPublicTranslatorFilters);
-    setShowFieldError(false);
     setShowTable(false);
   };
 
@@ -81,9 +71,6 @@ export const PublicTranslatorFilters = ({
               data-testid="public-translator-filters__from-language-select"
               showInputLabel
               sortByKeys
-              showError={
-                showFieldError && Utils.isEmptyString(filters.fromLang)
-              }
               label={t('languagePair.fromPlaceholder')}
               helperText={t('languagePair.fromHelperText')}
               id="filters-from-lang"
@@ -96,7 +83,6 @@ export const PublicTranslatorFilters = ({
               data-testid="public-translator-filters__to-language-select"
               showInputLabel
               sortByKeys
-              showError={showFieldError && Utils.isEmptyString(filters.toLang)}
               label={t('languagePair.toPlaceholder')}
               helperText={t('languagePair.toHelperText')}
               id="filters-to-lang"

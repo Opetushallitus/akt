@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import {
   TableCell,
   Checkbox,
@@ -6,14 +5,12 @@ import {
   TableRow,
   Button,
 } from '@mui/material';
-import { TFunction } from 'i18next';
 import { Box } from '@mui/system';
 
 import { H2, H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 import { PublicTranslator } from 'interfaces/translator';
-import { Selectable } from 'interfaces/selectable';
 import { APIResponseStatus } from 'enums/api';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { useAppTranslation } from 'configs/i18n';
@@ -22,23 +19,65 @@ import {
   removeSelectedTranslator,
 } from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
-import { UIStates } from 'enums/app';
+import { UIStates, NotifierSeverity } from 'enums/app';
 import { displayUIState } from 'redux/actions/navigation';
+import { showNotifierToast } from 'redux/actions/notifier';
+import { Utils } from 'utils/index';
 
-const getPublicTranslatorRow = (
+const getRowDetails = (
   translator: PublicTranslator,
-  t: TFunction,
-  selectionProps: Selectable
+  selected: boolean,
+  toggleSelected: () => void
 ) => {
+  return (
+    <ListingRow
+      translator={translator}
+      selected={selected}
+      toggleSelected={toggleSelected}
+    />
+  );
+};
+
+const ListingRow = ({
+  translator,
+  selected,
+  toggleSelected,
+}: {
+  translator: PublicTranslator;
+  selected: boolean;
+  toggleSelected: () => void;
+}) => {
+  // I18n
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.publicTranslatorFilters',
+  });
+
+  // Redux
+  const dispatch = useAppDispatch();
+  const { filters } = useAppSelector(publicTranslatorsSelector);
+
+  // State
   const { firstName, lastName, languagePairs, town, country } = translator;
-  const { selected, toggleSelected } = selectionProps;
   const townInfo = `${town}${country ? `, ${country}` : ''}`;
+
+  const handleRowClick = () => {
+    const { fromLang, toLang } = filters;
+    if (Utils.isEmptyString(fromLang) || Utils.isEmptyString(toLang)) {
+      const toast = Utils.createNotifierToast(
+        NotifierSeverity.Error,
+        t('toasts.notDefinedLangPair')
+      );
+      dispatch(showNotifierToast(toast));
+    } else {
+      toggleSelected();
+    }
+  };
 
   return (
     <TableRow
       data-testid={`public-translators__id-${translator.id}-row`}
       selected={selected}
-      onClick={toggleSelected}
+      onClick={handleRowClick}
     >
       <TableCell padding="checkbox">
         <Checkbox
@@ -53,9 +92,9 @@ const getPublicTranslatorRow = (
       <TableCell>
         {languagePairs.map(({ from, to }, k) => (
           <Text key={k}>
-            {t(`publicTranslatorFilters.languages.${from}`)}
+            {t(`languages.${from}`)}
             {` - `}
-            {t(`publicTranslatorFilters.languages.${to}`)}
+            {t(`languages.${to}`)}
           </Text>
         ))}
       </TableCell>
@@ -66,7 +105,7 @@ const getPublicTranslatorRow = (
   );
 };
 
-const ListingHeader: FC = () => {
+const ListingHeader = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.pages.translator' });
 
   return (
@@ -161,8 +200,8 @@ export const PublicTranslatorListing = ({
             addSelectedIndex={addSelectedTranslator}
             removeSelectedIndex={removeSelectedTranslator}
             data={translators}
-            getRowDetails={getPublicTranslatorRow}
             header={<ListingHeader />}
+            getRowDetails={getRowDetails}
             initialRowsPerPage={10}
             rowsPerPageOptions={[10, 20, 50]}
           />

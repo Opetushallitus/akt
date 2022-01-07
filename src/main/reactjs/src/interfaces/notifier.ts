@@ -12,7 +12,6 @@ export interface NotifierButtonAction {
 export interface Notifier {
   id: string;
   severity: `${Severity}`;
-  title: string;
   description: string;
   timeOut?: number;
   actions?: Array<NotifierButtonAction>;
@@ -24,6 +23,7 @@ export interface Toast extends Notifier {
 
 export interface Dialog extends Notifier {
   type: NotifierTypes.Dialog;
+  title: string;
 }
 
 export interface NotifierState {
