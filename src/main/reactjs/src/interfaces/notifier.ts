@@ -1,21 +1,17 @@
 import { Action } from 'redux';
 
-import {
-  NotifierSeverity,
-  NotifierTypes,
-  NotifierButtonVariant,
-} from 'enums/app';
+import { Severity, NotifierTypes, Variant } from 'enums/app';
 
 export interface NotifierButtonAction {
   title: string;
-  variant: `${NotifierButtonVariant}`;
+  variant: `${Variant}`;
   action: string;
   payload?: unknown;
 }
 
 export interface Notifier {
   id: string;
-  severity: `${NotifierSeverity}`;
+  severity: `${Severity}`;
   title: string;
   description: string;
   timeOut?: number;

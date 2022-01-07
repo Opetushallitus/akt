@@ -2,11 +2,7 @@ import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
 import { WithId } from 'interfaces/withId';
-
-export interface PublicLanguagePair {
-  from: string;
-  to: string;
-}
+import { LanguagePairsDict, PublicLanguagePair } from 'interfaces/language';
 
 export interface PublicTranslator extends WithId {
   firstName: string;
@@ -21,11 +17,6 @@ export interface PublicTranslatorFilter {
   toLang: string;
   name: string;
   town: string;
-}
-
-export interface LanguagePairsDict {
-  from: Array<string>;
-  to: Array<string>;
 }
 
 export interface PublicTranslatorResponse {

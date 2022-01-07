@@ -71,8 +71,45 @@
           "placeholder": "Asuinkunta"
         },
         "buttons": {
-          "empty": "Tyhjennä Valinnat",
+          "empty": "Tyhjennä valinnat",
           "search": "Hae"
+        }
+      },
+      "clerkTranslatorListing": {
+        "header": {
+          "name": "Nimi",
+          "languagePairs": "Kieliparit",
+          "authorisationBasis": "Auk. peruste",
+          "authorisationBeginDate": "Auk. tod. pvm",
+          "authorisationEndDate": "Umpeutuu",
+          "permissionToPublish": "Julkaistu"
+        },
+        "permissionToPublish": {
+          "true": "Kyllä",
+          "false": "Ei"
+        }
+      },
+      "clerkTranslatorFilters": {
+        "authorisationStatus": {
+          "authorised": "Auktorisoidut",
+          "expiring": "Umpeutuvat",
+          "expired": "Umpeutuneet"
+        },
+        "languagePair": {
+          "title": "Haku kieliparilla",
+          "fromPlaceholder": "Mistä",
+          "toPlaceholder": "Mihin"
+        },
+        "name": {
+          "title": "Haku nimellä",
+          "placeholder": "Nimi"
+        },
+        "town": {
+          "title": "Haku asuinkunnalla",
+          "placeholder": "Asuinkunta"
+        },
+        "buttons": {
+          "empty": "Tyhjennä valinnat"
         }
       },
       "contactRequestForm": {
@@ -129,6 +166,11 @@
         },
         "noSearchResults": "Ei hakutuloksia",
         "requestContact": "Ota yhteyttä"
+      },
+      "clerkHomepage": {
+        "title": "Auktorisoitujen kääntäjien rekisteri",
+        "register": "Rekisteri",
+        "sendEmail": "Lähetä sähköposti"
       },
       "translator": {
         "name": "Nimi",

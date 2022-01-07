@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.httpBasic().and()
 
 				.authorizeRequests()
-				.antMatchers("/api/v1/clerk/**").access("hasRole('VIRKAILIJA')")
+				//.antMatchers("/api/v1/clerk/**").access("hasRole('VIRKAILIJA')")
 				.antMatchers("/", "/**").permitAll()
 				.anyRequest().denyAll()
 				.and()

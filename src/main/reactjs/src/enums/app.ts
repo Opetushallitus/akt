@@ -40,14 +40,14 @@ export enum NotifierTypes {
   Toast = 'toast',
 }
 
-export enum NotifierSeverity {
+export enum Severity {
   Info = 'info',
   Success = 'success',
   Error = 'error',
   Warning = 'warning',
 }
 
-export enum NotifierButtonVariant {
+export enum Variant {
   Text = 'text',
   Outlined = 'outlined',
   Contained = 'contained',

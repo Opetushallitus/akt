@@ -1,5 +1,6 @@
 export enum APIEndpoints {
   PublicTranslator = '/api/v1/translator',
+  ClerkTranslator = '/api/v1/clerk/translator',
   ContactRequest = '/api/v1/translator/contact-request',
 }
 
