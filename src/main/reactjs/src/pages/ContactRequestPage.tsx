@@ -15,7 +15,7 @@ import {
 } from 'components/contactRequest/ContactRequestFormUtils';
 import { showNotifierDialog } from 'redux/actions/notifier';
 import { Utils } from 'utils';
-import { NotifierButtonVariant, NotifierSeverity } from 'enums/app';
+import { Variant, Severity } from 'enums/app';
 import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
 import { ControlButtons } from 'components/contactRequest/ControlButtons';
 import { ContactRequestFormStep } from 'enums/contactRequest';
@@ -51,12 +51,12 @@ export const ContactRequestPage = () => {
   const dispatchErrorNotifier = () => {
     const notifier = Utils.createNotifierDialog(
       t('errorDialog.title'),
-      NotifierSeverity.Error,
+      Severity.Error,
       t('errorDialog.description'),
       [
         {
           title: t('errorDialog.back'),
-          variant: NotifierButtonVariant.Contained,
+          variant: Variant.Contained,
           action: NOTIFIER_ACTION_DO_NOTHING,
         },
       ]

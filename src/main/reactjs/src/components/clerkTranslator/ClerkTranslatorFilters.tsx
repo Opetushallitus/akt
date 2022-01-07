@@ -3,6 +3,7 @@ import { TextField, Button } from '@mui/material';
 import { H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { Variant } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 import {
   addClerkTranslatorFilter,
@@ -28,7 +29,9 @@ export const RegisterControls = () => {
     );
   };
   const variantForStatus = (status: AuthorisationStatus) => {
-    return status === filters.authorisationStatus ? 'contained' : 'outlined';
+    return status === filters.authorisationStatus
+      ? Variant.Contained
+      : Variant.Outlined;
   };
 
   const countsForStatuses = [
