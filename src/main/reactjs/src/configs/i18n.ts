@@ -25,18 +25,20 @@ const detectionOptions = {
 
 const supportedLangs = [langFI, langSV, langEN];
 
+const koodistoLanguagesNS = 'koodistoLanguages';
+
 const resources = {
   [langFI]: {
     translation: transFI,
-    langs: langsFI,
+    [koodistoLanguagesNS]: langsFI,
   },
   [langSV]: {
     translation: transSV,
-    langs: langsSV,
+    [koodistoLanguagesNS]: langsSV,
   },
   [langEN]: {
     translation: transEN,
-    langs: langsEN,
+    [koodistoLanguagesNS]: langsEN,
   },
 };
 
@@ -56,7 +58,6 @@ export const initI18n = () => {
   return use(initReactI18next)
     .use(LanguageDetector)
     .init({
-      fallbackNS: 'langs',
       resources,
       detection: detectionOptions,
       fallbackLng: langFI,
@@ -71,9 +72,11 @@ export const useAppTranslation = (options: UseTranslationOptions<string>) => {
 };
 
 export const useLanguageTranslation = () => {
-  const { t } = useAppTranslation({ keyPrefix: 'akt.koodisto.languages' });
+  const { t } = useTranslation(undefined, {
+    keyPrefix: 'akt.koodisto.languages',
+  });
 
-  return t;
+  return (lang: string) => t(lang, { ns: koodistoLanguagesNS });
 };
 
 export const getCurrentLang = (): string => {
