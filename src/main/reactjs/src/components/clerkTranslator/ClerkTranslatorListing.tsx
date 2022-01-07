@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 import { Text, H3 } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useLanguageTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
@@ -66,6 +66,7 @@ const ListingRow = ({
   const { firstName, lastName } = translator.contactDetails;
   const languagesWithAuthorisations =
     getLanguagePairsWithAuthorisations(translator);
+  const translateLanguage = useLanguageTranslation();
 
   return (
     <TableRow
@@ -83,9 +84,7 @@ const ListingRow = ({
         <div className="rows">
           {languagesWithAuthorisations.map(({ from, to }, idx) => (
             <Text key={idx}>
-              {`${t(`publicTranslatorFilters.languages.${from}`)} - ${t(
-                `publicTranslatorFilters.languages.${to}`
-              )}`}
+              {`${translateLanguage(from)} - ${translateLanguage(to)}`}
             </Text>
           ))}
         </div>
@@ -115,9 +114,7 @@ const ListingRow = ({
         <div className="rows">
           {languagesWithAuthorisations.map(({ permissionToPublish }, idx) => (
             <Text key={idx}>
-              {t(
-                `clerkTranslatorListing.permissionToPublish.${permissionToPublish}`
-              )}
+              {t(`permissionToPublish.${permissionToPublish}`)}
             </Text>
           ))}
         </div>

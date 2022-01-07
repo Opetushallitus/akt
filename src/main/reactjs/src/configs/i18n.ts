@@ -70,6 +70,12 @@ export const useAppTranslation = (options: UseTranslationOptions<string>) => {
   return useTranslation(undefined, options);
 };
 
+export const useLanguageTranslation = () => {
+  const { t } = useAppTranslation({ keyPrefix: 'akt.koodisto.languages' });
+
+  return t;
+};
+
 export const getCurrentLang = (): string => {
   return i18n.language;
 };

@@ -6,7 +6,7 @@ import { FillContactDetails } from 'components/contactRequest/steps/FillContactD
 import { WriteMessage } from 'components/contactRequest/steps/WriteMessage';
 import { PreviewAndSend } from 'components/contactRequest/steps/PreviewAndSend';
 import { Done } from 'components/contactRequest/steps/Done';
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useLanguageTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import {
@@ -27,16 +27,15 @@ export const ChosenTranslatorsHeading = () => {
   const { filters } = useAppSelector(publicTranslatorsSelector);
   const { fromLang, toLang } = filters;
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.component',
+    keyPrefix: 'akt.component.contactRequestForm',
   });
+  const translateLanguage = useLanguageTranslation();
 
   return (
     <div className="columns">
-      <H3>{`${t('contactRequestForm.chosenTranslatorsForLanguagePair')}`}</H3>
+      <H3>{`${t('chosenTranslatorsForLanguagePair')}`}</H3>
       <H3 className="contact-request-page__lang-pair">
-        {`${t('publicTranslatorFilters.languages.' + fromLang)} - ${t(
-          'publicTranslatorFilters.languages.' + toLang
-        )}`}
+        {`${translateLanguage(fromLang)} - ${translateLanguage(toLang)}`}
       </H3>
     </div>
   );

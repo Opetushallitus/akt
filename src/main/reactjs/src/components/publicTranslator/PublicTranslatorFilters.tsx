@@ -15,7 +15,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import { H3 } from 'components/elements/Text';
 import { Dropdown } from 'components/elements/Dropdown';
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useLanguageTranslation } from 'configs/i18n';
 import { useAppSelector, useAppDispatch } from 'configs/redux';
 import {
   addPublicTranslatorFilter,
@@ -38,6 +38,7 @@ export const PublicTranslatorFilters = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.publicTranslatorFilters',
   });
+  const translateLanguage = useLanguageTranslation();
 
   // State
   const defaultFiltersState = {
@@ -129,7 +130,7 @@ export const PublicTranslatorFilters = ({
               label={t('languagePair.fromPlaceholder')}
               id="filters-from-lang"
               variant="outlined"
-              values={Utils.createMapFromArray(langs.from, t, 'languages')}
+              values={Utils.createMapFromArray(langs.from, translateLanguage)}
               value={filters.fromLang}
               onChange={handleFilterChange(SearchFilter.FromLang)}
             />
@@ -141,7 +142,7 @@ export const PublicTranslatorFilters = ({
               label={t('languagePair.toPlaceholder')}
               id="filters-to-lang"
               variant="outlined"
-              values={Utils.createMapFromArray(langs.to, t, 'languages')}
+              values={Utils.createMapFromArray(langs.to, translateLanguage)}
               value={filters.toLang}
               onChange={handleFilterChange(SearchFilter.ToLang)}
             />

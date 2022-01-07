@@ -13,7 +13,7 @@ import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 import { PublicTranslator } from 'interfaces/translator';
 import { APIResponseStatus } from 'enums/api';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useLanguageTranslation } from 'configs/i18n';
 import {
   addPublicTranslatorFilterError,
   addSelectedTranslator,
@@ -59,6 +59,7 @@ const ListingRow = ({
   const { fromLang, toLang } = filters;
   const { firstName, lastName, languagePairs, town, country } = translator;
   const townInfo = `${town}${country ? `, ${country}` : ''}`;
+  const translateLanguage = useLanguageTranslation();
 
   const handleRowClick = () => {
     const langFields = [SearchFilter.FromLang, SearchFilter.ToLang];
@@ -99,9 +100,9 @@ const ListingRow = ({
       <TableCell>
         {languagePairs.map(({ from, to }, k) => (
           <Text key={k}>
-            {t(`languages.${from}`)}
+            {translateLanguage(from)}
             {` - `}
-            {t(`languages.${to}`)}
+            {translateLanguage(to)}
           </Text>
         ))}
       </TableCell>
