@@ -13,9 +13,9 @@ export const AppRouter: FC = () => (
   <BrowserRouter>
     <div className="app">
       <Header />
+      <Notifier />
       <main className="content">
         <div className="content__container">
-          <Notifier />
           <Routes>
             <Route
               path={AppRoutes.PublicHomePage}
@@ -26,7 +26,7 @@ export const AppRouter: FC = () => (
           </Routes>
         </div>
       </main>
-      <Footer />
+      <Footer showWave={false} />
     </div>
   </BrowserRouter>
 );

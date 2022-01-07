@@ -15,7 +15,7 @@ import {
   NOTIFIER_ACTION_DO_NOTHING,
 } from 'redux/actionTypes/notifier';
 import { ContactRequestFormStep } from 'enums/contactRequest';
-import { NotifierButtonVariant, NotifierSeverity } from 'enums/app';
+import { Variant, Severity } from 'enums/app';
 import { Utils } from 'utils';
 
 export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
@@ -38,17 +38,17 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
   const dispatchCancelNotifier = () => {
     const notifier = Utils.createNotifierDialog(
       t('cancelRequestDialog.title'),
-      NotifierSeverity.Info,
+      Severity.Info,
       t('cancelRequestDialog.description'),
       [
         {
           title: t('cancelRequestDialog.back'),
-          variant: NotifierButtonVariant.Outlined,
+          variant: Variant.Outlined,
           action: NOTIFIER_ACTION_DO_NOTHING,
         },
         {
           title: t('cancelRequestDialog.yes'),
-          variant: NotifierButtonVariant.Contained,
+          variant: Variant.Contained,
           action: NOTIFIER_ACTION_CONTACT_REQUEST_RESET,
         },
       ]

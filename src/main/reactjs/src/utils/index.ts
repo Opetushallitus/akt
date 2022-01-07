@@ -2,12 +2,14 @@ import { TFunction } from 'i18next';
 
 import {
   Duration,
-  NotifierSeverity,
+  Severity,
   NotifierTypes,
   TextBoxErrors,
   TextBoxTypes,
 } from 'enums/app';
 import { Dialog, Toast, NotifierButtonAction } from 'interfaces/notifier';
+
+const dateFormatter = new Intl.DateTimeFormat();
 
 export class Utils {
   static isEmptyString(str: string) {
@@ -31,9 +33,17 @@ export class Utils {
     return `${date}-${random}`;
   }
 
+  static formatDate(date?: Date) {
+    if (!date) {
+      return '-';
+    }
+
+    return dateFormatter.format(date);
+  }
+
   static createNotifierDialog(
     title: string,
-    severity: NotifierSeverity,
+    severity: Severity,
     description: string,
     actions: NotifierButtonAction[],
     timeOut: number | undefined = undefined
@@ -53,7 +63,7 @@ export class Utils {
 
   static createNotifierToast(
     title: string,
-    severity: NotifierSeverity,
+    severity: Severity,
     description: string,
     timeOut: number | undefined = Duration.Medium
   ) {

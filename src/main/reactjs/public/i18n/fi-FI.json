@@ -70,32 +70,46 @@
           "title": "Haku asuinkunnalla",
           "placeholder": "Asuinkunta"
         },
-        "languages": {
-          "bn": "bengali",
-          "bo": "tiibet",
-          "ca": "katalaani",
-          "cs": "tšekki",
-          "da": "tanska",
-          "de": "saksa",
-          "el": "kreikka",
-          "en": "englanti",
-          "et": "viro",
-          "fi": "suomi",
-          "fj": "fidži",
-          "fo": "fääri",
-          "fr": "ranska",
-          "ga": "iiri",
-          "he": "heprea",
-          "hr": "kroatia",
-          "hu": "unkari",
-          "ru": "venäjä",
-          "sv": "ruotsi",
-          "tt": "tataari",
-          "ty": "tahiti"
+        "buttons": {
+          "empty": "Tyhjennä valinnat",
+          "search": "Hae"
+        }
+      },
+      "clerkTranslatorListing": {
+        "header": {
+          "name": "Nimi",
+          "languagePairs": "Kieliparit",
+          "authorisationBasis": "Auk. peruste",
+          "authorisationBeginDate": "Auk. tod. pvm",
+          "authorisationEndDate": "Umpeutuu",
+          "permissionToPublish": "Julkaistu"
+        },
+        "permissionToPublish": {
+          "true": "Kyllä",
+          "false": "Ei"
+        }
+      },
+      "clerkTranslatorFilters": {
+        "authorisationStatus": {
+          "authorised": "Auktorisoidut",
+          "expiring": "Umpeutuvat",
+          "expired": "Umpeutuneet"
+        },
+        "languagePair": {
+          "title": "Haku kieliparilla",
+          "fromPlaceholder": "Mistä",
+          "toPlaceholder": "Mihin"
+        },
+        "name": {
+          "title": "Haku nimellä",
+          "placeholder": "Nimi"
+        },
+        "town": {
+          "title": "Haku asuinkunnalla",
+          "placeholder": "Asuinkunta"
         },
         "buttons": {
-          "empty": "Tyhjennä Valinnat",
-          "search": "Hae"
+          "empty": "Tyhjennä valinnat"
         }
       },
       "contactRequestForm": {
@@ -152,6 +166,11 @@
         },
         "noSearchResults": "Ei hakutuloksia",
         "requestContact": "Ota yhteyttä"
+      },
+      "clerkHomepage": {
+        "title": "Auktorisoitujen kääntäjien rekisteri",
+        "register": "Rekisteri",
+        "sendEmail": "Lähetä sähköposti"
       },
       "translator": {
         "name": "Nimi",

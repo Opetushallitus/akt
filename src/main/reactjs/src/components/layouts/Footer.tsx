@@ -9,12 +9,18 @@ import Logo from 'public/assets/svg/logo.svg';
 import FooterWave from 'public/assets/svg/footer_wave.svg';
 import { useAppTranslation } from 'configs/i18n';
 
-const Footer: FC = () => {
+interface FooterProps {
+  showWave: boolean;
+}
+
+const Footer: FC<FooterProps> = ({ showWave }: FooterProps) => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.component.footer' });
 
   return (
     <footer>
-      <Svg className="footer__wave" src={FooterWave} alt={t('logo.alt')} />
+      {showWave && (
+        <Svg className="footer__wave" src={FooterWave} alt={t('logo.alt')} />
+      )}
       <Paper className="footer" elevation={3}>
         <div className="footer__container">
           <ExtLink

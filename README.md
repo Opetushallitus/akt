@@ -29,8 +29,8 @@ docker-compose down
 docker-compose up --build --force-recreate --renew-anon-volumes
 ```
 
-The website is served by the frontend container at `http://localhost:4000`.
-The frontend container supports hot reload of frontend resources.
+The website is served by the frontend container at `http://localhost:4000`. The frontend container supports hot reload
+of frontend resources.
 
 ## Working with Maven
 
@@ -115,4 +115,27 @@ mvn spring-boot:run -Dtomcat.util.http.parser.HttpParser.requestTargetAllow=|{}
 ```
 
 [prettier]: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+
 [eslint]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+
+# Localisations
+
+## Frontend
+
+OPH localisation service is not used. Localisations are in JSON files, committed to git.
+
+# Backend
+
+TBD emails etc
+
+## Koodisto languages
+
+Translations for language names are fetched from Koodisto. When those translations need to be updated, run:
+
+```sh
+cd scripts
+./koodisto-langs.sh
+```
+
+Above script fetches language codes JSON from Koodisto, stores it for backend, and transforms it to localisation files
+for frontend. Results are committed to git.

@@ -1,4 +1,4 @@
-import i18n, { use, changeLanguage } from 'i18next';
+import i18n, { changeLanguage, use } from 'i18next';
 import {
   initReactI18next,
   useTranslation,
@@ -9,6 +9,9 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import transFI from 'public/i18n/fi-FI.json';
 import transSV from 'public/i18n/sv-SE.json';
 import transEN from 'public/i18n/en-GB.json';
+import langsFI from 'public/i18n/koodisto/langs/fi-FI.json';
+import langsSV from 'public/i18n/koodisto/langs/sv-SE.json';
+import langsEN from 'public/i18n/koodisto/langs/en-GB.json';
 
 // Defaults and resources
 const langFI = 'fi-FI';
@@ -25,16 +28,19 @@ const supportedLangs = [langFI, langSV, langEN];
 const resources = {
   [langFI]: {
     translation: transFI,
+    langs: langsFI,
   },
   [langSV]: {
     translation: transSV,
+    langs: langsSV,
   },
   [langEN]: {
     translation: transEN,
+    langs: langsEN,
   },
 };
 
-// Check types
+// TypeScript definitions for react-i18next. IDE might show this to be unused, but ts does some type checking with it.
 declare module 'react-i18next' {
   interface CustomTypeOptions {
     defaultNS: typeof langFI;
@@ -50,6 +56,7 @@ export const initI18n = () => {
   return use(initReactI18next)
     .use(LanguageDetector)
     .init({
+      fallbackNS: 'langs',
       resources,
       detection: detectionOptions,
       fallbackLng: langFI,
