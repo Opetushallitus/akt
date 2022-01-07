@@ -56,7 +56,6 @@ const ListingRow = ({
   const dispatch = useAppDispatch();
   const { filters } = useAppSelector(publicTranslatorsSelector);
 
-  // State
   const { firstName, lastName, languagePairs, town, country } = translator;
   const townInfo = `${town}${country ? `, ${country}` : ''}`;
 
