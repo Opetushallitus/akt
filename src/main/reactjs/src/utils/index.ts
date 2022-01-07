@@ -2,7 +2,7 @@ import { TFunction } from 'i18next';
 
 import {
   Duration,
-  NotifierSeverity,
+  Severity,
   NotifierTypes,
   TextBoxErrors,
   TextBoxTypes,
@@ -43,7 +43,7 @@ export class Utils {
 
   static createNotifierDialog(
     title: string,
-    severity: NotifierSeverity,
+    severity: Severity,
     description: string,
     actions: NotifierButtonAction[],
     timeOut: number | undefined = undefined
@@ -63,7 +63,7 @@ export class Utils {
 
   static createNotifierToast(
     title: string,
-    severity: NotifierSeverity,
+    severity: Severity,
     description: string,
     timeOut: number | undefined = Duration.Medium
   ) {
