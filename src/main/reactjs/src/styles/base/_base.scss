@@ -33,10 +33,6 @@ body,
   display: flex;
   background-color: $color-background-content;
 
-  &__clerk {
-    background-color: $color-background-root;
-  }
-
   &__container {
     padding: 3rem;
     max-width: $breakpoint-xl;
