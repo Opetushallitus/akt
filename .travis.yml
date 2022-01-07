@@ -27,10 +27,12 @@ jobs:
       language: node_js
       node_js:
         - "lts/*"
-      script:
+      before_script:
         - cd src/main/reactjs
+      script:
         - npm ci
         - npm run qa
+      after_script:
         - kill $(jobs -p) || true
     - stage: Backend
       language: java

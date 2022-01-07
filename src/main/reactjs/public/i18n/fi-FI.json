@@ -114,6 +114,11 @@
           "previewAndSend": "Esikatsele ja lähetä",
           "done": "Valmis"
         },
+        "doneStep": {
+          "title": "Yhteydenottopyyntösi on lähetetty ja sinuun ollaan yhteydessä.",
+          "description": "Tämä sivu ohjaa sinut automaattisesti takaisin etusivulle. Jos mitään ei tapahdu voit klikata alla olevasta napista.",
+          "button": "Etusivu"
+        },
         "chosenTranslatorsForLanguagePair": "Valitut kääntäjät kieliparista",
         "characters": "merkki(ä)",
         "formLabels": {
@@ -124,11 +129,6 @@
           "contactInfo": "Yhteystiedot",
           "message": "Viesti",
           "writeMessageHere": "Viesti"
-        },
-        "successDialog": {
-          "title": "Yhteydenottopyyntösi lähetettiin onnistuneesti!",
-          "description": "Sinuun ollaan yhteydessä.",
-          "continue": "Jatka"
         },
         "errorDialog": {
           "title": "Virhe lähetettäessä yhteydenottopyyntöä.",

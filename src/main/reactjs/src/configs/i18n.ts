@@ -58,8 +58,10 @@ export const initI18n = () => {
     });
 };
 
-export const useAppTranslation = (options: UseTranslationOptions<string>) =>
-  useTranslation(undefined, options);
+export const useAppTranslation = (options: UseTranslationOptions<string>) => {
+  // @ts-expect-error ts import fail
+  return useTranslation(undefined, options);
+};
 
 export const getCurrentLang = (): string => {
   return i18n.language;

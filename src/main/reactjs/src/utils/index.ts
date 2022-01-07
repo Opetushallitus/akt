@@ -1,6 +1,13 @@
 import { TFunction } from 'i18next';
 
-import { TextBoxErrors, TextBoxTypes } from 'enums/app';
+import {
+  Duration,
+  NotifierSeverity,
+  NotifierTypes,
+  TextBoxErrors,
+  TextBoxTypes,
+} from 'enums/app';
+import { Dialog, Toast, NotifierButtonAction } from 'interfaces/notifier';
 
 export class Utils {
   static isEmptyString(str: string) {
@@ -15,6 +22,52 @@ export class Utils {
     const prfxKey = prefix ? `${prefix}.` : '';
 
     return new Map(array.map((i) => [t ? `${t(`${prfxKey}${i}`)}` : i, i]));
+  }
+
+  static createUniqueId() {
+    const date = new Date().getTime().toString(36);
+    const random = Math.random().toString(26).slice(2);
+
+    return `${date}-${random}`;
+  }
+
+  static createNotifierDialog(
+    title: string,
+    severity: NotifierSeverity,
+    description: string,
+    actions: NotifierButtonAction[],
+    timeOut: number | undefined = undefined
+  ) {
+    const notifier: Dialog = {
+      id: Utils.createUniqueId(),
+      type: NotifierTypes.Dialog,
+      title,
+      severity,
+      description,
+      actions,
+      timeOut,
+    };
+
+    return notifier;
+  }
+
+  static createNotifierToast(
+    title: string,
+    severity: NotifierSeverity,
+    description: string,
+    timeOut: number | undefined = Duration.Medium
+  ) {
+    const notifier: Toast = {
+      id: Utils.createUniqueId(),
+      type: NotifierTypes.Toast,
+      title,
+      severity,
+      description,
+      actions: [],
+      timeOut,
+    };
+
+    return notifier;
   }
 
   static inspectTextBoxErrors(

@@ -3,20 +3,20 @@
   border-radius: 0px;
 }
 
-.dialog {
-  &__success {
+.dialog-box {
+  &--success {
     & [role='dialog'] {
       @include dialog-border($color-green-600);
     }
   }
 
-  &__error {
+  &--error {
     & [role='dialog'] {
       @include dialog-border($color-red-500);
     }
   }
 
-  &__info {
+  &--info {
     & [role='dialog'] {
       @include dialog-border($color-secondary);
     }

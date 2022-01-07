@@ -14,16 +14,12 @@ Bring up the DB, backend and frontend containers:
 docker-compose up
 ```
 
-Or bring up individual services according to your needs:
+Or
+
+Start up a certain service:
 
 ```sh
-docker-compose up postgres frontend
-```
-
-Or bring up individual services according to your needs:
-
-```sh
-docker-compose up postgres frontend
+docker-compose up frontend | backend | postgres
 ```
 
 In case of errors, clean cache and recreate volumes:

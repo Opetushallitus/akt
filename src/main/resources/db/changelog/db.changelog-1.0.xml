@@ -407,4 +407,17 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="2022-01-03-add-meeting_date-date-uniq" author="terova">
+        <addUniqueConstraint tableName="meeting_date" columnNames="date"/>
+    </changeSet>
+
+    <changeSet id="2022-01-04-add-new-email-types" author="mikhuttu">
+        <insert tableName="email_type">
+            <column name="name" value="AUTHORISATION_EXPIRY"/>
+        </insert>
+        <insert tableName="email_type">
+            <column name="name" value="INFORMAL"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

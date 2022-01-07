@@ -7,6 +7,7 @@ import {
   CONTACT_REQUEST_ERROR,
   CONTACT_REQUEST_SEND,
   CONTACT_REQUEST_SUCCESS,
+  CONTACT_REQUEST_STEP_INCREASE,
   isContactRequestSendAction,
 } from 'redux/actionTypes/contactRequest';
 
@@ -37,6 +38,7 @@ export function* sendContactRequest(action: Action) {
         })
       );
       yield put({ type: CONTACT_REQUEST_SUCCESS });
+      yield put({ type: CONTACT_REQUEST_STEP_INCREASE });
     } catch (error) {
       yield put({ type: CONTACT_REQUEST_ERROR, error });
     }

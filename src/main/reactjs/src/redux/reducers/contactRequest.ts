@@ -10,11 +10,15 @@ import {
   CONTACT_REQUEST_SEND,
   CONTACT_REQUEST_SET,
   CONTACT_REQUEST_SUCCESS,
+  CONTACT_REQUEST_STEP_DECREASE,
+  CONTACT_REQUEST_STEP_INCREASE,
 } from 'redux/actionTypes/contactRequest';
 import { APIResponseStatus } from 'enums/api';
+import { ContactRequestFormStep } from 'enums/contactRequest';
 
 const defaultState = {
   status: APIResponseStatus.NotStarted,
+  activeStep: ContactRequestFormStep.VerifyTranslators,
   request: {
     languagePair: { from: '', to: '' },
     translatorIds: [],
@@ -42,6 +46,10 @@ export const contactRequestReducer: Reducer<
       return { ...state, status: APIResponseStatus.Error };
     case CONTACT_REQUEST_SUCCESS:
       return { ...state, status: APIResponseStatus.Success };
+    case CONTACT_REQUEST_STEP_DECREASE:
+      return { ...state, activeStep: --state.activeStep };
+    case CONTACT_REQUEST_STEP_INCREASE:
+      return { ...state, activeStep: ++state.activeStep };
     case CONTACT_REQUEST_RESET:
       return defaultState;
     default:
