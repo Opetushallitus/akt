@@ -79,7 +79,7 @@
         "header": {
           "name": "Nimi",
           "languagePairs": "Kieliparit",
-          "authorisationBasis": "Auktorisointiperuste",
+          "authorisationBasis": "Auk. peruste",
           "authorisationBeginDate": "Auk. tod. pvm",
           "authorisationEndDate": "Umpeutuu",
           "permissionToPublish": "Julkaistu"
