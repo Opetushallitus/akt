@@ -9,9 +9,9 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import transFI from 'public/i18n/fi-FI.json';
 import transSV from 'public/i18n/sv-SE.json';
 import transEN from 'public/i18n/en-GB.json';
-import langsFI from 'public/i18n/koodisto/langs/fi-FI.json';
-import langsSV from 'public/i18n/koodisto/langs/sv-SE.json';
-import langsEN from 'public/i18n/koodisto/langs/en-GB.json';
+import langsFI from 'public/i18n/koodisto/langs/koodisto_langs_fi-FI.json';
+import langsSV from 'public/i18n/koodisto/langs/koodisto_langs_sv-SE.json';
+import langsEN from 'public/i18n/koodisto/langs/koodisto_langs_en-GB.json';
 
 // Defaults and resources
 const langFI = 'fi-FI';
