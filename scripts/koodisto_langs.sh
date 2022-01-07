@@ -5,7 +5,7 @@
 LANGS_LIST=../src/main/resources/koodisto/koodisto_kielet.json
 FRONTEND_PATH=../src/main/reactjs/public/i18n/koodisto/langs
 
-# curl -H "Caller-Id:kehittaja-akt" "https://virkailija.opintopolku.fi/koodisto-service/rest/json/kieli/koodi" --create-dirs -o $LANGS_LIST
+curl -H "Caller-Id:kehittaja-akt" "https://virkailija.opintopolku.fi/koodisto-service/rest/json/kieli/koodi" --create-dirs -o $LANGS_LIST
 
 function extract_frontend_localisation() {
   lang=$1

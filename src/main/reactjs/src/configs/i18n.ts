@@ -1,4 +1,4 @@
-import i18n, { use, changeLanguage } from 'i18next';
+import i18n, { changeLanguage, use } from 'i18next';
 import {
   initReactI18next,
   useTranslation,
@@ -40,7 +40,7 @@ const resources = {
   },
 };
 
-// Check types. It seems to be unused, but ts does some type checking with it.
+// TypeScript definitions for react-i18next. IDE might show this to be unused, but ts does some type checking with it.
 declare module 'react-i18next' {
   interface CustomTypeOptions {
     defaultNS: typeof langFI;
