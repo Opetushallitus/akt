@@ -31,13 +31,15 @@ export const RegisterControls = () => {
     return status === filters.authorisationStatus ? 'contained' : 'outlined';
   };
 
+  const countsForStatuses = [
+    { status: AuthorisationStatus.Authorised, count: authorised.length },
+    { status: AuthorisationStatus.Expiring, count: expiring.length },
+    { status: AuthorisationStatus.Expired, count: expired.length },
+  ];
+
   return (
     <>
-      {[
-        { status: AuthorisationStatus.Authorised, count: authorised.length },
-        { status: AuthorisationStatus.Expiring, count: expiring.length },
-        { status: AuthorisationStatus.Expired, count: expired.length },
-      ].map(({ status, count }, i) => (
+      {countsForStatuses.map(({ count, status }, i) => (
         <Button
           key={i}
           color="secondary"
