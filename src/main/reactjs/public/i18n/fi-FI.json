@@ -70,29 +70,6 @@
           "title": "Haku asuinkunnalla",
           "placeholder": "Asuinkunta"
         },
-        "languages": {
-          "bn": "bengali",
-          "bo": "tiibet",
-          "ca": "katalaani",
-          "cs": "tšekki",
-          "da": "tanska",
-          "de": "saksa",
-          "el": "kreikka",
-          "en": "englanti",
-          "et": "viro",
-          "fi": "suomi",
-          "fj": "fidži",
-          "fo": "fääri",
-          "fr": "ranska",
-          "ga": "iiri",
-          "he": "heprea",
-          "hr": "kroatia",
-          "hu": "unkari",
-          "ru": "venäjä",
-          "sv": "ruotsi",
-          "tt": "tataari",
-          "ty": "tahiti"
-        },
         "buttons": {
           "empty": "Tyhjennä Valinnat",
           "search": "Hae"

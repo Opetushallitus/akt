@@ -1,20 +1,20 @@
 package fi.oph.akt.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fi.oph.akt.api.dto.LanguageDTO;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
+@Service
 public class LanguageService {
 
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -27,51 +27,30 @@ public class LanguageService {
 	private static final Set<String> IGNORED_LANGUAGE_CODES = Set.of(UNOFFICIAL_LANGUAGE, UNKNOWN_LANGUAGE,
 			OTHER_LANGUAGE, SIGN_LANGUAGE);
 
-	private final WebClient webClient;
-
-	@Cacheable("koodistoLanguages")
-	public List<LanguageDTO> allLanguages() throws JsonProcessingException {
-		final Mono<String> response = webClient.get().retrieve().bodyToMono(String.class);
-		final String result = response.block();
-		final List<KoodistoLang> koodistoLanguages = deserializeJson(result);
-		return toDTOs(koodistoLanguages);
+	@Cacheable("koodistoLanguageCodes")
+	public Set<String> allLanguageCodes() {
+		try (final InputStream is = new ClassPathResource("koodisto/koodisto_kielet.json").getInputStream()) {
+			final List<KoodistoLang> koodistoLanguages = deserializeJson(is);
+			final List<KoodistoLang> filteredLanguages = koodistoLanguages.stream()
+					.filter(k -> !IGNORED_LANGUAGE_CODES.contains(k.koodiArvo)).toList();
+			return filteredLanguages.stream().map(KoodistoLang::koodiArvo).collect(Collectors.toSet());
+		}
+		catch (final IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
-	private List<KoodistoLang> deserializeJson(String result) throws JsonProcessingException {
-		return OBJECT_MAPPER.readValue(result, new TypeReference<>() {
+	private List<KoodistoLang> deserializeJson(final InputStream is) throws IOException {
+		return OBJECT_MAPPER.readValue(is, new TypeReference<>() {
 		});
 	}
 
-	private List<LanguageDTO> toDTOs(List<KoodistoLang> koodistoLanguages) {
-		return koodistoLanguages.stream().filter(k -> !IGNORED_LANGUAGE_CODES.contains(k.koodiArvo)).map(this::toDTO)
-				.toList();
-	}
-
-	private LanguageDTO toDTO(final KoodistoLang koodistoLang) {
-		final String fi = findLang(null, "FI", koodistoLang.metadata);
-		final String sv = findLang(fi, "SV", koodistoLang.metadata);
-		final String en = findLang(fi, "EN", koodistoLang.metadata);
-		// @formatter:off
-		return LanguageDTO.builder()
-				.code(koodistoLang.koodiArvo)
-				.fi(fi)
-				.sv(sv)
-				.en(en)
-				.build();
-		// @formatter:on
-	}
-
-	private String findLang(final String fallback, final String lang, final List<KoodistoLangMeta> metadata) {
-		return metadata.stream().filter(m -> m.kieli.equalsIgnoreCase(lang)).map(KoodistoLangMeta::nimi).findFirst()
-				.orElse(fallback);
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	private record KoodistoLang(@NonNull String koodiArvo, @NonNull List<KoodistoLangMeta> metadata) {
 	}
 
 	@JsonIgnoreProperties(ignoreUnknown = true)
-	private record KoodistoLang(@NonNull String koodiArvo, List<KoodistoLangMeta> metadata) {
-	}
-
-	@JsonIgnoreProperties(ignoreUnknown = true)
-	private record KoodistoLangMeta(@NonNull String kieli, String nimi, String lyhytNimi) {
+	private record KoodistoLangMeta(@NonNull String kieli, @NonNull String nimi) {
 	}
 
 }

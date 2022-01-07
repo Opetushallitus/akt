@@ -420,4 +420,17 @@
         </insert>
     </changeSet>
 
+    <changeSet id="2022-01-05-language_pair-uppercase" author="terova">
+        <sql><![CDATA[
+            ALTER TABLE language_pair DROP CONSTRAINT ck_language_pair_from_to;
+            UPDATE language_pair
+            SET from_lang=UPPER(from_lang),
+                to_lang=UPPER(to_lang);
+            ALTER TABLE language_pair
+                ADD CONSTRAINT ck_language_pair_from_to CHECK (from_lang <> to_lang AND
+                                                               (from_lang IN ('FI', 'SV') OR to_lang IN ('FI', 'SV')))
+            ]]>
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

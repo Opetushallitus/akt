@@ -2,8 +2,6 @@ package fi.oph.akt.api.translator;
 
 import fi.oph.akt.service.ContactRequestService;
 import fi.oph.akt.service.PublicTranslatorService;
-import java.util.List;
-import javax.annotation.Resource;
 import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,6 +9,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -169,8 +170,8 @@ class TranslatorControllerTest {
 		data.put("email", "foo@bar");
 		data.put("phoneNumber", "0409876543");
 		data.put("message", "Lorem ipsum dolor sit amet");
-		data.put("fromLang", "fi");
-		data.put("toLang", "en");
+		data.put("fromLang", "FI");
+		data.put("toLang", "EN");
 		data.put("translatorIds", List.of(56, 4));
 
 		return data;
