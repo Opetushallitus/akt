@@ -13,31 +13,31 @@ import {
 } from 'interfaces/combobox';
 
 type AutoCompleteComboBox = Omit<
-  AutocompleteProps<AutocompleteValue, false, true, false>,
+  AutocompleteProps<AutocompleteValue, false, false, false>,
   'options' | 'renderInput' | 'value' | 'getOptionLabel'
 >;
 
 export const ComboBox = ({
   id,
-  val,
   filterValue,
   primaryOptions,
   label,
   values,
+  value,
   variant,
   dataTestId,
   helperText,
   showError,
   sortByKeys,
-  disableClearable,
   getOptionLabel,
+  onInputChange,
+  inputValue,
   ...rest
 }: ComboBoxProps & AutoCompleteComboBox) => {
   const AutocompleteProps = {
     ...(getOptionLabel && { getOptionLabel }),
     ...(label && { label }),
     ...(dataTestId && { 'data-testid': dataTestId }),
-    ...(disableClearable && { disableClearable }),
     ...rest,
   };
 
@@ -47,12 +47,12 @@ export const ComboBox = ({
     primaryLangOptions: string[]
   ): Array<ComboBoxOption> => {
     const valuesArrayWithoutSelectedLang = valuesArray.filter(
-      (value) => value[1] !== filterValue
+      (val) => val[1] !== filterValue
     );
     if (filterValue) {
       if (!primaryLangOptions.includes(filterValue)) {
-        return valuesArrayWithoutSelectedLang.filter((value) =>
-          primaryLangOptions.includes(value[1])
+        return valuesArrayWithoutSelectedLang.filter((val) =>
+          primaryLangOptions.includes(val[1])
         );
       }
     }
@@ -73,8 +73,8 @@ export const ComboBox = ({
     : filteredValuesArray;
   // Sort option value pairs into order set in primaryOptions parameter
   const primaryValues = optionValuesToShow
-    .filter((value) => {
-      return primaryLangOptions.indexOf(value[1]) >= 0;
+    .filter((val) => {
+      return primaryLangOptions.indexOf(val[1]) >= 0;
     })
     .sort((a, b) => {
       return (
@@ -88,17 +88,28 @@ export const ComboBox = ({
     ...optionValuesToShow.filter((value) => !primaryValues.includes(value)),
   ];
 
-  // Find string value param in the filtered and sorted options array
-  const foundValue = valuesToShow.find((item) => item[1] === val);
-
   return (
     <FormControl fullWidth error={showError}>
       <Autocomplete
         disablePortal
         id={id}
         {...AutocompleteProps}
-        value={val === '' || !foundValue ? null : foundValue}
+        onInputChange={onInputChange}
+        inputValue={inputValue}
+        value={value}
         options={valuesToShow}
+        isOptionEqualToValue={(
+          option: AutocompleteValue,
+          value: AutocompleteValue
+        ) => {
+          if (option === null && value === null) {
+            return true;
+          } else if (option === null || value === null) {
+            return false;
+          } else {
+            return option[1] === value[1];
+          }
+        }}
         renderInput={(params) => (
           <TextField
             {...params}

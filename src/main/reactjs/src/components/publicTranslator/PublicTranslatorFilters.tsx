@@ -4,7 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import { H3 } from 'components/elements/Text';
 import { ComboBox } from 'components/elements/ComboBox';
-import { ComboBoxOption } from 'interfaces/combobox';
+import { AutocompleteValue } from 'interfaces/combobox';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector, useAppDispatch } from 'configs/redux';
 import {
@@ -27,6 +27,16 @@ export const PublicTranslatorFilters = ({
   const [showFieldError, setShowFieldError] = useState(false);
   const defaultFiltersState = { fromLang: '', toLang: '', name: '', town: '' };
   const [filters, setFilters] = useState(defaultFiltersState);
+  const defaultValuesState = {
+    fromLang: null,
+    toLang: null,
+    name: '',
+    town: null,
+  };
+
+  const [values, setValues] = useState(defaultValuesState);
+  const [inputValues, setInputValues] = useState(defaultFiltersState);
+
   // Redux
   const dispatch = useAppDispatch();
   const { langs, towns } = useAppSelector(publicTranslatorsSelector);
@@ -46,6 +56,8 @@ export const PublicTranslatorFilters = ({
 
   const handleEmptyBtnClick = () => {
     setFilters(defaultFiltersState);
+    setInputValues(defaultFiltersState);
+    setValues(defaultValuesState);
     dispatch(emptyPublicTranslatorFilters);
     setShowFieldError(false);
     setShowTable(false);
@@ -57,11 +69,17 @@ export const PublicTranslatorFilters = ({
     return !(!!fromLang || !!toLang || !!name || !!town);
   };
 
+  const handleComboboxInputChange =
+    (inputName: string) =>
+    (event: React.SyntheticEvent<Element, Event>, newInputValue: string) => {
+      setInputValues({ ...inputValues, [inputName]: newInputValue });
+    };
+
   const handleComboboxFilterChange =
     (filterName: string) =>
     (
       event: React.SyntheticEvent<Element, Event>,
-      value: [string, string],
+      value: AutocompleteValue,
       reason:
         | 'selectOption'
         | 'createOption'
@@ -71,8 +89,10 @@ export const PublicTranslatorFilters = ({
     ) => {
       if (reason === 'clear') {
         setFilters({ ...filters, [filterName]: '' });
+        setValues({ ...values, [filterName]: null });
       } else {
         setFilters({ ...filters, [filterName]: value ? value[1] : '' });
+        setValues({ ...values, [filterName]: value });
       }
     };
 
@@ -81,9 +101,10 @@ export const PublicTranslatorFilters = ({
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const target = event.target as HTMLInputElement;
       setFilters({ ...filters, [filterName]: target.value });
+      setValues({ ...values, [filterName]: target.value });
     };
 
-  const getOptionLabel = (option: ComboBoxOption): string => {
+  const getOptionLabel = (option: AutocompleteValue): string => {
     const label = option ? option[0] : undefined;
 
     return label !== undefined ? label.toString() : '';
@@ -105,11 +126,13 @@ export const PublicTranslatorFilters = ({
               helperText={t('languagePair.fromHelperText')}
               id="filters-from-lang"
               values={Utils.createMapFromArray(langs.from, t, 'languages')}
-              val={filters.fromLang}
+              value={values.fromLang}
               variant="outlined"
               filterValue={filters.toLang}
               primaryOptions={['fi', 'sv']}
               onChange={handleComboboxFilterChange('fromLang')}
+              onInputChange={handleComboboxInputChange('fromLang')}
+              inputValue={inputValues.fromLang}
               getOptionLabel={getOptionLabel}
             />
             <ComboBox
@@ -120,11 +143,13 @@ export const PublicTranslatorFilters = ({
               helperText={t('languagePair.toHelperText')}
               id="filters-to-lang"
               values={Utils.createMapFromArray(langs.to, t, 'languages')}
-              val={filters.toLang}
+              value={values.toLang}
               variant="outlined"
               filterValue={filters.fromLang}
               primaryOptions={['fi', 'sv']}
               onChange={handleComboboxFilterChange('toLang')}
+              onInputChange={handleComboboxInputChange('toLang')}
+              inputValue={inputValues.toLang}
               getOptionLabel={getOptionLabel}
             />
           </div>
@@ -136,7 +161,7 @@ export const PublicTranslatorFilters = ({
             id="outlined-search"
             label={t('name.placeholder')}
             type="search"
-            value={filters.name}
+            value={values.name}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -155,9 +180,11 @@ export const PublicTranslatorFilters = ({
             label={t('town.placeholder')}
             id="filters-town"
             values={Utils.createMapFromArray(towns)}
-            val={filters.town}
+            value={values.town}
             variant="outlined"
             onChange={handleComboboxFilterChange('town')}
+            onInputChange={handleComboboxInputChange('town')}
+            inputValue={inputValues.town}
             getOptionLabel={getOptionLabel}
           />
         </div>

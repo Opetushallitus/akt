@@ -12,8 +12,7 @@ export interface ComboBoxProps {
   filterValue?: string;
   primaryOptions?: Array<string>;
   variant: 'standard' | 'outlined' | 'filled' | undefined;
-  getOptionLabel?: (option: ComboBoxOption) => string;
+  getOptionLabel?: (option: AutocompleteValue) => string;
   values: Map<string, string>;
-  val: string;
-  value?: ComboBoxOption | null;
+  value: AutocompleteValue;
 }
