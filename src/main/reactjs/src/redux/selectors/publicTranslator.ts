@@ -39,20 +39,17 @@ const filterPublicTranslators = (
   translators: Array<PublicTranslator>,
   filters: PublicTranslatorFilter
 ) => {
+  const isNotEmpty = (v: string) => !Utils.isEmptyString(v);
   let filteredData = translators;
-
-  switch (true) {
-    case !Utils.isEmptyString(filters.fromLang) &&
-      !Utils.isEmptyString(filters.toLang):
-      filteredData = filteredData.filter((t) =>
-        filterByLanguagePair(t, filters)
-      );
-    case !Utils.isEmptyString(filters.name):
-      filteredData = filteredData.filter((t) => filterByName(t, filters));
-    case !Utils.isEmptyString(filters.town):
-      filteredData = filteredData.filter((t) => filterByTown(t, filters));
-    default:
-      filteredData;
+  // Filter data only if the criteria are defined
+  if (isNotEmpty(filters.fromLang) && isNotEmpty(filters.toLang)) {
+    filteredData = filteredData.filter((t) => filterByLanguagePair(t, filters));
+  }
+  if (isNotEmpty(filters.name)) {
+    filteredData = filteredData.filter((t) => filterByName(t, filters));
+  }
+  if (isNotEmpty(filters.town)) {
+    filteredData = filteredData.filter((t) => filterByTown(t, filters));
   }
 
   return filteredData;
