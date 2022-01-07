@@ -11,24 +11,8 @@ import {
   RegisterControls,
 } from 'components/clerkTranslator/ClerkTranslatorFilters';
 
-const RegisterHeading = () => {
-  const { t } = useAppTranslation({ keyPrefix: 'akt.pages.clerkHomepage' });
-
-  return <H2>{t('register')}</H2>;
-};
-
-const SendEmailButton = () => {
-  const { t } = useAppTranslation({ keyPrefix: 'akt.pages.clerkHomepage' });
-
-  return (
-    <Button color="secondary" variant="contained">
-      {t('sendEmail')}
-    </Button>
-  );
-};
-
 export const ClerkHomePage: FC = () => {
-  const { t } = useAppTranslation({ keyPrefix: 'akt.pages.homepage' });
+  const { t } = useAppTranslation({ keyPrefix: 'akt.pages.clerkHomepage' });
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(loadClerkTranslators);
@@ -45,7 +29,7 @@ export const ClerkHomePage: FC = () => {
             className="clerk-homepage__grid-container"
           >
             <Grid item>
-              <RegisterHeading />
+              <H2>{t('register')}</H2>
             </Grid>
             <Grid item>
               <Divider />
@@ -55,7 +39,9 @@ export const ClerkHomePage: FC = () => {
                 <div className="grow columns">
                   <RegisterControls />
                 </div>
-                <SendEmailButton />
+                <Button color="secondary" variant="contained">
+                  {t('sendEmail')}
+                </Button>
               </div>
             </Grid>
             <Grid item>
