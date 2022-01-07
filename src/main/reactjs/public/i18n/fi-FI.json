@@ -191,10 +191,6 @@
         "emailFormat": "Sähköpostiosoite on virheellinen",
         "telFormat": "Puhelinnumero on virheellinen"
       }
-    },
-    "values": {
-      "yes": "Kyllä",
-      "no": "Ei"
     }
   }
 }
