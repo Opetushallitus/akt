@@ -3,6 +3,7 @@ import { Action } from 'redux';
 import { APIResponseStatus } from 'enums/api';
 import { WithId } from 'interfaces/withId';
 import { LanguagePairsDict, PublicLanguagePair } from 'interfaces/language';
+import { Filter } from 'enums/app';
 
 export interface PublicTranslator extends WithId {
   firstName: string;
@@ -17,12 +18,13 @@ export interface PublicTranslatorFilter {
   toLang: string;
   name: string;
   town: string;
+  errors?: Array<Filter>;
 }
 
 export interface PublicTranslatorResponse {
   translators: Array<PublicTranslator>;
   langs: LanguagePairsDict;
-  towns: string[];
+  towns: Array<string>;
 }
 
 export interface PublicTranslatorState extends PublicTranslatorResponse {
@@ -36,5 +38,6 @@ export interface PublicTranslatorAction
     Partial<PublicTranslatorResponse> {
   index?: number;
   filters?: PublicTranslatorFilter;
+  filterErrorName?: Filter;
   error?: Error;
 }

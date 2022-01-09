@@ -1,4 +1,10 @@
-import { useState, ChangeEvent, SetStateAction, Dispatch } from 'react';
+import {
+  useState,
+  ChangeEvent,
+  SetStateAction,
+  Dispatch,
+  KeyboardEvent,
+} from 'react';
 import {
   TextField,
   InputAdornment,
@@ -13,10 +19,15 @@ import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector, useAppDispatch } from 'configs/redux';
 import {
   addPublicTranslatorFilter,
+  addPublicTranslatorFilterError,
   emptyPublicTranslatorFilters,
+  emptySelectedTranslators,
+  removePublicTranslatorFilterError,
 } from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { Utils } from 'utils/index';
+import { Filter, KeyboardKey, Severity } from 'enums/app';
+import { showNotifierToast } from 'redux/actions/notifier';
 
 export const PublicTranslatorFilters = ({
   setShowTable,
@@ -27,21 +38,55 @@ export const PublicTranslatorFilters = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.publicTranslatorFilters',
   });
+
   // State
-  const defaultFiltersState = { fromLang: '', toLang: '', name: '', town: '' };
+  const defaultFiltersState = {
+    fromLang: '',
+    toLang: '',
+    name: '',
+    town: '',
+  };
   const [filters, setFilters] = useState(defaultFiltersState);
+
   // Redux
   const dispatch = useAppDispatch();
-  const { langs, towns } = useAppSelector(publicTranslatorsSelector);
+  const {
+    langs,
+    towns,
+    filters: reduxFilters,
+  } = useAppSelector(publicTranslatorsSelector);
 
+  // Handlers
   const handleSearchBtnClick = () => {
-    dispatch(addPublicTranslatorFilter(filters));
-    setShowTable(true);
+    const toast = Utils.createNotifierToast(
+      Severity.Error,
+      t('toasts.notDefinedLangPair')
+    );
+
+    if (reduxFilters?.errors?.length) {
+      // If there are already errors show them
+      dispatch(showNotifierToast(toast));
+    } else if (
+      (filters.fromLang && !filters.toLang) ||
+      (!filters.fromLang && filters.toLang)
+    ) {
+      // If one of the fields are not defined show an error
+      const langFields = [Filter.FromLang, Filter.ToLang];
+      langFields.forEach((field) => {
+        if (!filters[field] && !reduxFilters.errors?.includes(field))
+          dispatch(addPublicTranslatorFilterError(field));
+      });
+      dispatch(showNotifierToast(toast));
+    } else {
+      dispatch(addPublicTranslatorFilter(filters));
+      setShowTable(true);
+    }
   };
 
   const handleEmptyBtnClick = () => {
     setFilters(defaultFiltersState);
     dispatch(emptyPublicTranslatorFilters);
+    dispatch(emptySelectedTranslators);
     setShowTable(false);
   };
 
@@ -51,15 +96,24 @@ export const PublicTranslatorFilters = ({
     return !(!!fromLang || !!toLang || !!name || !!town);
   };
 
+  const hasError = (fieldName: Filter) => {
+    return reduxFilters?.errors?.includes(fieldName);
+  };
+
   const handleFilterChange =
-    (filterName: string) =>
+    (filterName: Filter) =>
     (
       event:
         | SelectChangeEvent
         | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
       setFilters({ ...filters, [filterName]: event.target.value });
+      dispatch(removePublicTranslatorFilterError(filterName));
     };
+
+  const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key == KeyboardKey.Enter) handleSearchBtnClick();
+  };
 
   return (
     <div className="public-translator-filters">
@@ -70,26 +124,26 @@ export const PublicTranslatorFilters = ({
             <Dropdown
               data-testid="public-translator-filters__from-language-select"
               showInputLabel
+              showError={hasError(Filter.FromLang)}
               sortByKeys
               label={t('languagePair.fromPlaceholder')}
-              helperText={t('languagePair.fromHelperText')}
               id="filters-from-lang"
               variant="outlined"
               values={Utils.createMapFromArray(langs.from, t, 'languages')}
               value={filters.fromLang}
-              onChange={handleFilterChange('fromLang')}
+              onChange={handleFilterChange(Filter.FromLang)}
             />
             <Dropdown
               data-testid="public-translator-filters__to-language-select"
               showInputLabel
+              showError={hasError(Filter.ToLang)}
               sortByKeys
               label={t('languagePair.toPlaceholder')}
-              helperText={t('languagePair.toHelperText')}
               id="filters-to-lang"
               variant="outlined"
               values={Utils.createMapFromArray(langs.to, t, 'languages')}
               value={filters.toLang}
-              onChange={handleFilterChange('toLang')}
+              onChange={handleFilterChange(Filter.ToLang)}
             />
           </div>
         </div>
@@ -101,6 +155,7 @@ export const PublicTranslatorFilters = ({
             label={t('name.placeholder')}
             type="search"
             value={filters.name}
+            onKeyUp={handleKeyUp}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -108,7 +163,7 @@ export const PublicTranslatorFilters = ({
                 </InputAdornment>
               ),
             }}
-            onChange={handleFilterChange('name')}
+            onChange={handleFilterChange(Filter.Name)}
           />
         </div>
         <div className="public-translator-filters__filter">
@@ -122,7 +177,7 @@ export const PublicTranslatorFilters = ({
             variant="outlined"
             values={Utils.createMapFromArray(towns)}
             value={filters.town}
-            onChange={handleFilterChange('town')}
+            onChange={handleFilterChange(Filter.Town)}
           />
         </div>
       </div>

@@ -15,11 +15,12 @@ import { APIResponseStatus } from 'enums/api';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { useAppTranslation } from 'configs/i18n';
 import {
+  addPublicTranslatorFilterError,
   addSelectedTranslator,
   removeSelectedTranslator,
 } from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
-import { UIStates, Severity } from 'enums/app';
+import { UIStates, Severity, Filter } from 'enums/app';
 import { displayUIState } from 'redux/actions/navigation';
 import { showNotifierToast } from 'redux/actions/notifier';
 import { Utils } from 'utils/index';
@@ -55,13 +56,20 @@ const ListingRow = ({
   // Redux
   const dispatch = useAppDispatch();
   const { filters } = useAppSelector(publicTranslatorsSelector);
-
+  const { fromLang, toLang } = filters;
   const { firstName, lastName, languagePairs, town, country } = translator;
   const townInfo = `${town}${country ? `, ${country}` : ''}`;
 
   const handleRowClick = () => {
-    const { fromLang, toLang } = filters;
-    if (Utils.isEmptyString(fromLang) || Utils.isEmptyString(toLang)) {
+    const langFields = [Filter.FromLang, Filter.ToLang];
+
+    // Dispatch an error if the langpairs are not defined
+    langFields.forEach((field) => {
+      if (!filters[field] && !filters.errors?.includes(field))
+        dispatch(addPublicTranslatorFilterError(field));
+    });
+
+    if (filters?.errors?.length || !fromLang || !toLang) {
       const toast = Utils.createNotifierToast(
         Severity.Error,
         t('toasts.notDefinedLangPair')
