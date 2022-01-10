@@ -69,7 +69,7 @@ const ListingRow = ({
         dispatch(addPublicTranslatorFilterError(field));
     });
 
-    if (filters?.errors?.length || !fromLang || !toLang) {
+    if (!fromLang || !toLang) {
       const toast = Utils.createNotifierToast(
         Severity.Error,
         t('toasts.selectLanguagePair')

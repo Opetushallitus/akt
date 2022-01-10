@@ -38,12 +38,16 @@ export const emptyPublicTranslatorFilters = {
   type: PUBLIC_TRANSLATOR_EMPTY_FILTERS,
 };
 
-export const addPublicTranslatorFilterError = (filterErrorName: SearchFilter) => ({
+export const addPublicTranslatorFilterError = (
+  filterErrorName: SearchFilter
+) => ({
   type: PUBLIC_TRANSLATOR_ADD_FILTER_ERROR,
   filterErrorName,
 });
 
-export const removePublicTranslatorFilterError = (filterErrorName: SearchFilter) => ({
+export const removePublicTranslatorFilterError = (
+  filterErrorName: SearchFilter
+) => ({
   type: PUBLIC_TRANSLATOR_REMOVE_FILTER_ERROR,
   filterErrorName,
 });
