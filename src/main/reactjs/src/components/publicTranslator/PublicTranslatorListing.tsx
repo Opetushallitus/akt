@@ -20,7 +20,7 @@ import {
   removeSelectedTranslator,
 } from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
-import { UIStates, Severity, Filter } from 'enums/app';
+import { UIStates, Severity, SearchFilter } from 'enums/app';
 import { displayUIState } from 'redux/actions/navigation';
 import { showNotifierToast } from 'redux/actions/notifier';
 import { Utils } from 'utils/index';
@@ -61,7 +61,7 @@ const ListingRow = ({
   const townInfo = `${town}${country ? `, ${country}` : ''}`;
 
   const handleRowClick = () => {
-    const langFields = [Filter.FromLang, Filter.ToLang];
+    const langFields = [SearchFilter.FromLang, SearchFilter.ToLang];
 
     // Dispatch an error if the langpairs are not defined
     langFields.forEach((field) => {

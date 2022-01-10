@@ -41,7 +41,7 @@ const filterPublicTranslators = (
 ) => {
   const isNotEmpty = (v: string) => !Utils.isEmptyString(v);
   let filteredData = translators;
-  // Filter data only if the criteria are defined
+  // SearchFilter data only if the criteria are defined
   if (isNotEmpty(filters.fromLang) && isNotEmpty(filters.toLang)) {
     filteredData = filteredData.filter((t) => filterByLanguagePair(t, filters));
   }

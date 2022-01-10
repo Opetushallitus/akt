@@ -16,7 +16,7 @@ export enum Duration {
   Long = 12000,
 }
 
-export enum Filter {
+export enum SearchFilter {
   FromLang = 'fromLang',
   ToLang = 'toLang',
   Name = 'name',

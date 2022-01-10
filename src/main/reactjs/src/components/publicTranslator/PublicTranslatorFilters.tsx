@@ -26,7 +26,7 @@ import {
 } from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { Utils } from 'utils/index';
-import { Filter, KeyboardKey, Severity } from 'enums/app';
+import { SearchFilter, KeyboardKey, Severity } from 'enums/app';
 import { showNotifierToast } from 'redux/actions/notifier';
 
 export const PublicTranslatorFilters = ({
@@ -71,9 +71,9 @@ export const PublicTranslatorFilters = ({
       (!filters.fromLang && filters.toLang)
     ) {
       // If one of the fields are not defined show an error
-      const langFields = [Filter.FromLang, Filter.ToLang];
+      const langFields = [SearchFilter.FromLang, SearchFilter.ToLang];
       langFields.forEach((field) => {
-        if (!filters[field] && !reduxFilters.errors?.includes(field))
+        if (!filters[field] && !hasError(field))
           dispatch(addPublicTranslatorFilterError(field));
       });
       dispatch(showNotifierToast(toast));
@@ -96,12 +96,12 @@ export const PublicTranslatorFilters = ({
     return !(!!fromLang || !!toLang || !!name || !!town);
   };
 
-  const hasError = (fieldName: Filter) => {
+  const hasError = (fieldName: SearchFilter) => {
     return reduxFilters?.errors?.includes(fieldName);
   };
 
   const handleFilterChange =
-    (filterName: Filter) =>
+    (filterName: SearchFilter) =>
     (
       event:
         | SelectChangeEvent
@@ -124,26 +124,26 @@ export const PublicTranslatorFilters = ({
             <Dropdown
               data-testid="public-translator-filters__from-language-select"
               showInputLabel
-              showError={hasError(Filter.FromLang)}
+              showError={hasError(SearchFilter.FromLang)}
               sortByKeys
               label={t('languagePair.fromPlaceholder')}
               id="filters-from-lang"
               variant="outlined"
               values={Utils.createMapFromArray(langs.from, t, 'languages')}
               value={filters.fromLang}
-              onChange={handleFilterChange(Filter.FromLang)}
+              onChange={handleFilterChange(SearchFilter.FromLang)}
             />
             <Dropdown
               data-testid="public-translator-filters__to-language-select"
               showInputLabel
-              showError={hasError(Filter.ToLang)}
+              showError={hasError(SearchFilter.ToLang)}
               sortByKeys
               label={t('languagePair.toPlaceholder')}
               id="filters-to-lang"
               variant="outlined"
               values={Utils.createMapFromArray(langs.to, t, 'languages')}
               value={filters.toLang}
-              onChange={handleFilterChange(Filter.ToLang)}
+              onChange={handleFilterChange(SearchFilter.ToLang)}
             />
           </div>
         </div>
@@ -163,7 +163,7 @@ export const PublicTranslatorFilters = ({
                 </InputAdornment>
               ),
             }}
-            onChange={handleFilterChange(Filter.Name)}
+            onChange={handleFilterChange(SearchFilter.Name)}
           />
         </div>
         <div className="public-translator-filters__filter">
@@ -177,7 +177,7 @@ export const PublicTranslatorFilters = ({
             variant="outlined"
             values={Utils.createMapFromArray(towns)}
             value={filters.town}
-            onChange={handleFilterChange(Filter.Town)}
+            onChange={handleFilterChange(SearchFilter.Town)}
           />
         </div>
       </div>

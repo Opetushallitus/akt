@@ -19,7 +19,7 @@ import {
   PUBLIC_TRANSLATOR_REMOVE_FILTER_ERROR,
 } from 'redux/actionTypes/publicTranslator';
 import { LanguagePairsDict } from 'interfaces/language';
-import { Filter } from 'enums/app';
+import { SearchFilter } from 'enums/app';
 
 const defaultState = {
   status: APIResponseStatus.NotStarted,
@@ -41,7 +41,7 @@ export const publicTranslatorReducer: Reducer<
   PublicTranslatorAction
 > = (state = defaultState, action) => {
   const index = <number>action.index;
-  const stateFilterErrors = <Filter[]>state.filters.errors;
+  const stateFilterErrors = <SearchFilter[]>state.filters.errors;
 
   switch (action.type) {
     case PUBLIC_TRANSLATOR_LOADING:
@@ -91,7 +91,7 @@ export const publicTranslatorReducer: Reducer<
         ...state,
         filters: {
           ...state.filters,
-          errors: [...stateFilterErrors, <Filter>action.filterErrorName],
+          errors: [...stateFilterErrors, <SearchFilter>action.filterErrorName],
         },
       };
     case PUBLIC_TRANSLATOR_REMOVE_FILTER_ERROR:

@@ -1,4 +1,4 @@
-import { Filter } from 'enums/app';
+import { SearchFilter } from 'enums/app';
 import { PublicTranslatorFilter } from 'interfaces/translator';
 import {
   PUBLIC_TRANSLATOR_LOAD,
@@ -38,12 +38,12 @@ export const emptyPublicTranslatorFilters = {
   type: PUBLIC_TRANSLATOR_EMPTY_FILTERS,
 };
 
-export const addPublicTranslatorFilterError = (filterErrorName: Filter) => ({
+export const addPublicTranslatorFilterError = (filterErrorName: SearchFilter) => ({
   type: PUBLIC_TRANSLATOR_ADD_FILTER_ERROR,
   filterErrorName,
 });
 
-export const removePublicTranslatorFilterError = (filterErrorName: Filter) => ({
+export const removePublicTranslatorFilterError = (filterErrorName: SearchFilter) => ({
   type: PUBLIC_TRANSLATOR_REMOVE_FILTER_ERROR,
   filterErrorName,
 });
