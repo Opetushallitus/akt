@@ -59,11 +59,11 @@ public class PublicTranslatorService {
 		st.stop();
 
 		st.start("getLanguagePairsDictDTO");
-		LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
+		final LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
 		st.stop();
 
 		st.start("getDistinctTowns");
-		List<String> towns = getDistinctTowns(translators);
+		final List<String> towns = getDistinctTowns(translators);
 		st.stop();
 
 		LOG.info(st.prettyPrint());
