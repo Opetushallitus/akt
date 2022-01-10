@@ -118,7 +118,7 @@ INSERT INTO authorisation_term(authorisation_id, begin_date, end_date) (
                 WHEN basis <> 'VIR' THEN CASE
                                              WHEN mod(translator_id, 87) = 0 THEN '2021-12-31'
                                              ELSE '2022-01-15'::date +
-                                                  (mod(translator_id, 365 * 3)::text || ' days')::interval END
+                                                  (mod(translator_id, 365 * 5)::text || ' days')::interval END
                END)::date
     FROM authorisation
     WHERE meeting_date_id IS NOT NULL
