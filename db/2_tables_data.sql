@@ -28,6 +28,17 @@ VIR
 
 
 --
+-- Data for Name: email_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.email_type (name) FROM stdin;
+CONTACT_REQUEST
+AUTHORISATION_EXPIRY
+INFORMAL
+\.
+
+
+--
 -- PostgreSQL database dump complete
 --
 
