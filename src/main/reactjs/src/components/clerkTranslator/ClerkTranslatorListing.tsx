@@ -5,7 +5,10 @@ import { FC } from 'react';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 import { Text, H3 } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
-import { useAppTranslation, useLanguageTranslation } from 'configs/i18n';
+import {
+  useAppTranslation,
+  useKoodistoLanguagesTranslation,
+} from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
@@ -60,13 +63,12 @@ const ListingRow = ({
 }) => {
   // I18n
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.publicTranslatorFilters',
+    keyPrefix: 'akt.component.clerkTranslatorListing',
   });
-
   const { firstName, lastName } = translator.contactDetails;
   const languagesWithAuthorisations =
     getLanguagePairsWithAuthorisations(translator);
-  const translateLanguage = useLanguageTranslation();
+  const translateLanguage = useKoodistoLanguagesTranslation();
 
   return (
     <TableRow

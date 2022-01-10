@@ -15,7 +15,10 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import { H3 } from 'components/elements/Text';
 import { Dropdown } from 'components/elements/Dropdown';
-import { useAppTranslation, useLanguageTranslation } from 'configs/i18n';
+import {
+  useAppTranslation,
+  useKoodistoLanguagesTranslation,
+} from 'configs/i18n';
 import { useAppSelector, useAppDispatch } from 'configs/redux';
 import {
   addPublicTranslatorFilter,
@@ -38,7 +41,7 @@ export const PublicTranslatorFilters = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.publicTranslatorFilters',
   });
-  const translateLanguage = useLanguageTranslation();
+  const translateLanguage = useKoodistoLanguagesTranslation();
 
   // State
   const defaultFiltersState = {

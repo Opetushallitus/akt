@@ -6,7 +6,10 @@ import { FillContactDetails } from 'components/contactRequest/steps/FillContactD
 import { WriteMessage } from 'components/contactRequest/steps/WriteMessage';
 import { PreviewAndSend } from 'components/contactRequest/steps/PreviewAndSend';
 import { Done } from 'components/contactRequest/steps/Done';
-import { useAppTranslation, useLanguageTranslation } from 'configs/i18n';
+import {
+  useAppTranslation,
+  useKoodistoLanguagesTranslation,
+} from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import {
@@ -29,7 +32,7 @@ export const ChosenTranslatorsHeading = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
-  const translateLanguage = useLanguageTranslation();
+  const translateLanguage = useKoodistoLanguagesTranslation();
 
   return (
     <div className="columns">

@@ -73,7 +73,7 @@ export const useAppTranslation = (
   return useTranslation(ns, options);
 };
 
-export const useLanguageTranslation = () => {
+export const useKoodistoLanguagesTranslation = () => {
   const { t } = useAppTranslation(
     {
       keyPrefix: 'akt.koodisto.languages',
