@@ -5,7 +5,7 @@ INSERT INTO meeting_date(date)
 VALUES ('2020-12-24');
 
 INSERT INTO translator(ssn, first_name, last_name, email, phone_number, street, town, postal_code, country)
-SELECT 'id'||i::text,
+SELECT 'id' || i::text,
        first_names[mod(i, array_length(first_names, 1)) + 1],
        last_names[mod(i, array_length(last_names, 1)) + 1],
        CASE mod(i, 11) WHEN 0 THEN null ELSE ('translator' || i::text || '@example.invalid') END,
@@ -117,7 +117,8 @@ INSERT INTO authorisation_term(authorisation_id, begin_date, end_date) (
            (CASE
                 WHEN basis <> 'VIR' THEN CASE
                                              WHEN mod(translator_id, 87) = 0 THEN '2021-12-31'
-                                             ELSE '2022-01-15'::date + (mod(translator_id, 365*3)::text || ' days')::interval END
+                                             ELSE '2022-01-15'::date +
+                                                  (mod(translator_id, 365 * 3)::text || ' days')::interval END
                END)::date
     FROM authorisation
     WHERE meeting_date_id IS NOT NULL
