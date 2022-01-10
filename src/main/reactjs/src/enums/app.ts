@@ -63,3 +63,8 @@ export enum Variant {
   Outlined = 'outlined',
   Contained = 'contained',
 }
+
+export enum I18nNamespace {
+  Translation = 'translation',
+  KoodistoLanguages = 'koodistoLanguages',
+}
