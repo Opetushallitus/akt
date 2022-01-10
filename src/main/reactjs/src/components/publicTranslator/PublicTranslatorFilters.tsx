@@ -60,7 +60,7 @@ export const PublicTranslatorFilters = ({
   const handleSearchBtnClick = () => {
     const toast = Utils.createNotifierToast(
       Severity.Error,
-      t('toasts.notDefinedLangPair')
+      t('toasts.selectLanguagePair')
     );
 
     if (reduxFilters?.errors?.length) {

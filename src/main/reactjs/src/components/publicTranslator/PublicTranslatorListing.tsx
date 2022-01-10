@@ -72,7 +72,7 @@ const ListingRow = ({
     if (filters?.errors?.length || !fromLang || !toLang) {
       const toast = Utils.createNotifierToast(
         Severity.Error,
-        t('toasts.notDefinedLangPair')
+        t('toasts.selectLanguagePair')
       );
       dispatch(showNotifierToast(toast));
     } else {

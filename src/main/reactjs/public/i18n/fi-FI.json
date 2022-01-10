@@ -75,7 +75,7 @@
           "search": "Hae"
         },
         "toasts": {
-          "notDefinedLangPair": "Valitse kielipari"
+          "selectLanguagePair": "Valitse kielipari"
         }
       },
       "clerkTranslatorListing": {
