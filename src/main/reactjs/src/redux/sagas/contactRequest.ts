@@ -10,6 +10,13 @@ import {
   CONTACT_REQUEST_STEP_INCREASE,
   isContactRequestSendAction,
 } from 'redux/actionTypes/contactRequest';
+import { Utils } from 'utils';
+import { Severity, Variant } from 'enums/app';
+import {
+  NOTIFIER_ACTION_DO_NOTHING,
+  NOTIFIER_DIALOG_ADD,
+} from 'redux/actionTypes/notifier';
+import { translateOutsideComponent } from 'configs/i18n';
 
 export function* sendContactRequest(action: Action) {
   if (isContactRequestSendAction(action)) {
@@ -40,7 +47,23 @@ export function* sendContactRequest(action: Action) {
       yield put({ type: CONTACT_REQUEST_SUCCESS });
       yield put({ type: CONTACT_REQUEST_STEP_INCREASE });
     } catch (error) {
-      yield put({ type: CONTACT_REQUEST_ERROR, error });
+      const t = translateOutsideComponent();
+      const tPrefix = 'akt.component.contactRequestForm.errorDialog';
+      const notifier = Utils.createNotifierDialog(
+        t(`${tPrefix}.title`),
+        Severity.Error,
+        t(`${tPrefix}.description`),
+        [
+          {
+            title: t(`${tPrefix}.back`),
+            variant: Variant.Contained,
+            action: NOTIFIER_ACTION_DO_NOTHING,
+          },
+        ]
+      );
+
+      yield put({ type: CONTACT_REQUEST_ERROR });
+      yield put({ type: NOTIFIER_DIALOG_ADD, notifier });
     }
   }
 }

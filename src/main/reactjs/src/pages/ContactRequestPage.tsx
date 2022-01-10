@@ -13,10 +13,6 @@ import {
   ContactRequestStepper,
   StepContents,
 } from 'components/contactRequest/ContactRequestFormUtils';
-import { showNotifierDialog } from 'redux/actions/notifier';
-import { Utils } from 'utils';
-import { Variant, Severity } from 'enums/app';
-import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
 import { ControlButtons } from 'components/contactRequest/ControlButtons';
 import { ContactRequestFormStep } from 'enums/contactRequest';
 
@@ -47,35 +43,10 @@ export const ContactRequestPage = () => {
   }, [dispatch, from, to, selectedTranslators]);
 
   const disableNextCb = (disabled: boolean) => setDisableNext(disabled);
-
-  const dispatchErrorNotifier = () => {
-    const notifier = Utils.createNotifierDialog(
-      t('errorDialog.title'),
-      Severity.Error,
-      t('errorDialog.description'),
-      [
-        {
-          title: t('errorDialog.back'),
-          variant: Variant.Contained,
-          action: NOTIFIER_ACTION_DO_NOTHING,
-        },
-      ]
-    );
-
-    dispatch(showNotifierDialog(notifier));
-  };
-
-  const renderStatusChanges = () => {
-    switch (status) {
-      case APIResponseStatus.Error:
-        dispatchErrorNotifier();
-        break;
-      case APIResponseStatus.InProgress:
-        return <ProgressIndicator color="secondary" />;
-      default:
-        return <> </>;
-    }
-  };
+  const showProgressIndicator = status === APIResponseStatus.InProgress;
+  const showControlButtons =
+    activeStep <= ContactRequestFormStep.PreviewAndSend &&
+    status !== APIResponseStatus.InProgress;
 
   return (
     <Grid
@@ -94,11 +65,11 @@ export const ContactRequestPage = () => {
             <Box className="contact-request-page__grid__inner-container">
               <ContactRequestStepper />
               <StepContents disableNext={disableNextCb} />
-              {renderStatusChanges()}
             </Box>
-            {activeStep <= ContactRequestFormStep.PreviewAndSend && (
-              <ControlButtons disableNext={disableNext} />
+            {showProgressIndicator && (
+              <ProgressIndicator size="6rem" color="secondary" />
             )}
+            {showControlButtons && <ControlButtons disableNext={disableNext} />}
           </Box>
         </Paper>
       </Grid>
