@@ -66,6 +66,15 @@ export const PublicTranslatorFilters = ({
     return reduxFilters?.errors?.includes(fieldName);
   };
 
+  // Adhere to Koodisto lang codes (uppercase)
+  const fromLanguages = langs.from.map((langCode: string) =>
+    langCode.toUpperCase()
+  );
+  const toLanguages = langs.to.map((langCode: string) =>
+    langCode.toUpperCase()
+  );
+  const languages = { from: fromLanguages, to: toLanguages };
+
   // Handlers
   const handleSearchBtnClick = () => {
     const toast = Utils.createNotifierToast(
@@ -129,12 +138,11 @@ export const PublicTranslatorFilters = ({
       if (reason === 'clear') {
         setFilters({ ...filters, [filterName]: '' });
         setValues({ ...values, [filterName]: null });
-        dispatch(removePublicTranslatorFilterError(filterName));
       } else {
         setFilters({ ...filters, [filterName]: value ? value[1] : '' });
         setValues({ ...values, [filterName]: value });
-        dispatch(removePublicTranslatorFilterError(filterName));
       }
+      dispatch(removePublicTranslatorFilterError(filterName));
     };
 
   const handleTextFieldFilterChange =
@@ -181,7 +189,10 @@ export const PublicTranslatorFilters = ({
               filterValue={filters.toLang}
               primaryOptions={['FI', 'SV']}
               getOptionLabel={getOptionLabel}
-              values={Utils.createMapFromArray(langs.from, translateLanguage)}
+              values={Utils.createMapFromArray(
+                languages.from,
+                translateLanguage
+              )}
               onChange={handleComboboxFilterChange(SearchFilter.FromLang)}
             />
             <ComboBox
@@ -196,7 +207,7 @@ export const PublicTranslatorFilters = ({
               filterValue={filters.fromLang}
               primaryOptions={['FI', 'SV']}
               getOptionLabel={getOptionLabel}
-              values={Utils.createMapFromArray(langs.to, translateLanguage)}
+              values={Utils.createMapFromArray(languages.to, translateLanguage)}
               onChange={handleComboboxFilterChange(SearchFilter.ToLang)}
             />
           </div>

@@ -66,7 +66,6 @@ export const ComboBox = ({
     valuesArray,
     primaryLangOptions
   );
-
   const optionValuesToShow = sortByKeys
     ? filteredValuesArray.sort()
     : filteredValuesArray;
