@@ -84,10 +84,10 @@ public class PublicTranslatorService {
 				.map(tlp -> PublicLanguagePairDTO.builder().from(tlp.fromLang()).to(tlp.toLang()).build()).toList();
 	}
 
-	private PublicTranslatorDTO createPublicTranslatorDTO(Translator translator,
-			List<PublicLanguagePairDTO> languagePairDTOS) {
+	private PublicTranslatorDTO createPublicTranslatorDTO(final Translator translator,
+			final List<PublicLanguagePairDTO> languagePairDTOS) {
 		// @formatter:off
-		String country = Optional
+		final String country = Optional
 				.ofNullable(translator.getCountry())
 				.filter(c -> !(Set.of("suomi", "finland").contains(c.toLowerCase())))
 				.orElse(null);
@@ -104,15 +104,14 @@ public class PublicTranslatorService {
 	}
 
 	private LanguagePairsDictDTO getLanguagePairsDictDTO() {
-		List<String> fromLangs = languagePairRepository.getDistinctFromLangs();
-		List<String> toLangs = languagePairRepository.getDistinctToLangs();
+		final List<String> fromLangs = languagePairRepository.getDistinctFromLangs();
+		final List<String> toLangs = languagePairRepository.getDistinctToLangs();
 
 		return LanguagePairsDictDTO.builder().from(fromLangs).to(toLangs).build();
 	}
 
-	private List<String> getDistinctTowns(Collection<Translator> translatorDetails) {
-		return translatorDetails.stream().map(Translator::getTown).filter(Objects::nonNull).distinct().sorted()
-				.toList();
+	private List<String> getDistinctTowns(final Collection<Translator> translators) {
+		return translators.stream().map(Translator::getTown).filter(Objects::nonNull).distinct().sorted().toList();
 	}
 
 }

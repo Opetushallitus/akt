@@ -41,6 +41,13 @@ class PublicTranslatorServiceTest {
 		final List<PublicTranslatorDTO> translators = responseDTO.translators();
 
 		assertEquals(3, translators.size());
+		assertEquals(List.of("Etu0", "Etu1", "Etu2"),
+				translators.stream().map(PublicTranslatorDTO::firstName).toList());
+		assertEquals(List.of("Suku0", "Suku1", "Suku2"),
+				translators.stream().map(PublicTranslatorDTO::lastName).toList());
+		assertEquals(List.of("Kaupunki0", "Kaupunki1", "Kaupunki2"),
+				translators.stream().map(PublicTranslatorDTO::town).toList());
+		assertEquals(List.of("Maa0", "Maa1", "Maa2"), translators.stream().map(PublicTranslatorDTO::country).toList());
 	}
 
 	@Test
@@ -57,31 +64,32 @@ class PublicTranslatorServiceTest {
 		assertEquals(List.of("EN"), languagePairsDictDTO.to());
 	}
 
-	private void createVariousTranslators(MeetingDate meetingDate) {
+	private void createVariousTranslators(final MeetingDate meetingDate) {
+		int i = 0;
 		// Term active
-		createTranslator(meetingDate, LocalDate.now(), LocalDate.now().plusDays(1), true);
+		createTranslator(meetingDate, LocalDate.now(), LocalDate.now().plusDays(1), true, i++);
 
 		// Term active
-		createTranslator(meetingDate, LocalDate.now().minusDays(1), LocalDate.now(), true);
+		createTranslator(meetingDate, LocalDate.now().minusDays(1), LocalDate.now(), true, i++);
 
 		// Term active (no end date)
-		createTranslator(meetingDate, LocalDate.now(), null, true);
+		createTranslator(meetingDate, LocalDate.now(), null, true, i++);
 
 		// Term active but no permission given
-		createTranslator(meetingDate, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), false);
+		createTranslator(meetingDate, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), false, i++);
 
 		// Term ended
-		createTranslator(meetingDate, LocalDate.now().minusDays(10), LocalDate.now().minusDays(1), true);
+		createTranslator(meetingDate, LocalDate.now().minusDays(10), LocalDate.now().minusDays(1), true, i++);
 
 		// Term in future
-		createTranslator(meetingDate, LocalDate.now().plusDays(1), LocalDate.now().plusDays(10), true);
+		createTranslator(meetingDate, LocalDate.now().plusDays(1), LocalDate.now().plusDays(10), true, i++);
 
 		// Term in future (no end date)
-		createTranslator(meetingDate, LocalDate.now().plusDays(1), null, true);
+		createTranslator(meetingDate, LocalDate.now().plusDays(1), null, true, i++);
 	}
 
 	private void createTranslator(final MeetingDate meetingDate, final LocalDate beginDate, final LocalDate endDate,
-			final boolean permissionToPublish) {
+			final boolean permissionToPublish, final int i) {
 
 		final Translator translator = Factory.translator();
 		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
@@ -94,6 +102,11 @@ class PublicTranslatorServiceTest {
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 		authorisationTerm.setBeginDate(beginDate);
 		authorisationTerm.setEndDate(endDate);
+
+		translator.setFirstName("Etu" + i);
+		translator.setLastName("Suku" + i);
+		translator.setTown("Kaupunki" + i);
+		translator.setCountry("Maa" + i);
 
 		entityManager.persist(translator);
 		entityManager.persist(authorisation);

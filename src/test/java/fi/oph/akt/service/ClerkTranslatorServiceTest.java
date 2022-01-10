@@ -3,6 +3,7 @@ package fi.oph.akt.service;
 import fi.oph.akt.Factory;
 import fi.oph.akt.api.dto.clerk.ClerkLanguagePairDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorAuthorisationDTO;
+import fi.oph.akt.api.dto.clerk.ClerkTranslatorContactDetailsDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
 import fi.oph.akt.model.Authorisation;
@@ -22,8 +23,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -71,9 +74,28 @@ class ClerkTranslatorServiceTest {
 		final MeetingDate meetingDate = Factory.meetingDate();
 		entityManager.persist(meetingDate);
 
-		IntStream.range(0, 3).forEach(n -> {
+		final List<String> identityNumbers = Arrays.asList(null, "123", "999888777666");
+		final List<String> firstNames = List.of("Etu0", "Etu1", "Etu2");
+		final List<String> lastNames = List.of("Suku0", "Suku1", "Suku2");
+		final List<String> emails = Arrays.asList("email0", "email1", null);
+		final List<String> phoneNumbers = Arrays.asList("phone0", null, "phone2");
+		final List<String> streets = Arrays.asList(null, "katu1", "katu2");
+		final List<String> postalCodes = Arrays.asList("Postinumero0", "Postinumero1", null);
+		final List<String> towns = Arrays.asList(null, "Kaupunki1", "Kaupunki2");
+		final List<String> countries = Arrays.asList("Suomi", null, "Maa2");
+
+		IntStream.range(0, 3).forEach(i -> {
 			final Translator translator = Factory.translator();
-			translator.setSsn(null);
+			translator.setSsn(identityNumbers.get(i));
+			translator.setFirstName(firstNames.get(i));
+			translator.setLastName(lastNames.get(i));
+			translator.setEmail(emails.get(i));
+			translator.setPhone(phoneNumbers.get(i));
+			translator.setStreet(streets.get(i));
+			translator.setPostalCode(postalCodes.get(i));
+			translator.setTown(towns.get(i));
+			translator.setCountry(countries.get(i));
+
 			final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
 			final LanguagePair languagePair = Factory.languagePair(authorisation);
 			final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
@@ -85,9 +107,25 @@ class ClerkTranslatorServiceTest {
 		});
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
-		List<ClerkTranslatorDTO> translators = responseDTO.translators();
+		final List<ClerkTranslatorDTO> translators = responseDTO.translators();
 
 		assertEquals(3, translators.size());
+		assertContactDetailsField(identityNumbers, translators, ClerkTranslatorContactDetailsDTO::identityNumber);
+		assertContactDetailsField(firstNames, translators, ClerkTranslatorContactDetailsDTO::firstName);
+		assertContactDetailsField(lastNames, translators, ClerkTranslatorContactDetailsDTO::lastName);
+		assertContactDetailsField(emails, translators, ClerkTranslatorContactDetailsDTO::email);
+		assertContactDetailsField(phoneNumbers, translators, ClerkTranslatorContactDetailsDTO::phoneNumber);
+		assertContactDetailsField(streets, translators, ClerkTranslatorContactDetailsDTO::street);
+		assertContactDetailsField(postalCodes, translators, ClerkTranslatorContactDetailsDTO::postalCode);
+		assertContactDetailsField(towns, translators, ClerkTranslatorContactDetailsDTO::town);
+		assertContactDetailsField(countries, translators, ClerkTranslatorContactDetailsDTO::country);
+	}
+
+	private void assertContactDetailsField(final List<String> expected, final List<ClerkTranslatorDTO> translators,
+			final Function<ClerkTranslatorContactDetailsDTO, String> contactDetailsFieldGetter) {
+
+		assertEquals(expected,
+				translators.stream().map(ClerkTranslatorDTO::contactDetails).map(contactDetailsFieldGetter).toList());
 	}
 
 	@Test
@@ -112,8 +150,8 @@ class ClerkTranslatorServiceTest {
 		entityManager.persist(authorisationTerm);
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
-		List<String> fromLangs = responseDTO.langs().from();
-		List<String> toLangs = responseDTO.langs().to();
+		final List<String> fromLangs = responseDTO.langs().from();
+		final List<String> toLangs = responseDTO.langs().to();
 
 		assertEquals(2, fromLangs.size());
 		assertEquals(FI, fromLangs.get(0));
@@ -133,8 +171,8 @@ class ClerkTranslatorServiceTest {
 		final LanguagePair languagePair3 = Factory.languagePair(authorisation);
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
-		LocalDate termBeginDate = LocalDate.parse("2022-01-01");
-		LocalDate termEndDate = LocalDate.parse("2024-12-31");
+		final LocalDate termBeginDate = LocalDate.parse("2022-01-01");
+		final LocalDate termEndDate = LocalDate.parse("2024-12-31");
 
 		authorisation.setBasis(AuthorisationBasis.AUT);
 		languagePair1.setFromLang(SV);
@@ -158,35 +196,35 @@ class ClerkTranslatorServiceTest {
 		entityManager.persist(authorisationTerm);
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
-		List<ClerkTranslatorDTO> translatorDTOS = responseDTO.translators();
+		final List<ClerkTranslatorDTO> translatorDTOS = responseDTO.translators();
 
 		assertEquals(1, translatorDTOS.size());
 
-		ClerkTranslatorDTO translatorDTO = translatorDTOS.get(0);
-		List<ClerkTranslatorAuthorisationDTO> authorisationDTOS = translatorDTO.authorisations();
+		final ClerkTranslatorDTO translatorDTO = translatorDTOS.get(0);
+		final List<ClerkTranslatorAuthorisationDTO> authorisationDTOS = translatorDTO.authorisations();
 
 		assertEquals(1, authorisationDTOS.size());
 
-		ClerkTranslatorAuthorisationDTO authorisationDTO = authorisationDTOS.get(0);
+		final ClerkTranslatorAuthorisationDTO authorisationDTO = authorisationDTOS.get(0);
 
 		assertEquals(AuthorisationBasis.AUT, authorisationDTO.basis());
 		assertEquals(termBeginDate, authorisationDTO.term().beginDate());
 		assertEquals(termEndDate, authorisationDTO.term().endDate());
 
-		List<ClerkLanguagePairDTO> languagePairDTOS = authorisationDTO.languagePairs();
+		final List<ClerkLanguagePairDTO> languagePairDTOS = authorisationDTO.languagePairs();
 
 		assertEquals(3, languagePairDTOS.size());
 
 		// @formatter:off
-		Optional<ClerkLanguagePairDTO> langPair1 = languagePairDTOS.stream()
+		final Optional<ClerkLanguagePairDTO> langPair1 = languagePairDTOS.stream()
 				.filter(lpDTO -> lpDTO.from().equals(SV) && lpDTO.to().equals(DE) && lpDTO.permissionToPublish())
 				.findFirst();
 
-		Optional<ClerkLanguagePairDTO> langPair2 = languagePairDTOS.stream()
+		final Optional<ClerkLanguagePairDTO> langPair2 = languagePairDTOS.stream()
 				.filter(lpDTO -> lpDTO.from().equals(DE) && lpDTO.to().equals(FI) && lpDTO.permissionToPublish())
 				.findFirst();
 
-		Optional<ClerkLanguagePairDTO> langPair3 = languagePairDTOS.stream()
+		final Optional<ClerkLanguagePairDTO> langPair3 = languagePairDTOS.stream()
 				.filter(lpDTO -> lpDTO.from().equals(FI) && lpDTO.to().equals(SV) && !lpDTO.permissionToPublish())
 				.findFirst();
 		// @formatter:on
@@ -204,8 +242,8 @@ class ClerkTranslatorServiceTest {
 		final LanguagePair languagePair = Factory.languagePair(authorisation);
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
-		LocalDate termBeginDate = LocalDate.parse("2022-01-01");
-		LocalDate termEndDate = LocalDate.parse("2024-12-31");
+		final LocalDate termBeginDate = LocalDate.parse("2022-01-01");
+		final LocalDate termEndDate = LocalDate.parse("2024-12-31");
 
 		authorisation.setBasis(AuthorisationBasis.KKT);
 		authorisation.setAutDate(null);
@@ -221,7 +259,8 @@ class ClerkTranslatorServiceTest {
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
 
-		ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
+		final ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations()
+				.get(0);
 
 		assertEquals(AuthorisationBasis.KKT, authorisationDTO.basis());
 		assertEquals(termBeginDate, authorisationDTO.term().beginDate());
@@ -236,7 +275,7 @@ class ClerkTranslatorServiceTest {
 		final LanguagePair languagePair = Factory.languagePair(authorisation);
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
-		LocalDate termBeginDate = LocalDate.parse("2022-01-01");
+		final LocalDate termBeginDate = LocalDate.parse("2022-01-01");
 
 		authorisation.setBasis(AuthorisationBasis.VIR);
 		authorisation.setAutDate(null);
@@ -252,7 +291,8 @@ class ClerkTranslatorServiceTest {
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
 
-		ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
+		final ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations()
+				.get(0);
 
 		assertEquals(AuthorisationBasis.VIR, authorisationDTO.basis());
 		assertEquals(termBeginDate, authorisationDTO.term().beginDate());
@@ -276,7 +316,8 @@ class ClerkTranslatorServiceTest {
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
 
-		ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
+		final ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations()
+				.get(0);
 
 		assertNull(authorisationDTO.term());
 	}
@@ -292,8 +333,8 @@ class ClerkTranslatorServiceTest {
 		final LanguagePair languagePair1 = Factory.languagePair(authorisation1);
 		final AuthorisationTerm authorisationTerm1 = Factory.authorisationTerm(authorisation1);
 
-		LocalDate term1BeginDate = meetingDate.getDate();
-		LocalDate term1EndDate = term1BeginDate.plusYears(3);
+		final LocalDate term1BeginDate = meetingDate.getDate();
+		final LocalDate term1EndDate = term1BeginDate.plusYears(3);
 
 		authorisation1.setBasis(AuthorisationBasis.AUT);
 		languagePair1.setFromLang(RU);
@@ -305,8 +346,8 @@ class ClerkTranslatorServiceTest {
 		final LanguagePair languagePair2 = Factory.languagePair(authorisation2);
 		final AuthorisationTerm authorisationTerm2 = Factory.authorisationTerm(authorisation2);
 
-		LocalDate term2BeginDate = term1EndDate.plusYears(1);
-		LocalDate term2EndDate = term2BeginDate.plusYears(3);
+		final LocalDate term2BeginDate = term1EndDate.plusYears(1);
+		final LocalDate term2EndDate = term2BeginDate.plusYears(3);
 
 		authorisation2.setBasis(AuthorisationBasis.KKT);
 		authorisation2.setAutDate(null);
@@ -327,14 +368,15 @@ class ClerkTranslatorServiceTest {
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
 
-		List<ClerkTranslatorAuthorisationDTO> authorisationDTOS = responseDTO.translators().get(0).authorisations();
+		final List<ClerkTranslatorAuthorisationDTO> authorisationDTOS = responseDTO.translators().get(0)
+				.authorisations();
 
 		assertEquals(2, authorisationDTOS.size());
 
-		ClerkTranslatorAuthorisationDTO autAuthorisationDTO = authorisationDTOS.stream()
+		final ClerkTranslatorAuthorisationDTO autAuthorisationDTO = authorisationDTOS.stream()
 				.filter(dto -> dto.basis().equals(AuthorisationBasis.AUT)).toList().get(0);
 
-		ClerkTranslatorAuthorisationDTO kktAuthorisationDTO = authorisationDTOS.stream()
+		final ClerkTranslatorAuthorisationDTO kktAuthorisationDTO = authorisationDTOS.stream()
 				.filter(dto -> dto.basis().equals(AuthorisationBasis.KKT)).toList().get(0);
 
 		assertEquals(term1BeginDate, autAuthorisationDTO.term().beginDate());
@@ -358,12 +400,12 @@ class ClerkTranslatorServiceTest {
 		final AuthorisationTerm authorisationTerm2 = Factory.authorisationTerm(authorisation);
 		final AuthorisationTerm authorisationTerm3 = Factory.authorisationTerm(authorisation);
 
-		LocalDate term1BeginDate = meetingDate.getDate();
-		LocalDate term1EndDate = term1BeginDate.plusYears(1);
-		LocalDate term2BeginDate = term1EndDate.plusMonths(1);
-		LocalDate term2EndDate = term2BeginDate.plusYears(1);
-		LocalDate term3BeginDate = term2EndDate.plusMonths(1);
-		LocalDate term3EndDate = term3BeginDate.plusYears(1);
+		final LocalDate term1BeginDate = meetingDate.getDate();
+		final LocalDate term1EndDate = term1BeginDate.plusYears(1);
+		final LocalDate term2BeginDate = term1EndDate.plusMonths(1);
+		final LocalDate term2EndDate = term2BeginDate.plusYears(1);
+		final LocalDate term3BeginDate = term2EndDate.plusMonths(1);
+		final LocalDate term3EndDate = term3BeginDate.plusYears(1);
 
 		authorisationTerm1.setBeginDate(term1BeginDate);
 		authorisationTerm1.setEndDate(term1EndDate);
@@ -382,7 +424,8 @@ class ClerkTranslatorServiceTest {
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
 
-		ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
+		final ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations()
+				.get(0);
 
 		assertEquals(term3BeginDate, authorisationDTO.term().beginDate());
 		assertEquals(term3EndDate, authorisationDTO.term().endDate());
