@@ -26,7 +26,7 @@ export const AppRouter: FC = () => (
           </Routes>
         </div>
       </main>
-      <Footer showWave={false} />
+      <Footer showWave={true} />
     </div>
   </BrowserRouter>
 );

@@ -74,10 +74,9 @@ export function PaginatedTable<T extends WithId>({
 
               return (
                 <Fragment key={id}>
-                  {getRowDetails(val, t, {
-                    selected: selectedIndices.includes(id),
-                    toggleSelected: () => handleRowClick(id),
-                  })}
+                  {getRowDetails(val, selectedIndices.includes(id), () =>
+                    handleRowClick(id)
+                  )}
                 </Fragment>
               );
             })}

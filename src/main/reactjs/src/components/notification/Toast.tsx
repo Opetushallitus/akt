@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, AlertTitle, Snackbar } from '@mui/material';
+import { Alert, Snackbar } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { notificationSelector } from 'redux/selectors/notifier';
@@ -32,13 +32,16 @@ export const Toast = () => {
     <>
       {activeToast && (
         <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
           open={!!activeToast}
           autoHideDuration={activeToast.timeOut}
           onClose={() => handleToastClose(activeToast.id)}
         >
-          <Alert severity={activeToast.severity}>
-            <AlertTitle>{activeToast.title}</AlertTitle>
+          <Alert
+            variant="filled"
+            onClose={() => handleToastClose(activeToast.id)}
+            severity={activeToast.severity}
+          >
             {activeToast.description}
           </Alert>
         </Snackbar>

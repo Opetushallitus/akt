@@ -9,9 +9,10 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import transFI from 'public/i18n/fi-FI.json';
 import transSV from 'public/i18n/sv-SE.json';
 import transEN from 'public/i18n/en-GB.json';
-import langsFI from 'public/i18n/koodisto/langs/fi-FI.json';
-import langsSV from 'public/i18n/koodisto/langs/sv-SE.json';
-import langsEN from 'public/i18n/koodisto/langs/en-GB.json';
+import koodistoLangsFI from 'public/i18n/koodisto/langs/koodisto_langs_fi-FI.json';
+import koodistoLangsSV from 'public/i18n/koodisto/langs/koodisto_langs_sv-SE.json';
+import koodistoLangsEN from 'public/i18n/koodisto/langs/koodisto_langs_en-GB.json';
+import { I18nNamespace } from 'enums/app';
 
 // Defaults and resources
 const langFI = 'fi-FI';
@@ -27,16 +28,16 @@ const supportedLangs = [langFI, langSV, langEN];
 
 const resources = {
   [langFI]: {
-    translation: transFI,
-    langs: langsFI,
+    [I18nNamespace.Translation]: transFI,
+    [I18nNamespace.KoodistoLanguages]: koodistoLangsFI,
   },
   [langSV]: {
-    translation: transSV,
-    langs: langsSV,
+    [I18nNamespace.Translation]: transSV,
+    [I18nNamespace.KoodistoLanguages]: koodistoLangsSV,
   },
   [langEN]: {
-    translation: transEN,
-    langs: langsEN,
+    [I18nNamespace.Translation]: transEN,
+    [I18nNamespace.KoodistoLanguages]: koodistoLangsEN,
   },
 };
 
@@ -56,7 +57,6 @@ export const initI18n = () => {
   return use(initReactI18next)
     .use(LanguageDetector)
     .init({
-      fallbackNS: 'langs',
       resources,
       detection: detectionOptions,
       fallbackLng: langFI,
@@ -65,9 +65,23 @@ export const initI18n = () => {
     });
 };
 
-export const useAppTranslation = (options: UseTranslationOptions<string>) => {
+export const useAppTranslation = (
+  options: UseTranslationOptions<string>,
+  ns: I18nNamespace = I18nNamespace.Translation
+) => {
   // @ts-expect-error ts import fail
-  return useTranslation(undefined, options);
+  return useTranslation(ns, options);
+};
+
+export const useKoodistoLanguagesTranslation = () => {
+  const { t } = useAppTranslation(
+    {
+      keyPrefix: 'akt.koodisto.languages',
+    },
+    I18nNamespace.KoodistoLanguages
+  );
+
+  return t;
 };
 
 export const getCurrentLang = (): string => {

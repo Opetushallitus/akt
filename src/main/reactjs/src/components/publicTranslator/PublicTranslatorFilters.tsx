@@ -1,4 +1,4 @@
-import { useState, SetStateAction, Dispatch } from 'react';
+import { useState, SetStateAction, Dispatch, KeyboardEvent } from 'react';
 import { TextField, InputAdornment, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -8,14 +8,22 @@ import {
   AutocompleteValue,
   PublicTranslatorComboBoxDetails,
 } from 'interfaces/combobox';
-import { useAppTranslation } from 'configs/i18n';
+import {
+  useAppTranslation,
+  useKoodistoLanguagesTranslation,
+} from 'configs/i18n';
 import { useAppSelector, useAppDispatch } from 'configs/redux';
 import {
   addPublicTranslatorFilter,
+  addPublicTranslatorFilterError,
   emptyPublicTranslatorFilters,
+  emptySelectedTranslators,
+  removePublicTranslatorFilterError,
 } from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { Utils } from 'utils/index';
+import { SearchFilter, KeyboardKey, Severity } from 'enums/app';
+import { showNotifierToast } from 'redux/actions/notifier';
 
 export const PublicTranslatorFilters = ({
   setShowTable,
@@ -26,9 +34,15 @@ export const PublicTranslatorFilters = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.publicTranslatorFilters',
   });
+  const translateLanguage = useKoodistoLanguagesTranslation();
+
   // State
-  const [showFieldError, setShowFieldError] = useState(false);
-  const defaultFiltersState = { fromLang: '', toLang: '', name: '', town: '' };
+  const defaultFiltersState = {
+    fromLang: '',
+    toLang: '',
+    name: '',
+    town: '',
+  };
   const [filters, setFilters] = useState(defaultFiltersState);
   const defaultValuesState = {
     fromLang: null,
@@ -42,23 +56,39 @@ export const PublicTranslatorFilters = ({
 
   // Redux
   const dispatch = useAppDispatch();
-  const { langs, towns } = useAppSelector(publicTranslatorsSelector);
-  const fromLanguages = langs.from.map((langCode: string) =>
-    langCode.toUpperCase()
-  );
-  const toLanguages = langs.to.map((langCode: string) =>
-    langCode.toUpperCase()
-  );
-  const languages = { from: fromLanguages, to: toLanguages };
+  const {
+    langs,
+    towns,
+    filters: reduxFilters,
+  } = useAppSelector(publicTranslatorsSelector);
+
+  const hasError = (fieldName: SearchFilter) => {
+    return reduxFilters?.errors?.includes(fieldName);
+  };
+
+  // Handlers
   const handleSearchBtnClick = () => {
-    if (
-      Utils.isEmptyString(filters.toLang) ||
-      Utils.isEmptyString(filters.fromLang)
+    const toast = Utils.createNotifierToast(
+      Severity.Error,
+      t('toasts.selectLanguagePair')
+    );
+
+    if (reduxFilters?.errors?.length) {
+      // If there are already errors show them
+      dispatch(showNotifierToast(toast));
+    } else if (
+      (filters.fromLang && !filters.toLang) ||
+      (!filters.fromLang && filters.toLang)
     ) {
-      setShowFieldError(true);
+      // If one of the fields are not defined show an error
+      const langFields = [SearchFilter.FromLang, SearchFilter.ToLang];
+      langFields.forEach((field) => {
+        if (!filters[field] && !hasError(field))
+          dispatch(addPublicTranslatorFilterError(field));
+      });
+      dispatch(showNotifierToast(toast));
     } else {
       dispatch(addPublicTranslatorFilter(filters));
-      setShowFieldError(false);
       setShowTable(true);
     }
   };
@@ -68,7 +98,7 @@ export const PublicTranslatorFilters = ({
     setInputValues(defaultFiltersState);
     setValues(defaultValuesState);
     dispatch(emptyPublicTranslatorFilters);
-    setShowFieldError(false);
+    dispatch(emptySelectedTranslators);
     setShowTable(false);
   };
 
@@ -85,7 +115,7 @@ export const PublicTranslatorFilters = ({
     };
 
   const handleComboboxFilterChange =
-    (filterName: string) =>
+    (filterName: SearchFilter) =>
     (
       event: React.SyntheticEvent<Element, Event>,
       value: AutocompleteValue,
@@ -99,9 +129,11 @@ export const PublicTranslatorFilters = ({
       if (reason === 'clear') {
         setFilters({ ...filters, [filterName]: '' });
         setValues({ ...values, [filterName]: null });
+        dispatch(removePublicTranslatorFilterError(filterName));
       } else {
         setFilters({ ...filters, [filterName]: value ? value[1] : '' });
         setValues({ ...values, [filterName]: value });
+        dispatch(removePublicTranslatorFilterError(filterName));
       }
     };
 
@@ -123,10 +155,13 @@ export const PublicTranslatorFilters = ({
     fieldName: keyof PublicTranslatorComboBoxDetails
   ) => ({
     onInputChange: handleComboboxInputChange(fieldName),
-    onChange: handleComboboxFilterChange(fieldName),
     inputValue: inputValues[fieldName],
     value: values[fieldName],
   });
+
+  const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key == KeyboardKey.Enter) handleSearchBtnClick();
+  };
 
   return (
     <div className="public-translator-filters">
@@ -139,32 +174,30 @@ export const PublicTranslatorFilters = ({
               sortByKeys
               autoHighlight
               {...getComboBoxAttributes('fromLang')}
-              showError={
-                showFieldError && Utils.isEmptyString(filters.fromLang)
-              }
+              showError={hasError(SearchFilter.FromLang)}
               label={t('languagePair.fromPlaceholder')}
-              helperText={t('languagePair.fromHelperText')}
               id="filters-from-lang"
-              values={Utils.createMapFromArray(languages.from, t, 'languages')}
               variant="outlined"
               filterValue={filters.toLang}
               primaryOptions={['FI', 'SV']}
               getOptionLabel={getOptionLabel}
+              values={Utils.createMapFromArray(langs.from, translateLanguage)}
+              onChange={handleComboboxFilterChange(SearchFilter.FromLang)}
             />
             <ComboBox
               dataTestId="public-translator-filters__to-language-combobox"
               sortByKeys
               autoHighlight
               {...getComboBoxAttributes('toLang')}
-              showError={showFieldError && Utils.isEmptyString(filters.toLang)}
+              showError={hasError(SearchFilter.ToLang)}
               label={t('languagePair.toPlaceholder')}
-              helperText={t('languagePair.toHelperText')}
               id="filters-to-lang"
-              values={Utils.createMapFromArray(languages.to, t, 'languages')}
               variant="outlined"
               filterValue={filters.fromLang}
               primaryOptions={['FI', 'SV']}
               getOptionLabel={getOptionLabel}
+              values={Utils.createMapFromArray(langs.to, translateLanguage)}
+              onChange={handleComboboxFilterChange(SearchFilter.ToLang)}
             />
           </div>
         </div>
@@ -175,7 +208,8 @@ export const PublicTranslatorFilters = ({
             id="outlined-search"
             label={t('name.placeholder')}
             type="search"
-            value={values.name}
+            value={filters.name}
+            onKeyUp={handleKeyUp}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -183,7 +217,7 @@ export const PublicTranslatorFilters = ({
                 </InputAdornment>
               ),
             }}
-            onChange={handleTextFieldFilterChange('name')}
+            onChange={handleTextFieldFilterChange(SearchFilter.Name)}
           />
         </div>
         <div className="public-translator-filters__filter">
@@ -198,6 +232,7 @@ export const PublicTranslatorFilters = ({
             values={Utils.createMapFromArray(towns)}
             variant="outlined"
             getOptionLabel={getOptionLabel}
+            onChange={handleComboboxFilterChange(SearchFilter.Town)}
           />
         </div>
       </div>

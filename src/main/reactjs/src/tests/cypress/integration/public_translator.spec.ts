@@ -1,6 +1,7 @@
 import { APIEndpoints } from 'enums/api';
 import { onPublicTranslatorFilters } from 'tests/cypress/support/page-objects/publicTranslatorFilters';
 import { onPublicTranslatorsListing } from 'tests/cypress/support/page-objects/publicTranslatorsListing';
+import { onToast } from 'tests/cypress/support/page-objects/toast';
 import { runWithIntercept } from 'tests/cypress/support/utils/api';
 
 beforeEach(() => {
@@ -29,5 +30,14 @@ describe('PublicTranslatorFilters', () => {
 
     onPublicTranslatorFilters.emptySearch();
     onPublicTranslatorsListing.expectEmptyListing();
+  });
+});
+
+describe('PublicTranslatorListing', () => {
+  it('it should show a toast notification when language pairs are not defined, and a row is clicked', () => {
+    onPublicTranslatorFilters.filterByName('aaltonen anneli');
+    onPublicTranslatorsListing.clickTranslatorRow('1940');
+
+    onToast.expectText('Valitse kielipari');
   });
 });

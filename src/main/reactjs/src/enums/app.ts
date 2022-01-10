@@ -16,6 +16,17 @@ export enum Duration {
   Long = 12000,
 }
 
+export enum SearchFilter {
+  FromLang = 'fromLang',
+  ToLang = 'toLang',
+  Name = 'name',
+  Town = 'town',
+}
+
+export enum KeyboardKey {
+  Enter = 'Enter',
+}
+
 export enum UIStates {
   PublicTranslatorListing = 'PublicTranslatorListing',
   ContactRequest = 'ContactRequest',
@@ -51,4 +62,9 @@ export enum Variant {
   Text = 'text',
   Outlined = 'outlined',
   Contained = 'contained',
+}
+
+export enum I18nNamespace {
+  Translation = 'translation',
+  KoodistoLanguages = 'koodistoLanguages',
 }
