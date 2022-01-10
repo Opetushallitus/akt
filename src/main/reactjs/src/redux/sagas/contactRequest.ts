@@ -17,6 +17,7 @@ import {
   NOTIFIER_DIALOG_ADD,
 } from 'redux/actionTypes/notifier';
 import { translateOutsideComponent } from 'configs/i18n';
+import { PUBLIC_TRANSLATOR_EMPTY_SELECTIONS } from 'redux/actionTypes/publicTranslator';
 
 export function* sendContactRequest(action: Action) {
   if (isContactRequestSendAction(action)) {
@@ -46,6 +47,7 @@ export function* sendContactRequest(action: Action) {
       );
       yield put({ type: CONTACT_REQUEST_SUCCESS });
       yield put({ type: CONTACT_REQUEST_STEP_INCREASE });
+      yield put({ type: PUBLIC_TRANSLATOR_EMPTY_SELECTIONS });
     } catch (error) {
       const t = translateOutsideComponent();
       const tPrefix = 'akt.component.contactRequestForm.errorDialog';

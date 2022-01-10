@@ -66,9 +66,7 @@ export const ContactRequestPage = () => {
               <ContactRequestStepper />
               <StepContents disableNext={disableNextCb} />
             </Box>
-            {showProgressIndicator && (
-              <ProgressIndicator size="6rem" color="secondary" />
-            )}
+            {showProgressIndicator && <ProgressIndicator color="secondary" />}
             {showControlButtons && <ControlButtons disableNext={disableNext} />}
           </Box>
         </Paper>
