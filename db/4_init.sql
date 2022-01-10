@@ -4,8 +4,9 @@ TRUNCATE meeting_date CASCADE;
 INSERT INTO meeting_date(date)
 VALUES ('2020-12-24');
 
-INSERT INTO translator(first_name, last_name, email, phone_number, street, town, postal_code, country)
-SELECT first_names[mod(i, array_length(first_names, 1)) + 1],
+INSERT INTO translator(ssn, first_name, last_name, email, phone_number, street, town, postal_code, country)
+SELECT 'id'||i::text,
+       first_names[mod(i, array_length(first_names, 1)) + 1],
        last_names[mod(i, array_length(last_names, 1)) + 1],
        CASE mod(i, 11) WHEN 0 THEN null ELSE ('translator' || i::text || '@example.invalid') END,
        '+35840' || (1000000 + i)::text,
@@ -40,6 +41,10 @@ FROM generate_series(1, 4900) AS i,
      (SELECT ('{"Suomi", "suomi", "SUOMI", "Finland", "", NULL}')::text[] AS country) AS country_table;
 
 -- some translator fields set to null
+UPDATE translator
+SET ssn=NULL
+WHERE mod(translator_id, 50) = 0;
+
 UPDATE translator
 SET email=NULL
 WHERE mod(translator_id, 51) = 0;
