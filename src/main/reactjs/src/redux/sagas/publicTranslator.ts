@@ -11,15 +11,6 @@ import {
   PUBLIC_TRANSLATOR_RECEIVED,
 } from 'redux/actionTypes/publicTranslator';
 
-// Helpers
-const mapPublicTranslationResponse = (response: PublicTranslatorResponse) => {
-  const translators = response.translators
-    .map((t) => t.languagePairs.map((l) => ({ ...t, languagePairs: [l] })))
-    .reduce((prev, current) => [...prev, ...current]);
-
-  return { ...response, translators };
-};
-
 export function* storeApiResults(apiResults: PublicTranslatorResponse) {
   const { translators, langs, towns } = apiResults;
   yield put({
@@ -38,9 +29,8 @@ export function* fetchPublicTranslators() {
       axiosInstance.get,
       APIEndpoints.PublicTranslator
     );
-    const mappedResponse = mapPublicTranslationResponse(apiResponse.data);
 
-    yield call(storeApiResults, mappedResponse);
+    yield call(storeApiResults, apiResponse.data);
   } catch (error) {
     yield put({ type: PUBLIC_TRANSLATOR_ERROR, error });
   }

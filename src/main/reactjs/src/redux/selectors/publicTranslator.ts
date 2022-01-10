@@ -5,6 +5,7 @@ import {
   PublicTranslatorFilter,
   PublicTranslator,
 } from 'interfaces/translator';
+import { Utils } from 'utils';
 
 export const publicTranslatorsSelector = (state: RootState) =>
   state.publicTranslator;
@@ -13,10 +14,7 @@ export const selectFilteredPublicTranslators = createSelector(
   (state: RootState) => state.publicTranslator.translators,
   (state: RootState) => state.publicTranslator.filters,
   (translators, filters) => {
-    const filteredArray = translators
-      .filter((t) => filterByLanguagePair(t, filters))
-      .filter((t) => t.town.toLowerCase().includes(filters.town.toLowerCase()))
-      .filter((t) => filterByName(t, filters));
+    const filteredArray = filterPublicTranslators(translators, filters);
 
     return filteredArray;
   }
@@ -37,6 +35,26 @@ export const selectedPublicTranslatorsForLanguagePair = createSelector(
 );
 
 // Helpers
+const filterPublicTranslators = (
+  translators: Array<PublicTranslator>,
+  filters: PublicTranslatorFilter
+) => {
+  const isNotEmpty = (v: string) => !Utils.isEmptyString(v);
+  let filteredData = translators;
+  // SearchFilter data only if the criteria are defined
+  if (isNotEmpty(filters.fromLang) && isNotEmpty(filters.toLang)) {
+    filteredData = filteredData.filter((t) => filterByLanguagePair(t, filters));
+  }
+  if (isNotEmpty(filters.name)) {
+    filteredData = filteredData.filter((t) => filterByName(t, filters));
+  }
+  if (isNotEmpty(filters.town)) {
+    filteredData = filteredData.filter((t) => filterByTown(t, filters));
+  }
+
+  return filteredData;
+};
+
 const filterByLanguagePair = (
   publicTranslator: PublicTranslator,
   filters: PublicTranslatorFilter
@@ -61,4 +79,13 @@ const filterByName = (
   );
 
   return isNameIncluded;
+};
+
+const filterByTown = (
+  publicTranslator: PublicTranslator,
+  filters: PublicTranslatorFilter
+) => {
+  return publicTranslator.town
+    .toLowerCase()
+    .includes(filters.town.toLowerCase());
 };

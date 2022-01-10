@@ -19,7 +19,7 @@ export const PublicTranslatorsGrid = () => {
   const translators = useAppSelector(selectFilteredPublicTranslators);
   // State
   const [showTable, setShowTable] = useState(false);
-  const hasResults = translators.length > 0;
+  const hasResults = translators.length > 0 && showTable;
   const hasNoResults = !hasResults && showTable;
 
   return (

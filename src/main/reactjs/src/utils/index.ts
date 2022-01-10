@@ -62,7 +62,6 @@ export class Utils {
   }
 
   static createNotifierToast(
-    title: string,
     severity: Severity,
     description: string,
     timeOut: number | undefined = Duration.Medium
@@ -70,7 +69,6 @@ export class Utils {
     const notifier: Toast = {
       id: Utils.createUniqueId(),
       type: NotifierTypes.Toast,
-      title,
       severity,
       description,
       actions: [],

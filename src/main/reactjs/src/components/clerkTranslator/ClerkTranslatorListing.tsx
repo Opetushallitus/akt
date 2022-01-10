@@ -1,6 +1,5 @@
 import { TableRow, TableCell, Checkbox, TableHead } from '@mui/material';
 import { Box } from '@mui/system';
-import { TFunction } from 'i18next';
 import { FC } from 'react';
 
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
@@ -10,7 +9,6 @@ import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
-import { Selectable } from 'interfaces/selectable';
 import {
   deselectAllTranslators,
   deselectClerkTranslator,
@@ -37,12 +35,34 @@ const getLanguagePairsWithAuthorisations = (translator: ClerkTranslator) => {
   );
 };
 
-const getClerkTranslatorRow = (
+const getRowDetails = (
   translator: ClerkTranslator,
-  t: TFunction,
-  selectionProps: Selectable
+  selected: boolean,
+  toggleSelected: () => void
 ) => {
-  const { selected, toggleSelected } = selectionProps;
+  return (
+    <ListingRow
+      translator={translator}
+      selected={selected}
+      toggleSelected={toggleSelected}
+    />
+  );
+};
+
+const ListingRow = ({
+  translator,
+  selected,
+  toggleSelected,
+}: {
+  translator: ClerkTranslator;
+  selected: boolean;
+  toggleSelected: () => void;
+}) => {
+  // I18n
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.publicTranslatorFilters',
+  });
+
   const { firstName, lastName } = translator.contactDetails;
   const languagesWithAuthorisations =
     getLanguagePairsWithAuthorisations(translator);
@@ -187,7 +207,7 @@ export const ClerkTranslatorListing: FC = () => {
           removeSelectedIndex={deselectClerkTranslator}
           data={filteredTranslators}
           header={<ListingHeader />}
-          getRowDetails={getClerkTranslatorRow}
+          getRowDetails={getRowDetails}
           initialRowsPerPage={10}
           rowsPerPageOptions={[10, 20, 50]}
           className={'clerk-translator__listing'}
