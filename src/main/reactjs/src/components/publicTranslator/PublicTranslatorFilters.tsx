@@ -4,10 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import { H3 } from 'components/elements/Text';
 import { ComboBox } from 'components/elements/ComboBox';
-import {
-  AutocompleteValue,
-  PublicTranslatorComboBoxDetails,
-} from 'interfaces/combobox';
+import { AutocompleteValue } from 'interfaces/combobox';
 import {
   useAppTranslation,
   useKoodistoLanguagesTranslation,
