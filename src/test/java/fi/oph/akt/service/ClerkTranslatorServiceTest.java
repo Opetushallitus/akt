@@ -86,7 +86,7 @@ class ClerkTranslatorServiceTest {
 
 		IntStream.range(0, 3).forEach(i -> {
 			final Translator translator = Factory.translator();
-			translator.setSsn(identityNumbers.get(i));
+			translator.setIdentityNumber(identityNumbers.get(i));
 			translator.setFirstName(firstNames.get(i));
 			translator.setLastName(lastNames.get(i));
 			translator.setEmail(emails.get(i));
@@ -135,7 +135,8 @@ class ClerkTranslatorServiceTest {
 		final MeetingDate meetingDate = Factory.meetingDate();
 		entityManager.persist(meetingDate);
 
-		final List<String> towns = Arrays.asList(null, "Kaupunki1", null, "Kaupunki2", "Kaupunki1", null, "Kaupunki2", "Kaupunki1");
+		final List<String> towns = Arrays.asList(null, "Kaupunki1", null, "Kaupunki2", "Kaupunki1", null, "Kaupunki2",
+				"Kaupunki1");
 
 		IntStream.range(0, towns.size()).forEach(i -> {
 			final Translator translator = Factory.translator();

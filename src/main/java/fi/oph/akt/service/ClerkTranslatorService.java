@@ -153,7 +153,7 @@ public class ClerkTranslatorService {
 				.lastName(translator.getLastName())
 				.email(translator.getEmail())
 				.phoneNumber(translator.getPhone())
-				.identityNumber(translator.getSsn())
+				.identityNumber(translator.getIdentityNumber())
 				.street(translator.getStreet())
 				.postalCode(translator.getPostalCode())
 				.town(translator.getTown())

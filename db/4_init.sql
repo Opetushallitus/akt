@@ -4,7 +4,7 @@ TRUNCATE meeting_date CASCADE;
 INSERT INTO meeting_date(date)
 VALUES ('2020-12-24');
 
-INSERT INTO translator(ssn, first_name, last_name, email, phone_number, street, town, postal_code, country)
+INSERT INTO translator(identity_number, first_name, last_name, email, phone_number, street, town, postal_code, country)
 SELECT 'id' || i::text,
        first_names[mod(i, array_length(first_names, 1)) + 1],
        last_names[mod(i, array_length(last_names, 1)) + 1],
@@ -96,7 +96,7 @@ INSERT INTO authorisation_term(authorisation_id, begin_date, end_date) (
 
 -- set some translator fields to null
 UPDATE translator
-SET ssn=NULL
+SET identity_number=NULL
 WHERE mod(translator_id, 50) = 0;
 
 UPDATE translator

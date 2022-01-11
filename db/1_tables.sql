@@ -360,7 +360,7 @@ CREATE TABLE public.translator (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     modified_at timestamp with time zone DEFAULT now() NOT NULL,
     deleted_at timestamp with time zone,
-    ssn character varying(255),
+    identity_number character varying(255),
     first_name text NOT NULL,
     last_name text NOT NULL,
     email text,
@@ -485,19 +485,19 @@ ALTER TABLE ONLY public.shedlock
 
 
 --
+-- Name: translator translator_identity_number_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.translator
+    ADD CONSTRAINT translator_identity_number_key UNIQUE (identity_number);
+
+
+--
 -- Name: translator translator_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.translator
     ADD CONSTRAINT translator_pkey PRIMARY KEY (translator_id);
-
-
---
--- Name: translator translator_ssn_key; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.translator
-    ADD CONSTRAINT translator_ssn_key UNIQUE (ssn);
 
 
 --

@@ -31,8 +31,8 @@ public class Translator extends BaseEntity {
 	private Collection<ContactRequestTranslator> contactRequestTranslators;
 
 	@Size(min = 1, max = 255)
-	@Column(name = "ssn", unique = true)
-	private String ssn;
+	@Column(name = "identity_number", unique = true)
+	private String identityNumber;
 
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
