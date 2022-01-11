@@ -66,15 +66,6 @@ export const PublicTranslatorFilters = ({
     return reduxFilters?.errors?.includes(fieldName);
   };
 
-  // Adhere to Koodisto lang codes (uppercase)
-  const fromLanguages = langs.from.map((langCode: string) =>
-    langCode.toUpperCase()
-  );
-  const toLanguages = langs.to.map((langCode: string) =>
-    langCode.toUpperCase()
-  );
-  const languages = { from: fromLanguages, to: toLanguages };
-
   // Handlers
   const handleSearchBtnClick = () => {
     const toast = Utils.createNotifierToast(
@@ -203,10 +194,7 @@ export const PublicTranslatorFilters = ({
               primaryOptions={['FI', 'SV']}
               getOptionLabel={getOptionLabel}
               isOptionEqualToValue={isOptionEqualToValue}
-              values={Utils.createMapFromArray(
-                languages.from,
-                translateLanguage
-              )}
+              values={Utils.createMapFromArray(langs.from, translateLanguage)}
               onChange={handleComboboxFilterChange(SearchFilter.FromLang)}
             />
             <ComboBox
@@ -221,7 +209,8 @@ export const PublicTranslatorFilters = ({
               filterValue={filters.fromLang}
               primaryOptions={['FI', 'SV']}
               getOptionLabel={getOptionLabel}
-              values={Utils.createMapFromArray(languages.to, translateLanguage)}
+              isOptionEqualToValue={isOptionEqualToValue}
+              values={Utils.createMapFromArray(langs.to, translateLanguage)}
               onChange={handleComboboxFilterChange(SearchFilter.ToLang)}
             />
           </div>
@@ -257,6 +246,7 @@ export const PublicTranslatorFilters = ({
             values={Utils.createMapFromArray(towns)}
             variant="outlined"
             getOptionLabel={getOptionLabel}
+            isOptionEqualToValue={isOptionEqualToValue}
             onChange={handleComboboxFilterChange(SearchFilter.Town)}
           />
         </div>
