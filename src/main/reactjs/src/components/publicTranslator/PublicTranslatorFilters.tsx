@@ -1,20 +1,10 @@
-import {
-  useState,
-  ChangeEvent,
-  SetStateAction,
-  Dispatch,
-  KeyboardEvent,
-} from 'react';
-import {
-  TextField,
-  InputAdornment,
-  SelectChangeEvent,
-  Button,
-} from '@mui/material';
+import { useState, SetStateAction, Dispatch, KeyboardEvent } from 'react';
+import { TextField, InputAdornment, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { H3 } from 'components/elements/Text';
-import { Dropdown } from 'components/elements/Dropdown';
+import { ComboBox } from 'components/elements/ComboBox';
+import { AutocompleteValue } from 'interfaces/combobox';
 import {
   useAppTranslation,
   useKoodistoLanguagesTranslation,
@@ -31,6 +21,13 @@ import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { Utils } from 'utils/index';
 import { SearchFilter, KeyboardKey, Severity } from 'enums/app';
 import { showNotifierToast } from 'redux/actions/notifier';
+
+interface PublicTranslatorFilterValues {
+  fromLang: AutocompleteValue;
+  toLang: AutocompleteValue;
+  name: string;
+  town: AutocompleteValue;
+}
 
 export const PublicTranslatorFilters = ({
   setShowTable,
@@ -51,6 +48,15 @@ export const PublicTranslatorFilters = ({
     town: '',
   };
   const [filters, setFilters] = useState(defaultFiltersState);
+  const defaultValuesState: PublicTranslatorFilterValues = {
+    fromLang: null,
+    toLang: null,
+    name: '',
+    town: null,
+  };
+
+  const [values, setValues] = useState(defaultValuesState);
+  const [inputValues, setInputValues] = useState(defaultFiltersState);
 
   // Redux
   const dispatch = useAppDispatch();
@@ -59,6 +65,10 @@ export const PublicTranslatorFilters = ({
     towns,
     filters: reduxFilters,
   } = useAppSelector(publicTranslatorsSelector);
+
+  const hasError = (fieldName: SearchFilter) => {
+    return reduxFilters?.errors?.includes(fieldName);
+  };
 
   // Handlers
   const handleSearchBtnClick = () => {
@@ -89,6 +99,8 @@ export const PublicTranslatorFilters = ({
 
   const handleEmptyBtnClick = () => {
     setFilters(defaultFiltersState);
+    setInputValues(defaultFiltersState);
+    setValues(defaultValuesState);
     dispatch(emptyPublicTranslatorFilters);
     dispatch(emptySelectedTranslators);
     setShowTable(false);
@@ -100,20 +112,66 @@ export const PublicTranslatorFilters = ({
     return !(!!fromLang || !!toLang || !!name || !!town);
   };
 
-  const hasError = (fieldName: SearchFilter) => {
-    return reduxFilters?.errors?.includes(fieldName);
-  };
+  const handleComboboxInputChange =
+    (inputName: SearchFilter) =>
+    (event: React.SyntheticEvent<Element, Event>, newInputValue: string) => {
+      setInputValues({ ...inputValues, [inputName]: newInputValue });
+    };
 
-  const handleFilterChange =
+  const handleComboboxFilterChange =
     (filterName: SearchFilter) =>
     (
-      event:
-        | SelectChangeEvent
-        | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      event: React.SyntheticEvent<Element, Event>,
+      value: AutocompleteValue,
+      reason:
+        | 'selectOption'
+        | 'createOption'
+        | 'removeOption'
+        | 'blur'
+        | 'clear'
     ) => {
-      setFilters({ ...filters, [filterName]: event.target.value });
+      if (reason === 'clear') {
+        setFilters({ ...filters, [filterName]: '' });
+        setValues({ ...values, [filterName]: null });
+      } else {
+        setFilters({ ...filters, [filterName]: value ? value[1] : '' });
+        setValues({ ...values, [filterName]: value });
+      }
       dispatch(removePublicTranslatorFilterError(filterName));
     };
+
+  const handleTextFieldFilterChange =
+    (filterName: SearchFilter) =>
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const target = event.target as HTMLInputElement;
+      setFilters({ ...filters, [filterName]: target.value });
+      setValues({ ...values, [filterName]: target.value });
+    };
+
+  const getOptionLabel = (option: AutocompleteValue): string => {
+    const label = option ? option[0] : undefined;
+
+    return label !== undefined ? label.toString() : '';
+  };
+
+  const isOptionEqualToValue = (
+    option: AutocompleteValue,
+    value: AutocompleteValue
+  ) => {
+    if (option === null && value === null) {
+      return true;
+    } else if (option === null || value === null) {
+      return false;
+    } else {
+      return option[1] === value[1];
+    }
+  };
+
+  const getComboBoxAttributes = (fieldName: SearchFilter) => ({
+    onInputChange: handleComboboxInputChange(fieldName),
+    inputValue: inputValues[fieldName],
+    value: values[fieldName] as AutocompleteValue,
+  });
 
   const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key == KeyboardKey.Enter) handleSearchBtnClick();
@@ -125,29 +183,37 @@ export const PublicTranslatorFilters = ({
         <div className="public-translator-filters__filter">
           <H3>{t('languagePair.title')}</H3>
           <div className="public-translator-filters__filter__language-pair">
-            <Dropdown
-              data-testid="public-translator-filters__from-language-select"
-              showInputLabel
-              showError={hasError(SearchFilter.FromLang)}
+            <ComboBox
+              dataTestId="public-translator-filters__from-language-combobox"
               sortByKeys
+              autoHighlight
+              {...getComboBoxAttributes(SearchFilter.FromLang)}
+              showError={hasError(SearchFilter.FromLang)}
               label={t('languagePair.fromPlaceholder')}
               id="filters-from-lang"
               variant="outlined"
+              filterValue={filters.toLang}
+              primaryOptions={['FI', 'SV']}
+              getOptionLabel={getOptionLabel}
+              isOptionEqualToValue={isOptionEqualToValue}
               values={Utils.createMapFromArray(langs.from, translateLanguage)}
-              value={filters.fromLang}
-              onChange={handleFilterChange(SearchFilter.FromLang)}
+              onChange={handleComboboxFilterChange(SearchFilter.FromLang)}
             />
-            <Dropdown
-              data-testid="public-translator-filters__to-language-select"
-              showInputLabel
-              showError={hasError(SearchFilter.ToLang)}
+            <ComboBox
+              dataTestId="public-translator-filters__to-language-combobox"
               sortByKeys
+              autoHighlight
+              {...getComboBoxAttributes(SearchFilter.ToLang)}
+              showError={hasError(SearchFilter.ToLang)}
               label={t('languagePair.toPlaceholder')}
               id="filters-to-lang"
               variant="outlined"
+              filterValue={filters.fromLang}
+              primaryOptions={['FI', 'SV']}
+              getOptionLabel={getOptionLabel}
+              isOptionEqualToValue={isOptionEqualToValue}
               values={Utils.createMapFromArray(langs.to, translateLanguage)}
-              value={filters.toLang}
-              onChange={handleFilterChange(SearchFilter.ToLang)}
+              onChange={handleComboboxFilterChange(SearchFilter.ToLang)}
             />
           </div>
         </div>
@@ -167,21 +233,23 @@ export const PublicTranslatorFilters = ({
                 </InputAdornment>
               ),
             }}
-            onChange={handleFilterChange(SearchFilter.Name)}
+            onChange={handleTextFieldFilterChange(SearchFilter.Name)}
           />
         </div>
         <div className="public-translator-filters__filter">
           <H3> {t('town.title')}</H3>
-          <Dropdown
-            data-testid="public-translator-filters__town-select"
-            showInputLabel
+          <ComboBox
+            dataTestId="public-translator-filters__town-combobox"
             sortByKeys
+            autoHighlight
+            {...getComboBoxAttributes(SearchFilter.Town)}
             label={t('town.placeholder')}
             id="filters-town"
-            variant="outlined"
             values={Utils.createMapFromArray(towns)}
-            value={filters.town}
-            onChange={handleFilterChange(SearchFilter.Town)}
+            variant="outlined"
+            getOptionLabel={getOptionLabel}
+            isOptionEqualToValue={isOptionEqualToValue}
+            onChange={handleComboboxFilterChange(SearchFilter.Town)}
           />
         </div>
       </div>

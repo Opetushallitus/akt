@@ -1,5 +1,8 @@
 import { APIEndpoints } from 'enums/api';
-import { onPublicTranslatorFilters } from 'tests/cypress/support/page-objects/publicTranslatorFilters';
+import {
+  compulsoryLangs,
+  onPublicTranslatorFilters,
+} from 'tests/cypress/support/page-objects/publicTranslatorFilters';
 import { onPublicTranslatorsListing } from 'tests/cypress/support/page-objects/publicTranslatorsListing';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
 import { runWithIntercept } from 'tests/cypress/support/utils/api';
@@ -30,6 +33,16 @@ describe('PublicTranslatorFilters', () => {
 
     onPublicTranslatorFilters.emptySearch();
     onPublicTranslatorsListing.expectEmptyListing();
+  });
+
+  it('it should provide only compulsory languages as toLang options if the fromLang field has a different value', () => {
+    onPublicTranslatorFilters.selectFromLangByName('viro');
+    onPublicTranslatorFilters.expectToLangSelectValues(compulsoryLangs);
+  });
+
+  it('it should provide only compulsory languages as fromLang options if the toLang field has a different value', () => {
+    onPublicTranslatorFilters.selectToLangByName('viro');
+    onPublicTranslatorFilters.expectFromLangSelectValues(compulsoryLangs);
   });
 });
 
