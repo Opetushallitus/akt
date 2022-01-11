@@ -11,7 +11,13 @@ describe('ComboBox', () => {
     ]);
     const tree = renderer
       .create(
-        <ComboBox sortByKeys autoHighlight variant="outlined" values={values} />
+        <ComboBox
+          sortByKeys
+          autoHighlight
+          variant="outlined"
+          values={values}
+          value={null}
+        />
       )
       .toJSON();
 
