@@ -25,6 +25,13 @@ import { Utils } from 'utils/index';
 import { SearchFilter, KeyboardKey, Severity } from 'enums/app';
 import { showNotifierToast } from 'redux/actions/notifier';
 
+interface PublicTranslatorFilterValues {
+  fromLang: AutocompleteValue;
+  toLang: AutocompleteValue;
+  name: string;
+  town: AutocompleteValue;
+}
+
 export const PublicTranslatorFilters = ({
   setShowTable,
 }: {
@@ -44,7 +51,7 @@ export const PublicTranslatorFilters = ({
     town: '',
   };
   const [filters, setFilters] = useState(defaultFiltersState);
-  const defaultValuesState = {
+  const defaultValuesState: PublicTranslatorFilterValues = {
     fromLang: null,
     toLang: null,
     name: '',
@@ -109,7 +116,7 @@ export const PublicTranslatorFilters = ({
   };
 
   const handleComboboxInputChange =
-    (inputName: string) =>
+    (inputName: SearchFilter) =>
     (event: React.SyntheticEvent<Element, Event>, newInputValue: string) => {
       setInputValues({ ...inputValues, [inputName]: newInputValue });
     };
@@ -137,7 +144,7 @@ export const PublicTranslatorFilters = ({
     };
 
   const handleTextFieldFilterChange =
-    (filterName: string) =>
+    (filterName: SearchFilter) =>
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const target = event.target as HTMLInputElement;
       setFilters({ ...filters, [filterName]: target.value });
@@ -163,12 +170,10 @@ export const PublicTranslatorFilters = ({
     }
   };
 
-  const getComboBoxAttributes = (
-    fieldName: keyof PublicTranslatorComboBoxDetails
-  ) => ({
+  const getComboBoxAttributes = (fieldName: SearchFilter) => ({
     onInputChange: handleComboboxInputChange(fieldName),
     inputValue: inputValues[fieldName],
-    value: values[fieldName],
+    value: values[fieldName] as AutocompleteValue,
   });
 
   const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -185,7 +190,7 @@ export const PublicTranslatorFilters = ({
               dataTestId="public-translator-filters__from-language-combobox"
               sortByKeys
               autoHighlight
-              {...getComboBoxAttributes('fromLang')}
+              {...getComboBoxAttributes(SearchFilter.FromLang)}
               showError={hasError(SearchFilter.FromLang)}
               label={t('languagePair.fromPlaceholder')}
               id="filters-from-lang"
@@ -201,7 +206,7 @@ export const PublicTranslatorFilters = ({
               dataTestId="public-translator-filters__to-language-combobox"
               sortByKeys
               autoHighlight
-              {...getComboBoxAttributes('toLang')}
+              {...getComboBoxAttributes(SearchFilter.ToLang)}
               showError={hasError(SearchFilter.ToLang)}
               label={t('languagePair.toPlaceholder')}
               id="filters-to-lang"
@@ -240,7 +245,7 @@ export const PublicTranslatorFilters = ({
             dataTestId="public-translator-filters__town-combobox"
             sortByKeys
             autoHighlight
-            {...getComboBoxAttributes('town')}
+            {...getComboBoxAttributes(SearchFilter.Town)}
             label={t('town.placeholder')}
             id="filters-town"
             values={Utils.createMapFromArray(towns)}
