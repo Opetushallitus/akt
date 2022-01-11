@@ -2,6 +2,7 @@ package fi.oph.akt.service;
 
 import fi.oph.akt.Factory;
 import fi.oph.akt.api.dto.LanguagePairsDictDTO;
+import fi.oph.akt.api.dto.PublicLanguagePairDTO;
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Authorisation;
@@ -52,6 +53,18 @@ class PublicTranslatorServiceTest {
 		assertEquals(List.of("Maa0", "Maa1", "Maa2"), translators.stream().map(PublicTranslatorDTO::country).toList());
 
 		assertEquals(List.of("Kaupunki0", "Kaupunki1", "Kaupunki2"), responseDTO.towns());
+
+		assertLanguagePairs(translators.get(0).languagePairs());
+		assertLanguagePairs(translators.get(1).languagePairs());
+		assertLanguagePairs(translators.get(2).languagePairs());
+	}
+
+	private void assertLanguagePairs(final List<PublicLanguagePairDTO> languagePairs) {
+		assertEquals(1, languagePairs.size());
+
+		final PublicLanguagePairDTO languagePair = languagePairs.get(0);
+		assertEquals("FI", languagePair.from());
+		assertEquals("EN", languagePair.to());
 	}
 
 	@Test
@@ -92,7 +105,7 @@ class PublicTranslatorServiceTest {
 		final LanguagePairsDictDTO languagePairsDictDTO = responseDTO.langs();
 
 		assertEquals(List.of("FI"), languagePairsDictDTO.from());
-		assertEquals(List.of("EN"), languagePairsDictDTO.to());
+		assertEquals(List.of("EN", "SV"), languagePairsDictDTO.to());
 	}
 
 	private void createVariousTranslators(final MeetingDate meetingDate) {
@@ -123,23 +136,33 @@ class PublicTranslatorServiceTest {
 			final boolean permissionToPublish, final int i) {
 
 		final Translator translator = Factory.translator();
-		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-
-		final LanguagePair languagePair = Factory.languagePair(authorisation);
-		languagePair.setFromLang("FI");
-		languagePair.setToLang("EN");
-		languagePair.setPermissionToPublish(permissionToPublish);
-
-		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
-		authorisationTerm.setBeginDate(beginDate);
-		authorisationTerm.setEndDate(endDate);
-
 		translator.setFirstName("Etu" + i);
 		translator.setLastName("Suku" + i);
 		translator.setTown("Kaupunki" + i);
 		translator.setCountry("Maa" + i);
 
 		entityManager.persist(translator);
+		createAuthorisation(translator, meetingDate, beginDate, endDate, permissionToPublish, "EN");
+		// this authorisation is always expired
+		createAuthorisation(translator, meetingDate, LocalDate.now().minusDays(100), LocalDate.now().minusDays(1),
+				permissionToPublish, "SV");
+	}
+
+	private void createAuthorisation(final Translator translator, final MeetingDate meetingDate,
+			final LocalDate beginDate, final LocalDate endDate, final boolean permissionToPublish,
+			final String toLang) {
+
+		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+
+		final LanguagePair languagePair = Factory.languagePair(authorisation);
+		languagePair.setFromLang("FI");
+		languagePair.setToLang(toLang);
+		languagePair.setPermissionToPublish(permissionToPublish);
+
+		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+		authorisationTerm.setBeginDate(beginDate);
+		authorisationTerm.setEndDate(endDate);
+
 		entityManager.persist(authorisation);
 		entityManager.persist(languagePair);
 		entityManager.persist(authorisationTerm);
