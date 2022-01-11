@@ -159,6 +159,19 @@ export const PublicTranslatorFilters = ({
     return label !== undefined ? label.toString() : '';
   };
 
+  const isOptionEqualToValue = (
+    option: AutocompleteValue,
+    value: AutocompleteValue
+  ) => {
+    if (option === null && value === null) {
+      return true;
+    } else if (option === null || value === null) {
+      return false;
+    } else {
+      return option[1] === value[1];
+    }
+  };
+
   const getComboBoxAttributes = (
     fieldName: keyof PublicTranslatorComboBoxDetails
   ) => ({
@@ -189,6 +202,7 @@ export const PublicTranslatorFilters = ({
               filterValue={filters.toLang}
               primaryOptions={['FI', 'SV']}
               getOptionLabel={getOptionLabel}
+              isOptionEqualToValue={isOptionEqualToValue}
               values={Utils.createMapFromArray(
                 languages.from,
                 translateLanguage

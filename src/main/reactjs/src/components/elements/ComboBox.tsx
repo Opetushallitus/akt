@@ -14,29 +14,22 @@ import {
 
 type AutoCompleteComboBox = Omit<
   AutocompleteProps<AutocompleteValue, false, false, false>,
-  'options' | 'renderInput' | 'value' | 'getOptionLabel'
+  'options' | 'renderInput'
 >;
 
 export const ComboBox = ({
-  id,
   filterValue,
   primaryOptions,
   label,
   values,
-  value,
   variant,
   dataTestId,
   helperText,
   showError,
   sortByKeys,
-  getOptionLabel,
-  onInputChange,
-  inputValue,
   ...rest
 }: ComboBoxProps & AutoCompleteComboBox) => {
   const AutocompleteProps = {
-    ...(getOptionLabel && { getOptionLabel }),
-    ...(label && { label }),
     ...(dataTestId && { 'data-testid': dataTestId }),
     ...rest,
   };
@@ -90,24 +83,8 @@ export const ComboBox = ({
     <FormControl fullWidth error={showError}>
       <Autocomplete
         disablePortal
-        id={id}
         {...AutocompleteProps}
-        onInputChange={onInputChange}
-        inputValue={inputValue}
-        value={value}
         options={valuesToShow}
-        isOptionEqualToValue={(
-          option: AutocompleteValue,
-          value: AutocompleteValue
-        ) => {
-          if (option === null && value === null) {
-            return true;
-          } else if (option === null || value === null) {
-            return false;
-          } else {
-            return option[1] === value[1];
-          }
-        }}
         renderInput={(params) => (
           <TextField
             {...params}
