@@ -119,6 +119,8 @@ class ClerkTranslatorServiceTest {
 		assertContactDetailsField(postalCodes, translators, ClerkTranslatorContactDetailsDTO::postalCode);
 		assertContactDetailsField(towns, translators, ClerkTranslatorContactDetailsDTO::town);
 		assertContactDetailsField(countries, translators, ClerkTranslatorContactDetailsDTO::country);
+
+		assertEquals(List.of("Kaupunki1", "Kaupunki2"), responseDTO.towns());
 	}
 
 	private void assertContactDetailsField(final List<String> expected, final List<ClerkTranslatorDTO> translators,
@@ -126,6 +128,32 @@ class ClerkTranslatorServiceTest {
 
 		assertEquals(expected,
 				translators.stream().map(ClerkTranslatorDTO::contactDetails).map(contactDetailsFieldGetter).toList());
+	}
+
+	@Test
+	public void listShouldReturnDistinctTowns() {
+		final MeetingDate meetingDate = Factory.meetingDate();
+		entityManager.persist(meetingDate);
+
+		final List<String> towns = Arrays.asList(null, "Kaupunki1", null, "Kaupunki2", "Kaupunki1", null, "Kaupunki2", "Kaupunki1");
+
+		IntStream.range(0, towns.size()).forEach(i -> {
+			final Translator translator = Factory.translator();
+			translator.setTown(towns.get(i));
+
+			final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+			final LanguagePair languagePair = Factory.languagePair(authorisation);
+			final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+
+			entityManager.persist(translator);
+			entityManager.persist(authorisation);
+			entityManager.persist(languagePair);
+			entityManager.persist(authorisationTerm);
+		});
+
+		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
+
+		assertEquals(List.of("Kaupunki1", "Kaupunki2"), responseDTO.towns());
 	}
 
 	@Test

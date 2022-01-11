@@ -16,7 +16,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -48,6 +50,35 @@ class PublicTranslatorServiceTest {
 		assertEquals(List.of("Kaupunki0", "Kaupunki1", "Kaupunki2"),
 				translators.stream().map(PublicTranslatorDTO::town).toList());
 		assertEquals(List.of("Maa0", "Maa1", "Maa2"), translators.stream().map(PublicTranslatorDTO::country).toList());
+
+		assertEquals(List.of("Kaupunki0", "Kaupunki1", "Kaupunki2"), responseDTO.towns());
+	}
+
+	@Test
+	public void listShouldReturnDistinctTowns() {
+		final MeetingDate meetingDate = Factory.meetingDate();
+		entityManager.persist(meetingDate);
+
+		final List<String> towns = Arrays.asList(null, "Kaupunki1", null, "Kaupunki2", "Kaupunki1", null, "Kaupunki2",
+				"Kaupunki1");
+
+		IntStream.range(0, towns.size()).forEach(i -> {
+			final Translator translator = Factory.translator();
+			translator.setTown(towns.get(i));
+
+			final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+			final LanguagePair languagePair = Factory.languagePair(authorisation);
+			final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+
+			entityManager.persist(translator);
+			entityManager.persist(authorisation);
+			entityManager.persist(languagePair);
+			entityManager.persist(authorisationTerm);
+		});
+
+		final PublicTranslatorResponseDTO responseDTO = publicTranslatorService.listTranslators();
+
+		assertEquals(List.of("Kaupunki1", "Kaupunki2"), responseDTO.towns());
 	}
 
 	@Test
