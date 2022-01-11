@@ -1,4 +1,4 @@
-import i18n, { changeLanguage, use } from 'i18next';
+import i18n, { changeLanguage, use, t } from 'i18next';
 import {
   initReactI18next,
   useTranslation,
@@ -81,6 +81,10 @@ export const useKoodistoLanguagesTranslation = () => {
     I18nNamespace.KoodistoLanguages
   );
 
+  return t;
+};
+
+export const translateOutsideComponent = () => {
   return t;
 };
 
