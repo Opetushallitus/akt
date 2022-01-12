@@ -18,7 +18,7 @@ export function* resetContactRequest() {
   yield put(displayUIState(UIStates.PublicTranslatorListing));
 }
 
-export function* emtyContactRequestState() {
+export function* emptyContactRequestState() {
   yield put({ type: CONTACT_REQUEST_RESET });
 }
 
@@ -29,6 +29,6 @@ export function* watchContactRequestNotifier() {
   );
   yield takeLatest(
     NOTIFIER_ACTION_CONTACT_REQUEST_EMPTY,
-    emtyContactRequestState
+    emptyContactRequestState
   );
 }
