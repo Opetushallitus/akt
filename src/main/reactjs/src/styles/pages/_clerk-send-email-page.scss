@@ -1,0 +1,16 @@
+.clerk-send-email-page {
+  max-width: 100%;
+  width: $breakpoint-xl;
+
+  &__form-container {
+    padding: 3rem 3rem;
+  }
+
+  &__form-contents {
+    padding: 3rem 16rem;
+  }
+
+  &__delete-outline-icon {
+    color: $color-red-500;
+  }
+}

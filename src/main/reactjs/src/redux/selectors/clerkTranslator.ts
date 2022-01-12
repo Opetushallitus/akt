@@ -52,6 +52,16 @@ export const selectFilteredSelectedIds = createSelector(
   }
 );
 
+export const selectFilteredSelectedTranslators = createSelector(
+  selectFilteredClerkTranslators,
+  selectFilteredSelectedIds,
+  (filtered, selectedIds) => {
+    const ids = new Set(selectedIds);
+
+    return filtered.filter(({ id }) => ids.has(id));
+  }
+);
+
 // Helpers
 
 const isAuthorisationValid = (authorisation: Authorisation, now: Date) => {
