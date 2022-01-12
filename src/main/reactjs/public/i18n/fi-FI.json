@@ -181,6 +181,46 @@
         "register": "Rekisteri",
         "sendEmail": "Lähetä sähköposti"
       },
+      "clerkSendEmailPage": {
+        "title": "Lähetä sähköposti",
+        "sections": {
+          "recipients": "Vastaanottajat",
+          "subject": "Aihe",
+          "message": "Viesti"
+        },
+        "placeholders": {
+          "subject": "Kirjoita aihe",
+          "message": "Kirjoita viestisi tähän"
+        },
+        "buttons": {
+          "cancel": "Peruuta",
+          "send": "Lähetä"
+        },
+        "dialogs": {
+          "cancel": {
+            "title": "Peruuta sähköpostin lähetys",
+            "description": "Haluatko peruuttaa sähköpostin lähetyksen? Menetät täyttämäsi tiedot.",
+            "back": "Takaisin",
+            "yes": "Kyllä"
+          },
+          "send": {
+            "title": "Lähetä sähköposti",
+            "description": "Haluatko lähettää sähköpostin? Viesti lähetetään {{count}} kääntäjälle.",
+            "back": "Takaisin",
+            "yes": "Kyllä"
+          },
+          "success": {
+            "title": "Sähköposti lähetetty",
+            "description": "Sähköpostisi lähetettiin kääntäjille. Palaa takaisin rekisterinäkymään.",
+            "back": "Takaisin"
+          },
+          "error": {
+            "title": "Virhe",
+            "description": "Sähköpostin lähetys ei onnistunut. Virhe voi olla tilapäinen, yritä uudestaan.",
+            "back": "Takaisin"
+          }
+        }
+      },
       "translator": {
         "name": "Nimi",
         "languagePairs": "Kieliparit",
