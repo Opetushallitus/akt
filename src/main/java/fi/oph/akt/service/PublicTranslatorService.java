@@ -5,8 +5,6 @@ import fi.oph.akt.api.dto.PublicLanguagePairDTO;
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Translator;
-import fi.oph.akt.onr.OnrServiceMock;
-import fi.oph.akt.onr.TranslatorDetails;
 import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorLanguagePairProjection;
 import fi.oph.akt.repository.TranslatorRepository;
@@ -21,10 +19,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class PublicTranslatorService {
@@ -37,20 +35,12 @@ public class PublicTranslatorService {
 	@Resource
 	private TranslatorRepository translatorRepository;
 
-	@Resource
-	// TODO (OPHAKTKEH-52): use actual API outside local environment
-	private OnrServiceMock onrServiceMock;
-
 	@Transactional(readOnly = true)
 	public PublicTranslatorResponseDTO listTranslators() {
 		final StopWatch st = new StopWatch();
 
 		st.start("findTranslatorsForPublicListing");
 		final List<Translator> translators = translatorRepository.findTranslatorsForPublicListing();
-		st.stop();
-
-		st.start("getTranslatorsDetails");
-		final Map<String, TranslatorDetails> translatorDetails = getTranslatorsDetails(translators.stream());
 		st.stop();
 
 		st.start("findTranslatorLanguagePairsForPublicListing");
@@ -61,20 +51,19 @@ public class PublicTranslatorService {
 
 		st.start("createPublicTranslatorDTOs");
 		final List<PublicTranslatorDTO> publicTranslatorDTOS = translators.stream().map(translator -> {
-			final TranslatorDetails details = translatorDetails.get(translator.getOnrOid());
 			final List<PublicLanguagePairDTO> languagePairDTOs = getPublicLanguagePairDTOs(translatorLanguagePairs,
 					translator);
 
-			return createPublicTranslatorDTO(translator, details, languagePairDTOs);
+			return createPublicTranslatorDTO(translator, languagePairDTOs);
 		}).toList();
 		st.stop();
 
 		st.start("getLanguagePairsDictDTO");
-		LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
+		final LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
 		st.stop();
 
 		st.start("getDistinctTowns");
-		List<String> towns = getDistinctTowns(translatorDetails.values());
+		final List<String> towns = getDistinctTowns(translators);
 		st.stop();
 
 		LOG.info(st.prettyPrint());
@@ -88,10 +77,6 @@ public class PublicTranslatorService {
 		// @formatter:on
 	}
 
-	private Map<String, TranslatorDetails> getTranslatorsDetails(Stream<Translator> translators) {
-		return onrServiceMock.getTranslatorDetailsByOids(translators.map(Translator::getOnrOid).toList());
-	}
-
 	private List<PublicLanguagePairDTO> getPublicLanguagePairDTOs(
 			final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs, final Translator t) {
 
@@ -99,20 +84,19 @@ public class PublicTranslatorService {
 				.map(tlp -> PublicLanguagePairDTO.builder().from(tlp.fromLang()).to(tlp.toLang()).build()).toList();
 	}
 
-	private PublicTranslatorDTO createPublicTranslatorDTO(Translator translator, TranslatorDetails details,
-			List<PublicLanguagePairDTO> languagePairDTOS) {
+	private PublicTranslatorDTO createPublicTranslatorDTO(final Translator translator,
+			final List<PublicLanguagePairDTO> languagePairDTOS) {
 		// @formatter:off
-
-		String country = Optional
-				.ofNullable(details.country())
+		final String country = Optional
+				.ofNullable(translator.getCountry())
 				.filter(c -> !(Set.of("suomi", "finland").contains(c.toLowerCase())))
 				.orElse(null);
 
 		return PublicTranslatorDTO.builder()
 				.id(translator.getId())
-				.firstName(details.firstName())
-				.lastName(details.lastName())
-				.town(details.town())
+				.firstName(translator.getFirstName())
+				.lastName(translator.getLastName())
+				.town(translator.getTown())
 				.country(country)
 				.languagePairs(languagePairDTOS)
 				.build();
@@ -120,14 +104,14 @@ public class PublicTranslatorService {
 	}
 
 	private LanguagePairsDictDTO getLanguagePairsDictDTO() {
-		List<String> fromLangs = languagePairRepository.getDistinctFromLangs();
-		List<String> toLangs = languagePairRepository.getDistinctToLangs();
+		final List<String> fromLangs = languagePairRepository.getDistinctFromLangs();
+		final List<String> toLangs = languagePairRepository.getDistinctToLangs();
 
 		return LanguagePairsDictDTO.builder().from(fromLangs).to(toLangs).build();
 	}
 
-	private List<String> getDistinctTowns(Collection<TranslatorDetails> translatorDetails) {
-		return translatorDetails.stream().map(TranslatorDetails::town).distinct().sorted().toList();
+	private List<String> getDistinctTowns(final Collection<Translator> translators) {
+		return translators.stream().map(Translator::getTown).filter(Objects::nonNull).distinct().sorted().toList();
 	}
 
 }
