@@ -29,6 +29,9 @@ export enum KeyboardKey {
 export enum UIStates {
   PublicTranslatorListing = 'PublicTranslatorListing',
   ContactRequest = 'ContactRequest',
+  ClerkTranslatorRegistry = 'ClerkTranslatorRegistry',
+  ClerkSendEmailPage = 'ClerkSendEmailPage',
+  NotFoundPage = 'NotFoundPage',
 }
 
 export enum TextBoxTypes {
