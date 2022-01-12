@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
@@ -35,11 +36,11 @@ public class ExpiringAuthorisationsEmailCreator {
 	@SchedulerLock(name = "pollExpiringAuthorisations", lockAtLeastFor = LOCK_AT_LEAST, lockAtMostFor = LOCK_AT_MOST)
 	public void pollExpiringAuthorisations() {
 		LOG.debug("pollExpiringAuthorisations");
-		final LocalDate expiryStart = LocalDate.now();
-		final LocalDate expiryEnd = expiryStart.plusMonths(3);
-		final long maxReminderCount = 0;
+		final LocalDate expiryBetweenStart = LocalDate.now();
+		final LocalDate expiryBetweenEnd = expiryBetweenStart.plusMonths(3);
+		final LocalDateTime previousReminderSentBefore = expiryBetweenStart.minusMonths(4).atStartOfDay();
 
-		termRepository.findAuthorisationTermsExpiringBetween(expiryStart, expiryEnd, maxReminderCount)
+		termRepository.findExpiringAuthorisationTerms(expiryBetweenStart, expiryBetweenEnd, previousReminderSentBefore)
 				.forEach(clerkEmailService::createAuthorisationExpiryEmail);
 	}
 

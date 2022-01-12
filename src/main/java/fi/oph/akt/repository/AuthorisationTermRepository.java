@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -21,9 +22,10 @@ public interface AuthorisationTermRepository extends JpaRepository<Authorisation
 			+ " LEFT JOIN at.reminders atr"
 			+ " WHERE at.endDate BETWEEN ?1 AND ?2"
 			+ " GROUP BY at.id, atr.id"
-			+ " HAVING COUNT(atr.id) <= ?3")
+			+ " HAVING COUNT(atr.id) = 0 OR MAX(atr.createdAt) < ?3")
 	// @formatter:on
-	List<Long> findAuthorisationTermsExpiringBetween(LocalDate start, LocalDate end, long maxReminderCount);
+	List<Long> findExpiringAuthorisationTerms(LocalDate betweenStart, LocalDate betweenEnd,
+			LocalDateTime previousReminderSentBefore);
 
 	// @formatter:off
 	@Query("SELECT new fi.oph.akt.repository.AuthorisationExpiryDataProjection(a.id, t.id)"
