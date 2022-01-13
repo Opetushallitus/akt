@@ -14,9 +14,17 @@ public interface LanguagePairRepository extends JpaRepository<LanguagePair, Long
 			+ " FROM LanguagePair lp")
 	List<AuthorisationLanguagePairProjection> listAuthorisationLanguagePairProjections();
 
-	@Query("SELECT new fi.oph.akt.repository.TranslatorLanguagePairProjection(t.id, lp.fromLang, lp.toLang) FROM LanguagePair lp"
-			+ " JOIN lp.authorisation a JOIN a.translator t WHERE lp.permissionToPublish=true AND t.id IN ?1")
-	List<TranslatorLanguagePairProjection> findTranslatorLanguagePairsForPublicListing(Iterable<Long> translatorIds);
+	// @formatter:off
+	@Query("SELECT new fi.oph.akt.repository.TranslatorLanguagePairProjection(t.id, lp.fromLang, lp.toLang)" +
+			" FROM LanguagePair lp" +
+			" JOIN lp.authorisation aut" +
+			" JOIN aut.translator t" +
+			" JOIN aut.terms term" +
+			" WHERE lp.permissionToPublish=true" +
+			" AND CURRENT_DATE >= term.beginDate" +
+			" AND (CURRENT_DATE <= term.endDate OR term.endDate IS NULL)")
+	// @formatter:on
+	List<TranslatorLanguagePairProjection> findTranslatorLanguagePairsForPublicListing();
 
 	@Query("SELECT DISTINCT lp.fromLang FROM LanguagePair lp ORDER BY lp.fromLang")
 	List<String> getDistinctFromLangs();

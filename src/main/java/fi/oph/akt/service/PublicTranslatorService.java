@@ -39,14 +39,14 @@ public class PublicTranslatorService {
 	public PublicTranslatorResponseDTO listTranslators() {
 		final StopWatch st = new StopWatch();
 
-		st.start("findTranslatorsForPublicListing");
-		final List<Translator> translators = translatorRepository.findTranslatorsForPublicListing();
-		st.stop();
-
 		st.start("findTranslatorLanguagePairsForPublicListing");
 		final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs = languagePairRepository
-				.findTranslatorLanguagePairsForPublicListing(translators.stream().map(Translator::getId).toList())
-				.stream().collect(Collectors.groupingBy(TranslatorLanguagePairProjection::translatorId));
+				.findTranslatorLanguagePairsForPublicListing().stream()
+				.collect(Collectors.groupingBy(TranslatorLanguagePairProjection::translatorId));
+		st.stop();
+
+		st.start("findTranslatorsByIds");
+		final List<Translator> translators = translatorRepository.findAllById(translatorLanguagePairs.keySet());
 		st.stop();
 
 		st.start("createPublicTranslatorDTOs");
