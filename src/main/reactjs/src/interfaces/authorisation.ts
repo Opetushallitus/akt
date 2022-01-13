@@ -35,14 +35,7 @@ export interface APIAuthorisation {
 }
 
 const termsComparator = (a: AuthorisationTerm, b: AuthorisationTerm) => {
-  if (!a.end) {
-    return -1;
-  }
-  if (!b.end) {
-    return 1;
-  }
-
-  return a.end > b.end ? -1 : 1;
+  return a.start > b.start ? -1 : 1;
 };
 
 export const effectiveAuthorisationTerm = (authorisation: Authorisation) => {
