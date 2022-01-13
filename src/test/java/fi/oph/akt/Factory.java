@@ -3,6 +3,7 @@ package fi.oph.akt;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTerm;
+import fi.oph.akt.model.AuthorisationTermReminder;
 import fi.oph.akt.model.Email;
 import fi.oph.akt.model.EmailType;
 import fi.oph.akt.model.LanguagePair;
@@ -64,7 +65,16 @@ public class Factory {
 		email.setRecipient("ville.vastaanottaja@invalid");
 		email.setSubject("Spostin otsikko");
 		email.setBody("Sisältö on tässä");
+
 		return email;
+	}
+
+	public static AuthorisationTermReminder authorisationTermReminder(final AuthorisationTerm term, final Email email) {
+		final AuthorisationTermReminder reminder = new AuthorisationTermReminder();
+		reminder.setAuthorisationTerm(term);
+		reminder.setEmail(email);
+
+		return reminder;
 	}
 
 }

@@ -33,6 +33,7 @@ public class EmailService {
 		email.setRecipient(emailData.recipient());
 		email.setSubject(emailData.subject());
 		email.setBody(emailData.body());
+
 		return emailRepository.saveAndFlush(email).getId();
 	}
 

@@ -52,21 +52,21 @@ class EmailServiceTest {
 	public void saveEmailTest() {
 		final EmailData emailData = EmailData.builder().sender("lähettäjä").recipient("vastaanottaja@invalid")
 				.subject("testiotsikko").body("testiviesti").build();
-		final Long savedId = emailService.saveEmail(EmailType.CONTACT_REQUEST, emailData);
 
-		final List<Email> all = emailRepository.findAll();
-		assertEquals(1, all.size());
+		final Long emailId = emailService.saveEmail(EmailType.CONTACT_REQUEST, emailData);
+		final Email email = emailRepository.getById(emailId);
 
-		final Email persistedEmail = all.get(0);
-		assertEquals(savedId, persistedEmail.getId());
-		assertEquals(EmailType.CONTACT_REQUEST, persistedEmail.getEmailType());
-		assertEquals("lähettäjä", persistedEmail.getSender());
-		assertEquals("vastaanottaja@invalid", persistedEmail.getRecipient());
-		assertEquals("testiotsikko", persistedEmail.getSubject());
-		assertEquals("testiviesti", persistedEmail.getBody());
-		assertNull(persistedEmail.getSentAt());
-		assertNull(persistedEmail.getError());
-		assertNull(persistedEmail.getExtId());
+		assertEquals(EmailType.CONTACT_REQUEST, email.getEmailType());
+		assertEquals("lähettäjä", email.getSender());
+		assertEquals("vastaanottaja@invalid", email.getRecipient());
+		assertEquals("testiotsikko", email.getSubject());
+		assertEquals("testiviesti", email.getBody());
+		assertNull(email.getSentAt());
+		assertNull(email.getError());
+		assertNull(email.getExtId());
+
+		final List<Email> allEmails = emailRepository.findAll();
+		assertEquals(1, allEmails.size());
 	}
 
 	@Test

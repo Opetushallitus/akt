@@ -26,6 +26,9 @@ public interface LanguagePairRepository extends JpaRepository<LanguagePair, Long
 	// @formatter:on
 	List<TranslatorLanguagePairProjection> findTranslatorLanguagePairsForPublicListing();
 
+	@Query("SELECT lp FROM LanguagePair lp WHERE lp.authorisation.id = ?1")
+	List<LanguagePair> findByAuthorisation(Long authorisationId);
+
 	@Query("SELECT DISTINCT lp.fromLang FROM LanguagePair lp ORDER BY lp.fromLang")
 	List<String> getDistinctFromLangs();
 

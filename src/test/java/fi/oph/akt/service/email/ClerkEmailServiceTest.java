@@ -7,7 +7,12 @@ import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
+import fi.oph.akt.repository.AuthorisationTermReminderRepository;
+import fi.oph.akt.repository.AuthorisationTermRepository;
+import fi.oph.akt.repository.EmailRepository;
+import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorRepository;
+import fi.oph.akt.util.TemplateRenderer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -17,7 +22,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @DataJpaTest
 public class ClerkEmailServiceTest {
@@ -32,7 +40,22 @@ public class ClerkEmailServiceTest {
 	private ClerkEmailService clerkEmailService;
 
 	@MockBean
+	private AuthorisationTermReminderRepository authorisationTermReminderRepository;
+
+	@Resource
+	private AuthorisationTermRepository authorisationTermRepository;
+
+	@Resource
+	private EmailRepository emailRepository;
+
+	@MockBean
 	private EmailService emailService;
+
+	@Resource
+	private LanguagePairRepository languagePairRepository;
+
+	@MockBean
+	private TemplateRenderer templateRenderer;
 
 	@Resource
 	private TranslatorRepository translatorRepository;
@@ -45,7 +68,8 @@ public class ClerkEmailServiceTest {
 
 	@BeforeEach
 	public void setup() {
-		clerkEmailService = new ClerkEmailService(emailService, translatorRepository);
+		clerkEmailService = new ClerkEmailService(authorisationTermReminderRepository, authorisationTermRepository,
+				emailRepository, emailService, languagePairRepository, templateRenderer, translatorRepository);
 	}
 
 	@Test
@@ -65,16 +89,16 @@ public class ClerkEmailServiceTest {
 			entityManager.persist(authorisationTerm);
 		});
 
-		List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
+		final List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
 
-		InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO.builder().translatorIds(translatorIds)
+		final InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO.builder().translatorIds(translatorIds)
 				.subject("otsikko").body("viesti").build();
 
 		clerkEmailService.createInformalEmails(emailRequestDTO);
 
 		verify(emailService, times(3)).saveEmail(any(), emailDataCaptor.capture());
 
-		List<EmailData> emailDatas = emailDataCaptor.getAllValues();
+		final List<EmailData> emailDatas = emailDataCaptor.getAllValues();
 
 		assertEquals(3, emailDatas.size());
 
@@ -99,10 +123,10 @@ public class ClerkEmailServiceTest {
 		entityManager.persist(languagePair);
 		entityManager.persist(authorisationTerm);
 
-		Long tId = translatorRepository.findAll().get(0).getId();
+		final Long tId = translatorRepository.findAll().get(0).getId();
 
-		InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO.builder().translatorIds(List.of(tId, tId))
-				.subject("otsikko").body("viesti").build();
+		final InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO.builder()
+				.translatorIds(List.of(tId, tId)).subject("otsikko").body("viesti").build();
 
 		clerkEmailService.createInformalEmails(emailRequestDTO);
 
@@ -111,10 +135,52 @@ public class ClerkEmailServiceTest {
 
 	@Test
 	public void createInformalEmailsShouldThrowIllegalArgumentExceptionForNonExistingTranslatorIds() {
-		InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO.builder().translatorIds(List.of(1L))
+		final InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO.builder().translatorIds(List.of(1L))
 				.subject("otsikko").body("viesti").build();
 
 		assertThrows(IllegalArgumentException.class, () -> clerkEmailService.createInformalEmails(emailRequestDTO));
+	}
+
+	@Test
+	public void testCreateAuthorisationExpiryEmail() {
+		final MeetingDate meetingDate = Factory.meetingDate();
+		final Translator translator = Factory.translator();
+		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+		final LanguagePair languagePair = Factory.languagePair(authorisation);
+		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+
+		languagePair.setFromLang("SV");
+		languagePair.setToLang("EN");
+		authorisationTerm.setEndDate(LocalDate.parse("2025-12-01"));
+
+		entityManager.persist(meetingDate);
+		entityManager.persist(translator);
+		entityManager.persist(authorisation);
+		entityManager.persist(languagePair);
+		entityManager.persist(authorisationTerm);
+
+		// @formatter:off
+		final Map<String, Object> expectedTemplateParams = Map.of(
+				"expiryDate", "01.12.2025",
+				"languagePairs", List.of("sv - en"),
+				"contactEmail", "auktoris@oph.fi"
+		);
+		// @formatter:on
+
+		when(templateRenderer.renderAuthorisationExpiryEmailBody(expectedTemplateParams))
+				.thenReturn("Auktorisointisi päättyy 01.12.2025");
+
+		clerkEmailService.createAuthorisationExpiryEmail(authorisationTerm.getId());
+
+		verify(emailService).saveEmail(any(), emailDataCaptor.capture());
+
+		final EmailData emailData = emailDataCaptor.getValue();
+
+		assertEquals("AKT", emailData.sender());
+		assertEquals("Auktorisointisi on päättymässä", emailData.subject());
+		assertEquals("Auktorisointisi päättyy 01.12.2025", emailData.body());
+
+		verify(authorisationTermReminderRepository).save(any());
 	}
 
 }
