@@ -1,0 +1,6886 @@
+{
+  "meetingDates": [
+    {
+      "id": 7,
+      "date": "2025-01-01"
+    },
+    {
+      "id": 6,
+      "date": "2022-11-01"
+    },
+    {
+      "id": 5,
+      "date": "2022-08-30"
+    },
+    {
+      "id": 4,
+      "date": "2022-02-15"
+    },
+    {
+      "id": 3,
+      "date": "2021-12-20"
+    },
+    {
+      "id": 2,
+      "date": "2021-04-09"
+    },
+    {
+      "id": 1,
+      "date": "2020-10-03"
+    }
+  ],
+  "langs": {
+    "from": [
+      "BN",
+      "CA",
+      "CS",
+      "DA",
+      "DE",
+      "EL",
+      "EN",
+      "ET",
+      "FI",
+      "FJ",
+      "FO",
+      "FR",
+      "GA",
+      "HE",
+      "HR",
+      "HU",
+      "JA",
+      "RU",
+      "SV",
+      "TT",
+      "TY",
+      "UG",
+      "UK",
+      "VI",
+      "ZH"
+    ],
+    "to": [
+      "BN",
+      "CA",
+      "CS",
+      "DA",
+      "DE",
+      "EL",
+      "EN",
+      "ET",
+      "FI",
+      "FJ",
+      "FO",
+      "FR",
+      "GA",
+      "HE",
+      "HR",
+      "HU",
+      "JA",
+      "RU",
+      "SV",
+      "TT",
+      "TY",
+      "UG",
+      "UK",
+      "VI",
+      "ZH"
+    ]
+  },
+  "towns": [
+    "Aatnav",
+    "Aktok",
+    "Alovuok",
+    "Annilneemäh",
+    "Erepmat",
+    "Helsinki",
+    "Hämeenlinna",
+    "Iknupuakisuu",
+    "Imeinavor",
+    "Inaajak",
+    "Ithal",
+    "Joensuu",
+    "Järvenpää",
+    "Kajaani",
+    "Kotka",
+    "Kouvola",
+    "Kuopio",
+    "Lahti",
+    "Oipouk",
+    "Oovrop",
+    "Oulu",
+    "Porvoo",
+    "Rovaniemi",
+    "Tampere",
+    "Turku",
+    "Ukrut",
+    "Uusikaupunki",
+    "Uusneoj",
+    "Vantaa",
+    "Ääpnevräj"
+  ],
+  "translators": [
+    {
+      "id": 1,
+      "contactDetails": {
+        "firstName": "Eero",
+        "lastName": "Alanen",
+        "email": "translator1@example.invalid",
+        "phoneNumber": "+358401000001",
+        "identityNumber": "id1",
+        "street": "Runebergintie 2",
+        "postalCode": "01200",
+        "town": "Turku",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-16"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "CA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-16"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "contactDetails": {
+        "firstName": "Ilkka",
+        "lastName": "Eskola",
+        "email": "translator2@example.invalid",
+        "phoneNumber": "+358401000002",
+        "identityNumber": "id2",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "06100",
+        "town": "Hämeenlinna",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-17"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "CS",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-17"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CS",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "contactDetails": {
+        "firstName": "Jari",
+        "lastName": "Hakala",
+        "email": "translator3@example.invalid",
+        "phoneNumber": "+358401000003",
+        "identityNumber": "id3",
+        "street": "Veturitie 4",
+        "postalCode": "13500",
+        "town": "Kuopio",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-18"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "DA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-18"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "DA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "contactDetails": {
+        "firstName": "Juha",
+        "lastName": "Heikkinen",
+        "email": "translator4@example.invalid",
+        "phoneNumber": "+358401000004",
+        "identityNumber": "id4",
+        "street": "Pirkkolantie 123",
+        "postalCode": "31600",
+        "town": "Lahti"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-19"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "DE",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-19"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "DE",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "contactDetails": {
+        "firstName": "Matti",
+        "lastName": "Heinonen",
+        "email": "translator5@example.invalid",
+        "phoneNumber": "+358401000005",
+        "identityNumber": "id5",
+        "street": "Malminkatu 1",
+        "postalCode": "48600",
+        "town": "Porvoo",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-20"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "EL",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-20"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "EL",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "contactDetails": {
+        "firstName": "Pekka",
+        "lastName": "Hiltunen",
+        "email": "translator6@example.invalid",
+        "phoneNumber": "+358401000006",
+        "identityNumber": "id6",
+        "street": "Runebergintie 2",
+        "postalCode": "54460",
+        "town": "Vantaa",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-21"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "EN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-21"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "EN",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "contactDetails": {
+        "firstName": "Timo",
+        "lastName": "Hirvonen",
+        "email": "translator7@example.invalid",
+        "phoneNumber": "+358401000007",
+        "identityNumber": "id7",
+        "street": "3 Ajukneskuilebis",
+        "postalCode": "00100",
+        "town": "Ääpnevräj",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-22"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "ET",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-22"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "ET",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "contactDetails": {
+        "firstName": "Iiro",
+        "lastName": "Hämäläinen",
+        "email": "translator8@example.invalid",
+        "phoneNumber": "+358401000008",
+        "identityNumber": "id8",
+        "street": "Veturitie 4",
+        "postalCode": "01200",
+        "town": "Kouvola",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-23"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "FJ",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-23"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FJ",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "contactDetails": {
+        "firstName": "Jukka",
+        "lastName": "Kallio",
+        "email": "translator9@example.invalid",
+        "phoneNumber": "+358401000009",
+        "identityNumber": "id9",
+        "street": "Pirkkolantie 123",
+        "postalCode": "06100",
+        "town": "Tampere"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-24"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "FO",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-24"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FO",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "contactDetails": {
+        "firstName": "Kalle",
+        "lastName": "Karjalainen",
+        "email": "translator10@example.invalid",
+        "phoneNumber": "+358401000010",
+        "identityNumber": "id10",
+        "street": "Malminkatu 1",
+        "postalCode": "13500",
+        "town": "Oulu",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-25"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "FR",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-25"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FR",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "contactDetails": {
+        "firstName": "Kari",
+        "lastName": "Kinnunen",
+        "phoneNumber": "+358401000011",
+        "identityNumber": "id11",
+        "street": "Runebergintie 2",
+        "postalCode": "31600",
+        "town": "Rovaniemi",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-26"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "GA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-26"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "GA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "contactDetails": {
+        "firstName": "Marko",
+        "lastName": "Korhonen",
+        "email": "translator12@example.invalid",
+        "phoneNumber": "+358401000012",
+        "identityNumber": "id12",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "48600",
+        "town": "Kajaani",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-27"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "HE",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-27"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HE",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "contactDetails": {
+        "firstName": "Mikko",
+        "lastName": "Koskinen",
+        "email": "translator13@example.invalid",
+        "phoneNumber": "+358401000013",
+        "identityNumber": "id13",
+        "street": "Veturitie 4",
+        "postalCode": "54460",
+        "town": "Joensuu",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "HR",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-28"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "HU",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HR",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-28"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HU",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "contactDetails": {
+        "firstName": "Tapani",
+        "lastName": "Laakso",
+        "email": "translator14@example.invalid",
+        "phoneNumber": "+358401000014",
+        "identityNumber": "id14",
+        "street": "321 Eitnalokkrip",
+        "postalCode": "00100",
+        "town": "Iknupuakisuu",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-29"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "HU",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-29"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HU",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "contactDetails": {
+        "firstName": "Ville",
+        "lastName": "Lahtinen",
+        "email": "translator15@example.invalid",
+        "phoneNumber": "+358401000015",
+        "identityNumber": "id15",
+        "street": "Malminkatu 1",
+        "postalCode": "01200",
+        "town": "Kuopio",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-30"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "JA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "TT",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-30"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "JA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "TT",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "contactDetails": {
+        "firstName": "Anneli",
+        "lastName": "Laine",
+        "email": "translator16@example.invalid",
+        "phoneNumber": "+358401000016",
+        "identityNumber": "id16",
+        "street": "Runebergintie 2",
+        "postalCode": "06100",
+        "town": "Kotka",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-31"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "RU",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-01-31"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "RU",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "contactDetails": {
+        "firstName": "Ella",
+        "lastName": "Lehtonen",
+        "email": "translator17@example.invalid",
+        "phoneNumber": "+358401000017",
+        "identityNumber": "id17",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "13500",
+        "town": "Helsinki",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "TT",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "UK",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "TT",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "UK",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "contactDetails": {
+        "firstName": "Hanna",
+        "lastName": "Leinonen",
+        "email": "translator18@example.invalid",
+        "phoneNumber": "+358401000018",
+        "identityNumber": "id18",
+        "street": "Veturitie 4",
+        "postalCode": "31600",
+        "town": "Turku",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-02"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "TY",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-02"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "TY",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "contactDetails": {
+        "firstName": "Iiris",
+        "lastName": "Leppänen",
+        "email": "translator19@example.invalid",
+        "phoneNumber": "+358401000019",
+        "identityNumber": "id19",
+        "street": "Pirkkolantie 123",
+        "postalCode": "48600",
+        "town": "Hämeenlinna"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-03"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "UG",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-03"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "BN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-03"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "UG",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-03"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "BN",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "contactDetails": {
+        "firstName": "Liisa",
+        "lastName": "Manninen",
+        "email": "translator20@example.invalid",
+        "phoneNumber": "+358401000020",
+        "identityNumber": "id20",
+        "street": "Malminkatu 1",
+        "postalCode": "54460",
+        "town": "Kuopio",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-04"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "UK",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-04"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "CS",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-04"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CS",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "contactDetails": {
+        "firstName": "Maria",
+        "lastName": "Mattila",
+        "email": "translator21@example.invalid",
+        "phoneNumber": "+358401000021",
+        "identityNumber": "id21",
+        "street": "2 Eitnigrebenur",
+        "postalCode": "00100",
+        "town": "Ithal",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-05"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "VI",
+              "permissionToPublish": false
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-05"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "DE",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-05"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "VI",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-05"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "DE",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "contactDetails": {
+        "firstName": "Ninni",
+        "lastName": "Mäkinen",
+        "phoneNumber": "+358401000022",
+        "identityNumber": "id22",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "01200",
+        "town": "Porvoo",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-06"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "ZH",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-06"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "EN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-06"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "ZH",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-06"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "EN",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "contactDetails": {
+        "firstName": "Viivi",
+        "lastName": "Nieminen",
+        "email": "translator23@example.invalid",
+        "phoneNumber": "+358401000023",
+        "identityNumber": "id23",
+        "street": "Veturitie 4",
+        "postalCode": "06100",
+        "town": "Vantaa",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-07"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "BN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-07"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "FJ",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-07"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "BN",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-07"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FJ",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "contactDetails": {
+        "firstName": "Anna",
+        "lastName": "Noronen",
+        "email": "translator24@example.invalid",
+        "phoneNumber": "+358401000024",
+        "identityNumber": "id24",
+        "street": "Pirkkolantie 123",
+        "postalCode": "13500",
+        "town": "Järvenpää"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-08"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "CA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-08"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "FR",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-08"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CA",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-08"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FR",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "contactDetails": {
+        "firstName": "Iida",
+        "lastName": "Ojala",
+        "email": "translator25@example.invalid",
+        "phoneNumber": "+358401000025",
+        "identityNumber": "id25",
+        "street": "Malminkatu 1",
+        "postalCode": "31600",
+        "town": "Kouvola",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-09"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "CS",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-09"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CS",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "contactDetails": {
+        "firstName": "Kerttu",
+        "lastName": "Paavola",
+        "email": "translator26@example.invalid",
+        "phoneNumber": "+358401000026",
+        "identityNumber": "id26",
+        "street": "Runebergintie 2",
+        "postalCode": "48600",
+        "town": "Tampere",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "DA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-10"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "DE",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "DA",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-10"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "DE",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "contactDetails": {
+        "firstName": "Kristiina",
+        "lastName": "Pitkänen",
+        "email": "translator27@example.invalid",
+        "phoneNumber": "+358401000027",
+        "identityNumber": "id27",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "54460",
+        "town": "Oulu",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-11"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "DE",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-11"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "DE",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "contactDetails": {
+        "firstName": "Marjatta",
+        "lastName": "Räsänen",
+        "email": "translator28@example.invalid",
+        "phoneNumber": "+358401000028",
+        "identityNumber": "id28",
+        "street": "4 Eitirutev",
+        "postalCode": "00100",
+        "town": "Imeinavor",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-12"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "EL",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-12"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "EL",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "contactDetails": {
+        "firstName": "Ronja",
+        "lastName": "Saarinen",
+        "email": "translator29@example.invalid",
+        "phoneNumber": "+358401000029",
+        "identityNumber": "id29",
+        "street": "Pirkkolantie 123",
+        "postalCode": "01200",
+        "town": "Kajaani"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-13"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "EN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-13"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "EN",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "contactDetails": {
+        "firstName": "Sara",
+        "lastName": "Salo",
+        "email": "translator30@example.invalid",
+        "phoneNumber": "+358401000030",
+        "identityNumber": "id30",
+        "street": "Malminkatu 1",
+        "postalCode": "06100",
+        "town": "Joensuu",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-14"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "ET",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-14"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "FO",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-14"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "ET",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-14"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FO",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "contactDetails": {
+        "firstName": "Antti",
+        "lastName": "Salonen",
+        "email": "translator31@example.invalid",
+        "phoneNumber": "+358401000031",
+        "identityNumber": "id31",
+        "street": "Runebergintie 2",
+        "postalCode": "13500",
+        "town": "Uusikaupunki",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-15"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "FJ",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-15"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FJ",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "contactDetails": {
+        "firstName": "Eero",
+        "lastName": "Toivonen",
+        "email": "translator32@example.invalid",
+        "phoneNumber": "+358401000032",
+        "identityNumber": "id32",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "31600",
+        "town": "Kuopio",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-16"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "FO",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-16"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FO",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "contactDetails": {
+        "firstName": "Ilkka",
+        "lastName": "Tuominen",
+        "phoneNumber": "+358401000033",
+        "identityNumber": "id33",
+        "street": "Veturitie 4",
+        "postalCode": "48600",
+        "town": "Kotka",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-17"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "FR",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-17"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FR",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "contactDetails": {
+        "firstName": "Jari",
+        "lastName": "Turunen",
+        "email": "translator34@example.invalid",
+        "phoneNumber": "+358401000034",
+        "identityNumber": "id34",
+        "street": "Pirkkolantie 123",
+        "postalCode": "54460",
+        "town": "Helsinki"
+      },
+      "authorisations": [
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "GA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-18"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "HU",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "GA",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-18"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HU",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "contactDetails": {
+        "firstName": "Juha",
+        "lastName": "Valtonen",
+        "email": "translator35@example.invalid",
+        "phoneNumber": "+358401000035",
+        "identityNumber": "id35",
+        "street": "1 Utaknimlam",
+        "postalCode": "00100",
+        "town": "Ukrut",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-19"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "HE",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-19"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HE",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "contactDetails": {
+        "firstName": "Matti",
+        "lastName": "Virtanen",
+        "email": "translator36@example.invalid",
+        "phoneNumber": "+358401000036",
+        "identityNumber": "id36",
+        "street": "Runebergintie 2",
+        "postalCode": "01200",
+        "town": "Hämeenlinna",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-20"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "HR",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-20"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HR",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "contactDetails": {
+        "firstName": "Pekka",
+        "lastName": "Väisänen",
+        "email": "translator37@example.invalid",
+        "phoneNumber": "+358401000037",
+        "identityNumber": "id37",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "06100",
+        "town": "Kuopio",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-21"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "HU",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-21"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HU",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "contactDetails": {
+        "firstName": "Timo",
+        "lastName": "Aaltonen",
+        "email": "translator38@example.invalid",
+        "phoneNumber": "+358401000038",
+        "identityNumber": "id38",
+        "street": "Veturitie 4",
+        "postalCode": "13500",
+        "town": "Lahti",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-22"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "JA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-22"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "UG",
+              "permissionToPublish": false
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-22"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "JA",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-22"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "UG",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "contactDetails": {
+        "firstName": "Iiro",
+        "lastName": "Alanen",
+        "email": "translator39@example.invalid",
+        "phoneNumber": "+358401000039",
+        "identityNumber": "id39",
+        "street": "Pirkkolantie 123",
+        "postalCode": "31600",
+        "town": "Porvoo"
+      },
+      "authorisations": [
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "RU",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-23"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "TT",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "RU",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-23"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "TT",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "contactDetails": {
+        "firstName": "Jukka",
+        "lastName": "Eskola",
+        "email": "translator40@example.invalid",
+        "phoneNumber": "+358401000040",
+        "identityNumber": "id40",
+        "street": "Malminkatu 1",
+        "postalCode": "48600",
+        "town": "Vantaa",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-24"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "TT",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-24"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "ZH",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-24"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "ZH",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "contactDetails": {
+        "firstName": "Kalle",
+        "lastName": "Hakala",
+        "email": "translator41@example.invalid",
+        "phoneNumber": "+358401000041",
+        "identityNumber": "id41",
+        "street": "Runebergintie 2",
+        "postalCode": "54460",
+        "town": "Järvenpää",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-25"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "TY",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-25"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "TY",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "contactDetails": {
+        "firstName": "Kari",
+        "lastName": "Heikkinen",
+        "email": "translator42@example.invalid",
+        "phoneNumber": "+358401000042",
+        "identityNumber": "id42",
+        "street": "3 Ajukneskuilebis",
+        "postalCode": "00100",
+        "town": "Alovuok",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-26"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "UG",
+              "permissionToPublish": false
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-26"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "CS",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-26"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "UG",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-26"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CS",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "contactDetails": {
+        "firstName": "Marko",
+        "lastName": "Heinonen",
+        "email": "translator43@example.invalid",
+        "phoneNumber": "+358401000043",
+        "identityNumber": "id43",
+        "street": "Veturitie 4",
+        "postalCode": "01200",
+        "town": "Tampere",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-27"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "UK",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-27"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "UK",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "contactDetails": {
+        "firstName": "Mikko",
+        "lastName": "Hiltunen",
+        "phoneNumber": "+358401000044",
+        "identityNumber": "id44",
+        "street": "Pirkkolantie 123",
+        "postalCode": "06100",
+        "town": "Oulu"
+      },
+      "authorisations": [
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-28"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "VI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "EL",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-02-28"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "VI",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "EL",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "contactDetails": {
+        "firstName": "Tapani",
+        "lastName": "Hirvonen",
+        "email": "translator45@example.invalid",
+        "phoneNumber": "+358401000045",
+        "identityNumber": "id45",
+        "street": "Malminkatu 1",
+        "postalCode": "13500",
+        "town": "Rovaniemi",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "ZH",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "CA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "ZH",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "contactDetails": {
+        "firstName": "Ville",
+        "lastName": "Hämäläinen",
+        "email": "translator46@example.invalid",
+        "phoneNumber": "+358401000046",
+        "identityNumber": "id46",
+        "street": "Runebergintie 2",
+        "postalCode": "31600",
+        "town": "Kajaani",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-02"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "BN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-02"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "FJ",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-02"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "BN",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-02"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FJ",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "contactDetails": {
+        "firstName": "Anneli",
+        "lastName": "Kallio",
+        "email": "translator47@example.invalid",
+        "phoneNumber": "+358401000047",
+        "identityNumber": "id47",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "48600",
+        "town": "Joensuu",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-03"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "CA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-03"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "contactDetails": {
+        "firstName": "Ella",
+        "lastName": "Karjalainen",
+        "email": "translator48@example.invalid",
+        "phoneNumber": "+358401000048",
+        "identityNumber": "id48",
+        "street": "Veturitie 4",
+        "postalCode": "54460",
+        "town": "Uusikaupunki",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-04"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "CS",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-04"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "GA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-04"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CS",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-04"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "GA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "contactDetails": {
+        "firstName": "Hanna",
+        "lastName": "Kinnunen",
+        "email": "translator49@example.invalid",
+        "phoneNumber": "+358401000049",
+        "identityNumber": "id49",
+        "street": "321 Eitnalokkrip",
+        "postalCode": "00100",
+        "town": "Oipouk",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-05"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "DA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-05"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "DA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "contactDetails": {
+        "firstName": "Viivi",
+        "lastName": "Laine",
+        "email": "translator54@example.invalid",
+        "phoneNumber": "+358401000054",
+        "identityNumber": "id54",
+        "street": "Pirkkolantie 123",
+        "postalCode": "48600",
+        "town": "Kuopio"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-10"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "FJ",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-10"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FJ",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "contactDetails": {
+        "firstName": "Iida",
+        "lastName": "Leinonen",
+        "email": "translator56@example.invalid",
+        "phoneNumber": "+358401000056",
+        "identityNumber": "id56",
+        "street": "2 Eitnigrebenur",
+        "postalCode": "00100",
+        "town": "Oovrop",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-12"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "FR",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-12"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FR",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "contactDetails": {
+        "firstName": "Kerttu",
+        "lastName": "Leppänen",
+        "email": "translator57@example.invalid",
+        "phoneNumber": "+358401000057",
+        "identityNumber": "id57",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "01200",
+        "town": "Vantaa",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-13"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "GA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-13"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "JA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-13"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "GA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-13"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "JA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "contactDetails": {
+        "firstName": "Kristiina",
+        "lastName": "Manninen",
+        "email": "translator58@example.invalid",
+        "phoneNumber": "+358401000058",
+        "identityNumber": "id58",
+        "street": "Veturitie 4",
+        "postalCode": "06100",
+        "town": "Järvenpää",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-14"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "HE",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-14"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HE",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "contactDetails": {
+        "firstName": "Marjatta",
+        "lastName": "Mattila",
+        "email": "translator59@example.invalid",
+        "phoneNumber": "+358401000059",
+        "identityNumber": "id59",
+        "street": "Pirkkolantie 123",
+        "postalCode": "13500",
+        "town": "Kouvola"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-15"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "HR",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-15"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HR",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "contactDetails": {
+        "firstName": "Ronja",
+        "lastName": "Mäkinen",
+        "email": "translator60@example.invalid",
+        "phoneNumber": "+358401000060",
+        "identityNumber": "id60",
+        "street": "Malminkatu 1",
+        "postalCode": "31600",
+        "town": "Tampere",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-16"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "HU",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-16"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "RU",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "UG",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "UG",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 61,
+      "contactDetails": {
+        "firstName": "Sara",
+        "lastName": "Nieminen",
+        "email": "translator61@example.invalid",
+        "phoneNumber": "+358401000061",
+        "identityNumber": "id61",
+        "street": "Runebergintie 2",
+        "postalCode": "48600",
+        "town": "Oulu",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-17"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "JA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-17"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "JA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 62,
+      "contactDetails": {
+        "firstName": "Antti",
+        "lastName": "Noronen",
+        "email": "translator62@example.invalid",
+        "phoneNumber": "+358401000062",
+        "identityNumber": "id62",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "54460",
+        "town": "Rovaniemi",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-18"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "RU",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-18"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "RU",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "contactDetails": {
+        "firstName": "Eero",
+        "lastName": "Ojala",
+        "email": "translator63@example.invalid",
+        "phoneNumber": "+358401000063",
+        "identityNumber": "id63",
+        "street": "4 Eitirutev",
+        "postalCode": "00100",
+        "town": "Inaajak",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-19"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "TT",
+              "permissionToPublish": false
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-19"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "BN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-19"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "TT",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-19"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "BN",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 64,
+      "contactDetails": {
+        "firstName": "Ilkka",
+        "lastName": "Paavola",
+        "email": "translator64@example.invalid",
+        "phoneNumber": "+358401000064",
+        "identityNumber": "id64",
+        "street": "Pirkkolantie 123",
+        "postalCode": "01200",
+        "town": "Joensuu"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-20"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "TY",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-20"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "TY",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 65,
+      "contactDetails": {
+        "firstName": "Jari",
+        "lastName": "Pitkänen",
+        "email": "translator65@example.invalid",
+        "phoneNumber": "+358401000065",
+        "identityNumber": "id65",
+        "street": "Malminkatu 1",
+        "postalCode": "06100",
+        "town": "Uusikaupunki",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "UG",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-21"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "UK",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "UG",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-21"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "UK",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 66,
+      "contactDetails": {
+        "firstName": "Juha",
+        "lastName": "Räsänen",
+        "phoneNumber": "+358401000066",
+        "identityNumber": "id66",
+        "street": "Runebergintie 2",
+        "postalCode": "13500",
+        "town": "Kuopio",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-22"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "UK",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-22"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "DE",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-22"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "UK",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-22"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "DE",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 67,
+      "contactDetails": {
+        "firstName": "Matti",
+        "lastName": "Saarinen",
+        "email": "translator67@example.invalid",
+        "phoneNumber": "+358401000067",
+        "identityNumber": "id67",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "31600",
+        "town": "Kotka",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-23"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "VI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-23"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "VI",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 68,
+      "contactDetails": {
+        "firstName": "Pekka",
+        "lastName": "Salo",
+        "email": "translator68@example.invalid",
+        "phoneNumber": "+358401000068",
+        "identityNumber": "id68",
+        "street": "Veturitie 4",
+        "postalCode": "48600",
+        "town": "Helsinki",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "ZH",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-24"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "CS",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "ZH",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-24"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CS",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 69,
+      "contactDetails": {
+        "firstName": "Timo",
+        "lastName": "Salonen",
+        "email": "translator69@example.invalid",
+        "phoneNumber": "+358401000069",
+        "identityNumber": "id69",
+        "street": "Pirkkolantie 123",
+        "postalCode": "54460",
+        "town": "Turku"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-25"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "BN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-25"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "FJ",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-25"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "BN",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-25"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FJ",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 70,
+      "contactDetails": {
+        "firstName": "Iiro",
+        "lastName": "Toivonen",
+        "email": "translator70@example.invalid",
+        "phoneNumber": "+358401000070",
+        "identityNumber": "id70",
+        "street": "1 Utaknimlam",
+        "postalCode": "00100",
+        "town": "Annilneemäh",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-26"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "CA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-26"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CA",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 71,
+      "contactDetails": {
+        "firstName": "Jukka",
+        "lastName": "Tuominen",
+        "email": "translator71@example.invalid",
+        "phoneNumber": "+358401000071",
+        "identityNumber": "id71",
+        "street": "Runebergintie 2",
+        "postalCode": "01200",
+        "town": "Kuopio",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-27"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "CS",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-27"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CS",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 72,
+      "contactDetails": {
+        "firstName": "Kalle",
+        "lastName": "Turunen",
+        "email": "translator72@example.invalid",
+        "phoneNumber": "+358401000072",
+        "identityNumber": "id72",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "06100",
+        "town": "Lahti",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-28"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "DA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-28"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "HE",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-28"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "DA",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-28"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HE",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 73,
+      "contactDetails": {
+        "firstName": "Kari",
+        "lastName": "Valtonen",
+        "email": "translator73@example.invalid",
+        "phoneNumber": "+358401000073",
+        "identityNumber": "id73",
+        "street": "Veturitie 4",
+        "postalCode": "13500",
+        "town": "Porvoo",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-29"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "DE",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-29"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "DE",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 74,
+      "contactDetails": {
+        "firstName": "Marko",
+        "lastName": "Virtanen",
+        "email": "translator74@example.invalid",
+        "phoneNumber": "+358401000074",
+        "identityNumber": "id74",
+        "street": "Pirkkolantie 123",
+        "postalCode": "31600",
+        "town": "Vantaa"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-30"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "EL",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-30"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "EL",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 75,
+      "contactDetails": {
+        "firstName": "Mikko",
+        "lastName": "Väisänen",
+        "email": "translator75@example.invalid",
+        "phoneNumber": "+358401000075",
+        "identityNumber": "id75",
+        "street": "Malminkatu 1",
+        "postalCode": "48600",
+        "town": "Järvenpää",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-31"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "EN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-31"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "FJ",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-31"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "EN",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-31"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FJ",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 76,
+      "contactDetails": {
+        "firstName": "Tapani",
+        "lastName": "Aaltonen",
+        "email": "translator76@example.invalid",
+        "phoneNumber": "+358401000076",
+        "identityNumber": "id76",
+        "street": "Runebergintie 2",
+        "postalCode": "54460",
+        "town": "Kouvola",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "ET",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "GA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "ET",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "GA",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 77,
+      "contactDetails": {
+        "firstName": "Ville",
+        "lastName": "Alanen",
+        "phoneNumber": "+358401000077",
+        "identityNumber": "id77",
+        "street": "3 Ajukneskuilebis",
+        "postalCode": "00100",
+        "town": "Erepmat",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-02"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "FJ",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-02"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FJ",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 78,
+      "contactDetails": {
+        "firstName": "Anneli",
+        "lastName": "Eskola",
+        "email": "translator78@example.invalid",
+        "phoneNumber": "+358401000078",
+        "identityNumber": "id78",
+        "street": "Veturitie 4",
+        "postalCode": "01200",
+        "town": "Oulu",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "FO",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-03"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "FR",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FO",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-03"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FR",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 79,
+      "contactDetails": {
+        "firstName": "Ella",
+        "lastName": "Hakala",
+        "email": "translator79@example.invalid",
+        "phoneNumber": "+358401000079",
+        "identityNumber": "id79",
+        "street": "Pirkkolantie 123",
+        "postalCode": "06100",
+        "town": "Rovaniemi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-04"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "FR",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-04"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FR",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 80,
+      "contactDetails": {
+        "firstName": "Hanna",
+        "lastName": "Heikkinen",
+        "email": "translator80@example.invalid",
+        "phoneNumber": "+358401000080",
+        "identityNumber": "id80",
+        "street": "Malminkatu 1",
+        "postalCode": "13500",
+        "town": "Kajaani",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-05"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "GA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "RU",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "RU",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 81,
+      "contactDetails": {
+        "firstName": "Iiris",
+        "lastName": "Heinonen",
+        "email": "translator81@example.invalid",
+        "phoneNumber": "+358401000081",
+        "identityNumber": "id81",
+        "street": "Runebergintie 2",
+        "postalCode": "31600",
+        "town": "Joensuu",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-06"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "HE",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-06"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HE",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 82,
+      "contactDetails": {
+        "firstName": "Liisa",
+        "lastName": "Hiltunen",
+        "email": "translator82@example.invalid",
+        "phoneNumber": "+358401000082",
+        "identityNumber": "id82",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "48600",
+        "town": "Uusikaupunki",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-07"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "HR",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-07"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HR",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 83,
+      "contactDetails": {
+        "firstName": "Maria",
+        "lastName": "Hirvonen",
+        "email": "translator83@example.invalid",
+        "phoneNumber": "+358401000083",
+        "identityNumber": "id83",
+        "street": "Veturitie 4",
+        "postalCode": "54460",
+        "town": "Kuopio",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-08"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "HU",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-08"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HU",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 84,
+      "contactDetails": {
+        "firstName": "Ninni",
+        "lastName": "Hämäläinen",
+        "email": "translator84@example.invalid",
+        "phoneNumber": "+358401000084",
+        "identityNumber": "id84",
+        "street": "321 Eitnalokkrip",
+        "postalCode": "00100",
+        "town": "Aktok",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-09"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "JA",
+              "permissionToPublish": false
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-09"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "VI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-09"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "JA",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-09"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "VI",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 85,
+      "contactDetails": {
+        "firstName": "Viivi",
+        "lastName": "Kallio",
+        "email": "translator85@example.invalid",
+        "phoneNumber": "+358401000085",
+        "identityNumber": "id85",
+        "street": "Malminkatu 1",
+        "postalCode": "01200",
+        "town": "Helsinki",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "RU",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-10"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "UG",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "RU",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-10"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "UG",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 86,
+      "contactDetails": {
+        "firstName": "Anna",
+        "lastName": "Karjalainen",
+        "email": "translator86@example.invalid",
+        "phoneNumber": "+358401000086",
+        "identityNumber": "id86",
+        "street": "Runebergintie 2",
+        "postalCode": "06100",
+        "town": "Turku",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-11"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "TT",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-11"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "TT",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 88,
+      "contactDetails": {
+        "firstName": "Kerttu",
+        "lastName": "Korhonen",
+        "phoneNumber": "+358401000088",
+        "identityNumber": "id88",
+        "street": "Veturitie 4",
+        "postalCode": "31600",
+        "town": "Kuopio",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-13"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "UG",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-13"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "DA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-13"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "UG",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-13"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "DA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 89,
+      "contactDetails": {
+        "firstName": "Kristiina",
+        "lastName": "Koskinen",
+        "email": "translator89@example.invalid",
+        "phoneNumber": "+358401000089",
+        "identityNumber": "id89",
+        "street": "Pirkkolantie 123",
+        "postalCode": "48600",
+        "town": "Lahti"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-14"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "UK",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-14"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "UK",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 90,
+      "contactDetails": {
+        "firstName": "Marjatta",
+        "lastName": "Laakso",
+        "email": "translator90@example.invalid",
+        "phoneNumber": "+358401000090",
+        "identityNumber": "id90",
+        "street": "Malminkatu 1",
+        "postalCode": "54460",
+        "town": "Porvoo",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-15"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "VI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-15"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "BN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-15"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "VI",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-15"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "BN",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 91,
+      "contactDetails": {
+        "firstName": "Ronja",
+        "lastName": "Lahtinen",
+        "email": "translator91@example.invalid",
+        "phoneNumber": "+358401000091",
+        "identityNumber": "id91",
+        "street": "2 Eitnigrebenur",
+        "postalCode": "00100",
+        "town": "Aatnav",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "ZH",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-16"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "BN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "ZH",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-16"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "BN",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 92,
+      "contactDetails": {
+        "firstName": "Sara",
+        "lastName": "Laine",
+        "email": "translator92@example.invalid",
+        "phoneNumber": "+358401000092",
+        "identityNumber": "id92",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "01200",
+        "town": "Järvenpää",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-17"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "BN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-17"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "FJ",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-17"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "BN",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-17"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FJ",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 93,
+      "contactDetails": {
+        "firstName": "Antti",
+        "lastName": "Lehtonen",
+        "email": "translator93@example.invalid",
+        "phoneNumber": "+358401000093",
+        "identityNumber": "id93",
+        "street": "Veturitie 4",
+        "postalCode": "06100",
+        "town": "Kouvola",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-18"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "CA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-18"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 94,
+      "contactDetails": {
+        "firstName": "Eero",
+        "lastName": "Leinonen",
+        "email": "translator94@example.invalid",
+        "phoneNumber": "+358401000094",
+        "identityNumber": "id94",
+        "street": "Pirkkolantie 123",
+        "postalCode": "13500",
+        "town": "Tampere"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-19"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "CS",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-19"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "CS",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 95,
+      "contactDetails": {
+        "firstName": "Ilkka",
+        "lastName": "Leppänen",
+        "email": "translator95@example.invalid",
+        "phoneNumber": "+358401000095",
+        "identityNumber": "id95",
+        "street": "Malminkatu 1",
+        "postalCode": "31600",
+        "town": "Oulu",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-20"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "DA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-20"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "ET",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-20"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "DA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-20"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "ET",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 96,
+      "contactDetails": {
+        "firstName": "Jari",
+        "lastName": "Manninen",
+        "email": "translator96@example.invalid",
+        "phoneNumber": "+358401000096",
+        "identityNumber": "id96",
+        "street": "Runebergintie 2",
+        "postalCode": "48600",
+        "town": "Rovaniemi",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-21"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "DE",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-21"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "HR",
+              "permissionToPublish": false
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-21"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "DE",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-21"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "HR",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 97,
+      "contactDetails": {
+        "firstName": "Juha",
+        "lastName": "Mattila",
+        "email": "translator97@example.invalid",
+        "phoneNumber": "+358401000097",
+        "identityNumber": "id97",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "54460",
+        "town": "Kajaani",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-22"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "EL",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-22"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "EL",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 98,
+      "contactDetails": {
+        "firstName": "Matti",
+        "lastName": "Mäkinen",
+        "email": "translator98@example.invalid",
+        "phoneNumber": "+358401000098",
+        "identityNumber": "id98",
+        "street": "4 Eitirutev",
+        "postalCode": "00100",
+        "town": "Uusneoj",
+        "country": "Latvia"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-23"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "EN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-23"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "EN",
+              "to": "FI",
+              "permissionToPublish": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "contactDetails": {
+        "firstName": "Liisa",
+        "lastName": "Koskinen",
+        "phoneNumber": "+358401000051",
+        "identityNumber": "id51",
+        "street": "Runebergintie 2",
+        "postalCode": "06100",
+        "town": "Helsinki",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "EL",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-07"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "FJ",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "languagePairs": [
+            {
+              "from": "EL",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-07"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FJ",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "contactDetails": {
+        "firstName": "Maria",
+        "lastName": "Laakso",
+        "email": "translator52@example.invalid",
+        "identityNumber": "id52",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "13500",
+        "town": "Turku",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FI",
+              "to": "EN",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-08"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "ET",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "VIR",
+          "virDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-04-09",
+          "terms": [
+            {
+              "beginDate": "2022-01-01"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "EN",
+              "to": "FI",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-08"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "ET",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "contactDetails": {
+        "firstName": "Ninni",
+        "lastName": "Lahtinen",
+        "email": "translator53@example.invalid",
+        "phoneNumber": "+358401000053",
+        "identityNumber": "id53",
+        "postalCode": "31600",
+        "town": "Hämeenlinna",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-09"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "ET",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-09"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "ET",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 87,
+      "contactDetails": {
+        "firstName": "Iida",
+        "lastName": "Kinnunen",
+        "email": "translator87@example.invalid",
+        "phoneNumber": "+358401000087",
+        "identityNumber": "id87",
+        "street": "Sibeliuksenkuja 3",
+        "postalCode": "13500",
+        "country": "SUOMI"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2019-01-01",
+              "endDate": "2021-12-31"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "TY",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2019-01-01",
+              "endDate": "2021-12-31"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "TY",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "contactDetails": {
+        "firstName": "Anna",
+        "lastName": "Lehtonen",
+        "phoneNumber": "+358401000055",
+        "identityNumber": "id55",
+        "street": "Malminkatu 1",
+        "town": "Lahti",
+        "country": "Suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-11"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "FO",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-03-11"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FO",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 99,
+      "contactDetails": {
+        "firstName": "Pekka",
+        "lastName": "Nieminen",
+        "phoneNumber": "+358401000099",
+        "identityNumber": "id99",
+        "street": "Pirkkolantie 123",
+        "postalCode": "01200",
+        "town": "Uusikaupunki"
+      },
+      "authorisations": [
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-24"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "ET",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "KKT",
+          "kktCheck": "ToDo",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2020-10-03",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-24"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "ET",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 101,
+      "contactDetails": {
+        "firstName": "Iiro",
+        "lastName": "Ojala",
+        "email": "translator101@example.invalid",
+        "phoneNumber": "+358401000101",
+        "identityNumber": "id101",
+        "street": "Runebergintie 2",
+        "postalCode": "13500",
+        "town": "Kotka",
+        "country": "suomi"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-26"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "FO",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-26"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "FO",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "contactDetails": {
+        "firstName": "Kalle",
+        "lastName": "Pitkänen",
+        "email": "translator103@example.invalid",
+        "phoneNumber": "+358401000103",
+        "identityNumber": "id103",
+        "street": "Veturitie 4",
+        "postalCode": "48600",
+        "town": "Turku",
+        "country": "Finland"
+      },
+      "authorisations": [
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-28"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "SV",
+              "to": "GA",
+              "permissionToPublish": true
+            }
+          ]
+        },
+        {
+          "basis": "AUT",
+          "autDate": "2022-01-17",
+          "assuranceDate": "2022-01-17",
+          "meetingDate": "2021-12-20",
+          "terms": [
+            {
+              "beginDate": "2022-01-01",
+              "endDate": "2022-04-28"
+            }
+          ],
+          "languagePairs": [
+            {
+              "from": "GA",
+              "to": "SV",
+              "permissionToPublish": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

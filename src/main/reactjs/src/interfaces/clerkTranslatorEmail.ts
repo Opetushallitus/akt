@@ -10,10 +10,10 @@ export interface ClerkTranslatorEmail {
 export interface ClerkTranslatorEmailState {
   status: APIResponseStatus;
   email: ClerkTranslatorEmail;
-  recipients: number[];
+  recipients: Array<number>;
 }
 
 export interface ClerkTranslatorEmailAction extends Action<string> {
   email: Partial<ClerkTranslatorEmail>;
-  recipientIds: number[];
+  recipientIds: Array<number>;
 }

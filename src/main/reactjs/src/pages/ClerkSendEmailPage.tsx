@@ -1,6 +1,5 @@
-import { Box, Button, IconButton, Paper } from '@mui/material';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { useState } from 'react';
+import { Box, Button, Paper } from '@mui/material';
+import { ChangeEvent, useState } from 'react';
 
 import { H1, H2, Text } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
@@ -10,7 +9,7 @@ import {
   selectFilteredSelectedTranslators,
 } from 'redux/selectors/clerkTranslator';
 import { TextBox } from 'components/elements/TextBox';
-import { Severity, Variant } from 'enums/app';
+import { Severity, TextBoxTypes, Variant } from 'enums/app';
 import { Utils } from 'utils/index';
 import { selectClerkTranslatorEmail } from 'redux/selectors/clerkTranslatorEmail';
 import {
@@ -102,7 +101,7 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
 export const ClerkSendEmailPage = () => {
   // i18n
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.pages.clerkSendEmailPage',
+    keyPrefix: 'akt',
   });
 
   // Redux
@@ -115,63 +114,81 @@ export const ClerkSendEmailPage = () => {
     dispatch(setClerkTranslatorEmail({ body }));
 
   // Local state
-  const [messageError, setMessageError] = useState(false);
-  const [subjectError, setSubjectError] = useState(false);
-
+  const initialFieldErrors = { subject: '', message: '' };
+  const [fieldErrors, setFieldErrors] =
+    useState<typeof initialFieldErrors>(initialFieldErrors);
   const submitDisabled =
     Utils.isEmptyString(email.subject) || Utils.isEmptyString(email.body);
 
+  const handleFieldError =
+    (field: 'subject' | 'message') =>
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { value, required } = event.target;
+      const error = Utils.inspectTextBoxErrors(
+        field == 'subject' ? TextBoxTypes.Text : TextBoxTypes.Textarea,
+        value,
+        required
+      );
+      const errorMessage = error ? t(error) : '';
+      setFieldErrors({ ...fieldErrors, [field]: errorMessage });
+    };
+
+  const handleSubjectChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setEmailSubject(event.target.value);
+    handleFieldError('subject')(event);
+  };
+
+  const handleMessageChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setEmailBody(event.target.value);
+    handleFieldError('message')(event);
+  };
+
   return (
     <Box className="clerk-send-email-page">
-      <div>
-        <H1>{t('title')}</H1>
-        <Paper className="clerk-send-email-page__form-container" elevation={3}>
-          <div className="rows gapped clerk-send-email-page__form-contents">
-            <div className="rows gapped">
-              <H2>{t('sections.recipients')}</H2>
-              <div className="half-max-width">
-                {translators.map(({ id, contactDetails }) => (
-                  <div key={id} className="columns gapped">
-                    <Text className="grow">{`${contactDetails.firstName} ${contactDetails.lastName}`}</Text>
-                    <IconButton>
-                      <DeleteOutlineIcon className="clerk-send-email-page__delete-outline-icon" />
-                    </IconButton>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="rows gapped">
-              <H2>{t('sections.subject')}</H2>
-              <TextBox
-                placeholder={t('placeholders.subject')}
-                value={email.subject}
-                onChange={(e) => setEmailSubject(e.target.value)}
-                onBlur={(e) =>
-                  setSubjectError(Utils.isEmptyString(e.target.value))
-                }
-                error={subjectError}
-                required
-              />
-            </div>
-            <div className="rows gapped">
-              <H2>{t('sections.message')}</H2>
-              <TextBox
-                placeholder={t('placeholders.message')}
-                rows={5}
-                value={email.body}
-                onChange={(e) => setEmailBody(e.target.value)}
-                onBlur={(e) =>
-                  setMessageError(Utils.isEmptyString(e.target.value))
-                }
-                error={messageError}
-                multiline
-                required
-              />
-            </div>
+      <H1>{t('pages.clerkSendEmailPage.title')}</H1>
+      <Paper className="clerk-send-email-page__form-container" elevation={3}>
+        <div className="rows gapped clerk-send-email-page__form-contents">
+          <div className="rows gapped">
+            <H2>{t('pages.clerkSendEmailPage.sections.recipients')}</H2>
+            <Text>
+              {t('pages.clerkSendEmailPage.selectedCount', {
+                count: translators.length,
+              })}
+            </Text>
           </div>
-          <ControlButtons submitDisabled={submitDisabled} />
-        </Paper>
-      </div>
+          <div className="rows gapped">
+            <H2>{t('pages.clerkSendEmailPage.sections.subject')}</H2>
+            <TextBox
+              placeholder={t('pages.clerkSendEmailPage.placeholders.subject')}
+              value={email.subject}
+              onChange={handleSubjectChange}
+              onBlur={handleFieldError('subject')}
+              error={fieldErrors.subject.length > 0}
+              helperText={fieldErrors.subject}
+              required
+            />
+          </div>
+          <div className="rows gapped">
+            <H2>{t('pages.clerkSendEmailPage.sections.message')}</H2>
+            <TextBox
+              placeholder={t('pages.clerkSendEmailPage.placeholders.message')}
+              rows={5}
+              value={email.body}
+              onChange={handleMessageChange}
+              onBlur={handleFieldError('message')}
+              error={fieldErrors.message.length > 0}
+              helperText={fieldErrors.message}
+              multiline
+              required
+            />
+          </div>
+        </div>
+        <ControlButtons submitDisabled={submitDisabled} />
+      </Paper>
     </Box>
   );
 };

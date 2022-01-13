@@ -183,6 +183,8 @@
       },
       "clerkSendEmailPage": {
         "title": "Lähetä sähköposti",
+        "selectedCount_one": "{{count}} kääntäjä valittu",
+        "selectedCount_other": "{{count}} kääntäjää valittu",
         "sections": {
           "recipients": "Vastaanottajat",
           "subject": "Aihe",
