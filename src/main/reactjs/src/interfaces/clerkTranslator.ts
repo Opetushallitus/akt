@@ -2,6 +2,7 @@ import { Action } from 'redux';
 
 import { WithId } from 'interfaces/withId';
 import { APIAuthorisation, Authorisation } from 'interfaces/authorisation';
+import { APIMeetingDate, MeetingDate } from 'interfaces/meetingDate';
 import { LanguagePairsDict } from 'interfaces/language';
 import { APIResponseStatus } from 'enums/api';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
@@ -27,6 +28,7 @@ export interface ClerkTranslatorResponse {
   translators: Array<ClerkTranslator>;
   langs: LanguagePairsDict;
   towns: string[];
+  meetingDates: Array<MeetingDate>;
 }
 
 export interface APIClerkTranslator
@@ -38,6 +40,7 @@ export interface ClerkTranslatorAPIResponse {
   translators: Array<APIClerkTranslator>;
   langs: LanguagePairsDict;
   towns: string[];
+  meetingDates: Array<APIMeetingDate>;
 }
 
 export interface ClerkTranslatorAction
