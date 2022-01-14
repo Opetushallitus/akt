@@ -7,10 +7,10 @@ import fi.oph.akt.model.Email;
 import fi.oph.akt.model.EmailType;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.AuthorisationExpiryDataProjection;
+import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.AuthorisationTermReminderRepository;
 import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.EmailRepository;
-import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.util.TemplateRenderer;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,7 @@ public class ClerkEmailService {
 	private final EmailService emailService;
 
 	@Resource
-	private final LanguagePairRepository languagePairRepository;
+	private final AuthorisationRepository authorisationRepository;
 
 	@Resource
 	private final TemplateRenderer templateRenderer;
@@ -102,8 +102,8 @@ public class ClerkEmailService {
 
 	private String getAuthorisationExpiryEmailBody(final Long authorisationId, final LocalDate termEndDate) {
 		// @formatter:off
-		final List<String> languagePairs = languagePairRepository
-				.findByAuthorisation(authorisationId)
+		final List<String> languagePairs = authorisationRepository
+				.findById(authorisationId)
 				.stream()
 				.map(lp -> lp.getFromLang().toLowerCase() + " - " + lp.getToLang().toLowerCase())
 				.toList();

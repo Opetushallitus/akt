@@ -5,9 +5,9 @@ import fi.oph.akt.model.ContactRequest;
 import fi.oph.akt.model.ContactRequestTranslator;
 import fi.oph.akt.model.EmailType;
 import fi.oph.akt.model.Translator;
+import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.ContactRequestRepository;
 import fi.oph.akt.repository.ContactRequestTranslatorRepository;
-import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.service.email.EmailData;
 import fi.oph.akt.service.email.EmailService;
@@ -34,7 +34,7 @@ public class ContactRequestService {
 	private final EmailService emailService;
 
 	@Resource
-	private final LanguagePairRepository languagePairRepository;
+	private final AuthorisationRepository authorisationRepository;
 
 	@Resource
 	private final TemplateRenderer templateRenderer;
@@ -63,12 +63,12 @@ public class ContactRequestService {
 			throw new IllegalArgumentException("Each translator by provided translatorIds not found");
 		}
 
-		List<String> fromLangs = languagePairRepository.getDistinctFromLangs();
+		List<String> fromLangs = authorisationRepository.getDistinctFromLangs();
 		if (!fromLangs.contains(contactRequestDTO.fromLang())) {
 			throw new IllegalArgumentException("Invalid fromLang " + contactRequestDTO.fromLang());
 		}
 
-		List<String> toLangs = languagePairRepository.getDistinctToLangs();
+		List<String> toLangs = authorisationRepository.getDistinctToLangs();
 		if (!toLangs.contains(contactRequestDTO.toLang())) {
 			throw new IllegalArgumentException("Invalid toLang " + contactRequestDTO.toLang());
 		}

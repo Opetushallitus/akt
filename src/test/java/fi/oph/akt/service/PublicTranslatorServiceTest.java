@@ -7,7 +7,6 @@ import fi.oph.akt.api.dto.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationTerm;
-import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import org.junit.jupiter.api.Test;
@@ -80,12 +79,10 @@ class PublicTranslatorServiceTest {
 			translator.setTown(towns.get(i));
 
 			final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-			final LanguagePair languagePair = Factory.languagePair(authorisation);
 			final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
 			entityManager.persist(translator);
 			entityManager.persist(authorisation);
-			entityManager.persist(languagePair);
 			entityManager.persist(authorisationTerm);
 		});
 
@@ -153,18 +150,15 @@ class PublicTranslatorServiceTest {
 			final String toLang) {
 
 		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-
-		final LanguagePair languagePair = Factory.languagePair(authorisation);
-		languagePair.setFromLang("FI");
-		languagePair.setToLang(toLang);
-		languagePair.setPermissionToPublish(permissionToPublish);
+		authorisation.setFromLang("FI");
+		authorisation.setToLang(toLang);
+		authorisation.setPermissionToPublish(permissionToPublish);
 
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 		authorisationTerm.setBeginDate(beginDate);
 		authorisationTerm.setEndDate(endDate);
 
 		entityManager.persist(authorisation);
-		entityManager.persist(languagePair);
 		entityManager.persist(authorisationTerm);
 	}
 

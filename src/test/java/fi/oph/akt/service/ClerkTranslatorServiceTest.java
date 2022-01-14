@@ -11,12 +11,10 @@ import fi.oph.akt.api.dto.clerk.MeetingDateDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTerm;
-import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.AuthorisationTermRepository;
-import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,13 +26,11 @@ import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 class ClerkTranslatorServiceTest {
@@ -58,9 +54,6 @@ class ClerkTranslatorServiceTest {
 	private AuthorisationTermRepository authorisationTermRepository;
 
 	@Resource
-	private LanguagePairRepository languagePairRepository;
-
-	@Resource
 	private MeetingDateRepository meetingDateRepository;
 
 	@Resource
@@ -72,7 +65,7 @@ class ClerkTranslatorServiceTest {
 	@BeforeEach
 	public void setup() {
 		clerkTranslatorService = new ClerkTranslatorService(authorisationRepository, authorisationTermRepository,
-				languagePairRepository, meetingDateRepository, translatorRepository);
+				meetingDateRepository, translatorRepository);
 	}
 
 	@Test
@@ -83,12 +76,10 @@ class ClerkTranslatorServiceTest {
 		IntStream.range(0, 3).forEach(i -> {
 			final Translator translator = Factory.translator();
 			final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-			final LanguagePair languagePair = Factory.languagePair(authorisation);
 			final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
 			entityManager.persist(translator);
 			entityManager.persist(authorisation);
-			entityManager.persist(languagePair);
 			entityManager.persist(authorisationTerm);
 		});
 
@@ -119,14 +110,12 @@ class ClerkTranslatorServiceTest {
 
 		final Translator translator = Factory.translator();
 		final Authorisation authorisation = Factory.authorisation(translator, meetingDate1);
-		final LanguagePair languagePair = Factory.languagePair(authorisation);
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
 		entityManager.persist(meetingDate1);
 		entityManager.persist(meetingDate2);
 		entityManager.persist(translator);
 		entityManager.persist(authorisation);
-		entityManager.persist(languagePair);
 		entityManager.persist(authorisationTerm);
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
@@ -153,12 +142,10 @@ class ClerkTranslatorServiceTest {
 			translator.setTown(towns.get(i));
 
 			final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-			final LanguagePair languagePair = Factory.languagePair(authorisation);
 			final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
 			entityManager.persist(translator);
 			entityManager.persist(authorisation);
-			entityManager.persist(languagePair);
 			entityManager.persist(authorisationTerm);
 		});
 
@@ -171,22 +158,23 @@ class ClerkTranslatorServiceTest {
 	public void listShouldReturnDistinctFromAndToLangs() {
 		final MeetingDate meetingDate = Factory.meetingDate();
 		final Translator translator = Factory.translator();
-		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-		final LanguagePair languagePair1 = Factory.languagePair(authorisation);
-		final LanguagePair languagePair2 = Factory.languagePair(authorisation);
-		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
-		languagePair1.setFromLang(SV);
-		languagePair1.setToLang(DE);
-		languagePair2.setFromLang(FI);
-		languagePair2.setToLang(DE);
+		final Authorisation authorisation1 = Factory.authorisation(translator, meetingDate);
+		authorisation1.setFromLang(SV);
+		authorisation1.setToLang(DE);
+		final AuthorisationTerm authorisationTerm1 = Factory.authorisationTerm(authorisation1);
+
+		final Authorisation authorisation2 = Factory.authorisation(translator, meetingDate);
+		authorisation2.setFromLang(FI);
+		authorisation2.setToLang(DE);
+		final AuthorisationTerm authorisationTerm2 = Factory.authorisationTerm(authorisation2);
 
 		entityManager.persist(meetingDate);
 		entityManager.persist(translator);
-		entityManager.persist(authorisation);
-		entityManager.persist(languagePair1);
-		entityManager.persist(languagePair2);
-		entityManager.persist(authorisationTerm);
+		entityManager.persist(authorisation1);
+		entityManager.persist(authorisation2);
+		entityManager.persist(authorisationTerm1);
+		entityManager.persist(authorisationTerm2);
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
 		final List<String> fromLangs = responseDTO.langs().from();
@@ -228,12 +216,10 @@ class ClerkTranslatorServiceTest {
 			translator.setCountry(countries.get(i));
 
 			final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-			final LanguagePair languagePair = Factory.languagePair(authorisation);
 			final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
 			entityManager.persist(translator);
 			entityManager.persist(authorisation);
-			entityManager.persist(languagePair);
 			entityManager.persist(authorisationTerm);
 		});
 
@@ -264,7 +250,6 @@ class ClerkTranslatorServiceTest {
 		final MeetingDate meetingDate = Factory.meetingDate();
 		final Translator translator = Factory.translator();
 		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-		final LanguagePair languagePair = Factory.languagePair(authorisation);
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
 		final LocalDate termBeginDate = LocalDate.parse("2022-01-01");
@@ -279,7 +264,6 @@ class ClerkTranslatorServiceTest {
 		entityManager.persist(meetingDate);
 		entityManager.persist(translator);
 		entityManager.persist(authorisation);
-		entityManager.persist(languagePair);
 		entityManager.persist(authorisationTerm);
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
@@ -302,7 +286,6 @@ class ClerkTranslatorServiceTest {
 		final MeetingDate meetingDate = Factory.meetingDate();
 		final Translator translator = Factory.translator();
 		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-		final LanguagePair languagePair = Factory.languagePair(authorisation);
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
 		final LocalDate termBeginDate = LocalDate.parse("2022-01-01");
@@ -317,7 +300,6 @@ class ClerkTranslatorServiceTest {
 		entityManager.persist(meetingDate);
 		entityManager.persist(translator);
 		entityManager.persist(authorisation);
-		entityManager.persist(languagePair);
 		entityManager.persist(authorisationTerm);
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
@@ -340,7 +322,6 @@ class ClerkTranslatorServiceTest {
 		final MeetingDate meetingDate = Factory.meetingDate();
 		final Translator translator = Factory.translator();
 		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-		final LanguagePair languagePair = Factory.languagePair(authorisation);
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
 		final LocalDate termBeginDate = LocalDate.parse("2022-01-01");
@@ -354,7 +335,6 @@ class ClerkTranslatorServiceTest {
 		entityManager.persist(meetingDate);
 		entityManager.persist(translator);
 		entityManager.persist(authorisation);
-		entityManager.persist(languagePair);
 		entityManager.persist(authorisationTerm);
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
@@ -376,7 +356,6 @@ class ClerkTranslatorServiceTest {
 	public void listShouldReturnProperDataForTranslatorWithVIRBasisWithoutTerm() {
 		final Translator translator = Factory.translator();
 		final Authorisation authorisation = Factory.authorisation(translator, null);
-		final LanguagePair languagePair = Factory.languagePair(authorisation);
 
 		authorisation.setBasis(AuthorisationBasis.VIR);
 		authorisation.setAutDate(null);
@@ -385,7 +364,6 @@ class ClerkTranslatorServiceTest {
 
 		entityManager.persist(translator);
 		entityManager.persist(authorisation);
-		entityManager.persist(languagePair);
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
 		final ClerkTranslatorAuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations()
@@ -405,53 +383,43 @@ class ClerkTranslatorServiceTest {
 	public void listShouldReturnProperLanguagePairsForAuthorisations() {
 		final MeetingDate meetingDate = Factory.meetingDate();
 		final Translator translator = Factory.translator();
-		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-		final LanguagePair languagePair1 = Factory.languagePair(authorisation);
-		final LanguagePair languagePair2 = Factory.languagePair(authorisation);
-		final LanguagePair languagePair3 = Factory.languagePair(authorisation);
-		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
-		languagePair1.setFromLang(SV);
-		languagePair1.setToLang(DE);
-		languagePair1.setPermissionToPublish(true);
-		languagePair2.setFromLang(DE);
-		languagePair2.setToLang(FI);
-		languagePair2.setPermissionToPublish(true);
-		languagePair3.setFromLang(FI);
-		languagePair3.setToLang(SV);
-		languagePair3.setPermissionToPublish(false);
+		final Authorisation authorisation1 = Factory.authorisation(translator, meetingDate);
+		final AuthorisationTerm authorisationTerm1 = Factory.authorisationTerm(authorisation1);
+		authorisation1.setFromLang(SV);
+		authorisation1.setToLang(DE);
+		authorisation1.setPermissionToPublish(true);
+
+		final Authorisation authorisation2 = Factory.authorisation(translator, meetingDate);
+		final AuthorisationTerm authorisationTerm2 = Factory.authorisationTerm(authorisation2);
+		authorisation2.setFromLang(DE);
+		authorisation2.setToLang(FI);
+		authorisation2.setPermissionToPublish(true);
+
+		final Authorisation authorisation3 = Factory.authorisation(translator, meetingDate);
+		final AuthorisationTerm authorisationTerm3 = Factory.authorisationTerm(authorisation3);
+		authorisation3.setFromLang(FI);
+		authorisation3.setToLang(SV);
+		authorisation3.setPermissionToPublish(false);
 
 		entityManager.persist(meetingDate);
 		entityManager.persist(translator);
-		entityManager.persist(authorisation);
-		entityManager.persist(languagePair1);
-		entityManager.persist(languagePair2);
-		entityManager.persist(languagePair3);
-		entityManager.persist(authorisationTerm);
+		entityManager.persist(authorisation1);
+		entityManager.persist(authorisation2);
+		entityManager.persist(authorisation3);
+		entityManager.persist(authorisationTerm1);
+		entityManager.persist(authorisationTerm2);
+		entityManager.persist(authorisationTerm3);
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
-		final List<ClerkLanguagePairDTO> languagePairDTOS = responseDTO.translators().get(0).authorisations().get(0)
-				.languagePairs();
+		assertEquals(1, responseDTO.translators().size());
 
-		assertEquals(3, languagePairDTOS.size());
+		final List<ClerkTranslatorAuthorisationDTO> authorisations = responseDTO.translators().get(0).authorisations();
+		assertEquals(3, authorisations.size());
 
-		// @formatter:off
-		final Optional<ClerkLanguagePairDTO> langPair1 = languagePairDTOS.stream()
-				.filter(lpDTO -> lpDTO.from().equals(SV) && lpDTO.to().equals(DE) && lpDTO.permissionToPublish())
-				.findFirst();
-
-		final Optional<ClerkLanguagePairDTO> langPair2 = languagePairDTOS.stream()
-				.filter(lpDTO -> lpDTO.from().equals(DE) && lpDTO.to().equals(FI) && lpDTO.permissionToPublish())
-				.findFirst();
-
-		final Optional<ClerkLanguagePairDTO> langPair3 = languagePairDTOS.stream()
-				.filter(lpDTO -> lpDTO.from().equals(FI) && lpDTO.to().equals(SV) && !lpDTO.permissionToPublish())
-				.findFirst();
-		// @formatter:on
-
-		assertTrue(langPair1.isPresent());
-		assertTrue(langPair2.isPresent());
-		assertTrue(langPair3.isPresent());
+		assertEquals(List.of(new ClerkLanguagePairDTO(SV, DE, true)), authorisations.get(0).languagePairs());
+		assertEquals(List.of(new ClerkLanguagePairDTO(DE, FI, true)), authorisations.get(1).languagePairs());
+		assertEquals(List.of(new ClerkLanguagePairDTO(FI, SV, false)), authorisations.get(2).languagePairs());
 	}
 
 	@Test
@@ -463,21 +431,21 @@ class ClerkTranslatorServiceTest {
 		meetingDate1.setDate(LocalDate.parse("2015-01-01"));
 		meetingDate2.setDate(LocalDate.parse("2018-06-01"));
 
+		//
 		final Authorisation authorisation1 = Factory.authorisation(translator, meetingDate1);
-		final LanguagePair languagePair1 = Factory.languagePair(authorisation1);
 		final AuthorisationTerm authorisationTerm1 = Factory.authorisationTerm(authorisation1);
 
 		final LocalDate term1BeginDate = meetingDate1.getDate();
 		final LocalDate term1EndDate = term1BeginDate.plusYears(3);
 
 		authorisation1.setBasis(AuthorisationBasis.AUT);
-		languagePair1.setFromLang(RU);
-		languagePair1.setToLang(FI);
+		authorisation1.setFromLang(RU);
+		authorisation1.setToLang(FI);
 		authorisationTerm1.setBeginDate(term1BeginDate);
 		authorisationTerm1.setEndDate(term1EndDate);
 
+		//
 		final Authorisation authorisation2 = Factory.authorisation(translator, meetingDate2);
-		final LanguagePair languagePair2 = Factory.languagePair(authorisation2);
 		final AuthorisationTerm authorisationTerm2 = Factory.authorisationTerm(authorisation2);
 
 		final LocalDate term2BeginDate = meetingDate2.getDate();
@@ -486,8 +454,8 @@ class ClerkTranslatorServiceTest {
 		authorisation2.setBasis(AuthorisationBasis.KKT);
 		authorisation2.setAutDate(null);
 		authorisation2.setKktCheck("kkt-check");
-		languagePair2.setFromLang(FI);
-		languagePair2.setToLang(EN);
+		authorisation2.setFromLang(FI);
+		authorisation2.setToLang(EN);
 		authorisationTerm2.setBeginDate(term2BeginDate);
 		authorisationTerm2.setEndDate(term2EndDate);
 
@@ -495,10 +463,8 @@ class ClerkTranslatorServiceTest {
 		entityManager.persist(meetingDate2);
 		entityManager.persist(translator);
 		entityManager.persist(authorisation1);
-		entityManager.persist(languagePair1);
 		entityManager.persist(authorisationTerm1);
 		entityManager.persist(authorisation2);
-		entityManager.persist(languagePair2);
 		entityManager.persist(authorisationTerm2);
 
 		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
@@ -531,7 +497,6 @@ class ClerkTranslatorServiceTest {
 		final MeetingDate meetingDate = Factory.meetingDate();
 		final Translator translator = Factory.translator();
 		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-		final LanguagePair languagePair = Factory.languagePair(authorisation);
 		final AuthorisationTerm authorisationTerm1 = Factory.authorisationTerm(authorisation);
 		final AuthorisationTerm authorisationTerm2 = Factory.authorisationTerm(authorisation);
 		final AuthorisationTerm authorisationTerm3 = Factory.authorisationTerm(authorisation);
@@ -553,7 +518,6 @@ class ClerkTranslatorServiceTest {
 		entityManager.persist(meetingDate);
 		entityManager.persist(translator);
 		entityManager.persist(authorisation);
-		entityManager.persist(languagePair);
 		entityManager.persist(authorisationTerm1);
 		entityManager.persist(authorisationTerm2);
 		entityManager.persist(authorisationTerm3);

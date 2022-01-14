@@ -6,5 +6,5 @@ import java.time.LocalDate;
 
 public record TranslatorAuthorisationProjection(long translatorId, long authorisationId,
 		AuthorisationBasis authorisationBasis, LocalDate autDate, String kktCheck, LocalDate virDate,
-		LocalDate assuranceDate) {
+		LocalDate assuranceDate, String fromLang, String toLang, boolean permissionToPublish) {
 }
