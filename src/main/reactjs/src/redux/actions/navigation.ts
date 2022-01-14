@@ -1,7 +1,7 @@
-import { UIStates } from 'enums/app';
-import { DISPLAY_UI_STATE } from 'redux/actionTypes/navigation';
+import { PublicUIViews } from 'enums/app';
+import { DISPLAY_PUBLIC_VIEW } from 'redux/actionTypes/navigation';
 
-export const displayUIState = (state: UIStates) => ({
-  type: DISPLAY_UI_STATE,
-  state,
+export const setPublicUIView = (view: PublicUIViews) => ({
+  type: DISPLAY_PUBLIC_VIEW,
+  view,
 });

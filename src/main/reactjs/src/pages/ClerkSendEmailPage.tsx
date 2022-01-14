@@ -1,5 +1,6 @@
 import { Box, Button, Paper } from '@mui/material';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 import { H1, H2, Text } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
@@ -13,6 +14,7 @@ import { Severity, TextBoxTypes, Variant } from 'enums/app';
 import { Utils } from 'utils/index';
 import { selectClerkTranslatorEmail } from 'redux/selectors/clerkTranslatorEmail';
 import {
+  resetClerkTranslatorEmail,
   setClerkTranslatorEmail,
   setClerkTranslatorEmailRecipients,
 } from 'redux/actions/clerkTranslatorEmail';
@@ -106,7 +108,7 @@ export const ClerkSendEmailPage = () => {
 
   // Redux
   const translators = useAppSelector(selectFilteredSelectedTranslators);
-  const { email } = useAppSelector(selectClerkTranslatorEmail);
+  const { email, redirect } = useAppSelector(selectClerkTranslatorEmail);
   const dispatch = useAppDispatch();
   const setEmailSubject = (subject: string) =>
     dispatch(setClerkTranslatorEmail({ subject }));
@@ -119,6 +121,15 @@ export const ClerkSendEmailPage = () => {
     useState<typeof initialFieldErrors>(initialFieldErrors);
   const submitDisabled =
     Utils.isEmptyString(email.subject) || Utils.isEmptyString(email.body);
+
+  // Navigation
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (redirect) {
+      dispatch(resetClerkTranslatorEmail);
+      navigate(redirect);
+    }
+  }, [dispatch, navigate, redirect]);
 
   const handleFieldError =
     (field: 'subject' | 'message') =>

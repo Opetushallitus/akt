@@ -1,5 +1,9 @@
-import { UIStates } from 'enums/app';
+import { AppRoutes, PublicUIViews } from 'enums/app';
 
-export interface UIState {
-  state: UIStates;
+export interface PublicUIState {
+  currentView: PublicUIViews;
+}
+
+export interface RouteState {
+  currentRoute: AppRoutes | undefined;
 }

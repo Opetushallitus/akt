@@ -7,12 +7,14 @@ import {
 } from 'interfaces/clerkTranslatorEmail';
 import {
   CLERK_TRANSLATOR_EMAIL_ERROR,
+  CLERK_TRANSLATOR_EMAIL_REDIRECT_TO_HOMEPAGE,
   CLERK_TRANSLATOR_EMAIL_RESET,
   CLERK_TRANSLATOR_EMAIL_SEND,
   CLERK_TRANSLATOR_EMAIL_SET,
   CLERK_TRANSLATOR_EMAIL_SET_RECIPIENTS,
   CLERK_TRANSLATOR_EMAIL_SUCCESS,
 } from 'redux/actionTypes/clerkTranslatorEmail';
+import { AppRoutes } from 'enums/app';
 
 const defaultState = {
   status: APIResponseStatus.NotStarted,
@@ -21,6 +23,7 @@ const defaultState = {
     body: '',
   },
   recipients: [],
+  redirect: undefined,
 };
 
 export const clerkTranslatorEmailReducer: Reducer<
@@ -43,6 +46,8 @@ export const clerkTranslatorEmailReducer: Reducer<
       return { ...state, status: APIResponseStatus.Success };
     case CLERK_TRANSLATOR_EMAIL_ERROR:
       return { ...state, status: APIResponseStatus.Error };
+    case CLERK_TRANSLATOR_EMAIL_REDIRECT_TO_HOMEPAGE:
+      return { ...state, redirect: AppRoutes.ClerkHomePage };
     default:
       return state;
   }

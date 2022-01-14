@@ -1,6 +1,7 @@
 import { Box, Paper, Grid, Divider, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { useAppSelector } from 'configs/redux';
 import { useAppTranslation } from 'configs/i18n';
 import {
   RegisterControls,
@@ -12,23 +13,19 @@ import {
   clerkTranslatorsSelector,
   selectFilteredSelectedIds,
 } from 'redux/selectors/clerkTranslator';
-import { displayUIState } from 'redux/actions/navigation';
-import { UIStates } from 'enums/app';
+import { AppRoutes } from 'enums/app';
 
 const SendEmailButton = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.pages.clerkHomepage' });
-  const dispatch = useAppDispatch();
-  const openSendEmailPage = () => {
-    dispatch(displayUIState(UIStates.ClerkSendEmailPage));
-  };
   const disabled = useAppSelector(selectFilteredSelectedIds).length === 0;
 
   return (
     <Button
+      component={Link}
+      to={AppRoutes.ClerkSendEmailPage}
       color="secondary"
       variant="contained"
       disabled={disabled}
-      onClick={openSendEmailPage}
     >
       {t('sendEmail')}
     </Button>

@@ -3,15 +3,13 @@ import { call, put, select } from '@redux-saga/core/effects';
 import axiosInstance from 'configs/axios';
 import { translateOutsideComponent } from 'configs/i18n';
 import { APIEndpoints } from 'enums/api';
-import { Severity, UIStates, Variant } from 'enums/app';
-import { resetClerkTranslatorEmail } from 'redux/actions/clerkTranslatorEmail';
-import { displayUIState } from 'redux/actions/navigation';
+import { Severity, Variant } from 'enums/app';
 import {
   CLERK_TRANSLATOR_EMAIL_ERROR,
+  CLERK_TRANSLATOR_EMAIL_REDIRECT_TO_HOMEPAGE,
   CLERK_TRANSLATOR_EMAIL_SUCCESS,
 } from 'redux/actionTypes/clerkTranslatorEmail';
 import {
-  NOTIFIER_ACTION_CLERK_TRANSLATOR_EMAIL_RESET,
   NOTIFIER_ACTION_DO_NOTHING,
   NOTIFIER_DIALOG_ADD,
 } from 'redux/actionTypes/notifier';
@@ -19,8 +17,9 @@ import { selectClerkTranslatorEmail } from 'redux/selectors/clerkTranslatorEmail
 import { Utils } from 'utils/index';
 
 export function* resetEmail() {
-  yield put(resetClerkTranslatorEmail);
-  yield put(displayUIState(UIStates.ClerkTranslatorRegistry));
+  yield put({
+    type: CLERK_TRANSLATOR_EMAIL_REDIRECT_TO_HOMEPAGE,
+  });
 }
 
 function* showSuccessDialog() {
@@ -34,7 +33,7 @@ function* showSuccessDialog() {
       {
         title: t(tPrefix + 'back'),
         variant: Variant.Contained,
-        action: NOTIFIER_ACTION_CLERK_TRANSLATOR_EMAIL_RESET,
+        action: CLERK_TRANSLATOR_EMAIL_REDIRECT_TO_HOMEPAGE,
       },
     ]
   );

@@ -5,6 +5,7 @@ export enum AppConstants {
 export enum AppRoutes {
   PublicHomePage = '/',
   ClerkHomePage = '/akt/virkailija',
+  ClerkSendEmailPage = '/akt/virkailija/laheta-sahkoposti',
   NotFoundPage = '*',
 }
 
@@ -26,12 +27,9 @@ export enum KeyboardKey {
   Enter = 'Enter',
 }
 
-export enum UIStates {
+export enum PublicUIViews {
   PublicTranslatorListing = 'PublicTranslatorListing',
   ContactRequest = 'ContactRequest',
-  ClerkTranslatorRegistry = 'ClerkTranslatorRegistry',
-  ClerkSendEmailPage = 'ClerkSendEmailPage',
-  NotFoundPage = 'NotFoundPage',
 }
 
 export enum TextBoxTypes {
