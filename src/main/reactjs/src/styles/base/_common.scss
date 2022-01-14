@@ -1,3 +1,40 @@
+/* FLEX */
+.rows {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+}
+
+.columns {
+  display: flex;
+  flex-direction: row;
+  max-height: 100%;
+  align-items: center;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.gapped {
+  gap: 2rem;
+}
+
+.align-self-start {
+  align-self: flex-start;
+}
+
+/* GRID */
+.grid-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(5rem, auto));
+}
+
+/* OTHERS */
 .inline-text {
   display: inline-block;
 }
@@ -12,5 +49,5 @@
 }
 
 .m-margin-top {
-  margin-top: 3rem;
+  margin-top: 4rem;
 }

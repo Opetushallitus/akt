@@ -118,15 +118,9 @@ const assertSelectedTranslators = () => {
 };
 
 const assertContactDetails = () => {
-  expectTextForId(
-    'contact-info__first-name-text',
-    TEST_CONTACT_DETAILS.firstName
-  );
-  expectTextForId(
-    'contact-info__last-name-text',
-    TEST_CONTACT_DETAILS.lastName
-  );
-  expectTextForId('contact-info__email-text', TEST_CONTACT_DETAILS.email);
+  expectTextToBeInDocument(TEST_CONTACT_DETAILS.firstName);
+  expectTextToBeInDocument(TEST_CONTACT_DETAILS.lastName);
+  expectTextToBeInDocument(TEST_CONTACT_DETAILS.email);
 };
 
 export const previewAndSendStep = () => {
@@ -135,6 +129,9 @@ export const previewAndSendStep = () => {
   assertSelectedTranslators();
   assertContactDetails();
 };
+
+export const expectTextToBeInDocument = (text: string) =>
+  cy.findByDisplayValue(text).should('be.visible');
 
 export const expectTextForId = (id: Matcher, text: string) =>
   cy.findByTestId(id).should('have.text', text);

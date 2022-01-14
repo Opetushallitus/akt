@@ -25,6 +25,9 @@ export const theme = createTheme({
             borderColor: secondaryDarkColor,
           },
           color: grey700Color,
+          '&.Mui-disabled': {
+            backgroundColor: primaryLightColor,
+          },
         },
       },
     },
@@ -33,6 +36,9 @@ export const theme = createTheme({
         root: {
           '&.Mui-focused': {
             color: grey700Color,
+          },
+          '&.Mui-disabled': {
+            color: primaryHeadingColor,
           },
           color: grey700Color,
         },

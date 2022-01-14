@@ -26,8 +26,8 @@ export const PreviewAndSend = () => {
         <DisplayContactInfo />
         <H3>{t('message')}</H3>
         <TextBox
+          disabled
           data-testid="contact-request-page__message-text"
-          variant="standard"
           defaultValue={request?.message}
           InputProps={{
             readOnly: true,

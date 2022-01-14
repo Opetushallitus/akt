@@ -5,18 +5,17 @@ import {
   NOTIFIER_ACTION_CONTACT_REQUEST_EMPTY,
 } from 'redux/actionTypes/notifier';
 import { UIStates } from 'enums/app';
-import { DISPLAY_UI_STATE } from 'redux/actionTypes/navigation';
 import {
   CONTACT_REQUEST_RESET,
   CONTACT_REQUEST_RESET_REDIRECT,
 } from 'redux/actionTypes/contactRequest';
+import { PUBLIC_TRANSLATOR_EMPTY_SELECTIONS } from 'redux/actionTypes/publicTranslator';
+import { displayUIState } from 'redux/actions/navigation';
 
 export function* resetContactRequest() {
   yield put({ type: CONTACT_REQUEST_RESET });
-  yield put({
-    type: DISPLAY_UI_STATE,
-    state: UIStates.PublicTranslatorListing,
-  });
+  yield put({ type: PUBLIC_TRANSLATOR_EMPTY_SELECTIONS });
+  yield put(displayUIState(UIStates.PublicTranslatorListing));
 }
 
 export function* emtyContactRequestState() {
