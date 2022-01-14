@@ -13,6 +13,8 @@ export interface APIAuthorisationTerm {
 }
 
 export interface Authorisation {
+  fromLang: string;
+  toLang: string;
   basis: AuthorisationBasis;
   autDate: Date;
   kktCheck: string;
@@ -20,7 +22,7 @@ export interface Authorisation {
   assuranceDate: Date;
   meetingDate: Date;
   terms?: Array<AuthorisationTerm>;
-  languagePairs: Array<ClerkLanguagePair>;
+  permissionToPublish: boolean;
 }
 
 export interface APIAuthorisation {

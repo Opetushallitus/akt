@@ -11,11 +11,14 @@ export class APIUtils {
   ): Authorisation {
     return {
       ...authorisation,
+      fromLang: authorisation.languagePairs[0].from,
+      toLang: authorisation.languagePairs[0].to,
       autDate: new Date(authorisation.autDate),
       virDate: new Date(authorisation.virDate),
       assuranceDate: new Date(authorisation.assuranceDate),
       meetingDate: new Date(authorisation.meetingDate),
       terms: APIUtils.convertAPIAuthorisationTerms(authorisation.terms),
+      permissionToPublish: authorisation.languagePairs[0].permissionToPublish,
     };
   }
 

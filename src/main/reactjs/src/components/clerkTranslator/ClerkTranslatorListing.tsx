@@ -24,22 +24,23 @@ import {
   selectFilteredSelectedIds,
 } from 'redux/selectors/clerkTranslator';
 import { Utils } from 'utils';
-import { effectiveAuthorisationTerm } from 'interfaces/authorisation';
+import {
+  Authorisation,
+  effectiveAuthorisationTerm,
+} from 'interfaces/authorisation';
 
-const getLanguagePairsWithAuthorisations = (translator: ClerkTranslator) => {
-  return translator.authorisations.flatMap((authorisation) => {
-    const { basis, languagePairs } = authorisation;
-    const term = effectiveAuthorisationTerm(authorisation);
+const getAuthorisationData = (authorisation: Authorisation) => {
+  const { fromLang, toLang, basis, permissionToPublish } = authorisation;
+  const effectiveTerm = effectiveAuthorisationTerm(authorisation);
 
-    return languagePairs.map(({ from, to, permissionToPublish }) => ({
-      from,
-      to,
-      permissionToPublish,
-      authorisationBasis: basis,
-      authorisationStart: term?.start,
-      authorisationEnd: term?.end,
-    }));
-  });
+  return {
+    fromLang,
+    toLang,
+    basis,
+    effectiveTermStart: effectiveTerm?.start,
+    effectiveTermEnd: effectiveTerm?.end,
+    permissionToPublish,
+  };
 };
 
 const getRowDetails = (
@@ -70,8 +71,8 @@ const ListingRow = ({
     keyPrefix: 'akt.component.clerkTranslatorListing',
   });
   const { firstName, lastName } = translator.contactDetails;
-  const languagesWithAuthorisations =
-    getLanguagePairsWithAuthorisations(translator);
+  const authorisationDatas =
+    translator.authorisations.map(getAuthorisationData);
   const translateLanguage = useKoodistoLanguagesTranslation();
 
   return (
@@ -88,37 +89,37 @@ const ListingRow = ({
       </TableCell>
       <TableCell>
         <div className="rows">
-          {languagesWithAuthorisations.map(({ from, to }, idx) => (
+          {authorisationDatas.map(({ fromLang, toLang }, idx) => (
             <Text key={idx}>
-              {`${translateLanguage(from)} - ${translateLanguage(to)}`}
+              {`${translateLanguage(fromLang)} - ${translateLanguage(toLang)}`}
             </Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
         <div className="rows">
-          {languagesWithAuthorisations.map(({ authorisationBasis }, idx) => (
-            <Text key={idx}>{authorisationBasis}</Text>
+          {authorisationDatas.map(({ basis }, idx) => (
+            <Text key={idx}>{basis}</Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
         <div className="rows">
-          {languagesWithAuthorisations.map(({ authorisationStart }, idx) => (
-            <Text key={idx}>{Utils.formatDate(authorisationStart)}</Text>
+          {authorisationDatas.map(({ effectiveTermStart }, idx) => (
+            <Text key={idx}>{Utils.formatDate(effectiveTermStart)}</Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
         <div className="rows">
-          {languagesWithAuthorisations.map(({ authorisationEnd }, idx) => (
-            <Text key={idx}>{Utils.formatDate(authorisationEnd)}</Text>
+          {authorisationDatas.map(({ effectiveTermEnd }, idx) => (
+            <Text key={idx}>{Utils.formatDate(effectiveTermEnd)}</Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
         <div className="rows">
-          {languagesWithAuthorisations.map(({ permissionToPublish }, idx) => (
+          {authorisationDatas.map(({ permissionToPublish }, idx) => (
             <Text key={idx}>
               {t(`permissionToPublish.${permissionToPublish}`)}
             </Text>
