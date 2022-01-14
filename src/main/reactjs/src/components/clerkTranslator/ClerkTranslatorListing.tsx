@@ -24,18 +24,22 @@ import {
   selectFilteredSelectedIds,
 } from 'redux/selectors/clerkTranslator';
 import { Utils } from 'utils';
+import { effectiveAuthorisationTerm } from 'interfaces/authorisation';
 
 const getLanguagePairsWithAuthorisations = (translator: ClerkTranslator) => {
-  return translator.authorisations.flatMap(({ basis, term, languagePairs }) =>
-    languagePairs.map(({ from, to, permissionToPublish }) => ({
+  return translator.authorisations.flatMap((authorisation) => {
+    const { basis, languagePairs } = authorisation;
+    const term = effectiveAuthorisationTerm(authorisation);
+
+    return languagePairs.map(({ from, to, permissionToPublish }) => ({
       from,
       to,
       permissionToPublish,
       authorisationBasis: basis,
       authorisationStart: term?.start,
       authorisationEnd: term?.end,
-    }))
-  );
+    }));
+  });
 };
 
 const getRowDetails = (

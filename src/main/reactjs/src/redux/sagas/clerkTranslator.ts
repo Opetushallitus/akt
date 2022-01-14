@@ -4,6 +4,8 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import axiosInstance from 'configs/axios';
 import { APIEndpoints } from 'enums/api';
 import {
+  APIClerkTranslator,
+  ClerkTranslator,
   ClerkTranslatorAPIResponse,
   ClerkTranslatorResponse,
 } from 'interfaces/clerkTranslator';
@@ -15,20 +17,27 @@ import {
 } from 'redux/actionTypes/clerkTranslators';
 import { APIUtils } from 'utils/api';
 
+const convertAPITranslator = (
+  translator: APIClerkTranslator
+): ClerkTranslator => {
+  return {
+    ...translator,
+    authorisations: translator.authorisations.map(
+      APIUtils.convertAPIAuthorisation
+    ),
+  };
+};
+
 const convertAPIResponse = (
   response: ClerkTranslatorAPIResponse
 ): ClerkTranslatorResponse => {
   const APITranslators = response.translators;
+  const APIMeetingDates = response.meetingDates;
   const { towns, langs } = response;
-  const translators = APITranslators.map((t) => ({
-    ...t,
-    authorisations: t.authorisations.map((a) => ({
-      ...a,
-      term: APIUtils.convertAPIAuthorisationTerm(a.term),
-    })),
-  }));
+  const translators = APITranslators.map(convertAPITranslator);
+  const meetingDates = APIMeetingDates.map(APIUtils.convertAPIMeetingDate);
 
-  return { translators, towns, langs };
+  return { translators, towns, langs, meetingDates };
 };
 
 function* fetchClerkTranslators() {
@@ -46,12 +55,13 @@ function* fetchClerkTranslators() {
 }
 
 export function* storeApiResults(response: ClerkTranslatorResponse) {
-  const { translators, langs, towns } = response;
+  const { translators, langs, towns, meetingDates } = response;
   yield put({
     type: CLERK_TRANSLATOR_RECEIVED,
     translators,
     langs,
     towns,
+    meetingDates,
   });
 }
 

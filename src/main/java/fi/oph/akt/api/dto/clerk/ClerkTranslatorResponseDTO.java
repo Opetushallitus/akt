@@ -7,7 +7,7 @@ import lombok.NonNull;
 import java.util.List;
 
 public record ClerkTranslatorResponseDTO(@NonNull List<ClerkTranslatorDTO> translators,
-		@NonNull LanguagePairsDictDTO langs, @NonNull List<String> towns) {
+		@NonNull LanguagePairsDictDTO langs, @NonNull List<String> towns, @NonNull List<MeetingDateDTO> meetingDates) {
 
 	// Workaround for bug in IntelliJ lombok plugin
 	// https://github.com/mplushnikov/lombok-intellij-plugin/issues/764
