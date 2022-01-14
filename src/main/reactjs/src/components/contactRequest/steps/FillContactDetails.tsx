@@ -97,31 +97,35 @@ export const FillContactDetails = ({
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         <RenderChosenTranslators />
-        <div className="rows gapped half-max-width">
+        <div className="rows gapped">
           <H3>{t('component.contactRequestForm.steps.' + stepsByIndex[1])}</H3>
-          <TextBox
-            {...getTextBoxAttributes('firstName')}
-            value={request?.firstName}
-            type={TextBoxTypes.Text}
-            required
-          />
-          <TextBox
-            {...getTextBoxAttributes('lastName')}
-            type={TextBoxTypes.Text}
-            value={request?.lastName}
-            required
-          />
-          <TextBox
-            {...getTextBoxAttributes('email')}
-            type={TextBoxTypes.Email}
-            value={request?.email}
-            required
-          />
-          <TextBox
-            {...getTextBoxAttributes('phoneNumber')}
-            value={request?.phoneNumber}
-            type={TextBoxTypes.PhoneNumber}
-          />
+          <div className="grid-columns gapped">
+            <TextBox
+              {...getTextBoxAttributes('firstName')}
+              value={request?.firstName}
+              type={TextBoxTypes.Text}
+              required
+            />
+            <TextBox
+              {...getTextBoxAttributes('lastName')}
+              type={TextBoxTypes.Text}
+              value={request?.lastName}
+              required
+            />
+          </div>
+          <div className="grid-columns gapped">
+            <TextBox
+              {...getTextBoxAttributes('email')}
+              type={TextBoxTypes.Email}
+              value={request?.email}
+              required
+            />
+            <TextBox
+              {...getTextBoxAttributes('phoneNumber')}
+              value={request?.phoneNumber}
+              type={TextBoxTypes.PhoneNumber}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
   &__filter-box {
     display: grid;
     gap: 4rem;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, auto));
+    grid-template-columns: repeat(auto-fit, minmax(25rem, auto));
   }
 
   &__filter {
@@ -20,6 +20,6 @@
   &__btn-box {
     display: flex;
     gap: 2rem;
-    margin-top: 4rem;
+    margin-top: 3rem;
   }
 }

@@ -6,6 +6,7 @@ import { FillContactDetails } from 'components/contactRequest/steps/FillContactD
 import { WriteMessage } from 'components/contactRequest/steps/WriteMessage';
 import { PreviewAndSend } from 'components/contactRequest/steps/PreviewAndSend';
 import { Done } from 'components/contactRequest/steps/Done';
+import { TextBox } from 'components/elements/TextBox';
 import {
   useAppTranslation,
   useKoodistoLanguagesTranslation,
@@ -66,30 +67,20 @@ export const DisplayContactInfo = () => {
   return (
     <div className="rows gapped">
       <H2>{t('contactInfo')}</H2>
-      <div className="rows">
-        <H3>{t('firstName')}</H3>
-        <Text data-testid="contact-info__first-name-text">
-          {request?.firstName}
-        </Text>
+      <div className="grid-columns gapped">
+        <TextBox disabled value={request?.firstName} label={t('firstName')} />
+        <TextBox disabled value={request?.lastName} label={t('lastName')} />
       </div>
-      <div className="rows">
-        <H3>{t('lastName')}</H3>
-        <Text data-testid="contact-info__last-name-text">
-          {request?.lastName}
-        </Text>
+      <div className="grid-columns gapped">
+        <TextBox disabled value={request?.email} label={t('email')} />
+        {request?.phoneNumber && (
+          <TextBox
+            disabled
+            value={request?.phoneNumber}
+            label={t('phoneNumber')}
+          />
+        )}
       </div>
-      <div className="rows">
-        <H3>{t('email')}</H3>
-        <Text data-testid="contact-info__email-text">{request?.email}</Text>
-      </div>
-      {request?.phoneNumber && (
-        <div className="rows">
-          <H3>{t('phoneNumber')}</H3>
-          <Text data-testid="contact-info__phone-number-text">
-            {request.phoneNumber}
-          </Text>
-        </div>
-      )}
     </div>
   );
 };

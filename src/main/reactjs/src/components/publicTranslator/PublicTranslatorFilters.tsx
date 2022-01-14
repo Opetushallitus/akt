@@ -259,7 +259,6 @@ export const PublicTranslatorFilters = ({
           color="secondary"
           variant="outlined"
           onClick={handleEmptyBtnClick}
-          size="large"
           disabled={isEmptyBtnDisabled()}
         >
           {t('buttons.empty')}
@@ -268,7 +267,6 @@ export const PublicTranslatorFilters = ({
           data-testid="public-translator-filters__search-btn"
           color="secondary"
           variant="contained"
-          size="large"
           onClick={handleSearchBtnClick}
         >
           {t('buttons.search')}
