@@ -1,0 +1,26 @@
+import { AuthorisationStatus } from 'enums/clerkTranslator';
+
+class ClerkTranslatorRegistry {
+  elements = {
+    registryHeading: () =>
+      cy.findByTestId('clerk-translator-registry__heading'),
+    authorisationStatusButton: (status: AuthorisationStatus) =>
+      cy.findByTestId(`clerk-translator-filters__btn--${status}`),
+  };
+
+  expectTotalTranslatorsCount(count: number) {
+    this.elements
+      .registryHeading()
+      .should('contain.text', `Rekisteri(${count})`);
+  }
+
+  expectSelectedTranslatorsCount(count: number) {
+    cy.get('.table__head-box__pagination').should('contain.text', `/ ${count}`);
+  }
+
+  filterByAuthorisationStatus(status: AuthorisationStatus) {
+    this.elements.authorisationStatusButton(status).click();
+  }
+}
+
+export const onClerkTranslatorRegistry = new ClerkTranslatorRegistry();

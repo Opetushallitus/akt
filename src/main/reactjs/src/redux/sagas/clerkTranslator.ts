@@ -28,7 +28,7 @@ const convertAPITranslator = (
   };
 };
 
-const convertAPIResponse = (
+export const convertAPIResponse = (
   response: ClerkTranslatorAPIResponse
 ): ClerkTranslatorResponse => {
   const APITranslators = response.translators;

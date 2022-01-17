@@ -45,6 +45,7 @@ export const RegisterControls = () => {
       {countsForStatuses.map(({ count, status }, i) => (
         <Button
           key={i}
+          data-testid={`clerk-translator-filters__btn--${status}`}
           color="secondary"
           variant={variantForStatus(status)}
           onClick={() => filterByAuthorisationStatus(status)}

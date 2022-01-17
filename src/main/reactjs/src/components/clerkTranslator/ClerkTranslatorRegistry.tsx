@@ -47,7 +47,10 @@ export const ClerkTranslatorsRegistry = () => {
             className="clerk-homepage__grid-container"
           >
             <Grid item>
-              <div className="columns gapped">
+              <div
+                className="columns gapped"
+                data-testid="clerk-translator-registry__heading"
+              >
                 <H2>{t('register')}</H2>
                 <Text>{`(${translators.length})`}</Text>
               </div>
