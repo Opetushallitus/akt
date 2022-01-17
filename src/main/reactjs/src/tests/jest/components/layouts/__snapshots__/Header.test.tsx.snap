@@ -52,7 +52,7 @@ exports[`Header should render Header correctly 1`] = `
           }
         >
           <div
-            aria-label="secondary tabs urls"
+            aria-label="tabsLabel"
             aria-orientation={null}
             className="MuiTabs-flexContainer css-heg063-MuiTabs-flexContainer"
             onKeyDown={[Function]}
@@ -106,7 +106,7 @@ exports[`Header should render Header correctly 1`] = `
               tabIndex={-1}
               type="button"
             >
-              documentCreation
+              certificateCreation
             </button>
             <button
               aria-selected={false}
