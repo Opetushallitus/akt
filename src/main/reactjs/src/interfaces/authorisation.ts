@@ -1,9 +1,4 @@
-import { ClerkLanguagePair } from 'interfaces/language';
-
-export interface LanguagePair {
-  from: string;
-  to: string;
-}
+import { ClerkLanguagePair, PublicLanguagePair } from 'interfaces/language';
 
 type AuthorisationBasis = 'AUT' | 'KKT' | 'VIR';
 
@@ -13,15 +8,15 @@ export interface AuthorisationTerm {
 }
 
 export interface Authorisation {
-  langPair: LanguagePair;
+  langPair: PublicLanguagePair;
   basis: AuthorisationBasis;
-  autDate: Date;
-  kktCheck: string;
-  virDate: Date;
-  assuranceDate: Date;
-  meetingDate: Date;
-  terms?: Array<AuthorisationTerm>;
+  autDate?: Date;
+  kktCheck?: string;
+  virDate?: Date;
+  assuranceDate?: Date;
+  meetingDate?: Date;
   effectiveTerm?: AuthorisationTerm;
+  terms?: Array<AuthorisationTerm>;
   permissionToPublish: boolean;
 }
 
@@ -32,11 +27,11 @@ export interface APIAuthorisationTerm {
 
 export interface APIAuthorisation {
   basis: AuthorisationBasis;
-  autDate: string;
-  kktCheck: string;
-  virDate: string;
-  assuranceDate: string;
-  meetingDate: string;
+  autDate?: string;
+  kktCheck?: string;
+  virDate?: string;
+  assuranceDate?: string;
+  meetingDate?: string;
   terms?: Array<APIAuthorisationTerm>;
   languagePairs: Array<ClerkLanguagePair>;
 }
