@@ -82,6 +82,13 @@ export const theme = createTheme({
         },
       },
     },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: grey700Color,
+        },
+      },
+    },
   },
   palette: {
     primary: {
