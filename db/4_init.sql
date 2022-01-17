@@ -135,7 +135,7 @@ SELECT translator_id,
        langs[mod(i, array_length(langs, 1)) + 1],
        mod(i, 21) <> 0
 FROM translator_ids,
-     (SELECT ('{EN, RU, ET, DE, FR, BN, FO, CS, CA, DA, EL, FO, FJ, GA, HE, HU, HR, TT, TY, UG, UK, VI, ZH}')::text[] AS langs) AS langs_table
+     (SELECT ('{BN, CA, CS, DA, DE, EL, EN, ET, FJ, FO, FR, GA, HE, HR, HU, JA, RU, TT, TY, UG, UK, VI, ZH}')::text[] AS langs) AS langs_table
 ;
 
 -- add inverse language pairs

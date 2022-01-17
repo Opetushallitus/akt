@@ -7,7 +7,6 @@ import fi.oph.akt.model.Email;
 import fi.oph.akt.model.EmailType;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.AuthorisationExpiryDataProjection;
-import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.AuthorisationTermReminderRepository;
 import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.EmailRepository;
@@ -38,9 +37,6 @@ public class ClerkEmailService {
 
 	@Resource
 	private final EmailService emailService;
-
-	@Resource
-	private final AuthorisationRepository authorisationRepository;
 
 	@Resource
 	private final TemplateRenderer templateRenderer;
@@ -88,8 +84,8 @@ public class ClerkEmailService {
 		final AuthorisationExpiryDataProjection expiryData = authorisationTermRepository
 				.getExpiryDataProjection(authorisationTerm.getId());
 
-		final String emailBody = getAuthorisationExpiryEmailBody(expiryData.authorisationId(),
-				authorisationTerm.getEndDate());
+		final String emailBody = getAuthorisationExpiryEmailBody(authorisationTerm.getEndDate(), expiryData.fromLang(),
+				expiryData.toLang());
 
 		// TODO: replace recipient with translator's email address
 		final Long emailId = createEmail("translator" + expiryData.translatorId() + "@test.fi",
@@ -100,17 +96,12 @@ public class ClerkEmailService {
 		createAuthorisationTermReminder(authorisationTerm, email);
 	}
 
-	private String getAuthorisationExpiryEmailBody(final Long authorisationId, final LocalDate termEndDate) {
+	private String getAuthorisationExpiryEmailBody(final LocalDate termEndDate, final String fromLang,
+			final String toLang) {
 		// @formatter:off
-		final List<String> languagePairs = authorisationRepository
-				.findById(authorisationId)
-				.stream()
-				.map(lp -> lp.getFromLang().toLowerCase() + " - " + lp.getToLang().toLowerCase())
-				.toList();
-
 		final Map<String, Object> templateParams = Map.of(
 				"expiryDate", termEndDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
-				"languagePairs", languagePairs,
+				"langPair", fromLang.toLowerCase() + " - " + toLang.toLowerCase(),
 				"contactEmail", "auktoris@oph.fi"
 		);
 		// @formatter:on

@@ -28,7 +28,7 @@ public interface AuthorisationTermRepository extends JpaRepository<Authorisation
 			LocalDateTime previousReminderSentBefore);
 
 	// @formatter:off
-	@Query("SELECT new fi.oph.akt.repository.AuthorisationExpiryDataProjection(a.id, t.id)"
+	@Query("SELECT new fi.oph.akt.repository.AuthorisationExpiryDataProjection(a.fromLang, a.toLang, t.id)"
 			+ " FROM Translator t"
 			+ " JOIN t.authorisations a"
 			+ " JOIN a.terms at"

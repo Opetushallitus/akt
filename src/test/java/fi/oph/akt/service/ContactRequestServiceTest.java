@@ -45,6 +45,9 @@ class ContactRequestServiceTest {
 	private ContactRequestService contactRequestService;
 
 	@Resource
+	private AuthorisationRepository authorisationRepository;
+
+	@Resource
 	private ContactRequestRepository contactRequestRepository;
 
 	@Resource
@@ -52,9 +55,6 @@ class ContactRequestServiceTest {
 
 	@MockBean
 	private EmailService emailService;
-
-	@Resource
-	private AuthorisationRepository authorisationRepository;
 
 	@MockBean
 	private TemplateRenderer templateRenderer;
@@ -72,8 +72,8 @@ class ContactRequestServiceTest {
 	public void setup() {
 		when(templateRenderer.renderContactRequestEmailBody(any())).thenReturn("hello world");
 
-		contactRequestService = new ContactRequestService(contactRequestRepository, contactRequestTranslatorRepository,
-				emailService, authorisationRepository, templateRenderer, translatorRepository);
+		contactRequestService = new ContactRequestService(authorisationRepository, contactRequestRepository,
+				contactRequestTranslatorRepository, emailService, templateRenderer, translatorRepository);
 	}
 
 	@Test

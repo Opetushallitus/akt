@@ -2,7 +2,6 @@ package fi.oph.akt.service;
 
 import fi.oph.akt.Factory;
 import fi.oph.akt.api.dto.clerk.AuthorisationTermDTO;
-import fi.oph.akt.api.dto.clerk.ClerkLanguagePairDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorAuthorisationDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorContactDetailsDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
@@ -30,7 +29,9 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 class ClerkTranslatorServiceTest {
@@ -380,49 +381,6 @@ class ClerkTranslatorServiceTest {
 	}
 
 	@Test
-	public void listShouldReturnProperLanguagePairsForAuthorisations() {
-		final MeetingDate meetingDate = Factory.meetingDate();
-		final Translator translator = Factory.translator();
-
-		final Authorisation authorisation1 = Factory.authorisation(translator, meetingDate);
-		final AuthorisationTerm authorisationTerm1 = Factory.authorisationTerm(authorisation1);
-		authorisation1.setFromLang(SV);
-		authorisation1.setToLang(DE);
-		authorisation1.setPermissionToPublish(true);
-
-		final Authorisation authorisation2 = Factory.authorisation(translator, meetingDate);
-		final AuthorisationTerm authorisationTerm2 = Factory.authorisationTerm(authorisation2);
-		authorisation2.setFromLang(DE);
-		authorisation2.setToLang(FI);
-		authorisation2.setPermissionToPublish(true);
-
-		final Authorisation authorisation3 = Factory.authorisation(translator, meetingDate);
-		final AuthorisationTerm authorisationTerm3 = Factory.authorisationTerm(authorisation3);
-		authorisation3.setFromLang(FI);
-		authorisation3.setToLang(SV);
-		authorisation3.setPermissionToPublish(false);
-
-		entityManager.persist(meetingDate);
-		entityManager.persist(translator);
-		entityManager.persist(authorisation1);
-		entityManager.persist(authorisation2);
-		entityManager.persist(authorisation3);
-		entityManager.persist(authorisationTerm1);
-		entityManager.persist(authorisationTerm2);
-		entityManager.persist(authorisationTerm3);
-
-		final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
-		assertEquals(1, responseDTO.translators().size());
-
-		final List<ClerkTranslatorAuthorisationDTO> authorisations = responseDTO.translators().get(0).authorisations();
-		assertEquals(3, authorisations.size());
-
-		assertEquals(List.of(new ClerkLanguagePairDTO(SV, DE, true)), authorisations.get(0).languagePairs());
-		assertEquals(List.of(new ClerkLanguagePairDTO(DE, FI, true)), authorisations.get(1).languagePairs());
-		assertEquals(List.of(new ClerkLanguagePairDTO(FI, SV, false)), authorisations.get(2).languagePairs());
-	}
-
-	@Test
 	public void listShouldReturnProperDataForTranslatorWithMultipleAuthorisations() {
 		final MeetingDate meetingDate1 = Factory.meetingDate();
 		final MeetingDate meetingDate2 = Factory.meetingDate();
@@ -441,6 +399,7 @@ class ClerkTranslatorServiceTest {
 		authorisation1.setBasis(AuthorisationBasis.AUT);
 		authorisation1.setFromLang(RU);
 		authorisation1.setToLang(FI);
+		authorisation1.setPermissionToPublish(true);
 		authorisationTerm1.setBeginDate(term1BeginDate);
 		authorisationTerm1.setEndDate(term1EndDate);
 
@@ -456,6 +415,7 @@ class ClerkTranslatorServiceTest {
 		authorisation2.setKktCheck("kkt-check");
 		authorisation2.setFromLang(FI);
 		authorisation2.setToLang(EN);
+		authorisation2.setPermissionToPublish(false);
 		authorisationTerm2.setBeginDate(term2BeginDate);
 		authorisationTerm2.setEndDate(term2EndDate);
 
@@ -484,16 +444,18 @@ class ClerkTranslatorServiceTest {
 		assertEquals(term1EndDate, autAuthorisationDTO.terms().get(0).endDate());
 		assertEquals(RU, autAuthorisationDTO.languagePairs().get(0).from());
 		assertEquals(FI, autAuthorisationDTO.languagePairs().get(0).to());
+		assertTrue(autAuthorisationDTO.languagePairs().get(0).permissionToPublish());
 
 		assertEquals(meetingDate2.getDate(), kktAuthorisationDTO.meetingDate());
 		assertEquals(term2BeginDate, kktAuthorisationDTO.terms().get(0).beginDate());
 		assertEquals(term2EndDate, kktAuthorisationDTO.terms().get(0).endDate());
 		assertEquals(FI, kktAuthorisationDTO.languagePairs().get(0).from());
 		assertEquals(EN, kktAuthorisationDTO.languagePairs().get(0).to());
+		assertFalse(kktAuthorisationDTO.languagePairs().get(0).permissionToPublish());
 	}
 
 	@Test
-	public void listShouldReturnProperDataForTranslatorWithMultipleAuthorisationTerms() {
+	public void listShouldReturnProperDataForTranslatorWithAuthorisationWithMultipleTerms() {
 		final MeetingDate meetingDate = Factory.meetingDate();
 		final Translator translator = Factory.translator();
 		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);

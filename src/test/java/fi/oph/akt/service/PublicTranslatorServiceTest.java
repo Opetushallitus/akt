@@ -33,7 +33,7 @@ class PublicTranslatorServiceTest {
 	private PublicTranslatorService publicTranslatorService;
 
 	@Test
-	public void listTranslatorsShouldReturnTranslatorsWithActiveTermAndHavingLanguagePairsWithPermissionToBePublished() {
+	public void listTranslatorsShouldReturnTranslatorsByAuthorisationsWithActiveTermAndPublishPermission() {
 		final MeetingDate meetingDate = Factory.meetingDate();
 		entityManager.persist(meetingDate);
 

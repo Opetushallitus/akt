@@ -25,6 +25,9 @@ import java.util.Map;
 public class ContactRequestService {
 
 	@Resource
+	private final AuthorisationRepository authorisationRepository;
+
+	@Resource
 	private final ContactRequestRepository contactRequestRepository;
 
 	@Resource
@@ -32,9 +35,6 @@ public class ContactRequestService {
 
 	@Resource
 	private final EmailService emailService;
-
-	@Resource
-	private final AuthorisationRepository authorisationRepository;
 
 	@Resource
 	private final TemplateRenderer templateRenderer;

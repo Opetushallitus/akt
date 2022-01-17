@@ -6,7 +6,6 @@ import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
-import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.AuthorisationTermReminderRepository;
 import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.EmailRepository;
@@ -50,9 +49,6 @@ public class ClerkEmailServiceTest {
 	@MockBean
 	private EmailService emailService;
 
-	@Resource
-	private AuthorisationRepository authorisationRepository;
-
 	@MockBean
 	private TemplateRenderer templateRenderer;
 
@@ -68,7 +64,7 @@ public class ClerkEmailServiceTest {
 	@BeforeEach
 	public void setup() {
 		clerkEmailService = new ClerkEmailService(authorisationTermReminderRepository, authorisationTermRepository,
-				emailRepository, emailService, authorisationRepository, templateRenderer, translatorRepository);
+				emailRepository, emailService, templateRenderer, translatorRepository);
 	}
 
 	@Test
@@ -141,10 +137,10 @@ public class ClerkEmailServiceTest {
 		final MeetingDate meetingDate = Factory.meetingDate();
 		final Translator translator = Factory.translator();
 		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-		authorisation.setFromLang("SV");
-		authorisation.setToLang("EN");
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
+		authorisation.setFromLang("SV");
+		authorisation.setToLang("EN");
 		authorisationTerm.setEndDate(LocalDate.parse("2025-12-01"));
 
 		entityManager.persist(meetingDate);
@@ -155,7 +151,7 @@ public class ClerkEmailServiceTest {
 		// @formatter:off
 		final Map<String, Object> expectedTemplateParams = Map.of(
 				"expiryDate", "01.12.2025",
-				"languagePairs", List.of("sv - en"),
+				"langPair", "sv - en",
 				"contactEmail", "auktoris@oph.fi"
 		);
 		// @formatter:on
