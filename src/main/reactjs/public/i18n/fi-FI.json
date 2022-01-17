@@ -15,8 +15,9 @@
           "logOut": "Kirjaudu ulos",
           "navLinks": {
             "register": "Rekisteri",
-            "documentCreation": "Todistuksen tekeminen",
-            "meetingDates": "Kokouspäivät"
+            "certificateCreation": "Todistuksen tekeminen",
+            "meetingDates": "Kokouspäivät",
+            "tabsLabel": "Virkailijan URL-osoitteet"
           }
         }
       },

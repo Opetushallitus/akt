@@ -20,10 +20,10 @@ export const ClerkNavTabs = () => {
       onChange={handleChange}
       textColor={Color.Secondary}
       indicatorColor={Color.Secondary}
-      aria-label="secondary tabs urls"
+      aria-label={t('tabsLabel')}
     >
       <Tab value="register" label={t('register')} />
-      <Tab value="documentCreation" label={t('documentCreation')} />
+      <Tab value="certificateCreation" label={t('certificateCreation')} />
       <Tab value="meetingDates" label={t('meetingDates')} />
     </Tabs>
   );

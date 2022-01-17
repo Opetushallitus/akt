@@ -20,6 +20,10 @@
   &__center {
     justify-self: end;
     align-self: flex-end;
+
+    [role='tablist'] {
+      gap: 3rem;
+    }
   }
 
   &__right {
