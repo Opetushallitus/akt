@@ -5,7 +5,7 @@ import fi.oph.akt.api.dto.PublicLanguagePairDTO;
 import fi.oph.akt.api.dto.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Translator;
-import fi.oph.akt.repository.LanguagePairRepository;
+import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.TranslatorLanguagePairProjection;
 import fi.oph.akt.repository.TranslatorRepository;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class PublicTranslatorService {
 	private static final Logger LOG = LoggerFactory.getLogger(PublicTranslatorService.class);
 
 	@Resource
-	private LanguagePairRepository languagePairRepository;
+	private AuthorisationRepository authorisationRepository;
 
 	@Resource
 	private TranslatorRepository translatorRepository;
@@ -40,7 +40,7 @@ public class PublicTranslatorService {
 		final StopWatch st = new StopWatch();
 
 		st.start("findTranslatorLanguagePairsForPublicListing");
-		final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs = languagePairRepository
+		final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs = authorisationRepository
 				.findTranslatorLanguagePairsForPublicListing().stream()
 				.collect(Collectors.groupingBy(TranslatorLanguagePairProjection::translatorId));
 		st.stop();
@@ -104,8 +104,8 @@ public class PublicTranslatorService {
 	}
 
 	private LanguagePairsDictDTO getLanguagePairsDictDTO() {
-		final List<String> fromLangs = languagePairRepository.getDistinctFromLangs();
-		final List<String> toLangs = languagePairRepository.getDistinctToLangs();
+		final List<String> fromLangs = authorisationRepository.getDistinctFromLangs();
+		final List<String> toLangs = authorisationRepository.getDistinctToLangs();
 
 		return LanguagePairsDictDTO.builder().from(fromLangs).to(toLangs).build();
 	}

@@ -4,13 +4,11 @@ import fi.oph.akt.Factory;
 import fi.oph.akt.api.dto.clerk.InformalEmailRequestDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationTerm;
-import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.AuthorisationTermReminderRepository;
 import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.EmailRepository;
-import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.util.TemplateRenderer;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,9 +49,6 @@ public class ClerkEmailServiceTest {
 	@MockBean
 	private EmailService emailService;
 
-	@Resource
-	private LanguagePairRepository languagePairRepository;
-
 	@MockBean
 	private TemplateRenderer templateRenderer;
 
@@ -69,7 +64,7 @@ public class ClerkEmailServiceTest {
 	@BeforeEach
 	public void setup() {
 		clerkEmailService = new ClerkEmailService(authorisationTermReminderRepository, authorisationTermRepository,
-				emailRepository, emailService, languagePairRepository, templateRenderer, translatorRepository);
+				emailRepository, emailService, templateRenderer, translatorRepository);
 	}
 
 	@Test
@@ -80,12 +75,10 @@ public class ClerkEmailServiceTest {
 		IntStream.range(0, 3).forEach(n -> {
 			final Translator translator = Factory.translator();
 			final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-			final LanguagePair languagePair = Factory.languagePair(authorisation);
 			final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
 			entityManager.persist(translator);
 			entityManager.persist(authorisation);
-			entityManager.persist(languagePair);
 			entityManager.persist(authorisationTerm);
 		});
 
@@ -114,13 +107,11 @@ public class ClerkEmailServiceTest {
 		final MeetingDate meetingDate = Factory.meetingDate();
 		final Translator translator = Factory.translator();
 		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-		final LanguagePair languagePair = Factory.languagePair(authorisation);
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
 		entityManager.persist(meetingDate);
 		entityManager.persist(translator);
 		entityManager.persist(authorisation);
-		entityManager.persist(languagePair);
 		entityManager.persist(authorisationTerm);
 
 		final Long tId = translatorRepository.findAll().get(0).getId();
@@ -146,23 +137,21 @@ public class ClerkEmailServiceTest {
 		final MeetingDate meetingDate = Factory.meetingDate();
 		final Translator translator = Factory.translator();
 		final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-		final LanguagePair languagePair = Factory.languagePair(authorisation);
 		final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
-		languagePair.setFromLang("SV");
-		languagePair.setToLang("EN");
+		authorisation.setFromLang("SV");
+		authorisation.setToLang("EN");
 		authorisationTerm.setEndDate(LocalDate.parse("2025-12-01"));
 
 		entityManager.persist(meetingDate);
 		entityManager.persist(translator);
 		entityManager.persist(authorisation);
-		entityManager.persist(languagePair);
 		entityManager.persist(authorisationTerm);
 
 		// @formatter:off
 		final Map<String, Object> expectedTemplateParams = Map.of(
 				"expiryDate", "01.12.2025",
-				"languagePairs", List.of("sv - en"),
+				"langPair", "sv - en",
 				"contactEmail", "auktoris@oph.fi"
 		);
 		// @formatter:on

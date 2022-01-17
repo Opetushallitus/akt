@@ -5,12 +5,11 @@ import fi.oph.akt.api.dto.ContactRequestDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.ContactRequest;
 import fi.oph.akt.model.ContactRequestTranslator;
-import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
+import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.ContactRequestRepository;
 import fi.oph.akt.repository.ContactRequestTranslatorRepository;
-import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.service.email.EmailData;
 import fi.oph.akt.service.email.EmailService;
@@ -46,6 +45,9 @@ class ContactRequestServiceTest {
 	private ContactRequestService contactRequestService;
 
 	@Resource
+	private AuthorisationRepository authorisationRepository;
+
+	@Resource
 	private ContactRequestRepository contactRequestRepository;
 
 	@Resource
@@ -53,9 +55,6 @@ class ContactRequestServiceTest {
 
 	@MockBean
 	private EmailService emailService;
-
-	@Resource
-	private LanguagePairRepository languagePairRepository;
 
 	@MockBean
 	private TemplateRenderer templateRenderer;
@@ -73,8 +72,8 @@ class ContactRequestServiceTest {
 	public void setup() {
 		when(templateRenderer.renderContactRequestEmailBody(any())).thenReturn("hello world");
 
-		contactRequestService = new ContactRequestService(contactRequestRepository, contactRequestTranslatorRepository,
-				emailService, languagePairRepository, templateRenderer, translatorRepository);
+		contactRequestService = new ContactRequestService(authorisationRepository, contactRequestRepository,
+				contactRequestTranslatorRepository, emailService, templateRenderer, translatorRepository);
 	}
 
 	@Test
@@ -206,14 +205,11 @@ class ContactRequestServiceTest {
 		IntStream.range(0, size).forEach(n -> {
 			final Translator translator = Factory.translator();
 			final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-
-			final LanguagePair languagePair = Factory.languagePair(authorisation);
-			languagePair.setFromLang(FROM_LANG);
-			languagePair.setToLang(TO_LANG);
+			authorisation.setFromLang(FROM_LANG);
+			authorisation.setToLang(TO_LANG);
 
 			entityManager.persist(translator);
 			entityManager.persist(authorisation);
-			entityManager.persist(languagePair);
 		});
 	}
 

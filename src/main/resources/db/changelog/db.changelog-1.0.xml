@@ -456,4 +456,19 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="2022-01-14-move_language_pair_to_authorisation" author="terova">
+        <addColumn tableName="authorisation">
+            <column name="from_lang" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="to_lang" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permission_to_publish" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <dropTable tableName="language_pair"/>
+    </changeSet>
+
 </databaseChangeLog>

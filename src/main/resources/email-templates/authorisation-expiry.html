@@ -5,15 +5,10 @@
             Hei,
         </p>
         <p>
-            Oikeutesi toimia auktorisoituna kääntäjänä päättyy [[${expiryDate}]]. Oikeutesi on päättymässä seuraavien kieliparien osalta:
+            Oikeutesi toimia auktorisoituna kääntäjänä kieliparin [[${langPair}]] osalta päättyy [[${expiryDate}]].
         </p>
-
-        <ul>
-            <li th:each="langPair : ${languagePairs}">[[${langPair}]]</li>
-        </ul>
-
         <p>
-            Jatkaaksesi oikeuttasi toimia auktorisoituna kääntäjänä, ja jotta sinut voi jatkossakin löytää rekisteristämme, otathan yhteyttä meihin osoitteessa [[${contactEmail}]].
+            Jatkaaksesi oikeuttasi toimia auktorisoituna kääntäjänä, ja jotta sinut voi jatkossakin löytää rekisteristämme, otathan meihin yhteyttä osoitteeseen [[${contactEmail}]].
         </p>
         <br/>
 

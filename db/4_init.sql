@@ -1,13 +1,20 @@
 TRUNCATE translator CASCADE;
 TRUNCATE meeting_date CASCADE;
 
-INSERT INTO meeting_date(date) VALUES ('2020-10-03');
-INSERT INTO meeting_date(date) VALUES ('2021-04-09');
-INSERT INTO meeting_date(date) VALUES ('2021-12-20');
-INSERT INTO meeting_date(date) VALUES ('2022-02-15');
-INSERT INTO meeting_date(date) VALUES ('2022-08-30');
-INSERT INTO meeting_date(date) VALUES ('2022-11-01');
-INSERT INTO meeting_date(date) VALUES ('2025-01-01');
+INSERT INTO meeting_date(date)
+VALUES ('2020-10-03');
+INSERT INTO meeting_date(date)
+VALUES ('2021-04-09');
+INSERT INTO meeting_date(date)
+VALUES ('2021-12-20');
+INSERT INTO meeting_date(date)
+VALUES ('2022-02-15');
+INSERT INTO meeting_date(date)
+VALUES ('2022-08-30');
+INSERT INTO meeting_date(date)
+VALUES ('2022-11-01');
+INSERT INTO meeting_date(date)
+VALUES ('2025-01-01');
 
 INSERT INTO translator(identity_number, first_name, last_name, email, phone_number, street, town, postal_code, country)
 SELECT 'id' || i::text,
@@ -26,78 +33,144 @@ SELECT 'id' || i::text,
            WHEN 0 THEN 'Latvia'
            ELSE country[mod(i, array_length(country, 1)) + 1] END
 FROM generate_series(1, 4900) AS i,
-     (SELECT ('{"Antti", "Eero", "Ilkka", "Jari", "Juha", "Matti", "Pekka", "Timo", "Iiro", "Jukka", "Kalle", ' ||
-              '"Kari", "Marko", "Mikko", "Tapani", "Ville","Anneli", "Ella", "Hanna", "Iiris", "Liisa", ' ||
-              '"Maria", "Ninni", "Viivi", "Anna", "Iida", "Kerttu", "Kristiina", "Marjatta", "Ronja", ' ||
-              '"Sara"}')::text[] AS first_names) AS first_name_table,
-     (SELECT ('{"Aaltonen", "Alanen", "Eskola", "Hakala", "Heikkinen", "Heinonen", "Hiltunen", "Hirvonen", ' ||
-              '"Hämäläinen", "Kallio", "Karjalainen", "Kinnunen", "Korhonen", "Koskinen", "Laakso", ' ||
-              '"Lahtinen", "Laine", "Lehtonen", "Leinonen", "Leppänen", "Manninen", "Mattila", "Mäkinen", ' ||
-              '"Nieminen", "Noronen", "Ojala", "Paavola", "Pitkänen", "Räsänen", "Saarinen", "Salo", ' ||
-              '"Salonen", "Toivonen", "Tuominen", "Turunen", "Valtonen", "Virtanen", ' ||
-              '"Väisänen"}')::text[] AS last_names) AS last_name_table,
-     (SELECT ('{"Malminkatu 1", "Runebergintie 2", "Sibeliuksenkuja 3", "Veturitie 4", ' ||
-              '"Pirkkolantie 123"}')::text[] AS street) AS street_table,
-     (SELECT ('{"Helsinki", "Turku", "Hämeenlinna", "Kuopio", "Lahti", "Porvoo", "Vantaa", "Järvenpää", ' ||
-              '"Kouvola", "Tampere", "Oulu", "Rovaniemi", "Kajaani", "Joensuu", "Uusikaupunki", "Kuopio", ' ||
-              '"Kotka"}')::text[] AS town) AS town_table,
-     (SELECT ('{"00100", "01200", "06100", "13500", "31600", "48600", ' ||
-              '"54460"}')::text[] AS postal_code) AS postal_code_table,
-     (SELECT ('{"Suomi", "suomi", "SUOMI", "Finland", "", NULL}')::text[] AS country) AS country_table;
+     (SELECT ('{Antti, Eero, Ilkka, Jari, Juha, Matti, Pekka, Timo, Iiro, Jukka, Kalle, ' ||
+              'Kari, Marko, Mikko, Tapani, Ville, Anneli, Ella, Hanna, Iiris, Liisa, ' ||
+              'Maria, Ninni, Viivi, Anna, Iida, Kerttu, Kristiina, Marjatta, Ronja, ' ||
+              'Sara}')::text[] AS first_names) AS first_name_table,
+     (SELECT ('{Aaltonen, Alanen, Eskola, Hakala, Heikkinen, Heinonen, Hiltunen, Hirvonen, ' ||
+              'Hämäläinen, Kallio, Karjalainen, Kinnunen, Korhonen, Koskinen, Laakso, ' ||
+              'Lahtinen, Laine, Lehtonen, Leinonen, Leppänen, Manninen, Mattila, Mäkinen, ' ||
+              'Nieminen, Noronen, Ojala, Paavola, Pitkänen, Räsänen, Saarinen, Salo, ' ||
+              'Salonen, Toivonen, Tuominen, Turunen, Valtonen, Virtanen, ' ||
+              'Väisänen}')::text[] AS last_names) AS last_name_table,
+     (SELECT ('{Malminkatu 1, Runebergintie 2, Sibeliuksenkuja 3, Veturitie 4, ' ||
+              'Pirkkolantie 123}')::text[] AS street) AS street_table,
+     (SELECT ('{Helsinki, Turku, Hämeenlinna, Kuopio, Lahti, Porvoo, Vantaa, Järvenpää, ' ||
+              'Kouvola, Tampere, Oulu, Rovaniemi, Kajaani, Joensuu, Uusikaupunki, Kuopio, ' ||
+              'Kotka}')::text[] AS town) AS town_table,
+     (SELECT ('{00100, 01200, 06100, 13500, 31600, 48600, ' ||
+              '54460}')::text[] AS postal_code) AS postal_code_table,
+     (SELECT ('{Suomi, suomi, SUOMI, Finland, NULL}')::text[] AS country) AS country_table;
 
-INSERT INTO authorisation(translator_id, basis, meeting_date_id, aut_date, kkt_check, vir_date, assurance_date) (
-    SELECT translator_id,
-           -- 11 KKT
-           -- 13 VIR authorized
-           -- 17 VIR not authorized
-           -- else AUT
-           CASE
-               WHEN mod(translator_id, 11) = 0 THEN 'KKT'
-               WHEN mod(translator_id, 13) = 0 THEN 'VIR'
-               WHEN mod(translator_id, 17) = 0 THEN 'VIR'
-               ELSE 'AUT' END,
-           CASE
-               WHEN mod(translator_id, 11) = 0 THEN (SELECT meeting_date_id FROM meeting_date WHERE date = '2020-10-03')
-               WHEN mod(translator_id, 13) = 0 THEN (SELECT meeting_date_id FROM meeting_date WHERE date = '2021-04-09')
-               WHEN mod(translator_id, 17) = 0 THEN NULL
-               ELSE (SELECT meeting_date_id FROM meeting_date WHERE date = '2021-12-20') END,
-           CASE
-               WHEN mod(translator_id, 11) = 0 THEN NULL
-               WHEN mod(translator_id, 13) = 0 THEN NULL
-               WHEN mod(translator_id, 17) = 0 THEN NULL
-               ELSE now() END,
-           CASE
-               WHEN mod(translator_id, 11) = 0 THEN 'ToDo'
-               WHEN mod(translator_id, 13) = 0 THEN NULL
-               WHEN mod(translator_id, 17) = 0 THEN NULL
-               ELSE NULL END,
-           CASE
-               WHEN mod(translator_id, 11) = 0 THEN NULL
-               WHEN mod(translator_id, 13) = 0 THEN now()
-               WHEN mod(translator_id, 17) = 0 THEN now()
-               ELSE NULL END,
-           CASE
-               WHEN mod(translator_id, 11) = 0 THEN now()
-               WHEN mod(translator_id, 13) = 0 THEN now()
-               WHEN mod(translator_id, 17) = 0 THEN NULL
-               ELSE now() END
+-- insert authorisations for translators, for some we add multiple authorisations
+WITH translator_ids AS (
+    SELECT translator_id, translator_id AS i
     FROM translator
-);
+    UNION ALL
+    SELECT translator_id, translator_id + 1 AS i
+    FROM translator
+    WHERE mod(translator_id, 13) = 0
+    UNION ALL
+    SELECT translator_id, translator_id + 2 AS i
+    FROM translator
+    WHERE mod(translator_id, 15) = 0
+    UNION ALL
+    SELECT translator_id, translator_id + 3 AS i
+    FROM translator
+    WHERE mod(translator_id, 17) = 0
+    UNION ALL
+    SELECT translator_id, translator_id + 4 AS i
+    FROM translator
+    WHERE mod(translator_id, 19) = 0
+    UNION ALL
+    SELECT translator_id, translator_id + 5 AS i
+    FROM translator
+    WHERE mod(translator_id, 20) = 0
+    UNION ALL
+    SELECT translator_id, translator_id + 6 AS i
+    FROM translator
+    WHERE mod(translator_id, 21) = 0
+    UNION ALL
+    SELECT translator_id, translator_id + 7 AS i
+    FROM translator
+    WHERE mod(translator_id, 22) = 0
+    UNION ALL
+    SELECT translator_id, translator_id + 8 AS i
+    FROM translator
+    WHERE mod(translator_id, 23) = 0
+    UNION ALL
+    SELECT translator_id, translator_id + 9 AS i
+    FROM translator
+    WHERE mod(translator_id, 24) = 0
+)
+INSERT
+INTO authorisation(translator_id, basis, meeting_date_id, aut_date, kkt_check, vir_date, assurance_date,
+                   from_lang, to_lang, permission_to_publish)
+SELECT translator_id,
+       -- 11 KKT
+       -- 13 VIR authorized
+       -- 17 VIR not authorized
+       -- else AUT
+       CASE
+           WHEN mod(i, 11) = 0 THEN 'KKT'
+           WHEN mod(i, 13) = 0 THEN 'VIR'
+           WHEN mod(i, 17) = 0 THEN 'VIR'
+           ELSE 'AUT' END,
+       CASE
+           WHEN mod(i, 11) = 0 THEN (SELECT meeting_date_id FROM meeting_date WHERE date = '2020-10-03')
+           WHEN mod(i, 13) = 0 THEN (SELECT meeting_date_id FROM meeting_date WHERE date = '2021-04-09')
+           WHEN mod(i, 17) = 0 THEN NULL
+           ELSE (SELECT meeting_date_id FROM meeting_date WHERE date = '2021-12-20') END,
+       CASE
+           WHEN mod(i, 11) = 0 THEN NULL
+           WHEN mod(i, 13) = 0 THEN NULL
+           WHEN mod(i, 17) = 0 THEN NULL
+           ELSE now() END,
+       CASE
+           WHEN mod(i, 11) = 0 THEN 'ToDo'
+           WHEN mod(i, 13) = 0 THEN NULL
+           WHEN mod(i, 17) = 0 THEN NULL
+           ELSE NULL END,
+       CASE
+           WHEN mod(i, 11) = 0 THEN NULL
+           WHEN mod(i, 13) = 0 THEN now()
+           WHEN mod(i, 17) = 0 THEN now()
+           ELSE NULL END,
+       CASE
+           WHEN mod(i, 11) = 0 THEN now()
+           WHEN mod(i, 13) = 0 THEN now()
+           WHEN mod(i, 17) = 0 THEN NULL
+           ELSE now() END,
+       CASE WHEN mod(i, 2) = 0 THEN 'FI' ELSE 'SV' END,
+       langs[mod(i, array_length(langs, 1)) + 1],
+       mod(i, 21) <> 0
+FROM translator_ids,
+     (SELECT ('{BN, CA, CS, DA, DE, EL, EN, ET, FJ, FO, FR, GA, HE, HR, HU, JA, RU, TT, TY, UG, UK, VI, ZH}')::text[] AS langs) AS langs_table
+;
 
-INSERT INTO authorisation_term(authorisation_id, begin_date, end_date) (
-    SELECT authorisation_id,
-           -- NOTE mod 87 is expired term, its needed also to set town to null
-           (CASE WHEN mod(translator_id, 87) = 0 THEN '2019-01-01' ELSE '2022-01-01' END)::date,
-           -- VIR never expires
-           (CASE
-                WHEN basis <> 'VIR' THEN CASE
-                                             WHEN mod(translator_id, 87) = 0 THEN '2021-12-31'
-                                             ELSE '2022-01-15'::date +
-                                                  (mod(translator_id, 365 * 5)::text || ' days')::interval END
-               END)::date
-    FROM authorisation
-    WHERE meeting_date_id IS NOT NULL
-);
+-- add inverse language pairs
+INSERT INTO authorisation (translator_id, basis, meeting_date_id, aut_date, kkt_check, vir_date,
+                           assurance_date,
+                           from_lang, to_lang, permission_to_publish)
+SELECT translator_id,
+       basis,
+       meeting_date_id,
+       aut_date,
+       kkt_check,
+       vir_date,
+       assurance_date,
+       -- note to_lang and from_lang are swapped
+       to_lang,
+       from_lang,
+       mod(translator_id, 98) <> 0
+FROM authorisation
+WHERE mod(authorisation_id, 20) <> 0
+;
+
+INSERT INTO authorisation_term(authorisation_id, begin_date, end_date)
+SELECT authorisation_id,
+       -- NOTE mod 87 is expired term, its needed also to set town to null
+       (CASE WHEN mod(translator_id, 87) = 0 THEN '2019-01-01' ELSE '2022-01-01' END)::date,
+       -- VIR never expires
+       (CASE
+            WHEN basis <> 'VIR' THEN CASE
+                                         WHEN mod(translator_id, 87) = 0 THEN '2021-12-31'
+                                         ELSE '2022-01-15'::date +
+                                              (mod(translator_id, 365 * 5)::text || ' days')::interval END
+           END)::date
+FROM authorisation
+WHERE meeting_date_id IS NOT NULL
+;
 
 -- set some translator fields to null
 UPDATE translator
@@ -128,147 +201,3 @@ WHERE translator_id IN (SELECT t.translator_id
 UPDATE translator
 SET postal_code=NULL
 WHERE mod(translator_id, 55) = 0;
-
--- fi <-> sv
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'FI', 'SV', true
-    FROM authorisation
-    where authorisation.authorisation_id % 2 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'SV', 'FI', true
-    FROM authorisation
-    where authorisation.authorisation_id % 3 = 0
-);
--- fi <-> ru
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'FI', 'RU', true
-    FROM authorisation
-    where authorisation.authorisation_id % 5 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'RU', 'FI', true
-    FROM authorisation
-    where authorisation.authorisation_id % 5 = 0
-);
--- fi <-> et
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'FI', 'ET', true
-    FROM authorisation
-    where authorisation.authorisation_id % 7 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'ET', 'FI', true
-    FROM authorisation
-    where authorisation.authorisation_id % 11 = 0
-);
--- fi <-> de
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'FI', 'DE', true
-    FROM authorisation
-    where authorisation.authorisation_id % 11 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'DE', 'FI', true
-    FROM authorisation
-    where authorisation.authorisation_id % 13 = 0
-);
--- fi <-> fr
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'FI', 'FR', true
-    FROM authorisation
-    where authorisation.authorisation_id % 17 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'FR', 'FI', true
-    FROM authorisation
-    where authorisation.authorisation_id % 17 = 0
-);
--- sv <-> fr
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'SV', 'FR', true
-    FROM authorisation
-    where authorisation.authorisation_id % 19 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'FR', 'SV', true
-    FROM authorisation
-    where authorisation.authorisation_id % 19 = 0
-);
--- misc languages
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'BN', 'FI', true
-    FROM authorisation
-    where authorisation.authorisation_id % 393 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'BO', 'SV', true
-    FROM authorisation
-    where authorisation.authorisation_id % 393 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'FI', 'CS', true
-    FROM authorisation
-    where authorisation.authorisation_id % 397 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'SV', 'CA', true
-    FROM authorisation
-    where authorisation.authorisation_id % 397 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'DA', 'FI', true
-    FROM authorisation
-    where authorisation.authorisation_id % 399 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'EL', 'SV', true
-    FROM authorisation
-    where authorisation.authorisation_id % 399 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'FI', 'FO', true
-    FROM authorisation
-    where authorisation.authorisation_id % 399 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'SV', 'FJ', true
-    FROM authorisation
-    where authorisation.authorisation_id % 399 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'GA', 'FI', true
-    FROM authorisation
-    where authorisation.authorisation_id % 401 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'HE', 'SV', true
-    FROM authorisation
-    where authorisation.authorisation_id % 401 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'FI', 'HU', true
-    FROM authorisation
-    where authorisation.authorisation_id % 601 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'SV', 'HR', true
-    FROM authorisation
-    where authorisation.authorisation_id % 601 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'TT', 'FI', true
-    FROM authorisation
-    where authorisation.authorisation_id % 607 = 0
-);
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'TY', 'SV', true
-    FROM authorisation
-    where authorisation.authorisation_id % 607 = 0
-);
-
--- en - not published
-INSERT INTO language_pair(authorisation_id, from_lang, to_lang, permission_to_publish) (
-    SELECT authorisation_id, 'FI', 'EN', false
-    FROM authorisation
-);

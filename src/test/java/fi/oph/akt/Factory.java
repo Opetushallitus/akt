@@ -6,7 +6,6 @@ import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.AuthorisationTermReminder;
 import fi.oph.akt.model.Email;
 import fi.oph.akt.model.EmailType;
-import fi.oph.akt.model.LanguagePair;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 
@@ -35,18 +34,11 @@ public class Factory {
 		authorisation.setBasis(AuthorisationBasis.AUT);
 		authorisation.setAutDate(LocalDate.now());
 		authorisation.setAssuranceDate(LocalDate.now());
+		authorisation.setFromLang("FI");
+		authorisation.setToLang("EN");
+		authorisation.setPermissionToPublish(true);
 
 		return authorisation;
-	}
-
-	public static LanguagePair languagePair(Authorisation authorisation) {
-		final LanguagePair languagePair = new LanguagePair();
-		languagePair.setAuthorisation(authorisation);
-		languagePair.setFromLang("FI");
-		languagePair.setToLang("EN");
-		languagePair.setPermissionToPublish(true);
-
-		return languagePair;
 	}
 
 	public static AuthorisationTerm authorisationTerm(Authorisation authorisation) {

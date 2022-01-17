@@ -9,12 +9,10 @@ import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
 import fi.oph.akt.api.dto.clerk.MeetingDateDTO;
 import fi.oph.akt.model.Translator;
-import fi.oph.akt.repository.AuthorisationLanguagePairProjection;
 import fi.oph.akt.repository.AuthorisationMeetingDateProjection;
 import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.AuthorisationTermProjection;
 import fi.oph.akt.repository.AuthorisationTermRepository;
-import fi.oph.akt.repository.LanguagePairRepository;
 import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorAuthorisationProjection;
 import fi.oph.akt.repository.TranslatorRepository;
@@ -52,9 +50,6 @@ public class ClerkTranslatorService {
 	private final AuthorisationTermRepository authorisationTermRepository;
 
 	@Resource
-	private final LanguagePairRepository languagePairRepository;
-
-	@Resource
 	private final MeetingDateRepository meetingDateRepository;
 
 	@Resource
@@ -72,10 +67,6 @@ public class ClerkTranslatorService {
 		final Map<Long, List<TranslatorAuthorisationProjection>> translatorAuthProjections = getTranslatorAuthorisationProjections();
 		st.stop();
 
-		st.start("getAuthorisationLanguagePairProjections");
-		final Map<Long, List<AuthorisationLanguagePairProjection>> authLanguagePairProjections = getAuthorisationLanguagePairProjections();
-		st.stop();
-
 		st.start("getAuthorisationTermProjections");
 		final Map<Long, List<AuthorisationTermProjection>> authTermProjections = getAuthorisationTermProjections();
 		st.stop();
@@ -86,7 +77,7 @@ public class ClerkTranslatorService {
 
 		st.start("createClerkTranslatorDTOs");
 		final List<ClerkTranslatorDTO> clerkTranslatorDTOS = createClerkTranslatorDTOs(translators,
-				translatorAuthProjections, authLanguagePairProjections, authTermProjections, authMeetingDates);
+				translatorAuthProjections, authTermProjections, authMeetingDates);
 		st.stop();
 
 		st.start("getLanguagePairsDictDTO");
@@ -118,11 +109,6 @@ public class ClerkTranslatorService {
 				.collect(Collectors.groupingBy(TranslatorAuthorisationProjection::translatorId));
 	}
 
-	private Map<Long, List<AuthorisationLanguagePairProjection>> getAuthorisationLanguagePairProjections() {
-		return languagePairRepository.listAuthorisationLanguagePairProjections().stream()
-				.collect(Collectors.groupingBy(AuthorisationLanguagePairProjection::authorisationId));
-	}
-
 	private Map<Long, List<AuthorisationTermProjection>> getAuthorisationTermProjections() {
 		return authorisationTermRepository.listAuthorisationTermProjections().stream()
 				.collect(Collectors.groupingBy(AuthorisationTermProjection::authorisationId));
@@ -135,7 +121,6 @@ public class ClerkTranslatorService {
 
 	private List<ClerkTranslatorDTO> createClerkTranslatorDTOs(final List<Translator> translators,
 			final Map<Long, List<TranslatorAuthorisationProjection>> translatorAuthProjections,
-			final Map<Long, List<AuthorisationLanguagePairProjection>> languagePairProjections,
 			final Map<Long, List<AuthorisationTermProjection>> termProjections,
 			final Map<Long, LocalDate> meetingDates) {
 
@@ -146,7 +131,7 @@ public class ClerkTranslatorService {
 			final ClerkTranslatorContactDetailsDTO contactDetailsDTO = getContactDetailsDTO(translator);
 
 			final List<ClerkTranslatorAuthorisationDTO> authorisationDTOS = getAuthorisationDTOs(authProjections,
-					languagePairProjections, termProjections, meetingDates);
+					termProjections, meetingDates);
 
 			// @formatter:off
 			return ClerkTranslatorDTO.builder()
@@ -176,7 +161,6 @@ public class ClerkTranslatorService {
 
 	private List<ClerkTranslatorAuthorisationDTO> getAuthorisationDTOs(
 			final List<TranslatorAuthorisationProjection> authProjections,
-			final Map<Long, List<AuthorisationLanguagePairProjection>> languagePairProjections,
 			final Map<Long, List<AuthorisationTermProjection>> termProjections,
 			final Map<Long, LocalDate> meetingDates) {
 
@@ -201,15 +185,11 @@ public class ClerkTranslatorService {
 						.toList();
 			}
 
-			final List<ClerkLanguagePairDTO> languagePairDTOS = languagePairProjections.get(authorisationId)
-					.stream()
-					.map(lpp -> ClerkLanguagePairDTO.builder()
-							.from(lpp.fromLang())
-							.to(lpp.toLang())
-							.permissionToPublish(lpp.permissionToPublish())
-							.build()
-					)
-					.toList();
+			final List<ClerkLanguagePairDTO> languagePairDTOS = List.of(ClerkLanguagePairDTO.builder()
+					.from(authProjection.fromLang())
+					.to(authProjection.toLang())
+					.permissionToPublish(authProjection.permissionToPublish())
+					.build());
 
 			return ClerkTranslatorAuthorisationDTO.builder()
 					.basis(authProjection.authorisationBasis())
@@ -226,8 +206,8 @@ public class ClerkTranslatorService {
 	}
 
 	private LanguagePairsDictDTO getLanguagePairsDictDTO() {
-		final List<String> fromLangs = languagePairRepository.getDistinctFromLangs();
-		final List<String> toLangs = languagePairRepository.getDistinctToLangs();
+		final List<String> fromLangs = authorisationRepository.getDistinctFromLangs();
+		final List<String> toLangs = authorisationRepository.getDistinctToLangs();
 
 		return LanguagePairsDictDTO.builder().from(fromLangs).to(toLangs).build();
 	}
