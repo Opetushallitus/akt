@@ -1,5 +1,10 @@
 import { ClerkLanguagePair } from 'interfaces/language';
 
+export interface LanguagePair {
+  from: string;
+  to: string;
+}
+
 type AuthorisationBasis = 'AUT' | 'KKT' | 'VIR';
 
 export interface AuthorisationTerm {
@@ -7,14 +12,8 @@ export interface AuthorisationTerm {
   end?: Date;
 }
 
-export interface APIAuthorisationTerm {
-  beginDate: string;
-  endDate?: string;
-}
-
 export interface Authorisation {
-  fromLang: string;
-  toLang: string;
+  langPair: LanguagePair;
   basis: AuthorisationBasis;
   autDate: Date;
   kktCheck: string;
@@ -22,7 +21,13 @@ export interface Authorisation {
   assuranceDate: Date;
   meetingDate: Date;
   terms?: Array<AuthorisationTerm>;
+  effectiveTerm?: AuthorisationTerm;
   permissionToPublish: boolean;
+}
+
+export interface APIAuthorisationTerm {
+  beginDate: string;
+  endDate?: string;
 }
 
 export interface APIAuthorisation {
@@ -35,18 +40,3 @@ export interface APIAuthorisation {
   terms?: Array<APIAuthorisationTerm>;
   languagePairs: Array<ClerkLanguagePair>;
 }
-
-const termsComparator = (a: AuthorisationTerm, b: AuthorisationTerm) => {
-  return a.start > b.start ? -1 : 1;
-};
-
-export const effectiveAuthorisationTerm = (authorisation: Authorisation) => {
-  if (authorisation.terms && authorisation.terms.length > 0) {
-    const copiedTerms = [...authorisation.terms];
-    copiedTerms.sort(termsComparator);
-
-    return copiedTerms[0];
-  }
-
-  return null;
-};

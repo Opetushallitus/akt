@@ -24,24 +24,6 @@ import {
   selectFilteredSelectedIds,
 } from 'redux/selectors/clerkTranslator';
 import { Utils } from 'utils';
-import {
-  Authorisation,
-  effectiveAuthorisationTerm,
-} from 'interfaces/authorisation';
-
-const getAuthorisationData = (authorisation: Authorisation) => {
-  const { fromLang, toLang, basis, permissionToPublish } = authorisation;
-  const effectiveTerm = effectiveAuthorisationTerm(authorisation);
-
-  return {
-    fromLang,
-    toLang,
-    basis,
-    effectiveTermStart: effectiveTerm?.start,
-    effectiveTermEnd: effectiveTerm?.end,
-    permissionToPublish,
-  };
-};
 
 const getRowDetails = (
   translator: ClerkTranslator,
@@ -71,8 +53,7 @@ const ListingRow = ({
     keyPrefix: 'akt.component.clerkTranslatorListing',
   });
   const { firstName, lastName } = translator.contactDetails;
-  const authorisationDatas =
-    translator.authorisations.map(getAuthorisationData);
+  const authorisations = translator.authorisations;
   const translateLanguage = useKoodistoLanguagesTranslation();
 
   return (
@@ -89,37 +70,39 @@ const ListingRow = ({
       </TableCell>
       <TableCell>
         <div className="rows">
-          {authorisationDatas.map(({ fromLang, toLang }, idx) => (
+          {authorisations.map(({ langPair }, idx) => (
             <Text key={idx}>
-              {`${translateLanguage(fromLang)} - ${translateLanguage(toLang)}`}
+              {`${translateLanguage(langPair.from)} - ${translateLanguage(
+                langPair.to
+              )}`}
             </Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
         <div className="rows">
-          {authorisationDatas.map(({ basis }, idx) => (
+          {authorisations.map(({ basis }, idx) => (
             <Text key={idx}>{basis}</Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
         <div className="rows">
-          {authorisationDatas.map(({ effectiveTermStart }, idx) => (
-            <Text key={idx}>{Utils.formatDate(effectiveTermStart)}</Text>
+          {authorisations.map(({ effectiveTerm }, idx) => (
+            <Text key={idx}>{Utils.formatDate(effectiveTerm?.start)}</Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
         <div className="rows">
-          {authorisationDatas.map(({ effectiveTermEnd }, idx) => (
-            <Text key={idx}>{Utils.formatDate(effectiveTermEnd)}</Text>
+          {authorisations.map(({ effectiveTerm }, idx) => (
+            <Text key={idx}>{Utils.formatDate(effectiveTerm?.end)}</Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
         <div className="rows">
-          {authorisationDatas.map(({ permissionToPublish }, idx) => (
+          {authorisations.map(({ permissionToPublish }, idx) => (
             <Text key={idx}>
               {t(`permissionToPublish.${permissionToPublish}`)}
             </Text>
