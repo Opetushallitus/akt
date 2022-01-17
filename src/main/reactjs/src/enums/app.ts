@@ -68,3 +68,9 @@ export enum I18nNamespace {
   Translation = 'translation',
   KoodistoLanguages = 'koodistoLanguages',
 }
+
+export enum Color {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Inherit = 'inherit',
+}

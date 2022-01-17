@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { SelectChangeEvent } from '@mui/material';
-import LanguageIcon from '@mui/icons-material/Language';
+import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 
 import { Dropdown } from 'components/elements/Dropdown';
 import {
@@ -26,7 +26,7 @@ export const LangSelector: FC = () => {
 
   return (
     <div className="lang-selector">
-      <LanguageIcon className="lang-selector__icon" fontSize="small" />
+      <LanguageOutlinedIcon className="lang-selector__icon" fontSize="small" />
       <Dropdown
         disableUnderline
         values={values}

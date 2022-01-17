@@ -2,24 +2,45 @@
   &__toolbar {
     display: flex;
     flex-wrap: wrap;
-    padding: 2rem;
+    padding: 0;
+  }
+
+  & button {
+    @include header-text;
   }
 
   &__left {
-    flex-grow: 1;
-
+    margin-right: 5rem;
+    padding: 2rem 0rem;
     &__logo {
       height: 5.5rem;
     }
   }
 
+  &__center {
+    justify-self: end;
+    align-self: flex-end;
+  }
+
   &__right {
     display: flex;
+    justify-content: end;
+    align-self: flex-start;
+    padding-top: 1rem;
+    flex-grow: 1;
     gap: 2rem;
     color: $color-secondary-dark;
 
+    & &__avatar {
+      width: 2rem;
+      height: 2rem;
+      background-color: $color-secondary-dark;
+      font-size: 1.1rem;
+      margin-right: 0.3rem;
+    }
+
     & > a {
-      text-transform: lowercase;
+      @include header-text;
     }
   }
 }

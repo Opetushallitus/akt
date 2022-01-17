@@ -1,15 +1,17 @@
 import { FC } from 'react';
 import { AppBar, Toolbar, IconButton } from '@mui/material';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 import { Svg } from 'components/elements/Svg';
-import { ExtLink } from 'components/elements/ExtLink';
 import { LangSelector } from 'components/i18n/LangSelector';
+import { ClerkNavTabs } from 'components/layouts//clerkHeader/ClerkNavTabs';
+import { ClerkHeaderButtons } from 'components/layouts/clerkHeader/ClerkHeaderButtons';
 import Logo from 'public/assets/svg/logo.svg';
 import { useAppTranslation } from 'configs/i18n';
 
 const Header: FC = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.component.header' });
+  // FIXME: Replace by the correct logic
+  const isClerkUI = true;
 
   return (
     <AppBar className="header" position="static">
@@ -23,12 +25,9 @@ const Header: FC = () => {
         <div className="header__left">
           <Svg className="header__left__logo" src={Logo} alt={t('logo.alt')} />
         </div>
+        <div className="header__center">{isClerkUI && <ClerkNavTabs />}</div>
         <div className="header__right">
-          <ExtLink
-            text={t('ophLink.text')}
-            href={t('ophLink.address')}
-            endIcon={<OpenInNewIcon />}
-          />
+          {isClerkUI && <ClerkHeaderButtons />}
           <LangSelector />
         </div>
       </Toolbar>

@@ -1,0 +1,11 @@
+@mixin dialog-border($color) {
+  border-top: 1rem $color solid;
+  border-radius: 0px;
+}
+
+@mixin header-text {
+  font-weight: normal;
+  text-transform: none;
+  font-size: 1.6rem;
+  color: $color-secondary-dark;
+}

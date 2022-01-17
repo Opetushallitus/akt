@@ -7,12 +7,17 @@
           "sv": "På Svenska",
           "en": "In English"
         },
-        "ophLink": {
-          "text": "oph.fi",
-          "address": "https://www.oph.fi/fi"
-        },
         "logo": {
           "alt": "Etusivu"
+        },
+        "clerk": {
+          "backToOph": "Takaisin opintopolkuun",
+          "logOut": "Kirjaudu ulos",
+          "navLinks": {
+            "register": "Rekisteri",
+            "documentCreation": "Todistuksen tekeminen",
+            "meetingDates": "Kokouspäivät"
+          }
         }
       },
       "table": {
@@ -33,7 +38,7 @@
             "link": "https://www.oph.fi/fi/tietoa-meista/opetushallituksen-saavutettavuusseloste"
           },
           "aktHomepage": {
-            "text": "Tietoa auktorisoidun kääntäjän tutkinnosta",
+            "text": "Auktorisoidun kääntäjän tutkinto",
             "link": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/kieli-ja-kaantajatutkinnot/auktorisoidun-kaantajan-tutkinto"
           }
         },
