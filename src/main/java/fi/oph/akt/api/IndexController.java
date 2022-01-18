@@ -9,16 +9,15 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/")
 public class IndexController {
 
-	@GetMapping("")
-	public ModelAndView index() {
-		return new ModelAndView("index.html");
-	}
+  @GetMapping("")
+  public ModelAndView index() {
+    return new ModelAndView("index.html");
+  }
 
-	// Map to everything which has no suffix, i.e. matches to "/foo/bar" but not to
-	// "/foo/bar.js"
-	@GetMapping("/**/{path:[^.]*}")
-	public ModelAndView indexAllOtherPaths() {
-		return new ModelAndView("index.html");
-	}
-
+  // Map to everything which has no suffix, i.e. matches to "/foo/bar" but not to
+  // "/foo/bar.js"
+  @GetMapping("/**/{path:[^.]*}")
+  public ModelAndView indexAllOtherPaths() {
+    return new ModelAndView("index.html");
+  }
 }

@@ -21,22 +21,21 @@ import lombok.Setter;
 @Table(name = "authorisation_term")
 public class AuthorisationTerm extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "authorisation_term_id", nullable = false)
-	private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "authorisation_term_id", nullable = false)
+  private long id;
 
-	@Column(name = "begin_date", nullable = false)
-	private LocalDate beginDate;
+  @Column(name = "begin_date", nullable = false)
+  private LocalDate beginDate;
 
-	@Column(name = "end_date")
-	private LocalDate endDate;
+  @Column(name = "end_date")
+  private LocalDate endDate;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "authorisation_id", referencedColumnName = "authorisation_id", nullable = false)
-	private Authorisation authorisation;
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "authorisation_id", referencedColumnName = "authorisation_id", nullable = false)
+  private Authorisation authorisation;
 
-	@OneToMany(mappedBy = "authorisationTerm")
-	private Collection<AuthorisationTermReminder> reminders;
-
+  @OneToMany(mappedBy = "authorisationTerm")
+  private Collection<AuthorisationTermReminder> reminders;
 }

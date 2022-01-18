@@ -15,45 +15,39 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		// @formatter:off
-		http
-				.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http
+      .csrf()
+      .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+      .and()
+      .formLogin()
+      .and()
+      .httpBasic()
+      .and()
+      .authorizeRequests()
+      // .antMatchers("/api/v1/clerk/**").access("hasRole('VIRKAILIJA')")
+      .antMatchers("/", "/**")
+      .permitAll()
+      .anyRequest()
+      .denyAll()
+      .and()
+      .exceptionHandling()
+      .accessDeniedHandler(CustomAccessDeniedHandler.create());
+  }
 
-				.formLogin().and()
-				.httpBasic().and()
+  @Bean
+  public UserDetailsService userDetailsService() {
+    // TODO Use cas!
+    UserDetails user = User.withDefaultPasswordEncoder().username("user").password("user").roles("USER").build();
 
-				.authorizeRequests()
-				//.antMatchers("/api/v1/clerk/**").access("hasRole('VIRKAILIJA')")
-				.antMatchers("/", "/**").permitAll()
-				.anyRequest().denyAll()
-				.and()
+    UserDetails clerk = User
+      .withDefaultPasswordEncoder()
+      .username("clerk")
+      .password("clerk")
+      .roles("VIRKAILIJA")
+      .build();
 
-				.exceptionHandling()
-				.accessDeniedHandler(CustomAccessDeniedHandler.create())
-		;
-        // @formatter:on
-	}
-
-	@Bean
-	public UserDetailsService userDetailsService() {
-		// TODO Use cas!
-		// @formatter:off
-		UserDetails user = User.withDefaultPasswordEncoder()
-				.username("user")
-				.password("user")
-				.roles("USER")
-				.build();
-
-		UserDetails clerk = User.withDefaultPasswordEncoder()
-				.username("clerk")
-				.password("clerk")
-				.roles("VIRKAILIJA")
-				.build();
-		// @formatter:on
-
-		return new InMemoryUserDetailsManager(user, clerk);
-	}
-
+    return new InMemoryUserDetailsManager(user, clerk);
+  }
 }

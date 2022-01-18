@@ -14,10 +14,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableSchedulerLock(defaultLockAtMostFor = "PT10M")
 public class SchedulingConfig {
 
-	@Bean
-	public LockProvider lockProvider(final DataSource dataSource) {
-		return new JdbcTemplateLockProvider(JdbcTemplateLockProvider.Configuration.builder()
-				.withJdbcTemplate(new JdbcTemplate(dataSource)).usingDbTime().build());
-	}
-
+  @Bean
+  public LockProvider lockProvider(final DataSource dataSource) {
+    return new JdbcTemplateLockProvider(
+      JdbcTemplateLockProvider.Configuration
+        .builder()
+        .withJdbcTemplate(new JdbcTemplate(dataSource))
+        .usingDbTime()
+        .build()
+    );
+  }
 }

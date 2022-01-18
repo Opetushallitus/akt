@@ -19,17 +19,16 @@ import lombok.Setter;
 @Table(name = "authorisation_term_reminder")
 public class AuthorisationTermReminder extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "authorisation_term_reminder_id", nullable = false)
-	private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "authorisation_term_reminder_id", nullable = false)
+  private long id;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "authorisation_term_id", referencedColumnName = "authorisation_term_id", nullable = false)
-	private AuthorisationTerm authorisationTerm;
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "authorisation_term_id", referencedColumnName = "authorisation_term_id", nullable = false)
+  private AuthorisationTerm authorisationTerm;
 
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "email_id", referencedColumnName = "email_id", nullable = false)
-	private Email email;
-
+  @OneToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "email_id", referencedColumnName = "email_id", nullable = false)
+  private Email email;
 }

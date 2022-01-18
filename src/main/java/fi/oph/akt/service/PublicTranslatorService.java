@@ -8,13 +8,6 @@ import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.TranslatorLanguagePairProjection;
 import fi.oph.akt.repository.TranslatorRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StopWatch;
-
-import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -23,95 +16,110 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.annotation.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StopWatch;
 
 @Service
 public class PublicTranslatorService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PublicTranslatorService.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PublicTranslatorService.class);
 
-	@Resource
-	private AuthorisationRepository authorisationRepository;
+  @Resource
+  private AuthorisationRepository authorisationRepository;
 
-	@Resource
-	private TranslatorRepository translatorRepository;
+  @Resource
+  private TranslatorRepository translatorRepository;
 
-	@Transactional(readOnly = true)
-	public PublicTranslatorResponseDTO listTranslators() {
-		final StopWatch st = new StopWatch();
+  @Transactional(readOnly = true)
+  public PublicTranslatorResponseDTO listTranslators() {
+    final StopWatch st = new StopWatch();
 
-		st.start("findTranslatorLanguagePairsForPublicListing");
-		final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs = authorisationRepository
-				.findTranslatorLanguagePairsForPublicListing().stream()
-				.collect(Collectors.groupingBy(TranslatorLanguagePairProjection::translatorId));
-		st.stop();
+    st.start("findTranslatorLanguagePairsForPublicListing");
+    final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs = authorisationRepository
+      .findTranslatorLanguagePairsForPublicListing()
+      .stream()
+      .collect(Collectors.groupingBy(TranslatorLanguagePairProjection::translatorId));
+    st.stop();
 
-		st.start("findTranslatorsByIds");
-		final List<Translator> translators = translatorRepository.findAllById(translatorLanguagePairs.keySet());
-		st.stop();
+    st.start("findTranslatorsByIds");
+    final List<Translator> translators = translatorRepository.findAllById(translatorLanguagePairs.keySet());
+    st.stop();
 
-		st.start("createPublicTranslatorDTOs");
-		final List<PublicTranslatorDTO> publicTranslatorDTOS = translators.stream().map(translator -> {
-			final List<PublicLanguagePairDTO> languagePairDTOs = getPublicLanguagePairDTOs(translatorLanguagePairs,
-					translator);
+    st.start("createPublicTranslatorDTOs");
+    final List<PublicTranslatorDTO> publicTranslatorDTOS = translators
+      .stream()
+      .map(translator -> {
+        final List<PublicLanguagePairDTO> languagePairDTOs = getPublicLanguagePairDTOs(
+          translatorLanguagePairs,
+          translator
+        );
 
-			return createPublicTranslatorDTO(translator, languagePairDTOs);
-		}).toList();
-		st.stop();
+        return createPublicTranslatorDTO(translator, languagePairDTOs);
+      })
+      .toList();
+    st.stop();
 
-		st.start("getLanguagePairsDictDTO");
-		final LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
-		st.stop();
+    st.start("getLanguagePairsDictDTO");
+    final LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
+    st.stop();
 
-		st.start("getDistinctTowns");
-		final List<String> towns = getDistinctTowns(translators);
-		st.stop();
+    st.start("getDistinctTowns");
+    final List<String> towns = getDistinctTowns(translators);
+    st.stop();
 
-		LOG.info(st.prettyPrint());
+    LOG.info(st.prettyPrint());
 
-		// @formatter:off
-		return PublicTranslatorResponseDTO.builder()
-				.translators(publicTranslatorDTOS)
-				.langs(languagePairsDictDTO)
-				.towns(towns)
-				.build();
-		// @formatter:on
-	}
+    return PublicTranslatorResponseDTO
+      .builder()
+      .translators(publicTranslatorDTOS)
+      .langs(languagePairsDictDTO)
+      .towns(towns)
+      .build();
+  }
 
-	private List<PublicLanguagePairDTO> getPublicLanguagePairDTOs(
-			final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs, final Translator t) {
+  private List<PublicLanguagePairDTO> getPublicLanguagePairDTOs(
+    final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs,
+    final Translator t
+  ) {
+    return translatorLanguagePairs
+      .getOrDefault(t.getId(), Collections.emptyList())
+      .stream()
+      .map(tlp -> PublicLanguagePairDTO.builder().from(tlp.fromLang()).to(tlp.toLang()).build())
+      .toList();
+  }
 
-		return translatorLanguagePairs.getOrDefault(t.getId(), Collections.emptyList()).stream()
-				.map(tlp -> PublicLanguagePairDTO.builder().from(tlp.fromLang()).to(tlp.toLang()).build()).toList();
-	}
+  private PublicTranslatorDTO createPublicTranslatorDTO(
+    final Translator translator,
+    final List<PublicLanguagePairDTO> languagePairDTOS
+  ) {
+    final String country = Optional
+      .ofNullable(translator.getCountry())
+      .filter(c -> !(Set.of("suomi", "finland").contains(c.toLowerCase())))
+      .orElse(null);
 
-	private PublicTranslatorDTO createPublicTranslatorDTO(final Translator translator,
-			final List<PublicLanguagePairDTO> languagePairDTOS) {
-		// @formatter:off
-		final String country = Optional
-				.ofNullable(translator.getCountry())
-				.filter(c -> !(Set.of("suomi", "finland").contains(c.toLowerCase())))
-				.orElse(null);
+    return PublicTranslatorDTO
+      .builder()
+      .id(translator.getId())
+      .firstName(translator.getFirstName())
+      .lastName(translator.getLastName())
+      .town(translator.getTown())
+      .country(country)
+      .languagePairs(languagePairDTOS)
+      .build();
+  }
 
-		return PublicTranslatorDTO.builder()
-				.id(translator.getId())
-				.firstName(translator.getFirstName())
-				.lastName(translator.getLastName())
-				.town(translator.getTown())
-				.country(country)
-				.languagePairs(languagePairDTOS)
-				.build();
-		// @formatter:on
-	}
+  private LanguagePairsDictDTO getLanguagePairsDictDTO() {
+    final List<String> fromLangs = authorisationRepository.getDistinctFromLangs();
+    final List<String> toLangs = authorisationRepository.getDistinctToLangs();
 
-	private LanguagePairsDictDTO getLanguagePairsDictDTO() {
-		final List<String> fromLangs = authorisationRepository.getDistinctFromLangs();
-		final List<String> toLangs = authorisationRepository.getDistinctToLangs();
+    return LanguagePairsDictDTO.builder().from(fromLangs).to(toLangs).build();
+  }
 
-		return LanguagePairsDictDTO.builder().from(fromLangs).to(toLangs).build();
-	}
-
-	private List<String> getDistinctTowns(final Collection<Translator> translators) {
-		return translators.stream().map(Translator::getTown).filter(Objects::nonNull).distinct().sorted().toList();
-	}
-
+  private List<String> getDistinctTowns(final Collection<Translator> translators) {
+    return translators.stream().map(Translator::getTown).filter(Objects::nonNull).distinct().sorted().toList();
+  }
 }
