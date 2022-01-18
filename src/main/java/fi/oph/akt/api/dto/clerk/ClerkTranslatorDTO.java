@@ -5,7 +5,8 @@ import lombok.Builder;
 import lombok.NonNull;
 
 public record ClerkTranslatorDTO(
-  long id,
+  @NonNull Long id,
+  @NonNull Integer version,
   @NonNull ClerkTranslatorContactDetailsDTO contactDetails,
   @NonNull List<ClerkTranslatorAuthorisationDTO> authorisations
 ) {

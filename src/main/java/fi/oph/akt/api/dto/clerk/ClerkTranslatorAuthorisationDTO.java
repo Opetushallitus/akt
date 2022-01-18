@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.NonNull;
 
 public record ClerkTranslatorAuthorisationDTO(
+  @NonNull Long id,
+  @NonNull Integer version,
   @NonNull AuthorisationBasis basis,
   LocalDate autDate,
   String kktCheck,

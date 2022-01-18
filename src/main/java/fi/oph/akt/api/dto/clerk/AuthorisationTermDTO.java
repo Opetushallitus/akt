@@ -4,7 +4,12 @@ import java.time.LocalDate;
 import lombok.Builder;
 import lombok.NonNull;
 
-public record AuthorisationTermDTO(@NonNull LocalDate beginDate, LocalDate endDate) {
+public record AuthorisationTermDTO(
+  @NonNull Long id,
+  @NonNull Integer version,
+  @NonNull LocalDate beginDate,
+  LocalDate endDate
+) {
   // Workaround for bug in IntelliJ lombok plugin
   // https://github.com/mplushnikov/lombok-intellij-plugin/issues/764
   @Builder
