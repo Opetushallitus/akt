@@ -1,6 +1,6 @@
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 
-class ClerkTranslatorRegistry {
+class ClerkHomePage {
   elements = {
     registryHeading: () =>
       cy.findByTestId('clerk-translator-registry__heading'),
@@ -35,4 +35,4 @@ class ClerkTranslatorRegistry {
   }
 }
 
-export const onClerkTranslatorRegistry = new ClerkTranslatorRegistry();
+export const onClerkHomePage = new ClerkHomePage();

@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import { Box, Grid } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { UIStateSelector } from 'redux/selectors/navigation';
+import { publicUIViewSelector } from 'redux/selectors/publicUIView';
 import { PublicUIViews } from 'enums/app';
 import { ContactRequestPage } from 'pages/ContactRequestPage';
 import { PublicTranslatorsGrid } from 'components/publicTranslator/PublicTranslatorsGrid';
@@ -15,7 +15,7 @@ export const PublicHomePage: FC = () => {
     dispatch(loadPublicTranslators);
   }, [dispatch]);
 
-  const { currentView: currentUIState } = useAppSelector(UIStateSelector);
+  const { currentView } = useAppSelector(publicUIViewSelector);
 
   return (
     <Box className="homepage">
@@ -25,7 +25,7 @@ export const PublicHomePage: FC = () => {
         direction="column"
         className="homepage__grid-container"
       >
-        {currentUIState == PublicUIViews.ContactRequest ? (
+        {currentView == PublicUIViews.ContactRequest ? (
           <ContactRequestPage />
         ) : (
           <PublicTranslatorsGrid />

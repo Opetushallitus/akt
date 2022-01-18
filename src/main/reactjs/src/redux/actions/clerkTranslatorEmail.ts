@@ -14,7 +14,9 @@ export const sendClerkTranslatorEmail = {
   type: CLERK_TRANSLATOR_EMAIL_SEND,
 };
 
-export const setClerkTranslatorEmailRecipients = (recipientIds: number[]) => ({
+export const setClerkTranslatorEmailRecipients = (
+  recipientIds: Array<number>
+) => ({
   type: CLERK_TRANSLATOR_EMAIL_SET_RECIPIENTS,
   recipientIds,
 });

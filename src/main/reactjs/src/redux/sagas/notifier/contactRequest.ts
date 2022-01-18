@@ -9,7 +9,7 @@ import {
   CONTACT_REQUEST_RESET,
   CONTACT_REQUEST_RESET_REDIRECT,
 } from 'redux/actionTypes/contactRequest';
-import { setPublicUIView } from 'redux/actions/navigation';
+import { setPublicUIView } from 'redux/actions/publicUIView';
 import { PUBLIC_TRANSLATOR_EMPTY_SELECTIONS } from 'redux/actionTypes/publicTranslator';
 
 export function* resetContactRequest() {

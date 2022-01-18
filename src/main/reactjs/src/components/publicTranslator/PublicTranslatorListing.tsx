@@ -24,7 +24,7 @@ import {
 } from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { PublicUIViews, Severity, SearchFilter } from 'enums/app';
-import { setPublicUIView } from 'redux/actions/navigation';
+import { setPublicUIView } from 'redux/actions/publicUIView';
 import { showNotifierToast } from 'redux/actions/notifier';
 import { Utils } from 'utils/index';
 
