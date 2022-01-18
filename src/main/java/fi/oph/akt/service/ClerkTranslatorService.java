@@ -153,6 +153,7 @@ public class ClerkTranslatorService {
         return ClerkTranslatorDTO
           .builder()
           .id(translator.getId())
+          .version(translator.getVersion())
           .contactDetails(contactDetailsDTO)
           .authorisations(authorisationDTOS)
           .build();
@@ -198,7 +199,15 @@ public class ClerkTranslatorService {
             termProjectionsByAuthorisation
               .stream()
               .sorted(authorisationTermProjectionComparator.reversed())
-              .map(tp -> AuthorisationTermDTO.builder().beginDate(tp.beginDate()).endDate(tp.endDate()).build())
+              .map(tp ->
+                AuthorisationTermDTO
+                  .builder()
+                  .id(tp.id())
+                  .version(tp.version())
+                  .beginDate(tp.beginDate())
+                  .endDate(tp.endDate())
+                  .build()
+              )
               .toList();
         }
 
@@ -213,6 +222,8 @@ public class ClerkTranslatorService {
 
         return ClerkTranslatorAuthorisationDTO
           .builder()
+          .id(authProjection.authorisationId())
+          .version(authProjection.authorisationVersion())
           .basis(authProjection.authorisationBasis())
           .autDate(authProjection.autDate())
           .kktCheck(authProjection.kktCheck())

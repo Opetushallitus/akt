@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.NonNull;
 
 public record PublicTranslatorDTO(
-  long id,
+  @NonNull Long id,
   @NonNull String firstName,
   @NonNull String lastName,
   String town,

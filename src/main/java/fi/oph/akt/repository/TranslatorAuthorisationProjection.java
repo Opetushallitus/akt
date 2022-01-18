@@ -6,6 +6,7 @@ import java.time.LocalDate;
 public record TranslatorAuthorisationProjection(
   long translatorId,
   long authorisationId,
+  int authorisationVersion,
   AuthorisationBasis authorisationBasis,
   LocalDate autDate,
   String kktCheck,
