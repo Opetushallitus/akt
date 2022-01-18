@@ -15,34 +15,33 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ControllerExceptionAdvice {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ControllerExceptionAdvice.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ControllerExceptionAdvice.class);
 
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<Object> handleMethodArgumentNotValidException(final MethodArgumentNotValidException ex) {
-		LOG.error("MethodArgumentNotValidException: " + ex.getMessage());
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<Object> handleMethodArgumentNotValidException(final MethodArgumentNotValidException ex) {
+    LOG.error("MethodArgumentNotValidException: " + ex.getMessage());
 
-		return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-	}
+    return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+  }
 
-	@ExceptionHandler(IllegalArgumentException.class)
-	public ResponseEntity<Object> handleIllegalArgumentException(final IllegalArgumentException ex) {
-		LOG.error("IllegalArgumentException: " + ex.getMessage());
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<Object> handleIllegalArgumentException(final IllegalArgumentException ex) {
+    LOG.error("IllegalArgumentException: " + ex.getMessage());
 
-		return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-	}
+    return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+  }
 
-	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public ResponseEntity<Object> handleHttpMessageNotReadableException(final HttpMessageNotReadableException ex) {
-		LOG.error("HttpMessageNotReadableException: " + ex.getMessage());
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  public ResponseEntity<Object> handleHttpMessageNotReadableException(final HttpMessageNotReadableException ex) {
+    LOG.error("HttpMessageNotReadableException: " + ex.getMessage());
 
-		return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-	}
+    return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+  }
 
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<Object> handleAll(final Exception ex) {
-		LOG.error("Exception caught", ex);
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<Object> handleAll(final Exception ex) {
+    LOG.error("Exception caught", ex);
 
-		return new ResponseEntity<>("exception: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-
+    return new ResponseEntity<>("exception: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 }

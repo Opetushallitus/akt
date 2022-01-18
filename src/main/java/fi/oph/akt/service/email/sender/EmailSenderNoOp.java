@@ -6,12 +6,11 @@ import org.slf4j.LoggerFactory;
 
 public class EmailSenderNoOp implements EmailSender {
 
-	private static final Logger LOG = LoggerFactory.getLogger(EmailSenderNoOp.class);
+  private static final Logger LOG = LoggerFactory.getLogger(EmailSenderNoOp.class);
 
-	@Override
-	public String sendEmail(final EmailData emailData) {
-		LOG.info("{}", emailData);
-		return "no-op";
-	}
-
+  @Override
+  public String sendEmail(final EmailData emailData) {
+    LOG.info("{}", emailData);
+    return "no-op";
+  }
 }

@@ -14,53 +14,52 @@ import lombok.Setter;
 @MappedSuperclass
 public class BaseEntity {
 
-	@Version
-	@Column(name = "version", nullable = false)
-	private int version;
+  @Version
+  @Column(name = "version", nullable = false)
+  private int version;
 
-	@Column(name = "created_by")
-	private String createdBy;
+  @Column(name = "created_by")
+  private String createdBy;
 
-	@Column(name = "modified_by")
-	private String modifiedBy;
+  @Column(name = "modified_by")
+  private String modifiedBy;
 
-	@Column(name = "deleted_by")
-	private String deletedBy;
+  @Column(name = "deleted_by")
+  private String deletedBy;
 
-	@Column(name = "created_at", nullable = false)
-	private LocalDateTime createdAt;
+  @Column(name = "created_at", nullable = false)
+  private LocalDateTime createdAt;
 
-	@Column(name = "modified_at", nullable = false)
-	private LocalDateTime modifiedAt;
+  @Column(name = "modified_at", nullable = false)
+  private LocalDateTime modifiedAt;
 
-	@Column(name = "deleted_at")
-	private LocalDateTime deletedAt;
+  @Column(name = "deleted_at")
+  private LocalDateTime deletedAt;
 
-	private String getCurrentUserId() {
-		// TODO
-		return "TODO" + java.time.LocalTime.now();
-	}
+  private String getCurrentUserId() {
+    // TODO
+    return "TODO" + java.time.LocalTime.now();
+  }
 
-	@PrePersist
-	protected void prePersist() {
-		final LocalDateTime now = LocalDateTime.now();
-		setCreatedAt(now);
-		setModifiedAt(now);
+  @PrePersist
+  protected void prePersist() {
+    final LocalDateTime now = LocalDateTime.now();
+    setCreatedAt(now);
+    setModifiedAt(now);
 
-		final String currentUser = getCurrentUserId();
-		if (getCreatedBy() == null) {
-			setCreatedBy(currentUser);
-			setModifiedBy(currentUser);
-		}
-	}
+    final String currentUser = getCurrentUserId();
+    if (getCreatedBy() == null) {
+      setCreatedBy(currentUser);
+      setModifiedBy(currentUser);
+    }
+  }
 
-	@PreUpdate
-	void preUpdate() {
-		final LocalDateTime now = LocalDateTime.now();
-		setModifiedAt(now);
+  @PreUpdate
+  void preUpdate() {
+    final LocalDateTime now = LocalDateTime.now();
+    setModifiedAt(now);
 
-		final String currentUser = getCurrentUserId();
-		setModifiedBy(currentUser);
-	}
-
+    final String currentUser = getCurrentUserId();
+    setModifiedBy(currentUser);
+  }
 }

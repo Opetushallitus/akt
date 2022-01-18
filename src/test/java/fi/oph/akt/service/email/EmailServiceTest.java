@@ -1,22 +1,5 @@
 package fi.oph.akt.service.email;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import fi.oph.akt.Factory;
-import fi.oph.akt.model.Email;
-import fi.oph.akt.model.EmailType;
-import fi.oph.akt.repository.EmailRepository;
-import fi.oph.akt.service.email.sender.EmailSender;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
-import javax.annotation.Resource;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -26,92 +9,112 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import fi.oph.akt.Factory;
+import fi.oph.akt.model.Email;
+import fi.oph.akt.model.EmailType;
+import fi.oph.akt.repository.EmailRepository;
+import fi.oph.akt.service.email.sender.EmailSender;
+import java.util.List;
+import javax.annotation.Resource;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
 @DataJpaTest
 class EmailServiceTest {
 
-	private EmailService emailService;
+  private EmailService emailService;
 
-	@Resource
-	private EmailRepository emailRepository;
+  @Resource
+  private EmailRepository emailRepository;
 
-	@MockBean
-	private EmailSender emailSenderMock;
+  @MockBean
+  private EmailSender emailSenderMock;
 
-	@Resource
-	private TestEntityManager entityManager;
+  @Resource
+  private TestEntityManager entityManager;
 
-	@Captor
-	private ArgumentCaptor<EmailData> emailDataCaptor;
+  @Captor
+  private ArgumentCaptor<EmailData> emailDataCaptor;
 
-	@BeforeEach
-	public void setup() {
-		emailService = new EmailService(emailRepository, emailSenderMock);
-	}
+  @BeforeEach
+  public void setup() {
+    emailService = new EmailService(emailRepository, emailSenderMock);
+  }
 
-	@Test
-	public void saveEmailTest() {
-		final EmailData emailData = EmailData.builder().sender("lähettäjä").recipient("vastaanottaja@invalid")
-				.subject("testiotsikko").body("testiviesti").build();
+  @Test
+  public void saveEmailTest() {
+    final EmailData emailData = EmailData
+      .builder()
+      .sender("lähettäjä")
+      .recipient("vastaanottaja@invalid")
+      .subject("testiotsikko")
+      .body("testiviesti")
+      .build();
 
-		final Long emailId = emailService.saveEmail(EmailType.CONTACT_REQUEST, emailData);
-		final Email email = emailRepository.getById(emailId);
+    final Long emailId = emailService.saveEmail(EmailType.CONTACT_REQUEST, emailData);
+    final Email email = emailRepository.getById(emailId);
 
-		assertEquals(EmailType.CONTACT_REQUEST, email.getEmailType());
-		assertEquals("lähettäjä", email.getSender());
-		assertEquals("vastaanottaja@invalid", email.getRecipient());
-		assertEquals("testiotsikko", email.getSubject());
-		assertEquals("testiviesti", email.getBody());
-		assertNull(email.getSentAt());
-		assertNull(email.getError());
-		assertNull(email.getExtId());
+    assertEquals(EmailType.CONTACT_REQUEST, email.getEmailType());
+    assertEquals("lähettäjä", email.getSender());
+    assertEquals("vastaanottaja@invalid", email.getRecipient());
+    assertEquals("testiotsikko", email.getSubject());
+    assertEquals("testiviesti", email.getBody());
+    assertNull(email.getSentAt());
+    assertNull(email.getError());
+    assertNull(email.getExtId());
 
-		final List<Email> allEmails = emailRepository.findAll();
-		assertEquals(1, allEmails.size());
-	}
+    final List<Email> allEmails = emailRepository.findAll();
+    assertEquals(1, allEmails.size());
+  }
 
-	@Test
-	public void sendEmailSuccessTest() throws JsonProcessingException {
-		final Email email = Factory.email(EmailType.CONTACT_REQUEST);
-		final Email savedEmail = entityManager.persist(email);
-		when(emailSenderMock.sendEmail(any())).thenReturn("12345");
+  @Test
+  public void sendEmailSuccessTest() throws JsonProcessingException {
+    final Email email = Factory.email(EmailType.CONTACT_REQUEST);
+    final Email savedEmail = entityManager.persist(email);
+    when(emailSenderMock.sendEmail(any())).thenReturn("12345");
 
-		emailService.sendEmail(savedEmail.getId());
+    emailService.sendEmail(savedEmail.getId());
 
-		final Email updatedEmail = emailRepository.getById(savedEmail.getId());
-		assertNotNull(updatedEmail.getSentAt());
-		assertEquals("12345", updatedEmail.getExtId());
-		assertNull(updatedEmail.getError());
+    final Email updatedEmail = emailRepository.getById(savedEmail.getId());
+    assertNotNull(updatedEmail.getSentAt());
+    assertEquals("12345", updatedEmail.getExtId());
+    assertNull(updatedEmail.getError());
 
-		verify(emailSenderMock).sendEmail(emailDataCaptor.capture());
-		assertEquals(savedEmail.getSender(), emailDataCaptor.getValue().sender());
-		assertEquals(savedEmail.getRecipient(), emailDataCaptor.getValue().recipient());
-		assertEquals(savedEmail.getSubject(), emailDataCaptor.getValue().subject());
-		assertEquals(savedEmail.getBody(), emailDataCaptor.getValue().body());
-	}
+    verify(emailSenderMock).sendEmail(emailDataCaptor.capture());
+    assertEquals(savedEmail.getSender(), emailDataCaptor.getValue().sender());
+    assertEquals(savedEmail.getRecipient(), emailDataCaptor.getValue().recipient());
+    assertEquals(savedEmail.getSubject(), emailDataCaptor.getValue().subject());
+    assertEquals(savedEmail.getBody(), emailDataCaptor.getValue().body());
+  }
 
-	@Test
-	public void sendEmailFailureTest() throws JsonProcessingException {
-		final Email email = Factory.email(EmailType.CONTACT_REQUEST);
-		final Email savedEmail = entityManager.persist(email);
+  @Test
+  public void sendEmailFailureTest() throws JsonProcessingException {
+    final Email email = Factory.email(EmailType.CONTACT_REQUEST);
+    final Email savedEmail = entityManager.persist(email);
 
-		doThrow(new RuntimeException("error msg")).when(emailSenderMock).sendEmail(any());
+    doThrow(new RuntimeException("error msg")).when(emailSenderMock).sendEmail(any());
 
-		emailService.sendEmail(savedEmail.getId());
+    emailService.sendEmail(savedEmail.getId());
 
-		final Email updatedEmail = emailRepository.getById(savedEmail.getId());
-		assertNull(updatedEmail.getSentAt());
-		assertNull(updatedEmail.getExtId());
-		assertEquals("error msg", updatedEmail.getError());
-	}
+    final Email updatedEmail = emailRepository.getById(savedEmail.getId());
+    assertNull(updatedEmail.getSentAt());
+    assertNull(updatedEmail.getExtId());
+    assertEquals("error msg", updatedEmail.getError());
+  }
 
-	@Test
-	public void sendEmailNonExistingIdTest() {
-		// sanity check to make sure there are no emails in database
-		assertEquals(0, emailRepository.findAll().size());
+  @Test
+  public void sendEmailNonExistingIdTest() {
+    // sanity check to make sure there are no emails in database
+    assertEquals(0, emailRepository.findAll().size());
 
-		emailService.sendEmail(111);
+    emailService.sendEmail(111);
 
-		verifyNoInteractions(emailSenderMock);
-	}
-
+    verifyNoInteractions(emailSenderMock);
+  }
 }

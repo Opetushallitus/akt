@@ -56,9 +56,10 @@ and open browser to
 
 ## Backend
 
-Code format for Java code is Spring Java Format.
+Code format for Java code is Prettier Java. Maven plugin https://github.com/HubSpot/prettier-maven-plugin is used to
+enforce style. In dev environment, ``mvn validate`` rewrites all java files to correct format. On CI format is only validated (maven profile ``travis``)
 
-Imports are formatted as IntelliJ default, except that `ìmport *` is disabled:
+`ìmport *` is disabled:
 Code Style -> Java -> Imports:
 
 ```text

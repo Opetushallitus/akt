@@ -1,8 +1,7 @@
 package fi.oph.akt.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
+import java.time.LocalDate;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.time.LocalDate;
-import java.util.Collection;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -19,15 +18,14 @@ import java.util.Collection;
 @Table(name = "meeting_date")
 public class MeetingDate extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "meeting_date_id", nullable = false)
-	private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "meeting_date_id", nullable = false)
+  private long id;
 
-	@Column(name = "date", nullable = false, unique = true)
-	private LocalDate date;
+  @Column(name = "date", nullable = false, unique = true)
+  private LocalDate date;
 
-	@OneToMany(mappedBy = "meetingDate")
-	private Collection<Authorisation> authorisations;
-
+  @OneToMany(mappedBy = "meetingDate")
+  private Collection<Authorisation> authorisations;
 }

@@ -4,6 +4,8 @@ import fi.oph.akt.api.dto.ContactRequestDTO;
 import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
 import fi.oph.akt.service.ContactRequestService;
 import fi.oph.akt.service.PublicTranslatorService;
+import javax.annotation.Resource;
+import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -14,29 +16,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-import javax.validation.Valid;
-
 @RestController
 @RequestMapping(value = "/api/v1/translator", produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
 public class TranslatorController {
 
-	@Resource
-	private ContactRequestService contactRequestService;
+  @Resource
+  private ContactRequestService contactRequestService;
 
-	@Resource
-	private PublicTranslatorService publicTranslatorService;
+  @Resource
+  private PublicTranslatorService publicTranslatorService;
 
-	@GetMapping(path = "")
-	public PublicTranslatorResponseDTO list() {
-		return publicTranslatorService.listTranslators();
-	}
+  @GetMapping(path = "")
+  public PublicTranslatorResponseDTO list() {
+    return publicTranslatorService.listTranslators();
+  }
 
-	@PostMapping("/contact-request")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void sendContactRequest(@Valid @RequestBody ContactRequestDTO contactRequestDTO) {
-		contactRequestService.createContactRequest(contactRequestDTO);
-	}
-
+  @PostMapping("/contact-request")
+  @ResponseStatus(HttpStatus.CREATED)
+  public void sendContactRequest(@Valid @RequestBody ContactRequestDTO contactRequestDTO) {
+    contactRequestService.createContactRequest(contactRequestDTO);
+  }
 }
