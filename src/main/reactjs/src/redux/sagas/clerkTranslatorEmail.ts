@@ -3,59 +3,40 @@ import { call, put, select } from '@redux-saga/core/effects';
 import axiosInstance from 'configs/axios';
 import { translateOutsideComponent } from 'configs/i18n';
 import { APIEndpoints } from 'enums/api';
-import { Severity, Variant } from 'enums/app';
+import { Severity } from 'enums/app';
 import {
   CLERK_TRANSLATOR_EMAIL_ERROR,
   CLERK_TRANSLATOR_EMAIL_REDIRECT_TO_HOMEPAGE,
   CLERK_TRANSLATOR_EMAIL_SUCCESS,
 } from 'redux/actionTypes/clerkTranslatorEmail';
-import {
-  NOTIFIER_ACTION_DO_NOTHING,
-  NOTIFIER_DIALOG_ADD,
-} from 'redux/actionTypes/notifier';
+import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
 import { selectClerkTranslatorEmail } from 'redux/selectors/clerkTranslatorEmail';
 import { Utils } from 'utils/index';
 
-export function* resetEmail() {
+export function* redirectAndReset() {
+  // Actual navigation and final state reset is done in the component.
   yield put({
     type: CLERK_TRANSLATOR_EMAIL_REDIRECT_TO_HOMEPAGE,
   });
 }
 
-function* showSuccessDialog() {
+function* showSuccessToast() {
   const t = translateOutsideComponent();
-  const tPrefix = 'akt.pages.clerkSendEmailPage.dialogs.success.';
-  const notifier = Utils.createNotifierDialog(
-    t(tPrefix + 'title'),
+  const notifier = Utils.createNotifierToast(
     Severity.Success,
-    t(tPrefix + 'description'),
-    [
-      {
-        title: t(tPrefix + 'back'),
-        variant: Variant.Contained,
-        action: CLERK_TRANSLATOR_EMAIL_REDIRECT_TO_HOMEPAGE,
-      },
-    ]
+    t('akt.pages.clerkSendEmailPage.toasts.success')
   );
-  yield put({ type: NOTIFIER_DIALOG_ADD, notifier });
+  yield put({ type: NOTIFIER_TOAST_ADD, notifier });
+  yield call(redirectAndReset);
 }
 
-function* showErrorDialog() {
+function* showErrorToast() {
   const t = translateOutsideComponent();
-  const tPrefix = 'akt.pages.clerkSendEmailPage.dialogs.error.';
-  const notifier = Utils.createNotifierDialog(
-    t(tPrefix + 'title'),
+  const notifier = Utils.createNotifierToast(
     Severity.Error,
-    t(tPrefix + 'description'),
-    [
-      {
-        title: t(tPrefix + 'back'),
-        variant: Variant.Contained,
-        action: NOTIFIER_ACTION_DO_NOTHING,
-      },
-    ]
+    t('akt.pages.clerkSendEmailPage.toasts.error')
   );
-  yield put({ type: NOTIFIER_DIALOG_ADD, notifier });
+  yield put({ type: NOTIFIER_TOAST_ADD, notifier });
 }
 
 export function* sendEmail() {
@@ -72,9 +53,9 @@ export function* sendEmail() {
       })
     );
     yield put({ type: CLERK_TRANSLATOR_EMAIL_SUCCESS });
-    yield call(showSuccessDialog);
+    yield call(showSuccessToast);
   } catch (error) {
     yield put({ type: CLERK_TRANSLATOR_EMAIL_ERROR });
-    yield call(showErrorDialog);
+    yield call(showErrorToast);
   }
 }

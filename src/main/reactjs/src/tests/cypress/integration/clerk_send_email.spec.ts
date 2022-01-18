@@ -8,6 +8,7 @@ import {
   TEST_SUBJECT,
 } from 'tests/cypress/support/page-objects/clerkSendEmailPage';
 import { onDialog } from 'tests/cypress/support/page-objects/dialog';
+import { onToast } from 'tests/cypress/support/page-objects/toast';
 
 const fixedDateForTests = new Date('2022-01-17T12:35:00+0200');
 
@@ -59,9 +60,8 @@ describe('ClerkSendEmailPage', () => {
       confirmSend
     );
 
-    onDialog.expectText('Sähköposti lähetetty');
-    onDialog.clickButtonByText('Takaisin');
     expectRegistryIsVisible();
+    onToast.expectText('Sähköpostisi lähetettiin kääntäjille.');
   });
 
   it('should display an error dialog if there was an error when sending the email', () => {
@@ -73,7 +73,6 @@ describe('ClerkSendEmailPage', () => {
       confirmSend
     );
 
-    onDialog.expectText('Virhe');
-    onDialog.clickButtonByText('Takaisin');
+    onToast.expectText('Sähköpostin lähetys ei onnistunut');
   });
 });

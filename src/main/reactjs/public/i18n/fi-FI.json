@@ -198,6 +198,10 @@
           "cancel": "Peruuta",
           "send": "Lähetä"
         },
+        "toasts": {
+          "success": "Sähköpostisi lähetettiin kääntäjille.",
+          "error": "Sähköpostin lähetys ei onnistunut. Virhe voi olla tilapäinen, yritä uudestaan."
+        },
         "dialogs": {
           "cancel": {
             "title": "Peruuta sähköpostin lähetys",
@@ -210,16 +214,6 @@
             "description": "Haluatko lähettää sähköpostin? Viesti lähetetään {{count}} kääntäjälle.",
             "back": "Takaisin",
             "yes": "Kyllä"
-          },
-          "success": {
-            "title": "Sähköposti lähetetty",
-            "description": "Sähköpostisi lähetettiin kääntäjille. Palaa takaisin rekisterinäkymään.",
-            "back": "Takaisin"
-          },
-          "error": {
-            "title": "Virhe",
-            "description": "Sähköpostin lähetys ei onnistunut. Virhe voi olla tilapäinen, yritä uudestaan.",
-            "back": "Takaisin"
           }
         }
       },
