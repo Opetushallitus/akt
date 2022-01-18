@@ -2,7 +2,7 @@ class Dialog {
   clickButtonByText(name: string) {
     const regExp = new RegExp(name, 'i');
 
-    cy.findByRole('dialog').findByText(regExp).click();
+    cy.findByRole('dialog').findByRole('button', { name: regExp }).click();
   }
 
   expectText(text: string) {

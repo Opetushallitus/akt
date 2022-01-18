@@ -6,6 +6,10 @@ class ClerkTranslatorRegistry {
       cy.findByTestId('clerk-translator-registry__heading'),
     authorisationStatusButton: (status: AuthorisationStatus) =>
       cy.findByTestId(`clerk-translator-filters__btn--${status}`),
+    sendEmailButton: () =>
+      cy.findByTestId('clerk-translator-registry__send-email-btn'),
+    translatorRow: (id: string) =>
+      cy.findByTestId(`clerk-translators__id-${id}-row`),
   };
 
   expectTotalTranslatorsCount(count: number) {
@@ -20,6 +24,14 @@ class ClerkTranslatorRegistry {
 
   filterByAuthorisationStatus(status: AuthorisationStatus) {
     this.elements.authorisationStatusButton(status).click();
+  }
+
+  sendEmail() {
+    this.elements.sendEmailButton().click();
+  }
+
+  selectTranslatorById(id: string) {
+    this.elements.translatorRow(id).click();
   }
 }
 

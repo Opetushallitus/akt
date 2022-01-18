@@ -21,6 +21,7 @@ const SendEmailButton = () => {
 
   return (
     <Button
+      data-testid="clerk-translator-registry__send-email-btn"
       component={Link}
       to={AppRoutes.ClerkSendEmailPage}
       color="secondary"

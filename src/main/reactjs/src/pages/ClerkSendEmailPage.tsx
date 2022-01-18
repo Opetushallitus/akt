@@ -82,6 +82,7 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
   return (
     <div className="columns gapped flex-end">
       <Button
+        data-testid="clerk-send-email-page__cancel-btn"
         variant={Variant.Outlined}
         color="secondary"
         onClick={dispatchCancelNotifier}
@@ -89,6 +90,7 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
         {t('buttons.cancel')}
       </Button>
       <Button
+        data-testid="clerk-send-email-page__send-btn"
         variant={Variant.Contained}
         color="secondary"
         disabled={submitDisabled}
@@ -174,6 +176,7 @@ export const ClerkSendEmailPage = () => {
           <div className="rows gapped">
             <H2>{t('pages.clerkSendEmailPage.sections.subject')}</H2>
             <TextBox
+              data-testid="clerk-send-email-page__subject"
               placeholder={t('pages.clerkSendEmailPage.placeholders.subject')}
               value={email.subject}
               onChange={handleSubjectChange}
@@ -186,6 +189,7 @@ export const ClerkSendEmailPage = () => {
           <div className="rows gapped">
             <H2>{t('pages.clerkSendEmailPage.sections.message')}</H2>
             <TextBox
+              data-testid="clerk-send-email-page__message"
               placeholder={t('pages.clerkSendEmailPage.placeholders.message')}
               rows={5}
               value={email.body}
