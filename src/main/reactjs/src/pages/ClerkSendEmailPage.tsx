@@ -122,7 +122,9 @@ export const ClerkSendEmailPage = () => {
   const [fieldErrors, setFieldErrors] =
     useState<typeof initialFieldErrors>(initialFieldErrors);
   const submitDisabled =
-    Utils.isEmptyString(email.subject) || Utils.isEmptyString(email.body);
+    Utils.isEmptyString(email.subject) ||
+    Utils.isEmptyString(email.body) ||
+    translators.length == 0;
 
   // Navigation
   const navigate = useNavigate();
@@ -177,7 +179,7 @@ export const ClerkSendEmailPage = () => {
             <H2>{t('pages.clerkSendEmailPage.sections.subject')}</H2>
             <TextBox
               data-testid="clerk-send-email-page__subject"
-              placeholder={t('pages.clerkSendEmailPage.placeholders.subject')}
+              label={t('pages.clerkSendEmailPage.labels.subject')}
               value={email.subject}
               onChange={handleSubjectChange}
               onBlur={handleFieldError('subject')}
@@ -190,7 +192,7 @@ export const ClerkSendEmailPage = () => {
             <H2>{t('pages.clerkSendEmailPage.sections.message')}</H2>
             <TextBox
               data-testid="clerk-send-email-page__message"
-              placeholder={t('pages.clerkSendEmailPage.placeholders.message')}
+              label={t('pages.clerkSendEmailPage.labels.message')}
               rows={5}
               value={email.body}
               onChange={handleMessageChange}

@@ -190,7 +190,7 @@
           "subject": "Aihe",
           "message": "Viesti"
         },
-        "placeholders": {
+        "labels": {
           "subject": "Kirjoita aihe",
           "message": "Kirjoita viestisi tähän"
         },
