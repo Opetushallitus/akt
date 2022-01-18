@@ -1,11 +1,12 @@
 import { Action } from 'redux';
 
-import { WithId } from 'interfaces/withId';
-import { APIAuthorisation, Authorisation } from 'interfaces/authorisation';
-import { APIMeetingDate, MeetingDate } from 'interfaces/meetingDate';
-import { LanguagePairsDict } from 'interfaces/language';
 import { APIResponseStatus } from 'enums/api';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
+import { APIAuthorisation, Authorisation } from 'interfaces/authorisation';
+import { LanguagePairsDict } from 'interfaces/language';
+import { APIMeetingDate, MeetingDate } from 'interfaces/meetingDate';
+import { WithId } from 'interfaces/withId';
+import { WithVersion } from 'interfaces/withVersion';
 
 interface ClerkTranslatorContactDetails {
   firstName: string;
@@ -19,8 +20,8 @@ interface ClerkTranslatorContactDetails {
   country?: string;
 }
 
-export interface ClerkTranslator extends WithId {
-  contactDetails: ClerkTranslatorContactDetails;
+export interface ClerkTranslator
+  extends Omit<APIClerkTranslator, 'authorisations'> {
   authorisations: Array<Authorisation>;
 }
 
@@ -31,8 +32,8 @@ export interface ClerkTranslatorResponse {
   meetingDates: Array<MeetingDate>;
 }
 
-export interface APIClerkTranslator
-  extends Omit<ClerkTranslator, 'authorisations'> {
+export interface APIClerkTranslator extends WithId, WithVersion {
+  contactDetails: ClerkTranslatorContactDetails;
   authorisations: Array<APIAuthorisation>;
 }
 

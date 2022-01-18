@@ -33,7 +33,13 @@ export class Utils {
     return `${date}-${random}`;
   }
 
-  static formatDate(date?: Date) {
+  static optionalStringToDate(dateString?: string) {
+    if (dateString) {
+      return new Date(dateString);
+    }
+  }
+
+  static formatOptionalDate(date?: Date) {
     if (!date) {
       return '-';
     }

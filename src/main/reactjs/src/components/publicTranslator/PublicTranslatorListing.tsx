@@ -10,7 +10,7 @@ import { Box } from '@mui/system';
 import { H2, H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
-import { PublicTranslator } from 'interfaces/translator';
+import { PublicTranslator } from 'interfaces/publicTranslator';
 import { APIResponseStatus } from 'enums/api';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import {
@@ -42,6 +42,18 @@ const getRowDetails = (
   );
 };
 
+const getTownInfo = (town?: string, country?: string) => {
+  if (town && country) {
+    return `${town}${`, ${country}`}`;
+  } else if (town) {
+    return town;
+  } else if (country) {
+    return country;
+  }
+
+  return '-';
+};
+
 const ListingRow = ({
   translator,
   selected,
@@ -61,7 +73,7 @@ const ListingRow = ({
   const { filters } = useAppSelector(publicTranslatorsSelector);
   const { fromLang, toLang } = filters;
   const { firstName, lastName, languagePairs, town, country } = translator;
-  const townInfo = `${town}${country ? `, ${country}` : ''}`;
+
   const translateLanguage = useKoodistoLanguagesTranslation();
 
   const handleRowClick = () => {
@@ -110,7 +122,7 @@ const ListingRow = ({
         ))}
       </TableCell>
       <TableCell>
-        <Text>{townInfo}</Text>
+        <Text>{getTownInfo(town, country)}</Text>
       </TableCell>
     </TableRow>
   );

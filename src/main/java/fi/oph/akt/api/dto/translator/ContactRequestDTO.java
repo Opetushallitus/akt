@@ -1,4 +1,4 @@
-package fi.oph.akt.api.dto;
+package fi.oph.akt.api.dto.translator;
 
 import java.util.List;
 import javax.validation.constraints.Email;

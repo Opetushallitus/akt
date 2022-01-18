@@ -8,7 +8,7 @@ public record ClerkTranslatorDTO(
   @NonNull Long id,
   @NonNull Integer version,
   @NonNull ClerkTranslatorContactDetailsDTO contactDetails,
-  @NonNull List<ClerkTranslatorAuthorisationDTO> authorisations
+  @NonNull List<AuthorisationDTO> authorisations
 ) {
   // Workaround for bug in IntelliJ lombok plugin
   // https://github.com/mplushnikov/lombok-intellij-plugin/issues/764

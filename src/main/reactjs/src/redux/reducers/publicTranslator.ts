@@ -5,7 +5,7 @@ import {
   PublicTranslatorState,
   PublicTranslatorAction,
   PublicTranslator,
-} from 'interfaces/translator';
+} from 'interfaces/publicTranslator';
 import {
   PUBLIC_TRANSLATOR_ERROR,
   PUBLIC_TRANSLATOR_LOADING,

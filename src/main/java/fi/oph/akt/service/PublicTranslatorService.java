@@ -1,9 +1,9 @@
 package fi.oph.akt.service;
 
+import fi.oph.akt.api.dto.LanguagePairDTO;
 import fi.oph.akt.api.dto.LanguagePairsDictDTO;
-import fi.oph.akt.api.dto.PublicLanguagePairDTO;
-import fi.oph.akt.api.dto.PublicTranslatorDTO;
-import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
+import fi.oph.akt.api.dto.translator.PublicTranslatorDTO;
+import fi.oph.akt.api.dto.translator.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.TranslatorLanguagePairProjection;
@@ -53,10 +53,7 @@ public class PublicTranslatorService {
     final List<PublicTranslatorDTO> publicTranslatorDTOS = translators
       .stream()
       .map(translator -> {
-        final List<PublicLanguagePairDTO> languagePairDTOs = getPublicLanguagePairDTOs(
-          translatorLanguagePairs,
-          translator
-        );
+        final List<LanguagePairDTO> languagePairDTOs = getLanguagePairDTOs(translatorLanguagePairs, translator);
 
         return createPublicTranslatorDTO(translator, languagePairDTOs);
       })
@@ -81,20 +78,20 @@ public class PublicTranslatorService {
       .build();
   }
 
-  private List<PublicLanguagePairDTO> getPublicLanguagePairDTOs(
+  private List<LanguagePairDTO> getLanguagePairDTOs(
     final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs,
     final Translator t
   ) {
     return translatorLanguagePairs
       .getOrDefault(t.getId(), Collections.emptyList())
       .stream()
-      .map(tlp -> PublicLanguagePairDTO.builder().from(tlp.fromLang()).to(tlp.toLang()).build())
+      .map(tlp -> LanguagePairDTO.builder().from(tlp.fromLang()).to(tlp.toLang()).build())
       .toList();
   }
 
   private PublicTranslatorDTO createPublicTranslatorDTO(
     final Translator translator,
-    final List<PublicLanguagePairDTO> languagePairDTOS
+    final List<LanguagePairDTO> languagePairDTOS
   ) {
     final String country = Optional
       .ofNullable(translator.getCountry())

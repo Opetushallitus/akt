@@ -71,11 +71,9 @@ const ListingRow = ({
       </TableCell>
       <TableCell>
         <div className="rows">
-          {authorisations.map(({ langPair }, idx) => (
+          {authorisations.map(({ languagePair: lp }, idx) => (
             <Text key={idx}>
-              {`${translateLanguage(langPair.from)} - ${translateLanguage(
-                langPair.to
-              )}`}
+              {`${translateLanguage(lp.from)} - ${translateLanguage(lp.to)}`}
             </Text>
           ))}
         </div>
@@ -90,14 +88,18 @@ const ListingRow = ({
       <TableCell>
         <div className="rows">
           {authorisations.map(({ effectiveTerm }, idx) => (
-            <Text key={idx}>{Utils.formatDate(effectiveTerm?.start)}</Text>
+            <Text key={idx}>
+              {Utils.formatOptionalDate(effectiveTerm?.start)}
+            </Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
         <div className="rows">
           {authorisations.map(({ effectiveTerm }, idx) => (
-            <Text key={idx}>{Utils.formatDate(effectiveTerm?.end)}</Text>
+            <Text key={idx}>
+              {Utils.formatOptionalDate(effectiveTerm?.end)}
+            </Text>
           ))}
         </div>
       </TableCell>

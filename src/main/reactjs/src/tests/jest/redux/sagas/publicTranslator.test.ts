@@ -2,7 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { AxiosResponse } from 'axios';
 
 import axiosInstance from 'configs/axios';
-import { PublicTranslatorResponse } from 'interfaces/translator';
+import { PublicTranslatorResponse } from 'interfaces/publicTranslator';
 import {
   watchFetchPublicTranslators,
   fetchPublicTranslators,

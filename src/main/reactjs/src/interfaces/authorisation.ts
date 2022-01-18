@@ -1,14 +1,16 @@
-import { ClerkLanguagePair, PublicLanguagePair } from 'interfaces/language';
+import { LanguagePair } from 'interfaces/language';
+import { WithId } from 'interfaces/withId';
+import { WithVersion } from 'interfaces/withVersion';
 
 type AuthorisationBasis = 'AUT' | 'KKT' | 'VIR';
 
-export interface AuthorisationTerm {
+export interface AuthorisationTerm extends WithId, WithVersion {
   start: Date;
   end?: Date;
 }
 
-export interface Authorisation {
-  langPair: PublicLanguagePair;
+export interface Authorisation extends WithId, WithVersion {
+  languagePair: LanguagePair;
   basis: AuthorisationBasis;
   autDate?: Date;
   kktCheck?: string;
@@ -20,12 +22,13 @@ export interface Authorisation {
   permissionToPublish: boolean;
 }
 
-export interface APIAuthorisationTerm {
+export interface APIAuthorisationTerm extends WithId, WithVersion {
   beginDate: string;
   endDate?: string;
 }
 
-export interface APIAuthorisation {
+export interface APIAuthorisation extends WithId, WithVersion {
+  languagePair: LanguagePair;
   basis: AuthorisationBasis;
   autDate?: string;
   kktCheck?: string;
@@ -33,5 +36,5 @@ export interface APIAuthorisation {
   assuranceDate?: string;
   meetingDate?: string;
   terms?: Array<APIAuthorisationTerm>;
-  languagePairs: Array<ClerkLanguagePair>;
+  permissionToPublish: boolean;
 }
