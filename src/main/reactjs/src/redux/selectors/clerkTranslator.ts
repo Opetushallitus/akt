@@ -2,10 +2,7 @@ import { createSelector } from 'reselect';
 
 import { RootState } from 'configs/redux';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
-import {
-  Authorisation,
-  effectiveAuthorisationTerm,
-} from 'interfaces/authorisation';
+import { Authorisation } from 'interfaces/authorisation';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 
 export const clerkTranslatorsSelector = (state: RootState) =>
@@ -58,7 +55,7 @@ export const selectFilteredSelectedIds = createSelector(
 // Helpers
 
 const isAuthorisationValid = (authorisation: Authorisation, now: Date) => {
-  const term = effectiveAuthorisationTerm(authorisation);
+  const term = authorisation.effectiveTerm;
   if (!term || !term.end) {
     return true;
   }
@@ -70,7 +67,7 @@ const isAuthorisationExpiringSoon = (
   authorisation: Authorisation,
   expiringSoonThreshold: Date
 ) => {
-  const term = effectiveAuthorisationTerm(authorisation);
+  const term = authorisation.effectiveTerm;
   if (!term || !term.end) {
     return false;
   }
