@@ -185,6 +185,7 @@ export const PublicTranslatorListing = ({
     case APIResponseStatus.NotStarted:
     case APIResponseStatus.InProgress:
       return <ProgressIndicator color="secondary" />;
+    case APIResponseStatus.Cancelled:
     case APIResponseStatus.Error:
       return (
         <Box

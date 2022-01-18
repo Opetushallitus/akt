@@ -10,7 +10,8 @@ import {
   selectFilteredSelectedTranslators,
 } from 'redux/selectors/clerkTranslator';
 import { TextBox } from 'components/elements/TextBox';
-import { Severity, TextBoxTypes, Variant } from 'enums/app';
+import { Severity, TextBoxTypes, Variant, AppRoutes } from 'enums/app';
+import { APIResponseStatus } from 'enums/api';
 import { Utils } from 'utils/index';
 import { selectClerkTranslatorEmail } from 'redux/selectors/clerkTranslatorEmail';
 import {
@@ -110,7 +111,7 @@ export const ClerkSendEmailPage = () => {
 
   // Redux
   const translators = useAppSelector(selectFilteredSelectedTranslators);
-  const { email, redirect } = useAppSelector(selectClerkTranslatorEmail);
+  const { email, status } = useAppSelector(selectClerkTranslatorEmail);
   const dispatch = useAppDispatch();
   const setEmailSubject = (subject: string) =>
     dispatch(setClerkTranslatorEmail({ subject }));
@@ -129,11 +130,14 @@ export const ClerkSendEmailPage = () => {
   // Navigation
   const navigate = useNavigate();
   useEffect(() => {
-    if (redirect) {
+    if (
+      status == APIResponseStatus.Success ||
+      status == APIResponseStatus.Cancelled
+    ) {
       dispatch(resetClerkTranslatorEmail);
-      navigate(redirect);
+      navigate(AppRoutes.ClerkHomePage);
     }
-  }, [dispatch, navigate, redirect]);
+  }, [dispatch, navigate, status]);
 
   const handleFieldError =
     (field: 'subject' | 'message') =>

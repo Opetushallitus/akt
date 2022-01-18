@@ -175,6 +175,7 @@ export const ClerkTranslatorListing: FC = () => {
     case APIResponseStatus.NotStarted:
     case APIResponseStatus.InProgress:
       return <ProgressIndicator color="secondary" />;
+    case APIResponseStatus.Cancelled:
     case APIResponseStatus.Error:
       return (
         <Box

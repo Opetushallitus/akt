@@ -6,17 +6,16 @@ import { APIEndpoints } from 'enums/api';
 import { Severity } from 'enums/app';
 import {
   CLERK_TRANSLATOR_EMAIL_ERROR,
-  CLERK_TRANSLATOR_EMAIL_REDIRECT_TO_HOMEPAGE,
+  CLERK_TRANSLATOR_EMAIL_CANCEL,
   CLERK_TRANSLATOR_EMAIL_SUCCESS,
 } from 'redux/actionTypes/clerkTranslatorEmail';
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
 import { selectClerkTranslatorEmail } from 'redux/selectors/clerkTranslatorEmail';
 import { Utils } from 'utils/index';
 
-export function* redirectAndReset() {
-  // Actual navigation and final state reset is done in the component.
+export function* cancel() {
   yield put({
-    type: CLERK_TRANSLATOR_EMAIL_REDIRECT_TO_HOMEPAGE,
+    type: CLERK_TRANSLATOR_EMAIL_CANCEL,
   });
 }
 
@@ -27,7 +26,6 @@ function* showSuccessToast() {
     t('akt.pages.clerkSendEmailPage.toasts.success')
   );
   yield put({ type: NOTIFIER_TOAST_ADD, notifier });
-  yield call(redirectAndReset);
 }
 
 function* showErrorToast() {

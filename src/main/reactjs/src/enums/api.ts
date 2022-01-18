@@ -10,4 +10,5 @@ export enum APIResponseStatus {
   InProgress = 'IN_PROGRESS',
   Success = 'SUCCESS',
   Error = 'ERROR',
+  Cancelled = 'CANCELLED',
 }
