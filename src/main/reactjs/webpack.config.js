@@ -6,24 +6,25 @@ const CopyPlugin = require('copy-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = (env) => {
+  const STATIC_PATH = 'akt/static';
   const mode = env.prod ? 'production' : 'development';
 
   return {
     mode,
     entry: path.join(__dirname, '..', 'reactjs', 'src', 'index.tsx'),
     output: {
+      filename: `${STATIC_PATH}/js/bundle.js`,
       path: path.join(__dirname, 'dist'),
-      filename: 'static/js/bundle.js',
     },
     plugins: [
       new CompressionPlugin({
         algorithm: 'gzip',
       }),
       new MiniCssExtractPlugin({
-        filename: 'static/css/[name].css',
+        filename: `${STATIC_PATH}/css/[name].css`,
       }),
       new HtmlWebpackPlugin({
-        publicPath: '/',
+        publicPath: env.prod ? '/akt/' : '/',
         template: path.join(__dirname, '..', 'reactjs', 'public', 'index.html'),
       }),
       new CopyPlugin({
@@ -36,7 +37,7 @@ module.exports = (env) => {
               'public',
               'favicon.ico'
             ),
-            to: 'static/assets/ico/[name][ext]',
+            to: `${STATIC_PATH}/assets/ico/[name][ext]`,
           },
         ],
       }),
@@ -64,14 +65,14 @@ module.exports = (env) => {
           test: /\.(woff(2)?|ttf|eot)$/,
           type: 'asset/resource',
           generator: {
-            filename: 'static/assets/fonts/[name][ext]',
+            filename: `${STATIC_PATH}/assets/fonts/[name][ext]`,
           },
         },
         {
           test: /\.svg$/,
           type: 'asset/resource',
           generator: {
-            filename: 'static/assets/svg/[name][ext]',
+            filename: `${STATIC_PATH}/assets/svg/[name][ext]`,
           },
         },
       ],
@@ -85,7 +86,7 @@ module.exports = (env) => {
     },
     devtool: env.prod ? 'source-map' : 'cheap-module-source-map',
     devServer: {
-      open: true,
+      open: '/akt/etusivu',
       historyApiFallback: true,
       static: {
         directory: path.join(__dirname, 'public'),
@@ -93,7 +94,7 @@ module.exports = (env) => {
       compress: true,
       port: 4000,
       proxy: {
-        '/api': env.proxy,
+        '/akt/api': env.proxy,
       },
     },
     stats: 'errors-warnings',

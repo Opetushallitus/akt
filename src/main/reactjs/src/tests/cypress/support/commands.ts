@@ -1,7 +1,9 @@
+import { AppRoutes } from 'enums/app';
+
 Cypress.Commands.add('openPublicHomePage', () => {
-  cy.visit('/');
+  cy.visit(AppRoutes.PublicHomePage);
 });
 
 Cypress.Commands.add('openClerkHomePage', () => {
-  cy.visit('/akt/virkailija');
+  cy.visit(AppRoutes.ClerkHomePage);
 });
