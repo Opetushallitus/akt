@@ -21,6 +21,14 @@ class ClerkSendEmailPage {
   send() {
     this.elements.sendButton().click();
   }
+
+  expectSendDisabled() {
+    this.elements.sendButton().should('be.disabled');
+  }
+
+  expectSendEnabled() {
+    this.elements.sendButton().should('be.enabled');
+  }
 }
 
 export const onClerkSendEmailPage = new ClerkSendEmailPage();

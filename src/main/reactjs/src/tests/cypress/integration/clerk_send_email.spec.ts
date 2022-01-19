@@ -1,4 +1,5 @@
 import { APIEndpoints } from 'enums/api';
+import { AppRoutes } from 'enums/app';
 import { onClerkHomePage } from 'tests/cypress/support/page-objects/clerkHomePage';
 import { runWithIntercept } from 'tests/cypress/support/utils/api';
 import { useFixedDate } from 'tests/cypress/support/utils/date';
@@ -74,5 +75,26 @@ describe('ClerkSendEmailPage', () => {
     );
 
     onToast.expectText('Sähköpostin lähetys ei onnistunut');
+  });
+
+  it('should not allow sending email if subject or message are missing', () => {
+    onClerkSendEmailPage.expectSendDisabled();
+    onClerkSendEmailPage.writeSubject(TEST_SUBJECT);
+    onClerkSendEmailPage.expectSendDisabled();
+
+    onClerkSendEmailPage.writeMessage(TEST_MESSAGE);
+    onClerkSendEmailPage.expectSendEnabled();
+  });
+
+  it('should not allow sending email if no translators are selected', () => {
+    // Force clearing redux state by renavigating directly with URL to the page
+    cy.visit(AppRoutes.ClerkSendEmailPage);
+    onClerkSendEmailPage.expectSendDisabled();
+
+    onClerkSendEmailPage.writeSubject(TEST_SUBJECT);
+    onClerkSendEmailPage.expectSendDisabled();
+
+    onClerkSendEmailPage.writeMessage(TEST_MESSAGE);
+    onClerkSendEmailPage.expectSendDisabled();
   });
 });
