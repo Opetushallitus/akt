@@ -85,9 +85,7 @@ const filterByTown = (
   publicTranslator: PublicTranslator,
   filters: PublicTranslatorFilter
 ) => {
-  if (publicTranslator.town) {
-    return publicTranslator.town
-      .toLowerCase()
-      .includes(filters.town.toLowerCase());
-  }
+  return publicTranslator.town
+    ?.toLowerCase()
+    .includes(filters.town.toLowerCase());
 };
