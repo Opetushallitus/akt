@@ -9,8 +9,6 @@ import {
 } from 'enums/app';
 import { Dialog, Toast, NotifierButtonAction } from 'interfaces/notifier';
 
-const dateFormatter = new Intl.DateTimeFormat();
-
 export class Utils {
   static isEmptyString(str: string) {
     return !str || str.length === 0;
@@ -31,20 +29,6 @@ export class Utils {
     const random = Math.random().toString(26).slice(2);
 
     return `${date}-${random}`;
-  }
-
-  static optionalStringToDate(dateString?: string) {
-    if (dateString) {
-      return new Date(dateString);
-    }
-  }
-
-  static formatOptionalDate(date?: Date) {
-    if (!date) {
-      return '-';
-    }
-
-    return dateFormatter.format(date);
   }
 
   static createNotifierDialog(

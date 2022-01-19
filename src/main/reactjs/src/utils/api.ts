@@ -5,7 +5,7 @@ import {
   AuthorisationTerm,
 } from 'interfaces/authorisation';
 import { APIMeetingDate } from 'interfaces/meetingDate';
-import { Utils } from 'utils';
+import { DateUtils } from 'utils/date';
 
 export class APIUtils {
   static convertAPIAuthorisation(
@@ -24,7 +24,7 @@ export class APIUtils {
       }
     };
 
-    const stringToDate = Utils.optionalStringToDate;
+    const stringToDate = DateUtils.optionalStringToDate;
 
     const autDate = stringToDate(authorisation.autDate);
     const virDate = stringToDate(authorisation.virDate);

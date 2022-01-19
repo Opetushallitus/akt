@@ -42,18 +42,6 @@ const getRowDetails = (
   );
 };
 
-const getTownDescription = (town?: string, country?: string) => {
-  if (town && country) {
-    return `${town}, ${country}`;
-  } else if (town) {
-    return town;
-  } else if (country) {
-    return country;
-  }
-
-  return '-';
-};
-
 const ListingRow = ({
   translator,
   selected,
@@ -94,6 +82,18 @@ const ListingRow = ({
     } else {
       toggleSelected();
     }
+  };
+
+  const getTownDescription = (town?: string, country?: string) => {
+    if (town && country) {
+      return `${town}, ${country}`;
+    } else if (town) {
+      return town;
+    } else if (country) {
+      return country;
+    }
+
+    return '-';
   };
 
   return (
