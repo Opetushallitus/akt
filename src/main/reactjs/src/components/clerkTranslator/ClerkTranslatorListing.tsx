@@ -11,6 +11,7 @@ import {
 } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
+import { Color } from 'enums/app';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import {
   deselectAllTranslators,
@@ -63,7 +64,7 @@ const ListingRow = ({
       onClick={toggleSelected}
     >
       <TableCell padding="checkbox">
-        <Checkbox checked={selected} color="secondary" />
+        <Checkbox checked={selected} color={Color.Secondary} />
       </TableCell>
       <TableCell>
         <Text>{`${firstName} ${lastName}`}</Text>
@@ -136,7 +137,7 @@ const ListingHeader: FC = () => {
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
-            color="secondary"
+            color={Color.Secondary}
             checked={allSelected}
             indeterminate={indeterminate}
             onClick={onCheckboxClick}
@@ -174,7 +175,8 @@ export const ClerkTranslatorListing: FC = () => {
   switch (status) {
     case APIResponseStatus.NotStarted:
     case APIResponseStatus.InProgress:
-      return <ProgressIndicator color="secondary" />;
+      return <ProgressIndicator color={Color.Secondary} />;
+    case APIResponseStatus.Cancelled:
     case APIResponseStatus.Error:
       return (
         <Box

@@ -1,5 +1,5 @@
-import { UIStates } from 'enums/app';
+import { PublicUIViews } from 'enums/app';
 
-export interface UIState {
-  state: UIStates;
+export interface PublicUIView {
+  currentView: PublicUIViews;
 }

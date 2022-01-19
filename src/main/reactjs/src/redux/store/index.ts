@@ -6,8 +6,9 @@ import rootSaga from 'redux/sagas/index';
 import { clerkTranslatorReducer } from 'redux/reducers/clerkTranslator';
 import { publicTranslatorReducer } from 'redux/reducers/publicTranslator';
 import { contactRequestReducer } from 'redux/reducers/contactRequest';
-import { UIStateReducer } from 'redux/reducers/navigation';
+import { publicUIViewReducer } from 'redux/reducers/publicUIView';
 import { notifierReducer } from 'redux/reducers/notifier';
+import { clerkTranslatorEmailReducer } from 'redux/reducers/clerkTranslatorEmail';
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewareEnhancer = applyMiddleware(sagaMiddleware);
@@ -18,8 +19,9 @@ export default () => {
     combineReducers({
       publicTranslator: publicTranslatorReducer,
       clerkTranslator: clerkTranslatorReducer,
+      clerkTranslatorEmail: clerkTranslatorEmailReducer,
       contactRequest: contactRequestReducer,
-      UIState: UIStateReducer,
+      publicUIView: publicUIViewReducer,
       notifier: notifierReducer,
     }),
     composeEnhancers(middlewareEnhancer)

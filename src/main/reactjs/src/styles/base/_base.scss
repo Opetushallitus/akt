@@ -34,6 +34,8 @@ body,
   background-color: $color-background-content;
 
   &__container {
+    display: flex;
+    flex-grow: 1;
     padding: 3rem;
     max-width: $breakpoint-xl;
     margin: 2rem auto;

@@ -1,24 +1,35 @@
 import { FC, useEffect } from 'react';
-import { Box, Button, Divider, Grid, Paper } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Box, Paper, Grid, Divider, Button } from '@mui/material';
 
-import { H1, H2, Text } from 'components/elements/Text';
-import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { loadClerkTranslators } from 'redux/actions/clerkTranslator';
+import { useAppTranslation } from 'configs/i18n';
+import { H1, H2, Text } from 'components/elements/Text';
 import { ClerkTranslatorListing } from 'components/clerkTranslator/ClerkTranslatorListing';
 import {
-  ListingFilters,
   RegisterControls,
+  ListingFilters,
 } from 'components/clerkTranslator/ClerkTranslatorFilters';
-import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
+import { AppRoutes, Color, Variant } from 'enums/app';
+import { loadClerkTranslators } from 'redux/actions/clerkTranslator';
+import {
+  clerkTranslatorsSelector,
+  selectFilteredSelectedIds,
+} from 'redux/selectors/clerkTranslator';
+import { APIResponseStatus } from 'enums/api';
 
 export const ClerkHomePage: FC = () => {
-  const { t } = useAppTranslation({ keyPrefix: 'akt.pages.clerkHomepage' });
+  const { translators, status } = useAppSelector(clerkTranslatorsSelector);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(loadClerkTranslators);
-  }, [dispatch]);
-  const { translators } = useAppSelector(clerkTranslatorsSelector);
+    if (status == APIResponseStatus.NotStarted) {
+      dispatch(loadClerkTranslators);
+    }
+  }, [dispatch, status]);
+
+  const { t } = useAppTranslation({ keyPrefix: 'akt.pages.clerkHomepage' });
+  const sendEmailButtonDisabled =
+    useAppSelector(selectFilteredSelectedIds).length === 0;
 
   return (
     <Box className="clerk-homepage">
@@ -31,7 +42,10 @@ export const ClerkHomePage: FC = () => {
             className="clerk-homepage__grid-container"
           >
             <Grid item>
-              <div className="columns gapped">
+              <div
+                className="columns gapped"
+                data-testid="clerk-translator-registry__heading"
+              >
                 <H2>{t('register')}</H2>
                 <Text>{`(${translators.length})`}</Text>
               </div>
@@ -44,7 +58,14 @@ export const ClerkHomePage: FC = () => {
                 <div className="grow columns">
                   <RegisterControls />
                 </div>
-                <Button color="secondary" variant="contained">
+                <Button
+                  data-testid="clerk-translator-registry__send-email-btn"
+                  component={Link}
+                  to={AppRoutes.ClerkSendEmailPage}
+                  color={Color.Secondary}
+                  variant={Variant.Contained}
+                  disabled={sendEmailButtonDisabled}
+                >
                   {t('sendEmail')}
                 </Button>
               </div>

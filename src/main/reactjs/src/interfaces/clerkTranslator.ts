@@ -27,7 +27,7 @@ export interface ClerkTranslator extends WithId {
 export interface ClerkTranslatorResponse {
   translators: Array<ClerkTranslator>;
   langs: LanguagePairsDict;
-  towns: string[];
+  towns: Array<string>;
   meetingDates: Array<MeetingDate>;
 }
 
@@ -39,7 +39,7 @@ export interface APIClerkTranslator
 export interface ClerkTranslatorAPIResponse {
   translators: Array<APIClerkTranslator>;
   langs: LanguagePairsDict;
-  towns: string[];
+  towns: Array<string>;
   meetingDates: Array<APIMeetingDate>;
 }
 

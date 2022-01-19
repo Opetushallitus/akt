@@ -3,9 +3,15 @@ import {
   APIAuthorisationTerm,
   Authorisation,
   AuthorisationTerm,
-  LanguagePair,
 } from 'interfaces/authorisation';
+import { PublicLanguagePair } from 'interfaces/language';
 import { APIMeetingDate } from 'interfaces/meetingDate';
+
+const convertMaybeDate = (date?: string) => {
+  if (date) {
+    return new Date(date);
+  }
+};
 
 export class APIUtils {
   static convertAPIAuthorisation(
@@ -25,21 +31,26 @@ export class APIUtils {
     };
 
     const [clerkLanguagePair] = authorisation.languagePairs;
-    const langPair: LanguagePair = { ...clerkLanguagePair };
+    const langPair: PublicLanguagePair = { ...clerkLanguagePair };
 
     const terms = APIUtils.convertAPIAuthorisationTerms(authorisation.terms);
     const effectiveTerm = effectiveAuthorisationTerm(terms);
+    const autDate = convertMaybeDate(authorisation.autDate);
+    const virDate = convertMaybeDate(authorisation.virDate);
+    const assuranceDate = convertMaybeDate(authorisation.assuranceDate);
+    const meetingDate = convertMaybeDate(authorisation.meetingDate);
+    const permissionToPublish = clerkLanguagePair.permissionToPublish;
 
     return {
       ...authorisation,
       langPair,
-      autDate: new Date(authorisation.autDate),
-      virDate: new Date(authorisation.virDate),
-      assuranceDate: new Date(authorisation.assuranceDate),
-      meetingDate: new Date(authorisation.meetingDate),
+      autDate,
+      virDate,
+      assuranceDate,
+      meetingDate,
       terms,
       effectiveTerm,
-      permissionToPublish: clerkLanguagePair.permissionToPublish,
+      permissionToPublish,
     };
   }
 

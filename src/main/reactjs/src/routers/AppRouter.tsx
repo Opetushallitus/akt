@@ -4,10 +4,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Footer from 'components/layouts/Footer';
 import Header from 'components/layouts/Header';
 import { Notifier } from 'components/notification/Notifier';
+import { AppRoutes } from 'enums/app';
 import { PublicHomePage } from 'pages/PublicHomePage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { ClerkHomePage } from 'pages/ClerkHomePage';
-import { AppRoutes } from 'enums/app';
+import { ClerkSendEmailPage } from 'pages/ClerkSendEmailPage';
 
 export const AppRouter: FC = () => (
   <BrowserRouter>
@@ -22,6 +23,10 @@ export const AppRouter: FC = () => (
               element={<PublicHomePage />}
             />
             <Route path={AppRoutes.ClerkHomePage} element={<ClerkHomePage />} />
+            <Route
+              path={AppRoutes.ClerkSendEmailPage}
+              element={<ClerkSendEmailPage />}
+            />
             <Route path={AppRoutes.NotFoundPage} element={<NotFoundPage />} />
           </Routes>
         </div>

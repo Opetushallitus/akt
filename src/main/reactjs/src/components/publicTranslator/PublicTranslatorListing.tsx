@@ -23,8 +23,8 @@ import {
   removeSelectedTranslator,
 } from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
-import { UIStates, Severity, SearchFilter } from 'enums/app';
-import { displayUIState } from 'redux/actions/navigation';
+import { PublicUIViews, Severity, SearchFilter } from 'enums/app';
+import { setPublicUIView } from 'redux/actions/publicUIView';
 import { showNotifierToast } from 'redux/actions/notifier';
 import { Utils } from 'utils/index';
 
@@ -146,7 +146,7 @@ const ContactRequestButton = () => {
     <Button
       color="secondary"
       variant="contained"
-      onClick={() => dispatch(displayUIState(UIStates.ContactRequest))}
+      onClick={() => dispatch(setPublicUIView(PublicUIViews.ContactRequest))}
       disabled={selectedTranslators.length == 0}
       data-testid="public-translators__contact-request-btn"
     >
@@ -185,6 +185,7 @@ export const PublicTranslatorListing = ({
     case APIResponseStatus.NotStarted:
     case APIResponseStatus.InProgress:
       return <ProgressIndicator color="secondary" />;
+    case APIResponseStatus.Cancelled:
     case APIResponseStatus.Error:
       return (
         <Box
