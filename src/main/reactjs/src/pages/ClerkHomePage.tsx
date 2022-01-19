@@ -16,14 +16,17 @@ import {
   clerkTranslatorsSelector,
   selectFilteredSelectedIds,
 } from 'redux/selectors/clerkTranslator';
+import { APIResponseStatus } from 'enums/api';
 
 export const ClerkHomePage: FC = () => {
+  const { translators, status } = useAppSelector(clerkTranslatorsSelector);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(loadClerkTranslators);
-  }, [dispatch]);
+    if (status == APIResponseStatus.NotStarted) {
+      dispatch(loadClerkTranslators);
+    }
+  }, [dispatch, status]);
 
-  const { translators } = useAppSelector(clerkTranslatorsSelector);
   const { t } = useAppTranslation({ keyPrefix: 'akt.pages.clerkHomepage' });
   const sendEmailButtonDisabled =
     useAppSelector(selectFilteredSelectedIds).length === 0;
