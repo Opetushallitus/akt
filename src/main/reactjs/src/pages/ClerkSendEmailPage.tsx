@@ -10,7 +10,7 @@ import {
   selectFilteredSelectedTranslators,
 } from 'redux/selectors/clerkTranslator';
 import { TextBox } from 'components/elements/TextBox';
-import { Severity, TextBoxTypes, Variant, AppRoutes } from 'enums/app';
+import { Severity, TextBoxTypes, Variant, AppRoutes, Color } from 'enums/app';
 import { APIResponseStatus } from 'enums/api';
 import { Utils } from 'utils/index';
 import { selectClerkTranslatorEmail } from 'redux/selectors/clerkTranslatorEmail';
@@ -85,7 +85,7 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
       <Button
         data-testid="clerk-send-email-page__cancel-btn"
         variant={Variant.Outlined}
-        color="secondary"
+        color={Color.Secondary}
         onClick={dispatchCancelNotifier}
       >
         {t('buttons.cancel')}
@@ -93,7 +93,7 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
       <Button
         data-testid="clerk-send-email-page__send-btn"
         variant={Variant.Contained}
-        color="secondary"
+        color={Color.Secondary}
         disabled={submitDisabled}
         onClick={dispatchSendEmailNotifier}
       >

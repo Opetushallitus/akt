@@ -3,7 +3,7 @@ import { TextField, Button } from '@mui/material';
 import { H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { Variant } from 'enums/app';
+import { Variant, Color } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 import {
   addClerkTranslatorFilter,
@@ -46,7 +46,7 @@ export const RegisterControls = () => {
         <Button
           key={i}
           data-testid={`clerk-translator-filters__btn--${status}`}
-          color="secondary"
+          color={Color.Secondary}
           variant={variantForStatus(status)}
           onClick={() => filterByAuthorisationStatus(status)}
         >
@@ -86,8 +86,8 @@ export const ListingFilters = () => {
       <div className="grow" />
       <div className="rows">
         <Button
-          color="secondary"
-          variant="outlined"
+          color={Color.Secondary}
+          variant={Variant.Outlined}
           onClick={() => dispatch(resetClerkTranslatorFilters)}
         >
           {t('buttons.empty')}

@@ -51,7 +51,7 @@ describe('ClerkSendEmailPage', () => {
     expectRegistryIsVisible();
   });
 
-  it('should display success dialog and redirect to ClerkHomePage if email was sent', () => {
+  it('should display success toast and redirect to ClerkHomePage if email was sent', () => {
     fillAndSendMessage();
 
     runWithIntercept(
@@ -64,7 +64,7 @@ describe('ClerkSendEmailPage', () => {
     onToast.expectText('Sähköpostisi lähetettiin kääntäjille.');
   });
 
-  it('should display an error dialog if there was an error when sending the email', () => {
+  it('should display an error toast if there was an error when sending the email', () => {
     fillAndSendMessage();
 
     runWithIntercept(
