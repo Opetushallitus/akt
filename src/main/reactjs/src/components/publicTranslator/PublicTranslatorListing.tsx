@@ -42,9 +42,9 @@ const getRowDetails = (
   );
 };
 
-const getTownInfo = (town?: string, country?: string) => {
+const getTownDescription = (town?: string, country?: string) => {
   if (town && country) {
-    return `${town}${`, ${country}`}`;
+    return `${town}, ${country}`;
   } else if (town) {
     return town;
   } else if (country) {
@@ -122,7 +122,7 @@ const ListingRow = ({
         ))}
       </TableCell>
       <TableCell>
-        <Text>{getTownInfo(town, country)}</Text>
+        <Text>{getTownDescription(town, country)}</Text>
       </TableCell>
     </TableRow>
   );
