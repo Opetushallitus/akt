@@ -14,4 +14,16 @@ export class DateUtils {
       return new Date(dateString);
     }
   }
+
+  static dateAtStartOfDay(date: Date) {
+    return new Date(
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      date.getUTCDate(),
+      0,
+      0,
+      0,
+      0
+    );
+  }
 }

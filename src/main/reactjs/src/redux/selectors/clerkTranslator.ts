@@ -4,6 +4,7 @@ import { RootState } from 'configs/redux';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import { Authorisation } from 'interfaces/authorisation';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
+import { DateUtils } from 'utils/date';
 
 export const clerkTranslatorsSelector = (state: RootState) =>
   state.clerkTranslator;
@@ -14,14 +15,19 @@ export const selectTranslatorsByAuthorisationStatus = createSelector(
     // TODO Note that this has an *implicit* dependency on the current system time,
     // which we currently fail to take into account properly - the selectors should
     // somehow make the dependency on time explicit!
+    const currentDate = DateUtils.dateAtStartOfDay(new Date());
     const authorised = translators.filter((t) =>
-      filterByAuthorisationStatus(t, AuthorisationStatus.Authorised)
+      filterByAuthorisationStatus(
+        t,
+        AuthorisationStatus.Authorised,
+        currentDate
+      )
     );
     const expiring = translators.filter((t) =>
-      filterByAuthorisationStatus(t, AuthorisationStatus.Expiring)
+      filterByAuthorisationStatus(t, AuthorisationStatus.Expiring, currentDate)
     );
     const expired = translators.filter((t) =>
-      filterByAuthorisationStatus(t, AuthorisationStatus.Expired)
+      filterByAuthorisationStatus(t, AuthorisationStatus.Expired, currentDate)
     );
 
     return {
@@ -36,8 +42,10 @@ export const selectFilteredClerkTranslators = createSelector(
   (state: RootState) => state.clerkTranslator.translators,
   (state: RootState) => state.clerkTranslator.filters,
   (translators, filters) => {
+    const currentDate = DateUtils.dateAtStartOfDay(new Date());
+
     return translators.filter((t) =>
-      filterByAuthorisationStatus(t, filters.authorisationStatus)
+      filterByAuthorisationStatus(t, filters.authorisationStatus, currentDate)
     );
   }
 );
@@ -64,13 +72,16 @@ export const selectFilteredSelectedTranslators = createSelector(
 
 // Helpers
 
-const isAuthorisationValid = (authorisation: Authorisation, now: Date) => {
+const isAuthorisationValid = (
+  authorisation: Authorisation,
+  currentDate: Date
+) => {
   const term = authorisation.effectiveTerm;
   if (!term || !term.end) {
     return true;
   }
 
-  return now < term.end;
+  return currentDate <= term.end;
 };
 
 const isAuthorisationExpiringSoon = (
@@ -87,13 +98,13 @@ const isAuthorisationExpiringSoon = (
 
 const filterByAuthorisationStatus = (
   translator: ClerkTranslator,
-  status: AuthorisationStatus
+  status: AuthorisationStatus,
+  currentDate: Date
 ) => {
-  const now = new Date();
   switch (status) {
     case AuthorisationStatus.Authorised:
       return translator.authorisations.find((a) =>
-        isAuthorisationValid(a, now)
+        isAuthorisationValid(a, currentDate)
       );
     case AuthorisationStatus.Expiring:
       const expiringSoonThreshold = new Date();
@@ -101,12 +112,12 @@ const filterByAuthorisationStatus = (
 
       return translator.authorisations.find(
         (a) =>
-          isAuthorisationValid(a, now) &&
+          isAuthorisationValid(a, currentDate) &&
           isAuthorisationExpiringSoon(a, expiringSoonThreshold)
       );
     case AuthorisationStatus.Expired:
       return translator.authorisations.find(
-        (a) => !isAuthorisationValid(a, now)
+        (a) => !isAuthorisationValid(a, currentDate)
       );
   }
 };

@@ -16,9 +16,9 @@ beforeEach(() => {
 });
 
 const translatorCountsByAuthorisationStatus = {
-  [AuthorisationStatus.Authorised]: 97,
-  [AuthorisationStatus.Expiring]: 58,
-  [AuthorisationStatus.Expired]: 3,
+  [AuthorisationStatus.Authorised]: 98,
+  [AuthorisationStatus.Expiring]: 59,
+  [AuthorisationStatus.Expired]: 2,
 };
 
 describe('ClerkHomePage', () => {
