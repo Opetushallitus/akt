@@ -4,7 +4,7 @@ import { RootState } from 'configs/redux';
 import {
   PublicTranslatorFilter,
   PublicTranslator,
-} from 'interfaces/translator';
+} from 'interfaces/publicTranslator';
 import { Utils } from 'utils';
 
 export const publicTranslatorsSelector = (state: RootState) =>
@@ -86,6 +86,6 @@ const filterByTown = (
   filters: PublicTranslatorFilter
 ) => {
   return publicTranslator.town
-    .toLowerCase()
+    ?.toLowerCase()
     .includes(filters.town.toLowerCase());
 };

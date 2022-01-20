@@ -834,7 +834,7 @@
       "id": 4106,
       "firstName": "Iida",
       "lastName": "Karjalainen",
-      "town": "Uusikaupunki",
+      "country": "Suomi",
       "languagePairs": [
         {
           "from": "FI",
@@ -846,7 +846,6 @@
       "id": 834,
       "firstName": "Iiro",
       "lastName": "Kinnunen",
-      "town": "Kuopio",
       "languagePairs": [
         {
           "from": "FI",

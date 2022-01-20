@@ -24,7 +24,7 @@ import {
   selectFilteredClerkTranslators,
   selectFilteredSelectedIds,
 } from 'redux/selectors/clerkTranslator';
-import { Utils } from 'utils';
+import { DateUtils } from 'utils/date';
 
 const getRowDetails = (
   translator: ClerkTranslator,
@@ -71,11 +71,9 @@ const ListingRow = ({
       </TableCell>
       <TableCell>
         <div className="rows">
-          {authorisations.map(({ langPair }, idx) => (
+          {authorisations.map(({ languagePair: { from, to } }, idx) => (
             <Text key={idx}>
-              {`${translateLanguage(langPair.from)} - ${translateLanguage(
-                langPair.to
-              )}`}
+              {`${translateLanguage(from)} - ${translateLanguage(to)}`}
             </Text>
           ))}
         </div>
@@ -90,14 +88,18 @@ const ListingRow = ({
       <TableCell>
         <div className="rows">
           {authorisations.map(({ effectiveTerm }, idx) => (
-            <Text key={idx}>{Utils.formatDate(effectiveTerm?.start)}</Text>
+            <Text key={idx}>
+              {DateUtils.formatOptionalDate(effectiveTerm?.start)}
+            </Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
         <div className="rows">
           {authorisations.map(({ effectiveTerm }, idx) => (
-            <Text key={idx}>{Utils.formatDate(effectiveTerm?.end)}</Text>
+            <Text key={idx}>
+              {DateUtils.formatOptionalDate(effectiveTerm?.end)}
+            </Text>
           ))}
         </div>
       </TableCell>

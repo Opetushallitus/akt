@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 
 import axiosInstance from 'configs/axios';
 import { APIEndpoints } from 'enums/api';
-import { PublicTranslatorResponse } from 'interfaces/translator';
+import { PublicTranslatorResponse } from 'interfaces/publicTranslator';
 import {
   PUBLIC_TRANSLATOR_ERROR,
   PUBLIC_TRANSLATOR_LOAD,

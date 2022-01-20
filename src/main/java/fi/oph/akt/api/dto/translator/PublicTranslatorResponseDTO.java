@@ -1,5 +1,6 @@
-package fi.oph.akt.api.dto;
+package fi.oph.akt.api.dto.translator;
 
+import fi.oph.akt.api.dto.LanguagePairsDictDTO;
 import java.util.List;
 import lombok.Builder;
 import lombok.NonNull;

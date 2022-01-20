@@ -3,11 +3,7 @@ export interface LanguagePairsDict {
   to: Array<string>;
 }
 
-export interface PublicLanguagePair {
+export interface LanguagePair {
   from: string;
   to: string;
-}
-
-export interface ClerkLanguagePair extends PublicLanguagePair {
-  permissionToPublish: boolean;
 }

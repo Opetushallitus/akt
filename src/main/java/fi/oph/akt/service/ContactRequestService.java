@@ -1,6 +1,6 @@
 package fi.oph.akt.service;
 
-import fi.oph.akt.api.dto.ContactRequestDTO;
+import fi.oph.akt.api.dto.translator.ContactRequestDTO;
 import fi.oph.akt.model.ContactRequest;
 import fi.oph.akt.model.ContactRequestTranslator;
 import fi.oph.akt.model.EmailType;

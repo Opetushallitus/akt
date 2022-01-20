@@ -3,10 +3,10 @@ package fi.oph.akt.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import fi.oph.akt.Factory;
+import fi.oph.akt.api.dto.LanguagePairDTO;
 import fi.oph.akt.api.dto.LanguagePairsDictDTO;
-import fi.oph.akt.api.dto.PublicLanguagePairDTO;
-import fi.oph.akt.api.dto.PublicTranslatorDTO;
-import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
+import fi.oph.akt.api.dto.translator.PublicTranslatorDTO;
+import fi.oph.akt.api.dto.translator.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.MeetingDate;
@@ -57,12 +57,10 @@ class PublicTranslatorServiceTest {
     assertLanguagePairs(translators.get(2).languagePairs());
   }
 
-  private void assertLanguagePairs(final List<PublicLanguagePairDTO> languagePairs) {
+  private void assertLanguagePairs(final List<LanguagePairDTO> languagePairs) {
     assertEquals(1, languagePairs.size());
-
-    final PublicLanguagePairDTO languagePair = languagePairs.get(0);
-    assertEquals("FI", languagePair.from());
-    assertEquals("EN", languagePair.to());
+    assertEquals("FI", languagePairs.get(0).from());
+    assertEquals("EN", languagePairs.get(0).to());
   }
 
   @Test

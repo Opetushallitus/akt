@@ -4,14 +4,8 @@ import {
   Authorisation,
   AuthorisationTerm,
 } from 'interfaces/authorisation';
-import { PublicLanguagePair } from 'interfaces/language';
 import { APIMeetingDate } from 'interfaces/meetingDate';
-
-const convertMaybeDate = (date?: string) => {
-  if (date) {
-    return new Date(date);
-  }
-};
+import { DateUtils } from 'utils/date';
 
 export class APIUtils {
   static convertAPIAuthorisation(
@@ -30,39 +24,41 @@ export class APIUtils {
       }
     };
 
-    const [clerkLanguagePair] = authorisation.languagePairs;
-    const langPair: PublicLanguagePair = { ...clerkLanguagePair };
+    const stringToDate = DateUtils.optionalStringToDate;
+
+    const autDate = stringToDate(authorisation.autDate);
+    const virDate = stringToDate(authorisation.virDate);
+    const assuranceDate = stringToDate(authorisation.assuranceDate);
+    const meetingDate = stringToDate(authorisation.meetingDate);
 
     const terms = APIUtils.convertAPIAuthorisationTerms(authorisation.terms);
     const effectiveTerm = effectiveAuthorisationTerm(terms);
-    const autDate = convertMaybeDate(authorisation.autDate);
-    const virDate = convertMaybeDate(authorisation.virDate);
-    const assuranceDate = convertMaybeDate(authorisation.assuranceDate);
-    const meetingDate = convertMaybeDate(authorisation.meetingDate);
-    const permissionToPublish = clerkLanguagePair.permissionToPublish;
 
     return {
       ...authorisation,
-      langPair,
       autDate,
       virDate,
       assuranceDate,
       meetingDate,
-      terms,
       effectiveTerm,
-      permissionToPublish,
+      terms,
     };
   }
 
   static convertAPIAuthorisationTerms(terms?: Array<APIAuthorisationTerm>) {
     if (terms) {
-      return terms.map((t) => {
-        const start = new Date(t.beginDate);
-        if (t.endDate) {
-          return { start, end: new Date(t.endDate) };
+      return terms.map((term) => {
+        const start = new Date(term.beginDate);
+
+        if (term.endDate) {
+          return {
+            ...term,
+            start,
+            end: new Date(term.endDate),
+          };
         }
 
-        return { start };
+        return { ...term, start };
       });
     }
   }

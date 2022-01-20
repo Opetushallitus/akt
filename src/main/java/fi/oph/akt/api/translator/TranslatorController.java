@@ -1,7 +1,7 @@
 package fi.oph.akt.api.translator;
 
-import fi.oph.akt.api.dto.ContactRequestDTO;
-import fi.oph.akt.api.dto.PublicTranslatorResponseDTO;
+import fi.oph.akt.api.dto.translator.ContactRequestDTO;
+import fi.oph.akt.api.dto.translator.PublicTranslatorResponseDTO;
 import fi.oph.akt.service.ContactRequestService;
 import fi.oph.akt.service.PublicTranslatorService;
 import javax.annotation.Resource;

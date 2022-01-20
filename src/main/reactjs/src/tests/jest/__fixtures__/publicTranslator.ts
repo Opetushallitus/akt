@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import { PublicTranslatorResponse } from 'interfaces/translator';
+import { PublicTranslatorResponse } from 'interfaces/publicTranslator';
 
 export const createResponse = (
   response: PublicTranslatorResponse
@@ -32,7 +32,13 @@ export const expectedResponse: PublicTranslatorResponse = {
       town: 'Paris',
       country: 'Ranska',
     },
+    {
+      id: 3,
+      firstName: 'Testi 3',
+      lastName: 'Esimerkki 3',
+      languagePairs: [{ from: 'SV', to: 'FR' }],
+    },
   ],
-  langs: { from: ['FI'], to: ['SV', 'FR'] },
+  langs: { from: ['FI', 'SV'], to: ['SV', 'FR'] },
   towns: ['Espoo', 'Paris'],
 };

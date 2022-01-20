@@ -1,9 +1,9 @@
 package fi.oph.akt.service;
 
+import fi.oph.akt.api.dto.LanguagePairDTO;
 import fi.oph.akt.api.dto.LanguagePairsDictDTO;
+import fi.oph.akt.api.dto.clerk.AuthorisationDTO;
 import fi.oph.akt.api.dto.clerk.AuthorisationTermDTO;
-import fi.oph.akt.api.dto.clerk.ClerkLanguagePairDTO;
-import fi.oph.akt.api.dto.clerk.ClerkTranslatorAuthorisationDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorContactDetailsDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
@@ -123,7 +123,7 @@ public class ClerkTranslatorService {
       .map(translator -> {
         final ClerkTranslatorContactDetailsDTO contactDetailsDTO = getContactDetailsDTO(translator);
 
-        final List<ClerkTranslatorAuthorisationDTO> authorisationDTOS = getAuthorisationDTOs(
+        final List<AuthorisationDTO> authorisationDTOS = getAuthorisationDTOs(
           authorisationProjectionsByTranslator.get(translator.getId()),
           termProjectionsByAuthorisation
         );
@@ -154,7 +154,7 @@ public class ClerkTranslatorService {
       .build();
   }
 
-  private List<ClerkTranslatorAuthorisationDTO> getAuthorisationDTOs(
+  private List<AuthorisationDTO> getAuthorisationDTOs(
     final List<AuthorisationProjection> authorisationProjections,
     final Map<Long, List<AuthorisationTermProjection>> termProjectionsByAuthorisation
   ) {
@@ -184,19 +184,17 @@ public class ClerkTranslatorService {
               .toList();
         }
 
-        final List<ClerkLanguagePairDTO> languagePairDTOS = List.of(
-          ClerkLanguagePairDTO
-            .builder()
-            .from(authProjection.fromLang())
-            .to(authProjection.toLang())
-            .permissionToPublish(authProjection.permissionToPublish())
-            .build()
-        );
+        final LanguagePairDTO languagePairDTO = LanguagePairDTO
+          .builder()
+          .from(authProjection.fromLang())
+          .to(authProjection.toLang())
+          .build();
 
-        return ClerkTranslatorAuthorisationDTO
+        return AuthorisationDTO
           .builder()
           .id(authProjection.id())
           .version(authProjection.version())
+          .languagePair(languagePairDTO)
           .basis(authProjection.authorisationBasis())
           .autDate(authProjection.autDate())
           .kktCheck(authProjection.kktCheck())
@@ -204,7 +202,7 @@ public class ClerkTranslatorService {
           .assuranceDate(authProjection.assuranceDate())
           .meetingDate(authProjection.meetingDate())
           .terms(termDTOS)
-          .languagePairs(languagePairDTOS)
+          .permissionToPublish(authProjection.permissionToPublish())
           .build();
       })
       .toList();

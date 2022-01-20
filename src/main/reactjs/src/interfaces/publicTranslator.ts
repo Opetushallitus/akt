@@ -1,16 +1,16 @@
 import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
-import { WithId } from 'interfaces/withId';
-import { LanguagePairsDict, PublicLanguagePair } from 'interfaces/language';
 import { SearchFilter } from 'enums/app';
+import { LanguagePairsDict, LanguagePair } from 'interfaces/language';
+import { WithId } from 'interfaces/withId';
 
 export interface PublicTranslator extends WithId {
   firstName: string;
   lastName: string;
-  town: string;
-  country: string;
-  languagePairs: Array<PublicLanguagePair>;
+  town?: string;
+  country?: string;
+  languagePairs: Array<LanguagePair>;
 }
 
 export interface PublicTranslatorFilter {

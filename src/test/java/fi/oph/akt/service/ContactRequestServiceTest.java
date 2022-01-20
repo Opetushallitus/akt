@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import fi.oph.akt.Factory;
-import fi.oph.akt.api.dto.ContactRequestDTO;
+import fi.oph.akt.api.dto.translator.ContactRequestDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.ContactRequest;
 import fi.oph.akt.model.ContactRequestTranslator;

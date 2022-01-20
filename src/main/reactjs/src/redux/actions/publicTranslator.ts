@@ -1,5 +1,5 @@
 import { SearchFilter } from 'enums/app';
-import { PublicTranslatorFilter } from 'interfaces/translator';
+import { PublicTranslatorFilter } from 'interfaces/publicTranslator';
 import {
   PUBLIC_TRANSLATOR_LOAD,
   PUBLIC_TRANSLATOR_ADD_SELECTED,
