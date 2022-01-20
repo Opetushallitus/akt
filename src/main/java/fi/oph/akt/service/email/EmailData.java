@@ -5,8 +5,8 @@ import lombok.Builder;
 import lombok.NonNull;
 
 public record EmailData(
-  @NonNull String sender,
-  @NonNull String recipient,
+  @NonNull String recipientName,
+  @NonNull String recipientAddress,
   @NonNull String subject,
   @NonNull String body
 ) {
@@ -18,8 +18,8 @@ public record EmailData(
   public static EmailData createFromEmail(final Email email) {
     return EmailData
       .builder()
-      .sender(email.getSender())
-      .recipient(email.getRecipient())
+      .recipientName(email.getRecipientName())
+      .recipientAddress(email.getRecipientAddress())
       .subject(email.getSubject())
       .body(email.getBody())
       .build();

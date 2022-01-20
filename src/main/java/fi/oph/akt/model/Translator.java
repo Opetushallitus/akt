@@ -39,7 +39,8 @@ public class Translator extends BaseEntity {
   @Column(name = "last_name", nullable = false)
   private String lastName;
 
-  @Column(name = "email")
+  @Size(min = 1, max = 255)
+  @Column(name = "email", unique = true)
   private String email;
 
   @Column(name = "phone_number")
@@ -56,4 +57,8 @@ public class Translator extends BaseEntity {
 
   @Column(name = "country")
   private String country;
+
+  public String getFullName() {
+    return firstName + " " + lastName;
+  }
 }

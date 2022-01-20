@@ -51,8 +51,8 @@ class EmailServiceTest {
   public void saveEmailTest() {
     final EmailData emailData = EmailData
       .builder()
-      .sender("lähettäjä")
-      .recipient("vastaanottaja@invalid")
+      .recipientName("Vastaanottaja")
+      .recipientAddress("vastaanottaja@invalid")
       .subject("testiotsikko")
       .body("testiviesti")
       .build();
@@ -61,8 +61,8 @@ class EmailServiceTest {
     final Email email = emailRepository.getById(emailId);
 
     assertEquals(EmailType.CONTACT_REQUEST, email.getEmailType());
-    assertEquals("lähettäjä", email.getSender());
-    assertEquals("vastaanottaja@invalid", email.getRecipient());
+    assertEquals("Vastaanottaja", email.getRecipientName());
+    assertEquals("vastaanottaja@invalid", email.getRecipientAddress());
     assertEquals("testiotsikko", email.getSubject());
     assertEquals("testiviesti", email.getBody());
     assertNull(email.getSentAt());
@@ -87,8 +87,9 @@ class EmailServiceTest {
     assertNull(updatedEmail.getError());
 
     verify(emailSenderMock).sendEmail(emailDataCaptor.capture());
-    assertEquals(savedEmail.getSender(), emailDataCaptor.getValue().sender());
-    assertEquals(savedEmail.getRecipient(), emailDataCaptor.getValue().recipient());
+
+    assertEquals(savedEmail.getRecipientName(), emailDataCaptor.getValue().recipientName());
+    assertEquals(savedEmail.getRecipientAddress(), emailDataCaptor.getValue().recipientAddress());
     assertEquals(savedEmail.getSubject(), emailDataCaptor.getValue().subject());
     assertEquals(savedEmail.getBody(), emailDataCaptor.getValue().body());
   }

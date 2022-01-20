@@ -42,8 +42,8 @@ class EmailSenderViestintapalveluTest {
 
     final EmailData emailData = EmailData
       .builder()
-      .sender("lähettäjä")
-      .recipient("vastaanottaja@invalid")
+      .recipientName("vastaanottaja")
+      .recipientAddress("vastaanottaja@invalid")
       .subject("testiotsikko")
       .body("testiviesti")
       .build();
@@ -59,10 +59,12 @@ class EmailSenderViestintapalveluTest {
     assertThat(body).extractingJsonPathBooleanValue("$.email.html").isEqualTo(true);
     assertThat(body).extractingJsonPathStringValue("$.email.charset").isEqualTo("UTF-8");
     assertThat(body).extractingJsonPathStringValue("$.email.callingProcess").isEqualTo("akt");
-    assertThat(body).extractingJsonPathStringValue("$.email.sender").isEqualTo("lähettäjä");
+    assertThat(body).extractingJsonPathStringValue("$.email.sender").isEqualTo("AKT");
     assertThat(body).extractingJsonPathStringValue("$.email.subject").isEqualTo("testiotsikko");
     assertThat(body).extractingJsonPathStringValue("$.email.body").isEqualTo("testiviesti");
+
     assertThat(body).extractingJsonPathArrayValue("$.recipient").size().isEqualTo(1);
+    assertThat(body).extractingJsonPathStringValue("$.recipient[0].name").isEqualTo("vastaanottaja");
     assertThat(body).extractingJsonPathStringValue("$.recipient[0].email").isEqualTo("vastaanottaja@invalid");
   }
 }

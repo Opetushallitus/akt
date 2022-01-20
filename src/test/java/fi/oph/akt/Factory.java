@@ -22,8 +22,8 @@ public class Factory {
 
   public static Translator translator() {
     final Translator translator = new Translator();
-    translator.setFirstName("foo");
-    translator.setLastName("bar");
+    translator.setFirstName("Foo");
+    translator.setLastName("Bar");
     return translator;
   }
 
@@ -54,9 +54,9 @@ public class Factory {
   public static Email email(final EmailType emailType) {
     final Email email = new Email();
     email.setEmailType(emailType);
-    email.setSender("Lasse Lähettäjä");
-    email.setRecipient("ville.vastaanottaja@invalid");
-    email.setSubject("Spostin otsikko");
+    email.setRecipientName("Ville Vastaanottaja");
+    email.setRecipientAddress("ville.vastaanottaja@invalid");
+    email.setSubject("Otsikko");
     email.setBody("Sisältö on tässä");
 
     return email;

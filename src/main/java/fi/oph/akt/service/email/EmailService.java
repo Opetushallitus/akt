@@ -28,8 +28,8 @@ public class EmailService {
   public Long saveEmail(final EmailType type, final EmailData emailData) {
     final Email email = new Email();
     email.setEmailType(type);
-    email.setSender(emailData.sender());
-    email.setRecipient(emailData.recipient());
+    email.setRecipientName(emailData.recipientName());
+    email.setRecipientAddress(emailData.recipientAddress());
     email.setSubject(emailData.subject());
     email.setBody(emailData.body());
 
