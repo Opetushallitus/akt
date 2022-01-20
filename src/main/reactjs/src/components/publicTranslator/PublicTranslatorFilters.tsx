@@ -3,7 +3,7 @@ import { TextField, InputAdornment, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { H3 } from 'components/elements/Text';
-import { ComboBox } from 'components/elements/ComboBox';
+import { ComboBox, sortOptionsByLabels } from 'components/elements/ComboBox';
 import { AutocompleteValue } from 'interfaces/combobox';
 import {
   useAppTranslation,
@@ -19,8 +19,9 @@ import {
 } from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { Utils } from 'utils/index';
-import { SearchFilter, KeyboardKey, Severity } from 'enums/app';
+import { SearchFilter, KeyboardKey, Severity, Color, Variant } from 'enums/app';
 import { showNotifierToast } from 'redux/actions/notifier';
+import { LanguageSelect } from 'components/elements/LanguageSelect';
 
 interface PublicTranslatorFilterValues {
   fromLang: AutocompleteValue;
@@ -46,6 +47,7 @@ export const PublicTranslatorFilters = ({
     toLang: '',
     name: '',
     town: '',
+    errors: [],
   };
   const [filters, setFilters] = useState(defaultFiltersState);
   const defaultValuesState: PublicTranslatorFilterValues = {
@@ -67,7 +69,7 @@ export const PublicTranslatorFilters = ({
   } = useAppSelector(publicTranslatorsSelector);
 
   const hasError = (fieldName: SearchFilter) => {
-    return reduxFilters?.errors?.includes(fieldName);
+    return reduxFilters.errors.includes(fieldName);
   };
 
   // Handlers
@@ -77,7 +79,7 @@ export const PublicTranslatorFilters = ({
       t('toasts.selectLanguagePair')
     );
 
-    if (reduxFilters?.errors?.length) {
+    if (reduxFilters.errors.length) {
       // If there are already errors show them
       dispatch(showNotifierToast(toast));
     } else if (
@@ -134,7 +136,7 @@ export const PublicTranslatorFilters = ({
         setFilters({ ...filters, [filterName]: '' });
         setValues({ ...values, [filterName]: null });
       } else {
-        setFilters({ ...filters, [filterName]: value ? value[1] : '' });
+        setFilters({ ...filters, [filterName]: value?.value || '' });
         setValues({ ...values, [filterName]: value });
       }
       dispatch(removePublicTranslatorFilterError(filterName));
@@ -148,24 +150,15 @@ export const PublicTranslatorFilters = ({
       setValues({ ...values, [filterName]: target.value });
     };
 
-  const getOptionLabel = (option: AutocompleteValue): string => {
-    const label = option ? option[0] : undefined;
+  const townToAutocompleteValue = (town: string) => ({
+    label: town,
+    value: town,
+  });
 
-    return label !== undefined ? label.toString() : '';
-  };
-
-  const isOptionEqualToValue = (
-    option: AutocompleteValue,
-    value: AutocompleteValue
-  ) => {
-    if (option === null && value === null) {
-      return true;
-    } else if (option === null || value === null) {
-      return false;
-    } else {
-      return option[1] === value[1];
-    }
-  };
+  const languageToAutocompleteValue = (lang: string) => ({
+    label: translateLanguage(lang),
+    value: lang,
+  });
 
   const getComboBoxAttributes = (fieldName: SearchFilter) => ({
     onInputChange: handleComboboxInputChange(fieldName),
@@ -183,36 +176,28 @@ export const PublicTranslatorFilters = ({
         <div className="public-translator-filters__filter">
           <H3>{t('languagePair.title')}</H3>
           <div className="public-translator-filters__filter__language-pair">
-            <ComboBox
-              dataTestId="public-translator-filters__from-language-combobox"
-              sortByKeys
+            <LanguageSelect
+              data-testid="public-translator-filters__from-language-combobox"
               autoHighlight
               {...getComboBoxAttributes(SearchFilter.FromLang)}
               showError={hasError(SearchFilter.FromLang)}
               label={t('languagePair.fromPlaceholder')}
               id="filters-from-lang"
-              variant="outlined"
+              variant={Variant.Outlined}
               filterValue={filters.toLang}
-              primaryOptions={['FI', 'SV']}
-              getOptionLabel={getOptionLabel}
-              isOptionEqualToValue={isOptionEqualToValue}
-              values={Utils.createMapFromArray(langs.from, translateLanguage)}
+              values={langs.from.map(languageToAutocompleteValue)}
               onChange={handleComboboxFilterChange(SearchFilter.FromLang)}
             />
-            <ComboBox
-              dataTestId="public-translator-filters__to-language-combobox"
-              sortByKeys
+            <LanguageSelect
+              data-testid="public-translator-filters__to-language-combobox"
               autoHighlight
               {...getComboBoxAttributes(SearchFilter.ToLang)}
               showError={hasError(SearchFilter.ToLang)}
               label={t('languagePair.toPlaceholder')}
               id="filters-to-lang"
-              variant="outlined"
+              variant={Variant.Outlined}
               filterValue={filters.fromLang}
-              primaryOptions={['FI', 'SV']}
-              getOptionLabel={getOptionLabel}
-              isOptionEqualToValue={isOptionEqualToValue}
-              values={Utils.createMapFromArray(langs.to, translateLanguage)}
+              values={langs.to.map(languageToAutocompleteValue)}
               onChange={handleComboboxFilterChange(SearchFilter.ToLang)}
             />
           </div>
@@ -239,16 +224,13 @@ export const PublicTranslatorFilters = ({
         <div className="public-translator-filters__filter">
           <H3> {t('town.title')}</H3>
           <ComboBox
-            dataTestId="public-translator-filters__town-combobox"
-            sortByKeys
+            data-testid="public-translator-filters__town-combobox"
             autoHighlight
             {...getComboBoxAttributes(SearchFilter.Town)}
             label={t('town.placeholder')}
             id="filters-town"
-            values={Utils.createMapFromArray(towns)}
-            variant="outlined"
-            getOptionLabel={getOptionLabel}
-            isOptionEqualToValue={isOptionEqualToValue}
+            values={sortOptionsByLabels(towns.map(townToAutocompleteValue))}
+            variant={Variant.Outlined}
             onChange={handleComboboxFilterChange(SearchFilter.Town)}
           />
         </div>
@@ -256,8 +238,8 @@ export const PublicTranslatorFilters = ({
       <div className="public-translator-filters__btn-box">
         <Button
           data-testid="public-translator-filters__empty-btn"
-          color="secondary"
-          variant="outlined"
+          color={Color.Secondary}
+          variant={Variant.Outlined}
           onClick={handleEmptyBtnClick}
           disabled={isEmptyBtnDisabled()}
         >
@@ -265,8 +247,8 @@ export const PublicTranslatorFilters = ({
         </Button>
         <Button
           data-testid="public-translator-filters__search-btn"
-          color="secondary"
-          variant="contained"
+          color={Color.Secondary}
+          variant={Variant.Contained}
           onClick={handleSearchBtnClick}
         >
           {t('buttons.search')}

@@ -2,7 +2,6 @@ import {
   FormControl,
   FormHelperText,
   Autocomplete,
-  AutocompleteProps,
   TextField,
 } from '@mui/material';
 
@@ -10,81 +9,50 @@ import {
   ComboBoxOption,
   ComboBoxProps,
   AutocompleteValue,
+  AutoCompleteComboBox,
 } from 'interfaces/combobox';
 
-type AutoCompleteComboBox = Omit<
-  AutocompleteProps<AutocompleteValue, false, false, false>,
-  'options' | 'renderInput'
->;
+const compareOptionLabels = (a: ComboBoxOption, b: ComboBoxOption) => {
+  return a.label <= b.label ? -1 : 1;
+};
+
+export const sortOptionsByLabels = (values: Array<ComboBoxOption>) => {
+  return values.sort(compareOptionLabels);
+};
+
+const getOptionLabel = (option: AutocompleteValue): string => {
+  return option?.label || '';
+};
+
+const isOptionEqualToValue = (
+  option: AutocompleteValue,
+  value: AutocompleteValue
+) => {
+  if (option === null && value === null) {
+    return true;
+  } else if (option === null || value === null) {
+    return false;
+  } else {
+    return option.value === value.value;
+  }
+};
 
 export const ComboBox = ({
-  filterValue,
-  primaryOptions,
   label,
   values,
   variant,
-  dataTestId,
   helperText,
   showError,
-  sortByKeys,
   ...rest
 }: ComboBoxProps & AutoCompleteComboBox) => {
-  const AutocompleteProps = {
-    ...(dataTestId && { 'data-testid': dataTestId }),
-    ...rest,
-  };
-
-  const filterSelectedLang = (
-    filterValue: string | undefined,
-    valuesArray: Array<ComboBoxOption>,
-    primaryLangOptions: string[]
-  ): Array<ComboBoxOption> => {
-    const valuesArrayWithoutSelectedLang = valuesArray.filter(
-      (val) => val[1] !== filterValue
-    );
-    if (filterValue) {
-      if (!primaryLangOptions.includes(filterValue)) {
-        return valuesArrayWithoutSelectedLang.filter((val) =>
-          primaryLangOptions.includes(val[1])
-        );
-      }
-    }
-
-    return valuesArrayWithoutSelectedLang;
-  };
-  const primaryLangOptions = primaryOptions ?? [];
-  const valuesArray = Array.from(values);
-  const filteredValuesArray = filterSelectedLang(
-    filterValue,
-    valuesArray,
-    primaryLangOptions
-  );
-  const optionValuesToShow = sortByKeys
-    ? filteredValuesArray.sort()
-    : filteredValuesArray;
-  // Sort option value pairs into order set in primaryOptions parameter
-  const primaryValues = optionValuesToShow
-    .filter((val) => {
-      return primaryLangOptions.indexOf(val[1]) >= 0;
-    })
-    .sort((a, b) => {
-      return (
-        primaryLangOptions.indexOf(a[1]) - primaryLangOptions.indexOf(b[1])
-      );
-    });
-
-  // Merge sorted primaryOptions and sorted values
-  const valuesToShow = [
-    ...primaryValues,
-    ...optionValuesToShow.filter((value) => !primaryValues.includes(value)),
-  ];
-
   return (
     <FormControl fullWidth error={showError}>
       <Autocomplete
         disablePortal
-        {...AutocompleteProps}
-        options={valuesToShow}
+        {...rest}
+        getOptionLabel={getOptionLabel}
+        isOptionEqualToValue={isOptionEqualToValue}
+        options={values}
         renderInput={(params) => (
           <TextField
             {...params}

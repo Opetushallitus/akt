@@ -18,7 +18,7 @@ export interface PublicTranslatorFilter {
   toLang: string;
   name: string;
   town: string;
-  errors?: Array<SearchFilter>;
+  errors: Array<SearchFilter>;
 }
 
 export interface PublicTranslatorResponse {

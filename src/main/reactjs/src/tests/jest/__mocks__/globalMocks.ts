@@ -5,6 +5,7 @@ jest.mock('configs/i18n', () => ({
   getSupportedLangs: () => ['fi-FI', 'sv-SE', 'en-GB'],
   changeLang: (language: string) => language,
   useAppTranslation: () => ({ t: (str: string) => str }),
+  useKoodistoLanguagesTranslation: () => (str: string) => str,
 }));
 
 const mockAppSelector = jest.fn(() => ({}));
