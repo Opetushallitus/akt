@@ -2,6 +2,8 @@ server:
   port: 8080
   compression:
     enabled: true
+  servlet:
+    context-path: "/akt"
 spring:
   datasource:
     url: ${postgresql.url:jdbc:postgresql://localhost:5432/postgres}
@@ -28,7 +30,7 @@ management:
   endpoints:
     enabled-by-default: false
     web:
-      base-path: "/akt/api/actuator"
+      base-path: "/api/actuator"
       exposure:
         include: "health,info"
   endpoint:

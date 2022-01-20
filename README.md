@@ -1,10 +1,10 @@
 # AKT - Auktorisoidun kääntäjän tutkintojärjestelmä
 
-- Maven 3.1+
-- JDK 17
-- PostgreSQL 11.2
-- node v16.13.1 (no need to install if you only build)
-- npm 8.1.3 (no need to install if you only build)
+-   Maven 3.1+
+-   JDK 17
+-   PostgreSQL 11.2
+-   node v16.13.1 (no need to install if you only build)
+-   npm 8.1.3 (no need to install if you only build)
 
 ## Developing with docker-compose
 
@@ -57,7 +57,7 @@ and open browser to
 ## Backend
 
 Code format for Java code is Prettier Java. Maven plugin https://github.com/HubSpot/prettier-maven-plugin is used to
-enforce style. In dev environment, ``mvn validate`` rewrites all java files to correct format. On CI format is only validated (maven profile ``travis``)
+enforce style. In dev environment, `mvn validate` rewrites all java files to correct format. On CI format is only validated (maven profile `travis`)
 
 `ìmport *` is disabled:
 Code Style -> Java -> Imports:
@@ -71,8 +71,8 @@ Names count to use static import with '*': 999
 
 In order to keep code clean and easily maintainable please use the following VS Code Extensions.
 
-- [prettier]
-- [eslint]
+-   [prettier]
+-   [eslint]
 
 ### Running tests
 
@@ -103,11 +103,11 @@ General information about the running application:
 
 ### OpenAPI
 
-> <http://localhost:8080/api/api-docs>
+> <http://localhost:8080/akt/api/api-docs>
 
 ### Swagger
 
-> <http://localhost:8080/api/swagger-ui.html>
+> <http://localhost:8080/akt/api/swagger-ui.html>
 
 In order to make requests work in swagger ui, application must be run with parameter
 
@@ -116,7 +116,6 @@ mvn spring-boot:run -Dtomcat.util.http.parser.HttpParser.requestTargetAllow=|{}
 ```
 
 [prettier]: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
-
 [eslint]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
 
 # Localisations

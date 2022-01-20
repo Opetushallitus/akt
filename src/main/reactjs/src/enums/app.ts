@@ -3,7 +3,7 @@ export enum AppConstants {
 }
 
 export enum AppRoutes {
-  PublicHomePage = '/',
+  PublicHomePage = '/akt/etusivu',
   ClerkHomePage = '/akt/virkailija',
   ClerkSendEmailPage = '/akt/virkailija/laheta-sahkoposti',
   NotFoundPage = '*',
