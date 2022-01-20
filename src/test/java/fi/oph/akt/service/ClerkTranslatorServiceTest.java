@@ -280,6 +280,7 @@ class ClerkTranslatorServiceTest {
     authorisation.setBasis(AuthorisationBasis.AUT);
     authorisation.setAutDate(LocalDate.parse("2021-12-31"));
     authorisation.setAssuranceDate(LocalDate.parse("2021-12-01"));
+    authorisation.setDiaryNumber("123");
     authorisationTerm.setBeginDate(termBeginDate);
     authorisationTerm.setEndDate(termEndDate);
 
@@ -292,6 +293,7 @@ class ClerkTranslatorServiceTest {
     final AuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
 
     assertEquals(authorisation.getBasis(), authorisationDTO.basis());
+    assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertEquals(authorisation.getAutDate(), authorisationDTO.autDate());
     assertNull(authorisationDTO.kktCheck());
     assertNull(authorisationDTO.virDate());
@@ -327,6 +329,7 @@ class ClerkTranslatorServiceTest {
     final AuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
 
     assertEquals(authorisation.getBasis(), authorisationDTO.basis());
+    assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertNull(authorisationDTO.autDate());
     assertEquals(authorisation.getKktCheck(), authorisationDTO.kktCheck());
     assertNull(authorisationDTO.virDate());
@@ -361,6 +364,7 @@ class ClerkTranslatorServiceTest {
     final AuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
 
     assertEquals(authorisation.getBasis(), authorisationDTO.basis());
+    assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertNull(authorisationDTO.autDate());
     assertNull(authorisationDTO.kktCheck());
     assertEquals(authorisation.getVirDate(), authorisationDTO.virDate());
@@ -388,6 +392,7 @@ class ClerkTranslatorServiceTest {
     final AuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
 
     assertEquals(authorisation.getBasis(), authorisationDTO.basis());
+    assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertNull(authorisationDTO.autDate());
     assertNull(authorisationDTO.kktCheck());
     assertEquals(authorisation.getVirDate(), authorisationDTO.virDate());
