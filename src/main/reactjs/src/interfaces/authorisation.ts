@@ -12,6 +12,7 @@ export interface AuthorisationTerm extends WithId, WithVersion {
 export interface Authorisation extends WithId, WithVersion {
   languagePair: LanguagePair;
   basis: AuthorisationBasis;
+  diaryNumber?: string;
   autDate?: Date;
   kktCheck?: string;
   virDate?: Date;
@@ -30,6 +31,7 @@ export interface APIAuthorisationTerm extends WithId, WithVersion {
 export interface APIAuthorisation extends WithId, WithVersion {
   languagePair: LanguagePair;
   basis: AuthorisationBasis;
+  diaryNumber?: string;
   autDate?: string;
   kktCheck?: string;
   virDate?: string;
