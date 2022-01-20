@@ -141,7 +141,6 @@
             "to": "CA"
           },
           "basis": "AUT",
-          "diaryNumber": "1",
           "autDate": "2022-01-19",
           "assuranceDate": "2022-01-19",
           "meetingDate": "2021-12-20",
@@ -163,7 +162,6 @@
             "to": "SV"
           },
           "basis": "AUT",
-          "diaryNumber": "2",
           "autDate": "2022-01-19",
           "assuranceDate": "2022-01-19",
           "meetingDate": "2021-12-20",
@@ -202,7 +200,6 @@
             "to": "CS"
           },
           "basis": "AUT",
-          "diaryNumber": "3",
           "autDate": "2022-01-19",
           "assuranceDate": "2022-01-19",
           "meetingDate": "2021-12-20",

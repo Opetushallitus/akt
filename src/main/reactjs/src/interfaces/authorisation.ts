@@ -9,18 +9,17 @@ export interface AuthorisationTerm extends WithId, WithVersion {
   end?: Date;
 }
 
-export interface Authorisation extends WithId, WithVersion {
-  languagePair: LanguagePair;
-  basis: AuthorisationBasis;
-  diaryNumber?: string;
+export interface Authorisation
+  extends Omit<
+    APIAuthorisation,
+    'autDate' | 'virDate' | 'assuranceDate' | 'meetingDate' | 'terms'
+  > {
   autDate?: Date;
-  kktCheck?: string;
   virDate?: Date;
   assuranceDate?: Date;
   meetingDate?: Date;
   effectiveTerm?: AuthorisationTerm;
   terms?: Array<AuthorisationTerm>;
-  permissionToPublish: boolean;
 }
 
 export interface APIAuthorisationTerm extends WithId, WithVersion {
@@ -31,7 +30,7 @@ export interface APIAuthorisationTerm extends WithId, WithVersion {
 export interface APIAuthorisation extends WithId, WithVersion {
   languagePair: LanguagePair;
   basis: AuthorisationBasis;
-  diaryNumber?: string;
+  diaryNumber: string;
   autDate?: string;
   kktCheck?: string;
   virDate?: string;

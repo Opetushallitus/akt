@@ -68,6 +68,6 @@ public class Authorisation extends BaseEntity {
   private boolean permissionToPublish;
 
   @Size(min = 1, max = 255)
-  @Column(name = "diary_number", unique = true)
+  @Column(name = "diary_number", nullable = false, unique = true)
   private String diaryNumber;
 }

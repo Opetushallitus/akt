@@ -280,7 +280,6 @@ class ClerkTranslatorServiceTest {
     authorisation.setBasis(AuthorisationBasis.AUT);
     authorisation.setAutDate(LocalDate.parse("2021-12-31"));
     authorisation.setAssuranceDate(LocalDate.parse("2021-12-01"));
-    authorisation.setDiaryNumber("123");
     authorisationTerm.setBeginDate(termBeginDate);
     authorisationTerm.setEndDate(termEndDate);
 

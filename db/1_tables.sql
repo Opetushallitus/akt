@@ -41,7 +41,7 @@ CREATE TABLE public.authorisation (
     from_lang character varying(10) NOT NULL,
     to_lang character varying(10) NOT NULL,
     permission_to_publish boolean NOT NULL,
-    diary_number character varying(255),
+    diary_number character varying(255) NOT NULL,
     CONSTRAINT ck_authorisation_by_basis CHECK (((((basis)::text = 'AUT'::text) AND (meeting_date_id IS NOT NULL) AND (aut_date IS NOT NULL) AND (kkt_check IS NULL) AND (vir_date IS NULL) AND (assurance_date IS NOT NULL)) OR (((basis)::text = 'KKT'::text) AND (meeting_date_id IS NOT NULL) AND (aut_date IS NULL) AND (kkt_check IS NOT NULL) AND (vir_date IS NULL) AND (assurance_date IS NOT NULL)) OR (((basis)::text = 'VIR'::text) AND (meeting_date_id IS NOT NULL) AND (aut_date IS NULL) AND (kkt_check IS NULL) AND (vir_date IS NOT NULL) AND (assurance_date IS NOT NULL)) OR (((basis)::text = 'VIR'::text) AND (meeting_date_id IS NULL) AND (aut_date IS NULL) AND (kkt_check IS NULL) AND (vir_date IS NOT NULL) AND (assurance_date IS NULL))))
 );
 
