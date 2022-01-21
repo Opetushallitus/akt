@@ -95,7 +95,7 @@ WITH translator_ids AS (
 )
 INSERT
 INTO authorisation(translator_id, basis, meeting_date_id, aut_date, kkt_check, vir_date, assurance_date,
-                   from_lang, to_lang, permission_to_publish)
+                   from_lang, to_lang, permission_to_publish, diary_number)
 SELECT translator_id,
        -- 11 KKT
        -- 13 VIR authorized
@@ -133,15 +133,16 @@ SELECT translator_id,
            ELSE now() END,
        CASE WHEN mod(i, 2) = 0 THEN 'FI' ELSE 'SV' END,
        langs[mod(i, array_length(langs, 1)) + 1],
-       mod(i, 21) <> 0
+       mod(i, 21) <> 0,
+       -- temporary diary_number entries
+       md5(random()::text)
 FROM translator_ids,
      (SELECT ('{BN, CA, CS, DA, DE, EL, EN, ET, FJ, FO, FR, GA, HE, HR, HU, JA, RU, TT, TY, UG, UK, VI, ZH}')::text[] AS langs) AS langs_table
 ;
 
 -- add inverse language pairs
-INSERT INTO authorisation (translator_id, basis, meeting_date_id, aut_date, kkt_check, vir_date,
-                           assurance_date,
-                           from_lang, to_lang, permission_to_publish)
+INSERT INTO authorisation(translator_id, basis, meeting_date_id, aut_date, kkt_check, vir_date, assurance_date,
+                          from_lang, to_lang, permission_to_publish, diary_number)
 SELECT translator_id,
        basis,
        meeting_date_id,
@@ -152,10 +153,16 @@ SELECT translator_id,
        -- note to_lang and from_lang are swapped
        to_lang,
        from_lang,
-       mod(translator_id, 98) <> 0
+       mod(translator_id, 98) <> 0,
+       -- temporary diary_number entries
+       md5(random()::text)
 FROM authorisation
 WHERE mod(authorisation_id, 20) <> 0
 ;
+
+-- set diary numbers to match the ids of authorisations
+UPDATE authorisation
+SET diary_number = authorisation_id;
 
 INSERT INTO authorisation_term(authorisation_id, begin_date, end_date)
 SELECT authorisation_id,

@@ -9,6 +9,7 @@ import fi.oph.akt.model.EmailType;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Factory {
 
@@ -36,6 +37,7 @@ public class Factory {
     authorisation.setFromLang("FI");
     authorisation.setToLang("EN");
     authorisation.setPermissionToPublish(true);
+    authorisation.setDiaryNumber(UUID.randomUUID().toString());
 
     return authorisation;
   }

@@ -12,6 +12,7 @@ public record AuthorisationDTO(
   @NonNull Integer version,
   @NonNull LanguagePairDTO languagePair,
   @NonNull AuthorisationBasis basis,
+  @NonNull String diaryNumber,
   LocalDate autDate,
   String kktCheck,
   LocalDate virDate,

@@ -80,6 +80,7 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 2022-01-05-language_pair-uppercase	terova	migrations.xml	2022-01-14 12:10:40.349389	17	EXECUTED	8:fc41591bbfcd22b139c1735fde94590d	sql		\N	4.3.5	\N	\N	2155039865
 2022-01-07-add-person_details	terova	migrations.xml	2022-01-14 12:10:40.378113	18	EXECUTED	8:103587d2cafb92743989f5e1c05021fe	dropColumn tableName=translator; addColumn tableName=translator		\N	4.3.5	\N	\N	2155039865
 2022-01-14-move_language_pair_to_authorisation	terova	migrations.xml	2022-01-14 12:10:40.396453	19	EXECUTED	8:c6119c02b1bdfe30db84c0a58e3d3c50	addColumn tableName=authorisation; dropTable tableName=language_pair		\N	4.3.5	\N	\N	2155039865
+2022-01-20-add-column-authorisation_diary_number	mikhuttu	migrations.xml	2022-01-20 14:36:57.58396	20	EXECUTED	8:3e43e94da3d6257a9d6ab89a16c53183	addColumn tableName=authorisation		\N	4.3.5	\N	\N	2689417384
 \.
 
 

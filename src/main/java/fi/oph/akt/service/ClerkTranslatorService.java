@@ -196,6 +196,7 @@ public class ClerkTranslatorService {
           .version(authProjection.version())
           .languagePair(languagePairDTO)
           .basis(authProjection.authorisationBasis())
+          .diaryNumber(authProjection.diaryNumber())
           .autDate(authProjection.autDate())
           .kktCheck(authProjection.kktCheck())
           .virDate(authProjection.virDate())

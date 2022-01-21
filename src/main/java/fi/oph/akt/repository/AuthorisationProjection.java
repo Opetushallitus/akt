@@ -9,6 +9,7 @@ public record AuthorisationProjection(
   long translatorId,
   LocalDate meetingDate,
   AuthorisationBasis authorisationBasis,
+  String diaryNumber,
   LocalDate autDate,
   String kktCheck,
   LocalDate virDate,

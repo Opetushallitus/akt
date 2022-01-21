@@ -292,6 +292,7 @@ class ClerkTranslatorServiceTest {
     final AuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
 
     assertEquals(authorisation.getBasis(), authorisationDTO.basis());
+    assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertEquals(authorisation.getAutDate(), authorisationDTO.autDate());
     assertNull(authorisationDTO.kktCheck());
     assertNull(authorisationDTO.virDate());
@@ -327,6 +328,7 @@ class ClerkTranslatorServiceTest {
     final AuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
 
     assertEquals(authorisation.getBasis(), authorisationDTO.basis());
+    assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertNull(authorisationDTO.autDate());
     assertEquals(authorisation.getKktCheck(), authorisationDTO.kktCheck());
     assertNull(authorisationDTO.virDate());
@@ -361,6 +363,7 @@ class ClerkTranslatorServiceTest {
     final AuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
 
     assertEquals(authorisation.getBasis(), authorisationDTO.basis());
+    assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertNull(authorisationDTO.autDate());
     assertNull(authorisationDTO.kktCheck());
     assertEquals(authorisation.getVirDate(), authorisationDTO.virDate());
@@ -388,6 +391,7 @@ class ClerkTranslatorServiceTest {
     final AuthorisationDTO authorisationDTO = responseDTO.translators().get(0).authorisations().get(0);
 
     assertEquals(authorisation.getBasis(), authorisationDTO.basis());
+    assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertNull(authorisationDTO.autDate());
     assertNull(authorisationDTO.kktCheck());
     assertEquals(authorisation.getVirDate(), authorisationDTO.virDate());

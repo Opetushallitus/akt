@@ -471,4 +471,12 @@
         <dropTable tableName="language_pair"/>
     </changeSet>
 
+    <changeSet id="2022-01-20-add-column-authorisation_diary_number" author="mikhuttu">
+        <addColumn tableName="authorisation">
+            <column name="diary_number" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
