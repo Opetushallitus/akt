@@ -229,14 +229,14 @@ CREATE TABLE public.email (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     modified_at timestamp with time zone DEFAULT now() NOT NULL,
     deleted_at timestamp with time zone,
-    sender text NOT NULL,
-    recipient text NOT NULL,
+    recipient_address text NOT NULL,
     subject text NOT NULL,
     body text NOT NULL,
     sent_at timestamp with time zone,
     error text,
     email_type character varying(255) NOT NULL,
-    ext_id text
+    ext_id text,
+    recipient_name text NOT NULL
 );
 
 
@@ -330,7 +330,7 @@ CREATE TABLE public.translator (
     identity_number character varying(255),
     first_name text NOT NULL,
     last_name text NOT NULL,
-    email text,
+    email character varying(255),
     phone_number text,
     street text,
     town text,
@@ -449,6 +449,14 @@ ALTER TABLE ONLY public.meeting_date
 
 ALTER TABLE ONLY public.shedlock
     ADD CONSTRAINT shedlock_pkey PRIMARY KEY (name);
+
+
+--
+-- Name: translator translator_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.translator
+    ADD CONSTRAINT translator_email_key UNIQUE (email);
 
 
 --

@@ -81,6 +81,8 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 2022-01-07-add-person_details	terova	migrations.xml	2022-01-14 12:10:40.378113	18	EXECUTED	8:103587d2cafb92743989f5e1c05021fe	dropColumn tableName=translator; addColumn tableName=translator		\N	4.3.5	\N	\N	2155039865
 2022-01-14-move_language_pair_to_authorisation	terova	migrations.xml	2022-01-14 12:10:40.396453	19	EXECUTED	8:c6119c02b1bdfe30db84c0a58e3d3c50	addColumn tableName=authorisation; dropTable tableName=language_pair		\N	4.3.5	\N	\N	2155039865
 2022-01-20-add-column-authorisation_diary_number	mikhuttu	migrations.xml	2022-01-20 14:36:57.58396	20	EXECUTED	8:3e43e94da3d6257a9d6ab89a16c53183	addColumn tableName=authorisation		\N	4.3.5	\N	\N	2689417384
+2022-01-21-change_email_columns	mikhuttu	migrations.xml	2022-01-21 09:29:52.090978	21	EXECUTED	8:f5dbcf2cce10ccee99da3b4b1f60799f	dropColumn tableName=email; addColumn tableName=email; renameColumn newColumnName=recipient_address, oldColumnName=recipient, tableName=email		\N	4.3.5	\N	\N	2757391940
+2022-01-21-modify_translator_email	mikhuttu	migrations.xml	2022-01-21 09:29:52.156223	22	EXECUTED	8:4f224d2fe743d0f5bb6ccb68d77853aa	modifyDataType columnName=email, tableName=translator; addUniqueConstraint tableName=translator		\N	4.3.5	\N	\N	2757391940
 \.
 
 
