@@ -1,5 +1,6 @@
 package fi.oph.akt.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,10 +25,10 @@ public class Translator extends BaseEntity {
   private long id;
 
   @OneToMany(mappedBy = "translator")
-  private Collection<Authorisation> authorisations;
+  private Collection<Authorisation> authorisations = new ArrayList<>();
 
   @OneToMany(mappedBy = "translator")
-  private Collection<ContactRequestTranslator> contactRequestTranslators;
+  private Collection<ContactRequestTranslator> contactRequestTranslators = new ArrayList<>();
 
   @Size(min = 1, max = 255)
   @Column(name = "identity_number", unique = true)

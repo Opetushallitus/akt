@@ -14,8 +14,12 @@ import java.util.UUID;
 public class Factory {
 
   public static MeetingDate meetingDate() {
+    return meetingDate(LocalDate.now());
+  }
+
+  public static MeetingDate meetingDate(final LocalDate date) {
     final MeetingDate meetingDate = new MeetingDate();
-    meetingDate.setDate(LocalDate.now());
+    meetingDate.setDate(date);
 
     return meetingDate;
   }
@@ -30,6 +34,11 @@ public class Factory {
 
   public static Authorisation authorisation(Translator translator, MeetingDate meetingDate) {
     final Authorisation authorisation = new Authorisation();
+    translator.getAuthorisations().add(authorisation);
+    if (meetingDate != null) {
+      meetingDate.getAuthorisations().add(authorisation);
+    }
+
     authorisation.setTranslator(translator);
     authorisation.setMeetingDate(meetingDate);
     authorisation.setBasis(AuthorisationBasis.AUT);
@@ -45,6 +54,8 @@ public class Factory {
 
   public static AuthorisationTerm authorisationTerm(Authorisation authorisation) {
     final AuthorisationTerm authorisationTerm = new AuthorisationTerm();
+    authorisation.getTerms().add(authorisationTerm);
+
     authorisationTerm.setAuthorisation(authorisation);
     authorisationTerm.setBeginDate(LocalDate.now());
     authorisationTerm.setEndDate(LocalDate.now().plusYears(1));
@@ -65,6 +76,8 @@ public class Factory {
 
   public static AuthorisationTermReminder authorisationTermReminder(final AuthorisationTerm term, final Email email) {
     final AuthorisationTermReminder reminder = new AuthorisationTermReminder();
+    term.getReminders().add(reminder);
+
     reminder.setAuthorisationTerm(term);
     reminder.setEmail(email);
 

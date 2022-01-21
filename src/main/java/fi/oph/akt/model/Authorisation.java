@@ -1,6 +1,7 @@
 package fi.oph.akt.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -54,7 +55,7 @@ public class Authorisation extends BaseEntity {
   private MeetingDate meetingDate;
 
   @OneToMany(mappedBy = "authorisation")
-  private Collection<AuthorisationTerm> terms;
+  private Collection<AuthorisationTerm> terms = new ArrayList<>();
 
   @Size(min = 1, max = 10)
   @Column(name = "from_lang", nullable = false, length = 10)

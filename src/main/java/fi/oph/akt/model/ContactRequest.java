@@ -1,5 +1,6 @@
 package fi.oph.akt.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,5 +48,5 @@ public class ContactRequest extends BaseEntity {
   private String toLang;
 
   @OneToMany(mappedBy = "contactRequest")
-  private Collection<ContactRequestTranslator> contactRequestTranslators;
+  private Collection<ContactRequestTranslator> contactRequestTranslators = new ArrayList<>();
 }
