@@ -5,10 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { H3 } from 'components/elements/Text';
 import { ComboBox, sortOptionsByLabels } from 'components/elements/ComboBox';
 import { AutocompleteValue } from 'interfaces/combobox';
-import {
-  useAppTranslation,
-  useKoodistoLanguagesTranslation,
-} from 'configs/i18n';
+import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector, useAppDispatch } from 'configs/redux';
 import {
   addPublicTranslatorFilter,
@@ -39,7 +36,6 @@ export const PublicTranslatorFilters = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.publicTranslatorFilters',
   });
-  const translateLanguage = useKoodistoLanguagesTranslation();
 
   // State
   const defaultFiltersState = {
@@ -155,11 +151,6 @@ export const PublicTranslatorFilters = ({
     value: town,
   });
 
-  const languageToAutocompleteValue = (lang: string) => ({
-    label: translateLanguage(lang),
-    value: lang,
-  });
-
   const getComboBoxAttributes = (fieldName: SearchFilter) => ({
     onInputChange: handleComboboxInputChange(fieldName),
     inputValue: inputValues[fieldName],
@@ -185,7 +176,7 @@ export const PublicTranslatorFilters = ({
               id="filters-from-lang"
               variant={Variant.Outlined}
               filterValue={filters.toLang}
-              values={langs.from.map(languageToAutocompleteValue)}
+              languages={langs.from}
               onChange={handleComboboxFilterChange(SearchFilter.FromLang)}
             />
             <LanguageSelect
@@ -197,7 +188,7 @@ export const PublicTranslatorFilters = ({
               id="filters-to-lang"
               variant={Variant.Outlined}
               filterValue={filters.fromLang}
-              values={langs.to.map(languageToAutocompleteValue)}
+              languages={langs.to}
               onChange={handleComboboxFilterChange(SearchFilter.ToLang)}
             />
           </div>

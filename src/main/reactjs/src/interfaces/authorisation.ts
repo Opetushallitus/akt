@@ -2,7 +2,7 @@ import { LanguagePair } from 'interfaces/language';
 import { WithId } from 'interfaces/withId';
 import { WithVersion } from 'interfaces/withVersion';
 
-type AuthorisationBasis = 'AUT' | 'KKT' | 'VIR';
+export type AuthorisationBasis = 'AUT' | 'KKT' | 'VIR';
 
 export interface AuthorisationTerm extends WithId, WithVersion {
   start: Date;

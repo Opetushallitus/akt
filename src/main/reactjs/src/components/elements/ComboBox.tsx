@@ -37,6 +37,11 @@ const isOptionEqualToValue = (
   }
 };
 
+export const valueAsOption = (value: string) => ({
+  value: value,
+  label: value,
+});
+
 export const ComboBox = ({
   label,
   values,

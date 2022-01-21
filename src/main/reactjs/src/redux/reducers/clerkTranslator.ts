@@ -30,10 +30,6 @@ const defaultState = {
   meetingDates: [],
   selectedTranslators: [],
   filters: {
-    fromLang: '',
-    toLang: '',
-    name: '',
-    town: '',
     authorisationStatus: AuthorisationStatus.Authorised,
   },
 };

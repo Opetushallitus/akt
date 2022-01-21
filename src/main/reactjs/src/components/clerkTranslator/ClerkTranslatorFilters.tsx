@@ -1,10 +1,21 @@
-import { TextField, Button } from '@mui/material';
+import { KeyboardEvent, useState } from 'react';
+import { TextField, Button, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
+import {
+  LanguageSelect,
+  languageToAutocompleteValue,
+} from 'components/elements/LanguageSelect';
 import { H3 } from 'components/elements/Text';
-import { useAppTranslation } from 'configs/i18n';
+import {
+  useAppTranslation,
+  useKoodistoLanguagesTranslation,
+} from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { Variant, Color } from 'enums/app';
+import { Variant, Color, KeyboardKey } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
+import { ClerkTranslatorFilter } from 'interfaces/clerkTranslator';
+import { AutocompleteValue } from 'interfaces/combobox';
 import {
   addClerkTranslatorFilter,
   resetClerkTranslatorFilters,
@@ -13,6 +24,7 @@ import {
   clerkTranslatorsSelector,
   selectTranslatorsByAuthorisationStatus,
 } from 'redux/selectors/clerkTranslator';
+import { ComboBox, valueAsOption } from 'components/elements/ComboBox';
 
 export const RegisterControls = () => {
   const { authorised, expiring, expired } = useAppSelector(
@@ -61,27 +73,118 @@ export const RegisterControls = () => {
 };
 
 export const ListingFilters = () => {
-  const dispatch = useAppDispatch();
+  // i18n
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorFilters',
   });
+  const translateLanguage = useKoodistoLanguagesTranslation();
+
+  // local state
+  const [name, setName] = useState('');
+  // redux
+  const dispatch = useAppDispatch();
+  const { filters, langs, towns } = useAppSelector(clerkTranslatorsSelector);
+  const handleFilterChange =
+    (filter: keyof ClerkTranslatorFilter) =>
+    (event: React.SyntheticEvent<Element, Event>, value: AutocompleteValue) => {
+      dispatch(
+        addClerkTranslatorFilter({ ...filters, [filter]: value?.value })
+      );
+    };
+  const handleEnterKeyPress =
+    (filter: keyof ClerkTranslatorFilter, value: string) =>
+    (event: KeyboardEvent<HTMLInputElement>) => {
+      if (event.key == KeyboardKey.Enter) {
+        dispatch(
+          addClerkTranslatorFilter({
+            ...filters,
+            [filter]: value ? value : null,
+          })
+        );
+      }
+    };
 
   return (
     <div className="columns gapped">
       <div className="rows">
         <H3>{t('languagePair.title')}</H3>
         <div className="columns gapped">
-          <TextField placeholder={t('languagePair.fromPlaceholder')} />
-          <TextField placeholder={t('languagePair.toPlaceholder')} />
+          <LanguageSelect
+            autoHighlight
+            label={t('languagePair.fromPlaceholder')}
+            filterValue={filters.toLang || ''}
+            value={
+              filters.fromLang
+                ? languageToAutocompleteValue(
+                    translateLanguage,
+                    filters.fromLang
+                  )
+                : null
+            }
+            languages={langs.from}
+            variant={Variant.Outlined}
+            onChange={handleFilterChange('fromLang')}
+          />
+          <LanguageSelect
+            autoHighlight
+            label={t('languagePair.toPlaceholder')}
+            filterValue={filters.fromLang || ''}
+            value={
+              filters.toLang
+                ? languageToAutocompleteValue(translateLanguage, filters.toLang)
+                : null
+            }
+            languages={langs.to}
+            variant={Variant.Outlined}
+            onChange={handleFilterChange('toLang')}
+          />
         </div>
       </div>
       <div className="rows">
         <H3>{t('name.title')}</H3>
-        <TextField placeholder={t('name.placeholder')} />
+        <TextField
+          placeholder={t('name.placeholder')}
+          type="search"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+          value={name}
+          onChange={(event) => {
+            setName(event.target.value);
+          }}
+          onKeyUp={handleEnterKeyPress('name', name)}
+        />
       </div>
       <div className="rows">
         <H3>{t('town.title')}</H3>
-        <TextField placeholder={t('town.placeholder')} />
+        <ComboBox
+          autoHighlight
+          label={t('town.placeholder')}
+          values={towns.map(valueAsOption)}
+          value={filters.town ? valueAsOption(filters.town) : null}
+          variant={Variant.Outlined}
+          onChange={handleFilterChange('town')}
+        />
+      </div>
+      <div className="rows">
+        <H3>{t('authorisationBasis.title')}</H3>
+        <ComboBox
+          autoHighlight
+          //{...getComboBoxAttributes(SearchFilter.Town)}
+          label={t('authorisationBasis.placeholder')}
+          values={['AUT', 'KKT', 'VIR'].map(valueAsOption)}
+          value={
+            filters.authorisationBasis
+              ? valueAsOption(filters.authorisationBasis)
+              : null
+          }
+          variant={Variant.Outlined}
+          onChange={handleFilterChange('authorisationBasis')}
+        />
       </div>
       <div className="grow" />
       <div className="rows">

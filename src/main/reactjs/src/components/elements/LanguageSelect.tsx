@@ -1,4 +1,5 @@
 import { sortOptionsByLabels, ComboBox } from 'components/elements/ComboBox';
+import { useKoodistoLanguagesTranslation } from 'configs/i18n';
 import {
   ComboBoxProps,
   ComboBoxOption,
@@ -6,12 +7,27 @@ import {
 } from 'interfaces/combobox';
 import { LanguageSelectProps } from 'interfaces/languageSelect';
 
+const primaryLanguages = ['FI', 'SV'];
+
+export const languageToAutocompleteValue = (
+  translate: (l: string) => string,
+  lang: string
+) => ({
+  label: translate(lang),
+  value: lang,
+});
+
 export const LanguageSelect = ({
   filterValue,
-  values,
+  languages,
   ...rest
-}: LanguageSelectProps & ComboBoxProps & AutoCompleteComboBox) => {
-  const primaryLanguages = ['FI', 'SV'];
+}: LanguageSelectProps &
+  Omit<ComboBoxProps, 'values'> &
+  AutoCompleteComboBox) => {
+  // i18n
+  const translateLanguage = useKoodistoLanguagesTranslation();
+
+  // Helpers
   const filterSelectedLang = (
     filterValue: string | undefined,
     valuesArray: Array<ComboBoxOption>,
@@ -30,6 +46,10 @@ export const LanguageSelect = ({
 
     return valuesArrayWithoutSelectedLang;
   };
+
+  const values = languages.map((l) =>
+    languageToAutocompleteValue(translateLanguage, l)
+  );
 
   const filteredValuesArray = filterSelectedLang(
     filterValue,
