@@ -39,7 +39,7 @@ export const clerkTranslatorReducer: Reducer<
   ClerkTranslatorAction
 > = (state = defaultState, action) => {
   const index = action.index as number;
-  const filters = action.filters as ClerkTranslatorFilter;
+  const filters = action.filters as Partial<ClerkTranslatorFilter>;
 
   switch (action.type) {
     case CLERK_TRANSLATOR_LOADING:
@@ -85,7 +85,7 @@ export const clerkTranslatorReducer: Reducer<
     case CLERK_TRANSLATOR_ADD_FILTER:
       return {
         ...state,
-        filters,
+        filters: { ...state.filters, ...filters },
       };
     case CLERK_TRANSLATOR_RESET_FILTERS:
       return {

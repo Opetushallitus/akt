@@ -1,4 +1,4 @@
-import { KeyboardEvent, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TextField, Button, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -12,12 +12,13 @@ import {
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { Variant, Color, KeyboardKey } from 'enums/app';
+import { Variant, Color } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
+import { useDebouncedValue } from 'hooks';
 import { ClerkTranslatorFilter } from 'interfaces/clerkTranslator';
 import { AutocompleteValue } from 'interfaces/combobox';
 import {
-  addClerkTranslatorFilter,
+  setClerkTranslatorFilters,
   resetClerkTranslatorFilters,
 } from 'redux/actions/clerkTranslator';
 import {
@@ -36,9 +37,7 @@ export const RegisterControls = () => {
   const dispatch = useAppDispatch();
   const { filters } = useAppSelector(clerkTranslatorsSelector);
   const filterByAuthorisationStatus = (status: AuthorisationStatus) => {
-    dispatch(
-      addClerkTranslatorFilter({ ...filters, authorisationStatus: status })
-    );
+    dispatch(setClerkTranslatorFilters({ authorisationStatus: status }));
   };
   const variantForStatus = (status: AuthorisationStatus) => {
     return status === filters.authorisationStatus
@@ -87,22 +86,16 @@ export const ListingFilters = () => {
   const handleFilterChange =
     (filter: keyof ClerkTranslatorFilter) =>
     (event: React.SyntheticEvent<Element, Event>, value: AutocompleteValue) => {
-      dispatch(
-        addClerkTranslatorFilter({ ...filters, [filter]: value?.value })
-      );
+      dispatch(setClerkTranslatorFilters({ [filter]: value?.value }));
     };
-  const handleEnterKeyPress =
-    (filter: keyof ClerkTranslatorFilter, value: string) =>
-    (event: KeyboardEvent<HTMLInputElement>) => {
-      if (event.key == KeyboardKey.Enter) {
-        dispatch(
-          addClerkTranslatorFilter({
-            ...filters,
-            [filter]: value ? value : null,
-          })
-        );
-      }
-    };
+  const debouncedName = useDebouncedValue(name, 300);
+  useEffect(() => {
+    dispatch(
+      setClerkTranslatorFilters({
+        name: debouncedName ? debouncedName : undefined,
+      })
+    );
+  }, [debouncedName, dispatch]);
 
   return (
     <div className="columns gapped">
@@ -156,7 +149,6 @@ export const ListingFilters = () => {
           onChange={(event) => {
             setName(event.target.value);
           }}
-          onKeyUp={handleEnterKeyPress('name', name)}
         />
       </div>
       <div className="rows">
@@ -174,7 +166,6 @@ export const ListingFilters = () => {
         <H3>{t('authorisationBasis.title')}</H3>
         <ComboBox
           autoHighlight
-          //{...getComboBoxAttributes(SearchFilter.Town)}
           label={t('authorisationBasis.placeholder')}
           values={['AUT', 'KKT', 'VIR'].map(valueAsOption)}
           value={
