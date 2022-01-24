@@ -1,6 +1,5 @@
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { AuthorisationBasis } from 'interfaces/authorisation';
-import { selectOption } from 'tests/cypress/support/utils/option';
 
 class ClerkHomePage {
   elements = {
@@ -36,18 +35,15 @@ class ClerkHomePage {
   }
 
   filterByAuthorisationBasis(basis: AuthorisationBasis) {
-    this.elements.authorisationBasisDropdown().click();
-    selectOption(basis);
+    this.elements.authorisationBasisDropdown().type(basis + '{enter}');
   }
 
   filterByFromLang(lang: string) {
-    this.elements.fromLanguageDropdown().click();
-    selectOption(lang);
+    this.elements.fromLanguageDropdown().type(lang + '{enter}');
   }
 
   filterByToLang(lang: string) {
-    this.elements.toLanguageDropdown().click();
-    selectOption(lang);
+    this.elements.fromLanguageDropdown().type(lang + '{enter}');
   }
 
   filterByName(name: string) {
