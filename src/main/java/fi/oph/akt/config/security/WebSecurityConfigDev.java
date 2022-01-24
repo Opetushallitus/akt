@@ -1,5 +1,6 @@
-package fi.oph.akt.config;
+package fi.oph.akt.config.security;
 
+import fi.oph.akt.config.CustomAccessDeniedHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;

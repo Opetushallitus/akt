@@ -1,5 +1,7 @@
-package fi.oph.akt.config;
+package fi.oph.akt.config.security;
 
+import fi.oph.akt.config.ConfigEnums;
+import fi.oph.akt.config.CustomAccessDeniedHandler;
 import fi.vm.sade.java_utils.security.OpintopolkuCasAuthenticationFilter;
 import fi.vm.sade.javautils.kayttooikeusclient.OphUserDetailsServiceImpl;
 import org.jasig.cas.client.session.HashMapBackedSessionMappingStorage;
@@ -21,10 +23,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Profile("!dev")
@@ -33,8 +31,8 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  private Environment environment;
-  private SessionMappingStorage sessionMappingStorage = new HashMapBackedSessionMappingStorage();
+  private final Environment environment;
+  private final SessionMappingStorage sessionMappingStorage = new HashMapBackedSessionMappingStorage();
 
   @Autowired
   public WebSecurityConfig(Environment environment) {
