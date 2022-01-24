@@ -147,19 +147,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.authenticationProvider(casAuthenticationProvider());
   }
-
-  @Bean
-  public UserDetailsService userDetailsService() {
-    // TODO Use cas!
-    UserDetails user = User.withDefaultPasswordEncoder().username("user").password("user").roles("USER").build();
-
-    UserDetails clerk = User
-      .withDefaultPasswordEncoder()
-      .username("clerk")
-      .password("clerk")
-      .roles("VIRKAILIJA")
-      .build();
-
-    return new InMemoryUserDetailsManager(user, clerk);
-  }
 }

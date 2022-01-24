@@ -5,4 +5,4 @@ WORKDIR /app
 ADD . ./
 RUN ./mvnw clean install -P travis -DskipTests -Dskip.npm
 
-CMD ["./mvnw", "spring-boot:run", "-Dskip.npm"]
+CMD ["./mvnw", "spring-boot:run", "-Dskip.npm", "-Dspring.profiles.active=dev"]
