@@ -174,7 +174,7 @@ exports[`Header should render Header correctly 1`] = `
       </a>
       <a
         className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
-        href="/service-provider-app/saml/logout"
+        href="/akt/cas/logout"
         onBlur={[Function]}
         onContextMenu={[Function]}
         onDragLeave={[Function]}

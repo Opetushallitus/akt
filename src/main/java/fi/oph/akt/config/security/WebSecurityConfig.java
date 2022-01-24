@@ -136,9 +136,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .anyRequest()
       .authenticated()
       .and()
+      .addFilter(casAuthenticationFilter())
       .exceptionHandling()
       .accessDeniedHandler(CustomAccessDeniedHandler.create())
       .authenticationEntryPoint(casAuthenticationEntryPoint())
+      .and()
+      .logout()
+      .logoutUrl("/cas/logout")
+      .logoutSuccessUrl("/cas/logout")
+      .invalidateHttpSession(true)
+      .deleteCookies("JSESSIONID")
       .and()
       .addFilterBefore(singleSignOutFilter(), CasAuthenticationFilter.class);
   }

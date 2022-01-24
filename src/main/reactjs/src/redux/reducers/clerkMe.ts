@@ -38,11 +38,16 @@ export const clerkMeReducer: Reducer<ClerkMeState, ClerkMeAction> = (
         status: APIResponseStatus.InProgress,
       };
     case CLERK_ME_RECEIVED:
+      const { uid, oid, firstName, lastName } = action?.clerkInfo;
+
       return {
         ...state,
         status: APIResponseStatus.Success,
         isAuthenticated: true,
-        ...action,
+        uid,
+        oid,
+        firstName,
+        lastName,
       };
     case CLERK_ME_ERROR:
       return {

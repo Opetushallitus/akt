@@ -6,7 +6,7 @@ export enum AppRoutes {
   PublicHomePage = '/akt/etusivu',
   ClerkHomePage = '/akt/virkailija',
   ClerkSendEmailPage = '/akt/virkailija/laheta-sahkoposti',
-  ClerkLogOutPage = '/service-provider-app/saml/logout',
+  ClerkLogOutPage = '/akt/cas/logout',
   ClerkOpintopolkuHomePage = '/virkailijan-tyopoyta',
   NotFoundPage = '*',
 }
