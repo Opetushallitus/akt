@@ -93,7 +93,7 @@ class EmailScheduledSendingTest {
   }
 
   private Email createEmail(final LocalDateTime sentAt, final String error) {
-    final Email email = Factory.email(EmailType.CONTACT_REQUEST);
+    final Email email = Factory.email(EmailType.CONTACT_REQUEST_TRANSLATOR);
     email.setSentAt(sentAt);
     email.setError(error);
     return entityManager.persist(email);

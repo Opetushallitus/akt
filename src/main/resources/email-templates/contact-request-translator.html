@@ -15,9 +15,9 @@
 
         <p>
             <strong>Lähettäjän tiedot</strong><br/>
-            <span th:text="${name}"></span><br/>
-            <span th:text="${email}"></span><br/>
-            <span th:unless="${phone.isEmpty()}">[[${phone}]]<br/></span>
+            <span th:text="${requesterName}"></span><br/>
+            <span th:text="${requesterEmail}"></span><br/>
+            <span th:unless="${requesterPhone.isEmpty()}">[[${requesterPhone}]]<br/></span>
         </p>
         <br/>
 

@@ -24,6 +24,7 @@ public class Factory {
     final Translator translator = new Translator();
     translator.setFirstName("Foo");
     translator.setLastName("Bar");
+
     return translator;
   }
 

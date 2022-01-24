@@ -16,8 +16,16 @@ public class TemplateRenderer {
     return renderTemplate("authorisation-expiry", params);
   }
 
-  public String renderContactRequestEmailBody(final Map<String, Object> params) {
-    return renderTemplate("contact-request", params);
+  public String renderContactRequestClerkEmailBody(final Map<String, Object> params) {
+    return renderTemplate("contact-request-clerk", params);
+  }
+
+  public String renderContactRequestRequesterEmailBody(final Map<String, Object> params) {
+    return renderTemplate("contact-request-requester", params);
+  }
+
+  public String renderContactRequestTranslatorEmailBody(final Map<String, Object> params) {
+    return renderTemplate("contact-request-translator", params);
   }
 
   private String renderTemplate(final String template, final Map<String, Object> params) {

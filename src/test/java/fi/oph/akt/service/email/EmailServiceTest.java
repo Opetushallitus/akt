@@ -59,10 +59,10 @@ class EmailServiceTest {
       .body("testiviesti")
       .build();
 
-    final Long emailId = emailService.saveEmail(EmailType.CONTACT_REQUEST, emailData);
+    final Long emailId = emailService.saveEmail(EmailType.CONTACT_REQUEST_TRANSLATOR, emailData);
     final Email email = emailRepository.getById(emailId);
 
-    assertEquals(EmailType.CONTACT_REQUEST, email.getEmailType());
+    assertEquals(EmailType.CONTACT_REQUEST_TRANSLATOR, email.getEmailType());
     assertEquals("Vastaanottaja", email.getRecipientName());
     assertEquals("vastaanottaja@invalid", email.getRecipientAddress());
     assertEquals("testiotsikko", email.getSubject());
@@ -77,7 +77,7 @@ class EmailServiceTest {
 
   @Test
   public void sendEmailSuccessTest() throws JsonProcessingException {
-    final Email email = Factory.email(EmailType.CONTACT_REQUEST);
+    final Email email = Factory.email(EmailType.CONTACT_REQUEST_TRANSLATOR);
     final Email savedEmail = entityManager.persist(email);
     when(emailSenderMock.sendEmail(any())).thenReturn("12345");
 
@@ -98,7 +98,7 @@ class EmailServiceTest {
 
   @Test
   public void sendEmailFailureTest() throws JsonProcessingException {
-    final Email email = Factory.email(EmailType.CONTACT_REQUEST);
+    final Email email = Factory.email(EmailType.CONTACT_REQUEST_TRANSLATOR);
     final Email savedEmail = entityManager.persist(email);
 
     doThrow(new RuntimeException("error msg")).when(emailSenderMock).sendEmail(any());

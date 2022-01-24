@@ -19,8 +19,10 @@ public interface AuthorisationTermRepository extends JpaRepository<Authorisation
   @Query(
     "SELECT at.id" +
     " FROM AuthorisationTerm at" +
+    " JOIN at.authorisation a" +
+    " JOIN a.translator t" +
     " LEFT JOIN at.reminders atr" +
-    " WHERE at.endDate BETWEEN ?1 AND ?2" +
+    " WHERE at.endDate BETWEEN ?1 AND ?2 AND t.email IS NOT NULL" +
     " GROUP BY at.id, atr.id" +
     " HAVING COUNT(atr.id) = 0 OR MAX(atr.createdAt) < ?3"
   )

@@ -53,18 +53,21 @@ public class ClerkEmailService {
       throw new IllegalArgumentException("Each translator by provided translatorIds not found");
     }
 
-    translators.forEach(translator -> {
-      final String recipientName = translator.getFullName();
-      final String recipientAddress = Optional.ofNullable(translator.getEmail()).orElse("unknown@invalid");
+    translators.forEach(translator ->
+      Optional
+        .ofNullable(translator.getEmail())
+        .ifPresent(recipientAddress -> {
+          final String recipientName = translator.getFullName();
 
-      createEmail(
-        recipientName,
-        recipientAddress,
-        emailRequestDTO.subject(),
-        emailRequestDTO.body(),
-        EmailType.INFORMAL
-      );
-    });
+          createEmail(
+            recipientName,
+            recipientAddress,
+            emailRequestDTO.subject(),
+            emailRequestDTO.body(),
+            EmailType.INFORMAL
+          );
+        })
+    );
   }
 
   private Long createEmail(
@@ -96,28 +99,31 @@ public class ClerkEmailService {
     );
     final Translator translator = translatorRepository.getById(expiryData.translatorId());
 
-    final String recipientName = translator.getFullName();
-    final String recipientAddress = Optional.ofNullable(translator.getEmail()).orElse("unknown@invalid");
+    Optional
+      .ofNullable(translator.getEmail())
+      .ifPresent(recipientAddress -> {
+        final String recipientName = translator.getFullName();
 
-    final String emailSubject = "Auktorisointisi on päättymässä";
+        final String emailSubject = "Auktorisointisi on päättymässä";
 
-    final String emailBody = getAuthorisationExpiryEmailBody(
-      authorisationTerm.getEndDate(),
-      expiryData.fromLang(),
-      expiryData.toLang()
-    );
+        final String emailBody = getAuthorisationExpiryEmailBody(
+          authorisationTerm.getEndDate(),
+          expiryData.fromLang(),
+          expiryData.toLang()
+        );
 
-    final Long emailId = createEmail(
-      recipientName,
-      recipientAddress,
-      emailSubject,
-      emailBody,
-      EmailType.AUTHORISATION_EXPIRY
-    );
+        final Long emailId = createEmail(
+          recipientName,
+          recipientAddress,
+          emailSubject,
+          emailBody,
+          EmailType.AUTHORISATION_EXPIRY
+        );
 
-    final Email email = emailRepository.getById(emailId);
+        final Email email = emailRepository.getById(emailId);
 
-    createAuthorisationTermReminder(authorisationTerm, email);
+        createAuthorisationTermReminder(authorisationTerm, email);
+      });
   }
 
   private String getAuthorisationExpiryEmailBody(

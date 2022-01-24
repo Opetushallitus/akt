@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import fi.oph.akt.Factory;
@@ -136,16 +137,16 @@ public class ClerkEmailServiceTest {
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
     final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
+    translator.setEmail("foo.bar@invalid");
+
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
     entityManager.persist(authorisation);
     entityManager.persist(authorisationTerm);
 
-    final Long tId = translatorRepository.findAll().get(0).getId();
-
     final InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO
       .builder()
-      .translatorIds(List.of(tId, tId))
+      .translatorIds(List.of(translator.getId(), translator.getId()))
       .subject("otsikko")
       .body("viesti")
       .build();
@@ -153,6 +154,30 @@ public class ClerkEmailServiceTest {
     clerkEmailService.createInformalEmails(emailRequestDTO);
 
     verify(emailService).saveEmail(any(), emailDataCaptor.capture());
+  }
+
+  @Test
+  public void createInformalEmailsShouldIgnoreTranslatorsWithoutEmailAddress() {
+    final MeetingDate meetingDate = Factory.meetingDate();
+    final Translator translator = Factory.translator();
+    final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+
+    entityManager.persist(meetingDate);
+    entityManager.persist(translator);
+    entityManager.persist(authorisation);
+    entityManager.persist(authorisationTerm);
+
+    final InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO
+      .builder()
+      .translatorIds(List.of(translator.getId()))
+      .subject("otsikko")
+      .body("viesti")
+      .build();
+
+    clerkEmailService.createInformalEmails(emailRequestDTO);
+
+    verifyNoInteractions(emailService);
   }
 
   @Test
@@ -211,5 +236,23 @@ public class ClerkEmailServiceTest {
     assertEquals("Auktorisointisi päättyy 01.12.2025", emailData.body());
 
     verify(authorisationTermReminderRepository).save(any());
+  }
+
+  @Test
+  public void testCreateAuthorisationExpiryEmailWithTranslatorWithoutEmailAddress() {
+    final MeetingDate meetingDate = Factory.meetingDate();
+    final Translator translator = Factory.translator();
+    final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+
+    entityManager.persist(meetingDate);
+    entityManager.persist(translator);
+    entityManager.persist(authorisation);
+    entityManager.persist(authorisationTerm);
+
+    clerkEmailService.createAuthorisationExpiryEmail(authorisationTerm.getId());
+
+    verifyNoInteractions(emailService);
+    verifyNoInteractions(authorisationTermReminderRepository);
   }
 }
