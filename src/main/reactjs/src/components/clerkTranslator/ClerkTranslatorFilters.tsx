@@ -104,6 +104,7 @@ export const ListingFilters = () => {
         <div className="columns gapped">
           <LanguageSelect
             autoHighlight
+            data-testid="clerk-translator-filters__from-lang"
             label={t('languagePair.fromPlaceholder')}
             filterValue={filters.toLang || ''}
             value={
@@ -120,6 +121,7 @@ export const ListingFilters = () => {
           />
           <LanguageSelect
             autoHighlight
+            data-testid="clerk-translator-filters__to-lang"
             label={t('languagePair.toPlaceholder')}
             filterValue={filters.fromLang || ''}
             value={
@@ -136,6 +138,7 @@ export const ListingFilters = () => {
       <div className="rows">
         <H3>{t('name.title')}</H3>
         <TextField
+          data-testid="clerk-translator-filters__name"
           placeholder={t('name.placeholder')}
           type="search"
           InputProps={{
@@ -155,6 +158,7 @@ export const ListingFilters = () => {
         <H3>{t('town.title')}</H3>
         <ComboBox
           autoHighlight
+          data-testid="clerk-translator-filters__town"
           label={t('town.placeholder')}
           values={towns.map(valueAsOption)}
           value={filters.town ? valueAsOption(filters.town) : null}
@@ -166,6 +170,7 @@ export const ListingFilters = () => {
         <H3>{t('authorisationBasis.title')}</H3>
         <ComboBox
           autoHighlight
+          data-testid="clerk-translator-filters__authorisation-basis"
           label={t('authorisationBasis.placeholder')}
           values={['AUT', 'KKT', 'VIR'].map(valueAsOption)}
           value={

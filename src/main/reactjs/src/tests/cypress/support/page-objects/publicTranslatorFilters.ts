@@ -1,10 +1,6 @@
-export const compulsoryLangs = ['suomi', 'ruotsi'];
+import { selectOption } from 'tests/cypress/support/utils/option';
 
-const selectOption = (option: string) => {
-  cy.contains(option).then((o: Cypress.Chainable) => {
-    o[0].click();
-  });
-};
+export const compulsoryLangs = ['suomi', 'ruotsi'];
 
 class PublicTranslatorFilters {
   elements = {

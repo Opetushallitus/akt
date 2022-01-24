@@ -47,4 +47,26 @@ describe('ClerkHomePage', () => {
       translatorCountsByAuthorisationStatus[AuthorisationStatus.Authorised]
     );
   });
+
+  it('should allow combining multiple filters to narrow down on translators', () => {
+    onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Authorised);
+    onClerkHomePage.filterByAuthorisationBasis('VIR');
+    onClerkHomePage.expectSelectedTranslatorsCount(16);
+
+    // Authorisation with basis VIR should never expire => expect 0 matching translators.
+    onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
+    onClerkHomePage.expectSelectedTranslatorsCount(0);
+
+    onClerkHomePage.filterByAuthorisationBasis('KKT');
+    onClerkHomePage.expectSelectedTranslatorsCount(13);
+
+    onClerkHomePage.filterByFromLang('suomi');
+    onClerkHomePage.expectSelectedTranslatorsCount(6);
+
+    onClerkHomePage.filterByToLang('vietnam');
+    onClerkHomePage.expectSelectedTranslatorsCount(1);
+
+    onClerkHomePage.filterByName('hiltu');
+    onClerkHomePage.expectSelectedTranslatorsCount(1);
+  });
 });
