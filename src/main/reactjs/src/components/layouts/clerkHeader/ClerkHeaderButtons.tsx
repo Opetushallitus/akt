@@ -13,8 +13,8 @@ export const ClerkHeaderButtons = () => {
   });
 
   // Avatar Letters
-  const fNameLetter = clerkMe?.firstName.charAt(0).toUpperCase();
-  const lNameLetter = clerkMe?.lastName.charAt(0).toUpperCase();
+  const fNameLetter = clerkMe?.firstName?.charAt(0).toUpperCase();
+  const lNameLetter = clerkMe?.lastName?.charAt(0).toUpperCase();
 
   return (
     <>

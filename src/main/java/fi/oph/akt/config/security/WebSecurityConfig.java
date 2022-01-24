@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public ServiceProperties serviceProperties() {
     ServiceProperties serviceProperties = new ServiceProperties();
-    serviceProperties.setService(environment.getRequiredProperty("cas.service") + "/j_spring_cas_security_check");
+    serviceProperties.setService(environment.getRequiredProperty("cas.service") + "/login/cas");
     serviceProperties.setSendRenew(environment.getRequiredProperty("cas.send-renew", Boolean.class));
     serviceProperties.setAuthenticateAllArtifacts(true);
     return serviceProperties;
@@ -84,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       serviceProperties()
     );
     casAuthenticationFilter.setAuthenticationManager(authenticationManager());
-    casAuthenticationFilter.setFilterProcessesUrl("/j_spring_cas_security_check");
+    casAuthenticationFilter.setFilterProcessesUrl("/login/cas");
     return casAuthenticationFilter;
   }
 

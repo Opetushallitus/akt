@@ -40,14 +40,14 @@ Project build downloads and installs correct node and npm versions, no need to i
 
 ```sh
 mvn clean install
-mvn spring-boot:run -Dspring.profiles.active=dev
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
 or using Maven Wrapper
 
 ```sh
 ./mvnw clean install
-./mvnw spring-boot:run -Dspring.profiles.active=dev
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
 and open browser to
