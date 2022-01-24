@@ -1,8 +1,11 @@
 import { createSelector } from 'reselect';
 
 import { RootState } from 'configs/redux';
-import { ClerkTranslator } from 'interfaces/clerkTranslator';
-import { Authorisation, AuthorisationBasis } from 'interfaces/authorisation';
+import {
+  ClerkTranslator,
+  ClerkTranslatorFilter,
+} from 'interfaces/clerkTranslator';
+import { Authorisation } from 'interfaces/authorisation';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { DateUtils } from 'utils/date';
 
@@ -44,9 +47,7 @@ export const selectFilteredClerkTranslators = createSelector(
   (translators, filters) => {
     const currentDate = DateUtils.dateAtStartOfDay(new Date());
 
-    let filtered = translators.filter((t) =>
-      filterByAuthorisationStatus(t, filters.authorisationStatus, currentDate)
-    );
+    let filtered = translators;
 
     if (filters.name) {
       const nameFilter = filters.name;
@@ -58,23 +59,9 @@ export const selectFilteredClerkTranslators = createSelector(
       filtered = filtered.filter((t) => filterByTown(t, town));
     }
 
-    if (filters.fromLang) {
-      const fromLang = filters.fromLang;
-      filtered = filtered.filter((t) => filterByFromLang(t, fromLang));
-    }
-
-    if (filters.toLang) {
-      const toLang = filters.toLang;
-      filtered = filtered.filter((t) => filterByToLang(t, toLang));
-    }
-
-    if (filters.authorisationBasis) {
-      const authorisationBasis =
-        filters.authorisationBasis as AuthorisationBasis;
-      filtered = filtered.filter((t) =>
-        filterByAuthorisationBasis(t, authorisationBasis)
-      );
-    }
+    filtered = filtered.filter((t) =>
+      filterByAuthorisationCriteria(t, filters, currentDate)
+    );
 
     return filtered;
   }
@@ -101,6 +88,13 @@ export const selectFilteredSelectedTranslators = createSelector(
 );
 
 // Helpers
+
+const expiringSoonTreshold = (currentDate: Date) => {
+  const expiringSoonThreshold = DateUtils.dateAtStartOfDay(currentDate);
+  expiringSoonThreshold.setMonth(expiringSoonThreshold.getMonth() + 2);
+
+  return expiringSoonThreshold;
+};
 
 const isAuthorisationValid = (
   authorisation: Authorisation,
@@ -131,24 +125,83 @@ const filterByAuthorisationStatus = (
   status: AuthorisationStatus,
   currentDate: Date
 ) => {
-  switch (status) {
-    case AuthorisationStatus.Authorised:
-      return translator.authorisations.find((a) =>
-        isAuthorisationValid(a, currentDate)
-      );
-    case AuthorisationStatus.Expiring:
-      const expiringSoonThreshold = new Date();
-      expiringSoonThreshold.setMonth(expiringSoonThreshold.getMonth() + 2);
+  const expiringSoonDate = expiringSoonTreshold(currentDate);
 
-      return translator.authorisations.find(
-        (a) =>
-          isAuthorisationValid(a, currentDate) &&
-          isAuthorisationExpiringSoon(a, expiringSoonThreshold)
+  return translator.authorisations.find((a) =>
+    matchesAuthorisationStatus(
+      { authorisationStatus: status },
+      currentDate,
+      expiringSoonDate,
+      a
+    )
+  );
+};
+
+const filterByAuthorisationCriteria = (
+  translator: ClerkTranslator,
+  filters: ClerkTranslatorFilter,
+  currentDate: Date
+) => {
+  const expiringSoonDate = expiringSoonTreshold(currentDate);
+
+  return translator.authorisations.find(
+    (a) =>
+      matchesFromLang(filters, a) &&
+      matchesToLang(filters, a) &&
+      matchesAuthorisationBasis(filters, a) &&
+      matchesAuthorisationStatus(filters, currentDate, expiringSoonDate, a)
+  );
+};
+
+const matchesFromLang = (
+  { fromLang }: ClerkTranslatorFilter,
+  authorisation: Authorisation
+) => {
+  if (fromLang) {
+    return authorisation.languagePair.from == fromLang;
+  }
+
+  return true;
+};
+
+const matchesToLang = (
+  { toLang }: ClerkTranslatorFilter,
+  authorisation: Authorisation
+) => {
+  if (toLang) {
+    return authorisation.languagePair.to == toLang;
+  }
+
+  return true;
+};
+
+const matchesAuthorisationBasis = (
+  { authorisationBasis }: ClerkTranslatorFilter,
+  authorisation: Authorisation
+) => {
+  if (authorisationBasis) {
+    return authorisation.basis == authorisationBasis;
+  }
+
+  return true;
+};
+
+const matchesAuthorisationStatus = (
+  { authorisationStatus }: ClerkTranslatorFilter,
+  currentDate: Date,
+  expiringSoonThreshold: Date,
+  authorisation: Authorisation
+) => {
+  switch (authorisationStatus) {
+    case AuthorisationStatus.Authorised:
+      return isAuthorisationValid(authorisation, currentDate);
+    case AuthorisationStatus.Expiring:
+      return (
+        isAuthorisationValid(authorisation, currentDate) &&
+        isAuthorisationExpiringSoon(authorisation, expiringSoonThreshold)
       );
     case AuthorisationStatus.Expired:
-      return translator.authorisations.find(
-        (a) => !isAuthorisationValid(a, currentDate)
-      );
+      return !isAuthorisationValid(authorisation, currentDate);
   }
 };
 
@@ -161,25 +214,4 @@ const filterByName = (translator: ClerkTranslator, name: string) => {
 
 const filterByTown = (translator: ClerkTranslator, town: string) => {
   return translator.contactDetails.town?.toLowerCase().includes(town);
-};
-
-const filterByFromLang = (translator: ClerkTranslator, fromLang: string) => {
-  return translator.authorisations.find(
-    ({ languagePair }) => fromLang == languagePair.from
-  );
-};
-
-const filterByToLang = (translator: ClerkTranslator, toLang: string) => {
-  return translator.authorisations.find(
-    ({ languagePair }) => toLang == languagePair.to
-  );
-};
-
-const filterByAuthorisationBasis = (
-  translator: ClerkTranslator,
-  authorisationBasis: AuthorisationBasis
-) => {
-  return translator.authorisations.find(
-    ({ basis }) => basis == authorisationBasis
-  );
 };
