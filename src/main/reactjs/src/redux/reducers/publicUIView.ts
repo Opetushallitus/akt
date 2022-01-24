@@ -1,7 +1,7 @@
 import { Action, Reducer } from 'redux';
 
 import { PublicUIViews } from 'enums/app';
-import { PublicUIView } from 'interfaces/UIState';
+import { PublicUIView } from 'interfaces/publicUIView';
 import { isSetPublicUIViewActionType } from 'redux/actionTypes/publicUIView';
 
 const defaultState = {
