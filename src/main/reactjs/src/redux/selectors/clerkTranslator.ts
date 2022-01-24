@@ -91,7 +91,7 @@ export const selectFilteredSelectedTranslators = createSelector(
 
 const expiringSoonTreshold = (currentDate: Date) => {
   const expiringSoonThreshold = DateUtils.dateAtStartOfDay(currentDate);
-  expiringSoonThreshold.setMonth(expiringSoonThreshold.getMonth() + 2);
+  expiringSoonThreshold.setMonth(expiringSoonThreshold.getMonth() + 3);
 
   return expiringSoonThreshold;
 };
