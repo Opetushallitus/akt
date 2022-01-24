@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
@@ -43,6 +44,9 @@ module.exports = (env) => {
       }),
       new ESLintPlugin({
         extensions: ['ts', 'tsx'],
+      }),
+      new webpack.DefinePlugin({
+        REACT_ENV_PRODUCTION: JSON.stringify(Boolean(env.prod)),
       }),
     ],
     module: {
