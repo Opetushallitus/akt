@@ -1,6 +1,14 @@
-import { Checkbox, TableCell, TableHead, TableRow } from '@mui/material';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import {
+  Button,
+  Checkbox,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import { Box } from '@mui/system';
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 
 import { CustomCircularProgress } from 'components/elements/CustomCircularProgress';
 import { H3, Text } from 'components/elements/Text';
@@ -11,7 +19,7 @@ import {
 } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
-import { Color } from 'enums/app';
+import { Color, Variant } from 'enums/app';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import {
   deselectAllTranslators,
@@ -38,6 +46,13 @@ const getRowDetails = (
       toggleSelected={toggleSelected}
     />
   );
+};
+
+const translatorDetailsURL = (id: number) => `/akt/virkailija/kaantaja/${id}`;
+const stopOnClickPropagation = (
+  e: React.MouseEvent<HTMLAnchorElement> | undefined
+) => {
+  e?.stopPropagation();
 };
 
 const ListingRow = ({
@@ -112,6 +127,20 @@ const ListingRow = ({
           ))}
         </div>
       </TableCell>
+      <TableCell>
+        <div className="columns gapped-s">
+          <Button
+            to={translatorDetailsURL(translator.id)}
+            component={Link}
+            color={Color.Secondary}
+            variant={Variant.Text}
+            onClick={stopOnClickPropagation}
+            endIcon={<OpenInNewIcon />}
+          >
+            {t(`detailsButton`)}
+          </Button>
+        </div>
+      </TableCell>
     </TableRow>
   );
 };
@@ -163,6 +192,7 @@ const ListingHeader: FC = () => {
         <TableCell>
           <H3>{t('permissionToPublish')}</H3>
         </TableCell>
+        <TableCell />
       </TableRow>
     </TableHead>
   );

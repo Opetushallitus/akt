@@ -212,7 +212,7 @@ export const PublicTranslatorFilters = ({
     <div className="public-translator-filters" ref={filtersGridRef}>
       <div className="public-translator-filters__filter-box">
         <div className="public-translator-filters__filter">
-          <div className="columns xs-gapped">
+          <div className="columns gapped-xs">
             <H3>{t('languagePair.title')}</H3>
             <Caption className="public-translator-filters__filter_">
               {t('captions.langPair')}
