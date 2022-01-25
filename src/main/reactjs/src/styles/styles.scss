@@ -19,11 +19,13 @@
 @import 'components/translators/public-translator-listing';
 @import 'components/translators/public-translator-filters';
 @import 'components/notification/dialog-box';
+@import 'components/translators/clerk-translator-listing';
 
 // Pages
 @import 'pages/public-homepage';
 @import 'pages/clerk-homepage';
 @import 'pages/clerk-send-email-page';
+@import 'pages/clerk-translator-details-page';
 @import 'pages/contact-request-page';
 @import 'pages/not-found-page';
 
