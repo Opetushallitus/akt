@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { loadClerkMe, loadClerkMeMock } from 'redux/actions/clerkMe';
 import { clerkMeSelector } from 'redux/selectors/clerkMe';
 import { APIResponseStatus } from 'enums/api';
+import { AppRoutes } from 'enums/app';
 
 export const useAuthentication = () => {
   // Redux
@@ -12,13 +13,12 @@ export const useAuthentication = () => {
 
   useEffect(() => {
     const activeURL = window.location.href;
-    const clerkURL = 'https://virkailija.';
-    const clerkDevURL = 'localhost:4000/akt/virkailija';
+    const clerkURL = AppRoutes.ClerkHomePage;
 
     if (clerkMe.status === APIResponseStatus.NotStarted) {
       if (REACT_ENV_PRODUCTION && activeURL.includes(clerkURL)) {
         dispatch(loadClerkMe);
-      } else if (activeURL.includes(clerkDevURL)) {
+      } else if (activeURL.includes(clerkURL)) {
         dispatch(loadClerkMeMock);
       }
     }

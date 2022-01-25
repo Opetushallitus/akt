@@ -15,6 +15,7 @@ import {
 } from 'components/contactRequest/ContactRequestFormUtils';
 import { ControlButtons } from 'components/contactRequest/ControlButtons';
 import { ContactRequestFormStep } from 'enums/contactRequest';
+import { Color } from 'enums/app';
 
 export const ContactRequestPage = () => {
   // I18
@@ -66,7 +67,9 @@ export const ContactRequestPage = () => {
               <ContactRequestStepper />
               <StepContents disableNext={disableNextCb} />
             </Box>
-            {showProgressIndicator && <ProgressIndicator color="secondary" />}
+            {showProgressIndicator && (
+              <ProgressIndicator color={Color.Secondary} />
+            )}
             {showControlButtons && <ControlButtons disableNext={disableNext} />}
           </Box>
         </Paper>
