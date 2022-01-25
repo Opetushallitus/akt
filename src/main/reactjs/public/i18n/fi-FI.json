@@ -93,6 +93,7 @@
           "authorisationEndDate": "Umpeutuu",
           "permissionToPublish": "Julkaistu"
         },
+        "detailsButton": "Lisätiedot",
         "permissionToPublish": {
           "true": "Kyllä",
           "false": "Ei"
@@ -123,6 +124,33 @@
         },
         "buttons": {
           "empty": "Tyhjennä valinnat"
+        }
+      },
+      "clerkTranslatorDetails": {
+        "header": {
+          "personalInformation": "Henkilötiedot",
+          "address": "Osoite",
+          "contactInformation": "Yhteystiedot",
+          "authorisations": "Auktorisoinnit"
+        },
+        "buttons": {
+          "edit": "Muokkaa",
+          "addAuthorisation": "Lisää auktorisointi",
+          "save": "Tallenna",
+          "back": "Takaisin",
+          "next": "Seuraava",
+          "cancel": "Peruuta"
+        },
+        "labels": {
+          "lastName": "Sukunimi",
+          "firstNames": "Etunimet",
+          "ssn": "Henkilötunnus",
+          "streetAddress": "Katuosoite",
+          "zipCode": "Postinumero",
+          "postOffice": "Postitoimipaikka",
+          "country": "Maa",
+          "email": "Sähköpostiosoite",
+          "phoneNumber": "Puhelinnumero"
         }
       },
       "contactRequestForm": {
@@ -226,6 +254,12 @@
         "name": "Nimi",
         "languagePairs": "Kieliparit",
         "town": "Asuinkunta"
+      },
+      "clerkTranslatorDetailsPage": {
+        "title": "Kääntäjän tiedot",
+        "translatorNotFoundView": {
+          "title": "Valittua kääntäjää ei löytynyt"
+        } 
       },
       "notFoundPage": {
         "title": "Valitettavasti etsimääsi sivua ei löytynyt",
