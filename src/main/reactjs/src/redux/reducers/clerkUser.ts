@@ -2,11 +2,11 @@ import { Reducer } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
 import {
-  CLERK_ME_ERROR,
-  CLERK_ME_LOAD,
-  CLERK_ME_RECEIVED,
-} from 'redux/actionTypes/clerkMe';
-import { ClerkMeAction, ClerkMeState } from 'interfaces/clerkMe';
+  CLERK_USER_ERROR,
+  CLERK_USER_LOAD,
+  CLERK_USER_RECEIVED,
+} from 'redux/actionTypes/clerkUser';
+import { ClerkUserAction, ClerkUserState } from 'interfaces/clerkUser';
 
 const defaultState = {
   status: APIResponseStatus.NotStarted,
@@ -17,18 +17,18 @@ const defaultState = {
   lastName: '',
 };
 
-export const clerkMeReducer: Reducer<ClerkMeState, ClerkMeAction> = (
+export const clerkUserReducer: Reducer<ClerkUserState, ClerkUserAction> = (
   state = defaultState,
   action
 ) => {
   switch (action.type) {
-    case CLERK_ME_LOAD:
+    case CLERK_USER_LOAD:
       return {
         ...state,
         status: APIResponseStatus.InProgress,
       };
-    case CLERK_ME_RECEIVED:
-      const { uid, oid, firstName, lastName } = action?.clerkInfo;
+    case CLERK_USER_RECEIVED:
+      const { uid, oid, firstName, lastName } = action?.clerkUser;
 
       return {
         ...state,
@@ -39,7 +39,7 @@ export const clerkMeReducer: Reducer<ClerkMeState, ClerkMeAction> = (
         firstName,
         lastName,
       };
-    case CLERK_ME_ERROR:
+    case CLERK_USER_ERROR:
       return {
         ...state,
         status: APIResponseStatus.Error,

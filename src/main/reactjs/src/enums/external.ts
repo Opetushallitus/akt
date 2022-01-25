@@ -4,5 +4,5 @@ export enum ExternalRoutes {
 }
 
 export enum ExternalAPIEndpoints {
-  ClerkMe = '/kayttooikeus-service/cas/me',
+  ClerkUser = '/kayttooikeus-service/cas/me',
 }

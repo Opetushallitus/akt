@@ -9,7 +9,7 @@ import { contactRequestReducer } from 'redux/reducers/contactRequest';
 import { publicUIViewReducer } from 'redux/reducers/publicUIView';
 import { notifierReducer } from 'redux/reducers/notifier';
 import { clerkTranslatorEmailReducer } from 'redux/reducers/clerkTranslatorEmail';
-import { clerkMeReducer } from 'redux/reducers/clerkMe';
+import { clerkUserReducer } from 'redux/reducers/clerkUser';
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewareEnhancer = applyMiddleware(sagaMiddleware);
@@ -23,7 +23,7 @@ export default () => {
       clerkTranslatorEmail: clerkTranslatorEmailReducer,
       contactRequest: contactRequestReducer,
       publicUIView: publicUIViewReducer,
-      clerkMe: clerkMeReducer,
+      clerkUser: clerkUserReducer,
       notifier: notifierReducer,
     }),
     composeEnhancers(middlewareEnhancer)

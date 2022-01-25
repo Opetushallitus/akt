@@ -5,7 +5,7 @@ import { watchFetchPublicTranslators } from 'redux/sagas/publicTranslator';
 import { watchContactRequest } from 'redux/sagas/contactRequest';
 import { watchContactRequestNotifier } from 'redux/sagas/notifier/contactRequest';
 import { watchClerkTranslatorEmailNotifier } from 'redux/sagas/notifier/clerkTranslatorEmail';
-import { watchFetchClerkMe } from 'redux/sagas/clerkMe';
+import { watchFetchClerkUser } from 'redux/sagas/clerkUser';
 
 export default function* rootSaga() {
   yield all([
@@ -14,6 +14,6 @@ export default function* rootSaga() {
     watchContactRequest(),
     watchContactRequestNotifier(),
     watchClerkTranslatorEmailNotifier(),
-    watchFetchClerkMe(),
+    watchFetchClerkUser(),
   ]);
 }

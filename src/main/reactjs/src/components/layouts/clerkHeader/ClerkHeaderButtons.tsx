@@ -3,19 +3,25 @@ import { ArrowBackOutlined as BackIcon } from '@mui/icons-material';
 
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
-import { clerkMeSelector } from 'redux/selectors/clerkMe';
+import { clerkUserSelector } from 'redux/selectors/clerkUser';
 import { AppRoutes, Variant } from 'enums/app';
 import { ExternalRoutes } from 'enums/external';
 
 export const ClerkHeaderButtons = () => {
-  const clerkMe = useAppSelector(clerkMeSelector);
+  const clerkUser = useAppSelector(clerkUserSelector);
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.header.clerk',
   });
 
   // Avatar Letters
-  const fNameLetter = clerkMe?.firstName?.charAt(0).toUpperCase();
-  const lNameLetter = clerkMe?.lastName?.charAt(0).toUpperCase();
+  const fNameLetter = clerkUser?.firstName?.charAt(0).toUpperCase();
+  const lNameLetter = clerkUser?.lastName?.charAt(0).toUpperCase();
+
+  const generateLogoutURL = () => {
+    const logoutURL = `/cas/logout?service=https://${window.location.host}${AppRoutes.ClerkLocalLogoutPage}`;
+
+    return logoutURL;
+  };
 
   return (
     <>
@@ -26,7 +32,7 @@ export const ClerkHeaderButtons = () => {
       >
         {t('backToOph')}
       </Button>
-      <IconButton href={AppRoutes.ClerkLocalLogoutPage}>
+      <IconButton href={generateLogoutURL()}>
         <Avatar className="header__right__avatar">{`${fNameLetter}${lNameLetter}`}</Avatar>
         {t('logOut')}
       </IconButton>
