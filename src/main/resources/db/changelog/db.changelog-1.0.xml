@@ -479,4 +479,21 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="2022-01-21-change_email_columns" author="mikhuttu">
+        <dropColumn tableName="email">
+            <column name="sender"/>
+        </dropColumn>
+        <addColumn tableName="email">
+            <column name="recipient_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <renameColumn tableName="email" oldColumnName="recipient" newColumnName="recipient_address"/>
+    </changeSet>
+
+    <changeSet id="2022-01-21-modify_translator_email" author="mikhuttu">
+        <modifyDataType tableName="translator" columnName="email" newDataType="VARCHAR(255)"/>
+        <addUniqueConstraint tableName="translator" columnNames="email"/>
+    </changeSet>
+
 </databaseChangeLog>

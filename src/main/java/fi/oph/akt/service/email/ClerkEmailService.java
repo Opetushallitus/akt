@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import javax.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -53,9 +54,12 @@ public class ClerkEmailService {
     }
 
     translators.forEach(translator -> {
-      // TODO: replace recipient with translator's email address
+      final String recipientName = translator.getFullName();
+      final String recipientAddress = Optional.ofNullable(translator.getEmail()).orElse("unknown@invalid");
+
       createEmail(
-        "translator" + translator.getId() + "@test.fi",
+        recipientName,
+        recipientAddress,
         emailRequestDTO.subject(),
         emailRequestDTO.body(),
         EmailType.INFORMAL
@@ -63,11 +67,17 @@ public class ClerkEmailService {
     });
   }
 
-  private Long createEmail(final String recipient, final String subject, final String body, final EmailType emailType) {
+  private Long createEmail(
+    final String recipientName,
+    final String recipientAddress,
+    final String subject,
+    final String body,
+    final EmailType emailType
+  ) {
     final EmailData emailData = EmailData
       .builder()
-      .sender("AKT")
-      .recipient(recipient)
+      .recipientName(recipientName)
+      .recipientAddress(recipientAddress)
       .subject(subject)
       .body(body)
       .build();
@@ -84,6 +94,12 @@ public class ClerkEmailService {
     final AuthorisationExpiryDataProjection expiryData = authorisationTermRepository.getExpiryDataProjection(
       authorisationTerm.getId()
     );
+    final Translator translator = translatorRepository.getById(expiryData.translatorId());
+
+    final String recipientName = translator.getFullName();
+    final String recipientAddress = Optional.ofNullable(translator.getEmail()).orElse("unknown@invalid");
+
+    final String emailSubject = "Auktorisointisi on päättymässä";
 
     final String emailBody = getAuthorisationExpiryEmailBody(
       authorisationTerm.getEndDate(),
@@ -91,10 +107,10 @@ public class ClerkEmailService {
       expiryData.toLang()
     );
 
-    // TODO: replace recipient with translator's email address
     final Long emailId = createEmail(
-      "translator" + expiryData.translatorId() + "@test.fi",
-      "Auktorisointisi on päättymässä",
+      recipientName,
+      recipientAddress,
+      emailSubject,
       emailBody,
       EmailType.AUTHORISATION_EXPIRY
     );

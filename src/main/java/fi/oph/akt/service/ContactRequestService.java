@@ -14,6 +14,7 @@ import fi.oph.akt.service.email.EmailService;
 import fi.oph.akt.util.TemplateRenderer;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import javax.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,13 +43,13 @@ public class ContactRequestService {
   private final TranslatorRepository translatorRepository;
 
   @Transactional
-  public ContactRequest createContactRequest(ContactRequestDTO contactRequestDTO) {
+  public ContactRequest createContactRequest(final ContactRequestDTO contactRequestDTO) {
     final List<Long> distinctTranslatorIds = contactRequestDTO.translatorIds().stream().distinct().toList();
     final List<Translator> translators = translatorRepository.findAllById(distinctTranslatorIds);
 
     validateContactRequestDTO(contactRequestDTO, distinctTranslatorIds, translators);
 
-    ContactRequest contactRequest = saveContactRequest(contactRequestDTO);
+    final ContactRequest contactRequest = saveContactRequest(contactRequestDTO);
     saveContactRequestTranslators(translators, contactRequest);
     saveContactRequestEmails(contactRequestDTO, translators);
 
@@ -56,27 +57,27 @@ public class ContactRequestService {
   }
 
   private void validateContactRequestDTO(
-    ContactRequestDTO contactRequestDTO,
-    List<Long> translatorIds,
-    List<Translator> translators
+    final ContactRequestDTO contactRequestDTO,
+    final List<Long> translatorIds,
+    final List<Translator> translators
   ) {
     if (translators.size() != translatorIds.size()) {
       throw new IllegalArgumentException("Each translator by provided translatorIds not found");
     }
 
-    List<String> fromLangs = authorisationRepository.getDistinctFromLangs();
+    final List<String> fromLangs = authorisationRepository.getDistinctFromLangs();
     if (!fromLangs.contains(contactRequestDTO.fromLang())) {
       throw new IllegalArgumentException("Invalid fromLang " + contactRequestDTO.fromLang());
     }
 
-    List<String> toLangs = authorisationRepository.getDistinctToLangs();
+    final List<String> toLangs = authorisationRepository.getDistinctToLangs();
     if (!toLangs.contains(contactRequestDTO.toLang())) {
       throw new IllegalArgumentException("Invalid toLang " + contactRequestDTO.toLang());
     }
   }
 
-  private ContactRequest saveContactRequest(ContactRequestDTO contactRequestDTO) {
-    ContactRequest contactRequest = new ContactRequest();
+  private ContactRequest saveContactRequest(final ContactRequestDTO contactRequestDTO) {
+    final ContactRequest contactRequest = new ContactRequest();
 
     contactRequest.setFirstName(contactRequestDTO.firstName());
     contactRequest.setLastName(contactRequestDTO.lastName());
@@ -89,11 +90,11 @@ public class ContactRequestService {
     return contactRequestRepository.save(contactRequest);
   }
 
-  private void saveContactRequestTranslators(List<Translator> translators, ContactRequest contactRequest) {
-    List<ContactRequestTranslator> contactRequestTranslators = translators
+  private void saveContactRequestTranslators(final List<Translator> translators, final ContactRequest contactRequest) {
+    final List<ContactRequestTranslator> contactRequestTranslators = translators
       .stream()
       .map(translator -> {
-        ContactRequestTranslator contactRequestTranslator = new ContactRequestTranslator();
+        final ContactRequestTranslator contactRequestTranslator = new ContactRequestTranslator();
         contactRequestTranslator.setContactRequest(contactRequest);
         contactRequestTranslator.setTranslator(translator);
 
@@ -104,34 +105,37 @@ public class ContactRequestService {
     contactRequestTranslatorRepository.saveAll(contactRequestTranslators);
   }
 
-  private void saveContactRequestEmails(ContactRequestDTO contactRequestDTO, List<Translator> translators) {
-    String requestEmail = contactRequestDTO.email().trim();
+  private void saveContactRequestEmails(final ContactRequestDTO contactRequestDTO, final List<Translator> translators) {
+    final String requesterName = contactRequestDTO.firstName().trim() + " " + contactRequestDTO.lastName().trim();
+    final String requesterEmail = contactRequestDTO.email().trim();
 
-    Map<String, Object> templateParams = Map.of(
+    final Map<String, Object> templateParams = Map.of(
       "name",
-      contactRequestDTO.firstName().trim() + " " + contactRequestDTO.lastName().trim(),
+      requesterName,
       "email",
-      requestEmail,
+      requesterEmail,
       "phone",
       contactRequestDTO.phoneNumber() != null ? contactRequestDTO.phoneNumber().trim() : "",
       "message",
       contactRequestDTO.message().trim().split("\r?\n")
     );
 
-    String emailBody = templateRenderer.renderContactRequestEmailBody(templateParams);
+    final String emailBody = templateRenderer.renderContactRequestEmailBody(templateParams);
 
     translators.forEach(translator -> {
-      // TODO: replace recipient with translator's email address
-      saveContactRequestEmail("translator" + translator.getId() + "@test.fi", emailBody);
+      final String recipientName = translator.getFullName();
+      final String recipientAddress = Optional.ofNullable(translator.getEmail()).orElse("unknown@invalid");
+
+      saveContactRequestEmail(recipientName, recipientAddress, emailBody);
     });
-    saveContactRequestEmail(requestEmail, emailBody);
+    saveContactRequestEmail(requesterName, requesterEmail, emailBody);
   }
 
-  private void saveContactRequestEmail(String recipient, String body) {
-    EmailData emailData = EmailData
+  private void saveContactRequestEmail(final String recipientName, final String recipientAddress, final String body) {
+    final EmailData emailData = EmailData
       .builder()
-      .sender("AKT")
-      .recipient(recipient)
+      .recipientName(recipientName)
+      .recipientAddress(recipientAddress)
       .subject("Yhteydenotto kääntäjärekisteristä")
       .body(body)
       .build();

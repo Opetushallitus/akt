@@ -19,6 +19,7 @@ import fi.oph.akt.repository.EmailRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.util.TemplateRenderer;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
@@ -78,23 +79,29 @@ public class ClerkEmailServiceTest {
     final MeetingDate meetingDate = Factory.meetingDate();
     entityManager.persist(meetingDate);
 
+    final List<Translator> translators = new ArrayList<>();
+
     IntStream
       .range(0, 3)
-      .forEach(n -> {
+      .forEach(i -> {
         final Translator translator = Factory.translator();
+        translator.setFirstName("Etu" + i);
+        translator.setLastName("Suku" + i);
+        translator.setEmail("etu.suku" + i + "@invalid");
+
         final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
         final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
         entityManager.persist(translator);
         entityManager.persist(authorisation);
         entityManager.persist(authorisationTerm);
-      });
 
-    final List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
+        translators.add(translator);
+      });
 
     final InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO
       .builder()
-      .translatorIds(translatorIds)
+      .translatorIds(translators.stream().map(Translator::getId).toList())
       .subject("otsikko")
       .body("viesti")
       .build();
@@ -107,11 +114,17 @@ public class ClerkEmailServiceTest {
 
     assertEquals(3, emailDatas.size());
 
-    emailDatas.forEach(emailData -> {
-      assertEquals("AKT", emailData.sender());
-      assertEquals("otsikko", emailData.subject());
-      assertEquals("viesti", emailData.body());
-    });
+    IntStream
+      .range(0, 3)
+      .forEach(i -> {
+        final Translator translator = translators.get(i);
+        final EmailData emailData = emailDatas.get(i);
+
+        assertEquals(translator.getFullName(), emailData.recipientName());
+        assertEquals(translator.getEmail(), emailData.recipientAddress());
+        assertEquals("otsikko", emailData.subject());
+        assertEquals("viesti", emailData.body());
+      });
   }
 
   @Test
@@ -159,6 +172,10 @@ public class ClerkEmailServiceTest {
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
     final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
+    translator.setFirstName("Etu");
+    translator.setLastName("Suku");
+    translator.setEmail("etu.suku@invalid");
+
     authorisation.setFromLang("SV");
     authorisation.setToLang("EN");
     authorisationTerm.setEndDate(LocalDate.parse("2025-12-01"));
@@ -186,7 +203,8 @@ public class ClerkEmailServiceTest {
 
     final EmailData emailData = emailDataCaptor.getValue();
 
-    assertEquals("AKT", emailData.sender());
+    assertEquals("Etu Suku", emailData.recipientName());
+    assertEquals("etu.suku@invalid", emailData.recipientAddress());
     assertEquals("Auktorisointisi on päättymässä", emailData.subject());
     assertEquals("Auktorisointisi päättyy 01.12.2025", emailData.body());
 

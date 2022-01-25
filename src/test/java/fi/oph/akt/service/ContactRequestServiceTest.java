@@ -21,6 +21,7 @@ import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.service.email.EmailData;
 import fi.oph.akt.service.email.EmailService;
 import fi.oph.akt.util.TemplateRenderer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -84,10 +85,8 @@ class ContactRequestServiceTest {
 
   @Test
   public void createContactRequestShouldSaveValidRequest() {
-    MeetingDate meetingDate = createMeetingDate();
-    initTranslators(meetingDate, 3);
-
-    List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
+    final MeetingDate meetingDate = createMeetingDate();
+    final List<Long> translatorIds = initTranslators(meetingDate, 3);
 
     final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
 
@@ -120,10 +119,8 @@ class ContactRequestServiceTest {
 
   @Test
   public void createContactRequestShouldSaveEmailsToBeSent() {
-    MeetingDate meetingDate = createMeetingDate();
-    initTranslators(meetingDate, 2);
-
-    List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
+    final MeetingDate meetingDate = createMeetingDate();
+    final List<Long> translatorIds = initTranslators(meetingDate, 2);
 
     final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
 
@@ -131,75 +128,100 @@ class ContactRequestServiceTest {
 
     verify(emailService, times(3)).saveEmail(any(), emailDataCaptor.capture());
 
-    List<EmailData> emailDatas = emailDataCaptor.getAllValues();
+    final List<Translator> translators = translatorRepository.findAllById(translatorIds);
+    final List<EmailData> emailDatas = emailDataCaptor.getAllValues();
 
+    assertEquals(2, translators.size());
     assertEquals(3, emailDatas.size()); // 2 + 1 copy to foo@bar
 
+    translators.forEach(t ->
+      assertEquals(
+        1,
+        emailDatas
+          .stream()
+          .filter(e -> e.recipientName().equals(t.getFullName()) && e.recipientAddress().equals(t.getEmail()))
+          .count()
+      )
+    );
+
+    assertEquals(
+      1,
+      emailDatas
+        .stream()
+        .filter(e -> e.recipientName().equals("Foo Bar") && e.recipientAddress().equals("foo@bar"))
+        .count()
+    );
+
     emailDatas.forEach(emailData -> {
-      assertEquals("AKT", emailData.sender());
       assertEquals("Yhteydenotto kääntäjärekisteristä", emailData.subject());
       assertEquals("hello world", emailData.body());
     });
-    assertEquals(1, emailDatas.stream().filter(e -> e.recipient().equals("foo@bar")).count());
   }
 
   @Test
   public void createContactRequestShouldSaveValidRequestWithDuplicateTranslatorIds() {
-    MeetingDate meetingDate = createMeetingDate();
-    initTranslators(meetingDate, 2);
+    final MeetingDate meetingDate = createMeetingDate();
+    final List<Long> translatorIds = initTranslators(meetingDate, 1);
 
-    final long translatorId = translatorRepository.findAll().get(0).getId();
-    List<Long> translatorIds = List.of(translatorId, translatorId);
+    final List<Long> duplicateTranslatorIds = List.of(translatorIds.get(0), translatorIds.get(0));
 
-    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
+    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(duplicateTranslatorIds, FROM_LANG, TO_LANG);
 
-    ContactRequest contactRequest = contactRequestService.createContactRequest(contactRequestDTO);
-    List<ContactRequestTranslator> contactRequestTranslators = contactRequestTranslatorRepository.findAll();
+    final ContactRequest contactRequest = contactRequestService.createContactRequest(contactRequestDTO);
+    final List<ContactRequestTranslator> contactRequestTranslators = contactRequestTranslatorRepository.findAll();
 
     assertEquals(contactRequestDTO.message(), contactRequest.getMessage());
 
     assertEquals(1, contactRequestTranslators.size());
 
-    ContactRequestTranslator ctr = contactRequestTranslators.get(0);
+    final ContactRequestTranslator ctr = contactRequestTranslators.get(0);
 
     assertEquals(contactRequest.getId(), ctr.getContactRequest().getId());
-    assertEquals(translatorId, ctr.getTranslator().getId());
+    assertEquals(translatorIds.get(0), ctr.getTranslator().getId());
   }
 
   @Test
   public void createContactRequestShouldThrowIllegalArgumentExceptionForNonExistingTranslatorIds() {
-    MeetingDate meetingDate = createMeetingDate();
-    initTranslators(meetingDate, 1);
-
-    List<Long> translatorIds = List.of(0L);
+    final List<Long> translatorIds = List.of(0L);
 
     final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
 
-    assertThrows(IllegalArgumentException.class, () -> contactRequestService.createContactRequest(contactRequestDTO));
+    final IllegalArgumentException ex = assertThrows(
+      IllegalArgumentException.class,
+      () -> contactRequestService.createContactRequest(contactRequestDTO)
+    );
+
+    assertEquals("Each translator by provided translatorIds not found", ex.getMessage());
   }
 
   @Test
   public void createContactRequestShouldThrowIllegalArgumentExceptionForNonExistingFromLang() {
-    MeetingDate meetingDate = createMeetingDate();
-    initTranslators(meetingDate, 1);
-
-    List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
+    final MeetingDate meetingDate = createMeetingDate();
+    final List<Long> translatorIds = initTranslators(meetingDate, 1);
 
     final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, "xx", TO_LANG);
 
-    assertThrows(IllegalArgumentException.class, () -> contactRequestService.createContactRequest(contactRequestDTO));
+    final IllegalArgumentException ex = assertThrows(
+      IllegalArgumentException.class,
+      () -> contactRequestService.createContactRequest(contactRequestDTO)
+    );
+
+    assertEquals("Invalid fromLang xx", ex.getMessage());
   }
 
   @Test
   public void createContactRequestShouldThrowIllegalArgumentExceptionForNonExistingToLang() {
-    MeetingDate meetingDate = createMeetingDate();
-    initTranslators(meetingDate, 1);
-
-    List<Long> translatorIds = translatorRepository.findAll().stream().map(Translator::getId).toList();
+    final MeetingDate meetingDate = createMeetingDate();
+    final List<Long> translatorIds = initTranslators(meetingDate, 1);
 
     final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, "xx");
 
-    assertThrows(IllegalArgumentException.class, () -> contactRequestService.createContactRequest(contactRequestDTO));
+    final IllegalArgumentException ex = assertThrows(
+      IllegalArgumentException.class,
+      () -> contactRequestService.createContactRequest(contactRequestDTO)
+    );
+
+    assertEquals("Invalid toLang xx", ex.getMessage());
   }
 
   private MeetingDate createMeetingDate() {
@@ -209,21 +231,35 @@ class ContactRequestServiceTest {
     return meetingDate;
   }
 
-  private void initTranslators(MeetingDate meetingDate, int size) {
+  private List<Long> initTranslators(final MeetingDate meetingDate, final int size) {
+    List<Long> translatorIds = new ArrayList<>();
+
     IntStream
       .range(0, size)
-      .forEach(n -> {
+      .forEach(i -> {
         final Translator translator = Factory.translator();
+        translator.setFirstName("Etu" + i);
+        translator.setLastName("Suku" + i);
+        translator.setEmail("etu.suku" + i + "@invalid");
+
         final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
         authorisation.setFromLang(FROM_LANG);
         authorisation.setToLang(TO_LANG);
 
         entityManager.persist(translator);
         entityManager.persist(authorisation);
+
+        translatorIds.add(translator.getId());
       });
+
+    return translatorIds;
   }
 
-  private ContactRequestDTO createContactRequestDTO(List<Long> translatorIds, String fromLang, String toLang) {
+  private ContactRequestDTO createContactRequestDTO(
+    final List<Long> translatorIds,
+    final String fromLang,
+    final String toLang
+  ) {
     return ContactRequestDTO
       .builder()
       .firstName("Foo")

@@ -23,11 +23,15 @@ public class Email extends BaseEntity {
   @Column(name = "email_id", nullable = false)
   private long id;
 
-  @Column(name = "sender", nullable = false)
-  private String sender;
+  @Column(name = "email_type", nullable = false)
+  @Enumerated(value = EnumType.STRING)
+  private EmailType emailType;
 
-  @Column(name = "recipient", nullable = false)
-  private String recipient;
+  @Column(name = "recipient_name", nullable = false)
+  private String recipientName;
+
+  @Column(name = "recipient_address", nullable = false)
+  private String recipientAddress;
 
   @Column(name = "subject", nullable = false)
   private String subject;
@@ -40,10 +44,6 @@ public class Email extends BaseEntity {
 
   @Column(name = "error")
   private String error;
-
-  @Column(name = "email_type", nullable = false)
-  @Enumerated(value = EnumType.STRING)
-  private EmailType emailType;
 
   @Column(name = "ext_id")
   private String extId;
