@@ -24,6 +24,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Profile("!dev")
 @Configuration
@@ -42,7 +43,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public ServiceProperties serviceProperties() {
     ServiceProperties serviceProperties = new ServiceProperties();
-    serviceProperties.setService(environment.getRequiredProperty("cas.service") + "/login/cas");
+    serviceProperties.setService(
+      environment.getRequiredProperty("cas.service") + environment.getRequiredProperty("cas.login-path")
+    );
     serviceProperties.setSendRenew(environment.getRequiredProperty("cas.send-renew", Boolean.class));
     serviceProperties.setAuthenticateAllArtifacts(true);
     return serviceProperties;
@@ -54,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public CasAuthenticationProvider casAuthenticationProvider() {
     CasAuthenticationProvider casAuthenticationProvider = new CasAuthenticationProvider();
-    String host = environment.getProperty("host-alb", "https://" + environment.getRequiredProperty("host-virkailija"));
+    String host = environment.getProperty("host-alb", environment.getRequiredProperty("host-virkailija"));
 
     casAuthenticationProvider.setUserDetailsService(new OphUserDetailsServiceImpl(host, ConfigEnums.CALLER_ID.value()));
 
@@ -82,7 +85,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       serviceProperties()
     );
     casAuthenticationFilter.setAuthenticationManager(authenticationManager());
-    casAuthenticationFilter.setFilterProcessesUrl("/login/cas");
+    casAuthenticationFilter.setFilterProcessesUrl("/virkailija" + environment.getRequiredProperty("cas.login-path"));
     return casAuthenticationFilter;
   }
 
@@ -123,11 +126,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .httpBasic()
       .and()
       .authorizeRequests()
-      .antMatchers("/api/v1/clerk/**")
-      .hasRole(AKT_ROLE)
-      .antMatchers("/virkailija/**")
-      .hasRole(AKT_ROLE)
-      .mvcMatchers("/virkailija")
+      .mvcMatchers("/api/v1/clerk/**", "/virkailija/**", "/virkailija")
       .hasRole(AKT_ROLE)
       .antMatchers("/", "/**")
       .permitAll()
@@ -140,10 +139,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .authenticationEntryPoint(casAuthenticationEntryPoint())
       .and()
       .logout()
-      .logoutUrl("/cas/logout")
-      .logoutSuccessUrl("/cas/logout")
+      .logoutRequestMatcher(new AntPathRequestMatcher(environment.getRequiredProperty("cas.logout-path")))
+      .deleteCookies(environment.getRequiredProperty("cas.cookie-name"))
       .invalidateHttpSession(true)
-      .deleteCookies("JSESSIONID")
       .and()
       .addFilterBefore(singleSignOutFilter(), CasAuthenticationFilter.class);
   }

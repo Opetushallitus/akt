@@ -55,6 +55,9 @@ akt:
 cas:
   key: akt
   send-renew: false
+  login-path: /login/cas
+  logout-path: /cas/localLogout
+  cookie-name: JSESSIONID
   service: ${virkailija.cas.service:http://localhost:${server.port}/akt}
   url: ${virkailija.cas.url:http://localhost:${server.port}/akt}
   login: ${virkailija.cas.login:http://localhost:${server.port}/login}

@@ -7,12 +7,11 @@ import { Svg } from 'components/elements/Svg';
 import Logo from 'public/assets/svg/logo.svg';
 import FooterWave from 'public/assets/svg/footer_wave.svg';
 import { useAppTranslation } from 'configs/i18n';
-import { useAppSelector } from 'configs/redux';
-import { selectClerkMeAuthStatus } from 'redux/selectors/clerkMe';
+import { useAuthentication } from 'hooks/useAuthentication';
 
 const Footer = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.component.footer' });
-  const isClerkUI = useAppSelector(selectClerkMeAuthStatus);
+  const [isClerkUI] = useAuthentication();
 
   return (
     <footer>

@@ -7,12 +7,11 @@ import { ClerkNavTabs } from 'components/layouts//clerkHeader/ClerkNavTabs';
 import { ClerkHeaderButtons } from 'components/layouts/clerkHeader/ClerkHeaderButtons';
 import Logo from 'public/assets/svg/logo.svg';
 import { useAppTranslation } from 'configs/i18n';
-import { useAppSelector } from 'configs/redux';
-import { selectClerkMeAuthStatus } from 'redux/selectors/clerkMe';
+import { useAuthentication } from 'hooks/useAuthentication';
 
 const Header: FC = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.component.header' });
-  const isClerkUI = useAppSelector(selectClerkMeAuthStatus);
+  const [isClerkUI] = useAuthentication();
 
   return (
     <AppBar className="header" position="static">

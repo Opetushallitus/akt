@@ -3,7 +3,6 @@ import {
   CLERK_ME_LOAD,
   CLERK_ME_RECEIVED,
   CLERK_ME_MOCK_LOAD,
-  CLERK_ME_MOCK_RECEIVED,
 } from 'redux/actionTypes/clerkMe';
 
 export const loadClerkMe = {
@@ -17,8 +16,4 @@ export const setClerkMe = (clerkMe: ClerkMe) => ({
 
 export const loadClerkMeMock = {
   type: CLERK_ME_MOCK_LOAD,
-};
-
-export const setMockClerkMe = {
-  type: CLERK_ME_MOCK_RECEIVED,
 };

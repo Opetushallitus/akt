@@ -23,8 +23,8 @@ export default () => {
       clerkTranslatorEmail: clerkTranslatorEmailReducer,
       contactRequest: contactRequestReducer,
       publicUIView: publicUIViewReducer,
-      notifier: notifierReducer,
       clerkMe: clerkMeReducer,
+      notifier: notifierReducer,
     }),
     composeEnhancers(middlewareEnhancer)
   );

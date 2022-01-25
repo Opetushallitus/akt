@@ -4,7 +4,6 @@ import { APIResponseStatus } from 'enums/api';
 import {
   CLERK_ME_ERROR,
   CLERK_ME_LOAD,
-  CLERK_ME_MOCK_RECEIVED,
   CLERK_ME_RECEIVED,
 } from 'redux/actionTypes/clerkMe';
 import { ClerkMeAction, ClerkMeState } from 'interfaces/clerkMe';
@@ -16,15 +15,6 @@ const defaultState = {
   oid: '',
   firstName: '',
   lastName: '',
-};
-
-const mockDefaultState = {
-  status: APIResponseStatus.Success,
-  isAuthenticated: true,
-  uid: 'testuser',
-  oid: '1.2.246.562.24.11111111111',
-  firstName: 'Test',
-  lastName: 'User',
 };
 
 export const clerkMeReducer: Reducer<ClerkMeState, ClerkMeAction> = (
@@ -55,9 +45,7 @@ export const clerkMeReducer: Reducer<ClerkMeState, ClerkMeAction> = (
         status: APIResponseStatus.Error,
         isAuthenticated: false,
       };
-    case CLERK_ME_MOCK_RECEIVED:
-      return mockDefaultState;
     default:
-      return defaultState;
+      return state;
   }
 };

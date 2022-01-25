@@ -4,7 +4,8 @@ import { ArrowBackOutlined as BackIcon } from '@mui/icons-material';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { clerkMeSelector } from 'redux/selectors/clerkMe';
-import { AppRoutes } from 'enums/app';
+import { AppRoutes, Variant } from 'enums/app';
+import { ExternalRoutes } from 'enums/external';
 
 export const ClerkHeaderButtons = () => {
   const clerkMe = useAppSelector(clerkMeSelector);
@@ -19,13 +20,13 @@ export const ClerkHeaderButtons = () => {
   return (
     <>
       <Button
-        href={AppRoutes.ClerkOpintopolkuHomePage}
-        variant="outlined"
+        href={ExternalRoutes.ClerkOpintopolkuHomePage}
+        variant={Variant.Outlined}
         startIcon={<BackIcon />}
       >
         {t('backToOph')}
       </Button>
-      <IconButton href={AppRoutes.ClerkLogOutPage}>
+      <IconButton href={AppRoutes.ClerkLocalLogoutPage}>
         <Avatar className="header__right__avatar">{`${fNameLetter}${lNameLetter}`}</Avatar>
         {t('logOut')}
       </IconButton>
