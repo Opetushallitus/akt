@@ -57,6 +57,7 @@ cas:
   send-renew: false
   login-path: /login/cas
   logout-path: /cas/localLogout
+  logout-success-path: /etusivu
   cookie-name: JSESSIONID
   service: ${virkailija.cas.service:http://localhost:${server.port}/akt}
   url: ${virkailija.cas.url:http://localhost:${server.port}/akt}

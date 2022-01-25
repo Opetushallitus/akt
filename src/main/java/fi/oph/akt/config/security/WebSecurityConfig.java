@@ -140,6 +140,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .and()
       .logout()
       .logoutRequestMatcher(new AntPathRequestMatcher(environment.getRequiredProperty("cas.logout-path")))
+      .logoutSuccessUrl(environment.getRequiredProperty("cas.logout-success-path"))
       .deleteCookies(environment.getRequiredProperty("cas.cookie-name"))
       .invalidateHttpSession(true)
       .and()
