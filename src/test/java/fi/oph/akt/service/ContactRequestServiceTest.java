@@ -23,6 +23,7 @@ import fi.oph.akt.service.email.EmailService;
 import fi.oph.akt.util.TemplateRenderer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.annotation.Resource;
@@ -85,9 +86,9 @@ class ContactRequestServiceTest {
   @Test
   public void createContactRequestShouldSaveValidRequest() {
     final MeetingDate meetingDate = createMeetingDate();
-    final List<Translator> translators = initTranslators(meetingDate, 3);
+    final List<Long> translatorIds = initTranslators(meetingDate, 3);
 
-    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translators, FROM_LANG, TO_LANG);
+    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
 
     ContactRequest contactRequest = contactRequestService.createContactRequest(contactRequestDTO);
     List<ContactRequestTranslator> contactRequestTranslators = contactRequestTranslatorRepository.findAll();
@@ -107,7 +108,7 @@ class ContactRequestServiceTest {
     });
 
     assertEquals(
-      translators.stream().map(Translator::getId).collect(Collectors.toSet()),
+      Set.copyOf(translatorIds),
       contactRequestTranslators
         .stream()
         .map(ContactRequestTranslator::getTranslator)
@@ -119,16 +120,18 @@ class ContactRequestServiceTest {
   @Test
   public void createContactRequestShouldSaveEmailsToBeSent() {
     final MeetingDate meetingDate = createMeetingDate();
-    final List<Translator> translators = initTranslators(meetingDate, 2);
+    final List<Long> translatorIds = initTranslators(meetingDate, 2);
 
-    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translators, FROM_LANG, TO_LANG);
+    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
 
     contactRequestService.createContactRequest(contactRequestDTO);
 
     verify(emailService, times(3)).saveEmail(any(), emailDataCaptor.capture());
 
+    final List<Translator> translators = translatorRepository.findAllById(translatorIds);
     final List<EmailData> emailDatas = emailDataCaptor.getAllValues();
 
+    assertEquals(2, translators.size());
     assertEquals(3, emailDatas.size()); // 2 + 1 copy to foo@bar
 
     translators.forEach(t ->
@@ -158,11 +161,11 @@ class ContactRequestServiceTest {
   @Test
   public void createContactRequestShouldSaveValidRequestWithDuplicateTranslatorIds() {
     final MeetingDate meetingDate = createMeetingDate();
-    final List<Translator> translators = initTranslators(meetingDate, 1);
+    final List<Long> translatorIds = initTranslators(meetingDate, 1);
 
-    final List<Translator> duplicateTranslators = List.of(translators.get(0), translators.get(0));
+    final List<Long> duplicateTranslatorIds = List.of(translatorIds.get(0), translatorIds.get(0));
 
-    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(duplicateTranslators, FROM_LANG, TO_LANG);
+    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(duplicateTranslatorIds, FROM_LANG, TO_LANG);
 
     final ContactRequest contactRequest = contactRequestService.createContactRequest(contactRequestDTO);
     final List<ContactRequestTranslator> contactRequestTranslators = contactRequestTranslatorRepository.findAll();
@@ -174,39 +177,51 @@ class ContactRequestServiceTest {
     final ContactRequestTranslator ctr = contactRequestTranslators.get(0);
 
     assertEquals(contactRequest.getId(), ctr.getContactRequest().getId());
-    assertEquals(translators.get(0).getId(), ctr.getTranslator().getId());
+    assertEquals(translatorIds.get(0), ctr.getTranslator().getId());
   }
 
   @Test
   public void createContactRequestShouldThrowIllegalArgumentExceptionForNonExistingTranslatorIds() {
-    final Translator translator = Factory.translator();
-    translator.setId(0L);
+    final List<Long> translatorIds = List.of(0L);
 
-    final List<Translator> translators = List.of(translator);
+    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
 
-    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translators, FROM_LANG, TO_LANG);
+    final IllegalArgumentException ex = assertThrows(
+      IllegalArgumentException.class,
+      () -> contactRequestService.createContactRequest(contactRequestDTO)
+    );
 
-    assertThrows(IllegalArgumentException.class, () -> contactRequestService.createContactRequest(contactRequestDTO));
+    assertEquals("Each translator by provided translatorIds not found", ex.getMessage());
   }
 
   @Test
   public void createContactRequestShouldThrowIllegalArgumentExceptionForNonExistingFromLang() {
     final MeetingDate meetingDate = createMeetingDate();
-    final List<Translator> translators = initTranslators(meetingDate, 1);
+    final List<Long> translatorIds = initTranslators(meetingDate, 1);
 
-    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translators, "xx", TO_LANG);
+    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, "xx", TO_LANG);
 
-    assertThrows(IllegalArgumentException.class, () -> contactRequestService.createContactRequest(contactRequestDTO));
+    final IllegalArgumentException ex = assertThrows(
+      IllegalArgumentException.class,
+      () -> contactRequestService.createContactRequest(contactRequestDTO)
+    );
+
+    assertEquals("Invalid fromLang xx", ex.getMessage());
   }
 
   @Test
   public void createContactRequestShouldThrowIllegalArgumentExceptionForNonExistingToLang() {
     final MeetingDate meetingDate = createMeetingDate();
-    final List<Translator> translators = initTranslators(meetingDate, 1);
+    final List<Long> translatorIds = initTranslators(meetingDate, 1);
 
-    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translators, FROM_LANG, "xx");
+    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, "xx");
 
-    assertThrows(IllegalArgumentException.class, () -> contactRequestService.createContactRequest(contactRequestDTO));
+    final IllegalArgumentException ex = assertThrows(
+      IllegalArgumentException.class,
+      () -> contactRequestService.createContactRequest(contactRequestDTO)
+    );
+
+    assertEquals("Invalid toLang xx", ex.getMessage());
   }
 
   private MeetingDate createMeetingDate() {
@@ -216,8 +231,8 @@ class ContactRequestServiceTest {
     return meetingDate;
   }
 
-  private List<Translator> initTranslators(MeetingDate meetingDate, int size) {
-    List<Translator> translators = new ArrayList<>();
+  private List<Long> initTranslators(final MeetingDate meetingDate, final int size) {
+    List<Long> translatorIds = new ArrayList<>();
 
     IntStream
       .range(0, size)
@@ -234,13 +249,17 @@ class ContactRequestServiceTest {
         entityManager.persist(translator);
         entityManager.persist(authorisation);
 
-        translators.add(translator);
+        translatorIds.add(translator.getId());
       });
 
-    return translators;
+    return translatorIds;
   }
 
-  private ContactRequestDTO createContactRequestDTO(List<Translator> translators, String fromLang, String toLang) {
+  private ContactRequestDTO createContactRequestDTO(
+    final List<Long> translatorIds,
+    final String fromLang,
+    final String toLang
+  ) {
     return ContactRequestDTO
       .builder()
       .firstName("Foo")
@@ -250,7 +269,7 @@ class ContactRequestServiceTest {
       .message("lorem ipsum")
       .fromLang(fromLang)
       .toLang(toLang)
-      .translatorIds(translators.stream().map(Translator::getId).toList())
+      .translatorIds(translatorIds)
       .build();
   }
 }
