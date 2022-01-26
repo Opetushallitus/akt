@@ -4,7 +4,7 @@ import {
   TableBody,
   TablePagination,
 } from '@mui/material';
-import { ChangeEvent, Fragment, useState } from 'react';
+import { ChangeEvent, Fragment, useEffect, useState } from 'react';
 
 import { PaginatedTableProps } from 'interfaces/table';
 import { useAppDispatch } from 'configs/redux';
@@ -47,6 +47,15 @@ export function PaginatedTable<T extends WithId>({
       dispatch(addSelectedIndex(index));
     }
   };
+
+  const [count, setCount] = useState(data.length);
+  // Reset page count if underlying data (as measured by number of elements) changes
+  useEffect(() => {
+    if (count != data.length) {
+      setCount(data.length);
+      setPage(0);
+    }
+  }, [data, count]);
 
   return (
     <>
