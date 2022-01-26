@@ -116,10 +116,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
+    final CookieCsrfTokenRepository csrfTokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+    csrfTokenRepository.setCookieName("CSRF");
+    csrfTokenRepository.setHeaderName("CSRF");
+
     final String AKT_ROLE = "APP_AKT";
     http
       .csrf()
-      .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+      .csrfTokenRepository(csrfTokenRepository)
       .and()
       .formLogin()
       .and()
