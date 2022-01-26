@@ -132,7 +132,7 @@ export const ClerkTranslatorFilters = () => {
         <H3>{t('name.title')}</H3>
         <CustomTextField
           data-testid="clerk-translator-filters__name"
-          placeholder={t('name.placeholder')}
+          label={t('name.placeholder')}
           type="search"
           InputProps={{
             endAdornment: (
