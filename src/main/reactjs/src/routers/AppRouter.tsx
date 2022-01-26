@@ -4,11 +4,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Footer from 'components/layouts/Footer';
 import Header from 'components/layouts/Header';
 import { Notifier } from 'components/notification/Notifier';
-import { AppRoutes } from 'enums/app';
 import { PublicHomePage } from 'pages/PublicHomePage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { ClerkHomePage } from 'pages/ClerkHomePage';
 import { ClerkSendEmailPage } from 'pages/ClerkSendEmailPage';
+import { AppRoutes } from 'enums/app';
 
 export const AppRouter: FC = () => (
   <BrowserRouter>
@@ -31,7 +31,7 @@ export const AppRouter: FC = () => (
           </Routes>
         </div>
       </main>
-      <Footer showWave={true} />
+      <Footer />
     </div>
   </BrowserRouter>
 );

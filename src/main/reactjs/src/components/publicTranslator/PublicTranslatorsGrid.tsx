@@ -10,6 +10,9 @@ import {
 } from 'redux/selectors/publicTranslator';
 import { PublicTranslatorFilters } from 'components/publicTranslator/PublicTranslatorFilters';
 import { PublicTranslatorListing } from 'components/publicTranslator/PublicTranslatorListing';
+import { APIResponseStatus } from 'enums/api';
+import { ProgressIndicator } from 'components/elements/ProgressIndicator';
+import { Color } from 'enums/app';
 
 export const PublicTranslatorsGrid = () => {
   // I18
@@ -34,12 +37,19 @@ export const PublicTranslatorsGrid = () => {
           <PublicTranslatorFilters setShowTable={setShowTable} />
         </Paper>
       </Grid>
-      <Grid item className="homepage__grid-container__result-box">
-        {hasResults && (
-          <PublicTranslatorListing status={status} translators={translators} />
-        )}
-        {hasNoResults && <H2>{t('noSearchResults')}</H2>}
-      </Grid>
+      {status === APIResponseStatus.InProgress ? (
+        <ProgressIndicator color={Color.Secondary} />
+      ) : (
+        <Grid item className="homepage__grid-container__result-box">
+          {hasResults && (
+            <PublicTranslatorListing
+              status={status}
+              translators={translators}
+            />
+          )}
+          {hasNoResults && <H2>{t('noSearchResults')}</H2>}
+        </Grid>
+      )}
     </>
   );
 };

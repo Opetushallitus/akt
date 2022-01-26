@@ -22,7 +22,7 @@ export const ClerkHomePage: FC = () => {
   const { translators, status } = useAppSelector(clerkTranslatorsSelector);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (status == APIResponseStatus.NotStarted) {
+    if (status === APIResponseStatus.NotStarted) {
       dispatch(loadClerkTranslators);
     }
   }, [dispatch, status]);
