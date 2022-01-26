@@ -32,6 +32,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+  public static final String AKT_ROLE = "APP_AKT";
+
   private final Environment environment;
   private final SessionMappingStorage sessionMappingStorage = new HashMapBackedSessionMappingStorage();
 
@@ -116,27 +118,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    final CookieCsrfTokenRepository csrfTokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-    csrfTokenRepository.setCookieName("CSRF");
-    csrfTokenRepository.setHeaderName("CSRF");
-
-    final String AKT_ROLE = "APP_AKT";
-    http
-      .csrf()
-      .csrfTokenRepository(csrfTokenRepository)
-      .and()
-      .formLogin()
-      .and()
-      .httpBasic()
-      .and()
-      .authorizeRequests()
-      .mvcMatchers("/api/v1/clerk/**", "/virkailija/**", "/virkailija")
-      .hasRole(AKT_ROLE)
-      .antMatchers("/", "/**")
-      .permitAll()
-      .anyRequest()
-      .authenticated()
-      .and()
+    commonConfig(http)
       .addFilter(casAuthenticationFilter())
       .exceptionHandling()
       .accessDeniedHandler(CustomAccessDeniedHandler.create())
@@ -149,6 +131,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .invalidateHttpSession(true)
       .and()
       .addFilterBefore(singleSignOutFilter(), CasAuthenticationFilter.class);
+  }
+
+  public static HttpSecurity commonConfig(final HttpSecurity http) throws Exception {
+    final CookieCsrfTokenRepository csrfTokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+    csrfTokenRepository.setCookieName("CSRF");
+    csrfTokenRepository.setHeaderName("CSRF");
+
+    return http
+      .csrf()
+      .csrfTokenRepository(csrfTokenRepository)
+      .and()
+      .authorizeRequests()
+      .mvcMatchers("/api/v1/clerk/**", "/virkailija/**", "/virkailija")
+      .hasRole(AKT_ROLE)
+      .antMatchers("/", "/**")
+      .permitAll()
+      .anyRequest()
+      .authenticated()
+      .and();
   }
 
   @Override

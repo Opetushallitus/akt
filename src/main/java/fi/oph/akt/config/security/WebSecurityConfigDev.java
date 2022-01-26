@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Profile("dev")
 @Configuration
@@ -20,23 +19,12 @@ public class WebSecurityConfigDev extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    final CookieCsrfTokenRepository csrfTokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-    csrfTokenRepository.setCookieName("CSRF");
-    csrfTokenRepository.setHeaderName("CSRF");
-
-    http
-      .csrf()
-      .csrfTokenRepository(csrfTokenRepository)
-      .and()
+    WebSecurityConfig
+      .commonConfig(http)
+      // formLogin and httpBasic enabled for development, testing APIs manually is easier.
       .formLogin()
       .and()
       .httpBasic()
-      .and()
-      .authorizeRequests()
-      .antMatchers("/", "/**")
-      .permitAll()
-      .anyRequest()
-      .denyAll()
       .and()
       .exceptionHandling()
       .accessDeniedHandler(CustomAccessDeniedHandler.create());
@@ -50,7 +38,7 @@ public class WebSecurityConfigDev extends WebSecurityConfigurerAdapter {
       .withDefaultPasswordEncoder()
       .username("clerk")
       .password("clerk")
-      .roles("VIRKAILIJA")
+      .roles(WebSecurityConfig.AKT_ROLE)
       .build();
 
     return new InMemoryUserDetailsManager(user, clerk);
