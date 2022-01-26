@@ -205,13 +205,21 @@ const matchesAuthorisationStatus = (
   }
 };
 
+const trimAndLowerCase = (val: string) => val.trim().toLowerCase();
+
 const filterByName = (translator: ClerkTranslator, name: string) => {
   const { firstName, lastName } = translator.contactDetails;
-  const nameCombs = [`${firstName} ${lastName}`, `${lastName} ${firstName}`];
+  const nameCombs = [
+    `${firstName} ${lastName}`,
+    `${lastName} ${firstName}`,
+  ].map(trimAndLowerCase);
 
-  return nameCombs.some((comb) => comb.toLowerCase().includes(name));
+  return nameCombs.some((comb) => comb.includes(trimAndLowerCase(name)));
 };
 
 const filterByTown = (translator: ClerkTranslator, town: string) => {
-  return translator.contactDetails.town?.toLowerCase().includes(town);
+  return translator.contactDetails.town
+    ?.trim()
+    .toLowerCase()
+    .includes(trimAndLowerCase(town));
 };
