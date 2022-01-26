@@ -1,6 +1,7 @@
 package fi.oph.akt.service.email;
 
 import fi.oph.akt.repository.AuthorisationTermRepository;
+import fi.oph.akt.util.SchedulingUtil;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.annotation.Resource;
@@ -34,13 +35,15 @@ public class ExpiringAuthorisationsEmailCreator {
   @Scheduled(fixedDelayString = FIXED_DELAY, initialDelayString = INITIAL_DELAY)
   @SchedulerLock(name = "pollExpiringAuthorisations", lockAtLeastFor = LOCK_AT_LEAST, lockAtMostFor = LOCK_AT_MOST)
   public void pollExpiringAuthorisations() {
-    LOG.debug("pollExpiringAuthorisations");
-    final LocalDate expiryBetweenStart = LocalDate.now();
-    final LocalDate expiryBetweenEnd = expiryBetweenStart.plusMonths(3);
-    final LocalDateTime previousReminderSentBefore = expiryBetweenStart.minusMonths(4).atStartOfDay();
+    SchedulingUtil.runWithScheduledUser(() -> {
+      LOG.debug("pollExpiringAuthorisations");
+      final LocalDate expiryBetweenStart = LocalDate.now();
+      final LocalDate expiryBetweenEnd = expiryBetweenStart.plusMonths(3);
+      final LocalDateTime previousReminderSentBefore = expiryBetweenStart.minusMonths(4).atStartOfDay();
 
-    termRepository
-      .findExpiringAuthorisationTerms(expiryBetweenStart, expiryBetweenEnd, previousReminderSentBefore)
-      .forEach(clerkEmailService::createAuthorisationExpiryEmail);
+      termRepository
+        .findExpiringAuthorisationTerms(expiryBetweenStart, expiryBetweenEnd, previousReminderSentBefore)
+        .forEach(clerkEmailService::createAuthorisationExpiryEmail);
+    });
   }
 }
