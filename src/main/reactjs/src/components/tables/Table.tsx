@@ -62,7 +62,7 @@ export function PaginatedTable<T extends WithId>({
       <div className="table__head-box">
         <TablePagination
           className="table__head-box__pagination"
-          count={data.length}
+          count={count}
           component="div"
           onPageChange={(_event, newPage) => setPage(newPage)}
           page={page}
