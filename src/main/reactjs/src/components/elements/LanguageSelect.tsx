@@ -9,16 +9,16 @@ import { LanguageSelectProps } from 'interfaces/languageSelect';
 
 const primaryLanguages = ['FI', 'SV'];
 
-export const languageToAutocompleteValue = (
+export const languageToComboBoxOption = (
   translate: (l: string) => string,
   lang: string
-) => ({
+): ComboBoxOption => ({
   label: translate(lang),
   value: lang,
 });
 
 export const LanguageSelect = ({
-  filterValue,
+  excludedLanguage,
   languages,
   ...rest
 }: LanguageSelectProps &
@@ -29,30 +29,28 @@ export const LanguageSelect = ({
 
   // Helpers
   const filterSelectedLang = (
-    filterValue: string | undefined,
+    excludedLanguage: string | undefined,
     valuesArray: Array<ComboBoxOption>,
     primaryLanguages: string[]
   ): Array<ComboBoxOption> => {
     const valuesArrayWithoutSelectedLang = valuesArray.filter(
-      ({ value }) => value !== filterValue
+      ({ value }) => value !== excludedLanguage
     );
-    if (filterValue) {
-      if (!primaryLanguages.includes(filterValue)) {
-        return valuesArrayWithoutSelectedLang.filter(({ value }) =>
-          primaryLanguages.includes(value)
-        );
-      }
+    if (excludedLanguage && !primaryLanguages.includes(excludedLanguage)) {
+      return valuesArrayWithoutSelectedLang.filter(({ value }) =>
+        primaryLanguages.includes(value)
+      );
     }
 
     return valuesArrayWithoutSelectedLang;
   };
 
   const values = languages.map((l) =>
-    languageToAutocompleteValue(translateLanguage, l)
+    languageToComboBoxOption(translateLanguage, l)
   );
 
   const filteredValuesArray = filterSelectedLang(
-    filterValue,
+    excludedLanguage,
     values,
     primaryLanguages
   );

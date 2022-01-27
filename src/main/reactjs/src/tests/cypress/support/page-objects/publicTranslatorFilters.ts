@@ -5,9 +5,9 @@ export const compulsoryLangs = ['suomi', 'ruotsi'];
 class PublicTranslatorFilters {
   elements = {
     fromLang: () =>
-      cy.findByTestId('public-translator-filters__from-language-combobox'),
+      cy.findByTestId('public-translator-filters__from-language-select'),
     toLang: () =>
-      cy.findByTestId('public-translator-filters__to-language-combobox'),
+      cy.findByTestId('public-translator-filters__to-language-select'),
     name: () => cy.findByTestId('public-translator-filters__name-field'),
     town: () => cy.findByTestId('public-translator-filters__town-combobox'),
     empty: () => cy.findByTestId('public-translator-filters__empty-btn'),

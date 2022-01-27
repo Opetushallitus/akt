@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { TextField, Button, InputAdornment } from '@mui/material';
+import { Button, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
+import { ComboBox, valueAsOption } from 'components/elements/ComboBox';
 import {
   LanguageSelect,
-  languageToAutocompleteValue,
+  languageToComboBoxOption,
 } from 'components/elements/LanguageSelect';
+import { TextBox } from 'components/elements/TextBox';
 import { H3 } from 'components/elements/Text';
 import {
   useAppTranslation,
@@ -14,7 +16,7 @@ import {
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { Variant, Color } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
-import { useDebouncedValue } from 'hooks';
+import { useDebouncedValue } from 'hooks/useDebouncedValue';
 import { ClerkTranslatorFilter } from 'interfaces/clerkTranslator';
 import { AutocompleteValue } from 'interfaces/combobox';
 import {
@@ -25,7 +27,6 @@ import {
   clerkTranslatorsSelector,
   selectTranslatorsByAuthorisationStatus,
 } from 'redux/selectors/clerkTranslator';
-import { ComboBox, valueAsOption } from 'components/elements/ComboBox';
 
 export const RegisterControls = () => {
   const { authorised, expiring, expired } = useAppSelector(
@@ -71,15 +72,15 @@ export const RegisterControls = () => {
   );
 };
 
-export const ListingFilters = () => {
+export const ClerkTranslatorFilters = () => {
   // i18n
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorFilters',
   });
   const translateLanguage = useKoodistoLanguagesTranslation();
+  const getLanguageSelectValue = (language?: string) =>
+    language ? languageToComboBoxOption(translateLanguage, language) : null;
 
-  // local state
-  const [name, setName] = useState('');
   // redux
   const dispatch = useAppDispatch();
   const { filters, langs, towns } = useAppSelector(clerkTranslatorsSelector);
@@ -88,6 +89,9 @@ export const ListingFilters = () => {
     (event: React.SyntheticEvent<Element, Event>, value: AutocompleteValue) => {
       dispatch(setClerkTranslatorFilters({ [filter]: value?.value }));
     };
+
+  // debounce on input to name filter
+  const [name, setName] = useState('');
   const debouncedName = useDebouncedValue(name, 300);
   useEffect(() => {
     dispatch(
@@ -106,15 +110,8 @@ export const ListingFilters = () => {
             autoHighlight
             data-testid="clerk-translator-filters__from-lang"
             label={t('languagePair.fromPlaceholder')}
-            filterValue={filters.toLang || ''}
-            value={
-              filters.fromLang
-                ? languageToAutocompleteValue(
-                    translateLanguage,
-                    filters.fromLang
-                  )
-                : null
-            }
+            excludedLanguage={filters.toLang}
+            value={getLanguageSelectValue(filters.fromLang)}
             languages={langs.from}
             variant={Variant.Outlined}
             onChange={handleFilterChange('fromLang')}
@@ -123,12 +120,8 @@ export const ListingFilters = () => {
             autoHighlight
             data-testid="clerk-translator-filters__to-lang"
             label={t('languagePair.toPlaceholder')}
-            filterValue={filters.fromLang || ''}
-            value={
-              filters.toLang
-                ? languageToAutocompleteValue(translateLanguage, filters.toLang)
-                : null
-            }
+            excludedLanguage={filters.fromLang}
+            value={getLanguageSelectValue(filters.toLang)}
             languages={langs.to}
             variant={Variant.Outlined}
             onChange={handleFilterChange('toLang')}
@@ -137,7 +130,7 @@ export const ListingFilters = () => {
       </div>
       <div className="rows">
         <H3>{t('name.title')}</H3>
-        <TextField
+        <TextBox
           data-testid="clerk-translator-filters__name"
           placeholder={t('name.placeholder')}
           type="search"

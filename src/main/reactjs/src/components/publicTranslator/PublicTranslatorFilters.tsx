@@ -3,7 +3,11 @@ import { TextField, InputAdornment, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { H3 } from 'components/elements/Text';
-import { ComboBox, sortOptionsByLabels } from 'components/elements/ComboBox';
+import {
+  ComboBox,
+  sortOptionsByLabels,
+  valueAsOption,
+} from 'components/elements/ComboBox';
 import { AutocompleteValue } from 'interfaces/combobox';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector, useAppDispatch } from 'configs/redux';
@@ -146,11 +150,6 @@ export const PublicTranslatorFilters = ({
       setValues({ ...values, [filterName]: target.value });
     };
 
-  const townToAutocompleteValue = (town: string) => ({
-    label: town,
-    value: town,
-  });
-
   const getComboBoxAttributes = (fieldName: SearchFilter) => ({
     onInputChange: handleComboboxInputChange(fieldName),
     inputValue: inputValues[fieldName],
@@ -168,26 +167,26 @@ export const PublicTranslatorFilters = ({
           <H3>{t('languagePair.title')}</H3>
           <div className="public-translator-filters__filter__language-pair">
             <LanguageSelect
-              data-testid="public-translator-filters__from-language-combobox"
+              data-testid="public-translator-filters__from-language-select"
               autoHighlight
               {...getComboBoxAttributes(SearchFilter.FromLang)}
               showError={hasError(SearchFilter.FromLang)}
               label={t('languagePair.fromPlaceholder')}
               id="filters-from-lang"
               variant={Variant.Outlined}
-              filterValue={filters.toLang}
+              excludedLanguage={filters.toLang}
               languages={langs.from}
               onChange={handleComboboxFilterChange(SearchFilter.FromLang)}
             />
             <LanguageSelect
-              data-testid="public-translator-filters__to-language-combobox"
+              data-testid="public-translator-filters__to-language-select"
               autoHighlight
               {...getComboBoxAttributes(SearchFilter.ToLang)}
               showError={hasError(SearchFilter.ToLang)}
               label={t('languagePair.toPlaceholder')}
               id="filters-to-lang"
               variant={Variant.Outlined}
-              filterValue={filters.fromLang}
+              excludedLanguage={filters.fromLang}
               languages={langs.to}
               onChange={handleComboboxFilterChange(SearchFilter.ToLang)}
             />
@@ -220,7 +219,7 @@ export const PublicTranslatorFilters = ({
             {...getComboBoxAttributes(SearchFilter.Town)}
             label={t('town.placeholder')}
             id="filters-town"
-            values={sortOptionsByLabels(towns.map(townToAutocompleteValue))}
+            values={sortOptionsByLabels(towns.map(valueAsOption))}
             variant={Variant.Outlined}
             onChange={handleComboboxFilterChange(SearchFilter.Town)}
           />

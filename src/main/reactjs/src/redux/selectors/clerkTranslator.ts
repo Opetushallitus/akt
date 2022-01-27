@@ -19,18 +19,30 @@ export const selectTranslatorsByAuthorisationStatus = createSelector(
     // which we currently fail to take into account properly - the selectors should
     // somehow make the dependency on time explicit!
     const currentDate = DateUtils.dateAtStartOfDay(new Date());
+    const expiringSoonDate = expiringSoonThreshold(currentDate);
     const authorised = translators.filter((t) =>
       filterByAuthorisationStatus(
         t,
         AuthorisationStatus.Authorised,
-        currentDate
+        currentDate,
+        expiringSoonDate
       )
     );
     const expiring = translators.filter((t) =>
-      filterByAuthorisationStatus(t, AuthorisationStatus.Expiring, currentDate)
+      filterByAuthorisationStatus(
+        t,
+        AuthorisationStatus.Expiring,
+        currentDate,
+        expiringSoonDate
+      )
     );
     const expired = translators.filter((t) =>
-      filterByAuthorisationStatus(t, AuthorisationStatus.Expired, currentDate)
+      filterByAuthorisationStatus(
+        t,
+        AuthorisationStatus.Expired,
+        currentDate,
+        expiringSoonDate
+      )
     );
 
     return {
@@ -46,6 +58,7 @@ export const selectFilteredClerkTranslators = createSelector(
   (state: RootState) => state.clerkTranslator.filters,
   (translators, filters) => {
     const currentDate = DateUtils.dateAtStartOfDay(new Date());
+    const expiringSoonDate = expiringSoonThreshold(currentDate);
 
     let filtered = translators;
 
@@ -55,12 +68,12 @@ export const selectFilteredClerkTranslators = createSelector(
     }
 
     if (filters.town) {
-      const town = filters.town;
-      filtered = filtered.filter((t) => filterByTown(t, town));
+      const townFilter = filters.town;
+      filtered = filtered.filter((t) => filterByTown(t, townFilter));
     }
 
     filtered = filtered.filter((t) =>
-      filterByAuthorisationCriteria(t, filters, currentDate)
+      filterByAuthorisationCriteria(t, filters, currentDate, expiringSoonDate)
     );
 
     return filtered;
@@ -89,7 +102,7 @@ export const selectFilteredSelectedTranslators = createSelector(
 
 // Helpers
 
-const expiringSoonTreshold = (currentDate: Date) => {
+const expiringSoonThreshold = (currentDate: Date) => {
   const expiringSoonThreshold = DateUtils.dateAtStartOfDay(currentDate);
   expiringSoonThreshold.setMonth(expiringSoonThreshold.getMonth() + 3);
 
@@ -105,11 +118,12 @@ const isAuthorisationValid = (
     return true;
   }
 
-  return currentDate <= term.end;
+  return DateUtils.isDatePartBeforeOrEqual(currentDate, term.end);
 };
 
 const isAuthorisationExpiringSoon = (
   authorisation: Authorisation,
+  currentDate: Date,
   expiringSoonThreshold: Date
 ) => {
   const term = authorisation.effectiveTerm;
@@ -117,16 +131,18 @@ const isAuthorisationExpiringSoon = (
     return false;
   }
 
-  return term.end < expiringSoonThreshold;
+  return (
+    DateUtils.isDatePartBeforeOrEqual(currentDate, term.end) &&
+    DateUtils.isDatePartBeforeOrEqual(term.end, expiringSoonThreshold)
+  );
 };
 
 const filterByAuthorisationStatus = (
   translator: ClerkTranslator,
   status: AuthorisationStatus,
-  currentDate: Date
+  currentDate: Date,
+  expiringSoonDate: Date
 ) => {
-  const expiringSoonDate = expiringSoonTreshold(currentDate);
-
   return translator.authorisations.find((a) =>
     matchesAuthorisationStatus(
       { authorisationStatus: status },
@@ -140,10 +156,9 @@ const filterByAuthorisationStatus = (
 const filterByAuthorisationCriteria = (
   translator: ClerkTranslator,
   filters: ClerkTranslatorFilter,
-  currentDate: Date
+  currentDate: Date,
+  expiringSoonDate: Date
 ) => {
-  const expiringSoonDate = expiringSoonTreshold(currentDate);
-
   return translator.authorisations.find(
     (a) =>
       matchesFromLang(filters, a) &&
@@ -156,35 +171,17 @@ const filterByAuthorisationCriteria = (
 const matchesFromLang = (
   { fromLang }: ClerkTranslatorFilter,
   authorisation: Authorisation
-) => {
-  if (fromLang) {
-    return authorisation.languagePair.from == fromLang;
-  }
-
-  return true;
-};
+) => (fromLang ? fromLang == authorisation.languagePair.from : true);
 
 const matchesToLang = (
   { toLang }: ClerkTranslatorFilter,
   authorisation: Authorisation
-) => {
-  if (toLang) {
-    return authorisation.languagePair.to == toLang;
-  }
-
-  return true;
-};
+) => (toLang ? toLang == authorisation.languagePair.to : true);
 
 const matchesAuthorisationBasis = (
   { authorisationBasis }: ClerkTranslatorFilter,
   authorisation: Authorisation
-) => {
-  if (authorisationBasis) {
-    return authorisation.basis == authorisationBasis;
-  }
-
-  return true;
-};
+) => (authorisationBasis ? authorisationBasis == authorisation.basis : true);
 
 const matchesAuthorisationStatus = (
   { authorisationStatus }: ClerkTranslatorFilter,
@@ -196,9 +193,10 @@ const matchesAuthorisationStatus = (
     case AuthorisationStatus.Authorised:
       return isAuthorisationValid(authorisation, currentDate);
     case AuthorisationStatus.Expiring:
-      return (
-        isAuthorisationValid(authorisation, currentDate) &&
-        isAuthorisationExpiringSoon(authorisation, expiringSoonThreshold)
+      return isAuthorisationExpiringSoon(
+        authorisation,
+        currentDate,
+        expiringSoonThreshold
       );
     case AuthorisationStatus.Expired:
       return !isAuthorisationValid(authorisation, currentDate);

@@ -30,15 +30,8 @@ export function PaginatedTable<T extends WithId>({
   rowsPerPageOptions,
   className,
 }: PaginatedTableProps<T>): JSX.Element {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
   const dispatch = useAppDispatch();
   const { t } = useAppTranslation({ keyPrefix: 'akt.component' });
-
-  const handleRowsPerPageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPage(0);
-    setRowsPerPage(+event.target.value);
-  };
 
   const handleRowClick = (index: number) => {
     if (selectedIndices.includes(index)) {
@@ -48,7 +41,13 @@ export function PaginatedTable<T extends WithId>({
     }
   };
 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
   const [count, setCount] = useState(data.length);
+  const handleRowsPerPageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPage(0);
+    setRowsPerPage(+event.target.value);
+  };
   // Reset page count if underlying data (as measured by number of elements) changes
   useEffect(() => {
     if (count != data.length) {

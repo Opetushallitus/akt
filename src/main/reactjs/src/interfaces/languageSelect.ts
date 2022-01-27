@@ -1,4 +1,4 @@
 export interface LanguageSelectProps {
-  filterValue: string;
+  excludedLanguage: string | undefined;
   languages: Array<string>;
 }

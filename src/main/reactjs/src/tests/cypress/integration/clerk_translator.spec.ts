@@ -17,7 +17,7 @@ beforeEach(() => {
 
 const translatorCountsByAuthorisationStatus = {
   [AuthorisationStatus.Authorised]: 98,
-  [AuthorisationStatus.Expiring]: 87,
+  [AuthorisationStatus.Expiring]: 89,
   [AuthorisationStatus.Expired]: 2,
 };
 

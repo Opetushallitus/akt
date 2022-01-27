@@ -16,11 +16,11 @@ const compareOptionLabels = (a: ComboBoxOption, b: ComboBoxOption) => {
   return a.label <= b.label ? -1 : 1;
 };
 
-export const sortOptionsByLabels = (values: Array<ComboBoxOption>) => {
-  return values.sort(compareOptionLabels);
+export const sortOptionsByLabels = (options: Array<ComboBoxOption>) => {
+  return options.sort(compareOptionLabels);
 };
 
-const getOptionLabel = (option: AutocompleteValue): string => {
+const autocompleteValueToString = (option: AutocompleteValue): string => {
   return option?.label || '';
 };
 
@@ -55,7 +55,7 @@ export const ComboBox = ({
       <Autocomplete
         disablePortal
         {...rest}
-        getOptionLabel={getOptionLabel}
+        getOptionLabel={autocompleteValueToString}
         isOptionEqualToValue={isOptionEqualToValue}
         options={values}
         renderInput={(params) => (

@@ -14,7 +14,7 @@ describe('LanguageSelect', () => {
           variant={Variant.Outlined}
           languages={languages}
           value={null}
-          filterValue="BN"
+          excludedLanguage="BN"
         />
       )
       .toJSON();
