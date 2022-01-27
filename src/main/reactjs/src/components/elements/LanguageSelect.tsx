@@ -7,7 +7,7 @@ import {
 } from 'interfaces/combobox';
 import { LanguageSelectProps } from 'interfaces/languageSelect';
 
-const primaryLanguages = ['FI', 'SV'];
+const primaryLanguages = ['FI', 'SV', 'SEIN', 'SEKO', 'SEPO'];
 
 export const languageToComboBoxOption = (
   translate: (l: string) => string,

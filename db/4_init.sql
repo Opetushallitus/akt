@@ -131,12 +131,13 @@ SELECT translator_id,
            WHEN mod(i, 13) = 0 THEN now()
            WHEN mod(i, 17) = 0 THEN NULL
            ELSE now() END,
-       CASE WHEN mod(i, 2) = 0 THEN 'FI' ELSE 'SV' END,
+       from_langs[mod(i, array_length(from_langs, 1)) + 1],
        langs[mod(i, array_length(langs, 1)) + 1],
        mod(i, 21) <> 0,
        -- temporary diary_number entries
        md5(random()::text)
 FROM translator_ids,
+     (SELECT ('{FI, SV, SEIN, SEKO, SEPO}')::text[] AS from_langs) AS from_langs_table,
      (SELECT ('{BN, CA, CS, DA, DE, EL, EN, ET, FJ, FO, FR, GA, HE, HR, HU, JA, RU, TT, TY, UG, UK, VI, ZH}')::text[] AS langs) AS langs_table
 ;
 
@@ -162,7 +163,8 @@ WHERE mod(authorisation_id, 20) <> 0
 
 -- set diary numbers to match the ids of authorisations
 UPDATE authorisation
-SET diary_number = authorisation_id;
+SET diary_number = authorisation_id
+WHERE 1 = 1;
 
 INSERT INTO authorisation_term(authorisation_id, begin_date, end_date)
 SELECT authorisation_id,
