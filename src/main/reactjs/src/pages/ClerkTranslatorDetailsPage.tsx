@@ -1,13 +1,14 @@
-import { Box, Button, Paper, TextField, TextFieldProps } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { Box, Button, Paper, TextField } from '@mui/material';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { H1, H2, H3 } from 'components/elements/Text';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { useAppTranslation } from 'configs/i18n';
 import { APIResponseStatus } from 'enums/api';
-import { Color, Severity, Variant } from 'enums/app';
+import { AppRoutes, Color, Severity, Variant } from 'enums/app';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
 import { loadClerkTranslators } from 'redux/actions/clerkTranslator';
@@ -35,10 +36,6 @@ const TranslatorNotFoundView = () => {
   );
 };
 
-const TranslatorDetailsField = ({ ...rest }: TextFieldProps) => {
-  return <TextField {...rest} />;
-};
-
 const TranslatorDetailsView = ({
   translator,
 }: {
@@ -53,6 +50,17 @@ const TranslatorDetailsView = ({
       elevation={3}
       className="clerk-translator-details-page__content-container"
     >
+      <div className="columns">
+        <Button
+          component={Link}
+          to={AppRoutes.ClerkHomePage}
+          id="back-btn"
+          variant={Variant.Text}
+          startIcon={<ArrowBackIcon />}
+        >
+          {t('buttons.back')}
+        </Button>
+      </div>
       <div className="rows gapped">
         <div className="columns">
           <H3 className="grow">{t('header.personalInformation')}</H3>
@@ -61,17 +69,17 @@ const TranslatorDetailsView = ({
           </Button>
         </div>
         <div className="columns gapped">
-          <TranslatorDetailsField
+          <TextField
             label={t('labels.lastName')}
             value={translator.contactDetails.lastName}
             disabled
           />
-          <TranslatorDetailsField
+          <TextField
             label={t('labels.firstNames')}
             value={translator.contactDetails.firstName}
             disabled
           />
-          <TranslatorDetailsField
+          <TextField
             label={t('labels.ssn')}
             value={translator.contactDetails.identityNumber}
             disabled
@@ -79,22 +87,22 @@ const TranslatorDetailsView = ({
         </div>
         <H3>{t('header.address')}</H3>
         <div className="columns gapped">
-          <TranslatorDetailsField
+          <TextField
             label={t('labels.streetAddress')}
             value={translator.contactDetails.street}
             disabled
           />
-          <TranslatorDetailsField
+          <TextField
             label={t('labels.zipCode')}
             value={translator.contactDetails.postalCode}
             disabled
           />
-          <TranslatorDetailsField
+          <TextField
             label={t('labels.postOffice')}
             value={translator.contactDetails.town}
             disabled
           />
-          <TranslatorDetailsField
+          <TextField
             label={t('labels.country')}
             value={translator.contactDetails.country}
             disabled
@@ -102,12 +110,12 @@ const TranslatorDetailsView = ({
         </div>
         <H3>{t('header.contactInformation')}</H3>
         <div className="columns gapped">
-          <TranslatorDetailsField
+          <TextField
             label={t('labels.email')}
             value={translator.contactDetails.email}
             disabled
           />
-          <TranslatorDetailsField
+          <TextField
             label={t('labels.phoneNumber')}
             value={translator.contactDetails.phoneNumber}
             disabled
