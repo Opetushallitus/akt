@@ -124,6 +124,12 @@ mvn spring-boot:run -Dtomcat.util.http.parser.HttpParser.requestTargetAllow=|{}
 
 OPH localisation service is not used. Localisations are in JSON files, committed to git.
 
+For inspection and modification by OPH clerks, it's possible to generate a CSV-file based on localisations:
+
+```sh
+npm run localisation:csv
+```
+
 # Backend
 
 TBD emails etc
