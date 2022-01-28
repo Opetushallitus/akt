@@ -151,6 +151,20 @@
           "country": "Maa",
           "email": "Sähköpostiosoite",
           "phoneNumber": "Puhelinnumero"
+        },
+        "authorisation": {
+          "languagePair": "Kielipari",
+          "startDate": "Alkupvm.",
+          "endDate": "Loppupvm.",
+          "basis": "Aukt. peruste",
+          "isValid": "Voimassa",
+          "isPublished": "Julkaistu",
+          "caseId": "Asiatunnus",
+          "save": "Tallenna",
+          "delete": "Poista",
+          "edit": "Muokkaa",
+          "yes": "Kyllä",
+          "no": "Ei"
         }
       },
       "contactRequestForm": {
