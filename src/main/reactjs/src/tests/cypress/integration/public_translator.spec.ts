@@ -51,6 +51,6 @@ describe('PublicTranslatorListing', () => {
     onPublicTranslatorFilters.filterByName('aaltonen anneli');
     onPublicTranslatorsListing.clickTranslatorRow('1940');
 
-    onToast.expectText('Valitse kielipari');
+    onToast.expectText('Valitse kielipari ottaaksesi yhteyttä kääntäjään');
   });
 });

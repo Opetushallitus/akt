@@ -13,6 +13,7 @@
 @import 'components/layouts/header';
 @import 'components/layouts/footer';
 @import 'components/elements/progress-indicator';
+@import 'components/elements/header-separator';
 @import 'components/table/table';
 @import 'components/i18n/lang-selector';
 @import 'components/translators/translator-listing';
@@ -20,7 +21,7 @@
 @import 'components/notification/dialog-box';
 
 // Pages
-@import 'pages/homepage';
+@import 'pages/public-homepage';
 @import 'pages/clerk-homepage';
 @import 'pages/clerk-send-email-page';
 @import 'pages/contact-request-page';

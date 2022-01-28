@@ -16,6 +16,7 @@ import {
 import { ControlButtons } from 'components/contactRequest/ControlButtons';
 import { ContactRequestFormStep } from 'enums/contactRequest';
 import { Color } from 'enums/app';
+import { HeaderSeparator } from 'components/elements/HeaderSeparator';
 
 export const ContactRequestPage = () => {
   // I18
@@ -58,6 +59,7 @@ export const ContactRequestPage = () => {
     >
       <Grid item>
         <H1>{t('title')}</H1>
+        <HeaderSeparator />
         <Text>{t('description')}</Text>
       </Grid>
       <Grid className="contact-request-page__grid" item>

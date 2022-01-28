@@ -23,7 +23,7 @@ class PublicTranslatorsListing {
   }
 
   expectEmptyListing() {
-    cy.get('.homepage__grid-container__result-box').should('be.empty');
+    cy.get('.public-homepage__grid-container__result-box').should('be.empty');
   }
 }
 

@@ -1,0 +1,46 @@
+.public-homepage {
+  & &__grid-container {
+    display: block;
+
+    &__item-header {
+      @include phone {
+        margin-top: 2rem;
+        padding: 2rem 2rem 0;
+      }
+    }
+
+    div &__item-filters {
+      @include phone {
+        padding-top: 1rem;
+      }
+    }
+
+    &__result-box {
+      padding: 3rem;
+    }
+  }
+
+  & &__filters {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2.5rem;
+
+    &__heading-title {
+      margin-bottom: 0;
+    }
+
+    &__heading-description {
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: $color-grey-700;
+    }
+
+    @include phone {
+      padding: 1rem 2.5rem;
+      gap: 1.5rem;
+      @include phone-divider-border-top;
+      @include phone-divider-border-bottom;
+    }
+  }
+}

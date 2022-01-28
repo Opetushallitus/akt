@@ -1,6 +1,6 @@
 .lang-selector {
-  display: flex;
   align-items: center;
+  display: flex;
   margin-left: 1.5rem;
 
   &__icon {
@@ -9,6 +9,10 @@
 
   & &__select {
     margin-top: 2px;
+
+    @include phone {
+      font-size: 1.3rem;
+    }
 
     &,
     &__icon,
