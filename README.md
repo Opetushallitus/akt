@@ -2,7 +2,7 @@
 
 - Maven 3.1+
 - JDK 17
-- PostgreSQL 11.2
+- PostgreSQL 12.9
 - node v16.13.1 (no need to install if you only build)
 - npm 8.1.3 (no need to install if you only build)
 
