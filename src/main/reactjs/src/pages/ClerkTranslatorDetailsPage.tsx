@@ -7,7 +7,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TextField,
 } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -16,6 +15,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 
 import { H1, H2, Text } from 'components/elements/Text';
+import { TextBox } from 'components/elements/TextBox';
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import {
@@ -91,17 +91,17 @@ const TranslatorDetailsSection = ({
         </Button>
       </div>
       <div className="columns gapped">
-        <TextField
+        <TextBox
           label={t('labels.lastName')}
           value={translator.contactDetails.lastName}
           disabled
         />
-        <TextField
+        <TextBox
           label={t('labels.firstNames')}
           value={translator.contactDetails.firstName}
           disabled
         />
-        <TextField
+        <TextBox
           label={t('labels.ssn')}
           value={translator.contactDetails.identityNumber}
           disabled
@@ -109,22 +109,22 @@ const TranslatorDetailsSection = ({
       </div>
       <H2>{t('header.address')}</H2>
       <div className="columns gapped">
-        <TextField
+        <TextBox
           label={t('labels.streetAddress')}
           value={translator.contactDetails.street}
           disabled
         />
-        <TextField
+        <TextBox
           label={t('labels.zipCode')}
           value={translator.contactDetails.postalCode}
           disabled
         />
-        <TextField
+        <TextBox
           label={t('labels.postOffice')}
           value={translator.contactDetails.town}
           disabled
         />
-        <TextField
+        <TextBox
           label={t('labels.country')}
           value={translator.contactDetails.country}
           disabled
@@ -132,12 +132,12 @@ const TranslatorDetailsSection = ({
       </div>
       <H2>{t('header.contactInformation')}</H2>
       <div className="columns gapped">
-        <TextField
+        <TextBox
           label={t('labels.email')}
           value={translator.contactDetails.email}
           disabled
         />
-        <TextField
+        <TextBox
           label={t('labels.phoneNumber')}
           value={translator.contactDetails.phoneNumber}
           disabled
