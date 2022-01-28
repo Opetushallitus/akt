@@ -1,12 +1,26 @@
-import { TextField, Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Button, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
+import { ComboBox, valueAsOption } from 'components/elements/ComboBox';
+import {
+  LanguageSelect,
+  languageToComboBoxOption,
+} from 'components/elements/LanguageSelect';
+import { TextBox } from 'components/elements/TextBox';
 import { H3 } from 'components/elements/Text';
-import { useAppTranslation } from 'configs/i18n';
+import {
+  useAppTranslation,
+  useKoodistoLanguagesTranslation,
+} from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { Variant, Color } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
+import { useDebouncedValue } from 'hooks/useDebouncedValue';
+import { ClerkTranslatorFilter } from 'interfaces/clerkTranslator';
+import { AutocompleteValue } from 'interfaces/combobox';
 import {
-  addClerkTranslatorFilter,
+  setClerkTranslatorFilters,
   resetClerkTranslatorFilters,
 } from 'redux/actions/clerkTranslator';
 import {
@@ -24,9 +38,7 @@ export const RegisterControls = () => {
   const dispatch = useAppDispatch();
   const { filters } = useAppSelector(clerkTranslatorsSelector);
   const filterByAuthorisationStatus = (status: AuthorisationStatus) => {
-    dispatch(
-      addClerkTranslatorFilter({ ...filters, authorisationStatus: status })
-    );
+    dispatch(setClerkTranslatorFilters({ authorisationStatus: status }));
   };
   const variantForStatus = (status: AuthorisationStatus) => {
     return status === filters.authorisationStatus
@@ -60,28 +72,108 @@ export const RegisterControls = () => {
   );
 };
 
-export const ListingFilters = () => {
-  const dispatch = useAppDispatch();
+export const ClerkTranslatorFilters = () => {
+  // i18n
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorFilters',
   });
+  const translateLanguage = useKoodistoLanguagesTranslation();
+  const getLanguageSelectValue = (language?: string) =>
+    language ? languageToComboBoxOption(translateLanguage, language) : null;
+
+  // redux
+  const dispatch = useAppDispatch();
+  const { filters, langs, towns } = useAppSelector(clerkTranslatorsSelector);
+  const handleFilterChange =
+    (filter: keyof ClerkTranslatorFilter) =>
+    (event: React.SyntheticEvent<Element, Event>, value: AutocompleteValue) => {
+      dispatch(setClerkTranslatorFilters({ [filter]: value?.value }));
+    };
+
+  // debounce on input to name filter
+  const [name, setName] = useState('');
+  const debouncedName = useDebouncedValue(name, 300);
+  useEffect(() => {
+    dispatch(
+      setClerkTranslatorFilters({
+        name: debouncedName ? debouncedName : undefined,
+      })
+    );
+  }, [debouncedName, dispatch]);
 
   return (
     <div className="columns gapped">
       <div className="rows">
         <H3>{t('languagePair.title')}</H3>
         <div className="columns gapped">
-          <TextField placeholder={t('languagePair.fromPlaceholder')} />
-          <TextField placeholder={t('languagePair.toPlaceholder')} />
+          <LanguageSelect
+            autoHighlight
+            data-testid="clerk-translator-filters__from-lang"
+            label={t('languagePair.fromPlaceholder')}
+            excludedLanguage={filters.toLang}
+            value={getLanguageSelectValue(filters.fromLang)}
+            languages={langs.from}
+            variant={Variant.Outlined}
+            onChange={handleFilterChange('fromLang')}
+          />
+          <LanguageSelect
+            autoHighlight
+            data-testid="clerk-translator-filters__to-lang"
+            label={t('languagePair.toPlaceholder')}
+            excludedLanguage={filters.fromLang}
+            value={getLanguageSelectValue(filters.toLang)}
+            languages={langs.to}
+            variant={Variant.Outlined}
+            onChange={handleFilterChange('toLang')}
+          />
         </div>
       </div>
       <div className="rows">
         <H3>{t('name.title')}</H3>
-        <TextField placeholder={t('name.placeholder')} />
+        <TextBox
+          data-testid="clerk-translator-filters__name"
+          placeholder={t('name.placeholder')}
+          type="search"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+          value={name}
+          onChange={(event) => {
+            setName(event.target.value);
+          }}
+        />
       </div>
       <div className="rows">
         <H3>{t('town.title')}</H3>
-        <TextField placeholder={t('town.placeholder')} />
+        <ComboBox
+          autoHighlight
+          data-testid="clerk-translator-filters__town"
+          label={t('town.placeholder')}
+          values={towns.map(valueAsOption)}
+          value={filters.town ? valueAsOption(filters.town) : null}
+          variant={Variant.Outlined}
+          onChange={handleFilterChange('town')}
+        />
+      </div>
+      <div className="rows">
+        <H3>{t('authorisationBasis.title')}</H3>
+        <ComboBox
+          autoHighlight
+          data-testid="clerk-translator-filters__authorisation-basis"
+          label={t('authorisationBasis.placeholder')}
+          values={['AUT', 'KKT', 'VIR'].map(valueAsOption)}
+          value={
+            filters.authorisationBasis
+              ? valueAsOption(filters.authorisationBasis)
+              : null
+          }
+          variant={Variant.Outlined}
+          onChange={handleFilterChange('authorisationBasis')}
+        />
       </div>
       <div className="grow" />
       <div className="rows">

@@ -8,7 +8,7 @@ import { H1, H2, Text } from 'components/elements/Text';
 import { ClerkTranslatorListing } from 'components/clerkTranslator/ClerkTranslatorListing';
 import {
   RegisterControls,
-  ListingFilters,
+  ClerkTranslatorFilters,
 } from 'components/clerkTranslator/ClerkTranslatorFilters';
 import { AppRoutes, Color, Variant } from 'enums/app';
 import { loadClerkTranslators } from 'redux/actions/clerkTranslator';
@@ -71,7 +71,7 @@ export const ClerkHomePage: FC = () => {
               </div>
             </Grid>
             <Grid item>
-              <ListingFilters />
+              <ClerkTranslatorFilters />
             </Grid>
             <Grid item>
               <ClerkTranslatorListing />

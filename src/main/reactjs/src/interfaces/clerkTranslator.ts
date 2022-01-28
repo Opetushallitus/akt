@@ -2,7 +2,11 @@ import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
-import { APIAuthorisation, Authorisation } from 'interfaces/authorisation';
+import {
+  APIAuthorisation,
+  Authorisation,
+  AuthorisationBasis,
+} from 'interfaces/authorisation';
 import { LanguagePairsDict } from 'interfaces/language';
 import { APIMeetingDate, MeetingDate } from 'interfaces/meetingDate';
 import { WithId } from 'interfaces/withId';
@@ -52,11 +56,12 @@ export interface ClerkTranslatorAction
 }
 
 export interface ClerkTranslatorFilter {
-  fromLang: string;
-  toLang: string;
-  name: string;
-  town: string;
+  fromLang?: string;
+  toLang?: string;
+  name?: string;
+  town?: string;
   authorisationStatus: AuthorisationStatus;
+  authorisationBasis?: AuthorisationBasis;
 }
 
 export interface ClerkTranslatorState extends ClerkTranslatorResponse {

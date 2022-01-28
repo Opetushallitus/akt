@@ -48,13 +48,13 @@ export class APIUtils {
   static convertAPIAuthorisationTerms(terms?: Array<APIAuthorisationTerm>) {
     if (terms) {
       return terms.map((term) => {
-        const start = new Date(term.beginDate);
+        const start = DateUtils.dateAtStartOfDay(new Date(term.beginDate));
 
         if (term.endDate) {
           return {
             ...term,
             start,
-            end: new Date(term.endDate),
+            end: DateUtils.dateAtStartOfDay(new Date(term.endDate)),
           };
         }
 
@@ -66,7 +66,7 @@ export class APIUtils {
   static convertAPIMeetingDate(meetingDate: APIMeetingDate) {
     return {
       ...meetingDate,
-      date: new Date(meetingDate.date),
+      date: DateUtils.dateAtStartOfDay(new Date(meetingDate.date)),
     };
   }
 }

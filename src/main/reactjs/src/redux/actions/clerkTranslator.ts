@@ -31,7 +31,9 @@ export const deselectAllTranslators = {
   type: CLERK_TRANSLATOR_DESELECT_ALL,
 };
 
-export const addClerkTranslatorFilter = (filters: ClerkTranslatorFilter) => ({
+export const setClerkTranslatorFilters = (
+  filters: Partial<ClerkTranslatorFilter>
+) => ({
   type: CLERK_TRANSLATOR_ADD_FILTER,
   filters,
 });

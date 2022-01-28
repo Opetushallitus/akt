@@ -4,7 +4,7 @@ import {
   TableBody,
   TablePagination,
 } from '@mui/material';
-import { ChangeEvent, Fragment, useState } from 'react';
+import { ChangeEvent, Fragment, useEffect, useState } from 'react';
 
 import { PaginatedTableProps } from 'interfaces/table';
 import { useAppDispatch } from 'configs/redux';
@@ -30,15 +30,8 @@ export function PaginatedTable<T extends WithId>({
   rowsPerPageOptions,
   className,
 }: PaginatedTableProps<T>): JSX.Element {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
   const dispatch = useAppDispatch();
   const { t } = useAppTranslation({ keyPrefix: 'akt.component' });
-
-  const handleRowsPerPageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPage(0);
-    setRowsPerPage(+event.target.value);
-  };
 
   const handleRowClick = (index: number) => {
     if (selectedIndices.includes(index)) {
@@ -48,12 +41,27 @@ export function PaginatedTable<T extends WithId>({
     }
   };
 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
+  const [count, setCount] = useState(data.length);
+  const handleRowsPerPageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPage(0);
+    setRowsPerPage(+event.target.value);
+  };
+  // Reset page count if underlying data (as measured by number of elements) changes
+  useEffect(() => {
+    if (count != data.length) {
+      setCount(data.length);
+      setPage(0);
+    }
+  }, [data, count]);
+
   return (
     <>
       <div className="table__head-box">
         <TablePagination
           className="table__head-box__pagination"
-          count={data.length}
+          count={count}
           component="div"
           onPageChange={(_event, newPage) => setPage(newPage)}
           page={page}

@@ -1,17 +1,20 @@
-export type ComboBoxOption = [string, string];
+import { AutocompleteProps } from '@mui/material';
+
+export type ComboBoxOption = { label: string; value: string };
 export type AutocompleteValue = ComboBoxOption | null;
 export type textFieldVariant = 'standard' | 'outlined' | 'filled' | undefined;
 export interface ComboBoxProps {
   label?: string;
-  dataTestId?: string;
   showInputLabel?: boolean;
   helperText?: string;
   showError?: boolean;
-  sortByKeys?: boolean;
-  filterValue?: string;
-  primaryOptions?: Array<string>;
   variant: textFieldVariant;
   getOptionLabel?: (option: AutocompleteValue) => string;
-  values: Map<string, string>;
+  values: Array<ComboBoxOption>;
   value: AutocompleteValue;
 }
+
+export type AutoCompleteComboBox = Omit<
+  AutocompleteProps<AutocompleteValue, false, false, false>,
+  'options' | 'renderInput'
+>;

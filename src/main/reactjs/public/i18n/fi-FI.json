@@ -99,6 +99,10 @@
         }
       },
       "clerkTranslatorFilters": {
+        "authorisationBasis": {
+          "title": "Auktorisoinnin peruste",
+          "placeholder": "Peruste"
+        },
         "authorisationStatus": {
           "authorised": "Auktorisoidut",
           "expiring": "Umpeutuvat",
