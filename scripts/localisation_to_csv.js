@@ -8,7 +8,7 @@ const parseJSONFile = async inputFilePath => {
     console.log(err);
     process.exit(1);
   }
-}
+};
 
 const writeCSV = async (outputFilePath, csvRows) => {
   try {
@@ -17,7 +17,7 @@ const writeCSV = async (outputFilePath, csvRows) => {
     console.log(err);
     process.exit(1);
   }
-}
+};
 
 const init = async () => {
   const setKeys = (field, key) => {
@@ -27,11 +27,11 @@ const init = async () => {
         const childKey = key ? `${key}.${childName}` : childName;
 
         setKeys(childField, childKey);
-      })
+      });
     } else {
       keys.push(key);
     }
-  }
+  };
 
   const getLocalisation = (key, json) => {
 
@@ -46,10 +46,10 @@ const init = async () => {
       }
 
       return typeof field === 'string' ? field : '';
-    }
+    };
 
     return getValue(json, key.split('.'));
-  }
+  };
 
   const inputFileDir = `./public/i18n/`;
   const outputFilePath = `./localisation.csv`

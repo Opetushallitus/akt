@@ -127,8 +127,16 @@ OPH localisation service is not used. Localisations are in JSON files, committed
 For inspection and modification by OPH clerks, it's possible to generate a CSV-file based on localisations:
 
 ```sh
-npm run localisation:csv
+npm run localisation:to_csv
 ```
+
+In order to import a CSV-file of localisations as contents of the localisation JSON files, run
+
+```sh
+npm run localisation:from_csv [path_to_csv_file] [delimiter]
+```
+
+Delimiter is `|` by default.
 
 # Backend
 
