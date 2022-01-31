@@ -11,10 +11,7 @@ import { ClerkUserAction, ClerkUserState } from 'interfaces/clerkUser';
 const defaultState = {
   status: APIResponseStatus.NotStarted,
   isAuthenticated: false,
-  uid: '',
   oid: '',
-  firstName: '',
-  lastName: '',
 };
 
 export const clerkUserReducer: Reducer<ClerkUserState, ClerkUserAction> = (
@@ -28,16 +25,11 @@ export const clerkUserReducer: Reducer<ClerkUserState, ClerkUserAction> = (
         status: APIResponseStatus.InProgress,
       };
     case CLERK_USER_RECEIVED:
-      const { uid, oid, firstName, lastName } = action?.clerkUser;
-
       return {
         ...state,
         status: APIResponseStatus.Success,
         isAuthenticated: true,
-        uid,
-        oid,
-        firstName,
-        lastName,
+        oid: action?.clerkUser.oid,
       };
     case CLERK_USER_ERROR:
       return {

@@ -1,6 +1,7 @@
 package fi.oph.akt.service.email;
 
 import fi.oph.akt.repository.EmailRepository;
+import fi.oph.akt.util.SchedulingUtil;
 import java.util.List;
 import javax.annotation.Resource;
 import lombok.RequiredArgsConstructor;
@@ -36,9 +37,11 @@ public class EmailScheduledSending {
   @Scheduled(fixedDelayString = FIXED_DELAY, initialDelayString = INITIAL_DELAY)
   @SchedulerLock(name = "pollEmailsToSend", lockAtLeastFor = LOCK_AT_LEAST, lockAtMostFor = LOCK_AT_MOST)
   public void pollEmailsToSend() {
-    LOG.debug("pollEmailsToSend");
-    final List<Long> emailsBatch = emailRepository.findEmailsToSend(PageRequest.of(0, BATCH_SIZE));
-    LOG.debug("sending emailsBatch size {}", emailsBatch.size());
-    emailsBatch.forEach(emailService::sendEmail);
+    SchedulingUtil.runWithScheduledUser(() -> {
+      LOG.debug("pollEmailsToSend");
+      final List<Long> emailsBatch = emailRepository.findEmailsToSend(PageRequest.of(0, BATCH_SIZE));
+      LOG.debug("sending emailsBatch size {}", emailsBatch.size());
+      emailsBatch.forEach(emailService::sendEmail);
+    });
   }
 }

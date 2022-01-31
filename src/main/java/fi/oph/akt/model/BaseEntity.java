@@ -8,6 +8,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Getter
 @Setter
@@ -37,8 +38,7 @@ public class BaseEntity {
   private LocalDateTime deletedAt;
 
   private String getCurrentUserId() {
-    // TODO
-    return "TODO" + java.time.LocalTime.now();
+    return SecurityContextHolder.getContext().getAuthentication().getName();
   }
 
   @PrePersist
