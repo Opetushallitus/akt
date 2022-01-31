@@ -165,7 +165,8 @@
           "edit": "Muokkaa",
           "yes": "Kyllä",
           "no": "Ei"
-        }
+        },
+        "notFound": "Valittua kääntäjää ei löytynyt"
       },
       "contactRequestForm": {
         "title": "Yhteydenottopyynnön jättäminen",
@@ -264,16 +265,13 @@
           }
         }
       },
+      "clerkTranslatorDetailsPage": {
+        "title": "Kääntäjän tiedot"
+      },
       "translator": {
         "name": "Nimi",
         "languagePairs": "Kieliparit",
         "town": "Asuinkunta"
-      },
-      "clerkTranslatorDetailsPage": {
-        "title": "Kääntäjän tiedot",
-        "translatorNotFoundView": {
-          "title": "Valittua kääntäjää ei löytynyt"
-        } 
       },
       "notFoundPage": {
         "title": "Valitettavasti etsimääsi sivua ei löytynyt",
