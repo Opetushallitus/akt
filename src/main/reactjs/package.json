@@ -7,6 +7,7 @@
     "tslint": "tsc --pretty --noEmit",
     "format": "prettier --check \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "format:write": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "localisation:csv": "node ../../../scripts/localisation_to_csv.js",
     "test:jest": "jest",
     "test:cypress": "TZ=Europe/Helsinki cypress run",
     "start": "webpack serve --config webpack.config.js --env proxy=http://localhost:8080",
