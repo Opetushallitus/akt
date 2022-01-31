@@ -1,10 +1,10 @@
 # AKT - Auktorisoidun kääntäjän tutkintojärjestelmä
 
--   Maven 3.1+
--   JDK 17
--   PostgreSQL 11.2
--   node v16.13.1 (no need to install if you only build)
--   npm 8.1.3 (no need to install if you only build)
+- Maven 3.1+
+- JDK 17
+- PostgreSQL 11.2
+- node v16.13.1 (no need to install if you only build)
+- npm 8.1.3 (no need to install if you only build)
 
 ## Developing with docker-compose
 
@@ -54,10 +54,41 @@ and open browser to
 
 > <http://localhost:8080>
 
+## Authentication and authorisation
+
+### Production
+
+Production settings for authentication and authorisation (CAS) are used by default.
+
+### Development
+
+Turn development profile `dev` on
+
+```sh
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+Dev profile adds following user:password:
+
+- clerk:clerk
+    - User with clerk (virkailija) privileges
+- user:user
+    - User with no privileges
+
+Dev profile also enables form authentication, and http basic auth for easier command line tool access.
+
+In development profile it is possible to turn off all authentication and authorisation with system
+property `dev.web.security.off=true` You can pass it to spring boot with:
+
+```sh
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev -Dspring-boot.run.jvmArguments=-Ddev.web.security.off=true
+```
+
 ## Backend
 
 Code format for Java code is Prettier Java. Maven plugin https://github.com/HubSpot/prettier-maven-plugin is used to
-enforce style. In dev environment, `mvn validate` rewrites all java files to correct format. On CI format is only validated (maven profile `travis`)
+enforce style. In dev environment, `mvn validate` rewrites all java files to correct format. On CI format is only
+validated (maven profile `travis`)
 
 `ìmport *` is disabled:
 Code Style -> Java -> Imports:
@@ -71,8 +102,8 @@ Names count to use static import with '*': 999
 
 In order to keep code clean and easily maintainable please use the following VS Code Extensions.
 
--   [prettier]
--   [eslint]
+- [prettier]
+- [eslint]
 
 ### Running tests
 
@@ -116,6 +147,7 @@ mvn spring-boot:run -Dtomcat.util.http.parser.HttpParser.requestTargetAllow=|{}
 ```
 
 [prettier]: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+
 [eslint]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
 
 # Localisations
