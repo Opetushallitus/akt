@@ -169,7 +169,7 @@ const AuthorisationDetailsSection = ({
             <TableCell>{t('authorisation.basis')}</TableCell>
             <TableCell>{t('authorisation.isValid')}</TableCell>
             <TableCell>{t('authorisation.isPublished')}</TableCell>
-            <TableCell>{t('authorisation.caseId')}</TableCell>
+            <TableCell>{t('authorisation.diaryNumber')}</TableCell>
             <TableCell>{t('authorisation.save')}</TableCell>
             <TableCell>{t('authorisation.delete')}</TableCell>
             <TableCell>{t('authorisation.edit')}</TableCell>
@@ -212,7 +212,7 @@ const AuthorisationDetailsSection = ({
                 </Text>
               </TableCell>
               <TableCell>
-                <Text>{i}</Text>
+                <Text>{a.diaryNumber}</Text>
               </TableCell>
               <CenteredIconCell />
               <CenteredIconCell />

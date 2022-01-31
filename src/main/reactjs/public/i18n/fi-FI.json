@@ -159,7 +159,7 @@
           "basis": "Aukt. peruste",
           "isValid": "Voimassa",
           "isPublished": "Julkaistu",
-          "caseId": "Asiatunnus",
+          "diaryNumber": "Asiatunnus",
           "save": "Tallenna",
           "delete": "Poista",
           "edit": "Muokkaa",
