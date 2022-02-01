@@ -1,15 +1,15 @@
+import AddIcon from '@mui/icons-material/Add';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import EditIcon from '@mui/icons-material/Edit';
 import {
   Button,
-  TableCell,
   Table,
+  TableBody,
+  TableCell,
   TableHead,
   TableRow,
-  TableBody,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
 
 import { H2, Text } from 'components/elements/Text';
 import { TextBox } from 'components/elements/TextBox';
@@ -17,7 +17,7 @@ import {
   useAppTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
-import { AppRoutes, Variant, Color } from 'enums/app';
+import { AppRoutes, Color, Variant } from 'enums/app';
 import { Authorisation } from 'interfaces/authorisation';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import { DateUtils } from 'utils/date';

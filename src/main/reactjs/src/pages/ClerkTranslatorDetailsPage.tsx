@@ -1,21 +1,21 @@
 import { Box, Paper } from '@mui/material';
-import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { H1 } from 'components/elements/Text';
-import { ProgressIndicator } from 'components/elements/ProgressIndicator';
-import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { useAppTranslation } from 'configs/i18n';
-import { APIResponseStatus } from 'enums/api';
-import { Color, Severity } from 'enums/app';
-import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
-import { loadClerkTranslators } from 'redux/actions/clerkTranslator';
-import { showNotifierToast } from 'redux/actions/notifier';
-import { Utils } from 'utils';
 import {
   ClerkTranslatorDetails,
   ClerkTranslatorNotFoundView,
 } from 'components/clerkTranslator/ClerkTranslatorDetails';
+import { ProgressIndicator } from 'components/elements/ProgressIndicator';
+import { H1 } from 'components/elements/Text';
+import { useAppTranslation } from 'configs/i18n';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { APIResponseStatus } from 'enums/api';
+import { Color, Severity } from 'enums/app';
+import { loadClerkTranslators } from 'redux/actions/clerkTranslator';
+import { showNotifierToast } from 'redux/actions/notifier';
+import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
+import { Utils } from 'utils';
 
 const paramAsNum = (param: string | undefined) => {
   if (param) {
