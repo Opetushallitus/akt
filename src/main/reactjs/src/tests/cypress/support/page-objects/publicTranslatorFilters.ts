@@ -1,5 +1,3 @@
-import { selectOption } from 'tests/cypress/support/utils/option';
-
 export const compulsoryLangs = ['suomi', 'ruotsi'];
 
 class PublicTranslatorFilters {
@@ -14,23 +12,23 @@ class PublicTranslatorFilters {
     search: () => cy.findByTestId('public-translator-filters__search-btn'),
   };
 
-  selectFromLangByName(from: string) {
-    this.elements.fromLang().click();
-    selectOption(from);
+  selectOptionByName(name: string) {
+    cy.findByRole('option', { name }).click();
   }
 
-  selectToLangByName(from: string) {
+  selectFromLangByName(from: string) {
+    this.elements.fromLang().click();
+    this.selectOptionByName(from);
+  }
+
+  selectToLangByName(to: string) {
     this.elements.toLang().click();
-    selectOption(from);
+    this.selectOptionByName(to);
   }
 
   filterByLanguagePair(from: string, to: string) {
-    this.elements.fromLang().click();
-    selectOption(from);
-
-    this.elements.toLang().click();
-    selectOption(to);
-
+    this.selectFromLangByName(from);
+    this.selectToLangByName(to);
     this.search();
   }
 
@@ -41,7 +39,7 @@ class PublicTranslatorFilters {
 
   filterByTown(town: string) {
     this.elements.town().click();
-    selectOption(town);
+    this.selectOptionByName(town);
     this.search();
   }
 

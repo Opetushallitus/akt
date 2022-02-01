@@ -6,43 +6,60 @@ html,
 body,
 #root {
   height: 100%;
+  background-color: $color-background-root;
   font-family: Roboto;
   font-size: 62.5%;
-  background-color: $color-background-root;
+  height: 100%;
+
+  & h1 {
+    @include phone {
+      font-size: 2rem;
+      margin-bottom: 0;
+    }
+  }
 }
 
 .app {
   display: grid;
-  grid-template-rows: fit-content($size-header) auto fit-content($size-footer);
   grid-template-areas:
     'header'
     'content'
     'footer';
+  grid-template-rows: fit-content($size-header) auto fit-content($size-footer);
   height: 100%;
-  max-width: $breakpoint-xxl;
   margin: auto;
-}
+  max-width: $breakpoint-xxl;
 
-.header {
-  grid-area: header;
-  z-index: 1;
-}
+  .header {
+    grid-area: header;
+    z-index: 1;
 
-.content {
-  grid-area: content;
-  display: flex;
-  background-color: $color-background-content;
-
-  &__container {
-    display: flex;
-    justify-content: center;
-    flex-grow: 1;
-    padding: 3rem;
-    max-width: $breakpoint-xl;
-    margin: 2rem auto;
+    @include phone {
+      @include phone-divider-border-bottom;
+    }
   }
-}
 
-.footer {
-  grid-area: footer;
+  .content {
+    background-color: $color-background-content;
+    display: flex;
+    grid-area: content;
+
+    &__container {
+      display: flex;
+      flex-grow: 1;
+      justify-content: center;
+      margin: 2rem auto;
+      max-width: $breakpoint-xl;
+      padding: 3rem;
+
+      @include phone {
+        margin: 0 auto;
+        padding: 0;
+      }
+    }
+  }
+
+  .footer {
+    grid-area: footer;
+  }
 }

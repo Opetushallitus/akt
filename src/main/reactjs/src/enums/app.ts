@@ -65,6 +65,12 @@ export enum Variant {
   Contained = 'contained',
 }
 
+export enum SkeletonVariant {
+  Text = 'text',
+  Rectangular = 'rectangular',
+  Circular = 'circular',
+}
+
 export enum I18nNamespace {
   Translation = 'translation',
   KoodistoLanguages = 'koodistoLanguages',

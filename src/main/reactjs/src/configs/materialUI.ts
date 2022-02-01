@@ -11,6 +11,7 @@ const primaryHeadingColor = '#000a48';
 const secondaryHeadingColor = '#FFFFFF';
 const grey700Color = '#666666';
 const grey600Color = '#999999';
+const blue200Color = '#F2F5FD';
 
 const fontWeightBold = 700;
 const fontWeightMedium = 500;
@@ -89,6 +90,13 @@ export const theme = createTheme({
         },
       },
     },
+    MuiSkeleton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: blue200Color,
+        },
+      },
+    },
   },
   palette: {
     primary: {
@@ -132,6 +140,11 @@ export const theme = createTheme({
       fontWeight: fontWeightRegular,
       lineHeight: '2.4rem',
       color: primaryHeadingColor,
+    },
+    caption: {
+      fontSize: '1.2rem',
+      fontWeight: fontWeightRegular,
+      color: grey700Color,
     },
   },
 });

@@ -1,68 +1,79 @@
 .init-spinner__container {
+  align-items: center;
   display: flex;
   height: 100%;
   justify-content: center;
-  align-items: center;
 
   .init-spinner {
-    width: 60px;
+    animation: init-spinner 2.5s infinite linear both;
     height: 60px;
     position: relative;
-    animation: init-spinner 2.5s infinite linear both;
+    width: 60px;
 
     &__dot {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
       animation: init-spinner-dot 2s infinite ease-in-out both;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
     }
 
-    &__dot:before {
-      content: '';
-      display: block;
-      width: 25%;
-      height: 25%;
+    &__dot::before {
+      animation: init-spinner-dot-before 2s infinite ease-in-out both;
       background-color: $color-secondary;
       border-radius: 100%;
-      animation: init-spinner-dot-before 2s infinite ease-in-out both;
+      content: '';
+      display: block;
+      height: 25%;
+      width: 25%;
     }
 
     &__dot:nth-child(1) {
       animation-delay: -1.1s;
     }
+
     &__dot:nth-child(2) {
       animation-delay: -1s;
     }
+
     &__dot:nth-child(3) {
       animation-delay: -0.9s;
     }
+
     &__dot:nth-child(4) {
       animation-delay: -0.8s;
     }
+
     &__dot:nth-child(5) {
       animation-delay: -0.7s;
     }
+
     &__dot:nth-child(6) {
       animation-delay: -0.6s;
     }
-    &__dot:nth-child(1):before {
+
+    &__dot:nth-child(1)::before {
       animation-delay: -1.1s;
     }
-    &__dot:nth-child(2):before {
+
+    &__dot:nth-child(2)::before {
       animation-delay: -1s;
     }
-    &__dot:nth-child(3):before {
+
+    &__dot:nth-child(3)::before {
       animation-delay: -0.9s;
     }
-    &__dot:nth-child(4):before {
+
+    &__dot:nth-child(4)::before {
       animation-delay: -0.8s;
     }
-    &__dot:nth-child(5):before {
+
+    &__dot:nth-child(5)::before {
       animation-delay: -0.7s;
     }
-    &__dot:nth-child(6):before {
+
+    &__dot:nth-child(6)::before {
       animation-delay: -0.6s;
     }
 
@@ -83,6 +94,7 @@
       50% {
         transform: scale(0.4);
       }
+
       100%,
       0% {
         transform: scale(1);

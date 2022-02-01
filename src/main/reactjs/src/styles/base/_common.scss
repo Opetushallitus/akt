@@ -6,10 +6,10 @@
 }
 
 .columns {
+  align-items: center;
   display: flex;
   flex-direction: row;
   max-height: 100%;
-  align-items: center;
 }
 
 .flex-end {
@@ -24,6 +24,10 @@
   gap: 2rem;
 }
 
+.xs-gapped {
+  gap: 0.5rem;
+}
+
 .align-self-start {
   align-self: flex-start;
 }
@@ -34,18 +38,32 @@
   grid-template-columns: repeat(auto-fit, minmax(5rem, auto));
 }
 
-/* OTHERS */
+/* Text */
 .inline-text {
   display: inline-block;
 }
 
 .bold {
-  font-weight: bold !important;
-  padding-left: 0.5rem;
+  &#{&} {
+    font-weight: bold !important;
+    padding-left: 0.5rem;
+  }
+}
+
+/* Widths */
+.full-max-width {
+  &#{&} {
+    max-width: 100% !important;
+  }
 }
 
 .half-max-width {
   max-width: 50%;
+}
+
+/* Margins */
+.s-margin-top {
+  margin-top: 1rem;
 }
 
 .m-margin-top {

@@ -48,12 +48,6 @@ const Footer = () => {
                   {t('address.phone.number')}
                 </Text>
               </div>
-              <div>
-                <Text className="inline-text">{t('address.fax.title')}</Text>
-                <Text className="inline-text bold">
-                  {t('address.fax.number')}
-                </Text>
-              </div>
             </div>
             <div className="footer__container">
               <Svg

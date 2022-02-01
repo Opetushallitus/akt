@@ -18,12 +18,12 @@ export const PublicHomePage: FC = () => {
   const { currentView } = useAppSelector(publicUIViewSelector);
 
   return (
-    <Box className="homepage">
+    <Box className="public-homepage">
       <Grid
         container
         rowSpacing={4}
         direction="column"
-        className="homepage__grid-container"
+        className="public-homepage__grid-container"
       >
         {currentView == PublicUIViews.ContactRequest ? (
           <ContactRequestPage />

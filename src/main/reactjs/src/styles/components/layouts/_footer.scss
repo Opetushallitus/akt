@@ -4,22 +4,33 @@
   justify-content: space-evenly;
   padding: 5rem;
 
+  @include phone {
+    justify-content: flex-start;
+    padding: 1rem;
+  }
+
   &__wave {
     background-color: $color-background-content;
   }
 
   &__container {
-    display: flex;
     align-items: flex-start;
-    flex-direction: column;
-    padding: 1.5rem;
-    font-size: 1rem;
     color: $color-secondary-dark;
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    padding: 1.5rem;
 
     & > a {
-      text-transform: initial;
-      padding: 6px 0;
       color: $color-secondary-dark;
+      padding: 6px 0;
+      text-transform: initial;
+    }
+
+    &:last-of-type {
+      @include phone {
+        order: -1;
+      }
     }
   }
 }

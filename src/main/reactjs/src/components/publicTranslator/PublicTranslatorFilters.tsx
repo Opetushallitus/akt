@@ -2,7 +2,7 @@ import { useState, SetStateAction, Dispatch, KeyboardEvent } from 'react';
 import { TextField, InputAdornment, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { H3 } from 'components/elements/Text';
+import { H3, Caption } from 'components/elements/Text';
 import {
   ComboBox,
   sortOptionsByLabels,
@@ -164,7 +164,12 @@ export const PublicTranslatorFilters = ({
     <div className="public-translator-filters">
       <div className="public-translator-filters__filter-box">
         <div className="public-translator-filters__filter">
-          <H3>{t('languagePair.title')}</H3>
+          <div className="columns xs-gapped">
+            <H3>{t('languagePair.title')}</H3>
+            <Caption className="public-translator-filters__filter_">
+              {t('captions.langPair')}
+            </Caption>
+          </div>
           <div className="public-translator-filters__filter__language-pair">
             <LanguageSelect
               data-testid="public-translator-filters__from-language-select"

@@ -18,3 +18,5 @@ export const H5 = (props: TypographyProps) => variantInDiv('h5', props);
 export const H6 = (props: TypographyProps) => variantInDiv('h6', props);
 
 export const Text = (props: TypographyProps) => variantInDiv('body1', props);
+export const Caption = (props: TypographyProps) =>
+  variantInDiv('caption', props);

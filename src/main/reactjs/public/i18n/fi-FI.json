@@ -39,7 +39,7 @@
             "link": "https://www.oph.fi/fi/tietoa-meista/opetushallituksen-saavutettavuusseloste"
           },
           "aktHomepage": {
-            "text": "Auktorisoidun kääntäjän tutkinto",
+            "text": "Auktorisoidun kääntäjän tutkintojärjestelmä",
             "link": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/kieli-ja-kaantajatutkinnot/auktorisoidun-kaantajan-tutkinto"
           }
         },
@@ -50,10 +50,6 @@
           "phone": {
             "title": "Puhelin",
             "number": "+358 29 533 1000"
-          },
-          "fax": {
-            "title": "Faksi",
-            "number": "+358 29 533 1035"
           }
         },
         "logo": {
@@ -62,7 +58,7 @@
       },
       "publicTranslatorFilters": {
         "languagePair": {
-          "title": "Haku kieliparilla",
+          "title": "Haku kielittäin",
           "fromPlaceholder": "Mistä *",
           "fromHelperText": "Valitse kieli",
           "toPlaceholder": "Mihin *",
@@ -81,7 +77,10 @@
           "search": "Hae"
         },
         "toasts": {
-          "selectLanguagePair": "Valitse kielipari"
+          "selectLanguagePair": "Valitse kielipari ottaaksesi yhteyttä kääntäjään"
+        },
+        "captions": {
+          "langPair": "* Pakollinen yhteydenottoon"
         }
       },
       "clerkTranslatorListing": {
@@ -174,6 +173,7 @@
       "homepage": {
         "title": "Auktorisoitujen kääntäjien rekisteri",
         "description": "Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä joko nimen tai käännöskielen mukaan. Voit jättää valitsemellesi kääntäjille yhteydenottopyynnön alla olevalla hakulomakkeella.",
+        "note": "Huomaa, että kielittäin haettaessa mahdolliset hakuvaihtoehdot ovat kotimaisista kielistä (suomi, ruotsi, saamen kielet) vieraisiin kieliin tai toisinpäin sekä kotimaisten kielten välillä.",
         "filters": {
           "title": "Hae auktorisoitua kääntäjää"
         },
