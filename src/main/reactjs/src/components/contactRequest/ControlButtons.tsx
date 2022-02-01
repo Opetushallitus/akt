@@ -1,9 +1,10 @@
 import { Button } from '@mui/material';
 
-import { ContactRequest } from 'interfaces/contactRequest';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { contactRequestSelector } from 'redux/selectors/contactRequest';
+import { Severity, Variant } from 'enums/app';
+import { ContactRequestFormStep } from 'enums/contactRequest';
+import { ContactRequest } from 'interfaces/contactRequest';
 import {
   decreaseFormStep,
   increaseFormStep,
@@ -14,8 +15,7 @@ import {
   NOTIFIER_ACTION_CONTACT_REQUEST_RESET,
   NOTIFIER_ACTION_DO_NOTHING,
 } from 'redux/actionTypes/notifier';
-import { ContactRequestFormStep } from 'enums/contactRequest';
-import { Variant, Severity } from 'enums/app';
+import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import { Utils } from 'utils';
 
 export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {

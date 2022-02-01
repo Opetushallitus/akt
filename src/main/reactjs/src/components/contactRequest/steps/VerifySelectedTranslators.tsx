@@ -1,16 +1,16 @@
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { IconButton } from '@mui/material';
 import { useEffect } from 'react';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-import { Text } from 'components/elements/Text';
-import { removeSelectedTranslator } from 'redux/actions/publicTranslator';
-import { selectedPublicTranslatorsForLanguagePair } from 'redux/selectors/publicTranslator';
-import { useAppDispatch, useAppSelector } from 'configs/redux';
 import {
+  ChosenTranslatorsHeading,
   StepHeading,
   stepsByIndex,
-  ChosenTranslatorsHeading,
 } from 'components/contactRequest/ContactRequestFormUtils';
+import { Text } from 'components/elements/Text';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { removeSelectedTranslator } from 'redux/actions/publicTranslator';
+import { selectedPublicTranslatorsForLanguagePair } from 'redux/selectors/publicTranslator';
 
 export const VerifySelectedTranslators = ({
   disableNext,

@@ -1,25 +1,25 @@
 import { Reducer } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
+import { SearchFilter } from 'enums/app';
+import { LanguagePairsDict } from 'interfaces/language';
 import {
-  PublicTranslatorState,
-  PublicTranslatorAction,
   PublicTranslator,
+  PublicTranslatorAction,
+  PublicTranslatorState,
 } from 'interfaces/publicTranslator';
 import {
+  PUBLIC_TRANSLATOR_ADD_FILTER_ERROR,
+  PUBLIC_TRANSLATOR_ADD_FILTERS,
+  PUBLIC_TRANSLATOR_ADD_SELECTED,
+  PUBLIC_TRANSLATOR_EMPTY_FILTERS,
+  PUBLIC_TRANSLATOR_EMPTY_SELECTIONS,
   PUBLIC_TRANSLATOR_ERROR,
   PUBLIC_TRANSLATOR_LOADING,
   PUBLIC_TRANSLATOR_RECEIVED,
-  PUBLIC_TRANSLATOR_ADD_SELECTED,
-  PUBLIC_TRANSLATOR_REMOVE_SELECTED,
-  PUBLIC_TRANSLATOR_EMPTY_SELECTIONS,
-  PUBLIC_TRANSLATOR_ADD_FILTERS,
-  PUBLIC_TRANSLATOR_EMPTY_FILTERS,
-  PUBLIC_TRANSLATOR_ADD_FILTER_ERROR,
   PUBLIC_TRANSLATOR_REMOVE_FILTER_ERROR,
+  PUBLIC_TRANSLATOR_REMOVE_SELECTED,
 } from 'redux/actionTypes/publicTranslator';
-import { LanguagePairsDict } from 'interfaces/language';
-import { SearchFilter } from 'enums/app';
 
 const defaultState = {
   status: APIResponseStatus.NotStarted,

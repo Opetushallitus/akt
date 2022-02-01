@@ -1,19 +1,19 @@
-import { useEffect, ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
+import {
+  ChosenTranslatorsHeading,
+  RenderChosenTranslators,
+  StepHeading,
+  stepsByIndex,
+} from 'components/contactRequest/ContactRequestFormUtils';
 import { H3 } from 'components/elements/Text';
+import { TextBox } from 'components/elements/TextBox';
 import { useAppTranslation } from 'configs/i18n';
-import { useAppSelector, useAppDispatch } from 'configs/redux';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { TextBoxTypes } from 'enums/app';
 import { ContactDetails } from 'interfaces/contactRequest';
 import { setContactRequest } from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
-import { TextBox } from 'components/elements/TextBox';
-import {
-  StepHeading,
-  stepsByIndex,
-  ChosenTranslatorsHeading,
-  RenderChosenTranslators,
-} from 'components/contactRequest/ContactRequestFormUtils';
 import { Utils } from 'utils';
 
 export const FillContactDetails = ({

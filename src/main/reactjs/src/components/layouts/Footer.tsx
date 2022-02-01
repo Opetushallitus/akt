@@ -1,13 +1,13 @@
-import { Paper } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { Paper } from '@mui/material';
 
-import { Text, H3 } from 'components/elements/Text';
 import { ExtLink } from 'components/elements/ExtLink';
 import { Svg } from 'components/elements/Svg';
-import Logo from 'public/assets/svg/logo.svg';
-import FooterWave from 'public/assets/svg/footer_wave.svg';
+import { H3, Text } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAuthentication } from 'hooks/useAuthentication';
+import FooterWave from 'public/assets/svg/footer_wave.svg';
+import Logo from 'public/assets/svg/logo.svg';
 
 const Footer = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.component.footer' });

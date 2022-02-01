@@ -1,23 +1,23 @@
-import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 
 import { DialogBox } from 'components/notification/DialogBox';
 import { Toast } from 'components/notification/Toast';
-import {
-  emptyNotifierState,
-  notifierState,
-  toastsArray,
-  dialogsArray,
-} from 'tests/jest/__fixtures__/notifier';
-import { NotifierState } from 'interfaces/notifier';
 import { useAppSelector } from 'configs/redux';
-import { notifierReducer } from 'redux/reducers/notifier';
+import { NotifierState } from 'interfaces/notifier';
 import {
   removeNotifierDialog,
   removeNotifierToast,
   showNotifierDialog,
   showNotifierToast,
 } from 'redux/actions/notifier';
+import { notifierReducer } from 'redux/reducers/notifier';
+import {
+  dialogsArray,
+  emptyNotifierState,
+  notifierState,
+  toastsArray,
+} from 'tests/jest/__fixtures__/notifier';
 
 describe('DialogBox', () => {
   it('should not render Dialog if there is no data', () => {

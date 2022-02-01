@@ -1,4 +1,4 @@
-import { Typography, TypographyVariant, TypographyProps } from '@mui/material';
+import { Typography, TypographyProps, TypographyVariant } from '@mui/material';
 
 const variantInDiv = (variant: TypographyVariant, props: TypographyProps) => {
   const { children, ...rest } = props;

@@ -2,12 +2,12 @@ import { TFunction } from 'i18next';
 
 import {
   Duration,
-  Severity,
   NotifierTypes,
+  Severity,
   TextBoxErrors,
   TextBoxTypes,
 } from 'enums/app';
-import { Dialog, Toast, NotifierButtonAction } from 'interfaces/notifier';
+import { Dialog, NotifierButtonAction, Toast } from 'interfaces/notifier';
 
 export class Utils {
   static isEmptyString(str: string) {

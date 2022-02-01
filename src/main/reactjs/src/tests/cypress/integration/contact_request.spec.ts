@@ -1,19 +1,19 @@
 import { APIEndpoints } from 'enums/api';
 import {
-  LONG_TEST_MESSAGE,
   expectTextForId,
   fillContactDetailsStep,
+  LONG_TEST_MESSAGE,
   onContactRequestPage,
   previewAndSendStep,
   TEST_TRANSLATOR_IDS,
   verifyTranslatorsStep,
   writeMessageStep,
 } from 'tests/cypress/support/page-objects/contactRequestPage';
+import { onDialog } from 'tests/cypress/support/page-objects/dialog';
+import { onPublicHomePage } from 'tests/cypress/support/page-objects/publicHomePage';
 import { onPublicTranslatorFilters } from 'tests/cypress/support/page-objects/publicTranslatorFilters';
 import { onPublicTranslatorsListing } from 'tests/cypress/support/page-objects/publicTranslatorsListing';
 import { runWithIntercept } from 'tests/cypress/support/utils/api';
-import { onPublicHomePage } from 'tests/cypress/support/page-objects/publicHomePage';
-import { onDialog } from 'tests/cypress/support/page-objects/dialog';
 
 const selectTranslatorRows = () => {
   TEST_TRANSLATOR_IDS.forEach((id) =>

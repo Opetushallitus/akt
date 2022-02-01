@@ -1,15 +1,15 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
 import { PublicUIViews } from 'enums/app';
-import {
-  NOTIFIER_ACTION_CONTACT_REQUEST_RESET,
-  NOTIFIER_ACTION_CONTACT_REQUEST_EMPTY,
-} from 'redux/actionTypes/notifier';
+import { setPublicUIView } from 'redux/actions/publicUIView';
 import {
   CONTACT_REQUEST_RESET,
   CONTACT_REQUEST_RESET_REDIRECT,
 } from 'redux/actionTypes/contactRequest';
-import { setPublicUIView } from 'redux/actions/publicUIView';
+import {
+  NOTIFIER_ACTION_CONTACT_REQUEST_EMPTY,
+  NOTIFIER_ACTION_CONTACT_REQUEST_RESET,
+} from 'redux/actionTypes/notifier';
 import { PUBLIC_TRANSLATOR_EMPTY_SELECTIONS } from 'redux/actionTypes/publicTranslator';
 
 export function* resetContactRequest() {

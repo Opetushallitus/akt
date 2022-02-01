@@ -1,14 +1,14 @@
 import { FC } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Footer from 'components/layouts/Footer';
 import Header from 'components/layouts/Header';
 import { Notifier } from 'components/notification/Notifier';
-import { PublicHomePage } from 'pages/PublicHomePage';
-import { NotFoundPage } from 'pages/NotFoundPage';
+import { AppRoutes } from 'enums/app';
 import { ClerkHomePage } from 'pages/ClerkHomePage';
 import { ClerkSendEmailPage } from 'pages/ClerkSendEmailPage';
-import { AppRoutes } from 'enums/app';
+import { NotFoundPage } from 'pages/NotFoundPage';
+import { PublicHomePage } from 'pages/PublicHomePage';
 
 export const AppRouter: FC = () => (
   <BrowserRouter>

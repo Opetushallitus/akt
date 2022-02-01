@@ -1,27 +1,27 @@
-import { useEffect, useState } from 'react';
-import { Button, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { Button, InputAdornment } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 import { ComboBox, valueAsOption } from 'components/elements/ComboBox';
 import {
   LanguageSelect,
   languageToComboBoxOption,
 } from 'components/elements/LanguageSelect';
-import { TextBox } from 'components/elements/TextBox';
 import { H3 } from 'components/elements/Text';
+import { TextBox } from 'components/elements/TextBox';
 import {
   useAppTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { Variant, Color } from 'enums/app';
+import { Color, Variant } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { useDebouncedValue } from 'hooks/useDebouncedValue';
 import { ClerkTranslatorFilter } from 'interfaces/clerkTranslator';
 import { AutocompleteValue } from 'interfaces/combobox';
 import {
-  setClerkTranslatorFilters,
   resetClerkTranslatorFilters,
+  setClerkTranslatorFilters,
 } from 'redux/actions/clerkTranslator';
 import {
   clerkTranslatorsSelector,

@@ -1,13 +1,13 @@
+import { AppBar, IconButton, Toolbar } from '@mui/material';
 import { FC } from 'react';
-import { AppBar, Toolbar, IconButton } from '@mui/material';
 
 import { Svg } from 'components/elements/Svg';
 import { LangSelector } from 'components/i18n/LangSelector';
 import { ClerkNavTabs } from 'components/layouts//clerkHeader/ClerkNavTabs';
 import { ClerkHeaderButtons } from 'components/layouts/clerkHeader/ClerkHeaderButtons';
-import Logo from 'public/assets/svg/logo.svg';
 import { useAppTranslation } from 'configs/i18n';
 import { useAuthentication } from 'hooks/useAuthentication';
+import Logo from 'public/assets/svg/logo.svg';
 
 const Header: FC = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.component.header' });

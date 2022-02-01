@@ -5,8 +5,8 @@ import { translateOutsideComponent } from 'configs/i18n';
 import { APIEndpoints } from 'enums/api';
 import { Severity } from 'enums/app';
 import {
-  CLERK_TRANSLATOR_EMAIL_ERROR,
   CLERK_TRANSLATOR_EMAIL_CANCEL,
+  CLERK_TRANSLATOR_EMAIL_ERROR,
   CLERK_TRANSLATOR_EMAIL_SUCCESS,
 } from 'redux/actionTypes/clerkTranslatorEmail';
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';

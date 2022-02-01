@@ -1,19 +1,19 @@
-import { put, takeLatest } from 'redux-saga/effects';
 import { AxiosResponse } from 'axios';
+import { put, takeLatest } from 'redux-saga/effects';
 
 import axiosInstance from 'configs/axios';
 import { PublicTranslatorResponse } from 'interfaces/publicTranslator';
-import {
-  watchFetchPublicTranslators,
-  fetchPublicTranslators,
-  callFetchPublicTranslators,
-} from 'redux/sagas/publicTranslator';
 import {
   PUBLIC_TRANSLATOR_ERROR,
   PUBLIC_TRANSLATOR_LOAD,
   PUBLIC_TRANSLATOR_LOADING,
   PUBLIC_TRANSLATOR_RECEIVED,
 } from 'redux/actionTypes/publicTranslator';
+import {
+  callFetchPublicTranslators,
+  fetchPublicTranslators,
+  watchFetchPublicTranslators,
+} from 'redux/sagas/publicTranslator';
 import { DispatchAction, dispatchSaga } from 'tests/jest/__commons__/index';
 import {
   createResponse,

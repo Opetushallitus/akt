@@ -1,5 +1,5 @@
-import renderer from 'react-test-renderer';
 import { render, screen } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 
 import { LangSelector } from 'components/i18n/LangSelector';
 

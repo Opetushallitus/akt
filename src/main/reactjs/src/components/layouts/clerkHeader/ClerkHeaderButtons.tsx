@@ -1,8 +1,8 @@
-import { Button, IconButton } from '@mui/material';
 import {
   ArrowBackOutlined as BackIcon,
   LogoutOutlined as LogoutIcon,
 } from '@mui/icons-material';
+import { Button, IconButton } from '@mui/material';
 
 import { useAppTranslation } from 'configs/i18n';
 import { AppRoutes, Variant } from 'enums/app';

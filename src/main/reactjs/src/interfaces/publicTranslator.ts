@@ -2,7 +2,7 @@ import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
 import { SearchFilter } from 'enums/app';
-import { LanguagePairsDict, LanguagePair } from 'interfaces/language';
+import { LanguagePair, LanguagePairsDict } from 'interfaces/language';
 import { WithId } from 'interfaces/withId';
 
 export interface PublicTranslator extends WithId {

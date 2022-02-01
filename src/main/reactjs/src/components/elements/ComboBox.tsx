@@ -1,15 +1,15 @@
 import {
+  Autocomplete,
   FormControl,
   FormHelperText,
-  Autocomplete,
   TextField,
 } from '@mui/material';
 
 import {
+  AutoCompleteComboBox,
+  AutocompleteValue,
   ComboBoxOption,
   ComboBoxProps,
-  AutocompleteValue,
-  AutoCompleteComboBox,
 } from 'interfaces/combobox';
 
 const compareOptionLabels = (a: ComboBoxOption, b: ComboBoxOption) => {

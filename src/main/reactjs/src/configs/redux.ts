@@ -1,5 +1,5 @@
-import { Action } from 'redux';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { Action } from 'redux';
 
 import configureStore from 'redux/store/index';
 

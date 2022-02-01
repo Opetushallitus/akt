@@ -1,5 +1,5 @@
+import { Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
-import { Tabs, Tab } from '@mui/material';
 
 import { useAppTranslation } from 'configs/i18n';
 import { Color } from 'enums/app';

@@ -1,31 +1,31 @@
 import {
-  TableCell,
+  Button,
   Checkbox,
+  TableCell,
   TableHead,
   TableRow,
-  Button,
 } from '@mui/material';
 import { Box } from '@mui/system';
 
+import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 import { H2, H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
-import { ProgressIndicator } from 'components/elements/ProgressIndicator';
-import { PublicTranslator } from 'interfaces/publicTranslator';
-import { APIResponseStatus } from 'enums/api';
-import { useAppDispatch, useAppSelector } from 'configs/redux';
 import {
   useAppTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { APIResponseStatus } from 'enums/api';
+import { PublicUIViews, SearchFilter, Severity } from 'enums/app';
+import { PublicTranslator } from 'interfaces/publicTranslator';
+import { showNotifierToast } from 'redux/actions/notifier';
 import {
   addPublicTranslatorFilterError,
   addSelectedTranslator,
   removeSelectedTranslator,
 } from 'redux/actions/publicTranslator';
-import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
-import { PublicUIViews, Severity, SearchFilter } from 'enums/app';
 import { setPublicUIView } from 'redux/actions/publicUIView';
-import { showNotifierToast } from 'redux/actions/notifier';
+import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { Utils } from 'utils/index';
 
 const getRowDetails = (

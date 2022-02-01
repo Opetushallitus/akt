@@ -1,16 +1,19 @@
-import { useState, SetStateAction, Dispatch, KeyboardEvent } from 'react';
-import { TextField, InputAdornment, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { Button, InputAdornment, TextField } from '@mui/material';
+import { Dispatch, KeyboardEvent, SetStateAction, useState } from 'react';
 
-import { H3, Caption } from 'components/elements/Text';
 import {
   ComboBox,
   sortOptionsByLabels,
   valueAsOption,
 } from 'components/elements/ComboBox';
-import { AutocompleteValue } from 'interfaces/combobox';
+import { LanguageSelect } from 'components/elements/LanguageSelect';
+import { Caption, H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
-import { useAppSelector, useAppDispatch } from 'configs/redux';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { Color, KeyboardKey, SearchFilter, Severity, Variant } from 'enums/app';
+import { AutocompleteValue } from 'interfaces/combobox';
+import { showNotifierToast } from 'redux/actions/notifier';
 import {
   addPublicTranslatorFilter,
   addPublicTranslatorFilterError,
@@ -20,9 +23,6 @@ import {
 } from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { Utils } from 'utils/index';
-import { SearchFilter, KeyboardKey, Severity, Color, Variant } from 'enums/app';
-import { showNotifierToast } from 'redux/actions/notifier';
-import { LanguageSelect } from 'components/elements/LanguageSelect';
 
 interface PublicTranslatorFilterValues {
   fromLang: AutocompleteValue;

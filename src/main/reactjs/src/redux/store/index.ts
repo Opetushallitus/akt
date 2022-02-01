@@ -1,15 +1,15 @@
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { applyMiddleware, createStore, combineReducers } from 'redux';
 import createSagaMiddleware from '@redux-saga/core';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import rootSaga from 'redux/sagas/index';
 import { clerkTranslatorReducer } from 'redux/reducers/clerkTranslator';
-import { publicTranslatorReducer } from 'redux/reducers/publicTranslator';
-import { contactRequestReducer } from 'redux/reducers/contactRequest';
-import { publicUIViewReducer } from 'redux/reducers/publicUIView';
-import { notifierReducer } from 'redux/reducers/notifier';
 import { clerkTranslatorEmailReducer } from 'redux/reducers/clerkTranslatorEmail';
 import { clerkUserReducer } from 'redux/reducers/clerkUser';
+import { contactRequestReducer } from 'redux/reducers/contactRequest';
+import { notifierReducer } from 'redux/reducers/notifier';
+import { publicTranslatorReducer } from 'redux/reducers/publicTranslator';
+import { publicUIViewReducer } from 'redux/reducers/publicUIView';
+import rootSaga from 'redux/sagas/index';
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewareEnhancer = applyMiddleware(sagaMiddleware);

@@ -1,6 +1,6 @@
-import { FC } from 'react';
-import { SelectChangeEvent } from '@mui/material';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
+import { SelectChangeEvent } from '@mui/material';
+import { FC } from 'react';
 
 import { Dropdown } from 'components/elements/Dropdown';
 import {

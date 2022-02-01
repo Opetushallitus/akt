@@ -10,9 +10,9 @@ import {
   ClerkTranslatorResponse,
 } from 'interfaces/clerkTranslator';
 import {
+  CLERK_TRANSLATOR_ERROR,
   CLERK_TRANSLATOR_LOAD,
   CLERK_TRANSLATOR_LOADING,
-  CLERK_TRANSLATOR_ERROR,
   CLERK_TRANSLATOR_RECEIVED,
 } from 'redux/actionTypes/clerkTranslators';
 import { APIUtils } from 'utils/api';

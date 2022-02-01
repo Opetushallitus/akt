@@ -1,15 +1,15 @@
+import {
+  ChosenTranslatorsHeading,
+  DisplayContactInfo,
+  RenderChosenTranslators,
+  StepHeading,
+  stepsByIndex,
+} from 'components/contactRequest/ContactRequestFormUtils';
 import { H3 } from 'components/elements/Text';
+import { TextBox } from 'components/elements/TextBox';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
-import { TextBox } from 'components/elements/TextBox';
-import {
-  StepHeading,
-  stepsByIndex,
-  ChosenTranslatorsHeading,
-  RenderChosenTranslators,
-  DisplayContactInfo,
-} from 'components/contactRequest/ContactRequestFormUtils';
 
 export const PreviewAndSend = () => {
   const { t } = useAppTranslation({
