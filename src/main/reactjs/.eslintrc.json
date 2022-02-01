@@ -40,7 +40,8 @@
       "error",
       {
         "groups": [["builtin", "external"]],
-        "newlines-between": "always"
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": true }
       }
     ],
     "@typescript-eslint/no-unused-vars": [
