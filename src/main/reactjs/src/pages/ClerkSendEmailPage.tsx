@@ -3,28 +3,28 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { H1, H2, Text } from 'components/elements/Text';
+import { TextBox } from 'components/elements/TextBox';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import {
-  selectFilteredSelectedIds,
-  selectFilteredSelectedTranslators,
-} from 'redux/selectors/clerkTranslator';
-import { TextBox } from 'components/elements/TextBox';
-import { Severity, TextBoxTypes, Variant, AppRoutes, Color } from 'enums/app';
 import { APIResponseStatus } from 'enums/api';
-import { Utils } from 'utils/index';
-import { selectClerkTranslatorEmail } from 'redux/selectors/clerkTranslatorEmail';
+import { AppRoutes, Color, Severity, TextBoxTypes, Variant } from 'enums/app';
 import {
   resetClerkTranslatorEmail,
   setClerkTranslatorEmail,
   setClerkTranslatorEmailRecipients,
 } from 'redux/actions/clerkTranslatorEmail';
+import { showNotifierDialog } from 'redux/actions/notifier';
 import {
   NOTIFIER_ACTION_CLERK_TRANSLATOR_EMAIL_RESET,
   NOTIFIER_ACTION_CLERK_TRANSLATOR_EMAIL_SEND,
   NOTIFIER_ACTION_DO_NOTHING,
 } from 'redux/actionTypes/notifier';
-import { showNotifierDialog } from 'redux/actions/notifier';
+import {
+  selectFilteredSelectedIds,
+  selectFilteredSelectedTranslators,
+} from 'redux/selectors/clerkTranslator';
+import { selectClerkTranslatorEmail } from 'redux/selectors/clerkTranslatorEmail';
+import { Utils } from 'utils/index';
 
 const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
   // i18n

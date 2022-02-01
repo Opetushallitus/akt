@@ -1,6 +1,6 @@
-import { Utils } from 'utils';
-import { Variant, Severity } from 'enums/app';
+import { Severity, Variant } from 'enums/app';
 import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
+import { Utils } from 'utils';
 
 export const toastsArray = [
   Utils.createNotifierToast(Severity.Error, 'Test Message 1'),

@@ -2,8 +2,8 @@ import { createSelector } from 'reselect';
 
 import { RootState } from 'configs/redux';
 import {
-  PublicTranslatorFilter,
   PublicTranslator,
+  PublicTranslatorFilter,
 } from 'interfaces/publicTranslator';
 import { Utils } from 'utils';
 

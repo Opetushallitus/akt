@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
 import { Alert, Snackbar } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { notificationSelector } from 'redux/selectors/notifier';
-import { removeNotifierToast } from 'redux/actions/notifier';
 import { Notifier } from 'interfaces/notifier';
+import { removeNotifierToast } from 'redux/actions/notifier';
+import { notificationSelector } from 'redux/selectors/notifier';
 
 export const Toast = () => {
   // Redux

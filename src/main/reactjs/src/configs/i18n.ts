@@ -1,18 +1,18 @@
-import i18n, { changeLanguage, use, t } from 'i18next';
+import i18n, { changeLanguage, t, use } from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 import {
   initReactI18next,
   useTranslation,
   UseTranslationOptions,
 } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
 
-import transFI from 'public/i18n/fi-FI.json';
-import transSV from 'public/i18n/sv-SE.json';
+import { I18nNamespace } from 'enums/app';
 import transEN from 'public/i18n/en-GB.json';
+import transFI from 'public/i18n/fi-FI.json';
+import koodistoLangsEN from 'public/i18n/koodisto/langs/koodisto_langs_en-GB.json';
 import koodistoLangsFI from 'public/i18n/koodisto/langs/koodisto_langs_fi-FI.json';
 import koodistoLangsSV from 'public/i18n/koodisto/langs/koodisto_langs_sv-SE.json';
-import koodistoLangsEN from 'public/i18n/koodisto/langs/koodisto_langs_en-GB.json';
-import { I18nNamespace } from 'enums/app';
+import transSV from 'public/i18n/sv-SE.json';
 
 // Defaults and resources
 const langFI = 'fi-FI';

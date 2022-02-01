@@ -1,5 +1,7 @@
 import { Reducer } from 'redux';
 
+import { APIResponseStatus } from 'enums/api';
+import { ContactRequestFormStep } from 'enums/contactRequest';
 import {
   ContactRequestAction,
   ContactRequestState,
@@ -9,12 +11,10 @@ import {
   CONTACT_REQUEST_RESET,
   CONTACT_REQUEST_SEND,
   CONTACT_REQUEST_SET,
-  CONTACT_REQUEST_SUCCESS,
   CONTACT_REQUEST_STEP_DECREASE,
   CONTACT_REQUEST_STEP_INCREASE,
+  CONTACT_REQUEST_SUCCESS,
 } from 'redux/actionTypes/contactRequest';
-import { APIResponseStatus } from 'enums/api';
-import { ContactRequestFormStep } from 'enums/contactRequest';
 
 const defaultState = {
   status: APIResponseStatus.NotStarted,

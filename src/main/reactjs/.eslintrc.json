@@ -40,7 +40,8 @@
       "error",
       {
         "groups": [["builtin", "external"]],
-        "newlines-between": "always"
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": true }
       }
     ],
     "@typescript-eslint/no-unused-vars": [
@@ -57,6 +58,10 @@
     "padding-line-between-statements": [
       "error",
       { "blankLine": "always", "prev": "*", "next": "return" }
+    ],
+    "sort-imports": [
+      "error",
+      { "ignoreCase": true, "ignoreDeclarationSort": true }
     ]
   }
 }

@@ -1,22 +1,22 @@
-import { Grid, Paper, Box } from '@mui/material';
+import { Box, Grid, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import { H1, Text } from 'components/elements/Text';
-import { useAppTranslation } from 'configs/i18n';
-import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { setContactRequest } from 'redux/actions/contactRequest';
-import { APIResponseStatus } from 'enums/api';
-import { ProgressIndicator } from 'components/elements/ProgressIndicator';
-import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
-import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import {
   ContactRequestStepper,
   StepContents,
 } from 'components/contactRequest/ContactRequestFormUtils';
 import { ControlButtons } from 'components/contactRequest/ControlButtons';
-import { ContactRequestFormStep } from 'enums/contactRequest';
-import { Color } from 'enums/app';
 import { HeaderSeparator } from 'components/elements/HeaderSeparator';
+import { ProgressIndicator } from 'components/elements/ProgressIndicator';
+import { H1, Text } from 'components/elements/Text';
+import { useAppTranslation } from 'configs/i18n';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { APIResponseStatus } from 'enums/api';
+import { Color } from 'enums/app';
+import { ContactRequestFormStep } from 'enums/contactRequest';
+import { setContactRequest } from 'redux/actions/contactRequest';
+import { contactRequestSelector } from 'redux/selectors/contactRequest';
+import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 
 export const ContactRequestPage = () => {
   // I18

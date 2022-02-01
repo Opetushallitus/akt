@@ -1,11 +1,11 @@
 import { ContactRequest } from 'interfaces/contactRequest';
 import {
   CONTACT_REQUEST_RESET,
+  CONTACT_REQUEST_RESET_REDIRECT,
   CONTACT_REQUEST_SEND,
   CONTACT_REQUEST_SET,
-  CONTACT_REQUEST_STEP_INCREASE,
   CONTACT_REQUEST_STEP_DECREASE,
-  CONTACT_REQUEST_RESET_REDIRECT,
+  CONTACT_REQUEST_STEP_INCREASE,
 } from 'redux/actionTypes/contactRequest';
 
 export const setContactRequest = (request: Partial<ContactRequest>) => ({

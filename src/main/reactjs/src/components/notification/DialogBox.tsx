@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   Button,
   Dialog,
@@ -6,15 +5,16 @@ import {
   DialogContent,
   DialogTitle,
 } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 import { Text } from 'components/elements/Text';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { notificationSelector } from 'redux/selectors/notifier';
+import { Dialog as DialogType } from 'interfaces/notifier';
 import {
   executeNotifierAction,
   removeNotifierDialog,
 } from 'redux/actions/notifier';
-import { Dialog as DialogType } from 'interfaces/notifier';
+import { notificationSelector } from 'redux/selectors/notifier';
 
 export const DialogBox = () => {
   // Redux

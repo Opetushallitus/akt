@@ -8,6 +8,8 @@ import {
   ClerkTranslatorFilter,
   ClerkTranslatorState,
 } from 'interfaces/clerkTranslator';
+import { LanguagePairsDict } from 'interfaces/language';
+import { MeetingDate } from 'interfaces/meetingDate';
 import {
   CLERK_TRANSLATOR_ADD_FILTER,
   CLERK_TRANSLATOR_DESELECT,
@@ -19,8 +21,6 @@ import {
   CLERK_TRANSLATOR_SELECT,
   CLERK_TRANSLATOR_SELECT_ALL_FILTERED,
 } from 'redux/actionTypes/clerkTranslators';
-import { LanguagePairsDict } from 'interfaces/language';
-import { MeetingDate } from 'interfaces/meetingDate';
 
 const defaultState = {
   status: APIResponseStatus.NotStarted,

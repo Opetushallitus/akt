@@ -1,8 +1,6 @@
 import { APIEndpoints } from 'enums/api';
 import { AppRoutes } from 'enums/app';
 import { onClerkHomePage } from 'tests/cypress/support/page-objects/clerkHomePage';
-import { runWithIntercept } from 'tests/cypress/support/utils/api';
-import { useFixedDate } from 'tests/cypress/support/utils/date';
 import {
   onClerkSendEmailPage,
   TEST_MESSAGE,
@@ -10,6 +8,8 @@ import {
 } from 'tests/cypress/support/page-objects/clerkSendEmailPage';
 import { onDialog } from 'tests/cypress/support/page-objects/dialog';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
+import { runWithIntercept } from 'tests/cypress/support/utils/api';
+import { useFixedDate } from 'tests/cypress/support/utils/date';
 
 const fixedDateForTests = new Date('2022-01-17T12:35:00+0200');
 

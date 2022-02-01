@@ -1,9 +1,9 @@
 import { Reducer } from 'redux';
 
 import {
-  NotifierState,
-  NotifierAction,
   Dialog,
+  NotifierAction,
+  NotifierState,
   Toast,
 } from 'interfaces/notifier';
 import {

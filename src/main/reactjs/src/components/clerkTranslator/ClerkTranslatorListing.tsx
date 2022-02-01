@@ -1,9 +1,9 @@
-import { TableRow, TableCell, Checkbox, TableHead } from '@mui/material';
+import { Checkbox, TableCell, TableHead, TableRow } from '@mui/material';
 import { Box } from '@mui/system';
 import { FC } from 'react';
 
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
-import { Text, H3 } from 'components/elements/Text';
+import { H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
 import {
   useAppTranslation,

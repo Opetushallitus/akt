@@ -1,23 +1,23 @@
 import { Step, StepLabel, Stepper } from '@mui/material';
 
-import { H1, H2, H3, Text } from 'components/elements/Text';
-import { VerifySelectedTranslators } from 'components/contactRequest/steps/VerifySelectedTranslators';
-import { FillContactDetails } from 'components/contactRequest/steps/FillContactDetails';
-import { WriteMessage } from 'components/contactRequest/steps/WriteMessage';
-import { PreviewAndSend } from 'components/contactRequest/steps/PreviewAndSend';
 import { Done } from 'components/contactRequest/steps/Done';
+import { FillContactDetails } from 'components/contactRequest/steps/FillContactDetails';
+import { PreviewAndSend } from 'components/contactRequest/steps/PreviewAndSend';
+import { VerifySelectedTranslators } from 'components/contactRequest/steps/VerifySelectedTranslators';
+import { WriteMessage } from 'components/contactRequest/steps/WriteMessage';
+import { H1, H2, H3, Text } from 'components/elements/Text';
 import { TextBox } from 'components/elements/TextBox';
 import {
   useAppTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
+import { ContactRequestFormStep } from 'enums/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import {
   publicTranslatorsSelector,
   selectedPublicTranslatorsForLanguagePair,
 } from 'redux/selectors/publicTranslator';
-import { ContactRequestFormStep } from 'enums/contactRequest';
 
 export const stepsByIndex = {
   0: 'verifySelectedTranslators',

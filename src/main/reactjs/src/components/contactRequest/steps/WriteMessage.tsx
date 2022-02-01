@@ -1,20 +1,20 @@
-import { useEffect, ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
-import { H3 } from 'components/elements/Text';
-import { useAppTranslation } from 'configs/i18n';
-import { useAppSelector, useAppDispatch } from 'configs/redux';
-import { TextBoxTypes } from 'enums/app';
-import { TextBox } from 'components/elements/TextBox';
 import {
+  ChosenTranslatorsHeading,
+  DisplayContactInfo,
+  RenderChosenTranslators,
   StepHeading,
   stepsByIndex,
-  ChosenTranslatorsHeading,
-  RenderChosenTranslators,
-  DisplayContactInfo,
 } from 'components/contactRequest/ContactRequestFormUtils';
-import { Utils } from 'utils';
+import { H3 } from 'components/elements/Text';
+import { TextBox } from 'components/elements/TextBox';
+import { useAppTranslation } from 'configs/i18n';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { TextBoxTypes } from 'enums/app';
 import { setContactRequest } from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
+import { Utils } from 'utils';
 
 export const WriteMessage = ({
   disableNext,

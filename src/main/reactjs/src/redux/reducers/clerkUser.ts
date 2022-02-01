@@ -1,12 +1,12 @@
 import { Reducer } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
+import { ClerkUserAction, ClerkUserState } from 'interfaces/clerkUser';
 import {
   CLERK_USER_ERROR,
   CLERK_USER_LOAD,
   CLERK_USER_RECEIVED,
 } from 'redux/actionTypes/clerkUser';
-import { ClerkUserAction, ClerkUserState } from 'interfaces/clerkUser';
 
 const defaultState = {
   status: APIResponseStatus.NotStarted,

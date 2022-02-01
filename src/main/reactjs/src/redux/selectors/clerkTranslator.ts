@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect';
 
 import { RootState } from 'configs/redux';
+import { AuthorisationStatus } from 'enums/clerkTranslator';
+import { Authorisation } from 'interfaces/authorisation';
 import {
   ClerkTranslator,
   ClerkTranslatorFilter,
 } from 'interfaces/clerkTranslator';
-import { Authorisation } from 'interfaces/authorisation';
-import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { DateUtils } from 'utils/date';
 
 export const clerkTranslatorsSelector = (state: RootState) =>

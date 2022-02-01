@@ -6,9 +6,9 @@ import {
 } from '@mui/material';
 import { ChangeEvent, Fragment, useEffect, useState } from 'react';
 
-import { PaginatedTableProps } from 'interfaces/table';
-import { useAppDispatch } from 'configs/redux';
 import { useAppTranslation } from 'configs/i18n';
+import { useAppDispatch } from 'configs/redux';
+import { PaginatedTableProps } from 'interfaces/table';
 import { WithId } from 'interfaces/withId';
 
 const PaginationDisplayedRowsLabel = ({

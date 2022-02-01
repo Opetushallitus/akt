@@ -1,9 +1,9 @@
-import { FC } from 'react';
 import { Button } from '@mui/material';
+import { FC } from 'react';
 
 import { H1, Text } from 'components/elements/Text';
-import { AppRoutes } from 'enums/app';
 import { useAppTranslation } from 'configs/i18n';
+import { AppRoutes } from 'enums/app';
 
 export const NotFoundPage: FC = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.pages.notFoundPage' });

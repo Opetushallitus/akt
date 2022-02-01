@@ -1,9 +1,9 @@
-import { sortOptionsByLabels, ComboBox } from 'components/elements/ComboBox';
+import { ComboBox, sortOptionsByLabels } from 'components/elements/ComboBox';
 import { useKoodistoLanguagesTranslation } from 'configs/i18n';
 import {
-  ComboBoxProps,
-  ComboBoxOption,
   AutoCompleteComboBox,
+  ComboBoxOption,
+  ComboBoxProps,
 } from 'interfaces/combobox';
 import { LanguageSelectProps } from 'interfaces/languageSelect';
 

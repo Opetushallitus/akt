@@ -1,15 +1,15 @@
-import { useEffect } from 'react';
 import { Button } from '@mui/material';
+import { useEffect } from 'react';
 
-import { H2, Text } from 'components/elements/Text';
 import {
   StepHeading,
   stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
+import { H2, Text } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch } from 'configs/redux';
-import { resetContactRequestAndRedirect } from 'redux/actions/contactRequest';
 import { Duration } from 'enums/app';
+import { resetContactRequestAndRedirect } from 'redux/actions/contactRequest';
 
 export const Done = () => {
   // I18n

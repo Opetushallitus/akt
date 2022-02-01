@@ -1,23 +1,23 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
 import { Action } from 'redux';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import axiosInstance from 'configs/axios';
+import { translateOutsideComponent } from 'configs/i18n';
 import { APIEndpoints } from 'enums/api';
+import { Severity, Variant } from 'enums/app';
 import {
   CONTACT_REQUEST_ERROR,
   CONTACT_REQUEST_SEND,
-  CONTACT_REQUEST_SUCCESS,
   CONTACT_REQUEST_STEP_INCREASE,
+  CONTACT_REQUEST_SUCCESS,
   isContactRequestSendAction,
 } from 'redux/actionTypes/contactRequest';
-import { Utils } from 'utils';
-import { Severity, Variant } from 'enums/app';
 import {
   NOTIFIER_ACTION_DO_NOTHING,
   NOTIFIER_DIALOG_ADD,
 } from 'redux/actionTypes/notifier';
-import { translateOutsideComponent } from 'configs/i18n';
 import { PUBLIC_TRANSLATOR_EMPTY_SELECTIONS } from 'redux/actionTypes/publicTranslator';
+import { Utils } from 'utils';
 
 export function* sendContactRequest(action: Action) {
   if (isContactRequestSendAction(action)) {

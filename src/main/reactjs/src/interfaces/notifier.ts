@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 
-import { Severity, NotifierTypes, Variant } from 'enums/app';
+import { NotifierTypes, Severity, Variant } from 'enums/app';
 
 export interface NotifierButtonAction {
   title: string;

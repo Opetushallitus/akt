@@ -1,5 +1,5 @@
+import { Button, ButtonProps, Link } from '@mui/material';
 import { FC } from 'react';
-import { Button, Link, ButtonProps } from '@mui/material';
 
 import { ExtLinkProps } from 'interfaces/extLink';
 

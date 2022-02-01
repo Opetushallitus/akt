@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { loadClerkUser } from 'redux/actions/clerkUser';
-import { clerkUserSelector } from 'redux/selectors/clerkUser';
 import { APIResponseStatus } from 'enums/api';
 import { AppRoutes } from 'enums/app';
+import { loadClerkUser } from 'redux/actions/clerkUser';
+import { clerkUserSelector } from 'redux/selectors/clerkUser';
 
 export const useAuthentication = () => {
   // Redux
