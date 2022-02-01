@@ -7,11 +7,11 @@ import {
   StepHeading,
   stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
+import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
-import { TextBox } from 'components/elements/TextBox';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { TextBoxTypes } from 'enums/app';
+import { CustomTextFieldTypes } from 'enums/app';
 import { setContactRequest } from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import { Utils } from 'utils';
@@ -53,8 +53,8 @@ export const WriteMessage = ({
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { type, value, required } = event.target;
-    const error = Utils.inspectTextBoxErrors(
-      type as TextBoxTypes,
+    const error = Utils.inspectCustomTextFieldErrors(
+      type as CustomTextFieldTypes,
       value,
       required
     );
@@ -81,13 +81,13 @@ export const WriteMessage = ({
         <DisplayContactInfo />
         <div className="rows gapped">
           <H3>{t(`component.contactRequestForm.steps.${stepsByIndex[2]}`)}</H3>
-          <TextBox
+          <CustomTextField
             id="contact-request-page__message-field"
             label={t(
               'component.contactRequestForm.formLabels.writeMessageHere'
             )}
             value={request?.message}
-            type={TextBoxTypes.Textarea}
+            type={CustomTextFieldTypes.Textarea}
             onBlur={handleMessageFieldErrors}
             onChange={handleMessageFieldChange}
             showHelperText

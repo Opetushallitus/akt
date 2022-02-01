@@ -235,7 +235,7 @@
     },
     "errors": {
       "loadingFailed": "Tietojen lataus epäonnistui, yritä myöhemmin uudelleen.",
-      "textBox": {
+      "customTextField": {
         "required": "Tieto on pakollinen",
         "maxLength": "Tekstin pituus ei saa ylittää 1000 merkkiä",
         "emailFormat": "Sähköpostiosoite on virheellinen",

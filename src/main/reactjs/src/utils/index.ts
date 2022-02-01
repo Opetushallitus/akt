@@ -1,11 +1,11 @@
 import { TFunction } from 'i18next';
 
 import {
+  CustomTextFieldErrors,
+  CustomTextFieldTypes,
   Duration,
   NotifierTypes,
   Severity,
-  TextBoxErrors,
-  TextBoxTypes,
 } from 'enums/app';
 import { Dialog, NotifierButtonAction, Toast } from 'interfaces/notifier';
 
@@ -68,8 +68,8 @@ export class Utils {
     return notifier;
   }
 
-  static inspectTextBoxErrors(
-    type: TextBoxTypes,
+  static inspectCustomTextFieldErrors(
+    type: CustomTextFieldTypes,
     value: string,
     required = true
   ) {
@@ -78,23 +78,23 @@ export class Utils {
     const TEL_REG_EXR = /\d{7,14}$/;
 
     if (required && value.length <= 0) {
-      return TextBoxErrors.Required;
+      return CustomTextFieldErrors.Required;
     }
 
     switch (type) {
-      case TextBoxTypes.Textarea:
+      case CustomTextFieldTypes.Textarea:
         if (value.length > MAX_TEXT_LENGTH) {
-          return TextBoxErrors.MaxLength;
+          return CustomTextFieldErrors.MaxLength;
         }
         break;
-      case TextBoxTypes.Email:
+      case CustomTextFieldTypes.Email:
         if (!value.match(EMAIL_REG_EXR)) {
-          return TextBoxErrors.EmailFormat;
+          return CustomTextFieldErrors.EmailFormat;
         }
         break;
-      case TextBoxTypes.PhoneNumber:
+      case CustomTextFieldTypes.PhoneNumber:
         if (value.length > 0 && !value.match(TEL_REG_EXR)) {
-          return TextBoxErrors.TelFormat;
+          return CustomTextFieldErrors.TelFormat;
         }
         break;
       default:

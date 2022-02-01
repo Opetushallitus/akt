@@ -5,8 +5,8 @@ import { FillContactDetails } from 'components/contactRequest/steps/FillContactD
 import { PreviewAndSend } from 'components/contactRequest/steps/PreviewAndSend';
 import { VerifySelectedTranslators } from 'components/contactRequest/steps/VerifySelectedTranslators';
 import { WriteMessage } from 'components/contactRequest/steps/WriteMessage';
+import { CustomTextField } from 'components/elements/CustomTextField';
 import { H1, H2, H3, Text } from 'components/elements/Text';
-import { TextBox } from 'components/elements/TextBox';
 import {
   useAppTranslation,
   useKoodistoLanguagesTranslation,
@@ -68,13 +68,21 @@ export const DisplayContactInfo = () => {
     <div className="rows gapped">
       <H2>{t('contactInfo')}</H2>
       <div className="grid-columns gapped">
-        <TextBox disabled value={request?.firstName} label={t('firstName')} />
-        <TextBox disabled value={request?.lastName} label={t('lastName')} />
+        <CustomTextField
+          disabled
+          value={request?.firstName}
+          label={t('firstName')}
+        />
+        <CustomTextField
+          disabled
+          value={request?.lastName}
+          label={t('lastName')}
+        />
       </div>
       <div className="grid-columns gapped">
-        <TextBox disabled value={request?.email} label={t('email')} />
+        <CustomTextField disabled value={request?.email} label={t('email')} />
         {request?.phoneNumber && (
-          <TextBox
+          <CustomTextField
             disabled
             value={request?.phoneNumber}
             label={t('phoneNumber')}

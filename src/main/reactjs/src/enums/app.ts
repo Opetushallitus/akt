@@ -33,18 +33,18 @@ export enum PublicUIViews {
   ContactRequest = 'ContactRequest',
 }
 
-export enum TextBoxTypes {
+export enum CustomTextFieldTypes {
   Text = 'text',
   Email = 'email',
   PhoneNumber = 'tel',
   Textarea = 'textarea',
 }
 
-export enum TextBoxErrors {
-  Required = 'errors.textBox.required',
-  MaxLength = 'errors.textBox.maxLength',
-  EmailFormat = 'errors.textBox.emailFormat',
-  TelFormat = 'errors.textBox.telFormat',
+export enum CustomTextFieldErrors {
+  Required = 'errors.customTextField.required',
+  MaxLength = 'errors.customTextField.maxLength',
+  EmailFormat = 'errors.customTextField.emailFormat',
+  TelFormat = 'errors.customTextField.telFormat',
 }
 
 export enum NotifierTypes {
