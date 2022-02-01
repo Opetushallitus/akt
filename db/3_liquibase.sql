@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 11.2 (Debian 11.2-1.pgdg90+1)
+-- Dumped from database version 12.9 (Debian 12.9-1.pgdg110+1)
 -- Dumped by pg_dump version 14.0
 
 SET statement_timeout = 0;
@@ -17,6 +17,8 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 SET default_tablespace = '';
+
+SET default_table_access_method = heap;
 
 --
 -- Name: databasechangelog; Type: TABLE; Schema: public; Owner: postgres
@@ -83,6 +85,8 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 2022-01-20-add-column-authorisation_diary_number	mikhuttu	migrations.xml	2022-01-20 14:36:57.58396	20	EXECUTED	8:3e43e94da3d6257a9d6ab89a16c53183	addColumn tableName=authorisation		\N	4.3.5	\N	\N	2689417384
 2022-01-21-change_email_columns	mikhuttu	migrations.xml	2022-01-21 09:29:52.090978	21	EXECUTED	8:f5dbcf2cce10ccee99da3b4b1f60799f	dropColumn tableName=email; addColumn tableName=email; renameColumn newColumnName=recipient_address, oldColumnName=recipient, tableName=email		\N	4.3.5	\N	\N	2757391940
 2022-01-21-modify_translator_email	mikhuttu	migrations.xml	2022-01-21 09:29:52.156223	22	EXECUTED	8:4f224d2fe743d0f5bb6ccb68d77853aa	modifyDataType columnName=email, tableName=translator; addUniqueConstraint tableName=translator		\N	4.3.5	\N	\N	2757391940
+2022-02-01-new_contact_request_email_types	mikhuttu	migrations.xml	2022-02-01 08:51:57.257592	23	EXECUTED	8:3e31435286a431bdec520a7b01a537ab	insert tableName=email_type; insert tableName=email_type		\N	4.3.5	\N	\N	3705517103
+2022-02-01-rename_email_type_contact_request	mikhuttu	migrations.xml	2022-02-01 08:51:57.274921	24	EXECUTED	8:636e63499d0a369945bd90269688102d	insert tableName=email_type; update tableName=email; delete tableName=email_type		\N	4.3.5	\N	\N	3705517103
 \.
 
 

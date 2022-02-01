@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 11.2 (Debian 11.2-1.pgdg90+1)
+-- Dumped from database version 12.9 (Debian 12.9-1.pgdg110+1)
 -- Dumped by pg_dump version 14.0
 
 SET statement_timeout = 0;
@@ -17,6 +17,8 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 SET default_tablespace = '';
+
+SET default_table_access_method = heap;
 
 --
 -- Name: authorisation; Type: TABLE; Schema: public; Owner: postgres
