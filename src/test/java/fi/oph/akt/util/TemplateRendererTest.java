@@ -32,8 +32,6 @@ class TemplateRendererTest {
       )
     );
 
-    // just some sanity checks that rendered content actually contains anything
-    // meaningful
     assertNotNull(renderedContent);
     assertTrue(renderedContent.contains("<html "));
     assertTrue(renderedContent.contains("1"));
@@ -58,13 +56,11 @@ class TemplateRendererTest {
         "john.doe@unknown.invalid",
         "requesterPhone",
         "+358 400 888 777",
-        "message",
+        "messageLines",
         "This is the message."
       )
     );
 
-    // just some sanity checks that rendered content actually contains anything
-    // meaningful
     assertNotNull(renderedContent);
     assertTrue(renderedContent.contains("<html "));
     assertTrue(renderedContent.contains("Jack Smith"));
@@ -86,13 +82,11 @@ class TemplateRendererTest {
         "john.doe@unknown.invalid",
         "requesterPhone",
         "+358 400 888 777",
-        "message",
+        "messageLines",
         "This is the message."
       )
     );
 
-    // just some sanity checks that rendered content actually contains anything
-    // meaningful
     assertNotNull(renderedContent);
     assertTrue(renderedContent.contains("<html "));
     assertTrue(renderedContent.contains("John Doe"));

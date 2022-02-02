@@ -5,7 +5,7 @@
             Hei,
         </p>
         <p>
-            [[${requesterName}]] ([[${requesterEmail}]], [[${requesterPhone}]]) lähetti yhteydenottopyynnön seuraaville kääntäjille, joiden sähköpostiosoite ei ollut tiedossa:
+            [[${requesterName}]] (email: [[${requesterEmail}]], puh.: [[${requesterPhone}]]) lähetti yhteydenottopyynnön seuraaville kääntäjille, joiden sähköpostiosoite ei ollut tiedossa:
         </p>
         <ul th:each="translator : ${translators}">
             <li>Järjestelmän id: [[${translator.id}]], nimi: [[${translator.name}]], puh.: [[${translator.phone}]]</li>

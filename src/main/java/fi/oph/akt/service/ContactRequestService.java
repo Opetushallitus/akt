@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -107,15 +108,12 @@ public class ContactRequestService {
   }
 
   private void saveContactRequestEmails(final ContactRequestDTO contactRequestDTO, final List<Translator> translators) {
-    final List<Translator> translatorsWithEmail = translators
+    final Map<Boolean, List<Translator>> translatorsByExistingEmail = translators
       .stream()
-      .filter(t -> Objects.nonNull(t.getEmail()))
-      .toList();
+      .collect(Collectors.partitioningBy(t -> Objects.nonNull(t.getEmail())));
 
-    final List<Translator> translatorsWithoutEmail = translators
-      .stream()
-      .filter(t -> Objects.isNull(t.getEmail()))
-      .toList();
+    final List<Translator> translatorsWithEmail = translatorsByExistingEmail.get(true);
+    final List<Translator> translatorsWithoutEmail = translatorsByExistingEmail.get(false);
 
     sendTranslatorEmails(translatorsWithEmail, contactRequestDTO);
     sendRequesterEmail(translatorsWithEmail, translatorsWithoutEmail, contactRequestDTO);
@@ -133,8 +131,8 @@ public class ContactRequestService {
       getRequesterEmail(contactRequestDTO),
       "requesterPhone",
       getRequesterPhone(contactRequestDTO),
-      "message",
-      getMessage(contactRequestDTO)
+      "messageLines",
+      getMessageLines(contactRequestDTO)
     );
 
     final String subject = "Yhteydenotto kääntäjärekisteristä";
@@ -167,8 +165,8 @@ public class ContactRequestService {
       getRequesterEmail(contactRequestDTO),
       "requesterPhone",
       getRequesterPhone(contactRequestDTO),
-      "message",
-      getMessage(contactRequestDTO)
+      "messageLines",
+      getMessageLines(contactRequestDTO)
     );
 
     final String subject = "Lähettämäsi yhteydenottopyyntö";
@@ -189,6 +187,8 @@ public class ContactRequestService {
       })
       .toList();
 
+    final String requesterPhone = getRequesterPhone(contactRequestDTO);
+
     final Map<String, Object> templateParams = Map.of(
       "translators",
       translatorParams,
@@ -197,7 +197,7 @@ public class ContactRequestService {
       "requesterEmail",
       getRequesterEmail(contactRequestDTO),
       "requesterPhone",
-      getRequesterPhone(contactRequestDTO)
+      requesterPhone.isEmpty() ? "-" : requesterPhone
     );
 
     final String recipientName = "Auktoris - OPH";
@@ -220,7 +220,7 @@ public class ContactRequestService {
     return contactRequestDTO.phoneNumber() != null ? contactRequestDTO.phoneNumber().trim() : "";
   }
 
-  private String[] getMessage(final ContactRequestDTO contactRequestDTO) {
+  private String[] getMessageLines(final ContactRequestDTO contactRequestDTO) {
     return contactRequestDTO.message().trim().split("\r?\n");
   }
 
