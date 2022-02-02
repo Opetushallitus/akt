@@ -1,12 +1,12 @@
 @mixin phone-divider-border-top() {
-  border-radius: none;
+  border-radius: 0;
   border-top: 1px solid $color-grey-400;
   box-shadow: none;
 }
 
 @mixin phone-divider-border-bottom() {
   border-bottom: 1px solid $color-grey-400;
-  border-radius: none;
+  border-radius: 0;
   box-shadow: none;
 }
 

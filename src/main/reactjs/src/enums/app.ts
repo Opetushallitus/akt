@@ -103,3 +103,9 @@ export enum HTTPStatusCode {
   ServiceUnavailable = 503,
   GatewayTimeout = 504,
 }
+
+export enum ScreenSize {
+  Phone = 480,
+  Tablet = 800,
+  Desktop = 1024,
+}

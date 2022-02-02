@@ -1,32 +1,21 @@
-import {
-  Button,
-  Checkbox,
-  TableCell,
-  TableHead,
-  TableRow,
-} from '@mui/material';
 import { Box } from '@mui/system';
 
 import { ProgressIndicator } from 'components/elements/ProgressIndicator';
-import { H2, H3, Text } from 'components/elements/Text';
+import { H2, H3 } from 'components/elements/Text';
+import { ContactRequestButton } from 'components/publicTranslator/listing/ContactRequestButton';
+import { PublicTranslatorListingHeader } from 'components/publicTranslator/listing/PublicTranslatorListingHeader';
+import { PublicTranslatorListingRow } from 'components/publicTranslator/listing/PublicTranslatorListingRow';
 import { PaginatedTable } from 'components/tables/Table';
-import {
-  useAppTranslation,
-  useKoodistoLanguagesTranslation,
-} from 'configs/i18n';
-import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { useAppTranslation } from 'configs/i18n';
+import { useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
-import { PublicUIViews, SearchFilter, Severity } from 'enums/app';
+import { useWindowProperties } from 'hooks/useWindowProperties';
 import { PublicTranslator } from 'interfaces/publicTranslator';
-import { showNotifierToast } from 'redux/actions/notifier';
 import {
-  addPublicTranslatorFilterError,
   addSelectedTranslator,
   removeSelectedTranslator,
 } from 'redux/actions/publicTranslator';
-import { setPublicUIView } from 'redux/actions/publicUIView';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
-import { Utils } from 'utils/index';
 
 const getRowDetails = (
   translator: PublicTranslator,
@@ -34,152 +23,11 @@ const getRowDetails = (
   toggleSelected: () => void
 ) => {
   return (
-    <ListingRow
+    <PublicTranslatorListingRow
       translator={translator}
       selected={selected}
       toggleSelected={toggleSelected}
     />
-  );
-};
-
-const ListingRow = ({
-  translator,
-  selected,
-  toggleSelected,
-}: {
-  translator: PublicTranslator;
-  selected: boolean;
-  toggleSelected: () => void;
-}) => {
-  // I18n
-  const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.publicTranslatorFilters',
-  });
-
-  // Redux
-  const dispatch = useAppDispatch();
-  const { filters } = useAppSelector(publicTranslatorsSelector);
-  const { fromLang, toLang } = filters;
-  const { firstName, lastName, languagePairs, town, country } = translator;
-
-  const translateLanguage = useKoodistoLanguagesTranslation();
-
-  const handleRowClick = () => {
-    const langFields = [SearchFilter.FromLang, SearchFilter.ToLang];
-
-    // Dispatch an error if the langpairs are not defined
-    langFields.forEach((field) => {
-      if (!filters[field] && !filters.errors?.includes(field))
-        dispatch(addPublicTranslatorFilterError(field));
-    });
-
-    if (!fromLang || !toLang) {
-      const toast = Utils.createNotifierToast(
-        Severity.Error,
-        t('toasts.selectLanguagePair')
-      );
-      dispatch(showNotifierToast(toast));
-    } else {
-      toggleSelected();
-    }
-  };
-
-  const getTownDescription = (town?: string, country?: string) => {
-    if (town && country) {
-      return `${town}, ${country}`;
-    } else if (town) {
-      return town;
-    } else if (country) {
-      return country;
-    }
-
-    return '-';
-  };
-
-  return (
-    <TableRow
-      data-testid={`public-translators__id-${translator.id}-row`}
-      selected={selected}
-      onClick={handleRowClick}
-    >
-      <TableCell padding="checkbox">
-        <Checkbox
-          className="translator-listing__checkbox"
-          checked={selected}
-          color="secondary"
-        />
-      </TableCell>
-      <TableCell>
-        <Text>{`${lastName} ${firstName}`}</Text>
-      </TableCell>
-      <TableCell>
-        {languagePairs.map(({ from, to }, k) => (
-          <Text key={k}>
-            {translateLanguage(from)}
-            {` - `}
-            {translateLanguage(to)}
-          </Text>
-        ))}
-      </TableCell>
-      <TableCell>
-        <Text>{getTownDescription(town, country)}</Text>
-      </TableCell>
-    </TableRow>
-  );
-};
-
-const ListingHeader = () => {
-  const { t } = useAppTranslation({ keyPrefix: 'akt.pages.translator' });
-
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox"></TableCell>
-        <TableCell>
-          <H3>{t('name')}</H3>
-        </TableCell>
-        <TableCell>
-          <H3>{t('languagePairs')}</H3>
-        </TableCell>
-        <TableCell>
-          <H3>{t('town')}</H3>
-        </TableCell>
-      </TableRow>
-    </TableHead>
-  );
-};
-
-const ContactRequestButton = () => {
-  const { selectedTranslators } = useAppSelector(publicTranslatorsSelector);
-  const { t } = useAppTranslation({ keyPrefix: 'akt.pages.homepage' });
-  const dispatch = useAppDispatch();
-
-  return (
-    <Button
-      color="secondary"
-      variant="contained"
-      onClick={() => dispatch(setPublicUIView(PublicUIViews.ContactRequest))}
-      disabled={selectedTranslators.length == 0}
-      data-testid="public-translators__contact-request-btn"
-    >
-      {t('requestContact')}
-    </Button>
-  );
-};
-
-const SelectedTranslatorsHeading = () => {
-  const { selectedTranslators: selectedIndices } = useAppSelector(
-    publicTranslatorsSelector
-  );
-
-  const { t } = useAppTranslation({ keyPrefix: 'akt.component.table' });
-
-  const selected = selectedIndices.length;
-
-  return (
-    <H2 data-testid="public-translators__selected-count-heading">
-      {selected > 0 ? `${selected} ${t('selectedItems')}` : t('title')}
-    </H2>
   );
 };
 
@@ -191,7 +39,9 @@ export const PublicTranslatorListing = ({
   translators: Array<PublicTranslator>;
 }) => {
   const { t } = useAppTranslation({ keyPrefix: 'akt' });
+  const { isPhone } = useWindowProperties();
   const { selectedTranslators } = useAppSelector(publicTranslatorsSelector);
+  const selected = selectedTranslators.length;
 
   switch (status) {
     case APIResponseStatus.NotStarted:
@@ -214,9 +64,13 @@ export const PublicTranslatorListing = ({
         <>
           <div className="columns">
             <div className="grow">
-              <SelectedTranslatorsHeading />
+              <H2 data-testid="public-translators__selected-count-heading">
+                {selected > 0
+                  ? `${selected} ${t('component.table.selectedItems')}`
+                  : t('component.table.title')}
+              </H2>
             </div>
-            <ContactRequestButton />
+            {!isPhone && <ContactRequestButton />}
           </div>
           <PaginatedTable
             className="translator-listing"
@@ -224,7 +78,7 @@ export const PublicTranslatorListing = ({
             addSelectedIndex={addSelectedTranslator}
             removeSelectedIndex={removeSelectedTranslator}
             data={translators}
-            header={<ListingHeader />}
+            header={<PublicTranslatorListingHeader />}
             getRowDetails={getRowDetails}
             initialRowsPerPage={10}
             rowsPerPageOptions={[10, 20, 50]}

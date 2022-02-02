@@ -16,6 +16,18 @@
   justify-content: flex-end;
 }
 
+.space-between {
+  justify-content: space-between;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.align-items-start {
+  align-items: flex-start;
+}
+
 .grow {
   flex-grow: 1;
 }
