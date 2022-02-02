@@ -33,7 +33,7 @@ export enum PublicUIViews {
   ContactRequest = 'ContactRequest',
 }
 
-export enum CustomTextFieldTypes {
+export enum TextFieldTypes {
   Text = 'text',
   Email = 'email',
   PhoneNumber = 'tel',

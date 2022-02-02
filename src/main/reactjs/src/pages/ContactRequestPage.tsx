@@ -6,8 +6,8 @@ import {
   StepContents,
 } from 'components/contactRequest/ContactRequestFormUtils';
 import { ControlButtons } from 'components/contactRequest/ControlButtons';
+import { CustomCircularProgress } from 'components/elements/CustomCircularProgress';
 import { HeaderSeparator } from 'components/elements/HeaderSeparator';
-import { ProgressIndicator } from 'components/elements/ProgressIndicator';
 import { H1, Text } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
@@ -70,7 +70,7 @@ export const ContactRequestPage = () => {
               <StepContents disableNext={disableNextCb} />
             </Box>
             {showProgressIndicator && (
-              <ProgressIndicator color={Color.Secondary} />
+              <CustomCircularProgress color={Color.Secondary} />
             )}
             {showControlButtons && <ControlButtons disableNext={disableNext} />}
           </Box>

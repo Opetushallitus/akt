@@ -2,7 +2,7 @@ import { Checkbox, TableCell, TableHead, TableRow } from '@mui/material';
 import { Box } from '@mui/system';
 import { FC } from 'react';
 
-import { ProgressIndicator } from 'components/elements/ProgressIndicator';
+import { CustomCircularProgress } from 'components/elements/CustomCircularProgress';
 import { H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
 import {
@@ -177,7 +177,7 @@ export const ClerkTranslatorListing: FC = () => {
   switch (status) {
     case APIResponseStatus.NotStarted:
     case APIResponseStatus.InProgress:
-      return <ProgressIndicator color={Color.Secondary} />;
+      return <CustomCircularProgress color={Color.Secondary} />;
     case APIResponseStatus.Cancelled:
     case APIResponseStatus.Error:
       return (

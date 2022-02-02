@@ -2,7 +2,7 @@ import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import { SelectChangeEvent } from '@mui/material';
 import { FC } from 'react';
 
-import { Dropdown } from 'components/elements/Dropdown';
+import { CustomSelect } from 'components/elements/CustomSelect';
 import {
   changeLang,
   getCurrentLang,
@@ -27,7 +27,7 @@ export const LangSelector: FC = () => {
   return (
     <div className="lang-selector">
       <LanguageOutlinedIcon className="lang-selector__icon" fontSize="small" />
-      <Dropdown
+      <CustomSelect
         disableUnderline
         values={values}
         variant="standard"

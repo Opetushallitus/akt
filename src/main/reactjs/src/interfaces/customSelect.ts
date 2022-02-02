@@ -1,6 +1,6 @@
 type SelectValue = string | number | readonly string[] | undefined;
 
-export interface DropdownProps {
+export interface CustomSelectProps {
   showInputLabel?: boolean;
   values: Map<SelectValue, SelectValue>;
   helperText?: string;

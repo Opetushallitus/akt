@@ -2,10 +2,10 @@ import { TFunction } from 'i18next';
 
 import {
   CustomTextFieldErrors,
-  CustomTextFieldTypes,
   Duration,
   NotifierTypes,
   Severity,
+  TextFieldTypes,
 } from 'enums/app';
 import { Dialog, NotifierButtonAction, Toast } from 'interfaces/notifier';
 
@@ -69,7 +69,7 @@ export class Utils {
   }
 
   static inspectCustomTextFieldErrors(
-    type: CustomTextFieldTypes,
+    type: TextFieldTypes,
     value: string,
     required = true
   ) {
@@ -82,17 +82,17 @@ export class Utils {
     }
 
     switch (type) {
-      case CustomTextFieldTypes.Textarea:
+      case TextFieldTypes.Textarea:
         if (value.length > MAX_TEXT_LENGTH) {
           return CustomTextFieldErrors.MaxLength;
         }
         break;
-      case CustomTextFieldTypes.Email:
+      case TextFieldTypes.Email:
         if (!value.match(EMAIL_REG_EXR)) {
           return CustomTextFieldErrors.EmailFormat;
         }
         break;
-      case CustomTextFieldTypes.PhoneNumber:
+      case TextFieldTypes.PhoneNumber:
         if (value.length > 0 && !value.match(TEL_REG_EXR)) {
           return CustomTextFieldErrors.TelFormat;
         }

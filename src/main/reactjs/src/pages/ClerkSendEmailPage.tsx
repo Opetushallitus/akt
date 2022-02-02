@@ -7,13 +7,7 @@ import { H1, H2, Text } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
-import {
-  AppRoutes,
-  Color,
-  CustomTextFieldTypes,
-  Severity,
-  Variant,
-} from 'enums/app';
+import { AppRoutes, Color, Severity, TextFieldTypes, Variant } from 'enums/app';
 import {
   resetClerkTranslatorEmail,
   setClerkTranslatorEmail,
@@ -150,9 +144,7 @@ export const ClerkSendEmailPage = () => {
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { value, required } = event.target;
       const error = Utils.inspectCustomTextFieldErrors(
-        field == 'subject'
-          ? CustomTextFieldTypes.Text
-          : CustomTextFieldTypes.Textarea,
+        field == 'subject' ? TextFieldTypes.Text : TextFieldTypes.Textarea,
         value,
         required
       );

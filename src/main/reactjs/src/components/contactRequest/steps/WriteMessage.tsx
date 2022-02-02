@@ -11,7 +11,7 @@ import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { CustomTextFieldTypes } from 'enums/app';
+import { TextFieldTypes } from 'enums/app';
 import { setContactRequest } from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import { Utils } from 'utils';
@@ -54,7 +54,7 @@ export const WriteMessage = ({
   ) => {
     const { type, value, required } = event.target;
     const error = Utils.inspectCustomTextFieldErrors(
-      type as CustomTextFieldTypes,
+      type as TextFieldTypes,
       value,
       required
     );
@@ -87,7 +87,7 @@ export const WriteMessage = ({
               'component.contactRequestForm.formLabels.writeMessageHere'
             )}
             value={request?.message}
-            type={CustomTextFieldTypes.Textarea}
+            type={TextFieldTypes.Textarea}
             onBlur={handleMessageFieldErrors}
             onChange={handleMessageFieldChange}
             showHelperText

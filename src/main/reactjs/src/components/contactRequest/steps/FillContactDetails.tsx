@@ -10,7 +10,7 @@ import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { CustomTextFieldTypes } from 'enums/app';
+import { TextFieldTypes } from 'enums/app';
 import { ContactDetails } from 'interfaces/contactRequest';
 import { setContactRequest } from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
@@ -69,7 +69,7 @@ export const FillContactDetails = ({
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { type, value, required } = event.target;
       const error = Utils.inspectCustomTextFieldErrors(
-        type as CustomTextFieldTypes,
+        type as TextFieldTypes,
         value,
         required
       );
@@ -103,12 +103,12 @@ export const FillContactDetails = ({
             <CustomTextField
               {...getCustomTextFieldAttributes('firstName')}
               value={request?.firstName}
-              type={CustomTextFieldTypes.Text}
+              type={TextFieldTypes.Text}
               required
             />
             <CustomTextField
               {...getCustomTextFieldAttributes('lastName')}
-              type={CustomTextFieldTypes.Text}
+              type={TextFieldTypes.Text}
               value={request?.lastName}
               required
             />
@@ -116,14 +116,14 @@ export const FillContactDetails = ({
           <div className="grid-columns gapped">
             <CustomTextField
               {...getCustomTextFieldAttributes('email')}
-              type={CustomTextFieldTypes.Email}
+              type={TextFieldTypes.Email}
               value={request?.email}
               required
             />
             <CustomTextField
               {...getCustomTextFieldAttributes('phoneNumber')}
               value={request?.phoneNumber}
-              type={CustomTextFieldTypes.PhoneNumber}
+              type={TextFieldTypes.PhoneNumber}
             />
           </div>
         </div>
