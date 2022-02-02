@@ -6,7 +6,13 @@ import {
   TextField,
   Toolbar,
 } from '@mui/material';
-import { Dispatch, KeyboardEvent, SetStateAction, useState } from 'react';
+import {
+  Dispatch,
+  KeyboardEvent,
+  SetStateAction,
+  useRef,
+  useState,
+} from 'react';
 
 import {
   ComboBox,
@@ -70,6 +76,7 @@ export const PublicTranslatorFilters = ({
 
   const [values, setValues] = useState(defaultValuesState);
   const [inputValues, setInputValues] = useState(defaultFiltersState);
+  const filtersGridRef = useRef<HTMLInputElement>(null);
   const { isPhone } = useWindowProperties();
 
   // Redux
@@ -112,7 +119,7 @@ export const PublicTranslatorFilters = ({
   };
 
   const scrollToSearch = () => {
-    if (isPhone) window.scrollTo(0, 320);
+    filtersGridRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleEmptyBtnClick = () => {
@@ -202,7 +209,7 @@ export const PublicTranslatorFilters = ({
     );
 
   return (
-    <div className="public-translator-filters">
+    <div className="public-translator-filters" ref={filtersGridRef}>
       <div className="public-translator-filters__filter-box">
         <div className="public-translator-filters__filter">
           <div className="columns xs-gapped">
