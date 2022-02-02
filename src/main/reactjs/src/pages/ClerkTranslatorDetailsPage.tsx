@@ -6,7 +6,7 @@ import {
   ClerkTranslatorDetails,
   ClerkTranslatorNotFoundView,
 } from 'components/clerkTranslator/ClerkTranslatorDetails';
-import { ProgressIndicator } from 'components/elements/ProgressIndicator';
+import { CustomCircularProgress } from 'components/elements/CustomCircularProgress';
 import { H1 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
@@ -40,7 +40,7 @@ const TranslatorViewDispatcher = () => {
   switch (status) {
     case APIResponseStatus.NotStarted:
     case APIResponseStatus.InProgress:
-      return <ProgressIndicator color={Color.Secondary} />;
+      return <CustomCircularProgress color={Color.Secondary} />;
     case APIResponseStatus.Cancelled:
     case APIResponseStatus.Error:
       return <div />;

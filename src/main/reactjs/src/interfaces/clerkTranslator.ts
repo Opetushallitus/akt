@@ -12,7 +12,7 @@ import { APIMeetingDate, MeetingDate } from 'interfaces/meetingDate';
 import { WithId } from 'interfaces/withId';
 import { WithVersion } from 'interfaces/withVersion';
 
-interface ClerkTranslatorContactDetails {
+export interface ClerkTranslatorContactDetails {
   firstName: string;
   lastName: string;
   email?: string;

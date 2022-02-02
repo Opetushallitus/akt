@@ -141,13 +141,13 @@
           "next": "Seuraava",
           "cancel": "Peruuta"
         },
-        "labels": {
+        "contactDetails": {
           "lastName": "Sukunimi",
-          "firstNames": "Etunimet",
-          "ssn": "Henkilötunnus",
-          "streetAddress": "Katuosoite",
-          "zipCode": "Postinumero",
-          "postOffice": "Postitoimipaikka",
+          "firstName": "Etunimet",
+          "identityNumber": "Henkilötunnus",
+          "street": "Katuosoite",
+          "postalCode": "Postinumero",
+          "town": "Postitoimipaikka",
           "country": "Maa",
           "email": "Sähköpostiosoite",
           "phoneNumber": "Puhelinnumero"

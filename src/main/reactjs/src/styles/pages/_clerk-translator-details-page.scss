@@ -4,13 +4,17 @@
     display: flex;
     flex-direction: column;
 
-    #back-btn {
+    & &__back-btn {
       color: $color-text-primary;
     }
 
-    &--authorisations-table {
+    &__authorisations-table {
       tr:nth-child(even) {
         background-color: $color-primary-light;
+      }
+
+      & &--centered {
+        text-align: center;
       }
     }
   }

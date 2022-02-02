@@ -11,15 +11,18 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
+import { CustomTextField } from 'components/elements/CustomTextField';
 import { H2, Text } from 'components/elements/Text';
-import { TextBox } from 'components/elements/TextBox';
 import {
   useAppTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
 import { AppRoutes, Color, Variant } from 'enums/app';
 import { Authorisation } from 'interfaces/authorisation';
-import { ClerkTranslator } from 'interfaces/clerkTranslator';
+import {
+  ClerkTranslator,
+  ClerkTranslatorContactDetails,
+} from 'interfaces/clerkTranslator';
 import { DateUtils } from 'utils/date';
 
 const TopControls = () => {
@@ -32,13 +35,35 @@ const TopControls = () => {
       <Button
         component={Link}
         to={AppRoutes.ClerkHomePage}
-        id="back-btn"
+        className="clerk-translator-details-page__content-container__back-btn"
         variant={Variant.Text}
         startIcon={<ArrowBackIcon />}
       >
         {t('buttons.back')}
       </Button>
     </div>
+  );
+};
+
+const ContactDetailsField = ({
+  contactDetails,
+  field,
+  disabled,
+}: {
+  contactDetails: ClerkTranslatorContactDetails;
+  field: keyof ClerkTranslatorContactDetails;
+  disabled?: boolean;
+}) => {
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.clerkTranslatorDetails.contactDetails',
+  });
+
+  return (
+    <CustomTextField
+      label={t(field)}
+      value={contactDetails[field]}
+      disabled={disabled}
+    />
   );
 };
 
@@ -50,6 +75,13 @@ const TranslatorDetailsSection = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorDetails',
   });
+  const contactDetailsField = (field: keyof ClerkTranslatorContactDetails) => (
+    <ContactDetailsField
+      contactDetails={translator.contactDetails}
+      field={field}
+      disabled
+    />
+  );
 
   return (
     <>
@@ -60,57 +92,21 @@ const TranslatorDetailsSection = ({
         </Button>
       </div>
       <div className="columns gapped">
-        <TextBox
-          label={t('labels.lastName')}
-          value={translator.contactDetails.lastName}
-          disabled
-        />
-        <TextBox
-          label={t('labels.firstNames')}
-          value={translator.contactDetails.firstName}
-          disabled
-        />
-        <TextBox
-          label={t('labels.ssn')}
-          value={translator.contactDetails.identityNumber}
-          disabled
-        />
+        {contactDetailsField('lastName')}
+        {contactDetailsField('firstName')}
+        {contactDetailsField('identityNumber')}
       </div>
       <H2>{t('header.address')}</H2>
       <div className="columns gapped">
-        <TextBox
-          label={t('labels.streetAddress')}
-          value={translator.contactDetails.street}
-          disabled
-        />
-        <TextBox
-          label={t('labels.zipCode')}
-          value={translator.contactDetails.postalCode}
-          disabled
-        />
-        <TextBox
-          label={t('labels.postOffice')}
-          value={translator.contactDetails.town}
-          disabled
-        />
-        <TextBox
-          label={t('labels.country')}
-          value={translator.contactDetails.country}
-          disabled
-        />
+        {contactDetailsField('street')}
+        {contactDetailsField('postalCode')}
+        {contactDetailsField('town')}
+        {contactDetailsField('country')}
       </div>
       <H2>{t('header.contactInformation')}</H2>
       <div className="columns gapped">
-        <TextBox
-          label={t('labels.email')}
-          value={translator.contactDetails.email}
-          disabled
-        />
-        <TextBox
-          label={t('labels.phoneNumber')}
-          value={translator.contactDetails.phoneNumber}
-          disabled
-        />
+        {contactDetailsField('email')}
+        {contactDetailsField('phoneNumber')}
       </div>
     </>
   );
@@ -125,13 +121,6 @@ const isAuthorisationValid = (
     effectiveTerm?.end &&
     DateUtils.isDatePartBeforeOrEqual(effectiveTerm.end, currentDate)
   );
-};
-
-const CenteredIconCell = ({ icon }: { icon?: JSX.Element }) => {
-  // Centering icon with inline styles since class selectors get overriden by MUIs classes
-  // and more specific selectors (IDs) can't be used as there will be multiple instances
-  // of these components in the DOM.
-  return <TableCell sx={{ textAlign: 'center' }}>{icon}</TableCell>;
 };
 
 const AuthorisationDetailsSection = ({
@@ -159,7 +148,7 @@ const AuthorisationDetailsSection = ({
       </div>
       <Table
         size="small"
-        className="clerk-translator-details-page__content-container--authorisations-table"
+        className="clerk-translator-details-page__content-container__authorisations-table"
       >
         <TableHead>
           <TableRow>
@@ -214,9 +203,11 @@ const AuthorisationDetailsSection = ({
               <TableCell>
                 <Text>{a.diaryNumber}</Text>
               </TableCell>
-              <CenteredIconCell />
-              <CenteredIconCell />
-              <CenteredIconCell icon={<EditIcon />} />
+              <TableCell />
+              <TableCell />
+              <TableCell className="clerk-translator-details-page__content-container__authorisations-table--centered">
+                <EditIcon />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
