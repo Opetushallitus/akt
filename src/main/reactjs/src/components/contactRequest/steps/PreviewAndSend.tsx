@@ -5,8 +5,8 @@ import {
   StepHeading,
   stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
+import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
-import { TextBox } from 'components/elements/TextBox';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
@@ -25,7 +25,7 @@ export const PreviewAndSend = () => {
         <RenderChosenTranslators />
         <DisplayContactInfo />
         <H3>{t('message')}</H3>
-        <TextBox
+        <CustomTextField
           disabled
           data-testid="contact-request-page__message-text"
           defaultValue={request?.message}

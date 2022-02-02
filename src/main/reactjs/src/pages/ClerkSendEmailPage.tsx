@@ -2,12 +2,12 @@ import { Box, Button, Paper } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import { CustomTextField } from 'components/elements/CustomTextField';
 import { H1, H2, Text } from 'components/elements/Text';
-import { TextBox } from 'components/elements/TextBox';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
-import { AppRoutes, Color, Severity, TextBoxTypes, Variant } from 'enums/app';
+import { AppRoutes, Color, Severity, TextFieldTypes, Variant } from 'enums/app';
 import {
   resetClerkTranslatorEmail,
   setClerkTranslatorEmail,
@@ -143,8 +143,8 @@ export const ClerkSendEmailPage = () => {
     (field: 'subject' | 'message') =>
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { value, required } = event.target;
-      const error = Utils.inspectTextBoxErrors(
-        field == 'subject' ? TextBoxTypes.Text : TextBoxTypes.Textarea,
+      const error = Utils.inspectCustomTextFieldErrors(
+        field == 'subject' ? TextFieldTypes.Text : TextFieldTypes.Textarea,
         value,
         required
       );
@@ -181,7 +181,7 @@ export const ClerkSendEmailPage = () => {
           </div>
           <div className="rows gapped">
             <H2>{t('pages.clerkSendEmailPage.sections.subject')}</H2>
-            <TextBox
+            <CustomTextField
               data-testid="clerk-send-email-page__subject"
               label={t('pages.clerkSendEmailPage.labels.subject')}
               value={email.subject}
@@ -194,7 +194,7 @@ export const ClerkSendEmailPage = () => {
           </div>
           <div className="rows gapped">
             <H2>{t('pages.clerkSendEmailPage.sections.message')}</H2>
-            <TextBox
+            <CustomTextField
               data-testid="clerk-send-email-page__message"
               label={t('pages.clerkSendEmailPage.labels.message')}
               rows={5}

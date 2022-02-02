@@ -3,12 +3,12 @@ import { Button, InputAdornment } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import { ComboBox, valueAsOption } from 'components/elements/ComboBox';
+import { CustomTextField } from 'components/elements/CustomTextField';
 import {
   LanguageSelect,
   languageToComboBoxOption,
 } from 'components/elements/LanguageSelect';
 import { H3 } from 'components/elements/Text';
-import { TextBox } from 'components/elements/TextBox';
 import {
   useAppTranslation,
   useKoodistoLanguagesTranslation,
@@ -130,7 +130,7 @@ export const ClerkTranslatorFilters = () => {
       </div>
       <div className="rows">
         <H3>{t('name.title')}</H3>
-        <TextBox
+        <CustomTextField
           data-testid="clerk-translator-filters__name"
           placeholder={t('name.placeholder')}
           type="search"

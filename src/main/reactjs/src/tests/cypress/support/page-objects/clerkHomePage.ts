@@ -11,11 +11,11 @@ class ClerkHomePage {
       cy.findByTestId('clerk-translator-registry__send-email-btn'),
     translatorRow: (id: string) =>
       cy.findByTestId(`clerk-translators__id-${id}-row`),
-    authorisationBasisDropdown: () =>
+    authorisationBasisSelect: () =>
       cy.findByTestId('clerk-translator-filters__authorisation-basis'),
-    fromLanguageDropdown: () =>
+    fromLanguageSelect: () =>
       cy.findByTestId('clerk-translator-filters__from-lang'),
-    toLanguageDropdown: () =>
+    toLanguageSelect: () =>
       cy.findByTestId('clerk-translator-filters__to-lang'),
     nameField: () => cy.findByTestId('clerk-translator-filters__name'),
   };
@@ -35,15 +35,15 @@ class ClerkHomePage {
   }
 
   filterByAuthorisationBasis(basis: AuthorisationBasis) {
-    this.elements.authorisationBasisDropdown().type(basis + '{enter}');
+    this.elements.authorisationBasisSelect().type(basis + '{enter}');
   }
 
   filterByFromLang(lang: string) {
-    this.elements.fromLanguageDropdown().type(lang + '{enter}');
+    this.elements.fromLanguageSelect().type(lang + '{enter}');
   }
 
   filterByToLang(lang: string) {
-    this.elements.fromLanguageDropdown().type(lang + '{enter}');
+    this.elements.fromLanguageSelect().type(lang + '{enter}');
   }
 
   filterByName(name: string) {

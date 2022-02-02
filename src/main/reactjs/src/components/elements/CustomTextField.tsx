@@ -1,13 +1,13 @@
 import { TextField, TextFieldProps } from '@mui/material';
 
-import { TextBoxProps } from 'interfaces/textBox';
+import { CustomTextFieldProps } from 'interfaces/customTextField';
 
-export const TextBox = ({
+export const CustomTextField = ({
   error,
   helperText,
   showHelperText,
   ...rest
-}: TextBoxProps & TextFieldProps) => {
+}: CustomTextFieldProps & TextFieldProps) => {
   return (
     <TextField
       error={error}

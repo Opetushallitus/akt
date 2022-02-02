@@ -6,11 +6,11 @@ import {
   StepHeading,
   stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
+import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
-import { TextBox } from 'components/elements/TextBox';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { TextBoxTypes } from 'enums/app';
+import { TextFieldTypes } from 'enums/app';
 import { ContactDetails } from 'interfaces/contactRequest';
 import { setContactRequest } from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
@@ -68,8 +68,8 @@ export const FillContactDetails = ({
     (fieldName: keyof ContactDetails) =>
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { type, value, required } = event.target;
-      const error = Utils.inspectTextBoxErrors(
-        type as TextBoxTypes,
+      const error = Utils.inspectCustomTextFieldErrors(
+        type as TextFieldTypes,
         value,
         required
       );
@@ -78,16 +78,16 @@ export const FillContactDetails = ({
       setFieldErrors({ ...fieldErrors, [fieldName]: errorMessage });
     };
 
-  const showTextBoxError = (fieldName: keyof ContactDetails) => {
+  const showCustomTextFieldError = (fieldName: keyof ContactDetails) => {
     return fieldErrors[fieldName]?.length > 0;
   };
 
-  const getTextBoxAttributes = (fieldName: keyof ContactDetails) => ({
+  const getCustomTextFieldAttributes = (fieldName: keyof ContactDetails) => ({
     id: `contact-details__${fieldName}-field`,
     label: t(`component.contactRequestForm.formLabels.${fieldName}`),
     onBlur: handleContactDetailsErrors(fieldName),
     onChange: handleContactDetailsChange(fieldName),
-    error: showTextBoxError(fieldName),
+    error: showCustomTextFieldError(fieldName),
     helperText: fieldErrors[fieldName],
   });
 
@@ -100,30 +100,30 @@ export const FillContactDetails = ({
         <div className="rows gapped">
           <H3>{t('component.contactRequestForm.steps.' + stepsByIndex[1])}</H3>
           <div className="grid-columns gapped">
-            <TextBox
-              {...getTextBoxAttributes('firstName')}
+            <CustomTextField
+              {...getCustomTextFieldAttributes('firstName')}
               value={request?.firstName}
-              type={TextBoxTypes.Text}
+              type={TextFieldTypes.Text}
               required
             />
-            <TextBox
-              {...getTextBoxAttributes('lastName')}
-              type={TextBoxTypes.Text}
+            <CustomTextField
+              {...getCustomTextFieldAttributes('lastName')}
+              type={TextFieldTypes.Text}
               value={request?.lastName}
               required
             />
           </div>
           <div className="grid-columns gapped">
-            <TextBox
-              {...getTextBoxAttributes('email')}
-              type={TextBoxTypes.Email}
+            <CustomTextField
+              {...getCustomTextFieldAttributes('email')}
+              type={TextFieldTypes.Email}
               value={request?.email}
               required
             />
-            <TextBox
-              {...getTextBoxAttributes('phoneNumber')}
+            <CustomTextField
+              {...getCustomTextFieldAttributes('phoneNumber')}
               value={request?.phoneNumber}
-              type={TextBoxTypes.PhoneNumber}
+              type={TextFieldTypes.PhoneNumber}
             />
           </div>
         </div>

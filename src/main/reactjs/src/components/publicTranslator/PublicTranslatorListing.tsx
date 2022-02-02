@@ -1,6 +1,6 @@
 import { Box } from '@mui/system';
 
-import { ProgressIndicator } from 'components/elements/ProgressIndicator';
+import { CustomCircularProgress } from 'components/elements/CustomCircularProgress';
 import { H2, H3 } from 'components/elements/Text';
 import { ContactRequestButton } from 'components/publicTranslator/listing/ContactRequestButton';
 import { PublicTranslatorListingHeader } from 'components/publicTranslator/listing/PublicTranslatorListingHeader';
@@ -9,6 +9,7 @@ import { PaginatedTable } from 'components/tables/Table';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
+import { Color } from 'enums/app';
 import { useWindowProperties } from 'hooks/useWindowProperties';
 import { PublicTranslator } from 'interfaces/publicTranslator';
 import {
@@ -46,7 +47,7 @@ export const PublicTranslatorListing = ({
   switch (status) {
     case APIResponseStatus.NotStarted:
     case APIResponseStatus.InProgress:
-      return <ProgressIndicator color="secondary" />;
+      return <CustomCircularProgress color={Color.Secondary} />;
     case APIResponseStatus.Cancelled:
     case APIResponseStatus.Error:
       return (

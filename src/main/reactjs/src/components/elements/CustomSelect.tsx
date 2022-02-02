@@ -7,9 +7,9 @@ import {
   SelectProps,
 } from '@mui/material';
 
-import { DropdownProps } from 'interfaces/dropdown';
+import { CustomSelectProps } from 'interfaces/customSelect';
 
-export const Dropdown = ({
+export const CustomSelect = ({
   showInputLabel,
   id,
   label,
@@ -18,7 +18,7 @@ export const Dropdown = ({
   showError,
   sortByKeys,
   ...selectOnlyProps
-}: DropdownProps & SelectProps<string>) => {
+}: CustomSelectProps & SelectProps<string>) => {
   const valuesArray = Array.from(values);
   const valuesToShow = sortByKeys ? valuesArray.sort() : valuesArray;
 
