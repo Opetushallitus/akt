@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { ScreenSize } from 'enums/app';
+import { Screenwidth } from 'enums/app';
 
 const getProperties = () => {
   const { innerWidth: width, innerHeight: height } = window;
-  const isPhone = width <= ScreenSize.Phone;
-  const isTablet = width >= ScreenSize.Tablet && width < ScreenSize.Desktop;
-  const isDesktop = width >= ScreenSize.Desktop;
+  const isPhone = width <= Screenwidth.Phone;
+  const isTablet = width >= Screenwidth.Tablet && width < Screenwidth.Desktop;
+  const isDesktop = width >= Screenwidth.Desktop;
 
   return {
     isPhone,

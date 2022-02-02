@@ -110,7 +110,7 @@ export enum HTTPStatusCode {
   GatewayTimeout = 504,
 }
 
-export enum ScreenSize {
+export enum Screenwidth {
   Phone = 480,
   Tablet = 800,
   Desktop = 1024,
