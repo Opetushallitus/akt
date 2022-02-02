@@ -65,6 +65,12 @@ export enum Variant {
   Contained = 'contained',
 }
 
+export enum TextFieldVariant {
+  Filled = 'filled',
+  Outlined = 'outlined',
+  Standard = 'standard',
+}
+
 export enum SkeletonVariant {
   Text = 'text',
   Rectangular = 'rectangular',

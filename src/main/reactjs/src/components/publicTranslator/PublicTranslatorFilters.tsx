@@ -18,7 +18,14 @@ import { Caption, H3 } from 'components/elements/Text';
 import { ContactRequestButton } from 'components/publicTranslator/listing/ContactRequestButton';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { Color, KeyboardKey, SearchFilter, Severity, Variant } from 'enums/app';
+import {
+  Color,
+  KeyboardKey,
+  SearchFilter,
+  Severity,
+  TextFieldVariant,
+  Variant,
+} from 'enums/app';
 import { useWindowProperties } from 'hooks/useWindowProperties';
 import { AutocompleteValue } from 'interfaces/combobox';
 import { PublicTranslatorFilterValues } from 'interfaces/publicTranslator';
@@ -165,7 +172,7 @@ export const PublicTranslatorFilters = ({
     inputValue: inputValues[fieldName],
     value: values[fieldName] as AutocompleteValue,
     autoHighlight: true,
-    variant: Variant.Outlined,
+    variant: TextFieldVariant.Outlined,
     onChange: handleComboboxFilterChange(fieldName),
   });
 

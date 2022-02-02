@@ -1,7 +1,7 @@
 import renderer from 'react-test-renderer';
 
 import { ComboBox } from 'components/elements/ComboBox';
-import { Variant } from 'enums/app';
+import { TextFieldVariant } from 'enums/app';
 
 describe('ComboBox', () => {
   it('should render ComboBox correctly', () => {
@@ -15,7 +15,7 @@ describe('ComboBox', () => {
       .create(
         <ComboBox
           autoHighlight
-          variant={Variant.Outlined}
+          variant={TextFieldVariant.Outlined}
           values={values}
           value={null}
         />
