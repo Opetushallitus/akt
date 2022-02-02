@@ -65,6 +65,12 @@ export enum Variant {
   Contained = 'contained',
 }
 
+export enum TextFieldVariant {
+  Filled = 'filled',
+  Outlined = 'outlined',
+  Standard = 'standard',
+}
+
 export enum SkeletonVariant {
   Text = 'text',
   Rectangular = 'rectangular',
@@ -102,4 +108,10 @@ export enum HTTPStatusCode {
   BadGateway = 502,
   ServiceUnavailable = 503,
   GatewayTimeout = 504,
+}
+
+export enum Screenwidth {
+  Phone = 480,
+  Tablet = 800,
+  Desktop = 1024,
 }

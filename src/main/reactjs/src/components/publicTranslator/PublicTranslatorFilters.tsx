@@ -1,6 +1,18 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { Button, InputAdornment, TextField } from '@mui/material';
-import { Dispatch, KeyboardEvent, SetStateAction, useState } from 'react';
+import {
+  AppBar,
+  Button,
+  InputAdornment,
+  TextField,
+  Toolbar,
+} from '@mui/material';
+import {
+  Dispatch,
+  KeyboardEvent,
+  SetStateAction,
+  useRef,
+  useState,
+} from 'react';
 
 import {
   ComboBox,
@@ -9,10 +21,20 @@ import {
 } from 'components/elements/ComboBox';
 import { LanguageSelect } from 'components/elements/LanguageSelect';
 import { Caption, H3 } from 'components/elements/Text';
+import { ContactRequestButton } from 'components/publicTranslator/listing/ContactRequestButton';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { Color, KeyboardKey, SearchFilter, Severity, Variant } from 'enums/app';
+import {
+  Color,
+  KeyboardKey,
+  SearchFilter,
+  Severity,
+  TextFieldVariant,
+  Variant,
+} from 'enums/app';
+import { useWindowProperties } from 'hooks/useWindowProperties';
 import { AutocompleteValue } from 'interfaces/combobox';
+import { PublicTranslatorFilterValues } from 'interfaces/publicTranslator';
 import { showNotifierToast } from 'redux/actions/notifier';
 import {
   addPublicTranslatorFilter,
@@ -24,16 +46,11 @@ import {
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 import { Utils } from 'utils/index';
 
-interface PublicTranslatorFilterValues {
-  fromLang: AutocompleteValue;
-  toLang: AutocompleteValue;
-  name: string;
-  town: AutocompleteValue;
-}
-
 export const PublicTranslatorFilters = ({
+  showTable,
   setShowTable,
 }: {
+  showTable: boolean;
   setShowTable: Dispatch<SetStateAction<boolean>>;
 }) => {
   // I18
@@ -59,6 +76,8 @@ export const PublicTranslatorFilters = ({
 
   const [values, setValues] = useState(defaultValuesState);
   const [inputValues, setInputValues] = useState(defaultFiltersState);
+  const filtersGridRef = useRef<HTMLInputElement>(null);
+  const { isPhone } = useWindowProperties();
 
   // Redux
   const dispatch = useAppDispatch();
@@ -99,12 +118,17 @@ export const PublicTranslatorFilters = ({
     }
   };
 
+  const scrollToSearch = () => {
+    filtersGridRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const handleEmptyBtnClick = () => {
     setFilters(defaultFiltersState);
     setInputValues(defaultFiltersState);
     setValues(defaultValuesState);
     dispatch(emptyPublicTranslatorFilters);
     dispatch(emptySelectedTranslators);
+    scrollToSearch();
     setShowTable(false);
   };
 
@@ -154,14 +178,38 @@ export const PublicTranslatorFilters = ({
     onInputChange: handleComboboxInputChange(fieldName),
     inputValue: inputValues[fieldName],
     value: values[fieldName] as AutocompleteValue,
+    autoHighlight: true,
+    variant: TextFieldVariant.Outlined,
+    onChange: handleComboboxFilterChange(fieldName),
   });
 
   const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key == KeyboardKey.Enter) handleSearchBtnClick();
   };
 
+  const renderPhoneBottomAppBar = () =>
+    isPhone &&
+    showTable && (
+      <AppBar
+        color={Color.Primary}
+        className="public-translator-filters__app-bar"
+      >
+        <Toolbar className="space-around public-translator-filters__app-bar__tool-bar">
+          <Button
+            data-testid="public-translator-filters__empty-btn"
+            color={Color.Secondary}
+            variant={Variant.Outlined}
+            onClick={handleEmptyBtnClick}
+          >
+            {t('buttons.newSearch')}
+          </Button>
+          <ContactRequestButton />
+        </Toolbar>
+      </AppBar>
+    );
+
   return (
-    <div className="public-translator-filters">
+    <div className="public-translator-filters" ref={filtersGridRef}>
       <div className="public-translator-filters__filter-box">
         <div className="public-translator-filters__filter">
           <div className="columns xs-gapped">
@@ -173,27 +221,21 @@ export const PublicTranslatorFilters = ({
           <div className="public-translator-filters__filter__language-pair">
             <LanguageSelect
               data-testid="public-translator-filters__from-language-select"
-              autoHighlight
               {...getComboBoxAttributes(SearchFilter.FromLang)}
               showError={hasError(SearchFilter.FromLang)}
               label={t('languagePair.fromPlaceholder')}
               id="filters-from-lang"
-              variant={Variant.Outlined}
               excludedLanguage={filters.toLang}
               languages={langs.from}
-              onChange={handleComboboxFilterChange(SearchFilter.FromLang)}
             />
             <LanguageSelect
               data-testid="public-translator-filters__to-language-select"
-              autoHighlight
               {...getComboBoxAttributes(SearchFilter.ToLang)}
               showError={hasError(SearchFilter.ToLang)}
               label={t('languagePair.toPlaceholder')}
               id="filters-to-lang"
-              variant={Variant.Outlined}
               excludedLanguage={filters.fromLang}
               languages={langs.to}
-              onChange={handleComboboxFilterChange(SearchFilter.ToLang)}
             />
           </div>
         </div>
@@ -220,13 +262,10 @@ export const PublicTranslatorFilters = ({
           <H3> {t('town.title')}</H3>
           <ComboBox
             data-testid="public-translator-filters__town-combobox"
-            autoHighlight
             {...getComboBoxAttributes(SearchFilter.Town)}
             label={t('town.placeholder')}
             id="filters-town"
             values={sortOptionsByLabels(towns.map(valueAsOption))}
-            variant={Variant.Outlined}
-            onChange={handleComboboxFilterChange(SearchFilter.Town)}
           />
         </div>
       </div>
@@ -249,6 +288,7 @@ export const PublicTranslatorFilters = ({
           {t('buttons.search')}
         </Button>
       </div>
+      {renderPhoneBottomAppBar()}
     </div>
   );
 };

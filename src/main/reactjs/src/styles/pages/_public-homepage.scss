@@ -15,8 +15,18 @@
       }
     }
 
-    &__result-box {
+    div &__result-box {
       padding: 3rem;
+
+      &__no-results {
+        @include phone {
+          margin: 2rem;
+        }
+      }
+
+      @include phone {
+        padding: 0.5rem;
+      }
     }
   }
 
@@ -37,7 +47,7 @@
     }
 
     @include phone {
-      padding: 1rem 2.5rem;
+      padding: 1rem 2rem;
       gap: 1.5rem;
       @include phone-divider-border-top;
       @include phone-divider-border-bottom;

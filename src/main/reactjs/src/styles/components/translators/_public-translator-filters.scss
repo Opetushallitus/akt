@@ -1,4 +1,18 @@
 .public-translator-filters {
+  & &__app-bar {
+    top: auto;
+    bottom: 0;
+    position: fixed;
+
+    &__tool-bar {
+      margin: 1.5rem 0;
+
+      button {
+        padding: 0.8rem 2rem;
+      }
+    }
+  }
+
   &__filter-box {
     display: grid;
     gap: 4rem;

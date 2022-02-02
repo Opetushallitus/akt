@@ -8,6 +8,7 @@ import { ChangeEvent, Fragment, useEffect, useState } from 'react';
 
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch } from 'configs/redux';
+import { useWindowProperties } from 'hooks/useWindowProperties';
 import { PaginatedTableProps } from 'interfaces/table';
 import { WithId } from 'interfaces/withId';
 
@@ -32,6 +33,7 @@ export function PaginatedTable<T extends WithId>({
 }: PaginatedTableProps<T>): JSX.Element {
   const dispatch = useAppDispatch();
   const { t } = useAppTranslation({ keyPrefix: 'akt.component' });
+  const { isPhone } = useWindowProperties();
 
   const handleRowClick = (index: number) => {
     if (selectedIndices.includes(index)) {
@@ -48,6 +50,7 @@ export function PaginatedTable<T extends WithId>({
     setPage(0);
     setRowsPerPage(+event.target.value);
   };
+
   // Reset page count if underlying data (as measured by number of elements) changes
   useEffect(() => {
     if (count != data.length) {
@@ -56,22 +59,26 @@ export function PaginatedTable<T extends WithId>({
     }
   }, [data, count]);
 
+  const renderTablePagination = () => (
+    <div className="table__head-box">
+      <TablePagination
+        className="table__head-box__pagination"
+        count={count}
+        component="div"
+        onPageChange={(_event, newPage) => setPage(newPage)}
+        page={page}
+        onRowsPerPageChange={handleRowsPerPageChange}
+        rowsPerPage={rowsPerPage}
+        rowsPerPageOptions={rowsPerPageOptions}
+        labelRowsPerPage={t('table.pagination.rowsPerPage')}
+        labelDisplayedRows={PaginationDisplayedRowsLabel}
+      />
+    </div>
+  );
+
   return (
     <>
-      <div className="table__head-box">
-        <TablePagination
-          className="table__head-box__pagination"
-          count={count}
-          component="div"
-          onPageChange={(_event, newPage) => setPage(newPage)}
-          page={page}
-          onRowsPerPageChange={handleRowsPerPageChange}
-          rowsPerPage={rowsPerPage}
-          rowsPerPageOptions={rowsPerPageOptions}
-          labelRowsPerPage={t('table.pagination.rowsPerPage')}
-          labelDisplayedRows={PaginationDisplayedRowsLabel}
-        />
-      </div>
+      {renderTablePagination()}
       <Table className={`${className} table`}>
         {header}
         <TableBody>
@@ -90,6 +97,7 @@ export function PaginatedTable<T extends WithId>({
             })}
         </TableBody>
       </Table>
+      {isPhone && renderTablePagination()}
     </>
   );
 }

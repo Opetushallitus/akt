@@ -14,7 +14,7 @@ import {
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { Color, Variant } from 'enums/app';
+import { Color, TextFieldVariant, Variant } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { useDebouncedValue } from 'hooks/useDebouncedValue';
 import { ClerkTranslatorFilter } from 'interfaces/clerkTranslator';
@@ -113,7 +113,7 @@ export const ClerkTranslatorFilters = () => {
             excludedLanguage={filters.toLang}
             value={getLanguageSelectValue(filters.fromLang)}
             languages={langs.from}
-            variant={Variant.Outlined}
+            variant={TextFieldVariant.Outlined}
             onChange={handleFilterChange('fromLang')}
           />
           <LanguageSelect
@@ -123,7 +123,7 @@ export const ClerkTranslatorFilters = () => {
             excludedLanguage={filters.fromLang}
             value={getLanguageSelectValue(filters.toLang)}
             languages={langs.to}
-            variant={Variant.Outlined}
+            variant={TextFieldVariant.Outlined}
             onChange={handleFilterChange('toLang')}
           />
         </div>
@@ -155,7 +155,7 @@ export const ClerkTranslatorFilters = () => {
           label={t('town.placeholder')}
           values={towns.map(valueAsOption)}
           value={filters.town ? valueAsOption(filters.town) : null}
-          variant={Variant.Outlined}
+          variant={TextFieldVariant.Outlined}
           onChange={handleFilterChange('town')}
         />
       </div>
@@ -171,7 +171,7 @@ export const ClerkTranslatorFilters = () => {
               ? valueAsOption(filters.authorisationBasis)
               : null
           }
-          variant={Variant.Outlined}
+          variant={TextFieldVariant.Outlined}
           onChange={handleFilterChange('authorisationBasis')}
         />
       </div>

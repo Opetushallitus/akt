@@ -1,20 +1,20 @@
-import { Grid, Paper, Skeleton } from '@mui/material';
+import { Grid, Paper } from '@mui/material';
 import { useState } from 'react';
 
 import { HeaderSeparator } from 'components/elements/HeaderSeparator';
 import { H1, H2, Text } from 'components/elements/Text';
 import { PublicTranslatorFilters } from 'components/publicTranslator/PublicTranslatorFilters';
 import { PublicTranslatorListing } from 'components/publicTranslator/PublicTranslatorListing';
+import { PublicTranslatorGridSkeleton } from 'components/skeletons/PublicTranslatorGridSkeleton';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
-import { SkeletonVariant } from 'enums/app';
 import {
   publicTranslatorsSelector,
   selectFilteredPublicTranslators,
 } from 'redux/selectors/publicTranslator';
 
-export const PublicTranslatorsGrid = () => {
+export const PublicTranslatorGrid = () => {
   // I18
   const { t } = useAppTranslation({ keyPrefix: 'akt.pages.homepage' });
   // Redux
@@ -26,27 +26,6 @@ export const PublicTranslatorsGrid = () => {
   const hasNoResults = !hasResults && showTable;
   const isLoading = status === APIResponseStatus.InProgress;
 
-  const renderSkeletons = () => (
-    <>
-      <Skeleton variant={SkeletonVariant.Text}>
-        <H1 className="public-homepage__filters__heading-title">
-          {t('filters.title')}
-        </H1>
-      </Skeleton>
-      <Skeleton className="full-max-width" variant={SkeletonVariant.Text}>
-        <Text className="public-homepage__filters__heading-description">
-          {t('note')}
-        </Text>
-      </Skeleton>
-      <Skeleton
-        className="full-max-width"
-        variant={SkeletonVariant.Rectangular}
-      >
-        <PublicTranslatorFilters setShowTable={setShowTable} />
-      </Skeleton>
-    </>
-  );
-
   return (
     <>
       <Grid item className="public-homepage__grid-container__item-header">
@@ -57,7 +36,10 @@ export const PublicTranslatorsGrid = () => {
       <Grid item className="public-homepage__grid-container__item-filters">
         <Paper elevation={3} className="public-homepage__filters">
           {isLoading ? (
-            renderSkeletons()
+            <PublicTranslatorGridSkeleton
+              showTable={hasResults && showTable}
+              setShowTable={setShowTable}
+            />
           ) : (
             <>
               <H1 className="public-homepage__filters__heading-title">
@@ -66,7 +48,10 @@ export const PublicTranslatorsGrid = () => {
               <Text className="public-homepage__filters__heading-description">
                 {t('note')}
               </Text>
-              <PublicTranslatorFilters setShowTable={setShowTable} />
+              <PublicTranslatorFilters
+                showTable={hasResults && showTable}
+                setShowTable={setShowTable}
+              />
             </>
           )}
         </Paper>
@@ -75,7 +60,11 @@ export const PublicTranslatorsGrid = () => {
         {hasResults && (
           <PublicTranslatorListing status={status} translators={translators} />
         )}
-        {hasNoResults && <H2>{t('noSearchResults')}</H2>}
+        {hasNoResults && (
+          <H2 className="public-homepage__grid-container__result-box__no-results">
+            {t('noSearchResults')}
+          </H2>
+        )}
       </Grid>
     </>
   );

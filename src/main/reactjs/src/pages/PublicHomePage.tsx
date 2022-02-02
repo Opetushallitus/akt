@@ -1,7 +1,7 @@
 import { Box, Grid } from '@mui/material';
 import { FC, useEffect } from 'react';
 
-import { PublicTranslatorsGrid } from 'components/publicTranslator/PublicTranslatorsGrid';
+import { PublicTranslatorGrid } from 'components/publicTranslator/PublicTranslatorGrid';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { PublicUIViews } from 'enums/app';
 import { ContactRequestPage } from 'pages/ContactRequestPage';
@@ -28,7 +28,7 @@ export const PublicHomePage: FC = () => {
         {currentView == PublicUIViews.ContactRequest ? (
           <ContactRequestPage />
         ) : (
-          <PublicTranslatorsGrid />
+          <PublicTranslatorGrid />
         )}
       </Grid>
     </Box>

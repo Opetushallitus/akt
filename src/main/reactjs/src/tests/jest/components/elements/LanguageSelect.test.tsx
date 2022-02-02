@@ -1,7 +1,7 @@
 import renderer from 'react-test-renderer';
 
 import { LanguageSelect } from 'components/elements/LanguageSelect';
-import { Variant } from 'enums/app';
+import { TextFieldVariant } from 'enums/app';
 
 describe('LanguageSelect', () => {
   it('should render correctly', () => {
@@ -11,7 +11,7 @@ describe('LanguageSelect', () => {
       .create(
         <LanguageSelect
           autoHighlight
-          variant={Variant.Outlined}
+          variant={TextFieldVariant.Outlined}
           languages={languages}
           value={null}
           excludedLanguage="BN"

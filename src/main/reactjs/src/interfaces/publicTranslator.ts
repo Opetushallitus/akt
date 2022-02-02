@@ -2,6 +2,7 @@ import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
 import { SearchFilter } from 'enums/app';
+import { AutocompleteValue } from 'interfaces/combobox';
 import { LanguagePair, LanguagePairsDict } from 'interfaces/language';
 import { WithId } from 'interfaces/withId';
 
@@ -19,6 +20,13 @@ export interface PublicTranslatorFilter {
   name: string;
   town: string;
   errors: Array<SearchFilter>;
+}
+
+export interface PublicTranslatorFilterValues {
+  fromLang: AutocompleteValue;
+  toLang: AutocompleteValue;
+  name: string;
+  town: AutocompleteValue;
 }
 
 export interface PublicTranslatorResponse {

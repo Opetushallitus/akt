@@ -6,9 +6,26 @@
     display: flex;
     justify-content: space-between;
     padding-left: 1.3rem;
+    @include phone {
+      padding: 0;
+      display: grid;
+      justify-content: start;
+      @include phone-divider-border-bottom;
+    }
 
     &__pagination {
       margin-left: auto;
+
+      @include phone {
+        margin: 0;
+        padding: 0;
+      }
+
+      & > div {
+        @include phone {
+          padding: 0;
+        }
+      }
     }
 
     & &__chip {

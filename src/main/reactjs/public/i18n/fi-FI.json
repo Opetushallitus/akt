@@ -74,13 +74,14 @@
         },
         "buttons": {
           "empty": "Tyhjennä valinnat",
-          "search": "Hae"
+          "search": "Hae",
+          "newSearch": "Tee uusi haku"
         },
         "toasts": {
           "selectLanguagePair": "Valitse kielipari ottaaksesi yhteyttä kääntäjään"
         },
         "captions": {
-          "langPair": "* Pakollinen yhteydenottoon"
+          "langPair": "(* Pakollinen yhteydenottoon)"
         }
       },
       "clerkTranslatorListing": {

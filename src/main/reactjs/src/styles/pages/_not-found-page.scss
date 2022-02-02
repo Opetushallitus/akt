@@ -2,7 +2,7 @@
   margin-top: 7rem;
 
   @include phone {
-    margin-top: 2rem;
+    margin: 4rem 2rem;
   }
 
   & &__btn {
