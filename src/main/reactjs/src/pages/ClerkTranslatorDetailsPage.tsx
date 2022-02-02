@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import {
   ClerkTranslatorDetails,
   ClerkTranslatorNotFoundView,
-} from 'components/clerkTranslator/ClerkTranslatorDetails';
+} from 'components/clerkTranslator/clerkTranslatorDetails/ClerkTranslatorDetails';
 import { CustomCircularProgress } from 'components/elements/CustomCircularProgress';
 import { H1 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';

@@ -7,15 +7,5 @@
     & &__back-btn {
       color: $color-text-primary;
     }
-
-    &__authorisations-table {
-      tr:nth-child(even) {
-        background-color: $color-primary-light;
-      }
-
-      & &--centered {
-        text-align: center;
-      }
-    }
   }
 }

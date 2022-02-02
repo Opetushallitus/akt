@@ -7,6 +7,7 @@ import {
   ClerkTranslator,
   ClerkTranslatorFilter,
 } from 'interfaces/clerkTranslator';
+import { AuthorisationUtils } from 'utils/authorisation';
 import { DateUtils } from 'utils/date';
 
 export const clerkTranslatorsSelector = (state: RootState) =>
@@ -109,18 +110,6 @@ const expiringSoonThreshold = (currentDate: Date) => {
   return expiringSoonThreshold;
 };
 
-const isAuthorisationValid = (
-  authorisation: Authorisation,
-  currentDate: Date
-) => {
-  const term = authorisation.effectiveTerm;
-  if (!term || !term.end) {
-    return true;
-  }
-
-  return DateUtils.isDatePartBeforeOrEqual(currentDate, term.end);
-};
-
 const isAuthorisationExpiringSoon = (
   authorisation: Authorisation,
   currentDate: Date,
@@ -191,7 +180,10 @@ const matchesAuthorisationStatus = (
 ) => {
   switch (authorisationStatus) {
     case AuthorisationStatus.Authorised:
-      return isAuthorisationValid(authorisation, currentDate);
+      return AuthorisationUtils.isAuthorisationValid(
+        authorisation,
+        currentDate
+      );
     case AuthorisationStatus.Expiring:
       return isAuthorisationExpiringSoon(
         authorisation,
@@ -199,7 +191,10 @@ const matchesAuthorisationStatus = (
         expiringSoonThreshold
       );
     case AuthorisationStatus.Expired:
-      return !isAuthorisationValid(authorisation, currentDate);
+      return !AuthorisationUtils.isAuthorisationValid(
+        authorisation,
+        currentDate
+      );
   }
 };
 

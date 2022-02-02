@@ -127,44 +127,51 @@
         }
       },
       "clerkTranslatorDetails": {
-        "header": {
-          "personalInformation": "Henkilötiedot",
-          "address": "Osoite",
-          "contactInformation": "Yhteystiedot",
-          "authorisations": "Auktorisoinnit"
-        },
         "buttons": {
-          "edit": "Muokkaa",
-          "addAuthorisation": "Lisää auktorisointi",
           "save": "Tallenna",
           "back": "Takaisin",
           "next": "Seuraava",
           "cancel": "Peruuta"
         },
         "contactDetails": {
-          "lastName": "Sukunimi",
-          "firstName": "Etunimet",
-          "identityNumber": "Henkilötunnus",
-          "street": "Katuosoite",
-          "postalCode": "Postinumero",
-          "town": "Postitoimipaikka",
-          "country": "Maa",
-          "email": "Sähköpostiosoite",
-          "phoneNumber": "Puhelinnumero"
+          "header": {
+            "personalInformation": "Henkilötiedot",
+            "address": "Osoite",
+            "contactInformation": "Yhteystiedot"
+          },
+          "buttons": {
+            "edit": "Muokkaa"
+          },
+          "fields": {
+            "lastName": "Sukunimi",
+            "firstName": "Etunimet",
+            "identityNumber": "Henkilötunnus",
+            "street": "Katuosoite",
+            "postalCode": "Postinumero",
+            "town": "Postitoimipaikka",
+            "country": "Maa",
+            "email": "Sähköpostiosoite",
+            "phoneNumber": "Puhelinnumero"
+          }
         },
-        "authorisation": {
-          "languagePair": "Kielipari",
-          "startDate": "Alkupvm.",
-          "endDate": "Loppupvm.",
-          "basis": "Aukt. peruste",
-          "isValid": "Voimassa",
-          "isPublished": "Julkaistu",
-          "diaryNumber": "Asiatunnus",
-          "save": "Tallenna",
-          "delete": "Poista",
-          "edit": "Muokkaa",
-          "yes": "Kyllä",
-          "no": "Ei"
+        "authorisations": {
+          "header": "Auktorisoinnit",
+          "buttons": {
+            "add": "Lisää auktorisointi"
+          },
+          "fields": {
+            "languagePair": "Kielipari",
+            "startDate": "Alkupvm.",
+            "endDate": "Loppupvm.",
+            "basis": "Aukt. peruste",
+            "isValid": "Voimassa",
+            "isPublished": "Julkaistu",
+            "diaryNumber": "Asiatunnus",
+            "save": "Tallenna",
+            "delete": "Poista",
+            "edit": "Muokkaa"
+          },
+          "values": { "yes": "Kyllä", "no": "Ei" }
         },
         "notFound": "Valittua kääntäjää ei löytynyt"
       },

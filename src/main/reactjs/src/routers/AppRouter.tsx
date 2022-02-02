@@ -29,7 +29,7 @@ export const AppRouter: FC = () => (
               element={<ClerkSendEmailPage />}
             />
             <Route
-              path={AppRoutes.ClerkViewTranslatorPage}
+              path={AppRoutes.ClerkTranslatorDetailsPage}
               element={<ClerkTranslatorDetailsPage />}
             />
             <Route path={AppRoutes.NotFoundPage} element={<NotFoundPage />} />
