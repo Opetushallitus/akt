@@ -2,12 +2,9 @@ import { Box, Paper } from '@mui/material';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import {
-  ClerkTranslatorDetails,
-  ClerkTranslatorNotFoundView,
-} from 'components/clerkTranslator/clerkTranslatorDetails/ClerkTranslatorDetails';
+import { ClerkTranslatorDetails } from 'components/clerkTranslator/clerkTranslatorDetails/ClerkTranslatorDetails';
 import { CustomCircularProgress } from 'components/elements/CustomCircularProgress';
-import { H1 } from 'components/elements/Text';
+import { H1, H2 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
@@ -26,6 +23,9 @@ const paramAsNum = (param: string | undefined) => {
 const TranslatorViewDispatcher = () => {
   const params = useParams();
   const translatorId = paramAsNum(params.translatorId);
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.clerkTranslatorDetails',
+  });
 
   const { status, translators } = useAppSelector(clerkTranslatorsSelector);
   // TODO Instead of looking up translator here and passing it along to child components,
@@ -48,7 +48,7 @@ const TranslatorViewDispatcher = () => {
       if (translator) {
         return <ClerkTranslatorDetails translator={translator} />;
       } else {
-        return <ClerkTranslatorNotFoundView />;
+        return <H2>{t('notFound')}</H2>;
       }
   }
 };

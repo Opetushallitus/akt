@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 import { AuthorisationDetails } from 'components/clerkTranslator/clerkTranslatorDetails/AuthorisationDetails';
 import { ContactDetails } from 'components/clerkTranslator/clerkTranslatorDetails/ContactDetails';
-import { H2 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { AppRoutes, Variant } from 'enums/app';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
@@ -43,12 +42,4 @@ export const ClerkTranslatorDetails = ({
       </div>
     </>
   );
-};
-
-export const ClerkTranslatorNotFoundView = () => {
-  const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.clerkTranslatorDetails',
-  });
-
-  return <H2>{t('notFound')}</H2>;
 };
