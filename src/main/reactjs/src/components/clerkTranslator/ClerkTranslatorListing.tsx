@@ -19,7 +19,7 @@ import {
 } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
-import { Color, Variant } from 'enums/app';
+import { AppRoutes, Color, Variant } from 'enums/app';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import {
   deselectAllTranslators,
@@ -48,7 +48,9 @@ const getRowDetails = (
   );
 };
 
-const translatorDetailsURL = (id: number) => `/akt/virkailija/kaantaja/${id}`;
+const translatorDetailsURL = (id: number) =>
+  AppRoutes.ClerkTranslatorDetailsPage.replace(/:translatorId$/, `${id}`);
+
 const stopOnClickPropagation = (
   e: React.MouseEvent<HTMLAnchorElement> | undefined
 ) => {
