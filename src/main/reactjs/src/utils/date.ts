@@ -1,10 +1,19 @@
-const dateFormatter = new Intl.DateTimeFormat();
+import { getCurrentLang, supportedLanguages } from 'configs/i18n';
+
+const dateFormattersByLocale = {
+  'fi-FI': new Intl.DateTimeFormat('fi-FI'),
+  'sv-SE': new Intl.DateTimeFormat('sv-SE'),
+  'en-GB': new Intl.DateTimeFormat('en-GB'),
+};
 
 export class DateUtils {
   static formatOptionalDate(date?: Date) {
     if (!date) {
       return '-';
     }
+
+    const currentLang = getCurrentLang() as supportedLanguages;
+    const dateFormatter = dateFormattersByLocale[currentLang];
 
     return dateFormatter.format(date);
   }
