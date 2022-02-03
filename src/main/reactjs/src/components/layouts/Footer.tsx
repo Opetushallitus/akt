@@ -36,7 +36,7 @@ const Footer = () => {
                 endIcon={<OpenInNewIcon />}
               />
             </div>
-            <div className="footer__container">
+            <div className="footer__container footer__container--contact-details">
               <H3>{t('address.name')}</H3>
               <br />
               <Text>{t('address.street')}</Text>

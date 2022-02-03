@@ -189,15 +189,16 @@
           "fillContactDetails": "Täytä yhteystiedot",
           "writeMessage": "Kirjoita viesti",
           "previewAndSend": "Esikatsele ja lähetä",
-          "done": "Valmis"
+          "done": "Valmis!"
         },
         "doneStep": {
           "title": "Yhteydenottopyyntösi on lähetetty ja sinuun ollaan yhteydessä.",
           "description": "Tämä sivu ohjaa sinut automaattisesti takaisin etusivulle. Jos mitään ei tapahdu voit klikata alla olevasta napista.",
           "button": "Etusivu"
         },
-        "chosenTranslatorsForLanguagePair": "Valitut kääntäjät kieliparista",
-        "characters": "merkki(ä)",
+        "chosenTranslatorsForLanguagePair": "Valitut kääntäjät kielistä",
+        "characters_one": "merkki",
+        "characters_other": "merkkiä",
         "formLabels": {
           "firstName": "Etunimi",
           "lastName": "Sukunimi",

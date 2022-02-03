@@ -1,16 +1,6 @@
 .public-translator-filters {
   & &__app-bar {
-    top: auto;
-    bottom: 0;
-    position: fixed;
-
-    &__tool-bar {
-      margin: 1.5rem 0;
-
-      button {
-        padding: 0.8rem 2rem;
-      }
-    }
+    @include app-bar-bottom;
   }
 
   &__filter-box {

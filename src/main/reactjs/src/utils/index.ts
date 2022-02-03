@@ -10,6 +10,10 @@ import {
 import { Dialog, NotifierButtonAction, Toast } from 'interfaces/notifier';
 
 export class Utils {
+  static scrollToTop() {
+    window.scrollTo({ top: 0, left: 0 });
+  }
+
   static isEmptyString(str: string) {
     return !str || str.length === 0;
   }

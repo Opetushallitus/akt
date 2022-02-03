@@ -1,8 +1,8 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 
 import {
+  ChosenTranslators,
   ChosenTranslatorsHeading,
-  RenderChosenTranslators,
   StepHeading,
   stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
@@ -96,7 +96,7 @@ export const FillContactDetails = ({
       <StepHeading step={stepsByIndex[1]} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
-        <RenderChosenTranslators />
+        <ChosenTranslators />
         <div className="rows gapped">
           <H3>{t('component.contactRequestForm.steps.' + stepsByIndex[1])}</H3>
           <div className="grid-columns gapped">

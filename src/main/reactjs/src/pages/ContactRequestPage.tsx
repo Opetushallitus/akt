@@ -1,19 +1,19 @@
-import { Box, Grid, Paper } from '@mui/material';
+import { Grid, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import {
-  ContactRequestStepper,
   StepContents,
+  stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
+import { ContactRequestStepper } from 'components/contactRequest/ContactRequestStepper';
 import { ControlButtons } from 'components/contactRequest/ControlButtons';
-import { CustomCircularProgress } from 'components/elements/CustomCircularProgress';
 import { HeaderSeparator } from 'components/elements/HeaderSeparator';
 import { H1, Text } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
-import { Color } from 'enums/app';
 import { ContactRequestFormStep } from 'enums/contactRequest';
+import { useWindowProperties } from 'hooks/useWindowProperties';
 import { setContactRequest } from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
@@ -24,12 +24,15 @@ export const ContactRequestPage = () => {
     keyPrefix: 'akt.component.contactRequestForm',
   });
 
+  // Window properties
+  const { isPhone } = useWindowProperties();
   // State
   const [disableNext, setDisableNext] = useState(false);
 
   // Redux
   const dispatch = useAppDispatch();
   const { status, activeStep } = useAppSelector(contactRequestSelector);
+  const nextStep = (activeStep + 1) as ContactRequestFormStep;
   const { filters, selectedTranslators } = useAppSelector(
     publicTranslatorsSelector
   );
@@ -45,10 +48,58 @@ export const ContactRequestPage = () => {
   }, [dispatch, from, to, selectedTranslators]);
 
   const disableNextCb = (disabled: boolean) => setDisableNext(disabled);
-  const showProgressIndicator = status === APIResponseStatus.InProgress;
   const showControlButtons =
     activeStep <= ContactRequestFormStep.PreviewAndSend &&
     status !== APIResponseStatus.InProgress;
+
+  const renderHeaderGrid = () => (
+    <div className="contact-request-page__grid__heading-container">
+      <H1>{t('title')}</H1>
+      <HeaderSeparator />
+      <Text>{t('description')}</Text>
+    </div>
+  );
+
+  const renderPhoneView = () => (
+    <>
+      <div className="contact-request-page__grid__stepper-container columns gapped">
+        <ContactRequestStepper />
+        <div className="rows">
+          <H1>{t(`steps.${stepsByIndex[activeStep]}`)}</H1>
+          {stepsByIndex[nextStep] && (
+            <Text>
+              {t(`buttons.next`)}: {t(`steps.${stepsByIndex[nextStep]}`)}
+            </Text>
+          )}
+        </div>
+      </div>
+
+      {activeStep === ContactRequestFormStep.VerifyTranslators &&
+        renderHeaderGrid()}
+      <div className="contact-request-page__grid__steps-container">
+        <StepContents disableNext={disableNextCb} />
+      </div>
+      {showControlButtons && <ControlButtons disableNext={disableNext} />}
+    </>
+  );
+  const renderDesktopView = () => (
+    <>
+      <Grid item>{renderHeaderGrid()}</Grid>
+      <Grid className="contact-request-page__grid" item>
+        <Paper elevation={3}>
+          <div className="contact-request-page__grid__form-container">
+            <div className="contact-request-page__grid__inner-container">
+              <ContactRequestStepper />
+              <StepContents disableNext={disableNextCb} />
+              {showControlButtons && (
+                <ControlButtons disableNext={disableNext} />
+              )}
+            </div>
+          </div>
+        </Paper>
+      </Grid>
+    </>
+  );
 
   return (
     <Grid
@@ -57,25 +108,7 @@ export const ContactRequestPage = () => {
       direction="column"
       className="contact-request-page"
     >
-      <Grid item>
-        <H1>{t('title')}</H1>
-        <HeaderSeparator />
-        <Text>{t('description')}</Text>
-      </Grid>
-      <Grid className="contact-request-page__grid" item>
-        <Paper elevation={3}>
-          <Box className="contact-request-page__grid__form-container">
-            <Box className="contact-request-page__grid__inner-container">
-              <ContactRequestStepper />
-              <StepContents disableNext={disableNextCb} />
-            </Box>
-            {showProgressIndicator && (
-              <CustomCircularProgress color={Color.Secondary} />
-            )}
-            {showControlButtons && <ControlButtons disableNext={disableNext} />}
-          </Box>
-        </Paper>
-      </Grid>
+      {isPhone ? renderPhoneView() : renderDesktopView()}
     </Grid>
   );
 };

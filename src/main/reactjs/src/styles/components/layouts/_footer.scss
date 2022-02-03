@@ -21,6 +21,12 @@
     font-size: 1rem;
     padding: 1.5rem;
 
+    &--contact-details {
+      @include phone {
+        margin-bottom: 8rem;
+      }
+    }
+
     & > a {
       color: $color-secondary-dark;
       padding: 6px 0;

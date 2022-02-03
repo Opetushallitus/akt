@@ -55,6 +55,7 @@ body,
       @include phone {
         margin: 0 auto;
         padding: 0;
+        justify-content: unset;
       }
     }
   }
