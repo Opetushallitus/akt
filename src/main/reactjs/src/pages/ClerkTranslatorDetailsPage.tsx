@@ -73,11 +73,11 @@ export const ClerkTranslatorDetailsPage = () => {
   }, [dispatch, status, t]);
 
   return (
-    <Box className="clerk-send-email-page">
+    <Box className="clerk-translator-details-page">
       <H1>{t('pages.clerkTranslatorDetailsPage.title')}</H1>
       <Paper
         elevation={3}
-        className="clerk-translator-details-page__content-container"
+        className="clerk-translator-details-page__content-container rows"
       >
         <TranslatorViewDispatcher />
       </Paper>

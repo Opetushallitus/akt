@@ -19,7 +19,7 @@ const TopControls = () => {
       <Button
         component={Link}
         to={AppRoutes.ClerkHomePage}
-        className="clerk-translator-details-page__content-container__back-btn"
+        className="clerk-translator-details-page__back-btn"
         variant={Variant.Text}
         startIcon={<ArrowBackIcon />}
       >

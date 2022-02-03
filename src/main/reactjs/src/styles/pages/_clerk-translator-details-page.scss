@@ -1,11 +1,9 @@
 .clerk-translator-details-page {
-  &__content-container {
+  & &__content-container {
     padding: 3rem;
-    display: flex;
-    flex-direction: column;
+  }
 
-    & &__back-btn {
-      color: $color-text-primary;
-    }
+  & &__back-btn {
+    color: $color-text-primary;
   }
 }
