@@ -55,20 +55,20 @@ export const ContactDetails = ({
           {t('buttons.edit')}
         </Button>
       </div>
-      <div className="columns gapped">
+      <div className="grid-columns gapped">
         {contactDetailsField('lastName')}
         {contactDetailsField('firstName')}
         {contactDetailsField('identityNumber')}
       </div>
       <H2>{t('header.address')}</H2>
-      <div className="columns gapped">
+      <div className="grid-columns gapped">
         {contactDetailsField('street')}
         {contactDetailsField('postalCode')}
         {contactDetailsField('town')}
         {contactDetailsField('country')}
       </div>
       <H2>{t('header.contactInformation')}</H2>
-      <div className="columns gapped">
+      <div className="grid-columns gapped">
         {contactDetailsField('email')}
         {contactDetailsField('phoneNumber')}
       </div>
