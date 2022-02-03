@@ -35,6 +35,7 @@ export const AuthorisationDetails = ({
       <div className="columns">
         <H2 className="grow">{t('header')}</H2>
         <Button
+          data-testid="clerk-translator-details__authorisation-details__add-btn"
           variant={Variant.Contained}
           color={Color.Secondary}
           startIcon={<AddIcon />}
@@ -62,7 +63,10 @@ export const AuthorisationDetails = ({
         </TableHead>
         <TableBody>
           {translator.authorisations.map((a, i) => (
-            <TableRow key={i}>
+            <TableRow
+              key={i}
+              data-testid={`authorisations-table__id-${a.id}-row`}
+            >
               <TableCell>
                 <Text>
                   {`${translateLanguage(a.languagePair.from)}

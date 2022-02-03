@@ -24,6 +24,7 @@ const ContactDetailsField = ({
 
   return (
     <CustomTextField
+      data-testid={`clerk-translator-details__contact-details__field-${field}`}
       label={t(field)}
       value={contactDetails[field]}
       disabled={disabled}
@@ -51,7 +52,11 @@ export const ContactDetails = ({
     <>
       <div className="columns">
         <H2 className="grow">{t('header.personalInformation')}</H2>
-        <Button variant={Variant.Contained} color={Color.Secondary}>
+        <Button
+          data-testid="clerk-translator-details__contact-details__edit-btn"
+          variant={Variant.Contained}
+          color={Color.Secondary}
+        >
           {t('buttons.edit')}
         </Button>
       </div>

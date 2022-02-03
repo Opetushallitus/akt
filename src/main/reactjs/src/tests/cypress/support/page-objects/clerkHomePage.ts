@@ -57,6 +57,13 @@ class ClerkHomePage {
   selectTranslatorById(id: string) {
     this.elements.translatorRow(id).click();
   }
+
+  clickTranslatorDetailsLink(id: number) {
+    this.elements
+      .translatorRow(`${id}`)
+      .findByText(/lisätiedot/i)
+      .click();
+  }
 }
 
 export const onClerkHomePage = new ClerkHomePage();
