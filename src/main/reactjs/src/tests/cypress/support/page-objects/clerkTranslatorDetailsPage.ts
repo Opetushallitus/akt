@@ -10,13 +10,13 @@ class ClerkTranslatorDetailsPage {
       cy.findByTestId(`authorisations-table__id-${id}-row`),
     backToRegisterBtn: () => cy.get('.clerk-translator-details-page__back-btn'),
     editTranslatorInfoBtn: () =>
-      cy.findByTestId('clerk-translator-details__contact-details__edit-btn'),
+      cy.findByTestId('clerk-translator-details__translator-details__edit-btn'),
     contentContainer: () =>
       cy.get('.clerk-translator-details-page__content-container'),
-    contactDetailsField: (field: string) =>
+    translatorDetailsField: (field: string) =>
       cy
         .findByTestId(
-          `clerk-translator-details__contact-details__field-${field}`
+          `clerk-translator-details__translator-details__field-${field}`
         )
         .find('div>input'),
   };
@@ -31,12 +31,12 @@ class ClerkTranslatorDetailsPage {
     this.elements.backToRegisterBtn().click();
   }
 
-  expectContactDetailsFieldValue(field: string, value: string) {
-    this.elements.contactDetailsField(field).should('have.value', value);
+  expectTranslatorDetailsFieldValue(field: string, value: string) {
+    this.elements.translatorDetailsField(field).should('have.value', value);
   }
 
-  expectDisabledContactDetailsField(field: string) {
-    this.elements.contactDetailsField(field).should('be.disabled');
+  expectDisabledTranslatorDetailsField(field: string) {
+    this.elements.translatorDetailsField(field).should('be.disabled');
   }
 
   expectEnabledEditTranslatorInfoBtn() {

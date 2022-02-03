@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import { AuthorisationDetails } from 'components/clerkTranslator/clerkTranslatorDetails/AuthorisationDetails';
-import { ContactDetails } from 'components/clerkTranslator/clerkTranslatorDetails/ContactDetails';
+import { TranslatorDetails } from 'components/clerkTranslator/clerkTranslatorDetails/TranslatorDetails';
 import { useAppTranslation } from 'configs/i18n';
 import { AppRoutes, Variant } from 'enums/app';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
@@ -37,7 +37,7 @@ export const ClerkTranslatorDetails = ({
     <>
       <TopControls />
       <div className="rows gapped">
-        <ContactDetails translator={translator} />
+        <TranslatorDetails translator={translator} />
         <AuthorisationDetails translator={translator} />
       </div>
     </>

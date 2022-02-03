@@ -59,6 +59,9 @@ public class Translator extends BaseEntity {
   @Column(name = "country")
   private String country;
 
+  @Column(name = "extra_information")
+  private String extraInformation;
+
   public String getFullName() {
     return firstName + " " + lastName;
   }

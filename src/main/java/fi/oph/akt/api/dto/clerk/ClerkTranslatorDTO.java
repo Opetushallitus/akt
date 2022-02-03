@@ -7,7 +7,16 @@ import lombok.NonNull;
 public record ClerkTranslatorDTO(
   @NonNull Long id,
   @NonNull Integer version,
-  @NonNull ClerkTranslatorContactDetailsDTO contactDetails,
+  @NonNull String firstName,
+  @NonNull String lastName,
+  String identityNumber,
+  String email,
+  String phoneNumber,
+  String street,
+  String postalCode,
+  String town,
+  String country,
+  String extraInformation,
   @NonNull List<AuthorisationDTO> authorisations
 ) {
   // Workaround for bug in IntelliJ lombok plugin
