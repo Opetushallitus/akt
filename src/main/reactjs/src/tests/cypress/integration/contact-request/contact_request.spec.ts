@@ -15,12 +15,6 @@ import { onPublicTranslatorFilters } from 'tests/cypress/support/page-objects/pu
 import { onPublicTranslatorsListing } from 'tests/cypress/support/page-objects/publicTranslatorsListing';
 import { runWithIntercept } from 'tests/cypress/support/utils/api';
 
-const selectTranslatorRows = () => {
-  TEST_TRANSLATOR_IDS.forEach((id) =>
-    onPublicTranslatorsListing.clickTranslatorRow(id)
-  );
-};
-
 beforeEach(() => {
   runWithIntercept(
     APIEndpoints.PublicTranslator,
@@ -28,7 +22,7 @@ beforeEach(() => {
     () => cy.openPublicHomePage()
   );
   onPublicTranslatorFilters.filterByLanguagePair('suomi', 'ruotsi');
-  selectTranslatorRows();
+  onPublicTranslatorsListing.selectTranslatorRows(TEST_TRANSLATOR_IDS);
   onPublicTranslatorsListing.openContactRequest();
 });
 
@@ -75,7 +69,7 @@ describe('ContactRequestPage', () => {
     );
   });
 
-  it('should show a success dialog in the end after happy path is completed', () => {
+  it('should redirect to homepage after completing the happy path', () => {
     verifyTranslatorsStep();
     fillContactDetailsStep();
     writeMessageStep();
@@ -155,5 +149,9 @@ describe('ContactRequestPage', () => {
       'be.visible'
     );
     onContactRequestPage.elements.nextButton().should('be.disabled');
+  });
+
+  it.only('should something', () => {
+    cy.usePhoneViewport();
   });
 });

@@ -7,3 +7,7 @@ Cypress.Commands.add('openPublicHomePage', () => {
 Cypress.Commands.add('openClerkHomePage', () => {
   cy.visit(AppRoutes.ClerkHomePage);
 });
+
+Cypress.Commands.add('usePhoneViewport', () => {
+  cy.viewport('iphone-6');
+});

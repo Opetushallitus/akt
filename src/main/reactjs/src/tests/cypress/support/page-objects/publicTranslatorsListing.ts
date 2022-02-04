@@ -14,6 +14,10 @@ class PublicTranslatorsListing {
     this.elements.contactRequestBtn().click();
   }
 
+  selectTranslatorRows = (ids: Array<string>) => {
+    ids.forEach((id) => this.clickTranslatorRow(id));
+  };
+
   expectTranslatorVisible(id: string) {
     cy.findByTestId(`public-translators__id-${id}-row`).should('be.visible');
   }
