@@ -28,7 +28,7 @@
   &__btn-box {
     display: flex;
     gap: 2rem;
-    margin: 3rem 0rem;
+    margin: 3rem 0;
 
     & > button {
       @include phone {

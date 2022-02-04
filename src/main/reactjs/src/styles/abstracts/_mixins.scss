@@ -11,9 +11,9 @@
 }
 
 @mixin app-bar-bottom() {
-  top: auto;
   bottom: 0;
   position: fixed;
+  top: auto;
 
   &__tool-bar {
     margin: 1.5rem 0;

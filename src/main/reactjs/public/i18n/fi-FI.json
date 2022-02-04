@@ -210,7 +210,7 @@
         },
         "errorDialog": {
           "title": "Virhe lähetettäessä yhteydenottopyyntöä.",
-          "description": "Kokeile myöhemmin uudelleen. Jos ongelma toistuu, ota yhteyttä sähköpostilla: ",
+          "description": "Kokeile myöhemmin uudelleen. Jos ongelma toistuu, ota yhteyttä sähköpostilla: akt@oph.fi",
           "back": "Takaisin"
         },
         "cancelRequestDialog": {

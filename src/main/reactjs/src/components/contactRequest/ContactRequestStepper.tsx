@@ -14,7 +14,6 @@ export const ContactRequestStepper = () => {
     keyPrefix: 'akt.component.contactRequestForm.steps',
   });
 
-  // Variables used by phone stepper
   const maxStep = Object.keys(stepsByIndex).length;
   const currentStep = activeStep + 1;
   const text = `${currentStep}/${maxStep}`;

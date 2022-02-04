@@ -20,24 +20,24 @@
     &__stepper-container {
       @include phone {
         @include phone-divider-border-bottom;
-        padding-left: 2rem;
         padding-bottom: 2rem;
+        padding-left: 2rem;
       }
     }
 
     &__heading-container {
       @include phone {
         @include phone-divider-border-bottom;
-        padding: 1rem 0 1rem 2rem;
         margin: 1rem 0;
+        padding: 1rem 0 1rem 2rem;
       }
     }
 
     &__steps-container {
       @include phone {
         @include phone-divider-border-bottom;
-        padding: 1rem 2rem 5rem 2rem;
         margin-bottom: 2rem;
+        padding: 1rem 2rem 5rem;
       }
     }
 
