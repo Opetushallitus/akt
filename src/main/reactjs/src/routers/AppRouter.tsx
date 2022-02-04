@@ -7,6 +7,7 @@ import { Notifier } from 'components/notification/Notifier';
 import { AppRoutes } from 'enums/app';
 import { ClerkHomePage } from 'pages/ClerkHomePage';
 import { ClerkSendEmailPage } from 'pages/ClerkSendEmailPage';
+import { ClerkTranslatorDetailsPage } from 'pages/ClerkTranslatorDetailsPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { PublicHomePage } from 'pages/PublicHomePage';
 
@@ -26,6 +27,10 @@ export const AppRouter: FC = () => (
             <Route
               path={AppRoutes.ClerkSendEmailPage}
               element={<ClerkSendEmailPage />}
+            />
+            <Route
+              path={AppRoutes.ClerkTranslatorDetailsPage}
+              element={<ClerkTranslatorDetailsPage />}
             />
             <Route path={AppRoutes.NotFoundPage} element={<NotFoundPage />} />
           </Routes>

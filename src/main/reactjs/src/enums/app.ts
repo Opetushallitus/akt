@@ -7,6 +7,7 @@ export enum AppRoutes {
   ClerkHomePage = '/akt/virkailija',
   ClerkSendEmailPage = '/akt/virkailija/laheta-sahkoposti',
   ClerkLocalLogoutPage = '/akt/cas/localLogout',
+  ClerkTranslatorDetailsPage = '/akt/virkailija/kaantaja/:translatorId',
   NotFoundPage = '*',
 }
 

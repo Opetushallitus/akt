@@ -25,6 +25,7 @@ const detectionOptions = {
 };
 
 const supportedLangs = [langFI, langSV, langEN];
+export type supportedLanguages = typeof langFI | typeof langSV | typeof langEN;
 
 const resources = {
   [langFI]: {

@@ -10,22 +10,24 @@
 @import 'base/common';
 
 // Components
-@import 'components/layouts/header';
-@import 'components/layouts/footer';
+@import 'components/clerkTranslator/authorisation-details';
 @import 'components/elements/custom-circular-progress';
 @import 'components/elements/header-separator';
-@import 'components/table/table';
 @import 'components/i18n/lang-selector';
-@import 'components/translators/public-translator-listing';
-@import 'components/translators/public-translator-filters';
+@import 'components/layouts/header';
+@import 'components/layouts/footer';
 @import 'components/notification/dialog-box';
+@import 'components/publicTranslator/public-translator-listing';
+@import 'components/publicTranslator/public-translator-filters';
+@import 'components/table/table';
 
 // Pages
-@import 'pages/public-homepage';
 @import 'pages/clerk-homepage';
 @import 'pages/clerk-send-email-page';
+@import 'pages/clerk-translator-details-page';
 @import 'pages/contact-request-page';
 @import 'pages/not-found-page';
+@import 'pages/public-homepage';
 
 // Vendors
 @import 'vendors/init-spinner';
