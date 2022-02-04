@@ -40,7 +40,7 @@ export const Done = () => {
           <H2>{t('title')}</H2>
           <Text>{t('description')}</Text>
           <Button
-            className="align-self-start m-margin-top"
+            className="align-self-start margin-top-xxl"
             color="secondary"
             variant="contained"
             onClick={resetAndRedirect}

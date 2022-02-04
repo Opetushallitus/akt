@@ -4,10 +4,13 @@
 // Abstracts
 @import 'abstracts/mixins';
 @import 'abstracts/variables';
+@import 'abstracts/maps';
+@import 'abstracts/common/spacing';
+@import 'abstracts/common/layout';
+@import 'abstracts/common/typograph';
 
 // Base
 @import 'base/base';
-@import 'base/common';
 
 // Components
 @import 'components/clerkTranslator/authorisation-details';

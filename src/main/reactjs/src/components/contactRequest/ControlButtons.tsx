@@ -136,7 +136,7 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
       </Toolbar>
     </AppBar>
   ) : (
-    <div className="columns flex-end gapped m-margin-top">
+    <div className="columns flex-end gapped margin-top-xxl">
       {renderCancelButton()}
       {renderBackButton()}
       {renderNextAndSubmitButtons()}

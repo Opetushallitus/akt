@@ -1,0 +1,32 @@
+/* Widths */
+.full-max-width {
+  &#{&} {
+    max-width: 100% !important;
+  }
+}
+
+.half-max-width {
+  max-width: 50%;
+}
+
+/* Margins */
+.margin-top-sm {
+  margin-top: map-get($spacing, 'sm');
+}
+
+.margin-top-xxl {
+  margin-top: map-get($spacing, 'xxl');
+}
+
+/* Gaps */
+.gapped {
+  gap: map-get($spacing, 'lg');
+}
+
+.gapped-sm {
+  gap: map-get($spacing, 'sm');
+}
+
+.gapped-xxs {
+  gap: map-get($spacing, 'xxs');
+}
