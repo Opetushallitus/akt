@@ -75,6 +75,8 @@ Dev profile adds following user:password:
 - user:user
     - User with no privileges
 
+#### Authentication off
+
 Dev profile also enables form authentication, and http basic auth for easier command line tool access.
 
 In development profile it is possible to turn off all authentication and authorisation with system
@@ -82,6 +84,13 @@ property `dev.web.security.off=true` You can pass it to spring boot with:
 
 ```sh
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev -Dspring-boot.run.jvmArguments=-Ddev.web.security.off=true
+```
+
+For docker backend you can use environment variable AKT_UNSECURE:
+
+```sh
+export AKT_UNSECURE=true
+docker-compose up
 ```
 
 ## Backend
