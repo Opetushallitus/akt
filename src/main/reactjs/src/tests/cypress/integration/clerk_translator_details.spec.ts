@@ -1,77 +1,71 @@
 import { APIEndpoints } from 'enums/api';
+import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import { onClerkHomePage } from 'tests/cypress/support/page-objects/clerkHomePage';
-import {
-  existingClerkTranslatorDetails,
-  onClerkTranslatorDetailsPage,
-} from 'tests/cypress/support/page-objects/clerkTranslatorDetailsPage';
+import { onClerkTranslatorDetailsPage } from 'tests/cypress/support/page-objects/clerkTranslatorDetailsPage';
 import { useFixedDate } from 'tests/cypress/support/utils/date';
 
 const fixedDateForTests = new Date('2022-01-17T12:35:00+0200');
+const fakeTranslatorId = 1234567890;
+const existingTranslatorId = 3;
+let existingTranslatorDetails = undefined;
 
 beforeEach(() => {
   useFixedDate(fixedDateForTests);
-  cy.intercept(APIEndpoints.ClerkTranslator, {
-    fixture: 'clerk_translators_100.json',
+  cy.fixture('clerk_translators_100.json').then((clerkTranslatorsData) => {
+    cy.intercept(APIEndpoints.ClerkTranslator, clerkTranslatorsData);
+    const translatorDetails =
+      clerkTranslatorsData.translators as Array<ClerkTranslator>;
+    existingTranslatorDetails = translatorDetails.find(
+      (translator) => translator.id === existingTranslatorId
+    );
   });
 });
 
-const fakeTranslatorId = 1234567890;
-
 const expectTranslatorContactDetailsFields = () => {
-  Object.keys(existingClerkTranslatorDetails.contactDetails).forEach(
-    (field) => {
-      const uiField = onClerkTranslatorDetailsPage.contactDetailsField(field);
-      uiField.should(
-        'have.value',
-        existingClerkTranslatorDetails.contactDetails[field]
-      );
-      uiField.should('be.disabled');
-    }
-  );
+  Object.keys(existingTranslatorDetails.contactDetails).forEach((field) => {
+    onClerkTranslatorDetailsPage.expectContactDetailsFieldValue(
+      field,
+      existingTranslatorDetails.contactDetails[field]
+    );
+    onClerkTranslatorDetailsPage.expectDisabledContactDetailsField(field);
+  });
 };
 
 const expectTranslatorAuthorisationDetails = () => {
-  existingClerkTranslatorDetails.authorisations.forEach((a) => {
-    const authorisationsRow =
-      onClerkTranslatorDetailsPage.authorisationDetailsRow(a.id);
-    authorisationsRow.should('contain.text', a.diaryNumber);
+  existingTranslatorDetails.authorisations.forEach((a) => {
+    onClerkTranslatorDetailsPage.expectAuthorisationRowToHaveText(
+      a.id,
+      a.diaryNumber
+    );
   });
 };
 
 describe('ClerkTranslatorDetails', () => {
   it("should be reachable from the ClerkTranslatorListing by a link on a translator's row", () => {
     cy.openClerkHomePage();
-    onClerkHomePage.clickTranslatorDetailsLink(
-      existingClerkTranslatorDetails.id
-    );
-    onClerkTranslatorDetailsPage.addAuthorisationBtn().should('be.enabled');
-    onClerkTranslatorDetailsPage.editTranslatorInfoBtn().should('be.enabled');
+    onClerkHomePage.clickTranslatorDetailsLink(existingTranslatorDetails.id);
+    onClerkTranslatorDetailsPage.expectedEnabledAddAuthorisationButton();
+    onClerkTranslatorDetailsPage.expectEnabledEditTranslatorInfoBtn();
     expectTranslatorContactDetailsFields();
     expectTranslatorAuthorisationDetails();
   });
 
   it('should be reachable by directly navigating with a URL', () => {
-    onClerkTranslatorDetailsPage.navigateById(
-      existingClerkTranslatorDetails.id
-    );
-    onClerkTranslatorDetailsPage.addAuthorisationBtn().should('be.enabled');
-    onClerkTranslatorDetailsPage.editTranslatorInfoBtn().should('be.enabled');
+    onClerkTranslatorDetailsPage.navigateById(existingTranslatorDetails.id);
+    onClerkTranslatorDetailsPage.expectedEnabledAddAuthorisationButton();
+    onClerkTranslatorDetailsPage.expectEnabledEditTranslatorInfoBtn();
     expectTranslatorContactDetailsFields();
     expectTranslatorAuthorisationDetails();
   });
 
   it('should display a "not found" message if no translator exists with the id given as the route parameter', () => {
     onClerkTranslatorDetailsPage.navigateById(fakeTranslatorId);
-    onClerkTranslatorDetailsPage
-      .contentContainer()
-      .should('contain.text', 'Valittua kääntäjää ei löytynyt');
+    onClerkTranslatorDetailsPage.expectTranslatorNotFoundText();
   });
 
   it('should allow navigating back to ClerkHomePage by clicking on the back button', () => {
-    onClerkTranslatorDetailsPage.navigateById(
-      existingClerkTranslatorDetails.id
-    );
-    onClerkTranslatorDetailsPage.backToRegisterBtn().click();
+    onClerkTranslatorDetailsPage.navigateById(existingTranslatorDetails.id);
+    onClerkTranslatorDetailsPage.navigateBackToRegister();
     onClerkHomePage.expectTotalTranslatorsCount(100);
   });
 });
