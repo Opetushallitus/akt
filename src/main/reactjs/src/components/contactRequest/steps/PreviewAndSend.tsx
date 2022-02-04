@@ -1,7 +1,7 @@
 import {
+  ChosenTranslators,
   ChosenTranslatorsHeading,
   DisplayContactInfo,
-  RenderChosenTranslators,
   StepHeading,
   stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
@@ -22,7 +22,7 @@ export const PreviewAndSend = () => {
       <StepHeading step={stepsByIndex[3]} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
-        <RenderChosenTranslators />
+        <ChosenTranslators />
         <DisplayContactInfo />
         <H3>{t('message')}</H3>
         <CustomTextField
@@ -31,7 +31,6 @@ export const PreviewAndSend = () => {
           defaultValue={request?.message}
           InputProps={{
             readOnly: true,
-            disableUnderline: true,
           }}
           multiline
           fullWidth

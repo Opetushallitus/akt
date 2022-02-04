@@ -86,7 +86,7 @@ property `dev.web.security.off=true` You can pass it to spring boot with:
 
 ## Backend
 
-Code format for Java code is Prettier Java. Maven plugin https://github.com/HubSpot/prettier-maven-plugin is used to
+Code format for Java code is Prettier Java. [Maven plugin](https://github.com/HubSpot/prettier-maven-plugin) is used to
 enforce style. In dev environment, `mvn validate` rewrites all java files to correct format. On CI format is only
 validated (maven profile `travis`)
 
@@ -104,6 +104,16 @@ In order to keep code clean and easily maintainable please use the following VS 
 
 - [prettier]
 - [eslint]
+- [stylelint]
+   
+   Add the following lines to your settings.json as show [here](https://kumardeepak.xyz/blog/stylelint-scss-and-visual-studio-code/)
+
+    ```sh
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+    "stylelint.validate": [ "css", "scss"],
+    ```
 
 ### Running tests
 
@@ -146,10 +156,6 @@ In order to make requests work in swagger ui, application must be run with param
 mvn spring-boot:run -Dtomcat.util.http.parser.HttpParser.requestTargetAllow=|{}
 ```
 
-[prettier]: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
-
-[eslint]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
-
 # Localisations
 
 ## Frontend
@@ -185,3 +191,10 @@ cd scripts
 
 Above script fetches language codes JSON from Koodisto, stores it for backend, and transforms it to localisation files
 for frontend. Results are committed to git.
+
+
+[prettier]: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+
+[eslint]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+
+[stylelint]: https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint

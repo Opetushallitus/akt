@@ -1,9 +1,14 @@
-import { Button } from '@mui/material';
+import {
+  ArrowBackOutlined as ArrowBackIcon,
+  ArrowForwardOutlined as ArrowForwardIcon,
+} from '@mui/icons-material';
+import { AppBar, Button, Toolbar } from '@mui/material';
 
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { Severity, Variant } from 'enums/app';
+import { Color, Severity, Variant } from 'enums/app';
 import { ContactRequestFormStep } from 'enums/contactRequest';
+import { useWindowProperties } from 'hooks/useWindowProperties';
 import { ContactRequest } from 'interfaces/contactRequest';
 import {
   decreaseFormStep,
@@ -23,6 +28,8 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
+
+  const { isPhone } = useWindowProperties();
 
   // Redux
   const dispatch = useAppDispatch();
@@ -65,45 +72,74 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
     dispatch(decreaseFormStep);
   };
 
-  return (
-    <div className="columns flex-end gapped m-margin-top">
+  const renderCancelButton = () => (
+    <>
       <Button
-        variant="outlined"
-        color="secondary"
+        variant={Variant.Outlined}
+        color={Color.Secondary}
         onClick={dispatchCancelNotifier}
         data-testid="contact-request-page__cancel-btn"
       >
         {t('buttons.cancel')}
       </Button>
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={dispatchStepDecrement}
-        disabled={activeStep == ContactRequestFormStep.VerifyTranslators}
-        data-testid="contact-request-page__previous-btn"
-      >
-        {t('buttons.previous')}
-      </Button>
+    </>
+  );
+
+  const renderBackButton = () => (
+    <Button
+      variant={Variant.Contained}
+      color={Color.Secondary}
+      onClick={dispatchStepDecrement}
+      disabled={activeStep == ContactRequestFormStep.VerifyTranslators}
+      endIcon={<ArrowBackIcon />}
+      data-testid="contact-request-page__previous-btn"
+    >
+      {t('buttons.previous')}
+    </Button>
+  );
+
+  const renderNextAndSubmitButtons = () => (
+    <>
       {activeStep == ContactRequestFormStep.PreviewAndSend ? (
         <Button
-          variant="contained"
-          color="secondary"
+          variant={Variant.Contained}
+          color={Color.Secondary}
           onClick={() => submit()}
           data-testid="contact-request-page__submit-btn"
+          endIcon={<ArrowForwardIcon />}
         >
           {t('buttons.submit')}
         </Button>
       ) : (
         <Button
-          variant="contained"
-          color="secondary"
+          variant={Variant.Contained}
+          color={Color.Secondary}
           disabled={disableNext}
           onClick={dispatchStepIncrement}
+          endIcon={<ArrowForwardIcon />}
           data-testid="contact-request-page__next-btn"
         >
           {t('buttons.next')}
         </Button>
       )}
+    </>
+  );
+
+  return isPhone ? (
+    <AppBar className="contact-request-page__app-bar">
+      <Toolbar className="contact-request-page__app-bar__tool-bar space-between">
+        {activeStep === ContactRequestFormStep.VerifyTranslators &&
+          renderCancelButton()}
+        {activeStep !== ContactRequestFormStep.VerifyTranslators &&
+          renderBackButton()}
+        {renderNextAndSubmitButtons()}
+      </Toolbar>
+    </AppBar>
+  ) : (
+    <div className="columns flex-end gapped margin-top-xxl">
+      {renderCancelButton()}
+      {renderBackButton()}
+      {renderNextAndSubmitButtons()}
     </div>
   );
 };

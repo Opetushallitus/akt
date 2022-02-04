@@ -1,0 +1,10 @@
+.inline-text {
+  display: inline-block;
+}
+
+.bold {
+  &#{&} {
+    font-weight: bold !important;
+    padding-left: map-get($spacing, 'xxs');
+  }
+}

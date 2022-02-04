@@ -1,9 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 
 import {
+  ChosenTranslators,
   ChosenTranslatorsHeading,
   DisplayContactInfo,
-  RenderChosenTranslators,
   StepHeading,
   stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
@@ -12,6 +12,7 @@ import { H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { TextFieldTypes } from 'enums/app';
+import { useWindowProperties } from 'hooks/useWindowProperties';
 import { setContactRequest } from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import { Utils } from 'utils';
@@ -25,6 +26,9 @@ export const WriteMessage = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt',
   });
+
+  //Windows properties
+  const { isPhone } = useWindowProperties();
 
   // State
   const [fieldError, setFieldError] = useState('');
@@ -68,7 +72,8 @@ export const WriteMessage = ({
     const errorToShow = fieldError ? `${fieldError}.` : '';
 
     return `${errorToShow} ${value?.length} ${t(
-      'component.contactRequestForm.characters'
+      'component.contactRequestForm.characters',
+      { count: value?.length }
     )} `;
   };
 
@@ -77,8 +82,8 @@ export const WriteMessage = ({
       <StepHeading step={stepsByIndex[2]} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
-        <RenderChosenTranslators />
-        <DisplayContactInfo />
+        <ChosenTranslators />
+        {!isPhone && <DisplayContactInfo />}
         <div className="rows gapped">
           <H3>{t(`component.contactRequestForm.steps.${stepsByIndex[2]}`)}</H3>
           <CustomTextField

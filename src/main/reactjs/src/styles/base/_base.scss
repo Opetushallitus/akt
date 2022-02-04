@@ -5,10 +5,10 @@
 html,
 body,
 #root {
-  height: 100%;
   background-color: $color-background-root;
   font-family: Roboto;
   font-size: 62.5%;
+  height: 100%;
   height: 100%;
 
   & h1 {
@@ -53,6 +53,7 @@ body,
       padding: 3rem;
 
       @include phone {
+        justify-content: unset;
         margin: 0 auto;
         padding: 0;
       }

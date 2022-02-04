@@ -130,7 +130,7 @@ const ListingRow = ({
         </div>
       </TableCell>
       <TableCell>
-        <div className="columns gapped-s">
+        <div className="columns gapped-sm">
           <Button
             to={translatorDetailsURL(translator.id)}
             component={Link}

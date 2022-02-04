@@ -10,6 +10,20 @@
   box-shadow: none;
 }
 
+@mixin app-bar-bottom() {
+  bottom: 0;
+  position: fixed;
+  top: auto;
+
+  &__tool-bar {
+    margin: 1.5rem 0;
+
+    button {
+      padding: 0.8rem 2rem;
+    }
+  }
+}
+
 @mixin dialog-border($color) {
   border-radius: 0;
   border-top: 1rem $color solid;

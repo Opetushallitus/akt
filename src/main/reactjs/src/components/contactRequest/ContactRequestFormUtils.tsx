@@ -1,18 +1,17 @@
-import { Step, StepLabel, Stepper } from '@mui/material';
-
 import { Done } from 'components/contactRequest/steps/Done';
 import { FillContactDetails } from 'components/contactRequest/steps/FillContactDetails';
 import { PreviewAndSend } from 'components/contactRequest/steps/PreviewAndSend';
 import { VerifySelectedTranslators } from 'components/contactRequest/steps/VerifySelectedTranslators';
 import { WriteMessage } from 'components/contactRequest/steps/WriteMessage';
 import { CustomTextField } from 'components/elements/CustomTextField';
-import { H1, H2, H3, Text } from 'components/elements/Text';
+import { H1, H3, Text } from 'components/elements/Text';
 import {
   useAppTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { ContactRequestFormStep } from 'enums/contactRequest';
+import { useWindowProperties } from 'hooks/useWindowProperties';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import {
   publicTranslatorsSelector,
@@ -29,33 +28,53 @@ export const stepsByIndex = {
 
 export const ChosenTranslatorsHeading = () => {
   const { filters } = useAppSelector(publicTranslatorsSelector);
+  const { activeStep } = useAppSelector(contactRequestSelector);
   const { fromLang, toLang } = filters;
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
   const translateLanguage = useKoodistoLanguagesTranslation();
+  const { isPhone } = useWindowProperties();
+  const showOnPhone =
+    activeStep === ContactRequestFormStep.VerifyTranslators ||
+    activeStep === ContactRequestFormStep.PreviewAndSend;
+  const divClassName = isPhone ? 'rows' : 'columns';
 
-  return (
-    <div className="columns">
+  const renderChosenTranslatorsHeading = () => (
+    <div className={divClassName}>
       <H3>{`${t('chosenTranslatorsForLanguagePair')}`}</H3>
       <H3 className="contact-request-page__lang-pair">
         {`${translateLanguage(fromLang)} - ${translateLanguage(toLang)}`}
       </H3>
     </div>
   );
+
+  const renderPhoneView = () =>
+    showOnPhone ? renderChosenTranslatorsHeading() : <></>;
+
+  return isPhone ? renderPhoneView() : renderChosenTranslatorsHeading();
 };
 
-export const RenderChosenTranslators = () => {
+export const ChosenTranslators = () => {
+  const { isPhone } = useWindowProperties();
+  const { activeStep } = useAppSelector(contactRequestSelector);
   const translators = useAppSelector(selectedPublicTranslatorsForLanguagePair);
   const translatorsString = translators
     .map(({ firstName, lastName }) => firstName + ' ' + lastName)
     .join(', ');
 
-  return (
+  const renderChosenTranslators = () => (
     <Text data-testid="contact-request-page__chosen-translators-text">
       {translatorsString}
     </Text>
   );
+
+  const showOnPhone = activeStep === ContactRequestFormStep.PreviewAndSend;
+
+  const renderPhoneView = () =>
+    showOnPhone ? renderChosenTranslators() : <></>;
+
+  return isPhone ? renderPhoneView() : renderChosenTranslators();
 };
 
 export const DisplayContactInfo = () => {
@@ -66,7 +85,7 @@ export const DisplayContactInfo = () => {
 
   return (
     <div className="rows gapped">
-      <H2>{t('contactInfo')}</H2>
+      <H3>{t('contactInfo')}</H3>
       <div className="grid-columns gapped">
         <CustomTextField
           disabled
@@ -93,35 +112,23 @@ export const DisplayContactInfo = () => {
   );
 };
 
+// StepHeading is not shown on mobile devices
 export const StepHeading = ({ step }: { step: string }) => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm.steps',
   });
 
-  return (
+  const { isPhone } = useWindowProperties();
+
+  return !isPhone ? (
     <div
       className="contact-request-page__heading"
       data-testid={`contact-request-page__step-heading-${step}`}
     >
       <H1>{t(step)}</H1>
     </div>
-  );
-};
-
-export const ContactRequestStepper = () => {
-  const { activeStep } = useAppSelector(contactRequestSelector);
-  const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.contactRequestForm.steps',
-  });
-
-  return (
-    <Stepper className="contact-request-page__stepper" activeStep={activeStep}>
-      {Object.values(stepsByIndex).map((v) => (
-        <Step key={v}>
-          <StepLabel>{t(v)}</StepLabel>
-        </Step>
-      ))}
-    </Stepper>
+  ) : (
+    <></>
   );
 };
 

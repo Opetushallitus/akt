@@ -1,4 +1,6 @@
 .public-homepage {
+  flex: 1;
+
   & &__grid-container {
     display: block;
 
@@ -18,14 +20,14 @@
     div &__result-box {
       padding: 3rem;
 
+      @include phone {
+        padding: 0.5rem;
+      }
+
       &__no-results {
         @include phone {
           margin: 2rem;
         }
-      }
-
-      @include phone {
-        padding: 0.5rem;
       }
     }
   }
@@ -36,21 +38,21 @@
     gap: 2rem;
     padding: 2.5rem;
 
+    @include phone {
+      @include phone-divider-border-top;
+      @include phone-divider-border-bottom;
+      gap: 1.5rem;
+      padding: 1rem 2rem;
+    }
+
     &__heading-title {
       margin-bottom: 0;
     }
 
     &__heading-description {
+      color: $color-grey-700;
       font-size: 1.4rem;
       font-weight: 400;
-      color: $color-grey-700;
-    }
-
-    @include phone {
-      padding: 1rem 2rem;
-      gap: 1.5rem;
-      @include phone-divider-border-top;
-      @include phone-divider-border-bottom;
     }
   }
 }
