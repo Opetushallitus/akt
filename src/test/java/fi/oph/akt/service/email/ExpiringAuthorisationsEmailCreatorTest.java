@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import fi.oph.akt.Factory;
 import fi.oph.akt.model.Authorisation;
@@ -54,17 +55,21 @@ public class ExpiringAuthorisationsEmailCreatorTest {
     final MeetingDate meetingDate = Factory.meetingDate();
     entityManager.persist(meetingDate);
 
-    final AuthorisationTerm term1 = createTerm(meetingDate, LocalDate.now());
-    final AuthorisationTerm term2 = createTerm(meetingDate, LocalDate.now().plusDays(10));
-    final AuthorisationTerm term3 = createTerm(meetingDate, LocalDate.now().plusMonths(3));
+    final AuthorisationTerm term1 = createTerm(meetingDate, LocalDate.now(), "t1@invalid");
+    final AuthorisationTerm term2 = createTerm(meetingDate, LocalDate.now().plusDays(10), "t2@invalid");
+    final AuthorisationTerm term3 = createTerm(meetingDate, LocalDate.now().plusMonths(3), "t3@invalid");
 
-    final AuthorisationTerm pastTerm = createTerm(meetingDate, LocalDate.now().minusDays(1));
-    final AuthorisationTerm futureTerm = createTerm(meetingDate, LocalDate.now().plusMonths(3).plusDays(1));
+    final AuthorisationTerm pastTerm = createTerm(meetingDate, LocalDate.now().minusDays(1), "t4@invalid");
+    final AuthorisationTerm futureTerm = createTerm(
+      meetingDate,
+      LocalDate.now().plusMonths(3).plusDays(1),
+      "t5@invalid"
+    );
 
-    final AuthorisationTerm remindedTerm1 = createTerm(meetingDate, LocalDate.now().plusMonths(1));
+    final AuthorisationTerm remindedTerm1 = createTerm(meetingDate, LocalDate.now().plusMonths(1), "t6@invalid");
     createAuthorisationTermReminder(remindedTerm1);
 
-    final AuthorisationTerm remindedTerm2 = createTerm(meetingDate, LocalDate.now().plusMonths(2));
+    final AuthorisationTerm remindedTerm2 = createTerm(meetingDate, LocalDate.now().plusMonths(2), "t7@invalid");
     createAuthorisationTermReminder(remindedTerm2);
     createAuthorisationTermReminder(remindedTerm2);
 
@@ -81,13 +86,30 @@ public class ExpiringAuthorisationsEmailCreatorTest {
     assertTrue(expiringTermIds.contains(term3.getId()));
   }
 
-  private AuthorisationTerm createTerm(MeetingDate meetingDate, LocalDate endDate) {
+  @Test
+  public void testPollExpiringAuthorisationsWithTranslatorWithoutEmailAddress() {
+    final MeetingDate meetingDate = Factory.meetingDate();
+    entityManager.persist(meetingDate);
+
+    createTerm(meetingDate, LocalDate.now(), null);
+
+    emailCreator.pollExpiringAuthorisations();
+
+    verifyNoInteractions(clerkEmailService);
+  }
+
+  private AuthorisationTerm createTerm(
+    final MeetingDate meetingDate,
+    final LocalDate termEndDate,
+    final String translatorEmail
+  ) {
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
     final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
-    authorisationTerm.setBeginDate(endDate.minusYears(1));
-    authorisationTerm.setEndDate(endDate);
+    translator.setEmail(translatorEmail);
+    authorisationTerm.setBeginDate(termEndDate.minusYears(1));
+    authorisationTerm.setEndDate(termEndDate);
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
@@ -97,7 +119,7 @@ public class ExpiringAuthorisationsEmailCreatorTest {
     return authorisationTerm;
   }
 
-  private void createAuthorisationTermReminder(AuthorisationTerm term) {
+  private void createAuthorisationTermReminder(final AuthorisationTerm term) {
     final Email email = Factory.email(EmailType.AUTHORISATION_EXPIRY);
     entityManager.persist(email);
 

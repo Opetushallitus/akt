@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 11.2 (Debian 11.2-1.pgdg90+1)
+-- Dumped from database version 12.9 (Debian 12.9-1.pgdg110+1)
 -- Dumped by pg_dump version 14.0
 
 SET statement_timeout = 0;
@@ -32,9 +32,11 @@ VIR
 --
 
 COPY public.email_type (name) FROM stdin;
-CONTACT_REQUEST
 AUTHORISATION_EXPIRY
 INFORMAL
+CONTACT_REQUEST_CLERK
+CONTACT_REQUEST_REQUESTER
+CONTACT_REQUEST_TRANSLATOR
 \.
 
 

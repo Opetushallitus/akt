@@ -14,7 +14,9 @@ import fi.oph.akt.service.email.EmailService;
 import fi.oph.akt.util.TemplateRenderer;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -106,40 +108,137 @@ public class ContactRequestService {
   }
 
   private void saveContactRequestEmails(final ContactRequestDTO contactRequestDTO, final List<Translator> translators) {
-    final String requesterName = contactRequestDTO.firstName().trim() + " " + contactRequestDTO.lastName().trim();
-    final String requesterEmail = contactRequestDTO.email().trim();
+    final Map<Boolean, List<Translator>> translatorsByExistingEmail = translators
+      .stream()
+      .collect(Collectors.partitioningBy(t -> Objects.nonNull(t.getEmail())));
 
+    final List<Translator> translatorsWithEmail = translatorsByExistingEmail.get(true);
+    final List<Translator> translatorsWithoutEmail = translatorsByExistingEmail.get(false);
+
+    sendTranslatorEmails(translatorsWithEmail, contactRequestDTO);
+    sendRequesterEmail(translatorsWithEmail, translatorsWithoutEmail, contactRequestDTO);
+
+    if (!translatorsWithoutEmail.isEmpty()) {
+      sendClerkEmail(translatorsWithoutEmail, contactRequestDTO);
+    }
+  }
+
+  private void sendTranslatorEmails(final List<Translator> translators, final ContactRequestDTO contactRequestDTO) {
     final Map<String, Object> templateParams = Map.of(
-      "name",
-      requesterName,
-      "email",
-      requesterEmail,
-      "phone",
-      contactRequestDTO.phoneNumber() != null ? contactRequestDTO.phoneNumber().trim() : "",
-      "message",
-      contactRequestDTO.message().trim().split("\r?\n")
+      "requesterName",
+      getRequesterName(contactRequestDTO),
+      "requesterEmail",
+      getRequesterEmail(contactRequestDTO),
+      "requesterPhone",
+      getRequesterPhone(contactRequestDTO),
+      "messageLines",
+      getMessageLines(contactRequestDTO)
     );
 
-    final String emailBody = templateRenderer.renderContactRequestEmailBody(templateParams);
+    final String subject = "Yhteydenotto kääntäjärekisteristä";
+    final String body = templateRenderer.renderContactRequestTranslatorEmailBody(templateParams);
 
     translators.forEach(translator -> {
       final String recipientName = translator.getFullName();
-      final String recipientAddress = Optional.ofNullable(translator.getEmail()).orElse("unknown@invalid");
+      final String recipientAddress = translator.getEmail();
 
-      saveContactRequestEmail(recipientName, recipientAddress, emailBody);
+      createEmail(recipientName, recipientAddress, subject, body, EmailType.CONTACT_REQUEST_TRANSLATOR);
     });
-    saveContactRequestEmail(requesterName, requesterEmail, emailBody);
   }
 
-  private void saveContactRequestEmail(final String recipientName, final String recipientAddress, final String body) {
+  private void sendRequesterEmail(
+    final List<Translator> contactedTranslators,
+    final List<Translator> otherTranslators,
+    final ContactRequestDTO contactRequestDTO
+  ) {
+    final String requesterName = getRequesterName(contactRequestDTO);
+    final String requesterEmail = getRequesterEmail(contactRequestDTO);
+
+    final Map<String, Object> templateParams = Map.of(
+      "contactedTranslators",
+      contactedTranslators.stream().map(Translator::getFullName).sorted().toList(),
+      "otherTranslators",
+      otherTranslators.stream().map(Translator::getFullName).sorted().toList(),
+      "requesterName",
+      getRequesterName(contactRequestDTO),
+      "requesterEmail",
+      getRequesterEmail(contactRequestDTO),
+      "requesterPhone",
+      getRequesterPhone(contactRequestDTO),
+      "messageLines",
+      getMessageLines(contactRequestDTO)
+    );
+
+    final String subject = "Lähettämäsi yhteydenottopyyntö";
+    final String body = templateRenderer.renderContactRequestRequesterEmailBody(templateParams);
+
+    createEmail(requesterName, requesterEmail, subject, body, EmailType.CONTACT_REQUEST_REQUESTER);
+  }
+
+  private void sendClerkEmail(final List<Translator> translators, ContactRequestDTO contactRequestDTO) {
+    final List<Map<String, String>> translatorParams = translators
+      .stream()
+      .map(t -> {
+        String id = "" + t.getId();
+        String name = t.getFullName();
+        String phone = Optional.ofNullable(t.getPhone()).orElse("-");
+
+        return Map.of("id", id, "name", name, "phone", phone);
+      })
+      .toList();
+
+    final String requesterPhone = getRequesterPhone(contactRequestDTO);
+
+    final Map<String, Object> templateParams = Map.of(
+      "translators",
+      translatorParams,
+      "requesterName",
+      getRequesterName(contactRequestDTO),
+      "requesterEmail",
+      getRequesterEmail(contactRequestDTO),
+      "requesterPhone",
+      requesterPhone.isEmpty() ? "-" : requesterPhone
+    );
+
+    final String recipientName = "Auktoris - OPH";
+    final String recipientAddress = "auktoris@oph.fi";
+    final String subject = "Yhteydenotto kääntäjään jonka postiosoite ei tiedossa";
+    final String body = templateRenderer.renderContactRequestClerkEmailBody(templateParams);
+
+    createEmail(recipientName, recipientAddress, subject, body, EmailType.CONTACT_REQUEST_CLERK);
+  }
+
+  private String getRequesterName(final ContactRequestDTO contactRequestDTO) {
+    return contactRequestDTO.firstName().trim() + " " + contactRequestDTO.lastName().trim();
+  }
+
+  private String getRequesterEmail(final ContactRequestDTO contactRequestDTO) {
+    return contactRequestDTO.email().trim();
+  }
+
+  private String getRequesterPhone(final ContactRequestDTO contactRequestDTO) {
+    return contactRequestDTO.phoneNumber() != null ? contactRequestDTO.phoneNumber().trim() : "";
+  }
+
+  private String[] getMessageLines(final ContactRequestDTO contactRequestDTO) {
+    return contactRequestDTO.message().trim().split("\r?\n");
+  }
+
+  private void createEmail(
+    final String recipientName,
+    final String recipientAddress,
+    final String subject,
+    final String body,
+    final EmailType emailType
+  ) {
     final EmailData emailData = EmailData
       .builder()
       .recipientName(recipientName)
       .recipientAddress(recipientAddress)
-      .subject("Yhteydenotto kääntäjärekisteristä")
+      .subject(subject)
       .body(body)
       .build();
 
-    emailService.saveEmail(EmailType.CONTACT_REQUEST, emailData);
+    emailService.saveEmail(emailType, emailData);
   }
 }

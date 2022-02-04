@@ -72,7 +72,9 @@ class ContactRequestServiceTest {
 
   @BeforeEach
   public void setup() {
-    when(templateRenderer.renderContactRequestEmailBody(any())).thenReturn("hello world");
+    when(templateRenderer.renderContactRequestTranslatorEmailBody(any())).thenReturn("<html>translator</html>");
+    when(templateRenderer.renderContactRequestRequesterEmailBody(any())).thenReturn("<html>requester</html>");
+    when(templateRenderer.renderContactRequestClerkEmailBody(any())).thenReturn("<html>clerk</html>");
 
     contactRequestService =
       new ContactRequestService(
@@ -120,7 +122,7 @@ class ContactRequestServiceTest {
   }
 
   @Test
-  public void createContactRequestShouldSaveEmailsToBeSent() {
+  public void createContactRequestShouldSaveEmailsToTranslatorsAndRequester() {
     final MeetingDate meetingDate = createMeetingDate();
     final List<Long> translatorIds = initTranslators(meetingDate, 2);
 
@@ -134,14 +136,17 @@ class ContactRequestServiceTest {
     final List<EmailData> emailDatas = emailDataCaptor.getAllValues();
 
     assertEquals(2, translators.size());
-    assertEquals(3, emailDatas.size()); // 2 + 1 copy to foo@bar
+    assertEquals(3, emailDatas.size());
 
     translators.forEach(t ->
       assertEquals(
         1,
         emailDatas
           .stream()
-          .filter(e -> e.recipientName().equals(t.getFullName()) && e.recipientAddress().equals(t.getEmail()))
+          .filter(e -> e.recipientName().equals(t.getFullName()))
+          .filter(e -> e.recipientAddress().equals(t.getEmail()))
+          .filter(e -> e.subject().equals("Yhteydenotto kääntäjärekisteristä"))
+          .filter(e -> e.body().equals("<html>translator</html>"))
           .count()
       )
     );
@@ -150,14 +155,59 @@ class ContactRequestServiceTest {
       1,
       emailDatas
         .stream()
-        .filter(e -> e.recipientName().equals("Foo Bar") && e.recipientAddress().equals("foo@bar"))
+        .filter(e -> e.recipientName().equals("Sean Sender"))
+        .filter(e -> e.recipientAddress().equals("sean.sender@invalid"))
+        .filter(e -> e.subject().equals("Lähettämäsi yhteydenottopyyntö"))
+        .filter(e -> e.body().equals("<html>requester</html>"))
+        .count()
+    );
+  }
+
+  @Test
+  public void createContactRequestShouldSaveClerkEmailIfContactedTranslatorDoesntHaveEmailAddress() {
+    final MeetingDate meetingDate = createMeetingDate();
+    final Translator translator = Factory.translator();
+    final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+
+    authorisation.setFromLang(FROM_LANG);
+    authorisation.setToLang(TO_LANG);
+
+    entityManager.persist(translator);
+    entityManager.persist(authorisation);
+
+    final List<Long> translatorIds = List.of(translator.getId());
+
+    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
+
+    contactRequestService.createContactRequest(contactRequestDTO);
+
+    verify(emailService, times(2)).saveEmail(any(), emailDataCaptor.capture());
+
+    final List<EmailData> emailDatas = emailDataCaptor.getAllValues();
+
+    assertEquals(2, emailDatas.size());
+
+    assertEquals(
+      1,
+      emailDatas
+        .stream()
+        .filter(e -> e.recipientName().equals("Sean Sender"))
+        .filter(e -> e.recipientAddress().equals("sean.sender@invalid"))
+        .filter(e -> e.subject().equals("Lähettämäsi yhteydenottopyyntö"))
+        .filter(e -> e.body().equals("<html>requester</html>"))
         .count()
     );
 
-    emailDatas.forEach(emailData -> {
-      assertEquals("Yhteydenotto kääntäjärekisteristä", emailData.subject());
-      assertEquals("hello world", emailData.body());
-    });
+    assertEquals(
+      1,
+      emailDatas
+        .stream()
+        .filter(e -> e.recipientName().equals("Auktoris - OPH"))
+        .filter(e -> e.recipientAddress().equals("auktoris@oph.fi"))
+        .filter(e -> e.subject().equals("Yhteydenotto kääntäjään jonka postiosoite ei tiedossa"))
+        .filter(e -> e.body().equals("<html>clerk</html>"))
+        .count()
+    );
   }
 
   @Test
@@ -264,9 +314,9 @@ class ContactRequestServiceTest {
   ) {
     return ContactRequestDTO
       .builder()
-      .firstName("Foo")
-      .lastName("Bar")
-      .email("foo@bar")
+      .firstName("Sean")
+      .lastName("Sender")
+      .email("sean.sender@invalid")
       .phoneNumber("+358123")
       .message("lorem ipsum")
       .fromLang(fromLang)

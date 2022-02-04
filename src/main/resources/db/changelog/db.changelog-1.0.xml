@@ -496,4 +496,26 @@
         <addUniqueConstraint tableName="translator" columnNames="email"/>
     </changeSet>
 
+    <changeSet id="2022-02-01-new_contact_request_email_types" author="mikhuttu">
+        <insert tableName="email_type">
+            <column name="name" value="CONTACT_REQUEST_CLERK"/>
+        </insert>
+        <insert tableName="email_type">
+            <column name="name" value="CONTACT_REQUEST_REQUESTER"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2022-02-01-rename_email_type_contact_request" author="mikhuttu">
+        <insert tableName="email_type">
+            <column name="name" value="CONTACT_REQUEST_TRANSLATOR"/>
+        </insert>
+        <update tableName="email">
+            <column name="email_type" value="CONTACT_REQUEST_TRANSLATOR"/>
+            <where>email_type = 'CONTACT_REQUEST'</where>
+        </update>
+        <delete tableName="email_type">
+            <where>name = 'CONTACT_REQUEST'</where>
+        </delete>
+    </changeSet>
+
 </databaseChangeLog>
