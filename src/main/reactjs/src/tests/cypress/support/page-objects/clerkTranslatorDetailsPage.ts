@@ -48,7 +48,7 @@ class ClerkTranslatorDetailsPage {
   }
 
   expectAuthorisationRowToHaveText(id: number, text: string) {
-    return this.elements.authorisationRow(id).should('contain.text', text);
+    this.elements.authorisationRow(id).should('contain.text', text);
   }
 
   expectTranslatorNotFoundText() {
