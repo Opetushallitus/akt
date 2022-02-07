@@ -49,7 +49,7 @@ const getRowDetails = (
 };
 
 const translatorDetailsURL = (id: number) =>
-  AppRoutes.ClerkTranslatorDetailsPage.replace(/:translatorId$/, `${id}`);
+  AppRoutes.ClerkTranslatorOverviewPage.replace(/:translatorId$/, `${id}`);
 
 const stopOnClickPropagation = (
   e: React.MouseEvent<HTMLAnchorElement> | undefined

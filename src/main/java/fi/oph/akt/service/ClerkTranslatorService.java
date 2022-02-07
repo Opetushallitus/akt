@@ -293,6 +293,7 @@ public class ClerkTranslatorService {
     translator.setTown(dto.town());
     translator.setPostalCode(dto.postalCode());
     translator.setCountry(dto.country());
+    translator.setExtraInformation(dto.extraInformation());
   }
 
   @Transactional

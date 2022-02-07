@@ -122,7 +122,7 @@
           "placeholder": "Asuinkunta"
         }
       },
-      "clerkTranslatorDetails": {
+      "clerkTranslatorOverview": {
         "buttons": {
           "save": "Tallenna",
           "back": "Takaisin",
@@ -271,7 +271,7 @@
           }
         }
       },
-      "clerkTranslatorDetailsPage": {
+      "clerkTranslatorOverviewPage": {
         "title": "Kääntäjän tiedot"
       },
       "translator": {

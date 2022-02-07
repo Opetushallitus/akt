@@ -18,4 +18,6 @@ public interface TranslatorDTOCommonFields {
   String postalCode();
 
   String country();
+
+  String extraInformation();
 }

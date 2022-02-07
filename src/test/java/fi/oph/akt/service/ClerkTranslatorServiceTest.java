@@ -624,15 +624,16 @@ class ClerkTranslatorServiceTest {
   }
 
   private void assertTranslatorCommonFields(final TranslatorDTOCommonFields expected, final ClerkTranslatorDTO dto) {
-    assertEquals(expected.identityNumber(), dto.contactDetails().identityNumber());
-    assertEquals(expected.firstName(), dto.contactDetails().firstName());
-    assertEquals(expected.lastName(), dto.contactDetails().lastName());
-    assertEquals(expected.email(), dto.contactDetails().email());
-    assertEquals(expected.phoneNumber(), dto.contactDetails().phoneNumber());
-    assertEquals(expected.street(), dto.contactDetails().street());
-    assertEquals(expected.town(), dto.contactDetails().town());
-    assertEquals(expected.postalCode(), dto.contactDetails().postalCode());
-    assertEquals(expected.country(), dto.contactDetails().country());
+    assertEquals(expected.identityNumber(), dto.identityNumber());
+    assertEquals(expected.firstName(), dto.firstName());
+    assertEquals(expected.lastName(), dto.lastName());
+    assertEquals(expected.email(), dto.email());
+    assertEquals(expected.phoneNumber(), dto.phoneNumber());
+    assertEquals(expected.street(), dto.street());
+    assertEquals(expected.town(), dto.town());
+    assertEquals(expected.postalCode(), dto.postalCode());
+    assertEquals(expected.country(), dto.country());
+    assertEquals(expected.extraInformation(), dto.extraInformation());
   }
 
   @Test

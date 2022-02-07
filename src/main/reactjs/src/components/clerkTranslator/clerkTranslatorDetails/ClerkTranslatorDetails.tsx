@@ -1,30 +1,31 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
 
-import { AuthorisationDetails } from 'components/clerkTranslator/clerkTranslatorDetails/AuthorisationDetails';
-import { TranslatorDetails } from 'components/clerkTranslator/clerkTranslatorDetails/TranslatorDetails';
+import { CustomTextField } from 'components/elements/CustomTextField';
+import { H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
-import { AppRoutes, Variant } from 'enums/app';
+import { Color, Variant } from 'enums/app';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 
-export const TopControls = () => {
+const TranslatorField = ({
+  translator,
+  field,
+  disabled,
+}: {
+  translator: ClerkTranslator;
+  field: keyof ClerkTranslator;
+  disabled?: boolean;
+}) => {
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.clerkTranslatorDetails',
+    keyPrefix: 'akt.component.clerkTranslatorOverview.translatorDetails.fields',
   });
 
   return (
-    <div className="columns">
-      <Button
-        component={Link}
-        to={AppRoutes.ClerkHomePage}
-        className="clerk-translator-details-page__back-btn"
-        variant={Variant.Text}
-        startIcon={<ArrowBackIcon />}
-      >
-        {t('buttons.back')}
-      </Button>
-    </div>
+    <CustomTextField
+      data-testid={`clerk-translator-overview__translator-details__field-${field}`}
+      label={t(field)}
+      value={translator[field]}
+      disabled={disabled}
+    />
   );
 };
 
@@ -33,12 +34,54 @@ export const ClerkTranslatorDetails = ({
 }: {
   translator: ClerkTranslator;
 }) => {
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.clerkTranslatorOverview.translatorDetails',
+  });
+  const renderTranslatorField = (field: keyof ClerkTranslator) => (
+    <TranslatorField translator={translator} field={field} disabled />
+  );
+
   return (
     <>
-      <TopControls />
-      <div className="rows gapped">
-        <TranslatorDetails translator={translator} />
-        <AuthorisationDetails translator={translator} />
+      <div className="columns margin-top-lg">
+        <H3 className="grow">{t('header.personalInformation')}</H3>
+        <Button
+          data-testid="clerk-translator-overview__translator-details__edit-btn"
+          variant={Variant.Contained}
+          color={Color.Secondary}
+        >
+          {t('buttons.edit')}
+        </Button>
+      </div>
+      <div className="grid-columns gapped">
+        {renderTranslatorField('lastName')}
+        {renderTranslatorField('firstName')}
+        {renderTranslatorField('identityNumber')}
+      </div>
+      <H3>{t('header.address')}</H3>
+      <div className="grid-columns gapped">
+        {renderTranslatorField('street')}
+        {renderTranslatorField('postalCode')}
+        {renderTranslatorField('town')}
+        {renderTranslatorField('country')}
+      </div>
+      <H3>{t('header.contactInformation')}</H3>
+      <div className="grid-columns gapped">
+        {renderTranslatorField('email')}
+        {renderTranslatorField('phoneNumber')}
+      </div>
+      <H3>{t('header.extraInformation')}</H3>
+      <div className="grid-columns gapped">
+        <CustomTextField
+          data-testid={
+            'clerk-translator-overview__translator-details__field-extraInformation'
+          }
+          value={translator.extraInformation}
+          multiline
+          fullWidth
+          rows={4}
+          disabled
+        />
       </div>
     </>
   );
