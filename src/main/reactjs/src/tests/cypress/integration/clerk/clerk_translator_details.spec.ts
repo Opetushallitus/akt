@@ -32,6 +32,7 @@ const expectTranslatorTranslatorDetailsFields = () => {
     'postalCode',
     'town',
     'country',
+    'extraInformation',
   ];
 
   detailsFields.forEach((field) => {

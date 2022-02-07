@@ -72,7 +72,16 @@ export const TranslatorDetails = ({
       </div>
       <H2>{t('header.extraInformation')}</H2>
       <div className="grid-columns gapped">
-        <CustomTextField value={translator.extraInformation} disabled />
+        <CustomTextField
+          data-testid={
+            'clerk-translator-details__translator-details__field-extraInformation'
+          }
+          value={translator.extraInformation}
+          multiline
+          fullWidth
+          rows={4}
+          disabled
+        />
       </div>
     </>
   );
