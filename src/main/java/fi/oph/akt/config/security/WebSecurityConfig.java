@@ -134,14 +134,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   public static HttpSecurity commonConfig(final HttpSecurity http) throws Exception {
-    final CookieCsrfTokenRepository csrfTokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-    csrfTokenRepository.setCookieName("CSRF");
-    csrfTokenRepository.setHeaderName("CSRF");
-
-    return http
-      .csrf()
-      .csrfTokenRepository(csrfTokenRepository)
-      .and()
+    return configCsrf(http)
       .authorizeRequests()
       .mvcMatchers("/api/v1/clerk/**", "/virkailija/**", "/virkailija")
       .hasRole(AKT_ROLE)
@@ -150,6 +143,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .anyRequest()
       .authenticated()
       .and();
+  }
+
+  public static HttpSecurity configCsrf(final HttpSecurity http) throws Exception {
+    final CookieCsrfTokenRepository csrfTokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+    csrfTokenRepository.setCookieName("CSRF");
+    csrfTokenRepository.setHeaderName("CSRF");
+    return http.csrf().csrfTokenRepository(csrfTokenRepository).and();
   }
 
   @Override

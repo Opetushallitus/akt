@@ -29,6 +29,13 @@ public class WebSecurityConfigDev extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     if (devWebSecurityOff) {
       LOG.warn("Web security is OFF");
+      WebSecurityConfig
+        .configCsrf(http)
+        .authorizeRequests()
+        .antMatchers("/", "/**")
+        .permitAll()
+        .anyRequest()
+        .authenticated();
       return;
     }
     WebSecurityConfig

@@ -15,6 +15,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
+      - AKT_UNSECURE=${AKT_UNSECURE}
 
   frontend:
     build: src/main/reactjs
