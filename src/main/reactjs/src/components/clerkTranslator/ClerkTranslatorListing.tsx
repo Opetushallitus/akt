@@ -144,6 +144,7 @@ const ListingRow = ({
       <TableCell>
         <div className="columns gapped-sm">
           <IconButton
+            data-testid={`clerk-translators__id-${translator.id}-more-btn`}
             to={translatorDetailsURL(translator.id)}
             component={Link}
             color={Color.Secondary}

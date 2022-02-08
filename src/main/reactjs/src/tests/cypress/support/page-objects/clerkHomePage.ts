@@ -43,7 +43,7 @@ class ClerkHomePage {
   }
 
   filterByToLang(lang: string) {
-    this.elements.fromLanguageSelect().type(lang + '{enter}');
+    this.elements.toLanguageSelect().type(lang + '{enter}');
   }
 
   filterByName(name: string) {
@@ -61,7 +61,7 @@ class ClerkHomePage {
   clickTranslatorDetailsLink(id: number) {
     this.elements
       .translatorRow(`${id}`)
-      .findByText(/lisätiedot/i)
+      .findByTestId(`clerk-translators__id-${id}-more-btn`)
       .click();
   }
 }

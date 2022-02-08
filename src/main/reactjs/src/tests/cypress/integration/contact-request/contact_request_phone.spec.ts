@@ -27,7 +27,7 @@ beforeEach(() => {
 });
 
 describe('ContactRequestPage:Phone', () => {
-  it.only('should redirect to homepage after completing the happy path on a mobile device', () => {
+  it('should redirect to homepage after completing the happy path on a mobile device', () => {
     verifyTranslatorsStep();
     fillContactDetailsStep();
     writeMessageStep();
