@@ -1,5 +1,6 @@
 TRUNCATE translator CASCADE;
 TRUNCATE meeting_date CASCADE;
+TRUNCATE email CASCADE;
 
 INSERT INTO meeting_date(date)
 VALUES ('2020-10-03');
@@ -137,8 +138,8 @@ SELECT translator_id,
        -- temporary diary_number entries
        md5(random()::text)
 FROM translator_ids,
-     (SELECT ('{FI, SV, SEIN, SEKO, SEPO}')::text[] AS from_langs) AS from_langs_table,
-     (SELECT ('{BN, CA, CS, DA, DE, EL, EN, ET, FJ, FO, FR, GA, HE, HR, HU, JA, RU, TT, TY, UG, UK, VI, ZH}')::text[] AS langs) AS langs_table
+     (SELECT ('{FI, SEIN, SEKO, SEPO}')::text[] AS from_langs) AS from_langs_table,
+     (SELECT ('{BN, CA, CS, DA, DE, EL, EN, ET, FJ, FO, FR, GA, HE, HR, HU, JA, RU, SV, TT, TY, UG, UK, VI}')::text[] AS langs) AS langs_table
 ;
 
 -- add inverse language pairs
@@ -160,6 +161,12 @@ SELECT translator_id,
 FROM authorisation
 WHERE mod(authorisation_id, 20) <> 0
 ;
+
+-- add unauthorised VIR
+INSERT INTO authorisation (translator_id, basis, meeting_date_id, aut_date, kkt_check, vir_date, assurance_date,
+                           from_lang, to_lang, permission_to_publish, diary_number)
+VALUES ((SELECT max(translator_id) FROM translator), 'VIR', null, null, null, '1990-12-24', null, 'SEPO', 'DE', false,
+        'old unauthorised VIR');
 
 -- set diary numbers to match the ids of authorisations
 UPDATE authorisation
