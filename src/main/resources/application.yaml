@@ -43,11 +43,6 @@ springdoc:
     path: /api/swagger-ui.html
   api-docs:
     path: /api/api-docs
-logging:
-  level:
-    fi:
-      oph:
-        akt: debug
 akt:
   email:
     sending-enabled: ${email.sending-enabled:false}
