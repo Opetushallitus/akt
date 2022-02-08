@@ -19,10 +19,7 @@ import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { useDebouncedValue } from 'hooks/useDebouncedValue';
 import { ClerkTranslatorFilter } from 'interfaces/clerkTranslator';
 import { AutocompleteValue } from 'interfaces/combobox';
-import {
-  resetClerkTranslatorFilters,
-  setClerkTranslatorFilters,
-} from 'redux/actions/clerkTranslator';
+import { setClerkTranslatorFilters } from 'redux/actions/clerkTranslator';
 import {
   clerkTranslatorsSelector,
   selectTranslatorsByAuthorisationStatus,
@@ -102,8 +99,8 @@ export const ClerkTranslatorFilters = () => {
   }, [debouncedName, dispatch]);
 
   return (
-    <div className="columns gapped">
-      <div className="rows">
+    <div className="grid-columns gapped">
+      <div className="rows gapped-xxs">
         <H3>{t('languagePair.title')}</H3>
         <div className="columns gapped">
           <LanguageSelect
@@ -128,7 +125,7 @@ export const ClerkTranslatorFilters = () => {
           />
         </div>
       </div>
-      <div className="rows">
+      <div className="rows gapped-xxs">
         <H3>{t('name.title')}</H3>
         <CustomTextField
           data-testid="clerk-translator-filters__name"
@@ -147,7 +144,7 @@ export const ClerkTranslatorFilters = () => {
           }}
         />
       </div>
-      <div className="rows">
+      <div className="rows gapped-xxs">
         <H3>{t('town.title')}</H3>
         <ComboBox
           autoHighlight
@@ -159,7 +156,7 @@ export const ClerkTranslatorFilters = () => {
           onChange={handleFilterChange('town')}
         />
       </div>
-      <div className="rows">
+      <div className="rows gapped-xxs">
         <H3>{t('authorisationBasis.title')}</H3>
         <ComboBox
           autoHighlight
@@ -174,16 +171,6 @@ export const ClerkTranslatorFilters = () => {
           variant={TextFieldVariant.Outlined}
           onChange={handleFilterChange('authorisationBasis')}
         />
-      </div>
-      <div className="grow" />
-      <div className="rows">
-        <Button
-          color={Color.Secondary}
-          variant={Variant.Outlined}
-          onClick={() => dispatch(resetClerkTranslatorFilters)}
-        >
-          {t('buttons.empty')}
-        </Button>
       </div>
     </div>
   );

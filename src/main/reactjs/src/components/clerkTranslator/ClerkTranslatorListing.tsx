@@ -1,7 +1,11 @@
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import {
+  OpenInNew as OpenInNewIcon,
+  ReadMore as ReadMoreIcon,
+} from '@mui/icons-material';
 import {
   Button,
   Checkbox,
+  IconButton,
   TableCell,
   TableHead,
   TableRow,
@@ -32,6 +36,7 @@ import {
   selectFilteredClerkTranslators,
   selectFilteredSelectedIds,
 } from 'redux/selectors/clerkTranslator';
+import { AuthorisationUtils } from 'utils/authorisation';
 import { DateUtils } from 'utils/date';
 
 const getRowDetails = (
@@ -73,6 +78,7 @@ const ListingRow = ({
   const { firstName, lastName } = translator.contactDetails;
   const authorisations = translator.authorisations;
   const translateLanguage = useKoodistoLanguagesTranslation();
+  const currentDate = new Date();
 
   return (
     <TableRow
@@ -97,13 +103,6 @@ const ListingRow = ({
       </TableCell>
       <TableCell>
         <div className="rows">
-          {authorisations.map(({ basis }, idx) => (
-            <Text key={idx}>{basis}</Text>
-          ))}
-        </div>
-      </TableCell>
-      <TableCell>
-        <div className="rows">
           {authorisations.map(({ effectiveTerm }, idx) => (
             <Text key={idx}>
               {DateUtils.formatOptionalDate(effectiveTerm?.start)}
@@ -122,26 +121,45 @@ const ListingRow = ({
       </TableCell>
       <TableCell>
         <div className="rows">
-          {authorisations.map(({ permissionToPublish }, idx) => (
+          {authorisations.map(({ basis }, idx) => (
+            <Text key={idx}>{basis}</Text>
+          ))}
+        </div>
+      </TableCell>
+      <TableCell>
+        <div className="rows">
+          {authorisations.map((a, idx) => (
             <Text key={idx}>
-              {t(`permissionToPublish.${permissionToPublish}`)}
+              {AuthorisationUtils.isAuthorisationValid(a, currentDate)
+                ? t('values.yes')
+                : t('values.no')}
             </Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
-        <div className="columns gapped-sm">
-          <Button
-            to={translatorDetailsURL(translator.id)}
-            component={Link}
-            color={Color.Secondary}
-            variant={Variant.Text}
-            onClick={stopOnClickPropagation}
-            endIcon={<OpenInNewIcon />}
-          >
-            {t(`detailsButton`)}
-          </Button>
+        <div className="rows">
+          {authorisations.map(({ permissionToPublish }, idx) => (
+            <Text key={idx}>
+              {permissionToPublish ? t('values.yes') : t('values.no')}
+            </Text>
+          ))}
         </div>
+      </TableCell>
+      <TableCell>
+        <TableCell>
+          <div className="columns gapped-sm">
+            <IconButton
+              to={translatorDetailsURL(translator.id)}
+              component={Link}
+              color={Color.Secondary}
+              onClick={stopOnClickPropagation}
+              size="large"
+            >
+              <ReadMoreIcon />
+            </IconButton>
+          </div>
+        </TableCell>
       </TableCell>
     </TableRow>
   );
@@ -183,13 +201,16 @@ const ListingHeader: FC = () => {
           <H3>{t('languagePairs')}</H3>
         </TableCell>
         <TableCell>
-          <H3>{t('authorisationBasis')}</H3>
-        </TableCell>
-        <TableCell>
           <H3>{t('authorisationBeginDate')}</H3>
         </TableCell>
         <TableCell>
           <H3>{t('authorisationEndDate')}</H3>
+        </TableCell>
+        <TableCell>
+          <H3>{t('authorisationBasis')}</H3>
+        </TableCell>
+        <TableCell>
+          <H3>{t('valid')}</H3>
         </TableCell>
         <TableCell>
           <H3>{t('permissionToPublish')}</H3>
@@ -233,7 +254,7 @@ export const ClerkTranslatorListing: FC = () => {
           getRowDetails={getRowDetails}
           initialRowsPerPage={10}
           rowsPerPageOptions={[10, 20, 50]}
-          className={'clerk-translator__listing'}
+          className={'clerk-translator__listing table-layout-auto'}
         />
       );
   }

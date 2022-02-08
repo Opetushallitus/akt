@@ -23,7 +23,6 @@ export const ClerkNavTabs = () => {
       aria-label={t('tabsLabel')}
     >
       <Tab value="register" label={t('register')} />
-      <Tab value="certificateCreation" label={t('certificateCreation')} />
       <Tab value="meetingDates" label={t('meetingDates')} />
     </Tabs>
   );

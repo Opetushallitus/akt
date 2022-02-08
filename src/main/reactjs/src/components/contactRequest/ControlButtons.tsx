@@ -75,7 +75,7 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
   const renderCancelButton = () => (
     <>
       <Button
-        variant={Variant.Outlined}
+        variant={Variant.Text}
         color={Color.Secondary}
         onClick={dispatchCancelNotifier}
         data-testid="contact-request-page__cancel-btn"
@@ -87,11 +87,11 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
 
   const renderBackButton = () => (
     <Button
-      variant={Variant.Contained}
+      variant={Variant.Outlined}
       color={Color.Secondary}
       onClick={dispatchStepDecrement}
       disabled={activeStep == ContactRequestFormStep.VerifyTranslators}
-      endIcon={<ArrowBackIcon />}
+      startIcon={<ArrowBackIcon />}
       data-testid="contact-request-page__previous-btn"
     >
       {t('buttons.previous')}

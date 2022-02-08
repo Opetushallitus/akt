@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Paper } from '@mui/material';
+import { Box, Button, Divider, Grid, Paper, Skeleton } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -21,38 +21,33 @@ import {
   selectFilteredSelectedIds,
 } from 'redux/selectors/clerkTranslator';
 
-export const ClerkHomePage: FC = () => {
-  const { translators, status } = useAppSelector(clerkTranslatorsSelector);
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (status === APIResponseStatus.NotStarted) {
-      dispatch(loadClerkTranslators);
-    }
-  }, [dispatch, status]);
-
+export const ClerkHomePageSkeleton = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.pages.clerkHomepage' });
-  const sendEmailButtonDisabled =
-    useAppSelector(selectFilteredSelectedIds).length === 0;
 
   return (
     <Box className="clerk-homepage">
       <div>
-        <H1>{t('title')}</H1>
+        <Skeleton>
+          <H1>{t('title')}</H1>
+        </Skeleton>
         <Paper elevation={3}>
           <Grid
             container
             direction="column"
             className="clerk-homepage__grid-container"
           >
-            <Grid item>
-              <div
-                className="columns gapped"
-                data-testid="clerk-translator-registry__heading"
-              >
-                <H2>{t('register')}</H2>
-                <Text>{`(${translators.length})`}</Text>
-              </div>
-            </Grid>
+            <Skeleton>
+              <Grid item>
+                <div
+                  className="columns gapped"
+                  data-testid="clerk-translator-registry__heading"
+                >
+                  <H2>{t('register')}</H2>
+                  <Text>{`(${translators.length})`}</Text>
+                </div>
+              </Grid>
+            </Skeleton>
+
             <Grid item>
               <Divider />
             </Grid>

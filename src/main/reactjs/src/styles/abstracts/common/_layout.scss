@@ -49,3 +49,10 @@
     grid-template-columns: auto;
   }
 }
+
+/* TABLE */
+.table-layout-auto {
+  &#{&} {
+    table-layout: auto;
+  }
+}
