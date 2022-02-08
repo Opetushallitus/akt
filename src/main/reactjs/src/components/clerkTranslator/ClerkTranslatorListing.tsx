@@ -1,9 +1,5 @@
+import { ReadMore as ReadMoreIcon } from '@mui/icons-material';
 import {
-  OpenInNew as OpenInNewIcon,
-  ReadMore as ReadMoreIcon,
-} from '@mui/icons-material';
-import {
-  Button,
   Checkbox,
   IconButton,
   TableCell,
@@ -14,7 +10,6 @@ import { Box } from '@mui/system';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import { CustomCircularProgress } from 'components/elements/CustomCircularProgress';
 import { H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
 import {
@@ -23,7 +18,7 @@ import {
 } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
-import { AppRoutes, Color, Variant } from 'enums/app';
+import { AppRoutes, Color } from 'enums/app';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import {
   deselectAllTranslators,
@@ -103,6 +98,13 @@ const ListingRow = ({
       </TableCell>
       <TableCell>
         <div className="rows">
+          {authorisations.map(({ basis }, idx) => (
+            <Text key={idx}>{basis}</Text>
+          ))}
+        </div>
+      </TableCell>
+      <TableCell>
+        <div className="rows">
           {authorisations.map(({ effectiveTerm }, idx) => (
             <Text key={idx}>
               {DateUtils.formatOptionalDate(effectiveTerm?.start)}
@@ -116,13 +118,6 @@ const ListingRow = ({
             <Text key={idx}>
               {DateUtils.formatOptionalDate(effectiveTerm?.end)}
             </Text>
-          ))}
-        </div>
-      </TableCell>
-      <TableCell>
-        <div className="rows">
-          {authorisations.map(({ basis }, idx) => (
-            <Text key={idx}>{basis}</Text>
           ))}
         </div>
       </TableCell>
@@ -147,19 +142,16 @@ const ListingRow = ({
         </div>
       </TableCell>
       <TableCell>
-        <TableCell>
-          <div className="columns gapped-sm">
-            <IconButton
-              to={translatorDetailsURL(translator.id)}
-              component={Link}
-              color={Color.Secondary}
-              onClick={stopOnClickPropagation}
-              size="large"
-            >
-              <ReadMoreIcon />
-            </IconButton>
-          </div>
-        </TableCell>
+        <div className="columns gapped-sm">
+          <IconButton
+            to={translatorDetailsURL(translator.id)}
+            component={Link}
+            color={Color.Secondary}
+            onClick={stopOnClickPropagation}
+          >
+            <ReadMoreIcon />
+          </IconButton>
+        </div>
       </TableCell>
     </TableRow>
   );
@@ -201,13 +193,13 @@ const ListingHeader: FC = () => {
           <H3>{t('languagePairs')}</H3>
         </TableCell>
         <TableCell>
+          <H3>{t('authorisationBasis')}</H3>
+        </TableCell>
+        <TableCell>
           <H3>{t('authorisationBeginDate')}</H3>
         </TableCell>
         <TableCell>
           <H3>{t('authorisationEndDate')}</H3>
-        </TableCell>
-        <TableCell>
-          <H3>{t('authorisationBasis')}</H3>
         </TableCell>
         <TableCell>
           <H3>{t('valid')}</H3>
@@ -230,7 +222,6 @@ export const ClerkTranslatorListing: FC = () => {
   switch (status) {
     case APIResponseStatus.NotStarted:
     case APIResponseStatus.InProgress:
-      return <CustomCircularProgress color={Color.Secondary} />;
     case APIResponseStatus.Cancelled:
     case APIResponseStatus.Error:
       return (

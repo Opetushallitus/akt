@@ -8,7 +8,7 @@ import { useAppTranslation } from 'configs/i18n';
 import { AppRoutes, Variant } from 'enums/app';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 
-const TopControls = () => {
+export const TopControls = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorDetails',
   });
