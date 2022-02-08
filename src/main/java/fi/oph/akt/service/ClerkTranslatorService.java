@@ -13,6 +13,8 @@ import fi.oph.akt.api.dto.clerk.modify.AuthorisationUpdateDTO;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorCreateDTO;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorDTOCommonFields;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorUpdateDTO;
+import fi.oph.akt.audit.AktOperation;
+import fi.oph.akt.audit.AuditService;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.AuthorisationTermReminder;
@@ -67,8 +69,19 @@ public class ClerkTranslatorService {
   @Resource
   private final TranslatorRepository translatorRepository;
 
+  @Resource
+  private final AuditService auditService;
+
   @Transactional(readOnly = true)
   public ClerkTranslatorResponseDTO listTranslators() {
+    final ClerkTranslatorResponseDTO result = listTranslatorsWithoutAudit();
+
+    auditService.logOperation(AktOperation.LIST_TRANSLATORS);
+
+    return result;
+  }
+
+  ClerkTranslatorResponseDTO listTranslatorsWithoutAudit() {
     final StopWatch st = new StopWatch();
 
     st.start("translatorRepository.findAll");
@@ -245,7 +258,7 @@ public class ClerkTranslatorService {
 
   private ClerkTranslatorDTO getClerkTranslatorDTOByTranslatorId(final long translatorId) {
     // This could be optimized, by fetching only one translator and it's data, but is it worth of the programming work?
-    for (ClerkTranslatorDTO t : listTranslators().translators()) {
+    for (ClerkTranslatorDTO t : listTranslatorsWithoutAudit().translators()) {
       if (t.id() == translatorId) {
         return t;
       }
@@ -263,13 +276,11 @@ public class ClerkTranslatorService {
 
     final Map<LocalDate, MeetingDate> meetingDates = getLocalDateMeetingDateMap();
 
-    dto
-      .authorisations()
-      .forEach(authDto -> {
-        createAuthorisation(translator, meetingDates, authDto);
-      });
+    dto.authorisations().forEach(authDto -> createAuthorisation(translator, meetingDates, authDto));
 
-    return getClerkTranslatorDTOByTranslatorId(translator.getId());
+    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translator.getId());
+    auditService.logById(AktOperation.CREATE_TRANSLATOR, translator.getId());
+    return result;
   }
 
   @Transactional
@@ -280,7 +291,10 @@ public class ClerkTranslatorService {
     copyDtoFieldsToTranslator(dto, translator);
 
     translatorRepository.flush();
-    return getClerkTranslatorDTOByTranslatorId(translator.getId());
+
+    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translator.getId());
+    auditService.logById(AktOperation.UPDATE_TRANSLATOR, translator.getId());
+    return result;
   }
 
   private void copyDtoFieldsToTranslator(final TranslatorDTOCommonFields dto, final Translator translator) {
@@ -308,17 +322,22 @@ public class ClerkTranslatorService {
     authorisationTermRepository.deleteAllInBatch(terms);
     authorisationRepository.deleteAllInBatch(authorisations);
     translatorRepository.deleteById(translatorId);
+
+    auditService.logById(AktOperation.DELETE_TRANSLATOR, translatorId);
   }
 
   @Transactional
   public ClerkTranslatorDTO createAuthorisation(final long translatorId, final AuthorisationCreateDTO dto) {
     final Translator translator = translatorRepository.getById(translatorId);
     final Map<LocalDate, MeetingDate> meetingDates = getLocalDateMeetingDateMap();
-    createAuthorisation(translator, meetingDates, dto);
-    return getClerkTranslatorDTOByTranslatorId(translator.getId());
+    final Authorisation authorisation = createAuthorisation(translator, meetingDates, dto);
+
+    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translator.getId());
+    auditService.logAuthorisation(AktOperation.CREATE_AUTHORISATION, translator, authorisation.getId());
+    return result;
   }
 
-  private void createAuthorisation(
+  private Authorisation createAuthorisation(
     final Translator translator,
     final Map<LocalDate, MeetingDate> meetingDates,
     final AuthorisationCreateDTO dto
@@ -337,6 +356,7 @@ public class ClerkTranslatorService {
     term.setBeginDate(dto.beginDate());
     term.setEndDate(dto.endDate());
     authorisationTermRepository.saveAndFlush(term);
+    return authorisation;
   }
 
   @Transactional
@@ -365,7 +385,11 @@ public class ClerkTranslatorService {
     authorisationRepository.flush();
     authorisationTermRepository.flush();
 
-    return getClerkTranslatorDTOByTranslatorId(authorisation.getTranslator().getId());
+    final Translator translator = authorisation.getTranslator();
+    final long translatorId = translator.getId();
+    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translatorId);
+    auditService.logAuthorisation(AktOperation.UPDATE_AUTHORISATION, translator, authorisation.getId());
+    return result;
   }
 
   private void copyDtoFieldsToAuthorisation(
@@ -397,13 +421,16 @@ public class ClerkTranslatorService {
       throw new RuntimeException("Can not delete last authorisation");
     }
 
-    final long translatorId = translator.getId();
     final Collection<AuthorisationTerm> terms = authorisation.getTerms();
     final List<AuthorisationTermReminder> reminders = terms.stream().flatMap(t -> t.getReminders().stream()).toList();
 
     authorisationTermReminderRepository.deleteAllInBatch(reminders);
     authorisationTermRepository.deleteAllInBatch(terms);
     authorisationRepository.deleteAllInBatch(List.of(authorisation));
-    return getClerkTranslatorDTOByTranslatorId(translatorId);
+
+    final long translatorId = translator.getId();
+    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translatorId);
+    auditService.logAuthorisation(AktOperation.DELETE_AUTHORISATION, translator, authorisationId);
+    return result;
   }
 }

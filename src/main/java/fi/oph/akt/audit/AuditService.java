@@ -1,5 +1,6 @@
 package fi.oph.akt.audit;
 
+import fi.oph.akt.model.Translator;
 import fi.vm.sade.auditlog.Audit;
 import fi.vm.sade.auditlog.Changes;
 import fi.vm.sade.auditlog.Target;
@@ -23,7 +24,26 @@ public class AuditService {
   @Value("${dev.web.security.off:false}")
   private Boolean devWebSecurityOff;
 
-  public void log(final AktOperation operation, final Target target, final Changes changes) {
+  public void logOperation(final AktOperation operation) {
+    log(operation, new Target.Builder().build(), Changes.EMPTY);
+  }
+
+  public void logById(final AktOperation operation, final long id) {
+    log(operation, new Target.Builder().setField("id", Long.toString(id)).build(), Changes.EMPTY);
+  }
+
+  public void logAuthorisation(final AktOperation operation, final Translator translator, final long authorisationId) {
+    log(
+      operation,
+      new Target.Builder()
+        .setField("translatorId", Long.toString(translator.getId()))
+        .setField("authorisationId", Long.toString(authorisationId))
+        .build(),
+      Changes.EMPTY
+    );
+  }
+
+  private void log(final AktOperation operation, final Target target, final Changes changes) {
     final User user = getUser();
     audit.log(user, operation, target, changes);
   }

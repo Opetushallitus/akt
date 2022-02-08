@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import fi.oph.akt.Factory;
 import fi.oph.akt.api.dto.clerk.AuthorisationDTO;
@@ -19,6 +22,8 @@ import fi.oph.akt.api.dto.clerk.modify.AuthorisationUpdateDTO;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorCreateDTO;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorDTOCommonFields;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorUpdateDTO;
+import fi.oph.akt.audit.AktOperation;
+import fi.oph.akt.audit.AuditService;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTerm;
@@ -46,6 +51,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 
 @WithMockUser
@@ -82,6 +88,9 @@ class ClerkTranslatorServiceTest {
   @Resource
   private TestEntityManager entityManager;
 
+  @MockBean
+  private AuditService auditService;
+
   @BeforeEach
   public void setup() {
     clerkTranslatorService =
@@ -90,7 +99,8 @@ class ClerkTranslatorServiceTest {
         authorisationTermRepository,
         authorisationTermReminderRepository,
         meetingDateRepository,
-        translatorRepository
+        translatorRepository,
+        auditService
       );
   }
 
@@ -122,6 +132,9 @@ class ClerkTranslatorServiceTest {
       assertEquals(1, authorisationDTOS.size());
       assertEquals(1, authorisationDTOS.get(0).terms().size());
     });
+
+    verify(auditService).logOperation(AktOperation.LIST_TRANSLATORS);
+    verifyNoMoreInteractions(auditService);
   }
 
   @Test
@@ -585,6 +598,9 @@ class ClerkTranslatorServiceTest {
     assertEquals(1, response.authorisations().size());
     final AuthorisationDTO authDto = response.authorisations().get(0);
     assertAuthorisationCommonFields(expectedAuth, authDto);
+
+    verify(auditService).logById(AktOperation.CREATE_TRANSLATOR, response.id());
+    verifyNoMoreInteractions(auditService);
   }
 
   @Test
@@ -621,6 +637,9 @@ class ClerkTranslatorServiceTest {
     assertEquals(updateDTO.id(), response.id());
     assertEquals(updateDTO.version() + 1, response.version());
     assertTranslatorCommonFields(updateDTO, response);
+
+    verify(auditService).logById(AktOperation.UPDATE_TRANSLATOR, response.id());
+    verifyNoMoreInteractions(auditService);
   }
 
   private void assertTranslatorCommonFields(final TranslatorDTOCommonFields expected, final ClerkTranslatorDTO dto) {
@@ -662,12 +681,16 @@ class ClerkTranslatorServiceTest {
     entityManager.persist(authorisation2);
     entityManager.persist(authorisationTerm2);
 
-    clerkTranslatorService.deleteTranslator(translator.getId());
+    final long translatorId = translator.getId();
+    clerkTranslatorService.deleteTranslator(translatorId);
 
     assertEquals(
       Set.of(translator2.getId()),
       translatorRepository.findAll().stream().map(Translator::getId).collect(Collectors.toSet())
     );
+
+    verify(auditService).logById(AktOperation.DELETE_TRANSLATOR, translatorId);
+    verifyNoMoreInteractions(auditService);
   }
 
   @Test
@@ -709,6 +732,9 @@ class ClerkTranslatorServiceTest {
       .orElseThrow();
 
     assertAuthorisationCommonFields(createDTO, authorisationDTO);
+
+    verify(auditService).logAuthorisation(AktOperation.CREATE_AUTHORISATION, translator, authorisationDTO.id());
+    verifyNoMoreInteractions(auditService);
   }
 
   @Test
@@ -750,6 +776,9 @@ class ClerkTranslatorServiceTest {
     assertEquals(updateDTO.id(), authorisationDTO.id());
     assertEquals(updateDTO.version() + 1, authorisationDTO.version());
     assertAuthorisationCommonFields(updateDTO, authorisationDTO);
+
+    verify(auditService).logAuthorisation(AktOperation.UPDATE_AUTHORISATION, translator, authorisationDTO.id());
+    verifyNoMoreInteractions(auditService);
   }
 
   private void assertAuthorisationCommonFields(
@@ -794,7 +823,8 @@ class ClerkTranslatorServiceTest {
     entityManager.persist(email);
     entityManager.persist(authorisationTermReminder);
 
-    final ClerkTranslatorDTO response = clerkTranslatorService.deleteAuthorisation(authorisation.getId());
+    final long authorisationId = authorisation.getId();
+    final ClerkTranslatorDTO response = clerkTranslatorService.deleteAuthorisation(authorisationId);
 
     assertResponseMatchesListing(response);
 
@@ -802,6 +832,9 @@ class ClerkTranslatorServiceTest {
       Set.of(authorisation2.getId()),
       response.authorisations().stream().map(AuthorisationDTO::id).collect(Collectors.toSet())
     );
+
+    verify(auditService).logAuthorisation(AktOperation.DELETE_AUTHORISATION, translator, authorisationId);
+    verifyNoMoreInteractions(auditService);
   }
 
   @Test
@@ -823,6 +856,8 @@ class ClerkTranslatorServiceTest {
 
     assertEquals("Can not delete last authorisation", ex.getMessage());
     assertEquals(1, authorisationRepository.count());
+
+    verifyNoInteractions(auditService);
   }
 
   @Test
@@ -857,11 +892,13 @@ class ClerkTranslatorServiceTest {
       () -> clerkTranslatorService.createAuthorisation(translator.getId(), createDTO)
     );
     assertEquals("Invalid meeting date: 2022-01-19", ex.getMessage());
+
+    verifyNoInteractions(auditService);
   }
 
   private void assertResponseMatchesListing(final ClerkTranslatorDTO response) {
     final ClerkTranslatorDTO expected = clerkTranslatorService
-      .listTranslators()
+      .listTranslatorsWithoutAudit()
       .translators()
       .stream()
       .filter(dto -> Objects.equals(dto.id(), response.id()))
