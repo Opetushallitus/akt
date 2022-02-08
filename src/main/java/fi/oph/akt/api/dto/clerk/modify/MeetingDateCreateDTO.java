@@ -1,12 +1,13 @@
-package fi.oph.akt.api.dto.clerk;
+package fi.oph.akt.api.dto.clerk.modify;
 
 import java.time.LocalDate;
+import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.NonNull;
 
-public record MeetingDateDTO(@NonNull Long id, @NonNull Integer version, @NonNull LocalDate date) {
+public record MeetingDateCreateDTO(@NonNull @NotNull LocalDate date) {
   // Workaround for bug in IntelliJ lombok plugin
   // https://github.com/mplushnikov/lombok-intellij-plugin/issues/764
   @Builder
-  public MeetingDateDTO {}
+  public MeetingDateCreateDTO {}
 }
