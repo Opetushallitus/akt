@@ -50,9 +50,9 @@ export const AuthorisationDetails = ({
         <TableHead>
           <TableRow>
             <TableCell>{t('fields.languagePair')}</TableCell>
+            <TableCell>{t('fields.basis')}</TableCell>
             <TableCell>{t('fields.startDate')}</TableCell>
             <TableCell>{t('fields.endDate')}</TableCell>
-            <TableCell>{t('fields.basis')}</TableCell>
             <TableCell>{t('fields.isValid')}</TableCell>
             <TableCell>{t('fields.isPublished')}</TableCell>
             <TableCell>{t('fields.diaryNumber')}</TableCell>
@@ -74,6 +74,9 @@ export const AuthorisationDetails = ({
                 </Text>
               </TableCell>
               <TableCell>
+                <Text>{a.basis}</Text>
+              </TableCell>
+              <TableCell>
                 <Text>
                   {DateUtils.formatOptionalDate(a.effectiveTerm?.start)}
                 </Text>
@@ -82,9 +85,6 @@ export const AuthorisationDetails = ({
                 <Text>
                   {DateUtils.formatOptionalDate(a.effectiveTerm?.end)}
                 </Text>
-              </TableCell>
-              <TableCell>
-                <Text>{a.basis}</Text>
               </TableCell>
               <TableCell>
                 <Text>
