@@ -528,4 +528,10 @@
         </sql>
     </changeSet>
 
+    <changeSet id="2022-02-09-add-column-translator_extra_information" author="mikhuttu">
+        <addColumn tableName="translator">
+            <column name="extra_information" type="TEXT"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

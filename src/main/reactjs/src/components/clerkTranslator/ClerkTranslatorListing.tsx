@@ -49,7 +49,7 @@ const getRowDetails = (
 };
 
 const translatorDetailsURL = (id: number) =>
-  AppRoutes.ClerkTranslatorDetailsPage.replace(/:translatorId$/, `${id}`);
+  AppRoutes.ClerkTranslatorOverviewPage.replace(/:translatorId$/, `${id}`);
 
 const stopOnClickPropagation = (
   e: React.MouseEvent<HTMLAnchorElement> | undefined
@@ -70,7 +70,7 @@ const ListingRow = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorListing',
   });
-  const { firstName, lastName } = translator.contactDetails;
+  const { firstName, lastName } = translator;
   const authorisations = translator.authorisations;
   const translateLanguage = useKoodistoLanguagesTranslation();
   const currentDate = new Date();
@@ -85,7 +85,7 @@ const ListingRow = ({
         <Checkbox checked={selected} color={Color.Secondary} />
       </TableCell>
       <TableCell>
-        <Text>{`${firstName} ${lastName}`}</Text>
+        <Text>{`${lastName}, ${firstName}`}</Text>
       </TableCell>
       <TableCell>
         <div className="rows">

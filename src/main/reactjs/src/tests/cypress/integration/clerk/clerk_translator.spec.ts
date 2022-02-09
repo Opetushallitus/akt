@@ -17,7 +17,7 @@ beforeEach(() => {
 
 const translatorCountsByAuthorisationStatus = {
   [AuthorisationStatus.Authorised]: 98,
-  [AuthorisationStatus.Expiring]: 89,
+  [AuthorisationStatus.Expiring]: 88,
   [AuthorisationStatus.Expired]: 2,
 };
 
@@ -51,7 +51,7 @@ describe('ClerkHomePage', () => {
   it('should allow combining multiple filters to narrow down on translators', () => {
     onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Authorised);
     onClerkHomePage.filterByAuthorisationBasis('VIR');
-    onClerkHomePage.expectSelectedTranslatorsCount(16);
+    onClerkHomePage.expectSelectedTranslatorsCount(15);
 
     // Authorisation with basis VIR should never expire => expect 0 matching translators.
     onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
@@ -60,13 +60,13 @@ describe('ClerkHomePage', () => {
     onClerkHomePage.filterByAuthorisationBasis('KKT');
     onClerkHomePage.expectSelectedTranslatorsCount(13);
 
-    onClerkHomePage.filterByFromLang('suomi');
-    onClerkHomePage.expectSelectedTranslatorsCount(6);
+    onClerkHomePage.filterByFromLang('ruotsi');
+    onClerkHomePage.expectSelectedTranslatorsCount(3);
 
-    onClerkHomePage.filterByToLang('vietnam');
+    onClerkHomePage.filterByToLang('iiri');
     onClerkHomePage.expectSelectedTranslatorsCount(1);
 
-    onClerkHomePage.filterByName('hiltu');
+    onClerkHomePage.filterByName('Kari Kin');
     onClerkHomePage.expectSelectedTranslatorsCount(1);
   });
 });

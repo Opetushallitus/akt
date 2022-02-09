@@ -12,18 +12,6 @@ import { APIMeetingDate, MeetingDate } from 'interfaces/meetingDate';
 import { WithId } from 'interfaces/withId';
 import { WithVersion } from 'interfaces/withVersion';
 
-export interface ClerkTranslatorContactDetails {
-  firstName: string;
-  lastName: string;
-  email?: string;
-  phoneNumber?: string;
-  identityNumber?: string;
-  street?: string;
-  postalCode?: string;
-  town?: string;
-  country?: string;
-}
-
 export interface ClerkTranslator
   extends Omit<APIClerkTranslator, 'authorisations'> {
   authorisations: Array<Authorisation>;
@@ -37,7 +25,16 @@ export interface ClerkTranslatorResponse {
 }
 
 export interface APIClerkTranslator extends WithId, WithVersion {
-  contactDetails: ClerkTranslatorContactDetails;
+  firstName: string;
+  lastName: string;
+  identityNumber?: string;
+  email?: string;
+  phoneNumber?: string;
+  street?: string;
+  postalCode?: string;
+  town?: string;
+  country?: string;
+  extraInformation?: string;
   authorisations: Array<APIAuthorisation>;
 }
 

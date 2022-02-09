@@ -201,7 +201,7 @@ const matchesAuthorisationStatus = (
 const trimAndLowerCase = (val: string) => val.trim().toLowerCase();
 
 const filterByName = (translator: ClerkTranslator, name: string) => {
-  const { firstName, lastName } = translator.contactDetails;
+  const { firstName, lastName } = translator;
   const nameCombs = [
     `${firstName} ${lastName}`,
     `${lastName} ${firstName}`,
@@ -211,8 +211,5 @@ const filterByName = (translator: ClerkTranslator, name: string) => {
 };
 
 const filterByTown = (translator: ClerkTranslator, town: string) => {
-  return translator.contactDetails.town
-    ?.trim()
-    .toLowerCase()
-    .includes(trimAndLowerCase(town));
+  return translator.town?.trim().toLowerCase().includes(trimAndLowerCase(town));
 };

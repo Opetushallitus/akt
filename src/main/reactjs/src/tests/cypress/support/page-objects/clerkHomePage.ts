@@ -58,7 +58,7 @@ class ClerkHomePage {
     this.elements.translatorRow(id).click();
   }
 
-  clickTranslatorDetailsLink(id: number) {
+  clickTranslatorOverviewLink(id: number) {
     this.elements
       .translatorRow(`${id}`)
       .findByTestId(`clerk-translators__id-${id}-more-btn`)

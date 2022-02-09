@@ -25,7 +25,7 @@ export const AuthorisationDetails = ({
   translator: ClerkTranslator;
 }) => {
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.clerkTranslatorDetails.authorisations',
+    keyPrefix: 'akt.component.clerkTranslatorOverview.authorisations',
   });
   const translateLanguage = useKoodistoLanguagesTranslation();
   const currentDate = new Date();
@@ -35,7 +35,7 @@ export const AuthorisationDetails = ({
       <div className="columns margin-top-xxl">
         <H3 className="grow">{t('header')}</H3>
         <Button
-          data-testid="clerk-translator-details__authorisation-details__add-btn"
+          data-testid="clerk-translator-overview__authorisation-details__add-btn"
           variant={Variant.Contained}
           color={Color.Secondary}
           startIcon={<AddIcon />}
@@ -45,7 +45,7 @@ export const AuthorisationDetails = ({
       </div>
       <Table
         size="small"
-        className="clerk-translator-details__authorisations-table"
+        className="clerk-translator-overview__authorisations-table"
       >
         <TableHead>
           <TableRow>
@@ -103,7 +103,7 @@ export const AuthorisationDetails = ({
               </TableCell>
               <TableCell />
               <TableCell />
-              <TableCell className="clerk-translator-details__authorisations-table--centered">
+              <TableCell className="clerk-translator-overview__authorisations-table__centered">
                 <EditIcon />
               </TableCell>
             </TableRow>

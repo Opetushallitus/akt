@@ -4,7 +4,6 @@ import fi.oph.akt.api.dto.LanguagePairDTO;
 import fi.oph.akt.api.dto.LanguagePairsDictDTO;
 import fi.oph.akt.api.dto.clerk.AuthorisationDTO;
 import fi.oph.akt.api.dto.clerk.AuthorisationTermDTO;
-import fi.oph.akt.api.dto.clerk.ClerkTranslatorContactDetailsDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
 import fi.oph.akt.api.dto.clerk.MeetingDateDTO;
@@ -137,8 +136,6 @@ public class ClerkTranslatorService {
     return translators
       .stream()
       .map(translator -> {
-        final ClerkTranslatorContactDetailsDTO contactDetailsDTO = getContactDetailsDTO(translator);
-
         final List<AuthorisationDTO> authorisationDTOS = getAuthorisationDTOs(
           authorisationProjectionsByTranslator.get(translator.getId()),
           termProjectionsByAuthorisation
@@ -148,26 +145,20 @@ public class ClerkTranslatorService {
           .builder()
           .id(translator.getId())
           .version(translator.getVersion())
-          .contactDetails(contactDetailsDTO)
+          .firstName(translator.getFirstName())
+          .lastName(translator.getLastName())
+          .identityNumber(translator.getIdentityNumber())
+          .email(translator.getEmail())
+          .phoneNumber(translator.getPhone())
+          .street(translator.getStreet())
+          .postalCode(translator.getPostalCode())
+          .town(translator.getTown())
+          .country(translator.getCountry())
+          .extraInformation(translator.getExtraInformation())
           .authorisations(authorisationDTOS)
           .build();
       })
       .toList();
-  }
-
-  private ClerkTranslatorContactDetailsDTO getContactDetailsDTO(final Translator translator) {
-    return ClerkTranslatorContactDetailsDTO
-      .builder()
-      .firstName(translator.getFirstName())
-      .lastName(translator.getLastName())
-      .email(translator.getEmail())
-      .phoneNumber(translator.getPhone())
-      .identityNumber(translator.getIdentityNumber())
-      .street(translator.getStreet())
-      .postalCode(translator.getPostalCode())
-      .town(translator.getTown())
-      .country(translator.getCountry())
-      .build();
   }
 
   private List<AuthorisationDTO> getAuthorisationDTOs(
@@ -302,6 +293,7 @@ public class ClerkTranslatorService {
     translator.setTown(dto.town());
     translator.setPostalCode(dto.postalCode());
     translator.setCountry(dto.country());
+    translator.setExtraInformation(dto.extraInformation());
   }
 
   @Transactional

@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import fi.oph.akt.Factory;
 import fi.oph.akt.api.dto.clerk.AuthorisationDTO;
 import fi.oph.akt.api.dto.clerk.AuthorisationTermDTO;
-import fi.oph.akt.api.dto.clerk.ClerkTranslatorContactDetailsDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
 import fi.oph.akt.api.dto.clerk.MeetingDateDTO;
@@ -227,7 +226,7 @@ class ClerkTranslatorServiceTest {
   }
 
   @Test
-  public void listShouldReturnProperContactDetailsForTranslators() {
+  public void listShouldReturnProperPersonalDataForTranslators() {
     final MeetingDate meetingDate = Factory.meetingDate();
     entityManager.persist(meetingDate);
 
@@ -240,6 +239,7 @@ class ClerkTranslatorServiceTest {
     final List<String> postalCodes = Arrays.asList("Postinumero0", "Postinumero1", null);
     final List<String> towns = Arrays.asList(null, "Kaupunki1", "Kaupunki2");
     final List<String> countries = Arrays.asList("Suomi", null, "Maa2");
+    final List<String> extraInformations = Arrays.asList(null, "Nimi muutettu", "???");
 
     IntStream
       .range(0, 3)
@@ -254,6 +254,7 @@ class ClerkTranslatorServiceTest {
         translator.setPostalCode(postalCodes.get(i));
         translator.setTown(towns.get(i));
         translator.setCountry(countries.get(i));
+        translator.setExtraInformation(extraInformations.get(i));
 
         final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
         final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
@@ -267,26 +268,24 @@ class ClerkTranslatorServiceTest {
     final List<ClerkTranslatorDTO> translators = responseDTO.translators();
 
     assertEquals(3, translators.size());
-    assertContactDetailsField(identityNumbers, translators, ClerkTranslatorContactDetailsDTO::identityNumber);
-    assertContactDetailsField(firstNames, translators, ClerkTranslatorContactDetailsDTO::firstName);
-    assertContactDetailsField(lastNames, translators, ClerkTranslatorContactDetailsDTO::lastName);
-    assertContactDetailsField(emails, translators, ClerkTranslatorContactDetailsDTO::email);
-    assertContactDetailsField(phoneNumbers, translators, ClerkTranslatorContactDetailsDTO::phoneNumber);
-    assertContactDetailsField(streets, translators, ClerkTranslatorContactDetailsDTO::street);
-    assertContactDetailsField(postalCodes, translators, ClerkTranslatorContactDetailsDTO::postalCode);
-    assertContactDetailsField(towns, translators, ClerkTranslatorContactDetailsDTO::town);
-    assertContactDetailsField(countries, translators, ClerkTranslatorContactDetailsDTO::country);
+    assertTranslatorField(firstNames, translators, ClerkTranslatorDTO::firstName);
+    assertTranslatorField(lastNames, translators, ClerkTranslatorDTO::lastName);
+    assertTranslatorField(identityNumbers, translators, ClerkTranslatorDTO::identityNumber);
+    assertTranslatorField(emails, translators, ClerkTranslatorDTO::email);
+    assertTranslatorField(phoneNumbers, translators, ClerkTranslatorDTO::phoneNumber);
+    assertTranslatorField(streets, translators, ClerkTranslatorDTO::street);
+    assertTranslatorField(postalCodes, translators, ClerkTranslatorDTO::postalCode);
+    assertTranslatorField(towns, translators, ClerkTranslatorDTO::town);
+    assertTranslatorField(countries, translators, ClerkTranslatorDTO::country);
+    assertTranslatorField(extraInformations, translators, ClerkTranslatorDTO::extraInformation);
   }
 
-  private void assertContactDetailsField(
+  private void assertTranslatorField(
     final List<String> expected,
     final List<ClerkTranslatorDTO> translators,
-    final Function<ClerkTranslatorContactDetailsDTO, String> contactDetailsFieldGetter
+    final Function<ClerkTranslatorDTO, String> getter
   ) {
-    assertEquals(
-      expected,
-      translators.stream().map(ClerkTranslatorDTO::contactDetails).map(contactDetailsFieldGetter).toList()
-    );
+    assertEquals(expected, translators.stream().map(getter).toList());
   }
 
   @Test
@@ -625,15 +624,16 @@ class ClerkTranslatorServiceTest {
   }
 
   private void assertTranslatorCommonFields(final TranslatorDTOCommonFields expected, final ClerkTranslatorDTO dto) {
-    assertEquals(expected.identityNumber(), dto.contactDetails().identityNumber());
-    assertEquals(expected.firstName(), dto.contactDetails().firstName());
-    assertEquals(expected.lastName(), dto.contactDetails().lastName());
-    assertEquals(expected.email(), dto.contactDetails().email());
-    assertEquals(expected.phoneNumber(), dto.contactDetails().phoneNumber());
-    assertEquals(expected.street(), dto.contactDetails().street());
-    assertEquals(expected.town(), dto.contactDetails().town());
-    assertEquals(expected.postalCode(), dto.contactDetails().postalCode());
-    assertEquals(expected.country(), dto.contactDetails().country());
+    assertEquals(expected.identityNumber(), dto.identityNumber());
+    assertEquals(expected.firstName(), dto.firstName());
+    assertEquals(expected.lastName(), dto.lastName());
+    assertEquals(expected.email(), dto.email());
+    assertEquals(expected.phoneNumber(), dto.phoneNumber());
+    assertEquals(expected.street(), dto.street());
+    assertEquals(expected.town(), dto.town());
+    assertEquals(expected.postalCode(), dto.postalCode());
+    assertEquals(expected.country(), dto.country());
+    assertEquals(expected.extraInformation(), dto.extraInformation());
   }
 
   @Test

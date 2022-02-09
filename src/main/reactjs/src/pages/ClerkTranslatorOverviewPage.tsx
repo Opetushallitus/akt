@@ -2,7 +2,7 @@ import { Box, Paper } from '@mui/material';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { ClerkTranslatorDetails } from 'components/clerkTranslator/clerkTranslatorDetails/ClerkTranslatorDetails';
+import { ClerkTranslatorOverview } from 'components/clerkTranslator/clerkTranslatorDetails/ClerkTranslatorOverview';
 import { CustomCircularProgress } from 'components/elements/CustomCircularProgress';
 import { H1, H2 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
@@ -24,12 +24,12 @@ const TranslatorViewDispatcher = () => {
   const params = useParams();
   const translatorId = paramAsNum(params.translatorId);
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.clerkTranslatorDetails',
+    keyPrefix: 'akt.component.clerkTranslatorOverview',
   });
 
   const { status, translators } = useAppSelector(clerkTranslatorsSelector);
   // TODO Instead of looking up translator here and passing it along to child components,
-  // we might wish to instead maintain the selected (or added / updated) translator details
+  // we might wish to instead maintain the selected (or added / updated) translator
   // as its own entity in redux. This decision could ideally be done when implementing the views
   // for adding new / updating existing translator.
   // When making this decision, plan for easy reusability of UI code!
@@ -46,14 +46,14 @@ const TranslatorViewDispatcher = () => {
       return <div />;
     case APIResponseStatus.Success:
       if (translator) {
-        return <ClerkTranslatorDetails translator={translator} />;
+        return <ClerkTranslatorOverview translator={translator} />;
       } else {
         return <H2>{t('notFound')}</H2>;
       }
   }
 };
 
-export const ClerkTranslatorDetailsPage = () => {
+export const ClerkTranslatorOverviewPage = () => {
   // i18n
   const { t } = useAppTranslation({ keyPrefix: 'akt' });
   // Redux
@@ -73,11 +73,11 @@ export const ClerkTranslatorDetailsPage = () => {
   }, [dispatch, status, t]);
 
   return (
-    <Box className="clerk-translator-details-page">
-      <H1>{t('pages.clerkTranslatorDetailsPage.title')}</H1>
+    <Box className="clerk-translator-overview-page">
+      <H1>{t('pages.clerkTranslatorOverviewPage.title')}</H1>
       <Paper
         elevation={3}
-        className="clerk-translator-details-page__content-container rows"
+        className="clerk-translator-overview-page__content-container rows"
       >
         <TranslatorViewDispatcher />
       </Paper>

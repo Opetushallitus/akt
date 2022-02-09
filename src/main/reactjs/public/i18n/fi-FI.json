@@ -122,18 +122,19 @@
           "placeholder": "Asuinkunta"
         }
       },
-      "clerkTranslatorDetails": {
+      "clerkTranslatorOverview": {
         "buttons": {
           "save": "Tallenna",
           "back": "Takaisin",
           "next": "Seuraava",
           "cancel": "Peruuta"
         },
-        "contactDetails": {
+        "translatorDetails": {
           "header": {
             "personalInformation": "Henkilötiedot",
             "address": "Osoite",
-            "contactInformation": "Yhteystiedot"
+            "contactInformation": "Yhteystiedot",
+            "extraInformation": "Lisätiedot"
           },
           "buttons": {
             "edit": "Muokkaa"
@@ -270,7 +271,7 @@
           }
         }
       },
-      "clerkTranslatorDetailsPage": {
+      "clerkTranslatorOverviewPage": {
         "title": "Kääntäjän tiedot"
       },
       "translator": {
