@@ -1,6 +1,7 @@
 package fi.oph.akt.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,5 +28,5 @@ public class MeetingDate extends BaseEntity {
   private LocalDate date;
 
   @OneToMany(mappedBy = "meetingDate")
-  private Collection<Authorisation> authorisations;
+  private Collection<Authorisation> authorisations = new ArrayList<>();
 }

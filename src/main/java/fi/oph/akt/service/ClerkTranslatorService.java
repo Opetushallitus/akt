@@ -8,19 +8,32 @@ import fi.oph.akt.api.dto.clerk.ClerkTranslatorContactDetailsDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
 import fi.oph.akt.api.dto.clerk.MeetingDateDTO;
+import fi.oph.akt.api.dto.clerk.modify.AuthorisationCreateDTO;
+import fi.oph.akt.api.dto.clerk.modify.AuthorisationDTOCommonFields;
+import fi.oph.akt.api.dto.clerk.modify.AuthorisationUpdateDTO;
+import fi.oph.akt.api.dto.clerk.modify.TranslatorCreateDTO;
+import fi.oph.akt.api.dto.clerk.modify.TranslatorDTOCommonFields;
+import fi.oph.akt.api.dto.clerk.modify.TranslatorUpdateDTO;
+import fi.oph.akt.model.Authorisation;
+import fi.oph.akt.model.AuthorisationTerm;
+import fi.oph.akt.model.AuthorisationTermReminder;
+import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.AuthorisationProjection;
 import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.AuthorisationTermProjection;
+import fi.oph.akt.repository.AuthorisationTermReminderRepository;
 import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.util.AuthorisationTermProjectionComparator;
 import fi.oph.akt.util.MeetingDateProjectionComparator;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +58,9 @@ public class ClerkTranslatorService {
 
   @Resource
   private final AuthorisationTermRepository authorisationTermRepository;
+
+  @Resource
+  private final AuthorisationTermReminderRepository authorisationTermReminderRepository;
 
   @Resource
   private final MeetingDateRepository meetingDateRepository;
@@ -227,5 +243,175 @@ public class ClerkTranslatorService {
       .sorted(meetingDateProjectionComparator.reversed())
       .map(mdp -> MeetingDateDTO.builder().id(mdp.meetingDateId()).date(mdp.date()).build())
       .toList();
+  }
+
+  private Map<LocalDate, MeetingDate> getLocalDateMeetingDateMap() {
+    return meetingDateRepository
+      .findAll()
+      .stream()
+      .collect(Collectors.toMap(MeetingDate::getDate, Function.identity()));
+  }
+
+  private ClerkTranslatorDTO getClerkTranslatorDTOByTranslatorId(final long translatorId) {
+    // This could be optimized, by fetching only one translator and it's data, but is it worth of the programming work?
+    for (ClerkTranslatorDTO t : listTranslators().translators()) {
+      if (t.id() == translatorId) {
+        return t;
+      }
+    }
+    throw new RuntimeException(String.format("Translator with id: %d not found", translatorId));
+  }
+
+  @Transactional
+  public ClerkTranslatorDTO createTranslator(final TranslatorCreateDTO dto) {
+    final Translator translator = new Translator();
+
+    copyDtoFieldsToTranslator(dto, translator);
+
+    translatorRepository.saveAndFlush(translator);
+
+    final Map<LocalDate, MeetingDate> meetingDates = getLocalDateMeetingDateMap();
+
+    dto
+      .authorisations()
+      .forEach(authDto -> {
+        createAuthorisation(translator, meetingDates, authDto);
+      });
+
+    return getClerkTranslatorDTOByTranslatorId(translator.getId());
+  }
+
+  @Transactional
+  public ClerkTranslatorDTO updateTranslator(final TranslatorUpdateDTO dto) {
+    final Translator translator = translatorRepository.getById(dto.id());
+    translator.assertVersion(dto.version());
+
+    copyDtoFieldsToTranslator(dto, translator);
+
+    translatorRepository.flush();
+    return getClerkTranslatorDTOByTranslatorId(translator.getId());
+  }
+
+  private void copyDtoFieldsToTranslator(final TranslatorDTOCommonFields dto, final Translator translator) {
+    translator.setIdentityNumber(dto.identityNumber());
+    translator.setFirstName(dto.firstName());
+    translator.setLastName(dto.lastName());
+    translator.setEmail(dto.email());
+    translator.setPhone(dto.phoneNumber());
+    translator.setStreet(dto.street());
+    translator.setTown(dto.town());
+    translator.setPostalCode(dto.postalCode());
+    translator.setCountry(dto.country());
+  }
+
+  @Transactional
+  public void deleteTranslator(final long translatorId) {
+    final Translator translator = translatorRepository.getById(translatorId);
+
+    final Collection<Authorisation> authorisations = translator.getAuthorisations();
+    final List<AuthorisationTerm> terms = authorisations.stream().flatMap(a -> a.getTerms().stream()).toList();
+    final List<AuthorisationTermReminder> reminders = terms.stream().flatMap(t -> t.getReminders().stream()).toList();
+
+    authorisationTermReminderRepository.deleteAllInBatch(reminders);
+    authorisationTermRepository.deleteAllInBatch(terms);
+    authorisationRepository.deleteAllInBatch(authorisations);
+    translatorRepository.deleteById(translatorId);
+  }
+
+  @Transactional
+  public ClerkTranslatorDTO createAuthorisation(final long translatorId, final AuthorisationCreateDTO dto) {
+    final Translator translator = translatorRepository.getById(translatorId);
+    final Map<LocalDate, MeetingDate> meetingDates = getLocalDateMeetingDateMap();
+    createAuthorisation(translator, meetingDates, dto);
+    return getClerkTranslatorDTOByTranslatorId(translator.getId());
+  }
+
+  private void createAuthorisation(
+    final Translator translator,
+    final Map<LocalDate, MeetingDate> meetingDates,
+    final AuthorisationCreateDTO dto
+  ) {
+    final Authorisation authorisation = new Authorisation();
+    translator.getAuthorisations().add(authorisation);
+    authorisation.setTranslator(translator);
+
+    copyDtoFieldsToAuthorisation(dto, authorisation, meetingDates);
+
+    authorisationRepository.saveAndFlush(authorisation);
+
+    final AuthorisationTerm term = new AuthorisationTerm();
+    authorisation.getTerms().add(term);
+    term.setAuthorisation(authorisation);
+    term.setBeginDate(dto.beginDate());
+    term.setEndDate(dto.endDate());
+    authorisationTermRepository.saveAndFlush(term);
+  }
+
+  @Transactional
+  public ClerkTranslatorDTO updateAuthorisation(final AuthorisationUpdateDTO dto) {
+    final Map<LocalDate, MeetingDate> meetingDates = getLocalDateMeetingDateMap();
+
+    final Authorisation authorisation = authorisationRepository.getById(dto.id());
+    authorisation.assertVersion(dto.version());
+
+    copyDtoFieldsToAuthorisation(dto, authorisation, meetingDates);
+
+    final Collection<AuthorisationTerm> terms = authorisation.getTerms();
+    if (terms.size() != 1) {
+      throw new RuntimeException(
+        String.format(
+          "Authorisation id: %d has invalid number of authorisation terms %d",
+          authorisation.getId(),
+          terms.size()
+        )
+      );
+    }
+    final AuthorisationTerm term = terms.iterator().next();
+    term.setBeginDate(dto.beginDate());
+    term.setEndDate(dto.endDate());
+
+    authorisationRepository.flush();
+    authorisationTermRepository.flush();
+
+    return getClerkTranslatorDTOByTranslatorId(authorisation.getTranslator().getId());
+  }
+
+  private void copyDtoFieldsToAuthorisation(
+    final AuthorisationDTOCommonFields dto,
+    final Authorisation authorisation,
+    final Map<LocalDate, MeetingDate> meetingDates
+  ) {
+    final MeetingDate meetingDate = meetingDates.get(dto.meetingDate());
+    if (meetingDate == null) {
+      throw new RuntimeException("Invalid meeting date: " + dto.meetingDate());
+    }
+    authorisation.setBasis(dto.basis());
+    authorisation.setAutDate(dto.autDate());
+    authorisation.setKktCheck(dto.kktCheck());
+    authorisation.setVirDate(dto.virDate());
+    authorisation.setAssuranceDate(dto.assuranceDate());
+    authorisation.setMeetingDate(meetingDate);
+    authorisation.setFromLang(dto.from());
+    authorisation.setToLang(dto.to());
+    authorisation.setPermissionToPublish(dto.permissionToPublish());
+    authorisation.setDiaryNumber(dto.diaryNumber());
+  }
+
+  @Transactional
+  public ClerkTranslatorDTO deleteAuthorisation(final long authorisationId) {
+    final Authorisation authorisation = authorisationRepository.getById(authorisationId);
+    final Translator translator = authorisation.getTranslator();
+    if (translator.getAuthorisations().size() == 1) {
+      throw new RuntimeException("Can not delete last authorisation");
+    }
+
+    final long translatorId = translator.getId();
+    final Collection<AuthorisationTerm> terms = authorisation.getTerms();
+    final List<AuthorisationTermReminder> reminders = terms.stream().flatMap(t -> t.getReminders().stream()).toList();
+
+    authorisationTermReminderRepository.deleteAllInBatch(reminders);
+    authorisationTermRepository.deleteAllInBatch(terms);
+    authorisationRepository.deleteAllInBatch(List.of(authorisation));
+    return getClerkTranslatorDTOByTranslatorId(translatorId);
   }
 }

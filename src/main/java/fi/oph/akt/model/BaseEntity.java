@@ -3,6 +3,7 @@ package fi.oph.akt.model;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OptimisticLockException;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Version;
@@ -61,5 +62,13 @@ public class BaseEntity {
 
     final String currentUser = getCurrentUserId();
     setModifiedBy(currentUser);
+  }
+
+  public void assertVersion(final int version) {
+    if (version != getVersion()) {
+      throw new OptimisticLockException(
+        "Current version: " + getVersion() + " does not match given version: " + version
+      );
+    }
   }
 }
