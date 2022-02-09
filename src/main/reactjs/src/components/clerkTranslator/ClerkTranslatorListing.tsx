@@ -1,7 +1,7 @@
-import { ReadMore as ReadMoreIcon } from '@mui/icons-material';
+import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import {
+  Button,
   Checkbox,
-  IconButton,
   TableCell,
   TableHead,
   TableRow,
@@ -10,7 +10,7 @@ import { Box } from '@mui/system';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import { H3, Text } from 'components/elements/Text';
+import { H2, H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
 import {
   useAppTranslation,
@@ -143,15 +143,16 @@ const ListingRow = ({
       </TableCell>
       <TableCell>
         <div className="columns gapped-sm">
-          <IconButton
+          <Button
             data-testid={`clerk-translators__id-${translator.id}-more-btn`}
             to={translatorDetailsURL(translator.id)}
             component={Link}
             color={Color.Secondary}
             onClick={stopOnClickPropagation}
+            endIcon={<ArrowForwardIosOutlinedIcon />}
           >
-            <ReadMoreIcon />
-          </IconButton>
+            {t('detailsButton')}
+          </Button>
         </div>
       </TableCell>
     </TableRow>
@@ -219,6 +220,7 @@ export const ClerkTranslatorListing: FC = () => {
   const { status } = useAppSelector(clerkTranslatorsSelector);
   const filteredTranslators = useAppSelector(selectFilteredClerkTranslators);
   const filteredSelectedIds = useAppSelector(selectFilteredSelectedIds);
+  const selected = filteredSelectedIds.length;
 
   switch (status) {
     case APIResponseStatus.NotStarted:
@@ -237,17 +239,26 @@ export const ClerkTranslatorListing: FC = () => {
       );
     case APIResponseStatus.Success:
       return (
-        <PaginatedTable
-          selectedIndices={filteredSelectedIds}
-          addSelectedIndex={selectClerkTranslator}
-          removeSelectedIndex={deselectClerkTranslator}
-          data={filteredTranslators}
-          header={<ListingHeader />}
-          getRowDetails={getRowDetails}
-          initialRowsPerPage={10}
-          rowsPerPageOptions={[10, 20, 50]}
-          className={'clerk-translator__listing table-layout-auto'}
-        />
+        <>
+          <div className="grow">
+            {selected > 0 && (
+              <H2 data-testid="public-translators__selected-count-heading">
+                {`${selected} ${t('component.table.selectedItems')}`}
+              </H2>
+            )}
+          </div>
+          <PaginatedTable
+            selectedIndices={filteredSelectedIds}
+            addSelectedIndex={selectClerkTranslator}
+            removeSelectedIndex={deselectClerkTranslator}
+            data={filteredTranslators}
+            header={<ListingHeader />}
+            getRowDetails={getRowDetails}
+            initialRowsPerPage={10}
+            rowsPerPageOptions={[10, 20, 50]}
+            className={'clerk-translator__listing table-layout-auto'}
+          />
+        </>
       );
   }
 };
