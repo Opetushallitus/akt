@@ -17,7 +17,7 @@ VALUES ('2022-11-01');
 INSERT INTO meeting_date(date)
 VALUES ('2025-01-01');
 
-INSERT INTO translator(identity_number, first_name, last_name, email, phone_number, street, town, postal_code, country)
+INSERT INTO translator(identity_number, first_name, last_name, email, phone_number, street, town, postal_code, country, extra_information)
 SELECT 'id' || i::text,
        first_names[mod(i, array_length(first_names, 1)) + 1],
        last_names[mod(i, array_length(last_names, 1)) + 1],
@@ -32,7 +32,8 @@ SELECT 'id' || i::text,
        postal_code[mod(i, array_length(postal_code, 1)) + 1],
        CASE mod(i, 7)
            WHEN 0 THEN 'Latvia'
-           ELSE country[mod(i, array_length(country, 1)) + 1] END
+           ELSE country[mod(i, array_length(country, 1)) + 1] END,
+       extra_information[mod(i, array_length(extra_information, 1)) + 1]
 FROM generate_series(1, 4900) AS i,
      (SELECT ('{Antti, Eero, Ilkka, Jari, Juha, Matti, Pekka, Timo, Iiro, Jukka, Kalle, ' ||
               'Kari, Marko, Mikko, Tapani, Ville, Anneli, Ella, Hanna, Iiris, Liisa, ' ||
@@ -51,7 +52,12 @@ FROM generate_series(1, 4900) AS i,
               'Kotka}')::text[] AS town) AS town_table,
      (SELECT ('{00100, 01200, 06100, 13500, 31600, 48600, ' ||
               '54460}')::text[] AS postal_code) AS postal_code_table,
-     (SELECT ('{Suomi, suomi, SUOMI, Finland, NULL}')::text[] AS country) AS country_table;
+     (SELECT ('{Suomi, suomi, SUOMI, Finland, NULL}')::text[] AS country) AS country_table,
+     (SELECT ('{Osoitetiedot päivitetty 1.1.1970., ' ||
+              'Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo., ' ||
+              'Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen, ' ||
+              'Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa., ' ||
+              'NULL}')::text[] AS extra_information) AS extra_information_table;
 
 -- insert authorisations for translators, for some we add multiple authorisations
 WITH translator_ids AS (
@@ -133,13 +139,13 @@ SELECT translator_id,
            WHEN mod(i, 17) = 0 THEN NULL
            ELSE now() END,
        from_langs[mod(i, array_length(from_langs, 1)) + 1],
-       langs[mod(i, array_length(langs, 1)) + 1],
+       to_langs[mod(i, array_length(to_langs, 1)) + 1],
        mod(i, 21) <> 0,
        -- temporary diary_number entries
        md5(random()::text)
 FROM translator_ids,
      (SELECT ('{FI, SEIN, SEKO, SEPO}')::text[] AS from_langs) AS from_langs_table,
-     (SELECT ('{BN, CA, CS, DA, DE, EL, EN, ET, FJ, FO, FR, GA, HE, HR, HU, JA, RU, SV, TT, TY, UG, UK, VI}')::text[] AS langs) AS langs_table
+     (SELECT ('{BN, CA, CS, DA, DE, EL, EN, ET, FJ, FO, FR, GA, HE, HR, HU, JA, RU, SV, TT, TY, UG, UK, VI}')::text[] AS to_langs) AS to_langs_table
 ;
 
 -- add inverse language pairs
