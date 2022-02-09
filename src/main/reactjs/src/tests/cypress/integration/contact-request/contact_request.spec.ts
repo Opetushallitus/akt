@@ -150,8 +150,4 @@ describe('ContactRequestPage', () => {
     );
     onContactRequestPage.elements.nextButton().should('be.disabled');
   });
-
-  it.only('should something', () => {
-    cy.usePhoneViewport();
-  });
 });

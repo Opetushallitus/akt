@@ -98,10 +98,7 @@ export const PublicTranslatorFilters = ({
       t('toasts.selectLanguagePair')
     );
 
-    if (reduxFilters.errors.length) {
-      // If there are already errors show them
-      dispatch(showNotifierToast(toast));
-    } else if (
+    if (
       (filters.fromLang && !filters.toLang) ||
       (!filters.fromLang && filters.toLang)
     ) {

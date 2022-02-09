@@ -91,10 +91,8 @@ export const ContactRequestPage = () => {
             <div className="contact-request-page__grid__inner-container">
               <ContactRequestStepper />
               <StepContents disableNext={disableNextCb} />
-              {showControlButtons && (
-                <ControlButtons disableNext={disableNext} />
-              )}
             </div>
+            {showControlButtons && <ControlButtons disableNext={disableNext} />}
           </div>
         </Paper>
       </Grid>

@@ -9,7 +9,7 @@ import {
   TableRow,
 } from '@mui/material';
 
-import { H2, Text } from 'components/elements/Text';
+import { H3, Text } from 'components/elements/Text';
 import {
   useAppTranslation,
   useKoodistoLanguagesTranslation,
@@ -32,8 +32,8 @@ export const AuthorisationDetails = ({
 
   return (
     <>
-      <div className="columns">
-        <H2 className="grow">{t('header')}</H2>
+      <div className="columns margin-top-xxl">
+        <H3 className="grow">{t('header')}</H3>
         <Button
           data-testid="clerk-translator-details__authorisation-details__add-btn"
           variant={Variant.Contained}
@@ -50,9 +50,9 @@ export const AuthorisationDetails = ({
         <TableHead>
           <TableRow>
             <TableCell>{t('fields.languagePair')}</TableCell>
+            <TableCell>{t('fields.basis')}</TableCell>
             <TableCell>{t('fields.startDate')}</TableCell>
             <TableCell>{t('fields.endDate')}</TableCell>
-            <TableCell>{t('fields.basis')}</TableCell>
             <TableCell>{t('fields.isValid')}</TableCell>
             <TableCell>{t('fields.isPublished')}</TableCell>
             <TableCell>{t('fields.diaryNumber')}</TableCell>
@@ -74,6 +74,9 @@ export const AuthorisationDetails = ({
                 </Text>
               </TableCell>
               <TableCell>
+                <Text>{a.basis}</Text>
+              </TableCell>
+              <TableCell>
                 <Text>
                   {DateUtils.formatOptionalDate(a.effectiveTerm?.start)}
                 </Text>
@@ -82,9 +85,6 @@ export const AuthorisationDetails = ({
                 <Text>
                   {DateUtils.formatOptionalDate(a.effectiveTerm?.end)}
                 </Text>
-              </TableCell>
-              <TableCell>
-                <Text>{a.basis}</Text>
               </TableCell>
               <TableCell>
                 <Text>

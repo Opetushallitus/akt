@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 
 import { CustomTextField } from 'components/elements/CustomTextField';
-import { H2 } from 'components/elements/Text';
+import { H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { Color, Variant } from 'enums/app';
 import {
@@ -50,8 +50,8 @@ export const ContactDetails = ({
 
   return (
     <>
-      <div className="columns">
-        <H2 className="grow">{t('header.personalInformation')}</H2>
+      <div className="columns margin-top-lg">
+        <H3 className="grow">{t('header.personalInformation')}</H3>
         <Button
           data-testid="clerk-translator-details__contact-details__edit-btn"
           variant={Variant.Contained}
@@ -65,14 +65,14 @@ export const ContactDetails = ({
         {contactDetailsField('firstName')}
         {contactDetailsField('identityNumber')}
       </div>
-      <H2>{t('header.address')}</H2>
+      <H3>{t('header.address')}</H3>
       <div className="grid-columns gapped">
         {contactDetailsField('street')}
         {contactDetailsField('postalCode')}
         {contactDetailsField('town')}
         {contactDetailsField('country')}
       </div>
-      <H2>{t('header.contactInformation')}</H2>
+      <H3>{t('header.contactInformation')}</H3>
       <div className="grid-columns gapped">
         {contactDetailsField('email')}
         {contactDetailsField('phoneNumber')}

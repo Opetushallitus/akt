@@ -88,16 +88,14 @@
         "header": {
           "name": "Nimi",
           "languagePairs": "Kieliparit",
-          "authorisationBasis": "Auk. peruste",
-          "authorisationBeginDate": "Auk. tod. pvm",
-          "authorisationEndDate": "Umpeutuu",
+          "authorisationBasis": "Peruste",
+          "valid": "Voimassa",
+          "authorisationBeginDate": "Alkamispäivä",
+          "authorisationEndDate": "Päätymispäivä",
           "permissionToPublish": "Julkaistu"
         },
         "detailsButton": "Lisätiedot",
-        "permissionToPublish": {
-          "true": "Kyllä",
-          "false": "Ei"
-        }
+        "values": { "yes": "Kyllä", "no": "Ei" }
       },
       "clerkTranslatorFilters": {
         "authorisationBasis": {
@@ -107,10 +105,11 @@
         "authorisationStatus": {
           "authorised": "Auktorisoidut",
           "expiring": "Umpeutuvat",
-          "expired": "Umpeutuneet"
+          "expired": "Umpeutuneet",
+          "notAuthorised": "Ei auktorisoidut"
         },
         "languagePair": {
-          "title": "Haku kieliparilla",
+          "title": "Haku kielittäin",
           "fromPlaceholder": "Mistä",
           "toPlaceholder": "Mihin"
         },
@@ -121,9 +120,6 @@
         "town": {
           "title": "Haku asuinkunnalla",
           "placeholder": "Asuinkunta"
-        },
-        "buttons": {
-          "empty": "Tyhjennä valinnat"
         }
       },
       "clerkTranslatorDetails": {
@@ -161,9 +157,9 @@
           },
           "fields": {
             "languagePair": "Kielipari",
-            "startDate": "Alkupvm.",
-            "endDate": "Loppupvm.",
-            "basis": "Aukt. peruste",
+            "startDate": "Alkamispäivä",
+            "endDate": "Päätymispäivä",
+            "basis": "Peruste",
             "isValid": "Voimassa",
             "isPublished": "Julkaistu",
             "diaryNumber": "Asiatunnus",
@@ -235,7 +231,8 @@
       "clerkHomepage": {
         "title": "Auktorisoitujen kääntäjien rekisteri",
         "register": "Rekisteri",
-        "sendEmail": "Lähetä sähköposti"
+        "sendEmail": "Lähetä sähköposti",
+        "emptyBtn": "Tyhjennä valinnat"
       },
       "clerkSendEmailPage": {
         "title": "Lähetä sähköposti",

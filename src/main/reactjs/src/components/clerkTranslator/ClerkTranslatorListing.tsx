@@ -1,7 +1,7 @@
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { ReadMore as ReadMoreIcon } from '@mui/icons-material';
 import {
-  Button,
   Checkbox,
+  IconButton,
   TableCell,
   TableHead,
   TableRow,
@@ -10,7 +10,6 @@ import { Box } from '@mui/system';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import { CustomCircularProgress } from 'components/elements/CustomCircularProgress';
 import { H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
 import {
@@ -19,7 +18,7 @@ import {
 } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
-import { AppRoutes, Color, Variant } from 'enums/app';
+import { AppRoutes, Color } from 'enums/app';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import {
   deselectAllTranslators,
@@ -32,6 +31,7 @@ import {
   selectFilteredClerkTranslators,
   selectFilteredSelectedIds,
 } from 'redux/selectors/clerkTranslator';
+import { AuthorisationUtils } from 'utils/authorisation';
 import { DateUtils } from 'utils/date';
 
 const getRowDetails = (
@@ -73,6 +73,7 @@ const ListingRow = ({
   const { firstName, lastName } = translator.contactDetails;
   const authorisations = translator.authorisations;
   const translateLanguage = useKoodistoLanguagesTranslation();
+  const currentDate = new Date();
 
   return (
     <TableRow
@@ -122,25 +123,35 @@ const ListingRow = ({
       </TableCell>
       <TableCell>
         <div className="rows">
+          {authorisations.map((a, idx) => (
+            <Text key={idx}>
+              {AuthorisationUtils.isAuthorisationValid(a, currentDate)
+                ? t('values.yes')
+                : t('values.no')}
+            </Text>
+          ))}
+        </div>
+      </TableCell>
+      <TableCell>
+        <div className="rows">
           {authorisations.map(({ permissionToPublish }, idx) => (
             <Text key={idx}>
-              {t(`permissionToPublish.${permissionToPublish}`)}
+              {permissionToPublish ? t('values.yes') : t('values.no')}
             </Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
         <div className="columns gapped-sm">
-          <Button
+          <IconButton
+            data-testid={`clerk-translators__id-${translator.id}-more-btn`}
             to={translatorDetailsURL(translator.id)}
             component={Link}
             color={Color.Secondary}
-            variant={Variant.Text}
             onClick={stopOnClickPropagation}
-            endIcon={<OpenInNewIcon />}
           >
-            {t(`detailsButton`)}
-          </Button>
+            <ReadMoreIcon />
+          </IconButton>
         </div>
       </TableCell>
     </TableRow>
@@ -192,6 +203,9 @@ const ListingHeader: FC = () => {
           <H3>{t('authorisationEndDate')}</H3>
         </TableCell>
         <TableCell>
+          <H3>{t('valid')}</H3>
+        </TableCell>
+        <TableCell>
           <H3>{t('permissionToPublish')}</H3>
         </TableCell>
         <TableCell />
@@ -209,7 +223,6 @@ export const ClerkTranslatorListing: FC = () => {
   switch (status) {
     case APIResponseStatus.NotStarted:
     case APIResponseStatus.InProgress:
-      return <CustomCircularProgress color={Color.Secondary} />;
     case APIResponseStatus.Cancelled:
     case APIResponseStatus.Error:
       return (
@@ -233,7 +246,7 @@ export const ClerkTranslatorListing: FC = () => {
           getRowDetails={getRowDetails}
           initialRowsPerPage={10}
           rowsPerPageOptions={[10, 20, 50]}
-          className={'clerk-translator__listing'}
+          className={'clerk-translator__listing table-layout-auto'}
         />
       );
   }
