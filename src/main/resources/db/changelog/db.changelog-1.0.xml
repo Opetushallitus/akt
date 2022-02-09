@@ -518,4 +518,14 @@
         </delete>
     </changeSet>
 
+    <changeSet id="2022-02-08-check_from_lang_and_to_lang" author="terova">
+        <sql><![CDATA[
+            ALTER TABLE authorisation
+                ADD CONSTRAINT ck_authorisation_from_to CHECK (from_lang <> to_lang AND
+                                                               (from_lang IN ('FI', 'SV', 'SEIN', 'SEKO', 'SEPO') OR
+                                                                to_lang IN ('FI', 'SV', 'SEIN', 'SEKO', 'SEPO')))
+            ]]>
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
