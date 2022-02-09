@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MeetingDateRepository extends JpaRepository<MeetingDate, Long> {
-  @Query("SELECT new fi.oph.akt.repository.MeetingDateProjection(md.id, md.date) FROM MeetingDate md")
+  @Query("SELECT new fi.oph.akt.repository.MeetingDateProjection(md.id, md.version, md.date) FROM MeetingDate md")
   List<MeetingDateProjection> listMeetingDateProjections();
 }

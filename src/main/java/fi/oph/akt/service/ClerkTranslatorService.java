@@ -232,7 +232,7 @@ public class ClerkTranslatorService {
       .listMeetingDateProjections()
       .stream()
       .sorted(meetingDateProjectionComparator.reversed())
-      .map(mdp -> MeetingDateDTO.builder().id(mdp.meetingDateId()).date(mdp.date()).build())
+      .map(mdp -> MeetingDateDTO.builder().id(mdp.meetingDateId()).version(mdp.version()).date(mdp.date()).build())
       .toList();
   }
 
