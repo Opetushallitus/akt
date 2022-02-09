@@ -12,14 +12,6 @@ import { useWindowProperties } from 'hooks/useWindowProperties';
 import { PaginatedTableProps } from 'interfaces/table';
 import { WithId } from 'interfaces/withId';
 
-const PaginationDisplayedRowsLabel = ({
-  from,
-  to,
-  count,
-}: LabelDisplayedRowsArgs) => {
-  return `${from} - ${to} / ${count}`;
-};
-
 export function PaginatedTable<T extends WithId>({
   header,
   selectedIndices,
@@ -30,6 +22,7 @@ export function PaginatedTable<T extends WithId>({
   initialRowsPerPage,
   rowsPerPageOptions,
   className,
+  stickyHeader,
 }: PaginatedTableProps<T>): JSX.Element {
   const dispatch = useAppDispatch();
   const { t } = useAppTranslation({ keyPrefix: 'akt.component' });
@@ -41,6 +34,14 @@ export function PaginatedTable<T extends WithId>({
     } else {
       dispatch(addSelectedIndex(index));
     }
+  };
+
+  const PaginationDisplayedRowsLabel = ({
+    from,
+    to,
+    count,
+  }: LabelDisplayedRowsArgs) => {
+    return `${from} - ${to} / ${count}`;
   };
 
   const [page, setPage] = useState(0);
@@ -79,7 +80,7 @@ export function PaginatedTable<T extends WithId>({
   return (
     <>
       {renderTablePagination()}
-      <Table className={`${className} table`}>
+      <Table className={`${className} table`} stickyHeader={stickyHeader}>
         {header}
         <TableBody>
           {data

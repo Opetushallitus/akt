@@ -2,7 +2,6 @@ import { Box } from '@mui/system';
 
 import { CustomCircularProgress } from 'components/elements/CustomCircularProgress';
 import { H2, H3 } from 'components/elements/Text';
-import { ContactRequestButton } from 'components/publicTranslator/listing/ContactRequestButton';
 import { PublicTranslatorListingHeader } from 'components/publicTranslator/listing/PublicTranslatorListingHeader';
 import { PublicTranslatorListingRow } from 'components/publicTranslator/listing/PublicTranslatorListingRow';
 import { PaginatedTable } from 'components/tables/Table';
@@ -10,7 +9,6 @@ import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { Color } from 'enums/app';
-import { useWindowProperties } from 'hooks/useWindowProperties';
 import { PublicTranslator } from 'interfaces/publicTranslator';
 import {
   addSelectedTranslator,
@@ -40,7 +38,6 @@ export const PublicTranslatorListing = ({
   translators: Array<PublicTranslator>;
 }) => {
   const { t } = useAppTranslation({ keyPrefix: 'akt' });
-  const { isPhone } = useWindowProperties();
   const { selectedTranslators } = useAppSelector(publicTranslatorsSelector);
   const selected = selectedTranslators.length;
 
@@ -71,7 +68,6 @@ export const PublicTranslatorListing = ({
                   : t('component.table.title')}
               </H2>
             </div>
-            {!isPhone && <ContactRequestButton />}
           </div>
           <PaginatedTable
             className="translator-listing"
@@ -83,6 +79,7 @@ export const PublicTranslatorListing = ({
             getRowDetails={getRowDetails}
             initialRowsPerPage={10}
             rowsPerPageOptions={[10, 20, 50]}
+            stickyHeader
           />
         </>
       );
