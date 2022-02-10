@@ -72,7 +72,7 @@ export const PublicTranslatorListingRow = ({
   const renderPhoneTableCells = () => (
     <TableCell>
       <div className="rows gapped">
-        <H2>{`${firstName} ${lastName}`}</H2>
+        <H2>{`${lastName}, ${firstName}`}</H2>
         <div className="columns gapped space-between">
           <div className="rows">
             <H3>{t('pages.translator.languagePairs')}</H3>
@@ -108,7 +108,7 @@ export const PublicTranslatorListingRow = ({
         />
       </TableCell>
       <TableCell>
-        <Text>{`${firstName} ${lastName}`}</Text>
+        <Text>{`${lastName}, ${firstName}`}</Text>
       </TableCell>
       <TableCell>
         {languagePairs.map(({ from, to }, k) => (
