@@ -109,8 +109,6 @@ export const ClerkTranslatorFilters = () => {
             onChange={handleFilterChange('town')}
           />
         </div>
-      </div>
-      <div className="columns">
         <div className="rows gapped-xs">
           <H3>{t('authorisationBasis.title')}</H3>
           <ComboBox
