@@ -18,4 +18,5 @@ export interface PaginatedTableProps<T extends WithId> {
   initialRowsPerPage: number;
   rowsPerPageOptions: Array<number | { value: number; label: string }>;
   className: string;
+  stickyHeader?: boolean;
 }

@@ -1,5 +1,5 @@
 import {
-  ArrowBackOutlined as BackIcon,
+  ArrowBackIosOutlined as BackIcon,
   LogoutOutlined as LogoutIcon,
 } from '@mui/icons-material';
 import { Button, IconButton } from '@mui/material';

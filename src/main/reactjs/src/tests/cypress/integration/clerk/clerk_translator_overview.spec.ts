@@ -61,7 +61,7 @@ const expectTranslatorAuthorisationDetails = () => {
   });
 };
 
-describe('ClerkTranslatorDetails', () => {
+describe('ClerkTranslatorOverview', () => {
   it("should be reachable from the ClerkTranslatorListing by a link on a translator's row", () => {
     cy.openClerkHomePage();
     onClerkHomePage.clickTranslatorOverviewLink(existingTranslator.id);

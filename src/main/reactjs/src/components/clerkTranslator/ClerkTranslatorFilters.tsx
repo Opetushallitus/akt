@@ -110,21 +110,23 @@ export const ClerkTranslatorFilters = () => {
           />
         </div>
       </div>
-      <div className="rows gapped-xs">
-        <H3>{t('authorisationBasis.title')}</H3>
-        <ComboBox
-          autoHighlight
-          data-testid="clerk-translator-filters__authorisation-basis"
-          label={t('authorisationBasis.placeholder')}
-          values={['AUT', 'KKT', 'VIR'].map(valueAsOption)}
-          value={
-            filters.authorisationBasis
-              ? valueAsOption(filters.authorisationBasis)
-              : null
-          }
-          variant={TextFieldVariant.Outlined}
-          onChange={handleFilterChange('authorisationBasis')}
-        />
+      <div className="columns">
+        <div className="rows gapped-xs">
+          <H3>{t('authorisationBasis.title')}</H3>
+          <ComboBox
+            autoHighlight
+            data-testid="clerk-translator-filters__authorisation-basis"
+            label={t('authorisationBasis.placeholder')}
+            values={['AUT', 'KKT', 'VIR'].map(valueAsOption)}
+            value={
+              filters.authorisationBasis
+                ? valueAsOption(filters.authorisationBasis)
+                : null
+            }
+            variant={TextFieldVariant.Outlined}
+            onChange={handleFilterChange('authorisationBasis')}
+          />
+        </div>
       </div>
     </div>
   );

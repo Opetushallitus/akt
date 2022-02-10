@@ -1,4 +1,4 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIosOutlined from '@mui/icons-material/ArrowBackIosOutlined';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ export const TopControls = () => {
         to={AppRoutes.ClerkHomePage}
         className="clerk-translator-overview-page__back-btn"
         variant={Variant.Text}
-        startIcon={<ArrowBackIcon />}
+        startIcon={<ArrowBackIosOutlined />}
       >
         {t('buttons.back')}
       </Button>
