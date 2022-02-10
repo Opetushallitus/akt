@@ -78,12 +78,6 @@ CAS configurations are used by default.
 
 Dev profile configurations are used by default.
 
-Turn development profile `dev` on
-
-```sh
-./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
-```
-
 Dev profile uses the following credentials:
 
 - clerk:clerk
@@ -93,15 +87,15 @@ Dev profile uses the following credentials:
 
 Dev profile enables HTTP basic and form authentication for easier command-line tool access.
 
-In order to disable Spring Boot Security use the following:
+In order to disable Spring Boot Security use property:
 
 ```sh
-./mvnw spring-boot:run -Dspring-boot.run.profiles=dev -Dspring-boot.run.jvmArguments=-Ddev.web.security.off=true
+  -Dspring-boot.run.jvmArguments=-Ddev.web.security.off=true
 ```
 
 Or
 
-Use `AKT_UNSECURE=true` property as shown [here](#development).
+Set `AKT_UNSECURE=true` environment variable as shown [here](#development).
 
 &nbsp;
 
@@ -244,7 +238,7 @@ cd scripts
 ./koodisto-langs.sh
 ```
 
-The above script fetches language codes from the Koodisto service and transforms them into localization files. The created localization files are stored in git
+The above script fetches language codes from the Koodisto service and transforms them into localization files. The created localization files are stored in git.
 
 [prettier]: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
 
