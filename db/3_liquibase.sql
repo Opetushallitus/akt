@@ -87,6 +87,8 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 2022-01-21-modify_translator_email	mikhuttu	migrations.xml	2022-01-21 09:29:52.156223	22	EXECUTED	8:4f224d2fe743d0f5bb6ccb68d77853aa	modifyDataType columnName=email, tableName=translator; addUniqueConstraint tableName=translator		\N	4.3.5	\N	\N	2757391940
 2022-02-01-new_contact_request_email_types	mikhuttu	migrations.xml	2022-02-01 08:51:57.257592	23	EXECUTED	8:3e31435286a431bdec520a7b01a537ab	insert tableName=email_type; insert tableName=email_type		\N	4.3.5	\N	\N	3705517103
 2022-02-01-rename_email_type_contact_request	mikhuttu	migrations.xml	2022-02-01 08:51:57.274921	24	EXECUTED	8:636e63499d0a369945bd90269688102d	insert tableName=email_type; update tableName=email; delete tableName=email_type		\N	4.3.5	\N	\N	3705517103
+2022-02-08-check_from_lang_and_to_lang	terova	migrations.xml	2022-02-09 15:53:47.664419	25	EXECUTED	8:b4c7cad76249520a682116e1b3e936ae	sql		\N	4.3.5	\N	\N	4422027486
+2022-02-09-add-column-translator_extra_information	mikhuttu	migrations.xml	2022-02-09 15:53:47.676833	26	EXECUTED	8:529f01eadf925629f9f9f5a85f25dadc	addColumn tableName=translator		\N	4.3.5	\N	\N	4422027486
 \.
 
 
