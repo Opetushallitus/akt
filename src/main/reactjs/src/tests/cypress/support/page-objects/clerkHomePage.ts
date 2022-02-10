@@ -62,7 +62,7 @@ class ClerkHomePage {
     this.elements
       .translatorRow(`${id}`)
       .findByTestId(`clerk-translators__id-${id}-more-btn`)
-      .click();
+      .click({ force: true });
   }
 }
 
