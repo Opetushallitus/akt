@@ -6,6 +6,7 @@ import {
   APIAuthorisation,
   Authorisation,
   AuthorisationBasis,
+  PermissionToPublishBasis,
 } from 'interfaces/authorisation';
 import { LanguagePairsDict } from 'interfaces/language';
 import { APIMeetingDate, MeetingDate } from 'interfaces/meetingDate';
@@ -59,6 +60,7 @@ export interface ClerkTranslatorFilter {
   town?: string;
   authorisationStatus: AuthorisationStatus;
   authorisationBasis?: AuthorisationBasis;
+  permissionToPublish?: PermissionToPublishBasis;
 }
 
 export interface ClerkTranslatorState extends ClerkTranslatorResponse {

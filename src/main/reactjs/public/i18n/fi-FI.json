@@ -102,6 +102,10 @@
           "title": "Auktorisoinnin peruste",
           "placeholder": "Peruste"
         },
+        "published": {
+          "title": "Julkaistu",
+          "placeholder": "Kyllä / Ei"
+        },
         "authorisationStatus": {
           "authorised": "Auktorisoidut",
           "expiring": "Umpeutuvat",

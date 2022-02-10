@@ -3,6 +3,7 @@ import { WithId } from 'interfaces/withId';
 import { WithVersion } from 'interfaces/withVersion';
 
 export type AuthorisationBasis = 'AUT' | 'KKT' | 'VIR';
+export type PermissionToPublishBasis = 'Kyllä' | 'Ei';
 
 export interface AuthorisationTerm extends WithId, WithVersion {
   start: Date;
