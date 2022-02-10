@@ -73,6 +73,11 @@ export const selectFilteredClerkTranslators = createSelector(
       filtered = filtered.filter((t) => filterByTown(t, townFilter));
     }
 
+    if (filters.permissionToPublish) {
+      const pusblishedFilter = filters.permissionToPublish;
+      filtered = filtered.filter((t) => filterByPublished(t, pusblishedFilter));
+    }
+
     filtered = filtered.filter((t) =>
       filterByAuthorisationCriteria(t, filters, currentDate, expiringSoonDate)
     );
@@ -212,4 +217,17 @@ const filterByName = (translator: ClerkTranslator, name: string) => {
 
 const filterByTown = (translator: ClerkTranslator, town: string) => {
   return translator.town?.trim().toLowerCase().includes(trimAndLowerCase(town));
+};
+
+const filterByPublished = (
+  translator: ClerkTranslator,
+  permissionToPublish: string
+) => {
+  return translator.authorisations.some((authorisation) => {
+    if (permissionToPublish === 'Kyllä') {
+      return authorisation.permissionToPublish === true;
+    }
+
+    return authorisation.permissionToPublish === false;
+  });
 };

@@ -127,6 +127,22 @@ export const ClerkTranslatorFilters = () => {
             onChange={handleFilterChange('authorisationBasis')}
           />
         </div>
+        <div className="rows gapped-xs">
+          <H3>{t('published.title')}</H3>
+          <ComboBox
+            autoHighlight
+            data-testid="clerk-translator-filters__published"
+            label={t('published.placeholder')}
+            values={['Kyllä', 'Ei'].map(valueAsOption)}
+            value={
+              filters.permissionToPublish
+                ? valueAsOption(filters.permissionToPublish)
+                : null
+            }
+            variant={TextFieldVariant.Outlined}
+            onChange={handleFilterChange('permissionToPublish')}
+          />
+        </div>
       </div>
     </div>
   );
