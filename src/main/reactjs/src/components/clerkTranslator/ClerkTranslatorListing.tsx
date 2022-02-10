@@ -257,6 +257,7 @@ export const ClerkTranslatorListing: FC = () => {
             initialRowsPerPage={10}
             rowsPerPageOptions={[10, 20, 50]}
             className={'clerk-translator__listing table-layout-auto'}
+            stickyHeader
           />
         </>
       );
