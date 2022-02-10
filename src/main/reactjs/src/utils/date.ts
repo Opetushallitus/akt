@@ -1,9 +1,13 @@
 import { getCurrentLang, supportedLanguages } from 'configs/i18n';
 
-const dateFormattersByLocale = {
-  'fi-FI': new Intl.DateTimeFormat('fi-FI'),
-  'sv-SE': new Intl.DateTimeFormat('sv-SE'),
-  'en-GB': new Intl.DateTimeFormat('en-GB'),
+const dateFormatterByLocale = (locale: string) => {
+  const supportedLocales = ['fi-FI', 'sv-SE', 'en-GB'];
+
+  if (supportedLocales.indexOf(locale) >= 0) {
+    return new Intl.DateTimeFormat(locale);
+  }
+
+  return new Intl.DateTimeFormat('fi-FI');
 };
 
 export class DateUtils {
@@ -13,7 +17,7 @@ export class DateUtils {
     }
 
     const currentLang = getCurrentLang() as supportedLanguages;
-    const dateFormatter = dateFormattersByLocale[currentLang];
+    const dateFormatter = dateFormatterByLocale(currentLang);
 
     return dateFormatter.format(date);
   }
