@@ -1,9 +1,11 @@
-import { getCurrentLang, supportedLanguages } from 'configs/i18n';
+import { AppLanguages, getCurrentLang, supportedLangs } from 'configs/i18n';
 
-const dateFormattersByLocale = {
-  'fi-FI': new Intl.DateTimeFormat('fi-FI'),
-  'sv-SE': new Intl.DateTimeFormat('sv-SE'),
-  'en-GB': new Intl.DateTimeFormat('en-GB'),
+const getDateTimeFormatter = (lang: AppLanguages) => {
+  const locale = supportedLangs.includes(lang.toString())
+    ? lang.toString()
+    : 'fi-FI';
+
+  return new Intl.DateTimeFormat(locale);
 };
 
 export class DateUtils {
@@ -12,10 +14,10 @@ export class DateUtils {
       return '-';
     }
 
-    const currentLang = getCurrentLang() as supportedLanguages;
-    const dateFormatter = dateFormattersByLocale[currentLang];
+    const lang = getCurrentLang() as AppLanguages;
+    const dateTimeFormatter = getDateTimeFormatter(lang);
 
-    return dateFormatter.format(date);
+    return dateTimeFormatter.format(date);
   }
 
   static optionalStringToDate(dateString?: string) {
