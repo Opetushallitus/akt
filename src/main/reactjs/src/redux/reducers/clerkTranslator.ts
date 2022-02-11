@@ -26,7 +26,6 @@ const defaultState = {
   status: APIResponseStatus.NotStarted,
   translators: [],
   langs: { from: [], to: [] },
-  towns: [],
   meetingDates: [],
   selectedTranslators: [],
   filters: {
@@ -47,14 +46,12 @@ export const clerkTranslatorReducer: Reducer<
     case CLERK_TRANSLATOR_RECEIVED:
       const translators = action.translators as Array<ClerkTranslator>;
       const langs = action.langs as LanguagePairsDict;
-      const towns = action.towns as Array<string>;
       const meetingDates = action.meetingDates as Array<MeetingDate>;
 
       return {
         ...state,
         translators,
         langs,
-        towns,
         meetingDates,
         status: APIResponseStatus.Success,
       };
