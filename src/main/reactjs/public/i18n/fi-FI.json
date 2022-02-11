@@ -99,12 +99,12 @@
       },
       "clerkTranslatorFilters": {
         "authorisationBasis": {
-          "title": "Auktorisoinnin peruste",
-          "placeholder": "Peruste"
+          "title": "Peruste",
+          "placeholder": "Auktorisointi"
         },
         "published": {
-          "title": "Julkaistu",
-          "placeholder": "Kyllä / Ei"
+          "title": "Julkaisulupa",
+          "placeholder": "Kaikki"
         },
         "authorisationStatus": {
           "authorised": "Auktorisoidut",
