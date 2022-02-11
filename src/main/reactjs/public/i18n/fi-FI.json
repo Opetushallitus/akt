@@ -120,10 +120,6 @@
         "name": {
           "title": "Haku nimellä",
           "placeholder": "Nimi"
-        },
-        "town": {
-          "title": "Haku asuinkunnalla",
-          "placeholder": "Asuinkunta"
         }
       },
       "clerkTranslatorOverview": {

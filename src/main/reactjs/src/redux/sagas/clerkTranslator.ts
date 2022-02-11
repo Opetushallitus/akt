@@ -33,11 +33,11 @@ export const convertAPIResponse = (
 ): ClerkTranslatorResponse => {
   const APITranslators = response.translators;
   const APIMeetingDates = response.meetingDates;
-  const { towns, langs } = response;
+  const { langs } = response;
   const translators = APITranslators.map(convertAPITranslator);
   const meetingDates = APIMeetingDates.map(APIUtils.convertAPIMeetingDate);
 
-  return { translators, towns, langs, meetingDates };
+  return { translators, langs, meetingDates };
 };
 
 function* fetchClerkTranslators() {

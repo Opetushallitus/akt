@@ -68,11 +68,6 @@ export const selectFilteredClerkTranslators = createSelector(
       filtered = filtered.filter((t) => filterByName(t, nameFilter));
     }
 
-    if (filters.town) {
-      const townFilter = filters.town;
-      filtered = filtered.filter((t) => filterByTown(t, townFilter));
-    }
-
     if (filters.permissionToPublish) {
       const pusblishedFilter = filters.permissionToPublish;
       filtered = filtered.filter((t) => filterByPublished(t, pusblishedFilter));
@@ -213,10 +208,6 @@ const filterByName = (translator: ClerkTranslator, name: string) => {
   ].map(trimAndLowerCase);
 
   return nameCombs.some((comb) => comb.includes(trimAndLowerCase(name)));
-};
-
-const filterByTown = (translator: ClerkTranslator, town: string) => {
-  return translator.town?.trim().toLowerCase().includes(trimAndLowerCase(town));
 };
 
 const filterByPublished = (
