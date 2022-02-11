@@ -57,7 +57,14 @@ describe('ClerkHomePage', () => {
     onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
     onClerkHomePage.expectSelectedTranslatorsCount(0);
 
+    onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Authorised);
+    onClerkHomePage.filterByAuthorisationBasis('AUT');
+    onClerkHomePage.filterByPermissonToPublishBasis('Ei');
+    onClerkHomePage.expectSelectedTranslatorsCount(8);
+
+    onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
     onClerkHomePage.filterByAuthorisationBasis('KKT');
+    onClerkHomePage.clearFilterByPermissonToPublishBasis();
     onClerkHomePage.expectSelectedTranslatorsCount(13);
 
     onClerkHomePage.filterByFromLang('ruotsi');
