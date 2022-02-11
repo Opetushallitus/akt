@@ -129,7 +129,7 @@ export const ClerkTranslatorFilters = () => {
           <H3>{t('published.title')}</H3>
           <ComboBox
             autoHighlight
-            data-testid="clerk-translator-filters__published"
+            data-testid="clerk-translator-filters__permission-to-publish-basis"
             label={t('published.placeholder')}
             values={['Kyllä', 'Ei'].map(valueAsOption)}
             value={
