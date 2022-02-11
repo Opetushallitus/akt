@@ -14,7 +14,7 @@ import {
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { TextFieldVariant } from 'enums/app';
+import { PermissionToPublish, TextFieldVariant } from 'enums/app';
 import { useDebouncedValue } from 'hooks/useDebouncedValue';
 import { ClerkTranslatorFilter } from 'interfaces/clerkTranslator';
 import { AutocompleteValue } from 'interfaces/combobox';
@@ -32,7 +32,7 @@ export const ClerkTranslatorFilters = () => {
 
   // redux
   const dispatch = useAppDispatch();
-  const { filters, langs, towns } = useAppSelector(clerkTranslatorsSelector);
+  const { filters, langs } = useAppSelector(clerkTranslatorsSelector);
   const handleFilterChange =
     (filter: keyof ClerkTranslatorFilter) =>
     (event: React.SyntheticEvent<Element, Event>, value: AutocompleteValue) => {
@@ -98,20 +98,6 @@ export const ClerkTranslatorFilters = () => {
           />
         </div>
         <div className="rows gapped-xs">
-          <H3>{t('town.title')}</H3>
-          <ComboBox
-            autoHighlight
-            data-testid="clerk-translator-filters__town"
-            label={t('town.placeholder')}
-            values={towns.map(valueAsOption)}
-            value={filters.town ? valueAsOption(filters.town) : null}
-            variant={TextFieldVariant.Outlined}
-            onChange={handleFilterChange('town')}
-          />
-        </div>
-      </div>
-      <div className="columns">
-        <div className="rows gapped-xs">
           <H3>{t('authorisationBasis.title')}</H3>
           <ComboBox
             autoHighlight
@@ -125,6 +111,22 @@ export const ClerkTranslatorFilters = () => {
             }
             variant={TextFieldVariant.Outlined}
             onChange={handleFilterChange('authorisationBasis')}
+          />
+        </div>
+        <div className="rows gapped-xs">
+          <H3>{t('published.title')}</H3>
+          <ComboBox
+            autoHighlight
+            data-testid="clerk-translator-filters__permission-to-publish-basis"
+            label={t('published.placeholder')}
+            values={Object.values(PermissionToPublish).map(valueAsOption)}
+            value={
+              filters.permissionToPublish
+                ? valueAsOption(filters.permissionToPublish)
+                : null
+            }
+            variant={TextFieldVariant.Outlined}
+            onChange={handleFilterChange('permissionToPublish')}
           />
         </div>
       </div>

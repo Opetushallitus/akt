@@ -116,3 +116,8 @@ export enum Screenwidth {
   Tablet = 800,
   Desktop = 1024,
 }
+
+export enum PermissionToPublish {
+  Yes = 'Kyllä',
+  No = 'Ei',
+}

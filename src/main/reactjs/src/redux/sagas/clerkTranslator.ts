@@ -33,11 +33,11 @@ export const convertAPIResponse = (
 ): ClerkTranslatorResponse => {
   const APITranslators = response.translators;
   const APIMeetingDates = response.meetingDates;
-  const { towns, langs } = response;
+  const { langs } = response;
   const translators = APITranslators.map(convertAPITranslator);
   const meetingDates = APIMeetingDates.map(APIUtils.convertAPIMeetingDate);
 
-  return { translators, towns, langs, meetingDates };
+  return { translators, langs, meetingDates };
 };
 
 function* fetchClerkTranslators() {
@@ -55,12 +55,11 @@ function* fetchClerkTranslators() {
 }
 
 export function* storeApiResults(response: ClerkTranslatorResponse) {
-  const { translators, langs, towns, meetingDates } = response;
+  const { translators, langs, meetingDates } = response;
   yield put({
     type: CLERK_TRANSLATOR_RECEIVED,
     translators,
     langs,
-    towns,
     meetingDates,
   });
 }

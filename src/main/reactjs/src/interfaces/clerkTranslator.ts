@@ -1,6 +1,7 @@
 import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
+import { PermissionToPublish } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 import {
   APIAuthorisation,
@@ -20,7 +21,6 @@ export interface ClerkTranslator
 export interface ClerkTranslatorResponse {
   translators: Array<ClerkTranslator>;
   langs: LanguagePairsDict;
-  towns: Array<string>;
   meetingDates: Array<MeetingDate>;
 }
 
@@ -56,9 +56,9 @@ export interface ClerkTranslatorFilter {
   fromLang?: string;
   toLang?: string;
   name?: string;
-  town?: string;
   authorisationStatus: AuthorisationStatus;
   authorisationBasis?: AuthorisationBasis;
+  permissionToPublish?: keyof typeof PermissionToPublish;
 }
 
 export interface ClerkTranslatorState extends ClerkTranslatorResponse {

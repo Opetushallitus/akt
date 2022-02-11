@@ -99,8 +99,12 @@
       },
       "clerkTranslatorFilters": {
         "authorisationBasis": {
-          "title": "Auktorisoinnin peruste",
-          "placeholder": "Peruste"
+          "title": "Peruste",
+          "placeholder": "Auktorisointi"
+        },
+        "published": {
+          "title": "Julkaisulupa",
+          "placeholder": "Kaikki"
         },
         "authorisationStatus": {
           "authorised": "Auktorisoidut",
@@ -116,10 +120,6 @@
         "name": {
           "title": "Haku nimellä",
           "placeholder": "Nimi"
-        },
-        "town": {
-          "title": "Haku asuinkunnalla",
-          "placeholder": "Asuinkunta"
         }
       },
       "clerkTranslatorOverview": {

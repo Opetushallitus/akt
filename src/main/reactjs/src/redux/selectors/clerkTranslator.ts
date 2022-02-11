@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { RootState } from 'configs/redux';
+import { PermissionToPublish } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { Authorisation } from 'interfaces/authorisation';
 import {
@@ -68,9 +69,9 @@ export const selectFilteredClerkTranslators = createSelector(
       filtered = filtered.filter((t) => filterByName(t, nameFilter));
     }
 
-    if (filters.town) {
-      const townFilter = filters.town;
-      filtered = filtered.filter((t) => filterByTown(t, townFilter));
+    if (filters.permissionToPublish) {
+      const pusblishedFilter = filters.permissionToPublish;
+      filtered = filtered.filter((t) => filterByPublished(t, pusblishedFilter));
     }
 
     filtered = filtered.filter((t) =>
@@ -210,6 +211,15 @@ const filterByName = (translator: ClerkTranslator, name: string) => {
   return nameCombs.some((comb) => comb.includes(trimAndLowerCase(name)));
 };
 
-const filterByTown = (translator: ClerkTranslator, town: string) => {
-  return translator.town?.trim().toLowerCase().includes(trimAndLowerCase(town));
+const filterByPublished = (
+  translator: ClerkTranslator,
+  permissionToPublish: string
+) => {
+  const permissionToPublishBoolean =
+    permissionToPublish === PermissionToPublish.Yes ? true : false;
+
+  return translator.authorisations.some(
+    (authorisation) =>
+      authorisation.permissionToPublish === permissionToPublishBoolean
+  );
 };
