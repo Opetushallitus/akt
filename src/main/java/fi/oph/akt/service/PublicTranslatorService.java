@@ -17,16 +17,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StopWatch;
 
 @Service
 public class PublicTranslatorService {
-
-  private static final Logger LOG = LoggerFactory.getLogger(PublicTranslatorService.class);
 
   @Resource
   private AuthorisationRepository authorisationRepository;
@@ -36,39 +31,20 @@ public class PublicTranslatorService {
 
   @Transactional(readOnly = true)
   public PublicTranslatorResponseDTO listTranslators() {
-    final StopWatch st = new StopWatch();
-
-    st.start("findTranslatorLanguagePairsForPublicListing");
     final Map<Long, List<TranslatorLanguagePairProjection>> translatorLanguagePairs = authorisationRepository
       .findTranslatorLanguagePairsForPublicListing()
       .stream()
       .collect(Collectors.groupingBy(TranslatorLanguagePairProjection::translatorId));
-    st.stop();
-
-    st.start("findTranslatorsByIds");
     final List<Translator> translators = translatorRepository.findAllById(translatorLanguagePairs.keySet());
-    st.stop();
-
-    st.start("createPublicTranslatorDTOs");
     final List<PublicTranslatorDTO> publicTranslatorDTOS = translators
       .stream()
       .map(translator -> {
         final List<LanguagePairDTO> languagePairDTOs = getLanguagePairDTOs(translatorLanguagePairs, translator);
-
         return createPublicTranslatorDTO(translator, languagePairDTOs);
       })
       .toList();
-    st.stop();
-
-    st.start("getLanguagePairsDictDTO");
     final LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
-    st.stop();
-
-    st.start("getDistinctTowns");
     final List<String> towns = getDistinctTowns(translators);
-    st.stop();
-
-    LOG.info(st.prettyPrint());
 
     return PublicTranslatorResponseDTO
       .builder()

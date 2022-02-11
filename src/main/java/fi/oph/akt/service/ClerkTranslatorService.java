@@ -38,17 +38,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StopWatch;
 
 @Service
 @RequiredArgsConstructor
 public class ClerkTranslatorService {
-
-  private static final Logger LOG = LoggerFactory.getLogger(ClerkTranslatorService.class);
 
   private static final AuthorisationTermProjectionComparator authorisationTermProjectionComparator = new AuthorisationTermProjectionComparator();
 
@@ -82,41 +77,17 @@ public class ClerkTranslatorService {
   }
 
   ClerkTranslatorResponseDTO listTranslatorsWithoutAudit() {
-    final StopWatch st = new StopWatch();
-
-    st.start("translatorRepository.findAll");
     final List<Translator> translators = translatorRepository.findAll();
-    st.stop();
-
-    st.start("getAuthorisationProjections");
     final Map<Long, List<AuthorisationProjection>> authorisationProjections = getAuthorisationProjections();
-    st.stop();
-
-    st.start("getAuthorisationTermProjections");
     final Map<Long, List<AuthorisationTermProjection>> termProjections = getAuthorisationTermProjections();
-    st.stop();
-
-    st.start("createClerkTranslatorDTOs");
     final List<ClerkTranslatorDTO> clerkTranslatorDTOS = createClerkTranslatorDTOs(
       translators,
       authorisationProjections,
       termProjections
     );
-    st.stop();
-
-    st.start("getLanguagePairsDictDTO");
     final LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
-    st.stop();
-
-    st.start("getDistinctTowns");
     final List<String> towns = getDistinctTowns(translators);
-    st.stop();
-
-    st.start("getMeetingDateDTOs");
     final List<MeetingDateDTO> meetingDateDTOS = getMeetingDateDTOs();
-    st.stop();
-
-    LOG.info(st.prettyPrint());
 
     return ClerkTranslatorResponseDTO
       .builder()
