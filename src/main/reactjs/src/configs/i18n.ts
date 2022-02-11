@@ -19,13 +19,9 @@ const langFI = 'fi-FI';
 const langSV = 'sv-SE';
 const langEN = 'en-GB';
 
-const detectionOptions = {
-  order: ['localStorage', 'htmlTag'],
-  caches: ['localStorage'],
-};
+export type AppLanguages = typeof langFI | typeof langSV | typeof langEN;
 
-const supportedLangs = [langFI, langSV, langEN];
-export type supportedLanguages = typeof langFI | typeof langSV | typeof langEN;
+export const supportedLangs = [langFI, langSV, langEN];
 
 const resources = {
   [langFI]: {
@@ -40,6 +36,11 @@ const resources = {
     [I18nNamespace.Translation]: transEN,
     [I18nNamespace.KoodistoLanguages]: koodistoLangsEN,
   },
+};
+
+const detectionOptions = {
+  order: ['localStorage', 'htmlTag'],
+  caches: ['localStorage'],
 };
 
 // TypeScript definitions for react-i18next. IDE might show this to be unused, but ts does some type checking with it.
