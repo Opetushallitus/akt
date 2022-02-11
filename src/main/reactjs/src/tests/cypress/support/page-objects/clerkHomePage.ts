@@ -18,12 +18,6 @@ class ClerkHomePage {
       cy.findByTestId('clerk-translator-filters__authorisation-basis'),
     permissionToPublishBasisSelect: () =>
       cy.findByTestId('clerk-translator-filters__permission-to-publish-basis'),
-    clearPermissionToPublishBasisSelect: () =>
-      cy
-        .findByTestId('clerk-translator-filters__permission-to-publish-basis')
-        .type('Kyllä' + '{enter}')
-        .findByTestId('CloseIcon')
-        .parent(),
     fromLanguageSelect: () =>
       cy.findByTestId('clerk-translator-filters__from-lang'),
     toLanguageSelect: () =>
@@ -51,10 +45,6 @@ class ClerkHomePage {
 
   filterByPermissonToPublishBasis(basis: PermissionToPublishBasis) {
     this.elements.permissionToPublishBasisSelect().type(basis + '{enter}');
-  }
-
-  clearFilterByPermissonToPublishBasis() {
-    this.elements.clearPermissionToPublishBasisSelect().click();
   }
 
   filterByFromLang(lang: string) {

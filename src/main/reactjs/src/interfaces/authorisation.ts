@@ -1,9 +1,10 @@
+import { PermissionToPublish } from 'enums/app';
 import { LanguagePair } from 'interfaces/language';
 import { WithId } from 'interfaces/withId';
 import { WithVersion } from 'interfaces/withVersion';
 
 export type AuthorisationBasis = 'AUT' | 'KKT' | 'VIR';
-export type PermissionToPublishBasis = 'Kyllä' | 'Ei';
+export type PermissionToPublishBasis = PermissionToPublish;
 
 export interface AuthorisationTerm extends WithId, WithVersion {
   start: Date;

@@ -103,8 +103,8 @@
           "placeholder": "Peruste"
         },
         "published": {
-          "title": "Julkaistu",
-          "placeholder": "Kyllä / Ei"
+          "title": "Haku julkaisuluvalla",
+          "placeholder": "Kaikki / Kyllä / Ei"
         },
         "authorisationStatus": {
           "authorised": "Auktorisoidut",

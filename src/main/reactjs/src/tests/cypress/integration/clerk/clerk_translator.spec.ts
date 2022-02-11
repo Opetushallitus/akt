@@ -1,4 +1,5 @@
 import { APIEndpoints } from 'enums/api';
+import { PermissionToPublish } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { onClerkHomePage } from 'tests/cypress/support/page-objects/clerkHomePage';
 import { runWithIntercept } from 'tests/cypress/support/utils/api';
@@ -59,12 +60,12 @@ describe('ClerkHomePage', () => {
 
     onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Authorised);
     onClerkHomePage.filterByAuthorisationBasis('AUT');
-    onClerkHomePage.filterByPermissonToPublishBasis('Ei');
+    onClerkHomePage.filterByPermissonToPublishBasis(PermissionToPublish.No);
     onClerkHomePage.expectSelectedTranslatorsCount(8);
 
     onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
     onClerkHomePage.filterByAuthorisationBasis('KKT');
-    onClerkHomePage.clearFilterByPermissonToPublishBasis();
+    onClerkHomePage.filterByPermissonToPublishBasis(PermissionToPublish.All);
     onClerkHomePage.expectSelectedTranslatorsCount(13);
 
     onClerkHomePage.filterByFromLang('ruotsi');
