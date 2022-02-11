@@ -1,6 +1,6 @@
 import { Skeleton } from '@mui/material';
 
-import { ClerkTranslatorFilters } from 'components/clerkTranslator/ClerkTranslatorFilters';
+import { ClerkTranslatorAutocompleteFilters } from 'components/clerkTranslator/ClerkTranslatorAutocompleteFilters';
 import { ClerkTranslatorListing } from 'components/clerkTranslator/ClerkTranslatorListing';
 import { ClerkTranslatorToggleFilters } from 'components/clerkTranslator/ClerkTranslatorToggleFilters';
 import { H2 } from 'components/elements/Text';
@@ -26,7 +26,7 @@ export const ClerkHomePageSkeleton = () => {
         className="full-max-width"
         variant={SkeletonVariant.Rectangular}
       >
-        <ClerkTranslatorFilters />
+        <ClerkTranslatorAutocompleteFilters />
       </Skeleton>
       <Skeleton
         className="full-max-width"

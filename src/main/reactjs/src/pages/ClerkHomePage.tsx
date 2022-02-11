@@ -2,7 +2,7 @@ import { Button, Divider, Grid, Paper } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { ClerkTranslatorFilters } from 'components/clerkTranslator/ClerkTranslatorFilters';
+import { ClerkTranslatorAutocompleteFilters } from 'components/clerkTranslator/ClerkTranslatorAutocompleteFilters';
 import { ClerkTranslatorListing } from 'components/clerkTranslator/ClerkTranslatorListing';
 import { ClerkTranslatorToggleFilters } from 'components/clerkTranslator/ClerkTranslatorToggleFilters';
 import { H1, H2, Text } from 'components/elements/Text';
@@ -84,7 +84,7 @@ export const ClerkHomePage: FC = () => {
         </div>
       </Grid>
       <Grid item>
-        <ClerkTranslatorFilters />
+        <ClerkTranslatorAutocompleteFilters />
       </Grid>
       <Grid item>
         <div className="columns space-between">
