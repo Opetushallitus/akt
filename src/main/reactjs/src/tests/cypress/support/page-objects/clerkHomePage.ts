@@ -1,8 +1,6 @@
+import { PermissionToPublish } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
-import {
-  AuthorisationBasis,
-  PermissionToPublishBasis,
-} from 'interfaces/authorisation';
+import { AuthorisationBasis } from 'interfaces/authorisation';
 
 class ClerkHomePage {
   elements = {
@@ -49,7 +47,7 @@ class ClerkHomePage {
     this.elements.authorisationBasisSelect().type(basis + '{enter}');
   }
 
-  filterByPermissonToPublishBasis(basis: PermissionToPublishBasis) {
+  filterByPermissonToPublishBasis(basis: keyof typeof PermissionToPublish) {
     this.elements.permissionToPublishBasisSelect().type(basis + '{enter}');
   }
 

@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { RootState } from 'configs/redux';
+import { PermissionToPublish } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { Authorisation } from 'interfaces/authorisation';
 import {
@@ -214,11 +215,11 @@ const filterByPublished = (
   translator: ClerkTranslator,
   permissionToPublish: string
 ) => {
-  return translator.authorisations.some((authorisation) => {
-    if (permissionToPublish === 'Kyllä') {
-      return authorisation.permissionToPublish === true;
-    }
+  const permissionToPublishBoolean =
+    permissionToPublish === PermissionToPublish.Yes ? true : false;
 
-    return authorisation.permissionToPublish === false;
-  });
+  return translator.authorisations.some(
+    (authorisation) =>
+      authorisation.permissionToPublish === permissionToPublishBoolean
+  );
 };
