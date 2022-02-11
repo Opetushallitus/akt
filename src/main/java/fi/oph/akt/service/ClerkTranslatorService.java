@@ -292,7 +292,7 @@ public class ClerkTranslatorService {
     authorisationTermReminderRepository.deleteAllInBatch(reminders);
     authorisationTermRepository.deleteAllInBatch(terms);
     authorisationRepository.deleteAllInBatch(authorisations);
-    translatorRepository.deleteById(translatorId);
+    translatorRepository.deleteAllInBatch(List.of(translator));
 
     auditService.logById(AktOperation.DELETE_TRANSLATOR, translatorId);
   }
