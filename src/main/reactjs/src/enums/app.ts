@@ -79,6 +79,7 @@ export enum SkeletonVariant {
 }
 
 export enum I18nNamespace {
+  Global = 'global',
   Translation = 'translation',
   KoodistoLanguages = 'koodistoLanguages',
 }

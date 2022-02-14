@@ -7,12 +7,13 @@ import {
 } from 'react-i18next';
 
 import { I18nNamespace } from 'enums/app';
-import transEN from 'public/i18n/en-GB.json';
-import transFI from 'public/i18n/fi-FI.json';
+import transEN from 'public/i18n/en-GB/translation.json';
+import globalFI from 'public/i18n/fi-FI/global.json';
+import transFI from 'public/i18n/fi-FI/translation.json';
 import koodistoLangsEN from 'public/i18n/koodisto/langs/koodisto_langs_en-GB.json';
 import koodistoLangsFI from 'public/i18n/koodisto/langs/koodisto_langs_fi-FI.json';
 import koodistoLangsSV from 'public/i18n/koodisto/langs/koodisto_langs_sv-SE.json';
-import transSV from 'public/i18n/sv-SE.json';
+import transSV from 'public/i18n/sv-SE/translation.json';
 
 // Defaults and resources
 const langFI = 'fi-FI';
@@ -25,6 +26,7 @@ export const supportedLangs = [langFI, langSV, langEN];
 
 const resources = {
   [langFI]: {
+    [I18nNamespace.Global]: globalFI,
     [I18nNamespace.Translation]: transFI,
     [I18nNamespace.KoodistoLanguages]: koodistoLangsFI,
   },
