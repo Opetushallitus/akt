@@ -110,24 +110,6 @@ describe('ContactRequestPage', () => {
     );
     onContactRequestPage.blurFieldByLabel(/puhelinnumero/i);
 
-    cy.findByText(/sähköpostiosoite on virheellinen/i).should('be.visible');
-    cy.findByText(/puhelinnumero on virheellinen/i).should('be.visible');
-  });
-
-  it('should show an error if the format of email and phone number fields are not correct', () => {
-    verifyTranslatorsStep();
-    onContactRequestPage.next();
-
-    onContactRequestPage.fillFieldByLabel(
-      /sähköpostiosoite/i,
-      'wrong.email.com'
-    );
-    onContactRequestPage.fillFieldByLabel(
-      /puhelinnumero/i,
-      'wrong.phone.number'
-    );
-    onContactRequestPage.blurFieldByLabel(/puhelinnumero/i);
-
     onContactRequestPage.elements.nextButton().should('be.disabled');
     cy.findByText(/sähköpostiosoite on virheellinen/i).should('be.visible');
     cy.findByText(/puhelinnumero on virheellinen/i).should('be.visible');
@@ -145,9 +127,7 @@ describe('ContactRequestPage', () => {
     onContactRequestPage.pasteToFieldByLabel(/viesti/i, LONG_TEST_MESSAGE);
     onContactRequestPage.blurFieldByLabel(/viesti/i);
 
-    cy.findByText(/tekstin pituus ei saa ylittää 1000 merkkiä/i).should(
-      'be.visible'
-    );
+    cy.findByText(/teksti on liian pitkä/i).should('be.visible');
     onContactRequestPage.elements.nextButton().should('be.disabled');
   });
 });

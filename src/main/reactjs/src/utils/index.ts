@@ -72,12 +72,13 @@ export class Utils {
     return notifier;
   }
 
+  static maxTextAreaLength = () => 1000;
+
   static inspectCustomTextFieldErrors(
     type: TextFieldTypes,
     value: string,
     required = true
   ) {
-    const MAX_TEXT_LENGTH = 1000;
     const EMAIL_REG_EXR = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const TEL_REG_EXR = /\d{7,14}$/;
 
@@ -87,7 +88,7 @@ export class Utils {
 
     switch (type) {
       case TextFieldTypes.Textarea:
-        if (value.length > MAX_TEXT_LENGTH) {
+        if (value.length > Utils.maxTextAreaLength()) {
           return CustomTextFieldErrors.MaxLength;
         }
         break;
