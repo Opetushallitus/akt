@@ -85,7 +85,7 @@ const ListingRow = ({
         <Checkbox checked={selected} color={Color.Secondary} />
       </TableCell>
       <TableCell>
-        <Text>{`${lastName}, ${firstName}`}</Text>
+        <Text>{`${lastName} ${firstName}`}</Text>
       </TableCell>
       <TableCell>
         <div className="rows">
