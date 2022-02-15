@@ -1,0 +1,15 @@
+{
+  "common": {
+    "yes": "Kyllä",
+    "no": "Ei",
+    "frontPage": "Etusivu",
+    "register": "Rekisteri",
+    "save": "Tallenna",
+    "back": "Takaisin",
+    "next": "Seuraava",
+    "cancel": "Peruuta",
+    "send": "Lähetä",
+    "edit": "Muokkaa",
+    "delete": "Poista"
+  }
+}

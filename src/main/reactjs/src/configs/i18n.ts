@@ -8,7 +8,7 @@ import {
 
 import { I18nNamespace } from 'enums/app';
 import transEN from 'public/i18n/en-GB/translation.json';
-import globalFI from 'public/i18n/fi-FI/global.json';
+import globalFI from 'public/i18n/fi-FI/common.json';
 import transFI from 'public/i18n/fi-FI/translation.json';
 import koodistoLangsEN from 'public/i18n/koodisto/langs/koodisto_langs_en-GB.json';
 import koodistoLangsFI from 'public/i18n/koodisto/langs/koodisto_langs_fi-FI.json';
@@ -26,7 +26,7 @@ export const supportedLangs = [langFI, langSV, langEN];
 
 const resources = {
   [langFI]: {
-    [I18nNamespace.Global]: globalFI,
+    [I18nNamespace.Common]: globalFI,
     [I18nNamespace.Translation]: transFI,
     [I18nNamespace.KoodistoLanguages]: koodistoLangsFI,
   },
@@ -83,6 +83,17 @@ export const useKoodistoLanguagesTranslation = () => {
       keyPrefix: 'akt.koodisto.languages',
     },
     I18nNamespace.KoodistoLanguages
+  );
+
+  return t;
+};
+
+export const useCommonTranslation = () => {
+  const { t } = useAppTranslation(
+    {
+      keyPrefix: 'common',
+    },
+    I18nNamespace.Common
   );
 
   return t;

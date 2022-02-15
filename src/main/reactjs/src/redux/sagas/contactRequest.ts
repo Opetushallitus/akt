@@ -57,7 +57,7 @@ export function* sendContactRequest(action: Action) {
         t(`${tPrefix}.description`),
         [
           {
-            title: t(`${tPrefix}.back`),
+            title: t('back', { ns: 'common' }),
             variant: Variant.Contained,
             action: NOTIFIER_ACTION_DO_NOTHING,
           },

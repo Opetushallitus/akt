@@ -9,7 +9,7 @@ import { ContactRequestStepper } from 'components/contactRequest/ContactRequestS
 import { ControlButtons } from 'components/contactRequest/ControlButtons';
 import { HeaderSeparator } from 'components/elements/HeaderSeparator';
 import { H1, Text } from 'components/elements/Text';
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { ContactRequestFormStep } from 'enums/contactRequest';
@@ -23,6 +23,7 @@ export const ContactRequestPage = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
+  const translateCommon = useCommonTranslation();
 
   // Window properties
   const { isPhone } = useWindowProperties();
@@ -68,7 +69,7 @@ export const ContactRequestPage = () => {
           <H1>{t(`steps.${stepsByIndex[activeStep]}`)}</H1>
           {stepsByIndex[nextStep] && (
             <Text>
-              {t(`buttons.next`)}: {t(`steps.${stepsByIndex[nextStep]}`)}
+              {translateCommon('next')}: {t(`steps.${stepsByIndex[nextStep]}`)}
             </Text>
           )}
         </div>

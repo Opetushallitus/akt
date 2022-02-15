@@ -14,6 +14,7 @@ import { H2, H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
 import {
   useAppTranslation,
+  useCommonTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
@@ -73,6 +74,7 @@ const ListingRow = ({
   const { firstName, lastName } = translator;
   const authorisations = translator.authorisations;
   const translateLanguage = useKoodistoLanguagesTranslation();
+  const translateCommon = useCommonTranslation();
   const currentDate = new Date();
 
   return (
@@ -126,8 +128,8 @@ const ListingRow = ({
           {authorisations.map((a, idx) => (
             <Text key={idx}>
               {AuthorisationUtils.isAuthorisationValid(a, currentDate)
-                ? t('values.yes')
-                : t('values.no')}
+                ? translateCommon('yes')
+                : translateCommon('no')}
             </Text>
           ))}
         </div>
@@ -136,7 +138,9 @@ const ListingRow = ({
         <div className="rows">
           {authorisations.map(({ permissionToPublish }, idx) => (
             <Text key={idx}>
-              {permissionToPublish ? t('values.yes') : t('values.no')}
+              {permissionToPublish
+                ? translateCommon('yes')
+                : translateCommon('no')}
             </Text>
           ))}
         </div>

@@ -7,7 +7,7 @@ import { ClerkTranslatorListing } from 'components/clerkTranslator/ClerkTranslat
 import { ClerkTranslatorToggleFilters } from 'components/clerkTranslator/ClerkTranslatorToggleFilters';
 import { H1, H2, Text } from 'components/elements/Text';
 import { ClerkHomePageSkeleton } from 'components/skeletons/ClerkHomePageSkeleton';
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { AppRoutes, Color, Variant } from 'enums/app';
@@ -55,6 +55,7 @@ export const ClerkHomePage: FC = () => {
   const dispatch = useAppDispatch();
 
   const { t } = useAppTranslation({ keyPrefix: 'akt.pages.clerkHomepage' });
+  const translateCommon = useCommonTranslation();
 
   useEffect(() => {
     if (status === APIResponseStatus.NotStarted) {
@@ -69,7 +70,7 @@ export const ClerkHomePage: FC = () => {
           className="columns gapped"
           data-testid="clerk-translator-registry__heading"
         >
-          <H2>{t('register')}</H2>
+          <H2>{translateCommon('register')}</H2>
           <Text>{`(${translators.length})`}</Text>
         </div>
       </Grid>

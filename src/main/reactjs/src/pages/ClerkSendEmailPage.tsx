@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 
 import { CustomTextField } from 'components/elements/CustomTextField';
 import { H1, H2, Text } from 'components/elements/Text';
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { AppRoutes, Color, Severity, TextFieldTypes, Variant } from 'enums/app';
@@ -31,6 +31,7 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.pages.clerkSendEmailPage',
   });
+  const translateCommon = useCommonTranslation();
 
   // Redux
   const dispatch = useAppDispatch();
@@ -44,12 +45,12 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
       t('dialogs.cancel.description'),
       [
         {
-          title: t('dialogs.cancel.back'),
+          title: translateCommon('back'),
           variant: Variant.Outlined,
           action: NOTIFIER_ACTION_DO_NOTHING,
         },
         {
-          title: t('dialogs.cancel.yes'),
+          title: translateCommon('yes'),
           variant: Variant.Contained,
           action: NOTIFIER_ACTION_CLERK_TRANSLATOR_EMAIL_RESET,
         },
@@ -66,12 +67,12 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
       t('dialogs.send.description', { count: translatorIds.length }),
       [
         {
-          title: t('dialogs.send.back'),
+          title: translateCommon('back'),
           variant: Variant.Outlined,
           action: NOTIFIER_ACTION_DO_NOTHING,
         },
         {
-          title: t('dialogs.send.yes'),
+          title: translateCommon('yes'),
           variant: Variant.Contained,
           action: NOTIFIER_ACTION_CLERK_TRANSLATOR_EMAIL_SEND,
         },
@@ -88,7 +89,7 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
         color={Color.Secondary}
         onClick={dispatchCancelNotifier}
       >
-        {t('buttons.cancel')}
+        {translateCommon('cancel')}
       </Button>
       <Button
         data-testid="clerk-send-email-page__send-btn"
@@ -97,7 +98,7 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
         disabled={submitDisabled}
         onClick={dispatchSendEmailNotifier}
       >
-        {t('buttons.send')}
+        {translateCommon('send')}
       </Button>
     </div>
   );

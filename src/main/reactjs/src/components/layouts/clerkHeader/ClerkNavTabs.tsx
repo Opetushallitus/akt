@@ -1,7 +1,7 @@
 import { Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { Color } from 'enums/app';
 
 export const ClerkNavTabs = () => {
@@ -9,6 +9,7 @@ export const ClerkNavTabs = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.header.clerk.navLinks',
   });
+  const translateCommon = useCommonTranslation();
 
   const handleChange = ({}, newValue: string) => {
     setValue(newValue);
@@ -22,7 +23,7 @@ export const ClerkNavTabs = () => {
       indicatorColor={Color.Secondary}
       aria-label={t('tabsLabel')}
     >
-      <Tab value="register" label={t('register')} />
+      <Tab value="register" label={translateCommon('register')} />
       <Tab value="meetingDates" label={t('meetingDates')} />
     </Tabs>
   );

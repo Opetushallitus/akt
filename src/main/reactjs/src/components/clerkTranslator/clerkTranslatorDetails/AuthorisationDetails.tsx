@@ -12,6 +12,7 @@ import {
 import { H3, Text } from 'components/elements/Text';
 import {
   useAppTranslation,
+  useCommonTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
 import { Color, Variant } from 'enums/app';
@@ -28,6 +29,7 @@ export const AuthorisationDetails = ({
     keyPrefix: 'akt.component.clerkTranslatorOverview.authorisations',
   });
   const translateLanguage = useKoodistoLanguagesTranslation();
+  const translateCommon = useCommonTranslation();
   const currentDate = new Date();
 
   return (
@@ -56,9 +58,9 @@ export const AuthorisationDetails = ({
             <TableCell>{t('fields.isValid')}</TableCell>
             <TableCell>{t('fields.isPublished')}</TableCell>
             <TableCell>{t('fields.diaryNumber')}</TableCell>
-            <TableCell>{t('fields.save')}</TableCell>
-            <TableCell>{t('fields.delete')}</TableCell>
-            <TableCell>{t('fields.edit')}</TableCell>
+            <TableCell>{translateCommon('save')}</TableCell>
+            <TableCell>{translateCommon('delete')}</TableCell>
+            <TableCell>{translateCommon('edit')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -89,13 +91,15 @@ export const AuthorisationDetails = ({
               <TableCell>
                 <Text>
                   {AuthorisationUtils.isAuthorisationValid(a, currentDate)
-                    ? t('values.yes')
-                    : t('values.no')}
+                    ? translateCommon('yes')
+                    : translateCommon('no')}
                 </Text>
               </TableCell>
               <TableCell>
                 <Text>
-                  {a.permissionToPublish ? t('values.yes') : t('values.no')}
+                  {a.permissionToPublish
+                    ? translateCommon('yes')
+                    : translateCommon('no')}
                 </Text>
               </TableCell>
               <TableCell>

@@ -4,14 +4,12 @@ import { Link } from 'react-router-dom';
 
 import { AuthorisationDetails } from 'components/clerkTranslator/clerkTranslatorDetails/AuthorisationDetails';
 import { ClerkTranslatorDetails } from 'components/clerkTranslator/clerkTranslatorDetails/ClerkTranslatorDetails';
-import { useAppTranslation } from 'configs/i18n';
+import { useCommonTranslation } from 'configs/i18n';
 import { AppRoutes, Variant } from 'enums/app';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 
 export const TopControls = () => {
-  const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.clerkTranslatorOverview',
-  });
+  const translateCommon = useCommonTranslation();
 
   return (
     <div className="columns">
@@ -22,7 +20,7 @@ export const TopControls = () => {
         variant={Variant.Text}
         startIcon={<ArrowBackIosOutlined />}
       >
-        {t('buttons.back')}
+        {translateCommon('back')}
       </Button>
     </div>
   );

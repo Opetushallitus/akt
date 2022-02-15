@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 
 import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { Color, Variant } from 'enums/app';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 
@@ -37,6 +37,7 @@ export const ClerkTranslatorDetails = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorOverview.translatorDetails',
   });
+  const translateCommon = useCommonTranslation();
   const renderTranslatorField = (field: keyof ClerkTranslator) => (
     <TranslatorField translator={translator} field={field} disabled />
   );
@@ -50,7 +51,7 @@ export const ClerkTranslatorDetails = ({
           variant={Variant.Contained}
           color={Color.Secondary}
         >
-          {t('buttons.edit')}
+          {translateCommon('edit')}
         </Button>
       </div>
       <div className="grid-columns gapped">

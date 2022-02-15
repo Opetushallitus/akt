@@ -5,12 +5,12 @@ import { Svg } from 'components/elements/Svg';
 import { LangSelector } from 'components/i18n/LangSelector';
 import { ClerkNavTabs } from 'components/layouts//clerkHeader/ClerkNavTabs';
 import { ClerkHeaderButtons } from 'components/layouts/clerkHeader/ClerkHeaderButtons';
-import { useAppTranslation } from 'configs/i18n';
+import { useCommonTranslation } from 'configs/i18n';
 import { useAuthentication } from 'hooks/useAuthentication';
 import Logo from 'public/assets/svg/logo.svg';
 
 const Header: FC = () => {
-  const { t } = useAppTranslation({ keyPrefix: 'akt.component.header' });
+  const translateCommon = useCommonTranslation();
   const [isClerkUI] = useAuthentication();
 
   return (
@@ -23,7 +23,11 @@ const Header: FC = () => {
           aria-label="menu"
         ></IconButton>
         <div className="header__left">
-          <Svg className="header__left__logo" src={Logo} alt={t('logo.alt')} />
+          <Svg
+            className="header__left__logo"
+            src={Logo}
+            alt={translateCommon('frontPage')}
+          />
         </div>
         <div className="header__center">{isClerkUI && <ClerkNavTabs />}</div>
         <div className="header__right">
