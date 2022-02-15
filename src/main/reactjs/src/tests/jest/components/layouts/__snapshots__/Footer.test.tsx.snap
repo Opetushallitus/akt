@@ -30,7 +30,7 @@ exports[`Footer should render Footer correctly 1`] = `
       className="header__left"
     >
       <img
-        alt="logo.alt"
+        alt="frontPage"
         className="header__left__logo"
         src="test"
       />
