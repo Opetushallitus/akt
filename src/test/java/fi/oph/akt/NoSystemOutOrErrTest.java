@@ -16,13 +16,19 @@ import org.junit.jupiter.api.Test;
 public class NoSystemOutOrErrTest {
 
   private static final String THIS_FILE = NoSystemOutOrErrTest.class.getSimpleName() + ".java";
+  private static final Set<String> IGNORED = Set.of(
+    "LoadExisting.java",
+    "LanguageRow.java",
+    "ProdImport.java",
+    "TranslatorRow.java"
+  );
 
   @Test
   public void testSystemOutOrErrShouldNotBeCalled() {
     final AbstractFileFilter fileFilter = new AbstractFileFilter() {
       @Override
       public boolean accept(final File dir, final String filename) {
-        return filename.endsWith(".java") && !THIS_FILE.equals(filename);
+        return filename.endsWith(".java") && !THIS_FILE.equals(filename) && !IGNORED.contains(filename);
       }
     };
     final Iterator<File> fileIterator = FileUtils.iterateFiles(new File("src"), fileFilter, TrueFileFilter.INSTANCE);
