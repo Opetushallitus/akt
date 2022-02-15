@@ -2,10 +2,13 @@ import { Button } from '@mui/material';
 import { FC } from 'react';
 
 import { H1, Text } from 'components/elements/Text';
-import { useCommonTranslation } from 'configs/i18n';
+import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { AppRoutes } from 'enums/app';
 
 export const NotFoundPage: FC = () => {
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.pages.notFoundPage',
+  });
   const translateCommon = useCommonTranslation();
 
   return (
