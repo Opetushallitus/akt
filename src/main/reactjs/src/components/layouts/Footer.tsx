@@ -4,20 +4,25 @@ import { Paper } from '@mui/material';
 import { ExtLink } from 'components/elements/ExtLink';
 import { Svg } from 'components/elements/Svg';
 import { H3, Text } from 'components/elements/Text';
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAuthentication } from 'hooks/useAuthentication';
 import FooterWave from 'public/assets/svg/footer_wave.svg';
 import Logo from 'public/assets/svg/logo.svg';
 
 const Footer = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.component.footer' });
+  const translateCommon = useCommonTranslation();
   const [isClerkUI] = useAuthentication();
 
   return (
     <footer>
       {!isClerkUI && (
         <>
-          <Svg className="footer__wave" src={FooterWave} alt={t('logo.alt')} />
+          <Svg
+            className="footer__wave"
+            src={FooterWave}
+            alt={translateCommon('frontPage')}
+          />
           <Paper className="footer" elevation={3}>
             <div className="footer__container">
               <ExtLink
@@ -53,7 +58,7 @@ const Footer = () => {
               <Svg
                 className="header__left__logo"
                 src={Logo}
-                alt={t('logo.alt')}
+                alt={translateCommon('frontPage')}
               />
             </div>
           </Paper>

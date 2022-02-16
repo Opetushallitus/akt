@@ -4,7 +4,7 @@ import {
 } from '@mui/icons-material';
 import { AppBar, Button, Toolbar } from '@mui/material';
 
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { Color, Severity, Variant } from 'enums/app';
 import { ContactRequestFormStep } from 'enums/contactRequest';
@@ -28,6 +28,7 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm',
   });
+  const translateCommon = useCommonTranslation();
 
   const { isPhone } = useWindowProperties();
 
@@ -49,12 +50,12 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
       t('cancelRequestDialog.description'),
       [
         {
-          title: t('cancelRequestDialog.back'),
+          title: translateCommon('back'),
           variant: Variant.Outlined,
           action: NOTIFIER_ACTION_DO_NOTHING,
         },
         {
-          title: t('cancelRequestDialog.yes'),
+          title: translateCommon('yes'),
           variant: Variant.Contained,
           action: NOTIFIER_ACTION_CONTACT_REQUEST_RESET,
         },
@@ -80,7 +81,7 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
         onClick={dispatchCancelNotifier}
         data-testid="contact-request-page__cancel-btn"
       >
-        {t('buttons.cancel')}
+        {translateCommon('cancel')}
       </Button>
     </>
   );
@@ -94,7 +95,7 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
       startIcon={<ArrowBackIcon />}
       data-testid="contact-request-page__previous-btn"
     >
-      {t('buttons.previous')}
+      {translateCommon('back')}
     </Button>
   );
 
@@ -108,7 +109,7 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
           data-testid="contact-request-page__submit-btn"
           endIcon={<ArrowForwardIcon />}
         >
-          {t('buttons.submit')}
+          {translateCommon('send')}
         </Button>
       ) : (
         <Button
@@ -119,7 +120,7 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
           endIcon={<ArrowForwardIcon />}
           data-testid="contact-request-page__next-btn"
         >
-          {t('buttons.next')}
+          {translateCommon('next')}
         </Button>
       )}
     </>

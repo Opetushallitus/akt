@@ -7,14 +7,10 @@
           "sv": "På Svenska",
           "en": "In English"
         },
-        "logo": {
-          "alt": "Etusivu"
-        },
         "clerk": {
           "backToOph": "Takaisin opintopolkuun",
           "logOut": "Kirjaudu ulos",
           "navLinks": {
-            "register": "Rekisteri",
             "certificateCreation": "Todistuksen tekeminen",
             "meetingDates": "Kokouspäivät",
             "tabsLabel": "Virkailijan URL-osoitteet"
@@ -51,9 +47,6 @@
             "title": "Puhelin",
             "number": "+358 29 533 1000"
           }
-        },
-        "logo": {
-          "alt": "Etusivu"
         }
       },
       "publicTranslatorFilters": {
@@ -94,8 +87,7 @@
           "authorisationEndDate": "Päätymispäivä",
           "permissionToPublish": "Julkaistu"
         },
-        "detailsButton": "Lisätiedot",
-        "values": { "yes": "Kyllä", "no": "Ei" }
+        "detailsButton": "Lisätiedot"
       },
       "clerkTranslatorFilters": {
         "authorisationBasis": {
@@ -123,21 +115,12 @@
         }
       },
       "clerkTranslatorOverview": {
-        "buttons": {
-          "save": "Tallenna",
-          "back": "Takaisin",
-          "next": "Seuraava",
-          "cancel": "Peruuta"
-        },
         "translatorDetails": {
           "header": {
             "personalInformation": "Henkilötiedot",
             "address": "Osoite",
             "contactInformation": "Yhteystiedot",
             "extraInformation": "Lisätiedot"
-          },
-          "buttons": {
-            "edit": "Muokkaa"
           },
           "fields": {
             "lastName": "Sukunimi",
@@ -163,24 +146,14 @@
             "basis": "Peruste",
             "isValid": "Voimassa",
             "isPublished": "Julkaistu",
-            "diaryNumber": "Asiatunnus",
-            "save": "Tallenna",
-            "delete": "Poista",
-            "edit": "Muokkaa"
-          },
-          "values": { "yes": "Kyllä", "no": "Ei" }
+            "diaryNumber": "Asiatunnus"
+          }
         },
         "notFound": "Valittua kääntäjää ei löytynyt"
       },
       "contactRequestForm": {
         "title": "Yhteydenottopyynnön jättäminen",
         "description": "Tällä yhteydenottolomakkeella voit jättää valitsemillesi kääntäjille yhteydenottopyynnön. Kirjoitathan viestiin mahdollisimman tarkan kuvauksen tarvittavasta käännöstyöstä.",
-        "buttons": {
-          "cancel": "Peruuta",
-          "previous": "Takaisin",
-          "next": "Seuraava",
-          "submit": "Lähetä"
-        },
         "steps": {
           "verifySelectedTranslators": "Vahvista kääntäjät",
           "fillContactDetails": "Täytä yhteystiedot",
@@ -190,8 +163,7 @@
         },
         "doneStep": {
           "title": "Yhteydenottopyyntösi on lähetetty ja sinuun ollaan yhteydessä.",
-          "description": "Tämä sivu ohjaa sinut automaattisesti takaisin etusivulle. Jos mitään ei tapahdu voit klikata alla olevasta napista.",
-          "button": "Etusivu"
+          "description": "Tämä sivu ohjaa sinut automaattisesti takaisin etusivulle. Jos mitään ei tapahdu voit klikata alla olevasta napista."
         },
         "chosenTranslatorsForLanguagePair": "Valitut kääntäjät kielistä",
         "characters_one": "merkki",
@@ -212,9 +184,7 @@
         },
         "cancelRequestDialog": {
           "title": "Peruuta yhteydenottopyyntö",
-          "description": "Haluatko peruuttaa yhteydenottopyynnön? Menetät täyttämäsi tiedot",
-          "back": "Takaisin",
-          "yes": "Kyllä"
+          "description": "Haluatko peruuttaa yhteydenottopyynnön? Menetät täyttämäsi tiedot"
         }
       }
     },
@@ -231,7 +201,6 @@
       },
       "clerkHomepage": {
         "title": "Auktorisoitujen kääntäjien rekisteri",
-        "register": "Rekisteri",
         "sendEmail": "Lähetä sähköposti",
         "emptyBtn": "Tyhjennä valinnat"
       },
@@ -248,10 +217,6 @@
           "subject": "Kirjoita aihe",
           "message": "Kirjoita viestisi tähän"
         },
-        "buttons": {
-          "cancel": "Peruuta",
-          "send": "Lähetä"
-        },
         "toasts": {
           "success": "Sähköpostisi lähetettiin kääntäjille.",
           "error": "Sähköpostin lähetys ei onnistunut. Virhe voi olla tilapäinen, yritä uudestaan."
@@ -259,15 +224,11 @@
         "dialogs": {
           "cancel": {
             "title": "Peruuta sähköpostin lähetys",
-            "description": "Haluatko peruuttaa sähköpostin lähetyksen? Menetät täyttämäsi tiedot.",
-            "back": "Takaisin",
-            "yes": "Kyllä"
+            "description": "Haluatko peruuttaa sähköpostin lähetyksen? Menetät täyttämäsi tiedot."
           },
           "send": {
             "title": "Lähetä sähköposti",
-            "description": "Haluatko lähettää sähköpostin? Viesti lähetetään {{count}} kääntäjälle.",
-            "back": "Takaisin",
-            "yes": "Kyllä"
+            "description": "Haluatko lähettää sähköpostin? Viesti lähetetään {{count}} kääntäjälle."
           }
         }
       },
@@ -281,8 +242,7 @@
       },
       "notFoundPage": {
         "title": "Valitettavasti etsimääsi sivua ei löytynyt",
-        "description": "Osoite saattaa olla väärä tai vanhentunut. Voit palata etusivulle alla olevasta napista",
-        "homePageBtn": "Etusivu"
+        "description": "Osoite saattaa olla väärä tai vanhentunut. Voit palata etusivulle alla olevasta napista"
       }
     },
     "errors": {

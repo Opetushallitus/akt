@@ -7,12 +7,15 @@ import {
 } from 'react-i18next';
 
 import { I18nNamespace } from 'enums/app';
-import transEN from 'public/i18n/en-GB.json';
-import transFI from 'public/i18n/fi-FI.json';
+import commonEN from 'public/i18n/en-GB/common.json';
+import transEN from 'public/i18n/en-GB/translation.json';
+import commonFI from 'public/i18n/fi-FI/common.json';
+import transFI from 'public/i18n/fi-FI/translation.json';
 import koodistoLangsEN from 'public/i18n/koodisto/langs/koodisto_langs_en-GB.json';
 import koodistoLangsFI from 'public/i18n/koodisto/langs/koodisto_langs_fi-FI.json';
 import koodistoLangsSV from 'public/i18n/koodisto/langs/koodisto_langs_sv-SE.json';
-import transSV from 'public/i18n/sv-SE.json';
+import commonSV from 'public/i18n/sv-SE/common.json';
+import transSV from 'public/i18n/sv-SE/translation.json';
 
 // Defaults and resources
 const langFI = 'fi-FI';
@@ -25,14 +28,17 @@ export const supportedLangs = [langFI, langSV, langEN];
 
 const resources = {
   [langFI]: {
+    [I18nNamespace.Common]: commonFI,
     [I18nNamespace.Translation]: transFI,
     [I18nNamespace.KoodistoLanguages]: koodistoLangsFI,
   },
   [langSV]: {
+    [I18nNamespace.Translation]: commonSV,
     [I18nNamespace.Translation]: transSV,
     [I18nNamespace.KoodistoLanguages]: koodistoLangsSV,
   },
   [langEN]: {
+    [I18nNamespace.Translation]: commonEN,
     [I18nNamespace.Translation]: transEN,
     [I18nNamespace.KoodistoLanguages]: koodistoLangsEN,
   },
@@ -81,6 +87,17 @@ export const useKoodistoLanguagesTranslation = () => {
       keyPrefix: 'akt.koodisto.languages',
     },
     I18nNamespace.KoodistoLanguages
+  );
+
+  return t;
+};
+
+export const useCommonTranslation = () => {
+  const { t } = useAppTranslation(
+    {
+      keyPrefix: 'akt.common',
+    },
+    I18nNamespace.Common
   );
 
   return t;

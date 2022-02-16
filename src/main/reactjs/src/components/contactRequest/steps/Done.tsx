@@ -6,7 +6,7 @@ import {
   stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
 import { H2, Text } from 'components/elements/Text';
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch } from 'configs/redux';
 import { Duration } from 'enums/app';
 import { resetContactRequestAndRedirect } from 'redux/actions/contactRequest';
@@ -16,6 +16,7 @@ export const Done = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm.doneStep',
   });
+  const translateCommon = useCommonTranslation();
 
   // Redux
   const dispatch = useAppDispatch();
@@ -46,7 +47,7 @@ export const Done = () => {
             onClick={resetAndRedirect}
             data-testid="contact-request-page__homepage-btn"
           >
-            {t('button')}
+            {translateCommon('frontPage')}
           </Button>
         </div>
       </div>
