@@ -2,6 +2,7 @@ import { ButtonProps } from '@mui/material';
 import { FC } from 'react';
 
 import { CustomButton } from 'components/elements/CustomButton';
+import { Color } from 'enums/app';
 import { ExtLinkProps } from 'interfaces/link';
 
 export const ExtLink: FC<ButtonProps & ExtLinkProps> = ({
@@ -14,8 +15,7 @@ export const ExtLink: FC<ButtonProps & ExtLinkProps> = ({
     <CustomButton
       target="_blank"
       rel="noreferrer"
-      variant="text"
-      color="inherit"
+      color={Color.Inherit}
       href={href}
       endIcon={endIcon}
       aria-label={ariaLabel}

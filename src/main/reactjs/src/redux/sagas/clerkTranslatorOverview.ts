@@ -1,58 +1,56 @@
 import { AxiosResponse } from 'axios';
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import axiosInstance from 'configs/axios';
 import { APIEndpoints } from 'enums/api';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import { ClerkTranslatorOverviewAction } from 'interfaces/clerkTranslatorOverview';
+import { loadClerkTranslators } from 'redux/actions/clerkTranslator';
+import { startLoadingClerkTranslatorOverview } from 'redux/actions/clerkTranslatorOverview';
 import {
-  loadClerkTranslatorOverview,
-  startLoadingClerkTranslatorOverview,
-} from 'redux/actions/clerkTranslatorOverview';
-import {
-  CLERK_TRANSLATOR_OVERVIEW_CONTACT_DETAILS_UPDATE_FAIL,
-  CLERK_TRANSLATOR_OVERVIEW_LOAD_BY_FETCHING_ALL_TRANSLATORS,
+  CLERK_TRANSLATOR_OVERVIEW_FETCH,
+  CLERK_TRANSLATOR_OVERVIEW_FETCH_FAIL,
+  CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS,
   CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS,
+  CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_FAIL,
   CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS,
 } from 'redux/actionTypes/clerkTranslatorOverview';
-import { fetchClerkTranslators } from 'redux/sagas/clerkTranslator';
-import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
 
-function* loadClerkTranslatorOverviewByFetchingAllTranslators(
-  action: ClerkTranslatorOverviewAction
-) {
+function* fetchClerkTranslatorOverview(action: ClerkTranslatorOverviewAction) {
   try {
-    // Start loading and fetch translators
     yield put(startLoadingClerkTranslatorOverview);
-    yield call(fetchClerkTranslators);
-    // Find the translator
-    const { translators } = yield select(clerkTranslatorsSelector);
-    const selectedTranslator = translators.find(
-      (t: ClerkTranslator) => t.id === action.id
+    const apiResponse: AxiosResponse<ClerkTranslator> = yield call(
+      axiosInstance.get,
+      `${APIEndpoints.ClerkTranslator}/${action.id}`
     );
-    // Save to Redux
-    yield put(loadClerkTranslatorOverview(selectedTranslator));
+
+    yield put({
+      type: CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS,
+      translator: apiResponse.data,
+    });
   } catch (error) {
     yield put({
-      type: CLERK_TRANSLATOR_OVERVIEW_CONTACT_DETAILS_UPDATE_FAIL,
+      type: CLERK_TRANSLATOR_OVERVIEW_FETCH_FAIL,
     });
   }
 }
 
 function* updateClerkTranslatorDetails(action: ClerkTranslatorOverviewAction) {
   try {
+    yield put(startLoadingClerkTranslatorOverview);
     const apiResponse: AxiosResponse<ClerkTranslator> = yield call(
       axiosInstance.put,
       APIEndpoints.ClerkTranslator,
-      JSON.stringify(action.updatedTranslator)
+      JSON.stringify(action.translator)
     );
     yield put({
       type: CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS,
-      updatedTranslator: apiResponse.data,
+      translator: apiResponse.data,
     });
+    yield put(loadClerkTranslators);
   } catch (error) {
     yield put({
-      type: CLERK_TRANSLATOR_OVERVIEW_CONTACT_DETAILS_UPDATE_FAIL,
+      type: CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_FAIL,
     });
   }
 }
@@ -63,7 +61,7 @@ export function* watchClerkTranslatorOverview() {
     updateClerkTranslatorDetails
   );
   yield takeLatest(
-    CLERK_TRANSLATOR_OVERVIEW_LOAD_BY_FETCHING_ALL_TRANSLATORS,
-    loadClerkTranslatorOverviewByFetchingAllTranslators
+    CLERK_TRANSLATOR_OVERVIEW_FETCH,
+    fetchClerkTranslatorOverview
   );
 }

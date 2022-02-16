@@ -35,15 +35,15 @@
 
   &__container {
     align-items: flex-start;
-    align-self: center;
     color: $color-secondary-dark;
     display: flex;
     flex-direction: column;
     font-size: 1rem;
     padding: 1.5rem;
 
-    &--links {
-      margin-top: -3rem;
+    &--links,
+    &--contact-details {
+      margin-top: 3rem;
 
       @include phone {
         margin-top: 0;

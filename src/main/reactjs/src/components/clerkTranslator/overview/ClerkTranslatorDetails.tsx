@@ -1,5 +1,4 @@
 import EditIcon from '@mui/icons-material/Edit';
-import { Button } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -9,10 +8,13 @@ import { H3 } from 'components/elements/Text';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
-import { Color, Mode, Variant } from 'enums/app';
+import { Color, Mode, Severity, Variant } from 'enums/app';
+import { usePrevious } from 'hooks/usePrevious';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import { updateClerkTranslatorDetails } from 'redux/actions/clerkTranslatorOverview';
+import { showNotifierToast } from 'redux/actions/notifier';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
+import { Utils } from 'utils';
 
 export const ClerkTranslatorDetails = () => {
   // Redux
@@ -23,9 +25,12 @@ export const ClerkTranslatorDetails = () => {
 
   // React router
   const [searchParams, setSearchParams] = useSearchParams();
+
   // Local State
-  const [contactDetails, setContactDetails] = useState(selectedTranslator);
+  const [translatorDetails, setTranslatorDetails] =
+    useState(selectedTranslator);
   const currentMode = searchParams.get('mode');
+  const prevTranslatorDetails = usePrevious(translatorDetails);
   const isViewMode =
     currentMode === Mode.View ||
     currentMode === Mode.EditingAuthorizationDetails;
@@ -38,40 +43,53 @@ export const ClerkTranslatorDetails = () => {
   const translateCommon = useCommonTranslation();
 
   useEffect(() => {
-    if (!currentMode) setSearchParams({ mode: Mode.View });
-  });
-
-  useEffect(() => {
-    if (status === APIResponseStatus.Success) {
+    if (!currentMode) {
       setSearchParams({ mode: Mode.View });
     }
-  }, [status, setSearchParams]);
+  }, [currentMode, setSearchParams]);
+
+  useEffect(() => {
+    if (
+      status === APIResponseStatus.Success &&
+      currentMode === Mode.EditingTranslatorDetails &&
+      selectedTranslator?.version != prevTranslatorDetails?.version
+    ) {
+      const toast = Utils.createNotifierToast(
+        Severity.Success,
+        t('toasts.updated')
+      );
+      dispatch(showNotifierToast(toast));
+      setSearchParams({ mode: Mode.View });
+    }
+  });
 
   const getCommonTextFieldProps = (field: keyof ClerkTranslator) => ({
     'data-testid': `clerk-translator-overview__translator-details__field-${field}`,
     disabled: isViewMode,
     label: t(`translatorDetails.fields.${field}`),
     onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      handleContactDetailsChange(e)(field),
-    value: contactDetails ? contactDetails[field] : undefined,
+      handletranslatorDetailsChange(e)(field),
+    value: translatorDetails ? translatorDetails[field] : undefined,
   });
 
-  const handleContactDetailsChange =
+  const handletranslatorDetailsChange =
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     (field: keyof ClerkTranslator) => {
-      const updatedContactDetails = {
-        ...contactDetails,
+      const updatedtranslatorDetails = {
+        ...translatorDetails,
         [field]: event.target.value,
       };
-      setContactDetails(updatedContactDetails);
+      setTranslatorDetails(updatedtranslatorDetails as ClerkTranslator);
     };
 
   const handleSaveBtnClick = () => {
-    dispatch(updateClerkTranslatorDetails(contactDetails));
+    dispatch(
+      updateClerkTranslatorDetails(translatorDetails as ClerkTranslator)
+    );
   };
 
   const handleEditBtnClick = () => {
-    setSearchParams({ mode: Mode.EditingContactDetails });
+    setSearchParams({ mode: Mode.EditingTranslatorDetails });
   };
 
   const handleCancelBtnClick = () => {
@@ -80,18 +98,11 @@ export const ClerkTranslatorDetails = () => {
 
   const renderControlButtons = () => (
     <div className="columns margin-top-lg">
-      <div className="columns margin-top-lg">
-        <H3 className="grow">{t('header.personalInformation')}</H3>
-        <CustomButton
-          data-testid="clerk-translator-overview__translator-details__edit-btn"
-          variant={Variant.Contained}
-          color={Color.Secondary}
-        >
-          {translateCommon('edit')}
-        </CustomButton>
+      <div className="columns margin-top-lg grow">
+        <H3>{t('translatorDetails.header.personalInformation')}</H3>
       </div>
       {isViewMode ? (
-        <Button
+        <CustomButton
           data-testid="clerk-translator-overview__translator-details__edit-btn"
           variant={Variant.Contained}
           color={Color.Secondary}
@@ -99,26 +110,26 @@ export const ClerkTranslatorDetails = () => {
           onClick={handleEditBtnClick}
           disabled={!isViewMode}
         >
-          {t('translatorDetails.buttons.edit')}
-        </Button>
+          {translateCommon('edit')}
+        </CustomButton>
       ) : (
         <div className="columns gapped">
-          <Button
-            data-testid="clerk-translator-overview__translator-details__edit-btn"
+          <CustomButton
+            data-testid="clerk-translator-overview__translator-details__cancel-btn"
             variant={Variant.Text}
             color={Color.Secondary}
             onClick={handleCancelBtnClick}
           >
-            Peruuta
-          </Button>
-          <Button
-            data-testid="clerk-translator-overview__translator-details__edit-btn"
+            {translateCommon('cancel')}
+          </CustomButton>
+          <CustomButton
+            data-testid="clerk-translator-overview__translator-details__save-btn"
             variant={Variant.Contained}
             color={Color.Secondary}
             onClick={handleSaveBtnClick}
           >
-            Tallenna
-          </Button>
+            {translateCommon('save')}
+          </CustomButton>
         </div>
       )}
     </div>

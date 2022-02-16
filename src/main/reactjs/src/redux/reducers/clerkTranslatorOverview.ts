@@ -7,6 +7,8 @@ import {
   ClerkTranslatorOverviewState,
 } from 'interfaces/clerkTranslatorOverview';
 import {
+  CLERK_TRANSLATOR_OVERVIEW_FETCH_FAIL,
+  CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS,
   CLERK_TRANSLATOR_OVERVIEW_LOAD,
   CLERK_TRANSLATOR_OVERVIEW_LOADING,
   CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS,
@@ -28,7 +30,7 @@ export const clerkTranslatorOverviewReducer: Reducer<
       return {
         ...state,
         selectedTranslator: {
-          ...(action.selectedTranslator as ClerkTranslator),
+          ...(action.translator as ClerkTranslator),
         },
         status: APIResponseStatus.NotStarted,
       };
@@ -38,16 +40,26 @@ export const clerkTranslatorOverviewReducer: Reducer<
         ...state,
         status: APIResponseStatus.InProgress,
       };
-    case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS: {
+    case CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS: {
       return {
         ...state,
         selectedTranslator: {
-          ...(action.updatedTranslator as ClerkTranslator),
+          ...(action.translator as ClerkTranslator),
         },
         status: APIResponseStatus.Success,
       };
     }
-    case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_FAIL: {
+    case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS: {
+      return {
+        ...state,
+        selectedTranslator: {
+          ...(action.translator as ClerkTranslator),
+        },
+        status: APIResponseStatus.Success,
+      };
+    }
+    case CLERK_TRANSLATOR_OVERVIEW_FETCH_FAIL ||
+      CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_FAIL: {
       return {
         ...state,
         status: APIResponseStatus.Error,

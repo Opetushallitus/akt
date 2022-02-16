@@ -11,9 +11,8 @@ import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { AppRoutes, Severity } from 'enums/app';
-import { loadClerkTranslatorOverviewByFetchingAllTranslators } from 'redux/actions/clerkTranslatorOverview';
+import { fetchClerkTranslatorOverview } from 'redux/actions/clerkTranslatorOverview';
 import { showNotifierToast } from 'redux/actions/notifier';
-import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
 import { Utils } from 'utils';
 
@@ -22,9 +21,6 @@ export const ClerkTranslatorOverviewPage = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt' });
   // Redux
   const dispatch = useAppDispatch();
-  const { status: clerkTranslatorAPIStatus } = useAppSelector(
-    clerkTranslatorsSelector
-  );
   const { status: clerkTranslatorOverviewAPIStatus } = useAppSelector(
     clerkTranslatorOverviewSelector
   );
@@ -37,54 +33,35 @@ export const ClerkTranslatorOverviewPage = () => {
 
   const isLoading =
     clerkTranslatorOverviewAPIStatus === APIResponseStatus.InProgress ||
-    (clerkTranslatorAPIStatus === APIResponseStatus.InProgress &&
-      !selectedTranslator);
+    !selectedTranslator;
 
   useEffect(() => {
     if (
-      clerkTranslatorAPIStatus === APIResponseStatus.NotStarted &&
+      clerkTranslatorOverviewAPIStatus === APIResponseStatus.NotStarted &&
+      !selectedTranslator &&
       params.translatorId
     ) {
-      // TODO: Load only selected translator data
-      dispatch(
-        loadClerkTranslatorOverviewByFetchingAllTranslators(
-          +params.translatorId
-        )
-      );
+      // Fetch translator overview
+      dispatch(fetchClerkTranslatorOverview(+params.translatorId));
     } else if (
-      !isLoading &&
-      clerkTranslatorAPIStatus === APIResponseStatus.Success &&
-      !selectedTranslator
+      clerkTranslatorOverviewAPIStatus === APIResponseStatus.Error ||
+      !Number(params.translatorId)
     ) {
-      // Show an error and redirect to homepage
+      // Show an error
       const toast = Utils.createNotifierToast(
         Severity.Error,
         t('component.clerkTranslatorOverview.toasts.notFound')
       );
       dispatch(showNotifierToast(toast));
       navigate(AppRoutes.ClerkHomePage);
-    } else if (clerkTranslatorOverviewAPIStatus === APIResponseStatus.Success) {
-      const toast = Utils.createNotifierToast(
-        Severity.Success,
-        t('component.clerkTranslatorOverview.toasts.updated')
-      );
-      dispatch(showNotifierToast(toast));
-    } else if (clerkTranslatorAPIStatus === APIResponseStatus.Error) {
-      dispatch(
-        showNotifierToast(
-          Utils.createNotifierToast(Severity.Error, t('errors.loadingFailed'))
-        )
-      );
     }
   }, [
-    dispatch,
-    clerkTranslatorAPIStatus,
     clerkTranslatorOverviewAPIStatus,
-    t,
-    params,
+    dispatch,
     navigate,
+    params.translatorId,
     selectedTranslator,
-    isLoading,
+    t,
   ]);
 
   return (

@@ -136,6 +136,6 @@ export enum Direction {
 
 export enum Mode {
   View = 'view',
-  EditingContactDetails = 'editingContactDetails',
+  EditingTranslatorDetails = 'editingTranslatorDetails',
   EditingAuthorizationDetails = 'editingAuthorizationDetails',
 }

@@ -9,7 +9,6 @@ export interface ClerkTranslatorOverviewState {
 }
 
 export interface ClerkTranslatorOverviewAction extends Action {
-  selectedTranslator?: ClerkTranslator;
-  updatedTranslator?: ClerkTranslator;
+  translator?: ClerkTranslator;
   id?: number;
 }

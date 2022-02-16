@@ -12,7 +12,7 @@ export const CustomButtonLink: FC<CustomButtonLinkProps> = ({
   ...btnProps
 }) => {
   return (
-    <Link to={to} target={target} rel={rel}>
+    <Link className="custom-button-link" to={to} target={target} rel={rel}>
       <Button {...btnProps}></Button>
     </Link>
   );

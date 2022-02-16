@@ -7,6 +7,7 @@ import { ClerkTranslatorListing } from 'components/clerkTranslator/listing/Clerk
 import { CustomButton } from 'components/elements/CustomButton';
 import { CustomButtonLink } from 'components/elements/CustomButtonLink';
 import { H1, H2, Text } from 'components/elements/Text';
+import { ClerkHomePageSkeleton } from 'components/skeletons/ClerkHomePageSkeleton';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
