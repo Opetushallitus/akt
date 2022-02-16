@@ -186,10 +186,10 @@ export const PublicTranslatorFilters = ({
     if (event.key == KeyboardKey.Enter) handleSearchBtnClick();
   };
 
-  const isLangFilterDisabled = () => selectedTranslators.length > 0;
+  const isLangFilterDisabled = selectedTranslators.length > 0;
 
-  const selectedTranslatorsToast = () => {
-    if (isLangFilterDisabled()) {
+  const showTranslatorsAlreadySelectedToast = () => {
+    if (isLangFilterDisabled) {
       const toast = Utils.createNotifierToast(
         Severity.Error,
         t('toasts.translatorsSelected')
@@ -232,7 +232,7 @@ export const PublicTranslatorFilters = ({
           </div>
           <Box
             className="public-translator-filters__filter__language-pair"
-            onClick={selectedTranslatorsToast}
+            onClick={showTranslatorsAlreadySelectedToast}
           >
             <LanguageSelect
               data-testid="public-translator-filters__from-language-select"
@@ -242,7 +242,7 @@ export const PublicTranslatorFilters = ({
               id="filters-from-lang"
               excludedLanguage={filters.toLang}
               languages={langs.from}
-              disabled={isLangFilterDisabled()}
+              disabled={isLangFilterDisabled}
             />
             <LanguageSelect
               data-testid="public-translator-filters__to-language-select"
@@ -252,7 +252,7 @@ export const PublicTranslatorFilters = ({
               id="filters-to-lang"
               excludedLanguage={filters.fromLang}
               languages={langs.to}
-              disabled={isLangFilterDisabled()}
+              disabled={isLangFilterDisabled}
             />
           </Box>
         </div>

@@ -44,13 +44,27 @@ describe('PublicTranslatorFilters', () => {
     onPublicTranslatorFilters.selectToLangByName('viro');
     onPublicTranslatorFilters.expectFromLangSelectValues(compulsoryLangs);
   });
-});
 
-describe('PublicTranslatorListing', () => {
-  it('it should show a toast notification when language pairs are not defined, and a row is clicked', () => {
+  it('it should show a toast notification when language pair is not defined, and a row is clicked', () => {
     onPublicTranslatorFilters.filterByName('aaltonen anneli');
     onPublicTranslatorsListing.clickTranslatorRow('1940');
 
     onToast.expectText('Valitse kielipari ottaaksesi yhteyttä kääntäjään');
+  });
+
+  it('it should show a toast notification when language pair is defined, a translator is selected, and user tries to change from lang', () => {
+    onPublicTranslatorFilters.filterByLanguagePair('suomi', 'ruotsi');
+    onPublicTranslatorsListing.clickTranslatorRow('1940');
+    onPublicTranslatorFilters.clickFromLang();
+
+    onToast.expectText('Voit valita vain yhden kieliparin yhteydenottoon');
+  });
+
+  it('it should show a toast notification when language pair is defined, a translator is selected, and user tries to change to lang', () => {
+    onPublicTranslatorFilters.filterByLanguagePair('suomi', 'ruotsi');
+    onPublicTranslatorsListing.clickTranslatorRow('1940');
+    onPublicTranslatorFilters.clickToLang();
+
+    onToast.expectText('Voit valita vain yhden kieliparin yhteydenottoon');
   });
 });
