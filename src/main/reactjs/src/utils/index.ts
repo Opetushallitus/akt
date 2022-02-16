@@ -72,7 +72,7 @@ export class Utils {
     return notifier;
   }
 
-  static maxTextAreaLength = () => 1000;
+  static getMaxTextAreaLength = () => 1000;
 
   static inspectCustomTextFieldErrors(
     type: TextFieldTypes,
@@ -88,7 +88,7 @@ export class Utils {
 
     switch (type) {
       case TextFieldTypes.Textarea:
-        if (value.length > Utils.maxTextAreaLength()) {
+        if (value.length > Utils.getMaxTextAreaLength()) {
           return CustomTextFieldErrors.MaxLength;
         }
         break;
