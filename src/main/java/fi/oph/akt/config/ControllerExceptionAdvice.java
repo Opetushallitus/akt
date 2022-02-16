@@ -1,5 +1,6 @@
 package fi.oph.akt.config;
 
+import fi.oph.akt.util.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -36,6 +37,13 @@ public class ControllerExceptionAdvice {
     LOG.error("HttpMessageNotReadableException: " + ex.getMessage());
 
     return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(NotFoundException.class)
+  public ResponseEntity<Object> handleNotFoundException(final NotFoundException ex) {
+    LOG.error("NotFoundException: " + ex.getMessage());
+
+    return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
   }
 
   @ExceptionHandler(Exception.class)

@@ -26,6 +26,7 @@ import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.util.AuthorisationTermProjectionComparator;
+import fi.oph.akt.util.exception.NotFoundException;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
@@ -254,7 +255,7 @@ public class ClerkTranslatorService {
         return t;
       }
     }
-    throw new RuntimeException(String.format("Translator with id: %d not found", translatorId));
+    throw new NotFoundException(String.format("Translator with id: %d not found", translatorId));
   }
 
   @Transactional
