@@ -15,6 +15,10 @@
             "meetingDates": "Kokouspäivät",
             "tabsLabel": "Virkailijan URL-osoitteet"
           }
+        },
+        "accessibility": {
+          "langSelectorAriaLabel": "Vaihda käyttöliittymän kieltä",
+          "continueToMain": "Jatka sisältöön"
         }
       },
       "table": {

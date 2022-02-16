@@ -30,6 +30,7 @@ export const LangSelector: FC = () => {
       <CustomSelect
         disableUnderline
         values={values}
+        aria-label={t('accessibility.langSelectorAriaLabel')}
         variant="standard"
         value={getCurrentLang()}
         onChange={handleLangChange}

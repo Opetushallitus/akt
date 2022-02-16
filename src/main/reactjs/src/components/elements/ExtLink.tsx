@@ -1,7 +1,7 @@
 import { Button, ButtonProps, Link } from '@mui/material';
 import { FC } from 'react';
 
-import { ExtLinkProps } from 'interfaces/extLink';
+import { ExtLinkProps } from 'interfaces/link';
 
 export const ExtLink: FC<ButtonProps & ExtLinkProps> = ({
   text,
