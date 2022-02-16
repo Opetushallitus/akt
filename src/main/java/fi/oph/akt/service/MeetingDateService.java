@@ -19,6 +19,11 @@ public class MeetingDateService {
   private final MeetingDateRepository meetingDateRepository;
   private final AuditService auditService;
 
+  @Transactional(readOnly = true)
+  public List<MeetingDateDTO> listMeetingDatesWithoutAudit() {
+    return meetingDateRepository.findAllByOrderByDateDesc().stream().map(this::toDto).toList();
+  }
+
   @Transactional
   public MeetingDateDTO createMeetingDate(final MeetingDateCreateDTO dto) {
     final MeetingDate meetingDate = new MeetingDate();

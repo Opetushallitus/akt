@@ -28,7 +28,7 @@ public class TranslatorController {
   private PublicTranslatorService publicTranslatorService;
 
   @GetMapping(path = "")
-  public PublicTranslatorResponseDTO list() {
+  public PublicTranslatorResponseDTO listTranslators() {
     return publicTranslatorService.listTranslators();
   }
 

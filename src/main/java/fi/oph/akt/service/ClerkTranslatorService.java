@@ -28,7 +28,6 @@ import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.util.AuthorisationTermProjectionComparator;
-import fi.oph.akt.util.MeetingDateProjectionComparator;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
@@ -47,8 +46,6 @@ public class ClerkTranslatorService {
 
   private static final AuthorisationTermProjectionComparator authorisationTermProjectionComparator = new AuthorisationTermProjectionComparator();
 
-  private static final MeetingDateProjectionComparator meetingDateProjectionComparator = new MeetingDateProjectionComparator();
-
   @Resource
   private final AuthorisationRepository authorisationRepository;
 
@@ -57,6 +54,9 @@ public class ClerkTranslatorService {
 
   @Resource
   private final AuthorisationTermReminderRepository authorisationTermReminderRepository;
+
+  @Resource
+  private final MeetingDateService meetingDateService;
 
   @Resource
   private final MeetingDateRepository meetingDateRepository;
@@ -85,7 +85,7 @@ public class ClerkTranslatorService {
     );
     final LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
     final List<String> towns = getDistinctTowns(translators);
-    final List<MeetingDateDTO> meetingDateDTOS = getMeetingDateDTOs();
+    final List<MeetingDateDTO> meetingDateDTOS = meetingDateService.listMeetingDatesWithoutAudit();
 
     return ClerkTranslatorResponseDTO
       .builder()
@@ -207,15 +207,6 @@ public class ClerkTranslatorService {
 
   private List<String> getDistinctTowns(final Collection<Translator> translators) {
     return translators.stream().map(Translator::getTown).filter(Objects::nonNull).distinct().sorted().toList();
-  }
-
-  private List<MeetingDateDTO> getMeetingDateDTOs() {
-    return meetingDateRepository
-      .listMeetingDateProjections()
-      .stream()
-      .sorted(meetingDateProjectionComparator.reversed())
-      .map(mdp -> MeetingDateDTO.builder().id(mdp.meetingDateId()).version(mdp.version()).date(mdp.date()).build())
-      .toList();
   }
 
   private Map<LocalDate, MeetingDate> getLocalDateMeetingDateMap() {
