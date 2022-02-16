@@ -71,7 +71,8 @@
           "newSearch": "Tee uusi haku"
         },
         "toasts": {
-          "selectLanguagePair": "Valitse kielipari ottaaksesi yhteyttä kääntäjään"
+          "selectLanguagePair": "Valitse kielipari ottaaksesi yhteyttä kääntäjään",
+          "translatorsSelected": "Voit valita vain yhden kieliparin yhteydenottoon"
         },
         "captions": {
           "langPair": "(* Pakollinen yhteydenottoon)"

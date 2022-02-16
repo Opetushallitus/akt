@@ -1,6 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search';
 import {
   AppBar,
+  Box,
   Button,
   InputAdornment,
   TextField,
@@ -85,6 +86,7 @@ export const PublicTranslatorFilters = ({
     langs,
     towns,
     filters: reduxFilters,
+    selectedTranslators,
   } = useAppSelector(publicTranslatorsSelector);
 
   const hasError = (fieldName: SearchFilter) => {
@@ -184,6 +186,19 @@ export const PublicTranslatorFilters = ({
     if (event.key == KeyboardKey.Enter) handleSearchBtnClick();
   };
 
+  const isLangFilterDisabled = selectedTranslators.length > 0;
+
+  const showTranslatorsAlreadySelectedToast = () => {
+    if (isLangFilterDisabled) {
+      const toast = Utils.createNotifierToast(
+        Severity.Error,
+        t('toasts.translatorsSelected')
+      );
+
+      dispatch(showNotifierToast(toast));
+    }
+  };
+
   const renderPhoneBottomAppBar = () =>
     isPhone &&
     showTable && (
@@ -215,7 +230,10 @@ export const PublicTranslatorFilters = ({
               {t('captions.langPair')}
             </Caption>
           </div>
-          <div className="public-translator-filters__filter__language-pair">
+          <Box
+            className="public-translator-filters__filter__language-pair"
+            onClick={showTranslatorsAlreadySelectedToast}
+          >
             <LanguageSelect
               data-testid="public-translator-filters__from-language-select"
               {...getComboBoxAttributes(SearchFilter.FromLang)}
@@ -224,6 +242,7 @@ export const PublicTranslatorFilters = ({
               id="filters-from-lang"
               excludedLanguage={filters.toLang}
               languages={langs.from}
+              disabled={isLangFilterDisabled}
             />
             <LanguageSelect
               data-testid="public-translator-filters__to-language-select"
@@ -233,8 +252,9 @@ export const PublicTranslatorFilters = ({
               id="filters-to-lang"
               excludedLanguage={filters.fromLang}
               languages={langs.to}
+              disabled={isLangFilterDisabled}
             />
-          </div>
+          </Box>
         </div>
         <div className="public-translator-filters__filter">
           <H3>{t('name.title')}</H3>

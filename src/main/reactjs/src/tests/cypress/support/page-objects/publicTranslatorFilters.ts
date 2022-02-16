@@ -17,12 +17,12 @@ class PublicTranslatorFilters {
   }
 
   selectFromLangByName(from: string) {
-    this.elements.fromLang().click();
+    this.clickFromLang();
     this.selectOptionByName(from);
   }
 
   selectToLangByName(to: string) {
-    this.elements.toLang().click();
+    this.clickToLang();
     this.selectOptionByName(to);
   }
 
@@ -51,13 +51,21 @@ class PublicTranslatorFilters {
     this.elements.search().click();
   }
 
-  expectFromLangSelectValues(values: Array<string>) {
+  clickFromLang() {
     this.elements.fromLang().click();
+  }
+
+  clickToLang() {
+    this.elements.toLang().click();
+  }
+
+  expectFromLangSelectValues(values: Array<string>) {
+    this.clickFromLang();
     cy.findAllByRole('option').should('have.length', values.length);
     values.forEach((value) => cy.findAllByRole('listbox').contains(value));
   }
   expectToLangSelectValues(values: Array<string>) {
-    this.elements.toLang().click();
+    this.clickToLang();
     cy.findAllByRole('option').should('have.length', values.length);
     values.forEach((value) => cy.findAllByRole('listbox').contains(value));
   }
