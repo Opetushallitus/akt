@@ -16,7 +16,7 @@ export const AppRouter: FC = () => (
     <div className="app">
       <Header />
       <Notifier />
-      <main className="content">
+      <main className="content" id="main-content">
         <div className="content__container">
           <Routes>
             <Route

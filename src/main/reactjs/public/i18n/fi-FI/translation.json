@@ -15,6 +15,10 @@
             "meetingDates": "Kokouspäivät",
             "tabsLabel": "Virkailijan URL-osoitteet"
           }
+        },
+        "accessibility": {
+          "ophLogoAlt": "Opetushallituksen logo",
+          "langSelectorAriaLabel": "Vaihda käyttöliittymän kieltä"
         }
       },
       "table": {
