@@ -95,7 +95,7 @@ export const useKoodistoLanguagesTranslation = () => {
 export const useCommonTranslation = () => {
   const { t } = useAppTranslation(
     {
-      keyPrefix: 'akt',
+      keyPrefix: 'akt.common',
     },
     I18nNamespace.Common
   );
