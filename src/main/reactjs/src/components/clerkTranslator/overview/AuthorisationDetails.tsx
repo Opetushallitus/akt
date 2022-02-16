@@ -1,5 +1,4 @@
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
+import { Add as AddIcon, Edit as EditIcon } from '@mui/icons-material';
 import {
   Table,
   TableBody,
@@ -15,21 +14,21 @@ import {
   useCommonTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
+import { useAppSelector } from 'configs/redux';
 import { Color, Variant } from 'enums/app';
-import { ClerkTranslator } from 'interfaces/clerkTranslator';
+import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
 import { AuthorisationUtils } from 'utils/authorisation';
 import { DateUtils } from 'utils/date';
 
-export const AuthorisationDetails = ({
-  translator,
-}: {
-  translator: ClerkTranslator;
-}) => {
+export const AuthorisationDetails = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorOverview.authorisations',
   });
   const translateLanguage = useKoodistoLanguagesTranslation();
   const translateCommon = useCommonTranslation();
+  const { selectedTranslator } = useAppSelector(
+    clerkTranslatorOverviewSelector
+  );
   const currentDate = new Date();
 
   return (
@@ -64,7 +63,7 @@ export const AuthorisationDetails = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {translator.authorisations.map((a, i) => (
+          {selectedTranslator?.authorisations.map((a, i) => (
             <TableRow
               key={i}
               data-testid={`authorisations-table__id-${a.id}-row`}

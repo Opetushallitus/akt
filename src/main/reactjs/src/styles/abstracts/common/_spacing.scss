@@ -16,6 +16,12 @@
   }
 }
 
+.half-height {
+  &#{&} {
+    height: 50vh;
+  }
+}
+
 /* Margins */
 .margin-top-sm {
   margin-top: map-get($spacing, 'sm');

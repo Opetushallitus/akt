@@ -27,6 +27,7 @@ import {
   selectAllFilteredTranslators,
   selectClerkTranslator,
 } from 'redux/actions/clerkTranslator';
+import { loadClerkTranslatorOverview } from 'redux/actions/clerkTranslatorOverview';
 import {
   clerkTranslatorsSelector,
   selectFilteredClerkTranslators,
@@ -49,15 +50,6 @@ const getRowDetails = (
   );
 };
 
-const translatorDetailsURL = (id: number) =>
-  AppRoutes.ClerkTranslatorOverviewPage.replace(/:translatorId$/, `${id}`);
-
-const stopOnClickPropagation = (
-  e: React.MouseEvent<HTMLAnchorElement> | undefined
-) => {
-  e?.stopPropagation();
-};
-
 const ListingRow = ({
   translator,
   selected,
@@ -75,7 +67,18 @@ const ListingRow = ({
   const authorisations = translator.authorisations;
   const translateLanguage = useKoodistoLanguagesTranslation();
   const translateCommon = useCommonTranslation();
+  const dispatch = useAppDispatch();
   const currentDate = new Date();
+
+  const translatorDetailsURL = (id: number) =>
+    AppRoutes.ClerkTranslatorOverviewPage.replace(/:translatorId$/, `${id}`);
+
+  const handleDetailsBtnClick = (
+    e: React.MouseEvent<HTMLAnchorElement> | undefined
+  ) => {
+    e?.stopPropagation();
+    dispatch(loadClerkTranslatorOverview(translator));
+  };
 
   return (
     <TableRow
@@ -152,7 +155,7 @@ const ListingRow = ({
             to={translatorDetailsURL(translator.id)}
             component={Link}
             color={Color.Secondary}
-            onClick={stopOnClickPropagation}
+            onClick={handleDetailsBtnClick}
             endIcon={<ArrowForwardIosOutlinedIcon />}
           >
             {t('detailsButton')}
@@ -221,10 +224,12 @@ const ListingHeader: FC = () => {
 
 export const ClerkTranslatorListing: FC = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt' });
-  const { status } = useAppSelector(clerkTranslatorsSelector);
+  const { status, selectedTranslators } = useAppSelector(
+    clerkTranslatorsSelector
+  );
   const filteredTranslators = useAppSelector(selectFilteredClerkTranslators);
   const filteredSelectedIds = useAppSelector(selectFilteredSelectedIds);
-  const selected = filteredSelectedIds.length;
+  const selectedCount = selectedTranslators.length;
 
   switch (status) {
     case APIResponseStatus.NotStarted:
@@ -245,9 +250,9 @@ export const ClerkTranslatorListing: FC = () => {
       return (
         <>
           <div className="grow">
-            {selected > 0 && (
+            {selectedCount > 0 && (
               <H2 data-testid="public-translators__selected-count-heading">
-                {`${selected} ${t('component.table.selectedItems')}`}
+                {`${selectedCount} ${t('component.table.selectedItems')}`}
               </H2>
             )}
           </div>

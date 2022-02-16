@@ -88,6 +88,7 @@ export const clerkTranslatorReducer: Reducer<
       return {
         ...state,
         filters: defaultState.filters,
+        selectedTranslators: defaultState.selectedTranslators,
       };
     default:
       return state;

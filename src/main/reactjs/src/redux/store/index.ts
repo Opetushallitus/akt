@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { clerkTranslatorReducer } from 'redux/reducers/clerkTranslator';
 import { clerkTranslatorEmailReducer } from 'redux/reducers/clerkTranslatorEmail';
+import { clerkTranslatorOverviewReducer } from 'redux/reducers/clerkTranslatorOverview';
 import { clerkUserReducer } from 'redux/reducers/clerkUser';
 import { contactRequestReducer } from 'redux/reducers/contactRequest';
 import { notifierReducer } from 'redux/reducers/notifier';
@@ -21,6 +22,7 @@ export default () => {
       publicTranslator: publicTranslatorReducer,
       clerkTranslator: clerkTranslatorReducer,
       clerkTranslatorEmail: clerkTranslatorEmailReducer,
+      clerkTranslatorOverview: clerkTranslatorOverviewReducer,
       contactRequest: contactRequestReducer,
       publicUIView: publicUIViewReducer,
       clerkUser: clerkUserReducer,
