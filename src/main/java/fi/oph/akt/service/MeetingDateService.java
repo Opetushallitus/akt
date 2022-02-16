@@ -5,6 +5,7 @@ import fi.oph.akt.api.dto.clerk.modify.MeetingDateCreateDTO;
 import fi.oph.akt.api.dto.clerk.modify.MeetingDateUpdateDTO;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.repository.MeetingDateRepository;
+import fi.oph.akt.util.MeetingDateProjectionComparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class MeetingDateService {
 
   private final MeetingDateRepository meetingDateRepository;
+
+  private static final MeetingDateProjectionComparator meetingDateProjectionComparator = new MeetingDateProjectionComparator();
+
+  @Transactional(readOnly = true)
+  public List<MeetingDateDTO> listMeetingDates() {
+    return meetingDateRepository
+      .listMeetingDateProjections()
+      .stream()
+      .sorted(meetingDateProjectionComparator.reversed())
+      .map(mdp -> MeetingDateDTO.builder().id(mdp.meetingDateId()).version(mdp.version()).date(mdp.date()).build())
+      .toList();
+  }
 
   @Transactional
   public MeetingDateDTO createMeetingDate(final MeetingDateCreateDTO dto) {

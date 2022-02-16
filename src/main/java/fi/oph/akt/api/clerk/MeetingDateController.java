@@ -7,11 +7,13 @@ import fi.oph.akt.api.dto.clerk.modify.MeetingDateCreateDTO;
 import fi.oph.akt.api.dto.clerk.modify.MeetingDateUpdateDTO;
 import fi.oph.akt.service.MeetingDateService;
 import io.swagger.v3.oas.annotations.Operation;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,6 +31,12 @@ public class MeetingDateController {
 
   @Resource
   private final MeetingDateService meetingDateService;
+
+  @Operation(tags = TAG_MEETING_DATE, summary = "List meeting dates")
+  @GetMapping
+  public List<MeetingDateDTO> listMeetingDates() {
+    return meetingDateService.listMeetingDates();
+  }
 
   @Operation(tags = TAG_MEETING_DATE, summary = "Create meeting date")
   @PostMapping(consumes = APPLICATION_JSON_VALUE)

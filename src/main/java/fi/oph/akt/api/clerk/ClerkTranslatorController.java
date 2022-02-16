@@ -51,7 +51,7 @@ public class ClerkTranslatorController {
     operationId = "list_translator",
     summary = "List all translators, with all their data"
   )
-  public ClerkTranslatorResponseDTO list() {
+  public ClerkTranslatorResponseDTO listTranslators() {
     return clerkTranslatorService.listTranslators();
   }
 

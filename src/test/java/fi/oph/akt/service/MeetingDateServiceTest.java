@@ -41,6 +41,23 @@ class MeetingDateServiceTest {
   }
 
   @Test
+  public void testMeetingDateList() {
+    final MeetingDate meetingDate1 = Factory.meetingDate(LocalDate.of(2020, 1, 1));
+    final MeetingDate meetingDate2 = Factory.meetingDate(LocalDate.of(2020, 9, 6));
+    entityManager.persist(meetingDate1);
+    entityManager.persist(meetingDate2);
+
+    final List<MeetingDateDTO> meetingDateDTOS = meetingDateService.listMeetingDates();
+
+    assertEquals(2, meetingDateDTOS.size());
+
+    assertEquals(meetingDate2.getId(), meetingDateDTOS.get(0).id());
+    assertEquals(meetingDate2.getDate(), meetingDateDTOS.get(0).date());
+    assertEquals(meetingDate1.getId(), meetingDateDTOS.get(1).id());
+    assertEquals(meetingDate1.getDate(), meetingDateDTOS.get(1).date());
+  }
+
+  @Test
   public void testMeetingDateCreate() {
     final MeetingDateCreateDTO dto = MeetingDateCreateDTO.builder().date(LocalDate.now()).build();
 

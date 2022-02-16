@@ -84,11 +84,14 @@ class ClerkTranslatorServiceTest {
 
   @BeforeEach
   public void setup() {
+    MeetingDateService meetingDateService = new MeetingDateService(meetingDateRepository);
+
     clerkTranslatorService =
       new ClerkTranslatorService(
         authorisationRepository,
         authorisationTermRepository,
         authorisationTermReminderRepository,
+        meetingDateService,
         meetingDateRepository,
         translatorRepository
       );
@@ -131,9 +134,6 @@ class ClerkTranslatorServiceTest {
 
     meetingDate1.setDate(LocalDate.parse("2020-01-01"));
     meetingDate2.setDate(LocalDate.parse("2020-10-06"));
-
-    entityManager.persist(meetingDate1);
-    entityManager.persist(meetingDate2);
 
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate1);
