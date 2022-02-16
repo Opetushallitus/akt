@@ -5,6 +5,7 @@ import fi.vm.sade.auditlog.Operation;
 public enum AktOperation implements Operation {
   LIST_TRANSLATORS,
   CREATE_TRANSLATOR,
+  GET_TRANSLATOR,
   UPDATE_TRANSLATOR,
   DELETE_TRANSLATOR,
   CREATE_AUTHORISATION,
