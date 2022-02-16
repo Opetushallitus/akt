@@ -166,8 +166,7 @@
           "description": "Tämä sivu ohjaa sinut automaattisesti takaisin etusivulle. Jos mitään ei tapahdu voit klikata alla olevasta napista."
         },
         "chosenTranslatorsForLanguagePair": "Valitut kääntäjät kielistä",
-        "characters_one": "merkki",
-        "characters_other": "merkkiä",
+        "characters": "merkkiä",
         "formLabels": {
           "firstName": "Etunimi",
           "lastName": "Sukunimi",
@@ -249,7 +248,7 @@
       "loadingFailed": "Tietojen lataus epäonnistui, yritä myöhemmin uudelleen.",
       "customTextField": {
         "required": "Tieto on pakollinen",
-        "maxLength": "Tekstin pituus ei saa ylittää 1000 merkkiä",
+        "maxLength": "Teksti on liian pitkä",
         "emailFormat": "Sähköpostiosoite on virheellinen",
         "telFormat": "Puhelinnumero on virheellinen"
       }

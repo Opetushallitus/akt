@@ -70,11 +70,11 @@ export const WriteMessage = ({
   const getHelperMessage = () => {
     const value = request?.message;
     const errorToShow = fieldError ? `${fieldError}.` : '';
+    const maxLength = Utils.getMaxTextAreaLength();
 
-    return `${errorToShow} ${value?.length} ${t(
-      'component.contactRequestForm.characters',
-      { count: value?.length }
-    )} `;
+    return `${errorToShow} ${value?.length} / ${maxLength} ${t(
+      'component.contactRequestForm.characters'
+    )}`;
   };
 
   return (
