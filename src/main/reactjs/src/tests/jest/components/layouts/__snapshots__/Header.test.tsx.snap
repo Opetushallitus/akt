@@ -11,7 +11,7 @@ Array [
     <p
       className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
     >
-      Skip to Content
+      continueToMain
     </p>
   </a>,
   <header
@@ -24,7 +24,7 @@ Array [
         className="header__left"
       >
         <img
-          alt="ophLogoAlt"
+          alt="ophLogo"
           className="header__left__logo"
           src="test"
         />

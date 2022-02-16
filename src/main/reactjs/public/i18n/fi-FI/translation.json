@@ -17,8 +17,8 @@
           }
         },
         "accessibility": {
-          "ophLogoAlt": "Opetushallituksen logo",
-          "langSelectorAriaLabel": "Vaihda käyttöliittymän kieltä"
+          "langSelectorAriaLabel": "Vaihda käyttöliittymän kieltä",
+          "continueToMain": "Jatka sisältöön"
         }
       },
       "table": {
