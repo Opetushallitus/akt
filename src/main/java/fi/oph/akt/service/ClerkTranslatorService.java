@@ -227,23 +227,6 @@ public class ClerkTranslatorService {
     return translators.stream().map(Translator::getTown).filter(Objects::nonNull).distinct().sorted().toList();
   }
 
-  private Map<LocalDate, MeetingDate> getLocalDateMeetingDateMap() {
-    return meetingDateRepository
-      .findAll()
-      .stream()
-      .collect(Collectors.toMap(MeetingDate::getDate, Function.identity()));
-  }
-
-  private ClerkTranslatorDTO getClerkTranslatorDTOByTranslatorId(final long translatorId) {
-    // This could be optimized, by fetching only one translator and it's data, but is it worth of the programming work?
-    for (ClerkTranslatorDTO t : listTranslators().translators()) {
-      if (t.id() == translatorId) {
-        return t;
-      }
-    }
-    throw new RuntimeException(String.format("Translator with id: %d not found", translatorId));
-  }
-
   @Transactional
   public ClerkTranslatorDTO createTranslator(final TranslatorCreateDTO dto) {
     final Translator translator = new Translator();
@@ -260,7 +243,18 @@ public class ClerkTranslatorService {
         createAuthorisation(translator, meetingDates, authDto);
       });
 
-    return getClerkTranslatorDTOByTranslatorId(translator.getId());
+    return getTranslator(translator.getId());
+  }
+
+  @Transactional(readOnly = true)
+  public ClerkTranslatorDTO getTranslator(final long translatorId) {
+    // This could be optimized, by fetching only one translator and it's data, but is it worth of the programming work?
+    for (ClerkTranslatorDTO t : listTranslators().translators()) {
+      if (t.id() == translatorId) {
+        return t;
+      }
+    }
+    throw new RuntimeException(String.format("Translator with id: %d not found", translatorId));
   }
 
   @Transactional
@@ -271,7 +265,8 @@ public class ClerkTranslatorService {
     copyDtoFieldsToTranslator(dto, translator);
 
     translatorRepository.flush();
-    return getClerkTranslatorDTOByTranslatorId(translator.getId());
+
+    return getTranslator(translator.getId());
   }
 
   private void copyDtoFieldsToTranslator(final TranslatorDTOCommonFields dto, final Translator translator) {
@@ -305,8 +300,10 @@ public class ClerkTranslatorService {
   public ClerkTranslatorDTO createAuthorisation(final long translatorId, final AuthorisationCreateDTO dto) {
     final Translator translator = translatorRepository.getById(translatorId);
     final Map<LocalDate, MeetingDate> meetingDates = getLocalDateMeetingDateMap();
+
     createAuthorisation(translator, meetingDates, dto);
-    return getClerkTranslatorDTOByTranslatorId(translator.getId());
+
+    return getTranslator(translator.getId());
   }
 
   private void createAuthorisation(
@@ -327,6 +324,7 @@ public class ClerkTranslatorService {
     term.setAuthorisation(authorisation);
     term.setBeginDate(dto.beginDate());
     term.setEndDate(dto.endDate());
+
     authorisationTermRepository.saveAndFlush(term);
   }
 
@@ -356,7 +354,7 @@ public class ClerkTranslatorService {
     authorisationRepository.flush();
     authorisationTermRepository.flush();
 
-    return getClerkTranslatorDTOByTranslatorId(authorisation.getTranslator().getId());
+    return getTranslator(authorisation.getTranslator().getId());
   }
 
   private void copyDtoFieldsToAuthorisation(
@@ -395,6 +393,14 @@ public class ClerkTranslatorService {
     authorisationTermReminderRepository.deleteAllInBatch(reminders);
     authorisationTermRepository.deleteAllInBatch(terms);
     authorisationRepository.deleteAllInBatch(List.of(authorisation));
-    return getClerkTranslatorDTOByTranslatorId(translatorId);
+
+    return getTranslator(translatorId);
+  }
+
+  private Map<LocalDate, MeetingDate> getLocalDateMeetingDateMap() {
+    return meetingDateRepository
+      .findAll()
+      .stream()
+      .collect(Collectors.toMap(MeetingDate::getDate, Function.identity()));
   }
 }

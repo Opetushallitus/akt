@@ -35,7 +35,6 @@ import fi.oph.akt.repository.TranslatorRepository;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
@@ -545,7 +544,7 @@ class ClerkTranslatorServiceTest {
   }
 
   @Test
-  public void testTranslatorCreated() {
+  public void testTranslatorCreate() {
     final MeetingDate meetingDate = Factory.meetingDate();
     entityManager.persist(meetingDate);
 
@@ -578,13 +577,31 @@ class ClerkTranslatorServiceTest {
 
     final ClerkTranslatorDTO response = clerkTranslatorService.createTranslator(createDTO);
 
-    assertResponseMatchesListing(response);
+    assertResponseMatchesGet(response);
 
     assertTranslatorCommonFields(createDTO, response);
 
     assertEquals(1, response.authorisations().size());
     final AuthorisationDTO authDto = response.authorisations().get(0);
     assertAuthorisationCommonFields(expectedAuth, authDto);
+  }
+
+  @Test
+  public void testTranslatorGet() {
+    final MeetingDate meetingDate = Factory.meetingDate();
+    final Translator translator = Factory.translator();
+    final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+
+    entityManager.persist(meetingDate);
+    entityManager.persist(translator);
+    entityManager.persist(authorisation);
+    entityManager.persist(authorisationTerm);
+
+    final ClerkTranslatorDTO clerkTranslatorDTO = clerkTranslatorService.getTranslator(translator.getId());
+
+    assertNotNull(clerkTranslatorDTO);
+    assertEquals(translator.getId(), clerkTranslatorDTO.id());
   }
 
   @Test
@@ -616,7 +633,7 @@ class ClerkTranslatorServiceTest {
 
     final ClerkTranslatorDTO response = clerkTranslatorService.updateTranslator(updateDTO);
 
-    assertResponseMatchesListing(response);
+    assertResponseMatchesGet(response);
 
     assertEquals(updateDTO.id(), response.id());
     assertEquals(updateDTO.version() + 1, response.version());
@@ -698,7 +715,7 @@ class ClerkTranslatorServiceTest {
 
     final ClerkTranslatorDTO response = clerkTranslatorService.createAuthorisation(translator.getId(), createDTO);
 
-    assertResponseMatchesListing(response);
+    assertResponseMatchesGet(response);
 
     assertEquals(2, response.authorisations().size());
     final AuthorisationDTO authorisationDTO = response
@@ -744,7 +761,7 @@ class ClerkTranslatorServiceTest {
 
     final ClerkTranslatorDTO response = clerkTranslatorService.updateAuthorisation(updateDTO);
 
-    assertResponseMatchesListing(response);
+    assertResponseMatchesGet(response);
 
     final AuthorisationDTO authorisationDTO = response.authorisations().get(0);
     assertEquals(updateDTO.id(), authorisationDTO.id());
@@ -796,7 +813,7 @@ class ClerkTranslatorServiceTest {
 
     final ClerkTranslatorDTO response = clerkTranslatorService.deleteAuthorisation(authorisation.getId());
 
-    assertResponseMatchesListing(response);
+    assertResponseMatchesGet(response);
 
     assertEquals(
       Set.of(authorisation2.getId()),
@@ -859,14 +876,8 @@ class ClerkTranslatorServiceTest {
     assertEquals("Invalid meeting date: 2022-01-19", ex.getMessage());
   }
 
-  private void assertResponseMatchesListing(final ClerkTranslatorDTO response) {
-    final ClerkTranslatorDTO expected = clerkTranslatorService
-      .listTranslators()
-      .translators()
-      .stream()
-      .filter(dto -> Objects.equals(dto.id(), response.id()))
-      .findAny()
-      .orElse(null);
+  private void assertResponseMatchesGet(final ClerkTranslatorDTO response) {
+    final ClerkTranslatorDTO expected = clerkTranslatorService.getTranslator(response.id());
 
     assertNotNull(response);
     assertNotNull(expected);

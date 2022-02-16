@@ -66,6 +66,12 @@ public class ClerkTranslatorController {
     return clerkTranslatorService.createTranslator(dto);
   }
 
+  @Operation(tags = TAG_TRANSLATOR, summary = "Get single translator with all its data")
+  @GetMapping(path = "/{translatorId:\\d+}")
+  public ClerkTranslatorDTO getTranslator(@PathVariable final long translatorId) {
+    return clerkTranslatorService.getTranslator(translatorId);
+  }
+
   @Operation(tags = TAG_TRANSLATOR, summary = "Update translator personal data")
   @PutMapping(consumes = APPLICATION_JSON_VALUE)
   public ClerkTranslatorDTO updateTranslator(@RequestBody @Valid final TranslatorUpdateDTO dto) {
