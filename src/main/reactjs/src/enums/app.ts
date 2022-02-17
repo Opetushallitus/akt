@@ -122,3 +122,14 @@ export enum PermissionToPublish {
   Yes = 'Kyllä',
   No = 'Ei',
 }
+
+export enum AppLanguage {
+  Finnish = 'fi-FI',
+  Swedish = 'sv-SE',
+  English = 'en-GB',
+}
+
+export enum Direction {
+  Horizontal = 'horizontal',
+  Vertical = 'vertical',
+}

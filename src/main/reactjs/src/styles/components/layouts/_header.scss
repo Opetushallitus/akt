@@ -46,13 +46,12 @@
   }
 
   &__right {
-    align-self: flex-start;
+    align-self: center;
     color: $color-secondary-dark;
     display: flex;
     flex-grow: 1;
     gap: 2rem;
     justify-content: flex-end;
-    padding-top: 1rem;
 
     @include phone {
       align-self: center;
