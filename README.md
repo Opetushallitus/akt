@@ -164,14 +164,7 @@ In order to keep code clean and easily maintainable please use the following VS 
 - [eslint]
 - [stylelint]
 
-   Add the following lines to your settings.json as shown [here](https://kumardeepak.xyz/blog/stylelint-scss-and-visual-studio-code/)
-
-    ```sh
-    "css.validate": false,
-    "less.validate": false,
-    "scss.validate": false,
-    "stylelint.validate": [ "css", "scss"],
-    ```
+  To use the above-mentioned plugins properly, use [these](https://wiki.eduuni.fi/display/OPHPALV/Yhteiset+VSCode+asetukset) VSCode settings.
 
 To reformat all frontend files, run:
 
