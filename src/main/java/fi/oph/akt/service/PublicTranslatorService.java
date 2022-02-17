@@ -35,7 +35,9 @@ public class PublicTranslatorService {
       .findTranslatorLanguagePairsForPublicListing()
       .stream()
       .collect(Collectors.groupingBy(TranslatorLanguagePairProjection::translatorId));
+
     final List<Translator> translators = translatorRepository.findAllById(translatorLanguagePairs.keySet());
+
     final List<PublicTranslatorDTO> publicTranslatorDTOS = translators
       .stream()
       .map(translator -> {
@@ -43,6 +45,7 @@ public class PublicTranslatorService {
         return createPublicTranslatorDTO(translator, languagePairDTOs);
       })
       .toList();
+
     final LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
     final List<String> towns = getDistinctTowns(translators);
 

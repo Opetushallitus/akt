@@ -85,11 +85,11 @@ class ClerkTranslatorServiceTest {
   @Resource
   private TranslatorRepository translatorRepository;
 
-  @Resource
-  private TestEntityManager entityManager;
-
   @MockBean
   private AuditService auditService;
+
+  @Resource
+  private TestEntityManager entityManager;
 
   @BeforeEach
   public void setup() {

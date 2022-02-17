@@ -70,9 +70,7 @@ public class ClerkTranslatorService {
   @Transactional(readOnly = true)
   public ClerkTranslatorResponseDTO listTranslators() {
     final ClerkTranslatorResponseDTO result = listTranslatorsWithoutAudit();
-
     auditService.logOperation(AktOperation.LIST_TRANSLATORS);
-
     return result;
   }
 
@@ -327,6 +325,7 @@ public class ClerkTranslatorService {
     term.setBeginDate(dto.beginDate());
     term.setEndDate(dto.endDate());
     authorisationTermRepository.saveAndFlush(term);
+
     return authorisation;
   }
 
@@ -357,8 +356,8 @@ public class ClerkTranslatorService {
     authorisationTermRepository.flush();
 
     final Translator translator = authorisation.getTranslator();
-    final long translatorId = translator.getId();
-    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translatorId);
+
+    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translator.getId());
     auditService.logAuthorisation(AktOperation.UPDATE_AUTHORISATION, translator, authorisation.getId());
     return result;
   }
@@ -399,8 +398,7 @@ public class ClerkTranslatorService {
     authorisationTermRepository.deleteAllInBatch(terms);
     authorisationRepository.deleteAllInBatch(List.of(authorisation));
 
-    final long translatorId = translator.getId();
-    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translatorId);
+    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translator.getId());
     auditService.logAuthorisation(AktOperation.DELETE_AUTHORISATION, translator, authorisationId);
     return result;
   }
