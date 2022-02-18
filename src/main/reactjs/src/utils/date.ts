@@ -2,7 +2,7 @@ import { getCurrentLang, supportedLangs } from 'configs/i18n';
 import { AppLanguage } from 'enums/app';
 
 const getDateTimeFormatter = (lang: AppLanguage) => {
-  const locale = supportedLangs.includes(lang) ? lang : 'fi-FI';
+  const locale = supportedLangs.includes(lang) ? lang : AppLanguage.Finnish;
 
   return new Intl.DateTimeFormat(locale);
 };

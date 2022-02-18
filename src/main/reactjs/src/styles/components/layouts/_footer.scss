@@ -27,6 +27,7 @@
         &::before,
         &::after {
           border-top: thin solid $color-secondary-dark;
+          opacity: 0.3;
         }
       }
     }
@@ -50,7 +51,7 @@
     }
 
     &__logo--akt {
-      height: 20rem;
+      height: 18rem;
 
       @include phone {
         align-self: center;
@@ -59,7 +60,12 @@
     }
 
     &__logo--oph {
-      height: 9rem;
+      height: 8rem;
+      margin: 0 4rem;
+
+      @include phone {
+        margin: 0 2rem;
+      }
     }
 
     & > a {
