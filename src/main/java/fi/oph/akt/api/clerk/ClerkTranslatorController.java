@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import java.util.Set;
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -97,6 +98,7 @@ public class ClerkTranslatorController {
     return clerkTranslatorService.createAuthorisation(translatorId, dto);
   }
 
+  @ConditionalOnExpression(value = "false")
   @Operation(tags = TAG_AUTHORISATION, summary = "Update authorisation")
   @PutMapping(path = "/authorisation", consumes = APPLICATION_JSON_VALUE)
   public ClerkTranslatorDTO updateAuthorisation(@RequestBody @Valid final AuthorisationUpdateDTO dto) {

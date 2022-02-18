@@ -11,6 +11,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +46,7 @@ public class MeetingDateController {
     return meetingDateService.createMeetingDate(dto);
   }
 
+  @ConditionalOnExpression(value = "false")
   @Operation(tags = TAG_MEETING_DATE, summary = "Update meeting date")
   @PutMapping(consumes = APPLICATION_JSON_VALUE)
   public MeetingDateDTO updateMeetingDate(@RequestBody @Valid final MeetingDateUpdateDTO dto) {
