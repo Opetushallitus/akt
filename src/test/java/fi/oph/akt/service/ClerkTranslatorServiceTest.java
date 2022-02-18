@@ -18,6 +18,7 @@ import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
 import fi.oph.akt.api.dto.clerk.MeetingDateDTO;
 import fi.oph.akt.api.dto.clerk.modify.AuthorisationCreateDTO;
 import fi.oph.akt.api.dto.clerk.modify.AuthorisationDTOCommonFields;
+import fi.oph.akt.api.dto.clerk.modify.AuthorisationPublishPermissionDTO;
 import fi.oph.akt.api.dto.clerk.modify.AuthorisationUpdateDTO;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorCreateDTO;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorDTOCommonFields;
@@ -818,6 +819,43 @@ class ClerkTranslatorServiceTest {
     assertEquals(expected.beginDate(), authorisationDTO.terms().get(0).beginDate());
     assertEquals(expected.endDate(), authorisationDTO.terms().get(0).endDate());
     assertEquals(expected.diaryNumber(), authorisationDTO.diaryNumber());
+  }
+
+  @Test
+  public void testAuthorisationUpdatePublishPermission() {
+    final MeetingDate meetingDate = Factory.meetingDate();
+    final Translator translator = Factory.translator();
+    final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+
+    authorisation.setPermissionToPublish(true);
+
+    entityManager.persist(meetingDate);
+    entityManager.persist(translator);
+    entityManager.persist(authorisation);
+    entityManager.persist(authorisationTerm);
+
+    final AuthorisationPublishPermissionDTO publishPermissionDTO = AuthorisationPublishPermissionDTO
+      .builder()
+      .id(authorisation.getId())
+      .version(authorisation.getVersion())
+      .permissionToPublish(false)
+      .build();
+
+    final ClerkTranslatorDTO response = clerkTranslatorService.updateAuthorisationPublishPermission(
+      publishPermissionDTO
+    );
+
+    assertResponseMatchesGet(response);
+
+    final AuthorisationDTO authorisationDTO = response.authorisations().get(0);
+    assertEquals(publishPermissionDTO.id(), authorisationDTO.id());
+    assertEquals(publishPermissionDTO.version() + 1, authorisationDTO.version());
+    assertEquals(false, authorisationDTO.permissionToPublish());
+
+    verify(auditService)
+      .logAuthorisation(AktOperation.UPDATE_AUTHORISATION_PUBLISH_PERMISSION, translator, authorisationDTO.id());
+    verifyNoMoreInteractions(auditService);
   }
 
   @Test

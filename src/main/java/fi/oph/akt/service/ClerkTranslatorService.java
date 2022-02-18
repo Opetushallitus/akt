@@ -9,6 +9,7 @@ import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
 import fi.oph.akt.api.dto.clerk.MeetingDateDTO;
 import fi.oph.akt.api.dto.clerk.modify.AuthorisationCreateDTO;
 import fi.oph.akt.api.dto.clerk.modify.AuthorisationDTOCommonFields;
+import fi.oph.akt.api.dto.clerk.modify.AuthorisationPublishPermissionDTO;
 import fi.oph.akt.api.dto.clerk.modify.AuthorisationUpdateDTO;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorCreateDTO;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorDTOCommonFields;
@@ -374,6 +375,25 @@ public class ClerkTranslatorService {
     authorisation.setToLang(dto.to());
     authorisation.setPermissionToPublish(dto.permissionToPublish());
     authorisation.setDiaryNumber(dto.diaryNumber());
+  }
+
+  @Transactional
+  public ClerkTranslatorDTO updateAuthorisationPublishPermission(final AuthorisationPublishPermissionDTO dto) {
+    final Authorisation authorisation = authorisationRepository.getById(dto.id());
+    authorisation.assertVersion(dto.version());
+    authorisation.setPermissionToPublish(dto.permissionToPublish());
+
+    authorisationRepository.flush();
+
+    final Translator translator = authorisation.getTranslator();
+
+    final ClerkTranslatorDTO result = getTranslatorWithoutAudit(translator.getId());
+    auditService.logAuthorisation(
+      AktOperation.UPDATE_AUTHORISATION_PUBLISH_PERMISSION,
+      translator,
+      authorisation.getId()
+    );
+    return result;
   }
 
   @Transactional

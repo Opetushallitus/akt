@@ -5,6 +5,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
 import fi.oph.akt.api.dto.clerk.modify.AuthorisationCreateDTO;
+import fi.oph.akt.api.dto.clerk.modify.AuthorisationPublishPermissionDTO;
 import fi.oph.akt.api.dto.clerk.modify.AuthorisationUpdateDTO;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorCreateDTO;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorUpdateDTO;
@@ -100,6 +101,14 @@ public class ClerkTranslatorController {
   @PutMapping(path = "/authorisation", consumes = APPLICATION_JSON_VALUE)
   public ClerkTranslatorDTO updateAuthorisation(@RequestBody @Valid final AuthorisationUpdateDTO dto) {
     return clerkTranslatorService.updateAuthorisation(dto);
+  }
+
+  @Operation(tags = TAG_AUTHORISATION, summary = "Update authorisation publish permission")
+  @PutMapping(path = "/authorisation/publishPermission", consumes = APPLICATION_JSON_VALUE)
+  public ClerkTranslatorDTO updateAuthorisationPublishPermission(
+    @RequestBody @Valid final AuthorisationPublishPermissionDTO dto
+  ) {
+    return clerkTranslatorService.updateAuthorisationPublishPermission(dto);
   }
 
   @Operation(tags = TAG_AUTHORISATION, summary = "Delete authorisation")
