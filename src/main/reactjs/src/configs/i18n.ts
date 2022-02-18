@@ -6,7 +6,7 @@ import {
   UseTranslationOptions,
 } from 'react-i18next';
 
-import { I18nNamespace } from 'enums/app';
+import { AppLanguage, I18nNamespace } from 'enums/app';
 import commonEN from 'public/i18n/en-GB/common.json';
 import transEN from 'public/i18n/en-GB/translation.json';
 import commonFI from 'public/i18n/fi-FI/common.json';
@@ -18,11 +18,11 @@ import commonSV from 'public/i18n/sv-SE/common.json';
 import transSV from 'public/i18n/sv-SE/translation.json';
 
 // Defaults and resources
-const langFI = 'fi-FI';
-const langSV = 'sv-SE';
-const langEN = 'en-GB';
+const langFI = AppLanguage.Finnish;
+const langSV = AppLanguage.Swedish;
+const langEN = AppLanguage.English;
 
-export type AppLanguages = typeof langFI | typeof langSV | typeof langEN;
+export type AppLanguages = `${AppLanguage}`;
 
 export const supportedLangs = [langFI, langSV, langEN];
 

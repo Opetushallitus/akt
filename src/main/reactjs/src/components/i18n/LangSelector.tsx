@@ -9,6 +9,7 @@ import {
   getSupportedLangs,
   useAppTranslation,
 } from 'configs/i18n';
+import { TextFieldVariant } from 'enums/app';
 
 export const LangSelector: FC = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.component.header' });
@@ -30,7 +31,8 @@ export const LangSelector: FC = () => {
       <CustomSelect
         disableUnderline
         values={values}
-        variant="standard"
+        aria-label={t('accessibility.langSelectorAriaLabel')}
+        variant={TextFieldVariant.Standard}
         value={getCurrentLang()}
         onChange={handleLangChange}
         className="lang-selector__select"

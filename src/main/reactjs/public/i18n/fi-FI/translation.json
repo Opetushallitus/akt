@@ -15,6 +15,10 @@
             "meetingDates": "Kokouspäivät",
             "tabsLabel": "Virkailijan URL-osoitteet"
           }
+        },
+        "accessibility": {
+          "langSelectorAriaLabel": "Vaihda käyttöliittymän kieltä",
+          "continueToMain": "Jatka sisältöön"
         }
       },
       "table": {
@@ -26,10 +30,6 @@
       },
       "footer": {
         "links": {
-          "opintopolku": {
-            "text": "Opintopolku",
-            "link": "https://opintopolku.fi/konfo/fi"
-          },
           "accessibility": {
             "text": "Saavutettavuusseloste",
             "link": "https://www.oph.fi/fi/tietoa-meista/opetushallituksen-saavutettavuusseloste"
@@ -47,6 +47,10 @@
             "title": "Puhelin",
             "number": "+358 29 533 1000"
           }
+        },
+        "accessibility": {
+          "waveAriaLabel": "Aaltoileva vektorikuvio",
+          "continueToMain": "Jatka sisältöön"
         }
       },
       "publicTranslatorFilters": {

@@ -1,12 +1,13 @@
 import { Button, ButtonProps, Link } from '@mui/material';
 import { FC } from 'react';
 
-import { ExtLinkProps } from 'interfaces/extLink';
+import { ExtLinkProps } from 'interfaces/link';
 
 export const ExtLink: FC<ButtonProps & ExtLinkProps> = ({
   text,
   href,
   endIcon,
+  'aria-label': ariaLabel,
 }) => {
   return (
     <Button
@@ -17,6 +18,7 @@ export const ExtLink: FC<ButtonProps & ExtLinkProps> = ({
       color="inherit"
       href={href}
       endIcon={endIcon}
+      aria-label={ariaLabel}
     >
       {text}
     </Button>
