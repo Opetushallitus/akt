@@ -1,0 +1,16 @@
+package fi.oph.akt.audit;
+
+import fi.vm.sade.auditlog.Operation;
+
+public enum AktOperation implements Operation {
+  LIST_TRANSLATORS,
+  CREATE_TRANSLATOR,
+  UPDATE_TRANSLATOR,
+  DELETE_TRANSLATOR,
+  CREATE_AUTHORISATION,
+  UPDATE_AUTHORISATION,
+  DELETE_AUTHORISATION,
+  CREATE_MEETING_DATE,
+  UPDATE_MEETING_DATE,
+  DELETE_MEETING_DATE,
+}
