@@ -11,27 +11,38 @@ import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
+import fi.oph.akt.repository.AuthorisationRepository;
+import fi.oph.akt.repository.TranslatorRepository;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
+import javax.annotation.Resource;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 
 @WithMockUser
 @DataJpaTest
-@Import({ PublicTranslatorService.class })
 class PublicTranslatorServiceTest {
 
-  @Autowired
+  private PublicTranslatorService publicTranslatorService;
+
+  @Resource
+  private AuthorisationRepository authorisationRepository;
+
+  @Resource
+  private TranslatorRepository translatorRepository;
+
+  @Resource
   private TestEntityManager entityManager;
 
-  @Autowired
-  private PublicTranslatorService publicTranslatorService;
+  @BeforeEach
+  public void setup() {
+    publicTranslatorService = new PublicTranslatorService(authorisationRepository, translatorRepository);
+  }
 
   @Test
   public void listTranslatorsShouldReturnTranslatorsByAuthorisationsWithActiveTermAndPublishPermission() {
@@ -57,6 +68,22 @@ class PublicTranslatorServiceTest {
     assertLanguagePairs(translators.get(0).languagePairs());
     assertLanguagePairs(translators.get(1).languagePairs());
     assertLanguagePairs(translators.get(2).languagePairs());
+  }
+
+  @Test
+  public void listTranslatorsShouldReturnDistinctLanguagePairsForTranslators() {
+    final MeetingDate meetingDate = Factory.meetingDate();
+    final Translator translator = Factory.translator();
+
+    entityManager.persist(meetingDate);
+    entityManager.persist(translator);
+
+    createAuthorisation(translator, meetingDate, LocalDate.now().minusDays(3), LocalDate.now().plusDays(1), true, "EN");
+    createAuthorisation(translator, meetingDate, LocalDate.now().minusDays(1), LocalDate.now().plusDays(3), true, "EN");
+
+    final PublicTranslatorResponseDTO responseDTO = publicTranslatorService.listTranslators();
+
+    assertLanguagePairs(responseDTO.translators().get(0).languagePairs());
   }
 
   private void assertLanguagePairs(final List<LanguagePairDTO> languagePairs) {

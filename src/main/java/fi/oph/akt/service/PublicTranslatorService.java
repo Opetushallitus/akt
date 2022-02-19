@@ -17,17 +17,19 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class PublicTranslatorService {
 
   @Resource
-  private AuthorisationRepository authorisationRepository;
+  private final AuthorisationRepository authorisationRepository;
 
   @Resource
-  private TranslatorRepository translatorRepository;
+  private final TranslatorRepository translatorRepository;
 
   @Transactional(readOnly = true)
   public PublicTranslatorResponseDTO listTranslators() {
