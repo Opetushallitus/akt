@@ -2,8 +2,9 @@ import {
   ArrowBackOutlined as ArrowBackIcon,
   ArrowForwardOutlined as ArrowForwardIcon,
 } from '@mui/icons-material';
-import { AppBar, Button, Toolbar } from '@mui/material';
+import { AppBar, Toolbar } from '@mui/material';
 
+import { CustomButton } from 'components/elements/CustomButton';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { Color, Severity, Variant } from 'enums/app';
@@ -75,19 +76,19 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
 
   const renderCancelButton = () => (
     <>
-      <Button
+      <CustomButton
         variant={Variant.Text}
         color={Color.Secondary}
         onClick={dispatchCancelNotifier}
         data-testid="contact-request-page__cancel-btn"
       >
         {translateCommon('cancel')}
-      </Button>
+      </CustomButton>
     </>
   );
 
   const renderBackButton = () => (
-    <Button
+    <CustomButton
       variant={Variant.Outlined}
       color={Color.Secondary}
       onClick={dispatchStepDecrement}
@@ -96,13 +97,13 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
       data-testid="contact-request-page__previous-btn"
     >
       {translateCommon('back')}
-    </Button>
+    </CustomButton>
   );
 
   const renderNextAndSubmitButtons = () => (
     <>
       {activeStep == ContactRequestFormStep.PreviewAndSend ? (
-        <Button
+        <CustomButton
           variant={Variant.Contained}
           color={Color.Secondary}
           onClick={() => submit()}
@@ -110,9 +111,9 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
           endIcon={<ArrowForwardIcon />}
         >
           {translateCommon('send')}
-        </Button>
+        </CustomButton>
       ) : (
-        <Button
+        <CustomButton
           variant={Variant.Contained}
           color={Color.Secondary}
           disabled={disableNext}
@@ -121,7 +122,7 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
           data-testid="contact-request-page__next-btn"
         >
           {translateCommon('next')}
-        </Button>
+        </CustomButton>
       )}
     </>
   );

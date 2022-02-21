@@ -1,6 +1,6 @@
-import { Skeleton } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
 
+import { CustomSkeleton } from 'components/elements/CustomSkeleton';
 import { H1, Text } from 'components/elements/Text';
 import { PublicTranslatorFilters } from 'components/publicTranslator/PublicTranslatorFilters';
 import { useAppTranslation } from 'configs/i18n';
@@ -17,17 +17,17 @@ export const PublicTranslatorGridSkeleton = ({
 
   return (
     <>
-      <Skeleton variant={SkeletonVariant.Text}>
+      <CustomSkeleton variant={SkeletonVariant.Text}>
         <H1 className="public-homepage__filters__heading-title">
           {t('filters.title')}
         </H1>
-      </Skeleton>
-      <Skeleton className="full-max-width" variant={SkeletonVariant.Text}>
+      </CustomSkeleton>
+      <CustomSkeleton className="full-max-width" variant={SkeletonVariant.Text}>
         <Text className="public-homepage__filters__heading-description">
           {t('note')}
         </Text>
-      </Skeleton>
-      <Skeleton
+      </CustomSkeleton>
+      <CustomSkeleton
         className="full-max-width"
         variant={SkeletonVariant.Rectangular}
       >
@@ -35,7 +35,7 @@ export const PublicTranslatorGridSkeleton = ({
           showTable={showTable}
           setShowTable={setShowTable}
         />
-      </Skeleton>
+      </CustomSkeleton>
     </>
   );
 };

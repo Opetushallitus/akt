@@ -1,5 +1,4 @@
-import { Button } from '@mui/material';
-
+import { CustomButton } from 'components/elements/CustomButton';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { Color, PublicUIViews, Variant } from 'enums/app';
@@ -18,7 +17,7 @@ export const ContactRequestButton = () => {
   };
 
   return (
-    <Button
+    <CustomButton
       color={Color.Secondary}
       variant={Variant.Contained}
       onClick={handleButtonClick}
@@ -26,6 +25,6 @@ export const ContactRequestButton = () => {
       data-testid="public-translators__contact-request-btn"
     >
       {t('requestContact')}
-    </Button>
+    </CustomButton>
   );
 };

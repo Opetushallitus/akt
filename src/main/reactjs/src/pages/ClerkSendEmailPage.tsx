@@ -1,7 +1,8 @@
-import { Box, Button, Paper } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import { CustomButton } from 'components/elements/CustomButton';
 import { CustomTextField } from 'components/elements/CustomTextField';
 import { H1, H2, Text } from 'components/elements/Text';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
@@ -83,15 +84,15 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
 
   return (
     <div className="columns gapped flex-end">
-      <Button
+      <CustomButton
         data-testid="clerk-send-email-page__cancel-btn"
         variant={Variant.Outlined}
         color={Color.Secondary}
         onClick={dispatchCancelNotifier}
       >
         {translateCommon('cancel')}
-      </Button>
-      <Button
+      </CustomButton>
+      <CustomButton
         data-testid="clerk-send-email-page__send-btn"
         variant={Variant.Contained}
         color={Color.Secondary}
@@ -99,7 +100,7 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
         onClick={dispatchSendEmailNotifier}
       >
         {translateCommon('send')}
-      </Button>
+      </CustomButton>
     </div>
   );
 };
