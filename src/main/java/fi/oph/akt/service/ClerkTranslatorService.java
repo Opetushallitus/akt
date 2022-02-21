@@ -28,6 +28,7 @@ import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.util.AuthorisationTermProjectionComparator;
+import fi.oph.akt.util.exception.NotFoundException;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
@@ -74,7 +75,7 @@ public class ClerkTranslatorService {
     return result;
   }
 
-  ClerkTranslatorResponseDTO listTranslatorsWithoutAudit() {
+  private ClerkTranslatorResponseDTO listTranslatorsWithoutAudit() {
     final List<Translator> translators = translatorRepository.findAll();
     final Map<Long, List<AuthorisationProjection>> authorisationProjections = getAuthorisationProjections();
     final Map<Long, List<AuthorisationTermProjection>> termProjections = getAuthorisationTermProjections();
@@ -209,23 +210,6 @@ public class ClerkTranslatorService {
     return translators.stream().map(Translator::getTown).filter(Objects::nonNull).distinct().sorted().toList();
   }
 
-  private Map<LocalDate, MeetingDate> getLocalDateMeetingDateMap() {
-    return meetingDateRepository
-      .findAll()
-      .stream()
-      .collect(Collectors.toMap(MeetingDate::getDate, Function.identity()));
-  }
-
-  private ClerkTranslatorDTO getClerkTranslatorDTOByTranslatorId(final long translatorId) {
-    // This could be optimized, by fetching only one translator and it's data, but is it worth of the programming work?
-    for (ClerkTranslatorDTO t : listTranslatorsWithoutAudit().translators()) {
-      if (t.id() == translatorId) {
-        return t;
-      }
-    }
-    throw new RuntimeException(String.format("Translator with id: %d not found", translatorId));
-  }
-
   @Transactional
   public ClerkTranslatorDTO createTranslator(final TranslatorCreateDTO dto) {
     final Translator translator = new Translator();
@@ -238,9 +222,26 @@ public class ClerkTranslatorService {
 
     dto.authorisations().forEach(authDto -> createAuthorisation(translator, meetingDates, authDto));
 
-    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translator.getId());
+    final ClerkTranslatorDTO result = getTranslatorWithoutAudit(translator.getId());
     auditService.logById(AktOperation.CREATE_TRANSLATOR, translator.getId());
     return result;
+  }
+
+  @Transactional(readOnly = true)
+  public ClerkTranslatorDTO getTranslator(final long translatorId) {
+    final ClerkTranslatorDTO result = getTranslatorWithoutAudit(translatorId);
+    auditService.logById(AktOperation.GET_TRANSLATOR, translatorId);
+    return result;
+  }
+
+  public ClerkTranslatorDTO getTranslatorWithoutAudit(final long translatorId) {
+    // This could be optimized, by fetching only one translator and it's data, but is it worth of the programming work?
+    for (ClerkTranslatorDTO t : listTranslatorsWithoutAudit().translators()) {
+      if (t.id() == translatorId) {
+        return t;
+      }
+    }
+    throw new NotFoundException(String.format("Translator with id: %d not found", translatorId));
   }
 
   @Transactional
@@ -252,7 +253,7 @@ public class ClerkTranslatorService {
 
     translatorRepository.flush();
 
-    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translator.getId());
+    final ClerkTranslatorDTO result = getTranslatorWithoutAudit(translator.getId());
     auditService.logById(AktOperation.UPDATE_TRANSLATOR, translator.getId());
     return result;
   }
@@ -292,7 +293,7 @@ public class ClerkTranslatorService {
     final Map<LocalDate, MeetingDate> meetingDates = getLocalDateMeetingDateMap();
     final Authorisation authorisation = createAuthorisation(translator, meetingDates, dto);
 
-    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translator.getId());
+    final ClerkTranslatorDTO result = getTranslatorWithoutAudit(translator.getId());
     auditService.logAuthorisation(AktOperation.CREATE_AUTHORISATION, translator, authorisation.getId());
     return result;
   }
@@ -315,6 +316,7 @@ public class ClerkTranslatorService {
     term.setAuthorisation(authorisation);
     term.setBeginDate(dto.beginDate());
     term.setEndDate(dto.endDate());
+
     authorisationTermRepository.saveAndFlush(term);
 
     return authorisation;
@@ -348,7 +350,7 @@ public class ClerkTranslatorService {
 
     final Translator translator = authorisation.getTranslator();
 
-    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translator.getId());
+    final ClerkTranslatorDTO result = getTranslatorWithoutAudit(translator.getId());
     auditService.logAuthorisation(AktOperation.UPDATE_AUTHORISATION, translator, authorisation.getId());
     return result;
   }
@@ -389,8 +391,15 @@ public class ClerkTranslatorService {
     authorisationTermRepository.deleteAllInBatch(terms);
     authorisationRepository.deleteAllInBatch(List.of(authorisation));
 
-    final ClerkTranslatorDTO result = getClerkTranslatorDTOByTranslatorId(translator.getId());
+    final ClerkTranslatorDTO result = getTranslatorWithoutAudit(translator.getId());
     auditService.logAuthorisation(AktOperation.DELETE_AUTHORISATION, translator, authorisationId);
     return result;
+  }
+
+  private Map<LocalDate, MeetingDate> getLocalDateMeetingDateMap() {
+    return meetingDateRepository
+      .findAll()
+      .stream()
+      .collect(Collectors.toMap(MeetingDate::getDate, Function.identity()));
   }
 }
