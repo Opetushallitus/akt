@@ -139,3 +139,8 @@ export enum UIMode {
   EditTranslatorDetails = 'editTranslatorDetails',
   EditAuthorizationDetails = 'editAuthorizationDetails',
 }
+
+export enum HeaderNav {
+  Register = 'register',
+  MeetingDates = 'meetingDates',
+}

@@ -262,6 +262,10 @@
         "languagePairs": "Kieliparit",
         "town": "Asuinkunta"
       },
+      "meetingDates": {
+        "upcoming": "Tulevat",
+        "passed": "Menneet"
+      },
       "notFoundPage": {
         "title": "Valitettavasti etsimääsi sivua ei löytynyt",
         "description": "Osoite saattaa olla väärä tai vanhentunut. Voit palata etusivulle alla olevasta napista"

@@ -1,5 +1,4 @@
 import { AppBar, Toolbar } from '@mui/material';
-import { FC } from 'react';
 
 import { OPHLogoViewer } from 'components/elements/OPHLogoViewer';
 import { SkipLink } from 'components/elements/SkipLink';
@@ -7,10 +6,15 @@ import { LangSelector } from 'components/i18n/LangSelector';
 import { ClerkNavTabs } from 'components/layouts//clerkHeader/ClerkNavTabs';
 import { ClerkHeaderButtons } from 'components/layouts/clerkHeader/ClerkHeaderButtons';
 import { useAppTranslation } from 'configs/i18n';
-import { Direction } from 'enums/app';
+import { Direction, HeaderNav } from 'enums/app';
 import { useAuthentication } from 'hooks/useAuthentication';
 
-const Header: FC = () => {
+type HeaderProps = {
+  headerNav: HeaderNav;
+  setHeaderNav: React.Dispatch<React.SetStateAction<HeaderNav>>;
+};
+
+const Header = ({ headerNav, setHeaderNav }: HeaderProps): JSX.Element => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.header.accessibility',
   });
@@ -27,7 +31,11 @@ const Header: FC = () => {
               direction={Direction.Horizontal}
             />
           </div>
-          <div className="header__center">{isClerkUI && <ClerkNavTabs />}</div>
+          <div className="header__center">
+            {isClerkUI && (
+              <ClerkNavTabs headerNav={headerNav} setHeaderNav={setHeaderNav} />
+            )}
+          </div>
           <div className="header__right">
             {isClerkUI && <ClerkHeaderButtons />}
             <LangSelector />

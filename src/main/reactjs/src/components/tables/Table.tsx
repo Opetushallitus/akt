@@ -29,7 +29,7 @@ export function PaginatedTable<T extends WithId>({
   const { isPhone } = useWindowProperties();
 
   const handleRowClick = (index: number) => {
-    if (selectedIndices.includes(index)) {
+    if (selectedIndices?.includes(index)) {
       dispatch(removeSelectedIndex(index));
     } else {
       dispatch(addSelectedIndex(index));
@@ -90,7 +90,7 @@ export function PaginatedTable<T extends WithId>({
 
               return (
                 <Fragment key={id}>
-                  {getRowDetails(val, selectedIndices.includes(id), () =>
+                  {getRowDetails(val, selectedIndices?.includes(id), () =>
                     handleRowClick(id)
                   )}
                 </Fragment>
