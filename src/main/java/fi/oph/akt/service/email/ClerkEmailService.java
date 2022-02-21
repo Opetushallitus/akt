@@ -10,6 +10,7 @@ import fi.oph.akt.repository.AuthorisationExpiryDataProjection;
 import fi.oph.akt.repository.AuthorisationTermReminderRepository;
 import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.EmailRepository;
+import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.util.TemplateRenderer;
 import java.time.LocalDate;
@@ -37,6 +38,9 @@ public class ClerkEmailService {
 
   @Resource
   private final EmailService emailService;
+
+  @Resource
+  private final MeetingDateRepository meetingDateRepository;
 
   @Resource
   private final TemplateRenderer templateRenderer;
@@ -102,14 +106,18 @@ public class ClerkEmailService {
     Optional
       .ofNullable(translator.getEmail())
       .ifPresent(recipientAddress -> {
+        final Optional<LocalDate> nextMeetingDateOption = meetingDateRepository.findNextMeetingDate();
+
         final String recipientName = translator.getFullName();
 
         final String emailSubject = "Auktorisointisi on päättymässä";
 
         final String emailBody = getAuthorisationExpiryEmailBody(
-          authorisationTerm.getEndDate(),
+          translator.getFullName(),
           expiryData.fromLang(),
-          expiryData.toLang()
+          expiryData.toLang(),
+          authorisationTerm.getEndDate(),
+          nextMeetingDateOption
         );
 
         final Long emailId = createEmail(
@@ -127,17 +135,29 @@ public class ClerkEmailService {
   }
 
   private String getAuthorisationExpiryEmailBody(
-    final LocalDate termEndDate,
+    final String translatorName,
     final String fromLang,
-    final String toLang
+    final String toLang,
+    final LocalDate expiryDate,
+    final Optional<LocalDate> nextMeetingDateOption
   ) {
+    final String langPair = fromLang.toLowerCase() + " - " + toLang.toLowerCase();
+    final String expiry = expiryDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    final String nextMeeting = nextMeetingDateOption
+      .map(date -> date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
+      .orElse("<ei tiedossa>");
+
     final Map<String, Object> templateParams = Map.of(
-      "expiryDate",
-      termEndDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
+      "translatorName",
+      translatorName,
       "langPair",
-      fromLang.toLowerCase() + " - " + toLang.toLowerCase(),
+      langPair,
+      "expiryDate",
+      expiry,
+      "nextMeetingDate",
+      nextMeeting,
       "contactEmail",
-      "auktoris@oph.fi"
+      "auktoris.lautakunta@oph.fi"
     );
 
     return templateRenderer.renderAuthorisationExpiryEmailBody(templateParams);

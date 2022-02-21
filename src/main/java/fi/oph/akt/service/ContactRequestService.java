@@ -201,7 +201,7 @@ public class ContactRequestService {
     );
 
     final String recipientName = "Auktoris - OPH";
-    final String recipientAddress = "auktoris@oph.fi";
+    final String recipientAddress = "auktoris.lautakunta@oph.fi";
     final String subject = "Yhteydenotto kääntäjään jonka postiosoite ei tiedossa";
     final String body = templateRenderer.renderContactRequestClerkEmailBody(templateParams);
 
