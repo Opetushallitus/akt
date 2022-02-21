@@ -19,6 +19,7 @@ import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.EmailRepository;
 import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
+import fi.oph.akt.service.LanguageService;
 import fi.oph.akt.util.TemplateRenderer;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -70,12 +71,15 @@ public class ClerkEmailServiceTest {
 
   @BeforeEach
   public void setup() {
+    final LanguageService languageService = new LanguageService();
+
     clerkEmailService =
       new ClerkEmailService(
         authorisationTermReminderRepository,
         authorisationTermRepository,
         emailRepository,
         emailService,
+        languageService,
         meetingDateRepository,
         templateRenderer,
         translatorRepository
@@ -224,7 +228,7 @@ public class ClerkEmailServiceTest {
       "translatorName",
       "Etu Suku",
       "langPair",
-      "sv - en",
+      "ruotsi - englanti",
       "expiryDate",
       "01.12.2029",
       "nextMeetingDate",
@@ -275,7 +279,7 @@ public class ClerkEmailServiceTest {
       "translatorName",
       "Etu Suku",
       "langPair",
-      "sv - en",
+      "ruotsi - englanti",
       "expiryDate",
       "01.12.2029",
       "nextMeetingDate",

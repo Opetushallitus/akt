@@ -5,6 +5,7 @@ import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.AuthorisationTermReminder;
 import fi.oph.akt.model.Email;
 import fi.oph.akt.model.EmailType;
+import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.AuthorisationExpiryDataProjection;
 import fi.oph.akt.repository.AuthorisationTermReminderRepository;
@@ -12,6 +13,7 @@ import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.EmailRepository;
 import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
+import fi.oph.akt.service.LanguageService;
 import fi.oph.akt.util.TemplateRenderer;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -38,6 +40,9 @@ public class ClerkEmailService {
 
   @Resource
   private final EmailService emailService;
+
+  @Resource
+  private final LanguageService languageService;
 
   @Resource
   private final MeetingDateRepository meetingDateRepository;
@@ -106,7 +111,12 @@ public class ClerkEmailService {
     Optional
       .ofNullable(translator.getEmail())
       .ifPresent(recipientAddress -> {
-        final Optional<LocalDate> nextMeetingDateOption = meetingDateRepository.findNextMeetingDate();
+        final Optional<LocalDate> nextMeetingDateOption = meetingDateRepository
+          .findAllByOrderByDateDesc()
+          .stream()
+          .map(MeetingDate::getDate)
+          .filter(date -> date.isAfter(LocalDate.now()))
+          .findFirst();
 
         final String recipientName = translator.getFullName();
 
@@ -141,8 +151,13 @@ public class ClerkEmailService {
     final LocalDate expiryDate,
     final Optional<LocalDate> nextMeetingDateOption
   ) {
-    final String langPair = fromLang.toLowerCase() + " - " + toLang.toLowerCase();
+    final String langPair =
+      languageService.getFinnishLocalisation(fromLang).orElse(fromLang) +
+      " - " +
+      languageService.getFinnishLocalisation(toLang).orElse(toLang);
+
     final String expiry = expiryDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+
     final String nextMeeting = nextMeetingDateOption
       .map(date -> date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
       .orElse("<ei tiedossa>");
