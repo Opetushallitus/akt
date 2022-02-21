@@ -22,7 +22,8 @@ public interface AuthorisationRepository extends JpaRepository<Authorisation, Lo
     " JOIN aut.terms term" +
     " WHERE aut.permissionToPublish=true" +
     " AND CURRENT_DATE >= term.beginDate" +
-    " AND (CURRENT_DATE <= term.endDate OR term.endDate IS NULL)"
+    " AND (CURRENT_DATE <= term.endDate OR term.endDate IS NULL)" +
+    " GROUP BY t.id, aut.fromLang, aut.toLang"
   )
   List<TranslatorLanguagePairProjection> findTranslatorLanguagePairsForPublicListing();
 
