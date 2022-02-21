@@ -73,7 +73,7 @@ export const TEST_CONTACT_DETAILS = {
   email: 'valid@email.org',
 };
 export const TEST_MESSAGE = 'Kirjoita viestisi tähän';
-export const LONG_TEST_MESSAGE = TEST_MESSAGE.repeat(50);
+export const LONG_TEST_MESSAGE = TEST_MESSAGE.repeat(300);
 
 export const onContactRequestPage = new ContactRequestPage();
 

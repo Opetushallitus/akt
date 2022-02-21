@@ -72,7 +72,7 @@ export class Utils {
     return notifier;
   }
 
-  static getMaxTextAreaLength = () => 1000;
+  static getMaxTextAreaLength = () => 6000;
 
   static inspectCustomTextFieldErrors(
     type: TextFieldTypes,
