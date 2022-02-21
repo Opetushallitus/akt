@@ -5,6 +5,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
 import fi.oph.akt.api.dto.clerk.modify.AuthorisationCreateDTO;
+import fi.oph.akt.api.dto.clerk.modify.AuthorisationPublishPermissionDTO;
 import fi.oph.akt.api.dto.clerk.modify.AuthorisationUpdateDTO;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorCreateDTO;
 import fi.oph.akt.api.dto.clerk.modify.TranslatorUpdateDTO;
@@ -14,6 +15,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import java.util.Set;
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -96,10 +98,19 @@ public class ClerkTranslatorController {
     return clerkTranslatorService.createAuthorisation(translatorId, dto);
   }
 
+  @ConditionalOnExpression(value = "false")
   @Operation(tags = TAG_AUTHORISATION, summary = "Update authorisation")
   @PutMapping(path = "/authorisation", consumes = APPLICATION_JSON_VALUE)
   public ClerkTranslatorDTO updateAuthorisation(@RequestBody @Valid final AuthorisationUpdateDTO dto) {
     return clerkTranslatorService.updateAuthorisation(dto);
+  }
+
+  @Operation(tags = TAG_AUTHORISATION, summary = "Update authorisation publish permission")
+  @PutMapping(path = "/authorisation/publishPermission", consumes = APPLICATION_JSON_VALUE)
+  public ClerkTranslatorDTO updateAuthorisationPublishPermission(
+    @RequestBody @Valid final AuthorisationPublishPermissionDTO dto
+  ) {
+    return clerkTranslatorService.updateAuthorisationPublishPermission(dto);
   }
 
   @Operation(tags = TAG_AUTHORISATION, summary = "Delete authorisation")
