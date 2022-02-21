@@ -97,6 +97,16 @@ export const theme = createTheme({
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          '&.Mui-disabled': {
+            cursor: 'not-allowed',
+            pointerEvents: 'auto',
+          },
+        },
+      },
+    },
   },
   palette: {
     primary: {

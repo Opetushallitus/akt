@@ -1,12 +1,5 @@
 import SearchIcon from '@mui/icons-material/Search';
-import {
-  AppBar,
-  Box,
-  Button,
-  InputAdornment,
-  TextField,
-  Toolbar,
-} from '@mui/material';
+import { AppBar, Box, InputAdornment, TextField, Toolbar } from '@mui/material';
 import {
   Dispatch,
   KeyboardEvent,
@@ -20,6 +13,7 @@ import {
   sortOptionsByLabels,
   valueAsOption,
 } from 'components/elements/ComboBox';
+import { CustomButton } from 'components/elements/CustomButton';
 import { LanguageSelect } from 'components/elements/LanguageSelect';
 import { Caption, H3 } from 'components/elements/Text';
 import { ContactRequestButton } from 'components/publicTranslator/listing/ContactRequestButton';
@@ -207,14 +201,14 @@ export const PublicTranslatorFilters = ({
         className="public-translator-filters__app-bar"
       >
         <Toolbar className="space-around public-translator-filters__app-bar__tool-bar">
-          <Button
+          <CustomButton
             data-testid="public-translator-filters__empty-btn"
             color={Color.Secondary}
             variant={Variant.Outlined}
             onClick={handleEmptyBtnClick}
           >
             {t('buttons.newSearch')}
-          </Button>
+          </CustomButton>
           <ContactRequestButton />
         </Toolbar>
       </AppBar>
@@ -239,6 +233,7 @@ export const PublicTranslatorFilters = ({
               {...getComboBoxAttributes(SearchFilter.FromLang)}
               showError={hasError(SearchFilter.FromLang)}
               label={t('languagePair.fromPlaceholder')}
+              placeholder={t('languagePair.fromPlaceholder')}
               id="filters-from-lang"
               excludedLanguage={filters.toLang}
               languages={langs.from}
@@ -249,6 +244,7 @@ export const PublicTranslatorFilters = ({
               {...getComboBoxAttributes(SearchFilter.ToLang)}
               showError={hasError(SearchFilter.ToLang)}
               label={t('languagePair.toPlaceholder')}
+              placeholder={t('languagePair.toPlaceholder')}
               id="filters-to-lang"
               excludedLanguage={filters.fromLang}
               languages={langs.to}
@@ -280,6 +276,7 @@ export const PublicTranslatorFilters = ({
           <ComboBox
             data-testid="public-translator-filters__town-combobox"
             {...getComboBoxAttributes(SearchFilter.Town)}
+            placeholder={t('town.placeholder')}
             label={t('town.placeholder')}
             id="filters-town"
             values={sortOptionsByLabels(towns.map(valueAsOption))}
@@ -287,7 +284,7 @@ export const PublicTranslatorFilters = ({
         </div>
       </div>
       <div className="public-translator-filters__btn-box">
-        <Button
+        <CustomButton
           data-testid="public-translator-filters__empty-btn"
           color={Color.Secondary}
           variant={Variant.Outlined}
@@ -295,15 +292,15 @@ export const PublicTranslatorFilters = ({
           disabled={isEmptyBtnDisabled()}
         >
           {t('buttons.empty')}
-        </Button>
-        <Button
+        </CustomButton>
+        <CustomButton
           data-testid="public-translator-filters__search-btn"
           color={Color.Secondary}
           variant={Variant.Contained}
           onClick={handleSearchBtnClick}
         >
           {t('buttons.search')}
-        </Button>
+        </CustomButton>
       </div>
       {renderPhoneBottomAppBar()}
     </div>

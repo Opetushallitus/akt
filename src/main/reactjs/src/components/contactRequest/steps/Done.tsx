@@ -1,10 +1,10 @@
-import { Button } from '@mui/material';
 import { useEffect } from 'react';
 
 import {
   StepHeading,
   stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
+import { CustomButton } from 'components/elements/CustomButton';
 import { H2, Text } from 'components/elements/Text';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch } from 'configs/redux';
@@ -40,7 +40,7 @@ export const Done = () => {
         <div className="rows gapped">
           <H2>{t('title')}</H2>
           <Text>{t('description')}</Text>
-          <Button
+          <CustomButton
             className="align-self-start margin-top-xxl"
             color="secondary"
             variant="contained"
@@ -48,7 +48,7 @@ export const Done = () => {
             data-testid="contact-request-page__homepage-btn"
           >
             {translateCommon('frontPage')}
-          </Button>
+          </CustomButton>
         </div>
       </div>
     </div>

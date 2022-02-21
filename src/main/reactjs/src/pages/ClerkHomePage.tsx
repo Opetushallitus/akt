@@ -1,10 +1,11 @@
-import { Button, Divider, Grid, Paper } from '@mui/material';
+import { Divider, Grid, Paper } from '@mui/material';
 import { FC, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 import { ClerkTranslatorAutocompleteFilters } from 'components/clerkTranslator/ClerkTranslatorAutocompleteFilters';
 import { ClerkTranslatorListing } from 'components/clerkTranslator/ClerkTranslatorListing';
 import { ClerkTranslatorToggleFilters } from 'components/clerkTranslator/ClerkTranslatorToggleFilters';
+import { CustomButton } from 'components/elements/CustomButton';
+import { CustomButtonLink } from 'components/elements/CustomButtonLink';
 import { H1, H2, Text } from 'components/elements/Text';
 import { ClerkHomePageSkeleton } from 'components/skeletons/ClerkHomePageSkeleton';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
@@ -28,23 +29,22 @@ export const ClerkHomePageControlButtons = () => {
 
   return (
     <>
-      <Button
+      <CustomButton
         color={Color.Secondary}
         variant={Variant.Outlined}
         onClick={() => dispatch(resetClerkTranslatorFilters)}
       >
         {t('emptyBtn')}
-      </Button>
-      <Button
+      </CustomButton>
+      <CustomButtonLink
         data-testid="clerk-translator-registry__send-email-btn"
-        component={Link}
         to={AppRoutes.ClerkSendEmailPage}
         color={Color.Secondary}
         variant={Variant.Contained}
         disabled={sendEmailButtonDisabled}
       >
         {t('sendEmail')}
-      </Button>
+      </CustomButtonLink>
     </>
   );
 };

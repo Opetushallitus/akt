@@ -2,8 +2,9 @@ import {
   ArrowBackIosOutlined as BackIcon,
   LogoutOutlined as LogoutIcon,
 } from '@mui/icons-material';
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 
+import { CustomButton } from 'components/elements/CustomButton';
 import { useAppTranslation } from 'configs/i18n';
 import { AppRoutes, Variant } from 'enums/app';
 import { ExternalRoutes } from 'enums/external';
@@ -19,13 +20,13 @@ export const ClerkHeaderButtons = () => {
 
   return (
     <>
-      <Button
+      <CustomButton
         href={ExternalRoutes.ClerkOpintopolkuHomePage}
         variant={Variant.Outlined}
         startIcon={<BackIcon />}
       >
         {t('backToOph')}
-      </Button>
+      </CustomButton>
       <IconButton href={generateLogoutURL()}>
         <LogoutIcon />
         {t('logOut')}

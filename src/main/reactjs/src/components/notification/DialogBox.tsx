@@ -1,5 +1,4 @@
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -7,6 +6,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 
+import { CustomButton } from 'components/elements/CustomButton';
 import { Text } from 'components/elements/Text';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { Dialog as DialogType } from 'interfaces/notifier';
@@ -57,14 +57,14 @@ export const DialogBox = () => {
           </DialogContent>
           <DialogActions>
             {activeDialog.actions?.map((a, i) => (
-              <Button
+              <CustomButton
                 key={i}
                 variant={a.variant}
                 color="secondary"
                 onClick={() => dispatchAction(a.action, activeDialog.id)}
               >
                 {a.title}
-              </Button>
+              </CustomButton>
             ))}
           </DialogActions>
         </Dialog>

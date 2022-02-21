@@ -1,5 +1,4 @@
-import { Button } from '@mui/material';
-
+import { CustomButton } from 'components/elements/CustomButton';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { Color, Variant } from 'enums/app';
@@ -37,7 +36,7 @@ export const ClerkTranslatorToggleFilters = () => {
   return (
     <>
       {countsForStatuses.map(({ count, status }, i) => (
-        <Button
+        <CustomButton
           key={i}
           data-testid={`clerk-translator-filters__btn--${status}`}
           color={Color.Secondary}
@@ -48,7 +47,7 @@ export const ClerkTranslatorToggleFilters = () => {
             <div className="grow">{t(status)}</div>
             <div>{`(${count})`}</div>
           </div>
-        </Button>
+        </CustomButton>
       ))}
     </>
   );

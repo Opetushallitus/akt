@@ -1,7 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import {
-  Button,
   Table,
   TableBody,
   TableCell,
@@ -9,6 +8,7 @@ import {
   TableRow,
 } from '@mui/material';
 
+import { CustomButton } from 'components/elements/CustomButton';
 import { H3, Text } from 'components/elements/Text';
 import {
   useAppTranslation,
@@ -36,14 +36,14 @@ export const AuthorisationDetails = ({
     <>
       <div className="columns margin-top-xxl">
         <H3 className="grow">{t('header')}</H3>
-        <Button
+        <CustomButton
           data-testid="clerk-translator-overview__authorisation-details__add-btn"
           variant={Variant.Contained}
           color={Color.Secondary}
           startIcon={<AddIcon />}
         >
           {t('buttons.add')}
-        </Button>
+        </CustomButton>
       </div>
       <Table
         size="small"

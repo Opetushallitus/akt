@@ -1,5 +1,4 @@
-import { Button } from '@mui/material';
-
+import { CustomButton } from 'components/elements/CustomButton';
 import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
@@ -46,13 +45,13 @@ export const ClerkTranslatorDetails = ({
     <>
       <div className="columns margin-top-lg">
         <H3 className="grow">{t('header.personalInformation')}</H3>
-        <Button
+        <CustomButton
           data-testid="clerk-translator-overview__translator-details__edit-btn"
           variant={Variant.Contained}
           color={Color.Secondary}
         >
           {translateCommon('edit')}
-        </Button>
+        </CustomButton>
       </div>
       <div className="grid-columns gapped">
         {renderTranslatorField('lastName')}
