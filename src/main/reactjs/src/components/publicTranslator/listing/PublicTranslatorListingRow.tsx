@@ -78,15 +78,21 @@ export const PublicTranslatorListingRow = ({
       <div className="rows gapped">
         <H2>{`${lastName} ${firstName}`}</H2>
         <div className="columns gapped space-between">
-          <div className="rows">
-            <H3>{t('pages.translator.languagePairs')}</H3>
-            {languagePairs.map(({ from, to }, k) => (
-              <Text key={k}>
-                {translateLanguage(from)}
-                {` - `}
-                {translateLanguage(to)}
-              </Text>
-            ))}
+          <div className="rows gapped">
+            <div>
+              <H3>{t('pages.translator.languagePairs')}</H3>
+              {languagePairs.map(({ from, to }, k) => (
+                <Text key={k}>
+                  {translateLanguage(from)}
+                  {` - `}
+                  {translateLanguage(to)}
+                </Text>
+              ))}
+            </div>
+            <div>
+              <H3>{t('pages.translator.town')}</H3>
+              <Text>{getTownDescription(town, country)}</Text>
+            </div>
           </div>
           <Checkbox
             className="public-translator-listing__checkbox"
@@ -96,10 +102,6 @@ export const PublicTranslatorListingRow = ({
               'aria-label': checkboxAriaLabel,
             }}
           />
-        </div>
-        <div className="rows">
-          <H3>{t('pages.translator.town')}</H3>
-          <Text>{getTownDescription(town, country)}</Text>
         </div>
       </div>
     </TableCell>
