@@ -22,6 +22,13 @@ const translatorCountsByAuthorisationStatus = {
 };
 
 describe('ClerkHomePage', () => {
+  it('should allow navigating between register and meeting dates view', () => {
+    onClerkHomePage.expectTotalTranslatorsCount(100);
+    onClerkHomePage.navigateClerkNavTabMeetingDates();
+    onClerkHomePage.expectClerkHeaderToBe('Kokouspäivät');
+    onClerkHomePage.navigateClerkNavTabRegister();
+  });
+
   it('should display correct number of translators in its header', () => {
     onClerkHomePage.expectTotalTranslatorsCount(100);
   });

@@ -4,6 +4,9 @@ import { AuthorisationBasis } from 'interfaces/authorisation';
 
 class ClerkHomePage {
   elements = {
+    clerkNavTabRegister: () => cy.findByTestId('clerk-nav-tab__register'),
+    clerkNavTabMeetingDates: () =>
+      cy.findByTestId('clerk-nav-tab__meeting-dates'),
     registryHeading: () =>
       cy.findByTestId('clerk-translator-registry__heading'),
     authorisationStatusButton: (status: AuthorisationStatus) =>
@@ -33,6 +36,10 @@ class ClerkHomePage {
     this.elements
       .registryHeading()
       .should('contain.text', `Rekisteri(${count})`);
+  }
+
+  expectClerkHeaderToBe(title: string) {
+    this.elements.registryHeading().should('contain.text', title);
   }
 
   expectSelectedTranslatorsCount(count: number) {
@@ -69,6 +76,14 @@ class ClerkHomePage {
 
   sendEmail() {
     this.elements.sendEmailButton().click();
+  }
+
+  navigateClerkNavTabRegister() {
+    this.elements.clerkNavTabRegister().click();
+  }
+
+  navigateClerkNavTabMeetingDates() {
+    this.elements.clerkNavTabMeetingDates().click();
   }
 
   selectTranslatorById(id: string) {

@@ -30,10 +30,15 @@ export const ClerkNavTabs = ({
       aria-label={t('tabsLabel')}
     >
       <Tab
+        data-testid={'clerk-nav-tab__register'}
         value={HeaderNav.Register}
         label={translateCommon(HeaderNav.Register)}
       />
-      <Tab value={HeaderNav.MeetingDates} label={t(HeaderNav.MeetingDates)} />
+      <Tab
+        data-testid={'clerk-nav-tab__meeting-dates'}
+        value={HeaderNav.MeetingDates}
+        label={t(HeaderNav.MeetingDates)}
+      />
     </Tabs>
   );
 };
