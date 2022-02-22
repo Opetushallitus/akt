@@ -1,16 +1,20 @@
+import { Typography } from '@mui/material';
+import { useEffect } from 'react';
+
 import { Done } from 'components/contactRequest/steps/Done';
 import { FillContactDetails } from 'components/contactRequest/steps/FillContactDetails';
 import { PreviewAndSend } from 'components/contactRequest/steps/PreviewAndSend';
 import { VerifySelectedTranslators } from 'components/contactRequest/steps/VerifySelectedTranslators';
 import { WriteMessage } from 'components/contactRequest/steps/WriteMessage';
 import { CustomTextField } from 'components/elements/CustomTextField';
-import { H1, H3, Text } from 'components/elements/Text';
+import { H3, Text } from 'components/elements/Text';
 import {
   useAppTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { ContactRequestFormStep } from 'enums/contactRequest';
+import { useFocus } from 'hooks/useFocus';
 import { useWindowProperties } from 'hooks/useWindowProperties';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import {
@@ -117,15 +121,23 @@ export const StepHeading = ({ step }: { step: string }) => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm.steps',
   });
-
+  const [ref, setFocus] = useFocus<HTMLSpanElement>();
   const { isPhone } = useWindowProperties();
+
+  useEffect(() => {
+    if (!isPhone) {
+      setFocus();
+    }
+  }, [setFocus, isPhone]);
 
   return !isPhone ? (
     <div
       className="contact-request-page__heading"
       data-testid={`contact-request-page__step-heading-${step}`}
     >
-      <H1>{t(step)}</H1>
+      <Typography variant="h1" ref={ref} tabIndex={0}>
+        {t(step)}
+      </Typography>
     </div>
   ) : (
     <></>
