@@ -9,6 +9,18 @@
     @include app-bar-bottom;
   }
 
+  & &__stepper {
+    &__step--disabled {
+      svg {
+        color: $color-grey-700;
+      }
+
+      span {
+        color: $color-grey-700;
+      }
+    }
+  }
+
   & &__grid {
     margin-top: 3rem;
 

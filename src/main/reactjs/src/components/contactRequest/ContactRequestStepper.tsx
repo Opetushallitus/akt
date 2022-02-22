@@ -23,9 +23,17 @@ export const ContactRequestStepper = () => {
     <CircularStepper value={value} text={text} size={90} />
   ) : (
     <Stepper className="contact-request-page__stepper" activeStep={activeStep}>
-      {Object.values(stepsByIndex).map((v) => (
+      {Object.values(stepsByIndex).map((v, i) => (
         <Step key={v}>
-          <StepLabel>{t(v)}</StepLabel>
+          <StepLabel
+            className={
+              activeStep < i
+                ? 'contact-request-page__stepper__step--disabled'
+                : undefined
+            }
+          >
+            {t(v)}
+          </StepLabel>
         </Step>
       ))}
     </Stepper>
