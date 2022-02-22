@@ -203,9 +203,9 @@ public class ClerkEmailServiceTest {
 
   @Test
   public void testCreateAuthorisationExpiryEmail() {
-    // TODO: we should explicitly set system time for this test
     final MeetingDate meetingDate1 = Factory.meetingDate(LocalDate.of(2020, 1, 10));
-    final MeetingDate meetingDate2 = Factory.meetingDate(LocalDate.of(2030, 1, 10));
+    final MeetingDate meetingDate2 = Factory.meetingDate(LocalDate.of(2050, 1, 10));
+    final MeetingDate meetingDate3 = Factory.meetingDate(LocalDate.of(2060, 1, 10));
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate1);
     final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
@@ -216,10 +216,11 @@ public class ClerkEmailServiceTest {
 
     authorisation.setFromLang("SV");
     authorisation.setToLang("EN");
-    authorisationTerm.setEndDate(LocalDate.of(2029, 12, 1));
+    authorisationTerm.setEndDate(LocalDate.of(2049, 12, 1));
 
     entityManager.persist(meetingDate1);
     entityManager.persist(meetingDate2);
+    entityManager.persist(meetingDate3);
     entityManager.persist(translator);
     entityManager.persist(authorisation);
     entityManager.persist(authorisationTerm);
@@ -230,15 +231,15 @@ public class ClerkEmailServiceTest {
       "langPair",
       "ruotsi - englanti",
       "expiryDate",
-      "01.12.2029",
+      "01.12.2049",
       "nextMeetingDate",
-      "10.01.2030",
+      "10.01.2050",
       "contactEmail",
       "auktoris.lautakunta@oph.fi"
     );
 
     when(templateRenderer.renderAuthorisationExpiryEmailBody(expectedTemplateParams))
-      .thenReturn("Auktorisointisi päättyy 01.12.2029");
+      .thenReturn("Auktorisointisi päättyy 01.12.2049");
 
     clerkEmailService.createAuthorisationExpiryEmail(authorisationTerm.getId());
 
@@ -249,14 +250,13 @@ public class ClerkEmailServiceTest {
     assertEquals("Etu Suku", emailData.recipientName());
     assertEquals("etu.suku@invalid", emailData.recipientAddress());
     assertEquals("Auktorisointisi on päättymässä", emailData.subject());
-    assertEquals("Auktorisointisi päättyy 01.12.2029", emailData.body());
+    assertEquals("Auktorisointisi päättyy 01.12.2049", emailData.body());
 
     verify(authorisationTermReminderRepository).save(any());
   }
 
   @Test
   public void testCreateAuthorisationExpiryEmailWithoutUpcomingMeetingDates() {
-    // TODO: we should explicitly set system time for this test
     final MeetingDate meetingDate = Factory.meetingDate(LocalDate.of(2020, 1, 10));
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
@@ -268,7 +268,7 @@ public class ClerkEmailServiceTest {
 
     authorisation.setFromLang("SV");
     authorisation.setToLang("EN");
-    authorisationTerm.setEndDate(LocalDate.of(2029, 12, 1));
+    authorisationTerm.setEndDate(LocalDate.of(2049, 12, 1));
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
@@ -281,15 +281,15 @@ public class ClerkEmailServiceTest {
       "langPair",
       "ruotsi - englanti",
       "expiryDate",
-      "01.12.2029",
+      "01.12.2049",
       "nextMeetingDate",
-      "<ei tiedossa>",
+      "[ei tiedossa]",
       "contactEmail",
       "auktoris.lautakunta@oph.fi"
     );
 
     when(templateRenderer.renderAuthorisationExpiryEmailBody(expectedTemplateParams))
-      .thenReturn("Auktorisointisi päättyy 01.12.2029");
+      .thenReturn("Auktorisointisi päättyy 01.12.2049");
 
     clerkEmailService.createAuthorisationExpiryEmail(authorisationTerm.getId());
 
@@ -297,7 +297,7 @@ public class ClerkEmailServiceTest {
 
     final EmailData emailData = emailDataCaptor.getValue();
 
-    assertEquals("Auktorisointisi päättyy 01.12.2029", emailData.body());
+    assertEquals("Auktorisointisi päättyy 01.12.2049", emailData.body());
   }
 
   @Test

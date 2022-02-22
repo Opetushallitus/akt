@@ -44,6 +44,16 @@ class TemplateRendererTest {
   }
 
   @Test
+  public void testAuthorisationExpiryTemplateIsRenderedProperlyWhenNextMeetingDateIsNotKnown() {
+    final String renderedContent = templateRenderer.renderAuthorisationExpiryEmailBody(
+      Map.of("nextMeetingDate", "[ei tiedossa]")
+    );
+
+    assertNotNull(renderedContent);
+    assertTrue(renderedContent.contains("[ei tiedossa]"));
+  }
+
+  @Test
   public void testContactRequestClerkTemplateIsRendered() {
     final String renderedContent = templateRenderer.renderContactRequestClerkEmailBody(
       Map.of(

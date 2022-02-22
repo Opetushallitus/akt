@@ -3,7 +3,8 @@ package fi.oph.akt.service;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fi.oph.akt.util.Localisation;
+import fi.oph.akt.util.localisation.Language;
+import fi.oph.akt.util.localisation.Localisation;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -11,13 +12,17 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
 import lombok.NonNull;
-import org.springframework.cache.annotation.Cacheable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LanguageService {
+
+  private static final Logger LOG = LoggerFactory.getLogger(LanguageService.class);
 
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -33,25 +38,44 @@ public class LanguageService {
     SIGN_LANGUAGE
   );
 
-  public Set<String> listKoodistoLangCodes() {
-    return getKoodistoLocalisationsMap().keySet();
-  }
+  private static Map<String, Localisation> koodistoLocalisationsByLangCodes;
 
-  public Optional<String> getFinnishLocalisation(final String code) {
-    return getKoodistoLocalisationsMap().get(code).fi();
-  }
-
-  @Cacheable("koodistoLocalisationsMap")
-  public Map<String, Localisation> getKoodistoLocalisationsMap() {
+  @PostConstruct
+  public void init() {
     try (final InputStream is = new ClassPathResource("koodisto/koodisto_kielet.json").getInputStream()) {
       final List<KoodistoLang> koodistoLangs = deserializeJson(is)
         .stream()
         .filter(k -> !IGNORED_LANGUAGE_CODES.contains(k.koodiArvo))
         .toList();
 
-      return koodistoLangs.stream().collect(Collectors.toMap(KoodistoLang::koodiArvo, this::getLocalisation));
+      koodistoLocalisationsByLangCodes =
+        koodistoLangs.stream().collect(Collectors.toMap(KoodistoLang::koodiArvo, this::getLocalisation));
     } catch (final IOException e) {
       throw new RuntimeException(e);
+    }
+  }
+
+  public Set<String> listKoodistoLangCodes() {
+    return koodistoLocalisationsByLangCodes.keySet();
+  }
+
+  public Optional<String> getLocalisationValue(final String langCode, final Language language) {
+    final Localisation localisation = koodistoLocalisationsByLangCodes.get(langCode);
+
+    switch (language) {
+      case FI -> {
+        return localisation.fi();
+      }
+      case SV -> {
+        return localisation.sv();
+      }
+      case EN -> {
+        return localisation.en();
+      }
+      default -> {
+        LOG.warn("Unknown language: " + language);
+        return Optional.empty();
+      }
     }
   }
 
@@ -59,7 +83,7 @@ public class LanguageService {
     return OBJECT_MAPPER.readValue(is, new TypeReference<>() {});
   }
 
-  private Localisation getLocalisation(KoodistoLang koodistoLang) {
+  private Localisation getLocalisation(final KoodistoLang koodistoLang) {
     return Localisation
       .builder()
       .fi(findLocalisationValue(koodistoLang, "FI"))
@@ -68,7 +92,7 @@ public class LanguageService {
       .build();
   }
 
-  private Optional<String> findLocalisationValue(KoodistoLang koodistoLang, String lang) {
+  private Optional<String> findLocalisationValue(final KoodistoLang koodistoLang, final String lang) {
     return koodistoLang.metadata
       .stream()
       .filter(metaData -> metaData.kieli.equals(lang))

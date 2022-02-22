@@ -15,6 +15,7 @@ import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.service.LanguageService;
 import fi.oph.akt.util.TemplateRenderer;
+import fi.oph.akt.util.localisation.Language;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -28,6 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class ClerkEmailService {
+
+  private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
   @Resource
   private final AuthorisationTermReminderRepository authorisationTermReminderRepository;
@@ -111,23 +114,15 @@ public class ClerkEmailService {
     Optional
       .ofNullable(translator.getEmail())
       .ifPresent(recipientAddress -> {
-        final Optional<LocalDate> nextMeetingDateOption = meetingDateRepository
-          .findAllByOrderByDateDesc()
-          .stream()
-          .map(MeetingDate::getDate)
-          .filter(date -> date.isAfter(LocalDate.now()))
-          .findFirst();
-
         final String recipientName = translator.getFullName();
 
         final String emailSubject = "Auktorisointisi on päättymässä";
 
         final String emailBody = getAuthorisationExpiryEmailBody(
-          translator.getFullName(),
+          recipientName,
           expiryData.fromLang(),
           expiryData.toLang(),
-          authorisationTerm.getEndDate(),
-          nextMeetingDateOption
+          authorisationTerm.getEndDate()
         );
 
         final Long emailId = createEmail(
@@ -146,21 +141,21 @@ public class ClerkEmailService {
 
   private String getAuthorisationExpiryEmailBody(
     final String translatorName,
-    final String fromLang,
-    final String toLang,
-    final LocalDate expiryDate,
-    final Optional<LocalDate> nextMeetingDateOption
+    final String fromLangCode,
+    final String toLangCode,
+    final LocalDate expiryDate
   ) {
     final String langPair =
-      languageService.getFinnishLocalisation(fromLang).orElse(fromLang) +
+      languageService.getLocalisationValue(fromLangCode, Language.FI).orElse(fromLangCode) +
       " - " +
-      languageService.getFinnishLocalisation(toLang).orElse(toLang);
+      languageService.getLocalisationValue(toLangCode, Language.FI).orElse(toLangCode);
 
-    final String expiry = expiryDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-
-    final String nextMeeting = nextMeetingDateOption
-      .map(date -> date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
-      .orElse("<ei tiedossa>");
+    final Optional<LocalDate> nextMeetingDateOption = meetingDateRepository
+      .findAllByOrderByDateAsc()
+      .stream()
+      .map(MeetingDate::getDate)
+      .filter(date -> date.isAfter(LocalDate.now()))
+      .findFirst();
 
     final Map<String, Object> templateParams = Map.of(
       "translatorName",
@@ -168,14 +163,18 @@ public class ClerkEmailService {
       "langPair",
       langPair,
       "expiryDate",
-      expiry,
+      formatDate(expiryDate),
       "nextMeetingDate",
-      nextMeeting,
+      nextMeetingDateOption.map(this::formatDate).orElse("[ei tiedossa]"),
       "contactEmail",
       "auktoris.lautakunta@oph.fi"
     );
 
     return templateRenderer.renderAuthorisationExpiryEmailBody(templateParams);
+  }
+
+  private String formatDate(final LocalDate date) {
+    return date.format(DATE_FORMATTER);
   }
 
   private void createAuthorisationTermReminder(final AuthorisationTerm authorisationTerm, final Email email) {

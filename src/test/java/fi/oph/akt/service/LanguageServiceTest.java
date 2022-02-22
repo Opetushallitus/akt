@@ -4,13 +4,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import fi.oph.akt.util.localisation.Language;
 import java.util.Optional;
 import java.util.Set;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class LanguageServiceTest {
 
-  private final LanguageService languageService = new LanguageService();
+  private LanguageService languageService;
+
+  @BeforeEach
+  public void setup() {
+    languageService = new LanguageService();
+    languageService.init();
+  }
 
   @Test
   public void testListKoodistoLangCodes() {
@@ -26,10 +34,17 @@ class LanguageServiceTest {
   }
 
   @Test
-  public void testGetFinnishLocalisation() {
-    final Optional<String> localisation = languageService.getFinnishLocalisation("SV");
+  public void testGetLocalisationValue() {
+    final Optional<String> fi = languageService.getLocalisationValue("SV", Language.FI);
+    final Optional<String> sv = languageService.getLocalisationValue("SV", Language.SV);
+    final Optional<String> en = languageService.getLocalisationValue("SV", Language.EN);
 
-    assertTrue(localisation.isPresent());
-    assertEquals("ruotsi", localisation.get());
+    assertTrue(fi.isPresent());
+    assertTrue(sv.isPresent());
+    assertTrue(en.isPresent());
+
+    assertEquals("ruotsi", fi.get());
+    assertEquals("svenska", sv.get());
+    assertEquals("Swedish", en.get());
   }
 }
