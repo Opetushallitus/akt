@@ -107,6 +107,15 @@ export const theme = createTheme({
         },
       },
     },
+    MuiTablePagination: {
+      styleOverrides: {
+        menuItem: {
+          '&.Mui-selected': {
+            backgroundColor: primaryLightColor,
+          },
+        },
+      },
+    },
   },
   palette: {
     primary: {

@@ -26,6 +26,10 @@
         "pagination": {
           "rowsPerPage": "Näytä sivulla"
         },
+        "accessibility": {
+          "chechboxSelectedAriaLabel": "Poista valinta",
+          "chechboxUnselectedAriaLabel": "Valitse kääntäjä"
+        },
         "selectedItems": "valittu"
       },
       "footer": {

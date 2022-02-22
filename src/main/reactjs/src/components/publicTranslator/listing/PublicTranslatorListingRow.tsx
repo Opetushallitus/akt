@@ -37,6 +37,10 @@ export const PublicTranslatorListingRow = ({
   const { isPhone } = useWindowProperties();
   const translateLanguage = useKoodistoLanguagesTranslation();
 
+  const checkboxAriaLabel = selected
+    ? t('component.table.accessibility.chechboxSelectedAriaLabel')
+    : t('component.table.accessibility.chechboxUnselectedAriaLabel');
+
   const handleRowClick = () => {
     const langFields = [SearchFilter.FromLang, SearchFilter.ToLang];
 
@@ -88,6 +92,9 @@ export const PublicTranslatorListingRow = ({
             className="public-translator-listing__checkbox"
             checked={selected}
             color={Color.Secondary}
+            inputProps={{
+              'aria-label': checkboxAriaLabel,
+            }}
           />
         </div>
         <div className="rows">
@@ -105,6 +112,9 @@ export const PublicTranslatorListingRow = ({
           className="public-translator-listing__checkbox"
           checked={selected}
           color={Color.Secondary}
+          inputProps={{
+            'aria-label': checkboxAriaLabel,
+          }}
         />
       </TableCell>
       <TableCell>
