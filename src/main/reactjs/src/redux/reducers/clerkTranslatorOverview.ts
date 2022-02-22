@@ -34,13 +34,14 @@ export const clerkTranslatorOverviewReducer: Reducer<
         },
         status: APIResponseStatus.NotStarted,
       };
-    case CLERK_TRANSLATOR_OVERVIEW_LOADING ||
-      CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS:
+    case CLERK_TRANSLATOR_OVERVIEW_LOADING:
+    case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS:
       return {
         ...state,
         status: APIResponseStatus.InProgress,
       };
-    case CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS: {
+    case CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS:
+    case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS: {
       return {
         ...state,
         selectedTranslator: {
@@ -58,8 +59,8 @@ export const clerkTranslatorOverviewReducer: Reducer<
         status: APIResponseStatus.Success,
       };
     }
-    case CLERK_TRANSLATOR_OVERVIEW_FETCH_FAIL ||
-      CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_FAIL: {
+    case CLERK_TRANSLATOR_OVERVIEW_FETCH_FAIL:
+    case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_FAIL: {
       return {
         ...state,
         status: APIResponseStatus.Error,

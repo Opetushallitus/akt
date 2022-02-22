@@ -1,4 +1,7 @@
+import { APIEndpoints } from 'enums/api';
 import { AppRoutes } from 'enums/app';
+import { ClerkTranslator } from 'interfaces/clerkTranslator';
+import { onToast } from 'tests/cypress/support/page-objects/toast';
 
 class ClerkTranslatorOverviewPage {
   elements = {
@@ -13,6 +16,14 @@ class ClerkTranslatorOverviewPage {
     editTranslatorInfoBtn: () =>
       cy.findByTestId(
         'clerk-translator-overview__translator-details__edit-btn'
+      ),
+    cancelTranslatorInfoBtn: () =>
+      cy.findByTestId(
+        'clerk-translator-overview__translator-details__cancel-btn'
+      ),
+    saveTranslatorInfoBtn: () =>
+      cy.findByTestId(
+        'clerk-translator-overview__translator-details__save-btn'
       ),
     contentContainer: () =>
       cy.get('.clerk-translator-overview-page__content-container'),
@@ -31,7 +42,27 @@ class ClerkTranslatorOverviewPage {
   }
 
   navigateBackToRegister() {
-    this.elements.backToRegisterBtn().click();
+    this.elements.backToRegisterBtn().should('be.visible').click();
+  }
+
+  clickEditTranslatorInfoBtn() {
+    this.elements.editTranslatorInfoBtn().should('be.visible').click();
+  }
+
+  clickCancelTranslatorInfoBtn() {
+    this.elements.cancelTranslatorInfoBtn().should('be.visible').click();
+  }
+
+  clickSaveTranslatorInfoBtn() {
+    this.elements.saveTranslatorInfoBtn().should('be.visible').click();
+  }
+
+  editTranslatorField(fieldName: string, fieldType: string, newValue) {
+    this.elements
+      .translatorDetailsField(fieldName, fieldType)
+      .clear()
+      .should('have.text', '')
+      .type(newValue);
   }
 
   expectTranslatorDetailsFieldValue(
@@ -63,10 +94,113 @@ class ClerkTranslatorOverviewPage {
   }
 
   expectTranslatorNotFoundText() {
-    this.elements
-      .contentContainer()
-      .should('contain.text', 'Valittua kääntäjää ei löytynyt');
+    onToast.expectText('Valittua kääntäjää ei löytynyt');
+  }
+
+  expectMode(mode: string) {
+    cy.location().should((loc) => {
+      expect(loc.search).to.eq(`?mode=${mode}`);
+    });
+  }
+
+  expectTranslatorDetailsFields(translator: ClerkTranslator) {
+    const fields = [
+      { field: 'firstName', fieldType: 'input' },
+      { field: 'lastName', fieldType: 'input' },
+      { field: 'identityNumber', fieldType: 'input' },
+      { field: 'email', fieldType: 'input' },
+      { field: 'phoneNumber', fieldType: 'input' },
+      { field: 'street', fieldType: 'input' },
+      { field: 'postalCode', fieldType: 'input' },
+      { field: 'town', fieldType: 'input' },
+      { field: 'country', fieldType: 'input' },
+      { field: 'extraInformation', fieldType: 'textarea' },
+    ];
+
+    fields.forEach(({ field, fieldType }) => {
+      const expectedValue = translator[field] ? translator[field] : '';
+
+      onClerkTranslatorOverviewPage.expectTranslatorDetailsFieldValue(
+        field,
+        fieldType,
+        expectedValue
+      );
+      onClerkTranslatorOverviewPage.expectDisabledTranslatorDetailsField(
+        field,
+        fieldType
+      );
+    });
+  }
+
+  expectTranslatorAuthorisationDetails(translator: ClerkTranslator) {
+    translator.authorisations.forEach((a) => {
+      onClerkTranslatorOverviewPage.expectAuthorisationRowToHaveText(
+        a.id,
+        a.diaryNumber
+      );
+    });
   }
 }
+
+// Helpers
+export const existingTranslator = {
+  id: 2,
+  version: 0,
+  firstName: 'Ilkka',
+  lastName: 'Eskola',
+  identityNumber: 'id2',
+  email: 'translator2@example.invalid',
+  phoneNumber: '+358401000002',
+  street: 'Sibeliuksenkuja 3',
+  postalCode: '06100',
+  town: 'Hämeenlinna',
+  country: 'SUOMI',
+  authorisations: [
+    {
+      id: 2,
+      version: 0,
+      languagePair: {
+        from: 'SEIN',
+        to: 'CS',
+      },
+      basis: 'AUT',
+      diaryNumber: '2',
+      autDate: '2022-02-01',
+      assuranceDate: '2022-02-01',
+      meetingDate: '2021-12-20',
+      terms: [
+        {
+          id: 9,
+          version: 0,
+          beginDate: '2022-01-01',
+          endDate: '2022-01-17',
+        },
+      ],
+      permissionToPublish: true,
+    },
+    {
+      id: 7266,
+      version: 0,
+      languagePair: {
+        from: 'CS',
+        to: 'SEIN',
+      },
+      basis: 'AUT',
+      diaryNumber: '7266',
+      autDate: '2022-02-01',
+      assuranceDate: '2022-02-01',
+      meetingDate: '2021-12-20',
+      terms: [
+        {
+          id: 6923,
+          version: 0,
+          beginDate: '2022-01-01',
+          endDate: '2022-01-17',
+        },
+      ],
+      permissionToPublish: true,
+    },
+  ],
+};
 
 export const onClerkTranslatorOverviewPage = new ClerkTranslatorOverviewPage();
