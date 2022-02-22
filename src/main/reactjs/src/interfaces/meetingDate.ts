@@ -7,11 +7,6 @@ import { WithVersion } from 'interfaces/withVersion';
 export interface MeetingDateResponse {
   meetingDates: Array<MeetingDate>;
 }
-
-export interface MeetingDateAPIResponse {
-  meetingDates: Array<APIMeetingDate>;
-}
-
 export interface MeetingDateFilter {
   meetingStatus: MeetingStatus;
 }
