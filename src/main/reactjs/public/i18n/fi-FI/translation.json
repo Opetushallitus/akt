@@ -27,8 +27,8 @@
           "rowsPerPage": "Näytä sivulla"
         },
         "accessibility": {
-          "chechboxSelectedAriaLabel": "Poista valinta",
-          "chechboxUnselectedAriaLabel": "Valitse kääntäjä"
+          "checkboxSelectedAriaLabel": "Poista valinta",
+          "checkboxUnselectedAriaLabel": "Valitse kääntäjä"
         },
         "selectedItems": "valittu"
       },

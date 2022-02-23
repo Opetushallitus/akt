@@ -38,8 +38,8 @@ export const PublicTranslatorListingRow = ({
   const translateLanguage = useKoodistoLanguagesTranslation();
 
   const checkboxAriaLabel = selected
-    ? t('component.table.accessibility.chechboxSelectedAriaLabel')
-    : t('component.table.accessibility.chechboxUnselectedAriaLabel');
+    ? t('component.table.accessibility.checkboxSelectedAriaLabel')
+    : t('component.table.accessibility.checkboxUnselectedAriaLabel');
 
   const handleRowClick = () => {
     const langFields = [SearchFilter.FromLang, SearchFilter.ToLang];
