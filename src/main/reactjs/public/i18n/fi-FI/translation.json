@@ -170,7 +170,9 @@
           "fillContactDetails": "Täytä yhteystiedot",
           "writeMessage": "Kirjoita viesti",
           "previewAndSend": "Esikatsele ja lähetä",
-          "done": "Valmis!"
+          "done": "Valmis!",
+          "active": "Aktiivinen",
+          "completed": "Suoritettu"
         },
         "verifySelectedTranslatorsStep": {
           "accessibility": {
