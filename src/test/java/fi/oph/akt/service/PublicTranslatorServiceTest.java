@@ -1,6 +1,7 @@
 package fi.oph.akt.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import fi.oph.akt.Factory;
 import fi.oph.akt.api.dto.LanguagePairDTO;
@@ -8,6 +9,7 @@ import fi.oph.akt.api.dto.LanguagePairsDictDTO;
 import fi.oph.akt.api.dto.translator.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.translator.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Authorisation;
+import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
@@ -90,6 +92,25 @@ class PublicTranslatorServiceTest {
     assertEquals(1, languagePairs.size());
     assertEquals("FI", languagePairs.get(0).from());
     assertEquals("EN", languagePairs.get(0).to());
+  }
+
+  @Test
+  public void listShouldNotReturnTranslatorsWithOnlyENTVIRAuthorisations() {
+    final Translator translator = Factory.translator();
+
+    final Authorisation authorisation = Factory.authorisation(translator, null);
+    authorisation.setBasis(AuthorisationBasis.VIR);
+    authorisation.setAutDate(null);
+    authorisation.setVirDate(LocalDate.of(1990, 1, 1));
+    authorisation.setAssuranceDate(null);
+    authorisation.setPermissionToPublish(true);
+
+    entityManager.persist(translator);
+    entityManager.persist(authorisation);
+
+    final PublicTranslatorResponseDTO responseDTO = publicTranslatorService.listTranslators();
+
+    assertTrue(responseDTO.translators().isEmpty());
   }
 
   @Test
