@@ -15,7 +15,7 @@ class LanguageServiceTest {
   public void testLanguageService() {
     final Set<String> codes = languageService.allLanguageCodes();
 
-    assertEquals(196, codes.size());
+    assertEquals(198, codes.size());
     assertFalse(codes.contains(LanguageService.UNOFFICIAL_LANGUAGE));
     assertFalse(codes.contains(LanguageService.UNKNOWN_LANGUAGE));
     assertFalse(codes.contains(LanguageService.OTHER_LANGUAGE));
