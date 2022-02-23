@@ -70,8 +70,16 @@
 
     & > a {
       color: $color-secondary-dark;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      line-height: 1.9rem;
+      margin: 0;
       padding: 6px 0;
       text-transform: initial;
+      @include phone {
+        font-size: 1.5rem;
+      }
     }
 
     &:last-of-type {

@@ -61,8 +61,10 @@
         "languagePair": {
           "title": "Haku kielittäin",
           "fromPlaceholder": "Mistä *",
+          "fromAriaLabel": "Mistä, pakollinen yhteydenottamista varten",
           "fromHelperText": "Valitse kieli",
           "toPlaceholder": "Mihin *",
+          "toAriaLabel": "Mihin, pakollinen yhteydenottamista varten",
           "toHelperText": "Valitse kieli"
         },
         "name": {
