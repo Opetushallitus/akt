@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Footer from 'components/layouts/Footer';
-import Header from 'components/layouts/Header';
+import { Footer } from 'components/layouts/Footer';
+import { Header } from 'components/layouts/Header';
 import { Notifier } from 'components/notification/Notifier';
 import { AppRoutes } from 'enums/app';
+import { AccessibilityStatementPage } from 'pages/AccessibilityStatementPage';
 import { ClerkHomePage } from 'pages/clerk/ClerkHomePage';
 import { ClerkSendEmailPage } from 'pages/clerk/ClerkSendEmailPage';
 import { ClerkTranslatorOverviewPage } from 'pages/clerk/ClerkTranslatorOverviewPage';
@@ -40,6 +41,10 @@ export const AppRouter: FC = () => {
               <Route
                 path={AppRoutes.ClerkTranslatorOverviewPage}
                 element={<ClerkTranslatorOverviewPage />}
+              />
+              <Route
+                path={AppRoutes.AccessibilityStatementPage}
+                element={<AccessibilityStatementPage />}
               />
               <Route path={AppRoutes.NotFoundPage} element={<NotFoundPage />} />
             </Routes>

@@ -39,6 +39,7 @@
           },
           "aktHomepage": {
             "text": "Auktorisoidun kääntäjän tutkintojärjestelmä",
+            "ariaLabel": "Auktorisoidun kääntäjän tutkintojärjestelmä, avaa uudessa välilehdessä",
             "link": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/kieli-ja-kaantajatutkinnot/auktorisoidun-kaantajan-tutkinto"
           }
         },
@@ -53,7 +54,8 @@
         },
         "accessibility": {
           "waveAriaLabel": "Aaltoileva vektorikuvio",
-          "continueToMain": "Jatka sisältöön"
+          "continueToMain": "Jatka sisältöön",
+          "ophPhone": "Opetushallituksen puhelinnumero"
         }
       },
       "publicTranslatorFilters": {

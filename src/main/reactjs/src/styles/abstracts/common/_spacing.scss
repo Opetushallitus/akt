@@ -40,6 +40,10 @@
   gap: map-get($spacing, 'lg');
 }
 
+.gapped-xxl {
+  gap: map-get($spacing, 'xxl');
+}
+
 .gapped-sm {
   gap: map-get($spacing, 'sm');
 }

@@ -9,10 +9,12 @@ export const ExtLink: FC<ButtonProps & ExtLinkProps> = ({
   text,
   href,
   endIcon,
+  className,
   'aria-label': ariaLabel,
 }) => {
   return (
     <CustomButton
+      className={className}
       target="_blank"
       rel="noreferrer"
       color={Color.Inherit}

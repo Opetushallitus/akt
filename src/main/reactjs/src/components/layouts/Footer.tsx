@@ -1,17 +1,18 @@
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Divider, Paper } from '@mui/material';
 
+import { CustomButtonLink } from 'components/elements/CustomButtonLink';
 import { ExtLink } from 'components/elements/ExtLink';
 import { OPHLogoViewer } from 'components/elements/OPHLogoViewer';
 import { Svg } from 'components/elements/Svg';
 import { H3, Text } from 'components/elements/Text';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
-import { Direction } from 'enums/app';
+import { AppRoutes, Direction, Variant } from 'enums/app';
 import { useAuthentication } from 'hooks/useAuthentication';
 import AKTLogo from 'public/assets/svg/akt_logo.svg';
 import FooterWave from 'public/assets/svg/footer_wave.svg';
 
-const Footer = () => {
+export const Footer = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt.component.footer' });
   const translateCommon = useCommonTranslation();
   const [isClerkUI] = useAuthentication();
@@ -28,17 +29,17 @@ const Footer = () => {
           <Paper className="footer" elevation={3}>
             <div className="footer__info-row">
               <div className="footer__container footer__container--links">
-                <ExtLink
-                  text={t('links.accessibility.text')}
-                  href={t('links.accessibility.link')}
-                  endIcon={<OpenInNewIcon />}
-                  aria-label={translateCommon('newTab')}
-                />
+                <CustomButtonLink
+                  to={AppRoutes.AccessibilityStatementPage}
+                  variant={Variant.Text}
+                >
+                  {t('links.accessibility.text')}
+                </CustomButtonLink>
                 <ExtLink
                   text={t('links.aktHomepage.text')}
                   href={t('links.aktHomepage.link')}
                   endIcon={<OpenInNewIcon />}
-                  aria-label={translateCommon('newTab')}
+                  aria-label={t('links.aktHomepage.ariaLabel')}
                 />
               </div>
               <div className="footer__container footer__container--contact-details">
@@ -47,13 +48,16 @@ const Footer = () => {
                 <Text>{t('address.street')}</Text>
                 <Text>{t('address.zipCity')}</Text>
                 <br />
-                <div>
+                <div className="columns gapped-xxs">
                   <Text className="inline-text">
                     {t('address.phone.title')}
                   </Text>
-                  <Text className="inline-text bold">
-                    {t('address.phone.number')}
-                  </Text>
+                  <ExtLink
+                    className="inline-text"
+                    text={t('address.phone.number')}
+                    href={`tel:${t('address.phone.number')}`}
+                    aria-label={t('accessibility.ophPhone')}
+                  />
                 </div>
               </div>
               <div className="footer__container">
@@ -79,5 +83,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;
