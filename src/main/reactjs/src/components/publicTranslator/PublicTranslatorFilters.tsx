@@ -237,6 +237,7 @@ export const PublicTranslatorFilters = ({
               id="filters-from-lang"
               excludedLanguage={filters.toLang}
               languages={langs.from}
+              aria-label={`${t('languagePair.fromAriaLabel')}`}
               disabled={isLangFilterDisabled}
             />
             <LanguageSelect
@@ -248,6 +249,7 @@ export const PublicTranslatorFilters = ({
               id="filters-to-lang"
               excludedLanguage={filters.fromLang}
               languages={langs.to}
+              aria-label={`${t('languagePair.toAriaLabel')}`}
               disabled={isLangFilterDisabled}
             />
           </Box>
