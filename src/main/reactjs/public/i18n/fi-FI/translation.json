@@ -35,8 +35,7 @@
       "footer": {
         "links": {
           "accessibility": {
-            "text": "Saavutettavuusseloste",
-            "link": "https://www.oph.fi/fi/tietoa-meista/opetushallituksen-saavutettavuusseloste"
+            "text": "Saavutettavuusseloste"
           },
           "aktHomepage": {
             "text": "Auktorisoidun kääntäjän tutkintojärjestelmä",

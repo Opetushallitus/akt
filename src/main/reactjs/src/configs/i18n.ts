@@ -7,13 +7,16 @@ import {
 } from 'react-i18next';
 
 import { AppLanguage, I18nNamespace } from 'enums/app';
+import accessibilityEN from 'public/i18n/en-GB/accessibility.json';
 import commonEN from 'public/i18n/en-GB/common.json';
 import transEN from 'public/i18n/en-GB/translation.json';
+import accessibilityFI from 'public/i18n/fi-FI/accessibility.json';
 import commonFI from 'public/i18n/fi-FI/common.json';
 import transFI from 'public/i18n/fi-FI/translation.json';
 import koodistoLangsEN from 'public/i18n/koodisto/langs/koodisto_langs_en-GB.json';
 import koodistoLangsFI from 'public/i18n/koodisto/langs/koodisto_langs_fi-FI.json';
 import koodistoLangsSV from 'public/i18n/koodisto/langs/koodisto_langs_sv-SE.json';
+import accessibilitySV from 'public/i18n/sv-SE/accessibility.json';
 import commonSV from 'public/i18n/sv-SE/common.json';
 import transSV from 'public/i18n/sv-SE/translation.json';
 
@@ -30,16 +33,19 @@ const resources = {
   [langFI]: {
     [I18nNamespace.Common]: commonFI,
     [I18nNamespace.Translation]: transFI,
+    [I18nNamespace.Accessibility]: accessibilityFI,
     [I18nNamespace.KoodistoLanguages]: koodistoLangsFI,
   },
   [langSV]: {
     [I18nNamespace.Translation]: commonSV,
     [I18nNamespace.Translation]: transSV,
+    [I18nNamespace.Accessibility]: accessibilitySV,
     [I18nNamespace.KoodistoLanguages]: koodistoLangsSV,
   },
   [langEN]: {
     [I18nNamespace.Translation]: commonEN,
     [I18nNamespace.Translation]: transEN,
+    [I18nNamespace.Accessibility]: accessibilityEN,
     [I18nNamespace.KoodistoLanguages]: koodistoLangsEN,
   },
 };
@@ -62,15 +68,13 @@ declare module 'react-i18next' {
 }
 
 export const initI18n = () => {
-  return use(initReactI18next)
-    .use(LanguageDetector)
-    .init({
-      resources,
-      detection: detectionOptions,
-      fallbackLng: langFI,
-      load: 'currentOnly',
-      debug: process.env.NODE_ENV === 'development',
-    });
+  return use(initReactI18next).use(LanguageDetector).init({
+    resources,
+    detection: detectionOptions,
+    fallbackLng: langFI,
+    load: 'currentOnly',
+    debug: !REACT_ENV_PRODUCTION,
+  });
 };
 
 export const useAppTranslation = (
@@ -98,6 +102,17 @@ export const useCommonTranslation = () => {
       keyPrefix: 'akt.common',
     },
     I18nNamespace.Common
+  );
+
+  return t;
+};
+
+export const useAccessibilityTranslation = () => {
+  const { t } = useAppTranslation(
+    {
+      keyPrefix: 'akt.accessibility',
+    },
+    I18nNamespace.Accessibility
   );
 
   return t;
