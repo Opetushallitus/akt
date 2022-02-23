@@ -15,7 +15,8 @@
       "send": "Lähetä",
       "edit": "Muokkaa",
       "delete": "Poista",
-      "loadingContent": "Sisältöä ladataan"
+      "loadingContent": "Sisältöä ladataan",
+      "phase": "Vaihe"
     }
   }
 }

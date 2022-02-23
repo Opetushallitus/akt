@@ -19,7 +19,7 @@ export const PreviewAndSend = () => {
 
   return (
     <div className="rows">
-      <StepHeading step={stepsByIndex[3]} />
+      <StepHeading stepIdx={3} step={stepsByIndex[3]} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         <ChosenTranslators />

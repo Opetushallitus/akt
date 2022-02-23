@@ -172,6 +172,11 @@
           "previewAndSend": "Esikatsele ja lähetä",
           "done": "Valmis!"
         },
+        "verifySelectedTranslatorsStep": {
+          "accessibility": {
+            "deselectTranslator": "Poista kääntäjä"
+          }
+        },
         "doneStep": {
           "title": "Yhteydenottopyyntösi on lähetetty ja sinuun ollaan yhteydessä.",
           "description": "Tämä sivu ohjaa sinut automaattisesti takaisin etusivulle. Jos mitään ei tapahdu voit klikata alla olevasta napista."

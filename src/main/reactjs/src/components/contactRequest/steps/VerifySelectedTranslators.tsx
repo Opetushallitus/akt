@@ -8,6 +8,7 @@ import {
   stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
 import { Text } from 'components/elements/Text';
+import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { removeSelectedTranslator } from 'redux/actions/publicTranslator';
 import { selectedPublicTranslatorsForLanguagePair } from 'redux/selectors/publicTranslator';
@@ -17,6 +18,9 @@ export const VerifySelectedTranslators = ({
 }: {
   disableNext: (disabled: boolean) => void;
 }) => {
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.contactRequestForm.verifySelectedTranslatorsStep',
+  });
   const translators = useAppSelector(selectedPublicTranslatorsForLanguagePair);
   const dispatch = useAppDispatch();
 
@@ -30,7 +34,7 @@ export const VerifySelectedTranslators = ({
 
   return (
     <div className="rows">
-      <StepHeading step={stepsByIndex[0]} />
+      <StepHeading stepIdx={0} step={stepsByIndex[0]} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         {translators.map(({ id, firstName, lastName }) => (
@@ -42,7 +46,16 @@ export const VerifySelectedTranslators = ({
             <Text>
               {firstName} {lastName}
             </Text>
-            <IconButton onClick={() => deselectTranslator(id)}>
+            <IconButton
+              aria-label={
+                t('accessibility.deselectTranslator') +
+                ': ' +
+                firstName +
+                ' ' +
+                lastName
+              }
+              onClick={() => deselectTranslator(id)}
+            >
               <DeleteOutlineIcon className="contact-request-page__delete-outline-icon" />
             </IconButton>
           </div>

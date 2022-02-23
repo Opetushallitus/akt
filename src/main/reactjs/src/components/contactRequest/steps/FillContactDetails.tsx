@@ -93,7 +93,7 @@ export const FillContactDetails = ({
 
   return (
     <div className="rows">
-      <StepHeading step={stepsByIndex[1]} />
+      <StepHeading stepIdx={1} step={stepsByIndex[1]} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         <ChosenTranslators />

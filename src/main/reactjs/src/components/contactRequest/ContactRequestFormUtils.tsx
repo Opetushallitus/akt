@@ -10,6 +10,7 @@ import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3, Text } from 'components/elements/Text';
 import {
   useAppTranslation,
+  useCommonTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
@@ -117,12 +118,24 @@ export const DisplayContactInfo = () => {
 };
 
 // StepHeading is not shown on mobile devices
-export const StepHeading = ({ step }: { step: string }) => {
+export const StepHeading = ({
+  stepIdx,
+  step,
+}: {
+  stepIdx: number;
+  step: string;
+}) => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm.steps',
   });
+  const translateCommon = useCommonTranslation();
+
   const [ref, setFocus] = useFocus<HTMLSpanElement>();
   const { isPhone } = useWindowProperties();
+  const numberOfSteps = Object.keys(stepsByIndex).length;
+  const headingAriaLabel = `${translateCommon('phase')} ${
+    stepIdx + 1
+  }/${numberOfSteps}: ${t(step)}`;
 
   useEffect(() => {
     if (!isPhone) {
@@ -135,7 +148,12 @@ export const StepHeading = ({ step }: { step: string }) => {
       className="contact-request-page__heading"
       data-testid={`contact-request-page__step-heading-${step}`}
     >
-      <Typography variant="h1" ref={ref} tabIndex={0}>
+      <Typography
+        variant="h1"
+        aria-label={headingAriaLabel}
+        ref={ref}
+        tabIndex={0}
+      >
         {t(step)}
       </Typography>
     </div>

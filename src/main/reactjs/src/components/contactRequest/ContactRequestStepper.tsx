@@ -20,7 +20,12 @@ export const ContactRequestStepper = () => {
   const value = currentStep * (100 / maxStep);
 
   return isPhone ? (
-    <CircularStepper value={value} text={text} size={90} />
+    <CircularStepper
+      value={value}
+      phaseText={text}
+      phaseDescription={t(stepsByIndex[activeStep])}
+      size={90}
+    />
   ) : (
     <Stepper className="contact-request-page__stepper" activeStep={activeStep}>
       {Object.values(stepsByIndex).map((v, i) => (

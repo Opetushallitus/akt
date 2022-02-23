@@ -35,7 +35,7 @@ export const Done = () => {
 
   return (
     <div className="rows">
-      <StepHeading step={stepsByIndex[4]} />
+      <StepHeading stepIdx={4} step={stepsByIndex[4]} />
       <div className="rows gapped">
         <div className="rows gapped">
           <H2>{t('title')}</H2>

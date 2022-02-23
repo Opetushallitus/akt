@@ -79,7 +79,7 @@ export const WriteMessage = ({
 
   return (
     <div className="rows">
-      <StepHeading step={stepsByIndex[2]} />
+      <StepHeading stepIdx={2} step={stepsByIndex[2]} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         <ChosenTranslators />
