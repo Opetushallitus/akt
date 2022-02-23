@@ -93,7 +93,7 @@ class ClerkTranslatorServiceTest {
 
   @BeforeEach
   public void setup() {
-    MeetingDateService meetingDateService = new MeetingDateService(meetingDateRepository, auditService);
+    final MeetingDateService meetingDateService = new MeetingDateService(meetingDateRepository, auditService);
 
     clerkTranslatorService =
       new ClerkTranslatorService(

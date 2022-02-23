@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MeetingDateRepository extends JpaRepository<MeetingDate, Long> {
+  List<MeetingDate> findAllByOrderByDateAsc();
   List<MeetingDate> findAllByOrderByDateDesc();
 }

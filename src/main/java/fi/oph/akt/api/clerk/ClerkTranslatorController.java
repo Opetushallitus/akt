@@ -41,8 +41,8 @@ public class ClerkTranslatorController {
   private LanguageService languageService;
 
   @GetMapping(path = "/lang-codes")
-  public Set<String> allLanguageCodes() {
-    return languageService.allLanguageCodes();
+  public Set<String> listKoodistoLangCodes() {
+    return languageService.listKoodistoLangCodes();
   }
 
   // TRANSLATOR

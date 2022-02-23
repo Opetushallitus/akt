@@ -203,7 +203,7 @@ class ContactRequestServiceTest {
       emailDatas
         .stream()
         .filter(e -> e.recipientName().equals("Auktoris - OPH"))
-        .filter(e -> e.recipientAddress().equals("auktoris@oph.fi"))
+        .filter(e -> e.recipientAddress().equals("auktoris.lautakunta@oph.fi"))
         .filter(e -> e.subject().equals("Yhteydenotto kääntäjään jonka postiosoite ei tiedossa"))
         .filter(e -> e.body().equals("<html>clerk</html>"))
         .count()
