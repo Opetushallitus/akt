@@ -64,7 +64,7 @@ describe('ContactRequestPage', () => {
 
     // Verify last step is shown after dialog is closed
     expectTextForId(
-      'contact-request-page__step-heading-previewAndSend',
+      'contact-request-page__step-heading-PreviewAndSend',
       'Esikatsele ja lähetä'
     );
   });

@@ -134,7 +134,7 @@ export const StepHeading = ({ step }: { step: ContactRequestFormStep }) => {
   return !isPhone ? (
     <div
       className="contact-request-page__heading"
-      data-testid={`contact-request-page__step-heading-${step}`}
+      data-testid={`contact-request-page__step-heading-${ContactRequestFormStep[step]}`}
     >
       <Typography
         variant="h1"
