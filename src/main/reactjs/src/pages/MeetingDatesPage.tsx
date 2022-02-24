@@ -1,6 +1,7 @@
 import { Divider, Grid, Paper } from '@mui/material';
 import { FC, useEffect } from 'react';
 
+import { AddMeetingDate } from 'components/clerkTranslator/AddMeetingDate';
 import { MeetingDatesListing } from 'components/clerkTranslator/meetingDates/MeetingDatesListing';
 import { MeetingDatesToggleFilters } from 'components/clerkTranslator/meetingDates/MeetingDatesToggleFilters';
 import { H1, H2, Text } from 'components/elements/Text';
@@ -44,6 +45,9 @@ export const MeetingDatesPage: FC = () => {
             <MeetingDatesToggleFilters />
           </div>
         </div>
+      </Grid>
+      <Grid item>
+        <AddMeetingDate />
       </Grid>
       <Grid item>
         <MeetingDatesListing />

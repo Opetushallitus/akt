@@ -171,6 +171,10 @@
       "meetingDatesListing": {
         "header": "Kokouspäivä"
       },
+      "addMeetingDate": {
+        "header": "Lisää kokouspäivä",
+        "datePickerLabel": "Kokouspäivämäärä"
+      },
       "contactRequestForm": {
         "title": "Yhteydenottopyynnön jättäminen",
         "description": "Tällä yhteydenottolomakkeella voit jättää valitsemillesi kääntäjille yhteydenottopyynnön. Kirjoitathan viestiin mahdollisimman tarkan kuvauksen tarvittavasta käännöstyöstä.",
