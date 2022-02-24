@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import fi.oph.akt.Factory;
 import fi.oph.akt.api.dto.translator.ContactRequestDTO;
 import fi.oph.akt.model.Authorisation;
+import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.ContactRequest;
 import fi.oph.akt.model.ContactRequestTranslator;
 import fi.oph.akt.model.MeetingDate;
@@ -40,9 +41,11 @@ import org.springframework.security.test.context.support.WithMockUser;
 @DataJpaTest
 class ContactRequestServiceTest {
 
-  public static final String FROM_LANG = "DE";
+  private static final String FROM_LANG = "DE";
 
-  public static final String TO_LANG = "SV";
+  private static final String TO_LANG = "SV";
+
+  private static final String OTHER_LANG = "FI";
 
   private ContactRequestService contactRequestService;
 
@@ -168,12 +171,14 @@ class ContactRequestServiceTest {
     final MeetingDate meetingDate = createMeetingDate();
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
     authorisation.setFromLang(FROM_LANG);
     authorisation.setToLang(TO_LANG);
 
     entityManager.persist(translator);
     entityManager.persist(authorisation);
+    entityManager.persist(authorisationTerm);
 
     final List<Long> translatorIds = List.of(translator.getId());
 
@@ -233,8 +238,21 @@ class ContactRequestServiceTest {
   }
 
   @Test
-  public void createContactRequestShouldThrowIllegalArgumentExceptionForNonExistingTranslatorIds() {
-    final List<Long> translatorIds = List.of(0L);
+  public void createContactRequestShouldThrowIllegalArgumentExceptionIfSomeContactedTranslatorsAreNotPubliclyListed() {
+    final MeetingDate meetingDate = createMeetingDate();
+    final Translator translator = Factory.translator();
+    final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+
+    authorisation.setFromLang(FROM_LANG);
+    authorisation.setToLang(TO_LANG);
+    authorisation.setPermissionToPublish(false);
+
+    entityManager.persist(translator);
+    entityManager.persist(authorisation);
+    entityManager.persist(authorisationTerm);
+
+    final List<Long> translatorIds = List.of(translator.getId());
 
     final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, TO_LANG);
 
@@ -243,37 +261,37 @@ class ContactRequestServiceTest {
       () -> contactRequestService.createContactRequest(contactRequestDTO)
     );
 
-    assertEquals("Each translator by provided translatorIds not found", ex.getMessage());
+    assertEquals("Invalid contact request", ex.getMessage());
   }
 
   @Test
-  public void createContactRequestShouldThrowIllegalArgumentExceptionForNonExistingFromLang() {
+  public void createContactRequestShouldThrowIllegalArgumentExceptionIfSomeTranslatorsArentAuthorisedWithGivenFromLang() {
     final MeetingDate meetingDate = createMeetingDate();
     final List<Long> translatorIds = initTranslators(meetingDate, 1);
 
-    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, "xx", TO_LANG);
+    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, OTHER_LANG, TO_LANG);
 
     final IllegalArgumentException ex = assertThrows(
       IllegalArgumentException.class,
       () -> contactRequestService.createContactRequest(contactRequestDTO)
     );
 
-    assertEquals("Invalid fromLang xx", ex.getMessage());
+    assertEquals("Invalid contact request", ex.getMessage());
   }
 
   @Test
-  public void createContactRequestShouldThrowIllegalArgumentExceptionForNonExistingToLang() {
+  public void createContactRequestShouldThrowIllegalArgumentExceptionIfSomeTranslatorsArentAuthorisedWithGivenToLang() {
     final MeetingDate meetingDate = createMeetingDate();
     final List<Long> translatorIds = initTranslators(meetingDate, 1);
 
-    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, "xx");
+    final ContactRequestDTO contactRequestDTO = createContactRequestDTO(translatorIds, FROM_LANG, OTHER_LANG);
 
     final IllegalArgumentException ex = assertThrows(
       IllegalArgumentException.class,
       () -> contactRequestService.createContactRequest(contactRequestDTO)
     );
 
-    assertEquals("Invalid toLang xx", ex.getMessage());
+    assertEquals("Invalid contact request", ex.getMessage());
   }
 
   private MeetingDate createMeetingDate() {
@@ -298,8 +316,11 @@ class ContactRequestServiceTest {
         authorisation.setFromLang(FROM_LANG);
         authorisation.setToLang(TO_LANG);
 
+        final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+
         entityManager.persist(translator);
         entityManager.persist(authorisation);
+        entityManager.persist(authorisationTerm);
 
         translatorIds.add(translator.getId());
       });
