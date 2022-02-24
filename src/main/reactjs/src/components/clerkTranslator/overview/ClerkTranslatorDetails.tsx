@@ -1,6 +1,6 @@
 import EditIcon from '@mui/icons-material/Edit';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { URLSearchParamsInit, useSearchParams } from 'react-router-dom';
 
 import { CustomButton } from 'components/elements/CustomButton';
 import { CustomTextField } from 'components/elements/CustomTextField';
@@ -25,6 +25,12 @@ export const ClerkTranslatorDetails = () => {
 
   // React router
   const [searchParams, setSearchParams] = useSearchParams();
+  const replaceSearchParams = useCallback(
+    (param: URLSearchParamsInit) => {
+      setSearchParams(param, { replace: true });
+    },
+    [setSearchParams]
+  );
 
   // Local State
   const [translatorDetails, setTranslatorDetails] =
@@ -44,9 +50,9 @@ export const ClerkTranslatorDetails = () => {
 
   useEffect(() => {
     if (!currentMode) {
-      setSearchParams({ mode: Mode.View });
+      replaceSearchParams({ mode: Mode.View });
     }
-  }, [currentMode, setSearchParams]);
+  }, [currentMode, replaceSearchParams]);
 
   useEffect(() => {
     if (
@@ -59,7 +65,7 @@ export const ClerkTranslatorDetails = () => {
         t('toasts.updated')
       );
       dispatch(showNotifierToast(toast));
-      setSearchParams({ mode: Mode.View });
+      replaceSearchParams({ mode: Mode.View });
     }
   });
 
@@ -89,11 +95,11 @@ export const ClerkTranslatorDetails = () => {
   };
 
   const handleEditBtnClick = () => {
-    setSearchParams({ mode: Mode.EditingTranslatorDetails });
+    replaceSearchParams({ mode: Mode.EditingTranslatorDetails });
   };
 
   const handleCancelBtnClick = () => {
-    setSearchParams({ mode: Mode.View });
+    replaceSearchParams({ mode: Mode.View });
   };
 
   const renderControlButtons = () => (

@@ -2,6 +2,7 @@
   "baseUrl": "http://localhost:4000",
   "video": false,
   "defaultCommandTimeout": 15000,
+  "chromeWebSecurity": false,
   "retries": 1,
   "fixturesFolder": "./src/tests/cypress/fixtures",
   "integrationFolder": "./src/tests/cypress/integration",

@@ -1,5 +1,5 @@
 import { APIEndpoints } from 'enums/api';
-import { Mode } from 'enums/app';
+import { AppRoutes, Mode } from 'enums/app';
 import { onClerkHomePage } from 'tests/cypress/support/page-objects/clerkHomePage';
 import { onClerkTranslatorOverviewPage } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
 import { useFixedDate } from 'tests/cypress/support/utils/date';
@@ -71,5 +71,15 @@ describe('ClerkTranslatorOverview:Page', () => {
 
     cy.wait(['@getClerkTranslators']);
     onClerkHomePage.expectTotalTranslatorsCount(100);
+  });
+
+  it('should go back onto the clerk home page when the back button of the browser is clicked', () => {
+    cy.openClerkHomePage();
+    cy.wait('@getClerkTranslators');
+    onClerkHomePage.clickTranslatorOverviewLink(existingTranslatorId);
+
+    cy.goBack();
+
+    cy.isOnPage(AppRoutes.ClerkHomePage);
   });
 });
