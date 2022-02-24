@@ -12,10 +12,12 @@ import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.service.email.EmailData;
 import fi.oph.akt.service.email.EmailService;
 import fi.oph.akt.util.TemplateRenderer;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import lombok.RequiredArgsConstructor;
@@ -46,10 +48,11 @@ public class ContactRequestService {
 
   @Transactional
   public ContactRequest createContactRequest(final ContactRequestDTO contactRequestDTO) {
-    final List<Long> distinctTranslatorIds = contactRequestDTO.translatorIds().stream().distinct().toList();
-    final List<Translator> translators = translatorRepository.findAllById(distinctTranslatorIds);
+    final Set<Long> translatorIds = new HashSet<>(contactRequestDTO.translatorIds());
 
-    validateContactRequestDTO(contactRequestDTO, distinctTranslatorIds, translators);
+    validateContactRequestDTO(contactRequestDTO, translatorIds);
+
+    final List<Translator> translators = translatorRepository.findAllById(translatorIds);
 
     final ContactRequest contactRequest = saveContactRequest(contactRequestDTO);
     saveContactRequestTranslators(translators, contactRequest);
@@ -58,23 +61,17 @@ public class ContactRequestService {
     return contactRequest;
   }
 
-  private void validateContactRequestDTO(
-    final ContactRequestDTO contactRequestDTO,
-    final List<Long> translatorIds,
-    final List<Translator> translators
-  ) {
-    if (translators.size() != translatorIds.size()) {
-      throw new IllegalArgumentException("Each translator by provided translatorIds not found");
-    }
+  private void validateContactRequestDTO(final ContactRequestDTO contactRequestDTO, final Set<Long> translatorIds) {
+    final long publicTranslatorsCountByContactRequest = authorisationRepository
+      .findTranslatorLanguagePairsForPublicListing()
+      .stream()
+      .filter(tlp -> translatorIds.contains(tlp.translatorId()))
+      .filter(tlp -> tlp.fromLang().equals(contactRequestDTO.fromLang()))
+      .filter(tlp -> tlp.toLang().equals(contactRequestDTO.toLang()))
+      .count();
 
-    final List<String> fromLangs = authorisationRepository.getDistinctFromLangs();
-    if (!fromLangs.contains(contactRequestDTO.fromLang())) {
-      throw new IllegalArgumentException("Invalid fromLang " + contactRequestDTO.fromLang());
-    }
-
-    final List<String> toLangs = authorisationRepository.getDistinctToLangs();
-    if (!toLangs.contains(contactRequestDTO.toLang())) {
-      throw new IllegalArgumentException("Invalid toLang " + contactRequestDTO.toLang());
+    if (publicTranslatorsCountByContactRequest != translatorIds.size()) {
+      throw new IllegalArgumentException("Invalid contact request");
     }
   }
 
