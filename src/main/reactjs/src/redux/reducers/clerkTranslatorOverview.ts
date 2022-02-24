@@ -17,7 +17,9 @@ import {
 } from 'redux/actionTypes/clerkTranslatorOverview';
 
 const defaultState = {
-  status: APIResponseStatus.NotStarted,
+  overviewStatus: APIResponseStatus.NotStarted,
+  translatorDetailsStatus: APIResponseStatus.NotStarted,
+  authorisationDetailsStatus: APIResponseStatus.NotStarted,
   selectedTranslator: undefined,
 };
 
@@ -35,35 +37,42 @@ export const clerkTranslatorOverviewReducer: Reducer<
         status: APIResponseStatus.NotStarted,
       };
     case CLERK_TRANSLATOR_OVERVIEW_LOADING:
+      return {
+        ...state,
+        overviewStatus: APIResponseStatus.InProgress,
+      };
     case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS:
       return {
         ...state,
-        status: APIResponseStatus.InProgress,
+        translatorDetailsStatus: APIResponseStatus.InProgress,
       };
     case CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS:
-    case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS: {
       return {
         ...state,
         selectedTranslator: {
           ...(action.translator as ClerkTranslator),
         },
-        status: APIResponseStatus.Success,
+        overviewStatus: APIResponseStatus.Success,
       };
-    }
     case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS: {
       return {
         ...state,
         selectedTranslator: {
           ...(action.translator as ClerkTranslator),
         },
-        status: APIResponseStatus.Success,
+        overviewStatus: APIResponseStatus.Success,
+        translatorDetailsStatus: APIResponseStatus.Success,
       };
     }
     case CLERK_TRANSLATOR_OVERVIEW_FETCH_FAIL:
+      return {
+        ...state,
+        overviewStatus: APIResponseStatus.Error,
+      };
     case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_FAIL: {
       return {
         ...state,
-        status: APIResponseStatus.Error,
+        translatorDetailsStatus: APIResponseStatus.Error,
       };
     }
     default:

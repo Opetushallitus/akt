@@ -134,8 +134,8 @@ export enum Direction {
   Vertical = 'vertical',
 }
 
-export enum Mode {
+export enum UIMode {
   View = 'view',
-  EditingTranslatorDetails = 'editingTranslatorDetails',
-  EditingAuthorizationDetails = 'editingAuthorizationDetails',
+  EditTranslatorDetails = 'editTranslatorDetails',
+  EditAuthorizationDetails = 'editAuthorizationDetails',
 }

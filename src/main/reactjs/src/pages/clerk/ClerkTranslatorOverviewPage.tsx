@@ -21,9 +21,7 @@ export const ClerkTranslatorOverviewPage = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt' });
   // Redux
   const dispatch = useAppDispatch();
-  const { status: clerkTranslatorOverviewAPIStatus } = useAppSelector(
-    clerkTranslatorOverviewSelector
-  );
+  const { overviewStatus } = useAppSelector(clerkTranslatorOverviewSelector);
   const { selectedTranslator } = useAppSelector(
     clerkTranslatorOverviewSelector
   );
@@ -32,19 +30,18 @@ export const ClerkTranslatorOverviewPage = () => {
   const params = useParams();
 
   const isLoading =
-    clerkTranslatorOverviewAPIStatus === APIResponseStatus.InProgress ||
-    !selectedTranslator;
+    overviewStatus === APIResponseStatus.InProgress || !selectedTranslator;
 
   useEffect(() => {
     if (
-      clerkTranslatorOverviewAPIStatus === APIResponseStatus.NotStarted &&
+      overviewStatus === APIResponseStatus.NotStarted &&
       !selectedTranslator &&
       params.translatorId
     ) {
       // Fetch translator overview
       dispatch(fetchClerkTranslatorOverview(+params.translatorId));
     } else if (
-      clerkTranslatorOverviewAPIStatus === APIResponseStatus.Error ||
+      overviewStatus === APIResponseStatus.Error ||
       !Number(params.translatorId)
     ) {
       // Show an error
@@ -56,7 +53,7 @@ export const ClerkTranslatorOverviewPage = () => {
       navigate(AppRoutes.ClerkHomePage);
     }
   }, [
-    clerkTranslatorOverviewAPIStatus,
+    overviewStatus,
     dispatch,
     navigate,
     params.translatorId,

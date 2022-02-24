@@ -8,7 +8,7 @@ import { H3 } from 'components/elements/Text';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
-import { Color, Mode, Severity, Variant } from 'enums/app';
+import { Color, Severity, UIMode, Variant } from 'enums/app';
 import { usePrevious } from 'hooks/usePrevious';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import { updateClerkTranslatorDetails } from 'redux/actions/clerkTranslatorOverview';
@@ -19,7 +19,7 @@ import { Utils } from 'utils';
 export const ClerkTranslatorDetails = () => {
   // Redux
   const dispatch = useAppDispatch();
-  const { selectedTranslator, status } = useAppSelector(
+  const { selectedTranslator, translatorDetailsStatus } = useAppSelector(
     clerkTranslatorOverviewSelector
   );
 
@@ -35,11 +35,11 @@ export const ClerkTranslatorDetails = () => {
   // Local State
   const [translatorDetails, setTranslatorDetails] =
     useState(selectedTranslator);
-  const currentMode = searchParams.get('mode');
+  const currentUIMode = searchParams.get('mode');
   const prevTranslatorDetails = usePrevious(translatorDetails);
   const isViewMode =
-    currentMode === Mode.View ||
-    currentMode === Mode.EditingAuthorizationDetails;
+    currentUIMode === UIMode.View ||
+    currentUIMode === UIMode.EditAuthorizationDetails;
 
   // I18n
   const { t } = useAppTranslation({
@@ -49,15 +49,15 @@ export const ClerkTranslatorDetails = () => {
   const translateCommon = useCommonTranslation();
 
   useEffect(() => {
-    if (!currentMode) {
-      replaceSearchParams({ mode: Mode.View });
+    if (!currentUIMode) {
+      replaceSearchParams({ mode: UIMode.View });
     }
-  }, [currentMode, replaceSearchParams]);
+  }, [currentUIMode, replaceSearchParams]);
 
   useEffect(() => {
     if (
-      status === APIResponseStatus.Success &&
-      currentMode === Mode.EditingTranslatorDetails &&
+      translatorDetailsStatus === APIResponseStatus.Success &&
+      currentUIMode === UIMode.EditTranslatorDetails &&
       selectedTranslator?.version != prevTranslatorDetails?.version
     ) {
       const toast = Utils.createNotifierToast(
@@ -65,7 +65,7 @@ export const ClerkTranslatorDetails = () => {
         t('toasts.updated')
       );
       dispatch(showNotifierToast(toast));
-      replaceSearchParams({ mode: Mode.View });
+      replaceSearchParams({ mode: UIMode.View });
     }
   });
 
@@ -74,18 +74,18 @@ export const ClerkTranslatorDetails = () => {
     disabled: isViewMode,
     label: t(`translatorDetails.fields.${field}`),
     onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      handletranslatorDetailsChange(e)(field),
+      handleTranslatorDetailsChange(e)(field),
     value: translatorDetails ? translatorDetails[field] : undefined,
   });
 
-  const handletranslatorDetailsChange =
+  const handleTranslatorDetailsChange =
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     (field: keyof ClerkTranslator) => {
-      const updatedtranslatorDetails = {
+      const updatedTranslatorDetails = {
         ...translatorDetails,
         [field]: event.target.value,
       };
-      setTranslatorDetails(updatedtranslatorDetails as ClerkTranslator);
+      setTranslatorDetails(updatedTranslatorDetails as ClerkTranslator);
     };
 
   const handleSaveBtnClick = () => {
@@ -95,11 +95,11 @@ export const ClerkTranslatorDetails = () => {
   };
 
   const handleEditBtnClick = () => {
-    replaceSearchParams({ mode: Mode.EditingTranslatorDetails });
+    replaceSearchParams({ mode: UIMode.EditTranslatorDetails });
   };
 
   const handleCancelBtnClick = () => {
-    replaceSearchParams({ mode: Mode.View });
+    replaceSearchParams({ mode: UIMode.View });
   };
 
   const renderControlButtons = () => (
@@ -166,7 +166,6 @@ export const ClerkTranslatorDetails = () => {
         {...getCommonTextFieldProps('extraInformation')}
         multiline
         fullWidth
-        rows={4}
       />
     </>
   );

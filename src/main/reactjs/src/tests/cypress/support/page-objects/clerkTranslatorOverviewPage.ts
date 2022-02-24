@@ -1,4 +1,3 @@
-import { APIEndpoints } from 'enums/api';
 import { AppRoutes } from 'enums/app';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import { onToast } from 'tests/cypress/support/page-objects/toast';

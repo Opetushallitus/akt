@@ -1,5 +1,5 @@
 import { APIEndpoints } from 'enums/api';
-import { AppRoutes, Mode } from 'enums/app';
+import { AppRoutes, UIMode } from 'enums/app';
 import { onClerkHomePage } from 'tests/cypress/support/page-objects/clerkHomePage';
 import { onClerkTranslatorOverviewPage } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
 import { useFixedDate } from 'tests/cypress/support/utils/date';
@@ -48,7 +48,7 @@ describe('ClerkTranslatorOverview:Page', () => {
 
     onClerkTranslatorOverviewPage.expectedEnabledAddAuthorisationButton();
     onClerkTranslatorOverviewPage.expectEnabledEditTranslatorInfoBtn();
-    onClerkTranslatorOverviewPage.expectMode(Mode.View);
+    onClerkTranslatorOverviewPage.expectMode(UIMode.View);
     onClerkTranslatorOverviewPage.expectTranslatorDetailsFields(
       existingTranslator
     );

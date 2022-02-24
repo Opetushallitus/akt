@@ -1,5 +1,5 @@
 import { APIEndpoints } from 'enums/api';
-import { Mode } from 'enums/app';
+import { UIMode } from 'enums/app';
 import {
   existingTranslator,
   onClerkTranslatorOverviewPage,
@@ -37,7 +37,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
 
     onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();
 
-    onClerkTranslatorOverviewPage.expectMode(Mode.EditingTranslatorDetails);
+    onClerkTranslatorOverviewPage.expectMode(UIMode.EditTranslatorDetails);
   });
 
   it('should return to view mode when the cancel button is clicked', () => {
@@ -47,7 +47,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();
     onClerkTranslatorOverviewPage.clickCancelTranslatorInfoBtn();
 
-    onClerkTranslatorOverviewPage.expectMode(Mode.View);
+    onClerkTranslatorOverviewPage.expectMode(UIMode.View);
   });
 
   it('should update translator details successfully', () => {
@@ -67,7 +67,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     onClerkTranslatorOverviewPage.clickSaveTranslatorInfoBtn();
     cy.wait('@updateClerkTranslatorOverview');
 
-    onClerkTranslatorOverviewPage.expectMode(Mode.View);
+    onClerkTranslatorOverviewPage.expectMode(UIMode.View);
     onClerkTranslatorOverviewPage.expectTranslatorDetailsFieldValue(
       fieldName,
       fieldType,
