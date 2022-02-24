@@ -199,7 +199,6 @@ export const ClerkSendEmailPage = () => {
             <CustomTextField
               data-testid="clerk-send-email-page__message"
               label={t('pages.clerkSendEmailPage.labels.message')}
-              rows={5}
               value={email.body}
               onChange={handleMessageChange}
               onBlur={handleFieldError('message')}

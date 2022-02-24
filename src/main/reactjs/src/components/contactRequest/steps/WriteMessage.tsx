@@ -103,7 +103,6 @@ export const WriteMessage = ({
             onChange={handleMessageFieldChange}
             showHelperText
             helperText={getHelperMessage()}
-            rows={5}
             error={fieldError.length > 0}
             multiline
             fullWidth
