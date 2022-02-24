@@ -166,11 +166,11 @@
         "title": "Yhteydenottopyynnön jättäminen",
         "description": "Tällä yhteydenottolomakkeella voit jättää valitsemillesi kääntäjille yhteydenottopyynnön. Kirjoitathan viestiin mahdollisimman tarkan kuvauksen tarvittavasta käännöstyöstä.",
         "steps": {
-          "verifySelectedTranslators": "Vahvista kääntäjät",
-          "fillContactDetails": "Täytä yhteystiedot",
-          "writeMessage": "Kirjoita viesti",
-          "previewAndSend": "Esikatsele ja lähetä",
-          "done": "Valmis!",
+          "VerifyTranslators": "Vahvista kääntäjät",
+          "FillContactDetails": "Täytä yhteystiedot",
+          "WriteMessage": "Kirjoita viesti",
+          "PreviewAndSend": "Esikatsele ja lähetä",
+          "Done": "Valmis!",
           "active": "Aktiivinen",
           "completed": "Suoritettu"
         },

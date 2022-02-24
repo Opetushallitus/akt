@@ -1,6 +1,5 @@
 import { Step, StepLabel, Stepper } from '@mui/material';
 
-import { stepsByIndex } from 'components/contactRequest/ContactRequestFormUtils';
 import { CircularStepper } from 'components/elements/CircularStepper';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
@@ -16,14 +15,14 @@ export const ContactRequestStepper = () => {
   });
   const translateCommon = useCommonTranslation();
   const phasePrefix = translateCommon('phase');
-
-  const maxStep = Object.keys(stepsByIndex).length;
-  const currentStep = activeStep + 1;
-  const text = `${currentStep}/${maxStep}`;
-  const value = currentStep * (100 / maxStep);
-  const stepAriaLabel = (step: ContactRequestFormStep) => {
-    const phaseDescription = t(stepsByIndex[step]);
-    const phaseNumberPart = `${step + 1}/${maxStep}`;
+  const stepNumbers = Object.values(ContactRequestFormStep)
+    .filter((v) => !isNaN(Number(v)))
+    .map(Number);
+  const maxStep = Math.max(...stepNumbers);
+  const value = activeStep * (100 / maxStep);
+  const stepAriaLabel = (step: number) => {
+    const phaseDescription = t(ContactRequestFormStep[step]);
+    const phaseNumberPart = `${step}/${maxStep}`;
     if (step < activeStep) {
       return `${phasePrefix} ${phaseNumberPart}, ${t(
         'completed'
@@ -36,27 +35,28 @@ export const ContactRequestStepper = () => {
       return `${phasePrefix} ${phaseNumberPart}: ${phaseDescription}`;
     }
   };
+  const text = `${activeStep}/${maxStep}`;
 
   return isPhone ? (
     <CircularStepper
       value={value}
       phaseText={text}
-      phaseDescription={t(stepsByIndex[activeStep])}
+      phaseDescription={t(ContactRequestFormStep[activeStep])}
       size={90}
     />
   ) : (
     <Stepper className="contact-request-page__stepper" activeStep={activeStep}>
-      {Object.values(stepsByIndex).map((v, i) => (
+      {stepNumbers.map((v) => (
         <Step key={v}>
           <StepLabel
-            aria-label={stepAriaLabel(i)}
+            aria-label={stepAriaLabel(v)}
             className={
-              activeStep < i
+              activeStep < v
                 ? 'contact-request-page__stepper__step--disabled'
                 : undefined
             }
           >
-            {t(v)}
+            {t(ContactRequestFormStep[v])}
           </StepLabel>
         </Step>
       ))}

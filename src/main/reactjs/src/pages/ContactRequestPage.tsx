@@ -1,10 +1,7 @@
 import { Grid, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import {
-  StepContents,
-  stepsByIndex,
-} from 'components/contactRequest/ContactRequestFormUtils';
+import { StepContents } from 'components/contactRequest/ContactRequestFormUtils';
 import { ContactRequestStepper } from 'components/contactRequest/ContactRequestStepper';
 import { ControlButtons } from 'components/contactRequest/ControlButtons';
 import { HeaderSeparator } from 'components/elements/HeaderSeparator';
@@ -66,10 +63,11 @@ export const ContactRequestPage = () => {
       <div className="contact-request-page__grid__stepper-container columns gapped">
         <ContactRequestStepper />
         <div className="rows">
-          <H1>{t(`steps.${stepsByIndex[activeStep]}`)}</H1>
-          {stepsByIndex[nextStep] && (
+          <H1>{t(`steps.${ContactRequestFormStep[activeStep]}`)}</H1>
+          {ContactRequestFormStep[nextStep] && (
             <Text>
-              {translateCommon('next')}: {t(`steps.${stepsByIndex[nextStep]}`)}
+              {translateCommon('next')}:{' '}
+              {t(`steps.${ContactRequestFormStep[nextStep]}`)}
             </Text>
           )}
         </div>

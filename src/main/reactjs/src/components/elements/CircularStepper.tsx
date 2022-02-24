@@ -14,8 +14,9 @@ export const CircularStepper = ({
   phaseDescription: string;
 }) => {
   const translateCommon = useCommonTranslation();
-  const ariaLabel =
-    translateCommon('phase') + ' ' + phaseText + ': ' + phaseDescription;
+  const ariaLabel = `${translateCommon(
+    'phase'
+  )} ${phaseText}: ${phaseDescription}`;
 
   return (
     <div className="circular-stepper">

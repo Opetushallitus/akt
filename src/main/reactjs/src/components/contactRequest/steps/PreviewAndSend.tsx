@@ -3,12 +3,12 @@ import {
   ChosenTranslatorsHeading,
   DisplayContactInfo,
   StepHeading,
-  stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
 import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
+import { ContactRequestFormStep } from 'enums/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 
 export const PreviewAndSend = () => {
@@ -19,7 +19,7 @@ export const PreviewAndSend = () => {
 
   return (
     <div className="rows">
-      <StepHeading stepIdx={3} step={stepsByIndex[3]} />
+      <StepHeading step={ContactRequestFormStep.PreviewAndSend} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         <ChosenTranslators />

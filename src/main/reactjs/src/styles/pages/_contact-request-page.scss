@@ -11,11 +11,8 @@
 
   & &__stepper {
     &__step--disabled {
+      span,
       svg {
-        color: $color-grey-700;
-      }
-
-      span {
         color: $color-grey-700;
       }
     }

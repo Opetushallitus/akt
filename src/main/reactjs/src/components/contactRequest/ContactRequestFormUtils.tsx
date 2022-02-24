@@ -23,14 +23,6 @@ import {
   selectedPublicTranslatorsForLanguagePair,
 } from 'redux/selectors/publicTranslator';
 
-export const stepsByIndex = {
-  0: 'verifySelectedTranslators',
-  1: 'fillContactDetails',
-  2: 'writeMessage',
-  3: 'previewAndSend',
-  4: 'done',
-};
-
 export const ChosenTranslatorsHeading = () => {
   const { filters } = useAppSelector(publicTranslatorsSelector);
   const { activeStep } = useAppSelector(contactRequestSelector);
@@ -118,13 +110,7 @@ export const DisplayContactInfo = () => {
 };
 
 // StepHeading is not shown on mobile devices
-export const StepHeading = ({
-  stepIdx,
-  step,
-}: {
-  stepIdx: number;
-  step: string;
-}) => {
+export const StepHeading = ({ step }: { step: ContactRequestFormStep }) => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm.steps',
   });
@@ -132,10 +118,12 @@ export const StepHeading = ({
 
   const [ref, setFocus] = useFocus<HTMLSpanElement>();
   const { isPhone } = useWindowProperties();
-  const numberOfSteps = Object.keys(stepsByIndex).length;
-  const headingAriaLabel = `${translateCommon('phase')} ${
-    stepIdx + 1
-  }/${numberOfSteps}: ${t(step)}`;
+  const numberOfSteps = Object.values(ContactRequestFormStep).filter(
+    (v) => !isNaN(Number(v))
+  ).length;
+  const headingAriaLabel = `${translateCommon(
+    'phase'
+  )} ${step}/${numberOfSteps}: ${t(ContactRequestFormStep[step])}`;
 
   useEffect(() => {
     if (!isPhone) {
@@ -154,7 +142,7 @@ export const StepHeading = ({
         ref={ref}
         tabIndex={0}
       >
-        {t(step)}
+        {t(ContactRequestFormStep[step])}
       </Typography>
     </div>
   ) : (
