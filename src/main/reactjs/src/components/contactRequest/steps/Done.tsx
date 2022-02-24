@@ -1,14 +1,12 @@
 import { useEffect } from 'react';
 
-import {
-  StepHeading,
-  stepsByIndex,
-} from 'components/contactRequest/ContactRequestFormUtils';
+import { StepHeading } from 'components/contactRequest/ContactRequestFormUtils';
 import { CustomButton } from 'components/elements/CustomButton';
 import { H2, Text } from 'components/elements/Text';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch } from 'configs/redux';
 import { Duration } from 'enums/app';
+import { ContactRequestFormStep } from 'enums/contactRequest';
 import { resetContactRequestAndRedirect } from 'redux/actions/contactRequest';
 
 export const Done = () => {
@@ -35,7 +33,7 @@ export const Done = () => {
 
   return (
     <div className="rows">
-      <StepHeading step={stepsByIndex[4]} />
+      <StepHeading step={ContactRequestFormStep.Done} />
       <div className="rows gapped">
         <div className="rows gapped">
           <H2>{t('title')}</H2>

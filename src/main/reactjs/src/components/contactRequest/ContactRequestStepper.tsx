@@ -1,9 +1,9 @@
 import { Step, StepLabel, Stepper } from '@mui/material';
 
-import { stepsByIndex } from 'components/contactRequest/ContactRequestFormUtils';
 import { CircularStepper } from 'components/elements/CircularStepper';
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
+import { ContactRequestFormStep } from 'enums/contactRequest';
 import { useWindowProperties } from 'hooks/useWindowProperties';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 
@@ -13,19 +13,51 @@ export const ContactRequestStepper = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm.steps',
   });
-
-  const maxStep = Object.keys(stepsByIndex).length;
-  const currentStep = activeStep + 1;
-  const text = `${currentStep}/${maxStep}`;
-  const value = currentStep * (100 / maxStep);
+  const translateCommon = useCommonTranslation();
+  const phasePrefix = translateCommon('phase');
+  const stepNumbers = Object.values(ContactRequestFormStep)
+    .filter((v) => !isNaN(Number(v)))
+    .map(Number);
+  const maxStep = Math.max(...stepNumbers);
+  const value = activeStep * (100 / maxStep);
+  const stepAriaLabel = (step: number) => {
+    const phaseDescription = t(ContactRequestFormStep[step]);
+    const phaseNumberPart = `${step}/${maxStep}`;
+    if (step < activeStep) {
+      return `${phasePrefix} ${phaseNumberPart}, ${t(
+        'completed'
+      )}: ${phaseDescription}`;
+    } else if (step == activeStep) {
+      return `${phasePrefix} ${phaseNumberPart}, ${t(
+        'active'
+      )}: ${phaseDescription}`;
+    } else {
+      return `${phasePrefix} ${phaseNumberPart}: ${phaseDescription}`;
+    }
+  };
+  const text = `${activeStep}/${maxStep}`;
 
   return isPhone ? (
-    <CircularStepper value={value} text={text} size={90} />
+    <CircularStepper
+      value={value}
+      phaseText={text}
+      phaseDescription={t(ContactRequestFormStep[activeStep])}
+      size={90}
+    />
   ) : (
     <Stepper className="contact-request-page__stepper" activeStep={activeStep}>
-      {Object.values(stepsByIndex).map((v) => (
+      {stepNumbers.map((v) => (
         <Step key={v}>
-          <StepLabel>{t(v)}</StepLabel>
+          <StepLabel
+            aria-label={stepAriaLabel(v)}
+            className={
+              activeStep < v
+                ? 'contact-request-page__stepper__step--disabled'
+                : undefined
+            }
+          >
+            {t(ContactRequestFormStep[v])}
+          </StepLabel>
         </Step>
       ))}
     </Stepper>

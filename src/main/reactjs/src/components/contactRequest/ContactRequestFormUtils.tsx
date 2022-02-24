@@ -1,30 +1,27 @@
+import { Typography } from '@mui/material';
+import { useEffect } from 'react';
+
 import { Done } from 'components/contactRequest/steps/Done';
 import { FillContactDetails } from 'components/contactRequest/steps/FillContactDetails';
 import { PreviewAndSend } from 'components/contactRequest/steps/PreviewAndSend';
 import { VerifySelectedTranslators } from 'components/contactRequest/steps/VerifySelectedTranslators';
 import { WriteMessage } from 'components/contactRequest/steps/WriteMessage';
 import { CustomTextField } from 'components/elements/CustomTextField';
-import { H1, H3, Text } from 'components/elements/Text';
+import { H3, Text } from 'components/elements/Text';
 import {
   useAppTranslation,
+  useCommonTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { ContactRequestFormStep } from 'enums/contactRequest';
+import { useFocus } from 'hooks/useFocus';
 import { useWindowProperties } from 'hooks/useWindowProperties';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import {
   publicTranslatorsSelector,
   selectedPublicTranslatorsForLanguagePair,
 } from 'redux/selectors/publicTranslator';
-
-export const stepsByIndex = {
-  0: 'verifySelectedTranslators',
-  1: 'fillContactDetails',
-  2: 'writeMessage',
-  3: 'previewAndSend',
-  4: 'done',
-};
 
 export const ChosenTranslatorsHeading = () => {
   const { filters } = useAppSelector(publicTranslatorsSelector);
@@ -113,19 +110,40 @@ export const DisplayContactInfo = () => {
 };
 
 // StepHeading is not shown on mobile devices
-export const StepHeading = ({ step }: { step: string }) => {
+export const StepHeading = ({ step }: { step: ContactRequestFormStep }) => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.contactRequestForm.steps',
   });
+  const translateCommon = useCommonTranslation();
 
+  const [ref, setFocus] = useFocus<HTMLSpanElement>();
   const { isPhone } = useWindowProperties();
+  const numberOfSteps = Object.values(ContactRequestFormStep).filter(
+    (v) => !isNaN(Number(v))
+  ).length;
+  const headingAriaLabel = `${translateCommon(
+    'phase'
+  )} ${step}/${numberOfSteps}: ${t(ContactRequestFormStep[step])}`;
+
+  useEffect(() => {
+    if (!isPhone) {
+      setFocus();
+    }
+  }, [setFocus, isPhone]);
 
   return !isPhone ? (
     <div
       className="contact-request-page__heading"
-      data-testid={`contact-request-page__step-heading-${step}`}
+      data-testid={`contact-request-page__step-heading-${ContactRequestFormStep[step]}`}
     >
-      <H1>{t(step)}</H1>
+      <Typography
+        variant="h1"
+        aria-label={headingAriaLabel}
+        ref={ref}
+        tabIndex={0}
+      >
+        {t(ContactRequestFormStep[step])}
+      </Typography>
     </div>
   ) : (
     <></>

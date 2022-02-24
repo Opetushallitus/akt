@@ -1,5 +1,5 @@
 export enum ContactRequestFormStep {
-  VerifyTranslators,
+  VerifyTranslators = 1,
   FillContactDetails,
   WriteMessage,
   PreviewAndSend,

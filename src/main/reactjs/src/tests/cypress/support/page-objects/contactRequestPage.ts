@@ -105,7 +105,7 @@ export const writeMessageStep = () => {
   onContactRequestPage.next();
   onContactRequestPage.isNextDisabled();
 
-  onContactRequestPage.fillFieldByLabel(/Viesti/i, TEST_MESSAGE);
+  onContactRequestPage.fillFieldByLabel(/^Viesti/i, TEST_MESSAGE);
 
   onContactRequestPage.isNextEnabled();
 };

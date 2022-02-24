@@ -4,13 +4,13 @@ import {
   ChosenTranslators,
   ChosenTranslatorsHeading,
   StepHeading,
-  stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
 import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { TextFieldTypes } from 'enums/app';
+import { ContactRequestFormStep } from 'enums/contactRequest';
 import { ContactDetails } from 'interfaces/contactRequest';
 import { setContactRequest } from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
@@ -93,12 +93,19 @@ export const FillContactDetails = ({
 
   return (
     <div className="rows">
-      <StepHeading step={stepsByIndex[1]} />
+      <StepHeading step={ContactRequestFormStep.FillContactDetails} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         <ChosenTranslators />
         <div className="rows gapped">
-          <H3>{t('component.contactRequestForm.steps.' + stepsByIndex[1])}</H3>
+          <H3>
+            {t(
+              'component.contactRequestForm.steps.' +
+                ContactRequestFormStep[
+                  ContactRequestFormStep.FillContactDetails
+                ]
+            )}
+          </H3>
           <div className="grid-columns gapped">
             <CustomTextField
               {...getCustomTextFieldAttributes('firstName')}

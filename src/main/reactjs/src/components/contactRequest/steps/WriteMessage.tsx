@@ -5,13 +5,13 @@ import {
   ChosenTranslatorsHeading,
   DisplayContactInfo,
   StepHeading,
-  stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
 import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { TextFieldTypes } from 'enums/app';
+import { ContactRequestFormStep } from 'enums/contactRequest';
 import { useWindowProperties } from 'hooks/useWindowProperties';
 import { setContactRequest } from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
@@ -79,13 +79,19 @@ export const WriteMessage = ({
 
   return (
     <div className="rows">
-      <StepHeading step={stepsByIndex[2]} />
+      <StepHeading step={ContactRequestFormStep.WriteMessage} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
         <ChosenTranslators />
         {!isPhone && <DisplayContactInfo />}
         <div className="rows gapped">
-          <H3>{t(`component.contactRequestForm.steps.${stepsByIndex[2]}`)}</H3>
+          <H3>
+            {t(
+              `component.contactRequestForm.steps.${
+                ContactRequestFormStep[ContactRequestFormStep.WriteMessage]
+              }`
+            )}
+          </H3>
           <CustomTextField
             id="contact-request-page__message-field"
             label={t(

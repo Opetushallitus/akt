@@ -5,10 +5,11 @@ import { useEffect } from 'react';
 import {
   ChosenTranslatorsHeading,
   StepHeading,
-  stepsByIndex,
 } from 'components/contactRequest/ContactRequestFormUtils';
 import { Text } from 'components/elements/Text';
+import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { ContactRequestFormStep } from 'enums/contactRequest';
 import { removeSelectedTranslator } from 'redux/actions/publicTranslator';
 import { selectedPublicTranslatorsForLanguagePair } from 'redux/selectors/publicTranslator';
 
@@ -17,6 +18,9 @@ export const VerifySelectedTranslators = ({
 }: {
   disableNext: (disabled: boolean) => void;
 }) => {
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.contactRequestForm.verifySelectedTranslatorsStep',
+  });
   const translators = useAppSelector(selectedPublicTranslatorsForLanguagePair);
   const dispatch = useAppDispatch();
 
@@ -30,23 +34,35 @@ export const VerifySelectedTranslators = ({
 
   return (
     <div className="rows">
-      <StepHeading step={stepsByIndex[0]} />
+      <StepHeading step={ContactRequestFormStep.VerifyTranslators} />
       <div className="rows gapped">
         <ChosenTranslatorsHeading />
-        {translators.map(({ id, firstName, lastName }) => (
-          <div
-            className="columns"
-            key={id}
-            data-testid={`contact-request-page__chosen-translator-id-${id}`}
-          >
-            <Text>
-              {firstName} {lastName}
-            </Text>
-            <IconButton onClick={() => deselectTranslator(id)}>
-              <DeleteOutlineIcon className="contact-request-page__delete-outline-icon" />
-            </IconButton>
-          </div>
-        ))}
+        {translators.map(({ id, firstName, lastName }) => {
+          const ariaLabel =
+            t('accessibility.deselectTranslator') +
+            ': ' +
+            firstName +
+            ' ' +
+            lastName;
+
+          return (
+            <div
+              className="columns"
+              key={id}
+              data-testid={`contact-request-page__chosen-translator-id-${id}`}
+            >
+              <Text>
+                {firstName} {lastName}
+              </Text>
+              <IconButton
+                aria-label={ariaLabel}
+                onClick={() => deselectTranslator(id)}
+              >
+                <DeleteOutlineIcon className="contact-request-page__delete-outline-icon" />
+              </IconButton>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
