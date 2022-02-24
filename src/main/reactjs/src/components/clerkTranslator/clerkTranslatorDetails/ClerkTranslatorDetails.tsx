@@ -79,7 +79,6 @@ export const ClerkTranslatorDetails = ({
           value={translator.extraInformation}
           multiline
           fullWidth
-          rows={4}
           disabled
         />
       </div>

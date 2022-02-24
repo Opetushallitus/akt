@@ -34,7 +34,6 @@ export const PreviewAndSend = () => {
           }}
           multiline
           fullWidth
-          rows={5}
         />
       </div>
     </div>
