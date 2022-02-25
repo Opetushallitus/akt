@@ -7,6 +7,7 @@ import { clerkTranslatorEmailReducer } from 'redux/reducers/clerkTranslatorEmail
 import { clerkTranslatorOverviewReducer } from 'redux/reducers/clerkTranslatorOverview';
 import { clerkUserReducer } from 'redux/reducers/clerkUser';
 import { contactRequestReducer } from 'redux/reducers/contactRequest';
+import { meetingDateReducer } from 'redux/reducers/meetingDateReducer';
 import { notifierReducer } from 'redux/reducers/notifier';
 import { publicTranslatorReducer } from 'redux/reducers/publicTranslator';
 import { publicUIViewReducer } from 'redux/reducers/publicUIView';
@@ -27,6 +28,7 @@ export default () => {
       publicUIView: publicUIViewReducer,
       clerkUser: clerkUserReducer,
       notifier: notifierReducer,
+      meetingDate: meetingDateReducer,
     }),
     composeEnhancers(middlewareEnhancer)
   );

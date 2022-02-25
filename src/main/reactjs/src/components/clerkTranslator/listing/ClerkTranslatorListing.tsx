@@ -36,39 +36,23 @@ import {
 import { AuthorisationUtils } from 'utils/authorisation';
 import { DateUtils } from 'utils/date';
 
-const getRowDetails = (
-  translator: ClerkTranslator,
-  selected: boolean,
-  toggleSelected: () => void
-) => {
-  return (
-    <ListingRow
-      translator={translator}
-      selected={selected}
-      toggleSelected={toggleSelected}
-    />
-  );
+const getRowDetails = (translator: ClerkTranslator) => {
+  return <ListingRow translator={translator} />;
 };
 
-const ListingRow = ({
-  translator,
-  selected,
-  toggleSelected,
-}: {
-  translator: ClerkTranslator;
-  selected: boolean;
-  toggleSelected: () => void;
-}) => {
+const ListingRow = ({ translator }: { translator: ClerkTranslator }) => {
   // I18n
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorListing',
   });
+  const filteredSelectedIds = useAppSelector(selectFilteredSelectedIds);
+  const dispatch = useAppDispatch();
   const { firstName, lastName } = translator;
   const authorisations = translator.authorisations;
   const translateLanguage = useKoodistoLanguagesTranslation();
   const translateCommon = useCommonTranslation();
-  const dispatch = useAppDispatch();
   const currentDate = new Date();
+  const selected = filteredSelectedIds.includes(translator.id);
 
   const translatorDetailsURL = (id: number) =>
     AppRoutes.ClerkTranslatorOverviewPage.replace(/:translatorId$/, `${id}`);
@@ -80,11 +64,19 @@ const ListingRow = ({
     dispatch(loadClerkTranslatorOverview(translator));
   };
 
+  const handleRowClick = () => {
+    if (selected) {
+      dispatch(deselectClerkTranslator(translator.id));
+    } else {
+      dispatch(selectClerkTranslator(translator.id));
+    }
+  };
+
   return (
     <TableRow
       data-testid={`clerk-translators__id-${translator.id}-row`}
       selected={selected}
-      onClick={toggleSelected}
+      onClick={handleRowClick}
     >
       <TableCell padding="checkbox">
         <Checkbox checked={selected} color={Color.Secondary} />
@@ -228,7 +220,6 @@ export const ClerkTranslatorListing: FC = () => {
     clerkTranslatorsSelector
   );
   const filteredTranslators = useAppSelector(selectFilteredClerkTranslators);
-  const filteredSelectedIds = useAppSelector(selectFilteredSelectedIds);
   const selectedCount = selectedTranslators.length;
 
   switch (status) {
@@ -257,9 +248,6 @@ export const ClerkTranslatorListing: FC = () => {
             )}
           </div>
           <PaginatedTable
-            selectedIndices={filteredSelectedIds}
-            addSelectedIndex={selectClerkTranslator}
-            removeSelectedIndex={deselectClerkTranslator}
             data={filteredTranslators}
             header={<ListingHeader />}
             getRowDetails={getRowDetails}

@@ -2,14 +2,15 @@ import { Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
-import { Color } from 'enums/app';
+import { Color, HeaderTabNav } from 'enums/app';
 
-export const ClerkNavTabs = () => {
-  const [value, setValue] = useState('register');
+export const ClerkNavTabs = (): JSX.Element => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.header.clerk.navLinks',
   });
   const translateCommon = useCommonTranslation();
+
+  const [value, setValue] = useState('register');
 
   const handleChange = ({}, newValue: string) => {
     setValue(newValue);
@@ -23,8 +24,16 @@ export const ClerkNavTabs = () => {
       indicatorColor={Color.Secondary}
       aria-label={t('tabsLabel')}
     >
-      <Tab value="register" label={translateCommon('register')} />
-      <Tab value="meetingDates" label={t('meetingDates')} />
+      <Tab
+        data-testid={'clerk-nav-tab__register'}
+        value={HeaderTabNav.Register}
+        label={translateCommon(HeaderTabNav.Register)}
+      />
+      <Tab
+        data-testid={'clerk-nav-tab__meeting-dates'}
+        value={HeaderTabNav.MeetingDates}
+        label={translateCommon(HeaderTabNav.MeetingDates)}
+      />
     </Tabs>
   );
 };

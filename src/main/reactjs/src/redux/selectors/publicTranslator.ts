@@ -20,6 +20,16 @@ export const selectFilteredPublicTranslators = createSelector(
   }
 );
 
+export const selectFilteredPublicSelectedIds = createSelector(
+  selectFilteredPublicTranslators,
+  (state: RootState) => state.publicTranslator.selectedTranslators,
+  (filteredTranslators, selectedTranslators) => {
+    const filteredIds = new Set(filteredTranslators.map((t) => t.id));
+
+    return selectedTranslators.filter((id) => filteredIds.has(id));
+  }
+);
+
 export const selectedPublicTranslatorsForLanguagePair = createSelector(
   (state: RootState) => state.publicTranslator.selectedTranslators,
   (state: RootState) => state.publicTranslator.translators,

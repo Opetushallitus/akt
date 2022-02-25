@@ -167,6 +167,9 @@
           "updateFailed": "Tietojen tallennus epäonnistui"
         }
       },
+      "meetingDatesListing": {
+        "header": "Kokouspäivä"
+      },
       "contactRequestForm": {
         "title": "Yhteydenottopyynnön jättäminen",
         "description": "Tällä yhteydenottolomakkeella voit jättää valitsemillesi kääntäjille yhteydenottopyynnön. Kirjoitathan viestiin mahdollisimman tarkan kuvauksen tarvittavasta käännöstyöstä.",
@@ -261,6 +264,11 @@
         "name": "Nimi",
         "languagePairs": "Kieliparit",
         "town": "Asuinkunta"
+      },
+      "meetingDatesPage": {
+        "title": "Kokouspäivät",
+        "upcoming": "Tulevat",
+        "passed": "Menneet"
       },
       "notFoundPage": {
         "title": "Valitettavasti etsimääsi sivua ei löytynyt",

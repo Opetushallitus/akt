@@ -7,16 +7,12 @@ import {
 import { ChangeEvent, Fragment, useEffect, useState } from 'react';
 
 import { useAppTranslation } from 'configs/i18n';
-import { useAppDispatch } from 'configs/redux';
 import { useWindowProperties } from 'hooks/useWindowProperties';
 import { PaginatedTableProps } from 'interfaces/table';
 import { WithId } from 'interfaces/withId';
 
 export function PaginatedTable<T extends WithId>({
   header,
-  selectedIndices,
-  addSelectedIndex,
-  removeSelectedIndex,
   data,
   getRowDetails,
   initialRowsPerPage,
@@ -24,17 +20,8 @@ export function PaginatedTable<T extends WithId>({
   className,
   stickyHeader,
 }: PaginatedTableProps<T>): JSX.Element {
-  const dispatch = useAppDispatch();
   const { t } = useAppTranslation({ keyPrefix: 'akt.component' });
   const { isPhone } = useWindowProperties();
-
-  const handleRowClick = (index: number) => {
-    if (selectedIndices.includes(index)) {
-      dispatch(removeSelectedIndex(index));
-    } else {
-      dispatch(addSelectedIndex(index));
-    }
-  };
 
   const PaginationDisplayedRowsLabel = ({
     from,
@@ -86,15 +73,7 @@ export function PaginatedTable<T extends WithId>({
           {data
             .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
             .map((val) => {
-              const id = val.id;
-
-              return (
-                <Fragment key={id}>
-                  {getRowDetails(val, selectedIndices.includes(id), () =>
-                    handleRowClick(id)
-                  )}
-                </Fragment>
-              );
+              return <Fragment key={val.id}>{getRowDetails(val)}</Fragment>;
             })}
         </TableBody>
       </Table>

@@ -60,7 +60,6 @@ export interface ClerkTranslatorFilter {
   authorisationBasis?: AuthorisationBasis;
   permissionToPublish?: keyof typeof PermissionToPublish;
 }
-
 export interface ClerkTranslatorState extends ClerkTranslatorResponse {
   selectedTranslators: Array<number>;
   status: APIResponseStatus;

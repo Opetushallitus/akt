@@ -1,5 +1,4 @@
 import { AppBar, Toolbar } from '@mui/material';
-import { FC } from 'react';
 
 import { OPHLogoViewer } from 'components/elements/OPHLogoViewer';
 import { SkipLink } from 'components/elements/SkipLink';
@@ -10,7 +9,7 @@ import { useAppTranslation } from 'configs/i18n';
 import { Direction } from 'enums/app';
 import { useAuthentication } from 'hooks/useAuthentication';
 
-const Header: FC = () => {
+const Header = (): JSX.Element => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.header.accessibility',
   });

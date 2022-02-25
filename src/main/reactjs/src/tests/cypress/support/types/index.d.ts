@@ -6,6 +6,7 @@ declare global {
       openPublicHomePage(): void;
       openClerkHomePage(): void;
       usePhoneViewport(): void;
+      openMeetingDatesPage(): void;
       goBack(): void;
       goForward(): void;
       isOnPage(page: AppRoutes): Chainable<Element>;
