@@ -1,29 +1,24 @@
 import { Tab, Tabs } from '@mui/material';
+import { useState } from 'react';
 
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
-import { Color, HeaderNav } from 'enums/app';
+import { Color, HeaderTabNav } from 'enums/app';
 
-type ClerkNavTabsProps = {
-  headerNav: HeaderNav;
-  setHeaderNav: React.Dispatch<React.SetStateAction<HeaderNav>>;
-};
-
-export const ClerkNavTabs = ({
-  headerNav,
-  setHeaderNav,
-}: ClerkNavTabsProps): JSX.Element => {
+export const ClerkNavTabs = (): JSX.Element => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.header.clerk.navLinks',
   });
   const translateCommon = useCommonTranslation();
 
-  const handleChange = ({}, newValue: HeaderNav) => {
-    setHeaderNav(newValue);
+  const [value, setValue] = useState('register');
+
+  const handleChange = ({}, newValue: string) => {
+    setValue(newValue);
   };
 
   return (
     <Tabs
-      value={headerNav}
+      value={value}
       onChange={handleChange}
       textColor={Color.Secondary}
       indicatorColor={Color.Secondary}
@@ -31,13 +26,13 @@ export const ClerkNavTabs = ({
     >
       <Tab
         data-testid={'clerk-nav-tab__register'}
-        value={HeaderNav.Register}
-        label={translateCommon(HeaderNav.Register)}
+        value={HeaderTabNav.Register}
+        label={translateCommon(HeaderTabNav.Register)}
       />
       <Tab
         data-testid={'clerk-nav-tab__meeting-dates'}
-        value={HeaderNav.MeetingDates}
-        label={t(HeaderNav.MeetingDates)}
+        value={HeaderTabNav.MeetingDates}
+        label={translateCommon(HeaderTabNav.MeetingDates)}
       />
     </Tabs>
   );

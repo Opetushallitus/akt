@@ -5,6 +5,7 @@ export enum AppConstants {
 export enum AppRoutes {
   PublicHomePage = '/akt/etusivu',
   ClerkHomePage = '/akt/virkailija',
+  MeetingDatesPage = '/akt/virkailija/kokouspaivat',
   ClerkSendEmailPage = '/akt/virkailija/laheta-sahkoposti',
   ClerkLocalLogoutPage = '/akt/cas/localLogout',
   ClerkTranslatorOverviewPage = '/akt/virkailija/kaantaja/:translatorId',
@@ -140,7 +141,7 @@ export enum UIMode {
   EditAuthorizationDetails = 'editAuthorizationDetails',
 }
 
-export enum HeaderNav {
+export enum HeaderTabNav {
   Register = 'register',
   MeetingDates = 'meetingDates',
 }

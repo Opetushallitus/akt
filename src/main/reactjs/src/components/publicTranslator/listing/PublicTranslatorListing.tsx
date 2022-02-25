@@ -10,24 +10,10 @@ import { useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { Color } from 'enums/app';
 import { PublicTranslator } from 'interfaces/publicTranslator';
-import {
-  addSelectedTranslator,
-  removeSelectedTranslator,
-} from 'redux/actions/publicTranslator';
 import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
 
-const getRowDetails = (
-  translator: PublicTranslator,
-  selected: boolean,
-  toggleSelected: () => void
-) => {
-  return (
-    <PublicTranslatorListingRow
-      translator={translator}
-      selected={selected}
-      toggleSelected={toggleSelected}
-    />
-  );
+const getRowDetails = (translator: PublicTranslator) => {
+  return <PublicTranslatorListingRow translator={translator} />;
 };
 
 export const PublicTranslatorListing = ({
@@ -71,9 +57,6 @@ export const PublicTranslatorListing = ({
           </div>
           <PaginatedTable
             className="translator-listing"
-            selectedIndices={selectedTranslators}
-            addSelectedIndex={addSelectedTranslator}
-            removeSelectedIndex={removeSelectedTranslator}
             data={translators}
             header={<PublicTranslatorListingHeader />}
             getRowDetails={getRowDetails}

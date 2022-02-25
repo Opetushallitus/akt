@@ -2,7 +2,6 @@ import { createSelector } from 'reselect';
 
 import { RootState } from 'configs/redux';
 import { MeetingStatus } from 'enums/meetingDate';
-// import { MeetingDate } from 'interfaces/meetingDate';
 import { DateUtils } from 'utils/date';
 
 export const meetingDateSelector = (state: RootState) => state.meetingDate;

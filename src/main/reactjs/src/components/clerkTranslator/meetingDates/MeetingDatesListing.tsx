@@ -30,11 +30,15 @@ const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
 };
 
 const ListingHeader: FC = () => {
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.meetingDatesListing',
+  });
+
   return (
     <TableHead>
       <TableRow>
         <TableCell>
-          <H3>Kokouspäivä</H3>
+          <H3>{t('header')}</H3>
         </TableCell>
       </TableRow>
     </TableHead>

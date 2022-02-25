@@ -1,24 +1,22 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Footer from 'components/layouts/Footer';
 import Header from 'components/layouts/Header';
 import { Notifier } from 'components/notification/Notifier';
-import { AppRoutes, HeaderNav } from 'enums/app';
+import { AppRoutes } from 'enums/app';
 import { ClerkHomePage } from 'pages/clerk/ClerkHomePage';
 import { ClerkSendEmailPage } from 'pages/clerk/ClerkSendEmailPage';
 import { ClerkTranslatorOverviewPage } from 'pages/clerk/ClerkTranslatorOverviewPage';
-import { Meetings } from 'pages/Meetings';
+import { MeetingDatesPage } from 'pages/MeetingDatesPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { PublicHomePage } from 'pages/PublicHomePage';
 
 export const AppRouter: FC = () => {
-  const [headerNav, setHeaderNav] = useState(HeaderNav.Register);
-
   return (
     <BrowserRouter>
       <div className="app">
-        <Header headerNav={headerNav} setHeaderNav={setHeaderNav} />
+        <Header />
         <Notifier />
         <main className="content" id="main-content">
           <div className="content__container">
@@ -29,13 +27,11 @@ export const AppRouter: FC = () => {
               />
               <Route
                 path={AppRoutes.ClerkHomePage}
-                element={
-                  headerNav === HeaderNav.Register ? (
-                    <ClerkHomePage />
-                  ) : (
-                    <Meetings />
-                  )
-                }
+                element={<ClerkHomePage />}
+              />
+              <Route
+                path={AppRoutes.MeetingDatesPage}
+                element={<MeetingDatesPage />}
               />
               <Route
                 path={AppRoutes.ClerkSendEmailPage}

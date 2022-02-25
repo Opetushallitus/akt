@@ -6,15 +6,10 @@ import { LangSelector } from 'components/i18n/LangSelector';
 import { ClerkNavTabs } from 'components/layouts//clerkHeader/ClerkNavTabs';
 import { ClerkHeaderButtons } from 'components/layouts/clerkHeader/ClerkHeaderButtons';
 import { useAppTranslation } from 'configs/i18n';
-import { Direction, HeaderNav } from 'enums/app';
+import { Direction } from 'enums/app';
 import { useAuthentication } from 'hooks/useAuthentication';
 
-type HeaderProps = {
-  headerNav: HeaderNav;
-  setHeaderNav: React.Dispatch<React.SetStateAction<HeaderNav>>;
-};
-
-const Header = ({ headerNav, setHeaderNav }: HeaderProps): JSX.Element => {
+const Header = (): JSX.Element => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.header.accessibility',
   });
@@ -31,11 +26,7 @@ const Header = ({ headerNav, setHeaderNav }: HeaderProps): JSX.Element => {
               direction={Direction.Horizontal}
             />
           </div>
-          <div className="header__center">
-            {isClerkUI && (
-              <ClerkNavTabs headerNav={headerNav} setHeaderNav={setHeaderNav} />
-            )}
-          </div>
+          <div className="header__center">{isClerkUI && <ClerkNavTabs />}</div>
           <div className="header__right">
             {isClerkUI && <ClerkHeaderButtons />}
             <LangSelector />

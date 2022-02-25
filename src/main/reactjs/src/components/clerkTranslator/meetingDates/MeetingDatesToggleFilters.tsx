@@ -10,12 +10,12 @@ import {
   selectMeetingDatesByMeetingStatus,
 } from 'redux/selectors/meetingDate';
 
-export const MeetingsToggleFilters = () => {
+export const MeetingDatesToggleFilters = () => {
   const { upcoming, passed } = useAppSelector(
     selectMeetingDatesByMeetingStatus
   );
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.pages.meetingDates',
+    keyPrefix: 'akt.pages.meetingDatesPage',
   });
   const dispatch = useAppDispatch();
   const { filters } = useAppSelector(meetingDateSelector);

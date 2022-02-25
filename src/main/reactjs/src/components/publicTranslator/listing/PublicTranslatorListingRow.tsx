@@ -10,18 +10,21 @@ import { Color, SearchFilter, Severity } from 'enums/app';
 import { useWindowProperties } from 'hooks/useWindowProperties';
 import { PublicTranslator } from 'interfaces/publicTranslator';
 import { showNotifierToast } from 'redux/actions/notifier';
-import { addPublicTranslatorFilterError } from 'redux/actions/publicTranslator';
-import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
+import {
+  addPublicTranslatorFilterError,
+  addSelectedTranslator,
+  removeSelectedTranslator,
+} from 'redux/actions/publicTranslator';
+import {
+  publicTranslatorsSelector,
+  selectFilteredPublicSelectedIds,
+} from 'redux/selectors/publicTranslator';
 import { Utils } from 'utils/index';
 
 export const PublicTranslatorListingRow = ({
   translator,
-  selected,
-  toggleSelected,
 }: {
   translator: PublicTranslator;
-  selected: boolean;
-  toggleSelected: () => void;
 }) => {
   // I18n
   const { t } = useAppTranslation({
@@ -31,6 +34,9 @@ export const PublicTranslatorListingRow = ({
   // Redux
   const dispatch = useAppDispatch();
   const { filters } = useAppSelector(publicTranslatorsSelector);
+  const filteredSelectedIds = useAppSelector(selectFilteredPublicSelectedIds);
+  const selected = filteredSelectedIds.includes(translator.id);
+
   const { fromLang, toLang } = filters;
   const { firstName, lastName, languagePairs, town, country } = translator;
 
@@ -57,7 +63,11 @@ export const PublicTranslatorListingRow = ({
       );
       dispatch(showNotifierToast(toast));
     } else {
-      toggleSelected();
+      if (selected) {
+        dispatch(removeSelectedTranslator(translator.id));
+      } else {
+        dispatch(addSelectedTranslator(translator.id));
+      }
     }
   };
 
