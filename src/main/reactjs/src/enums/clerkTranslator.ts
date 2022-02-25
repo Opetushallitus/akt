@@ -5,4 +5,5 @@ export enum AuthorisationStatus {
   Authorised = 'authorised',
   Expiring = 'expiring',
   Expired = 'expired',
+  FormerVIR = 'formerVIR',
 }

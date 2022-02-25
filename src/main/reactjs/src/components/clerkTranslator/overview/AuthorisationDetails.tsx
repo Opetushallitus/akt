@@ -89,7 +89,7 @@ export const AuthorisationDetails = () => {
               </TableCell>
               <TableCell>
                 <Text>
-                  {AuthorisationUtils.isAuthorisationValid(a, currentDate)
+                  {AuthorisationUtils.isAuthorisationEffective(a, currentDate)
                     ? translateCommon('yes')
                     : translateCommon('no')}
                 </Text>
