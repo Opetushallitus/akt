@@ -69,11 +69,6 @@ export const selectFilteredClerkTranslators = createSelector(
       filtered = filtered.filter((t) => filterByName(t, nameFilter));
     }
 
-    if (filters.permissionToPublish) {
-      const pusblishedFilter = filters.permissionToPublish;
-      filtered = filtered.filter((t) => filterByPublished(t, pusblishedFilter));
-    }
-
     filtered = filtered.filter((t) =>
       filterByAuthorisationCriteria(t, filters, currentDate, expiringSoonDate)
     );
@@ -154,6 +149,7 @@ const filterByAuthorisationCriteria = (
       matchesFromLang(filters, a) &&
       matchesToLang(filters, a) &&
       matchesAuthorisationBasis(filters, a) &&
+      matchesPermissionToPublish(filters.permissionToPublish, a) &&
       matchesAuthorisationStatus(filters, currentDate, expiringSoonDate, a)
   );
 };
@@ -172,6 +168,20 @@ const matchesAuthorisationBasis = (
   { authorisationBasis }: ClerkTranslatorFilter,
   authorisation: Authorisation
 ) => (authorisationBasis ? authorisationBasis == authorisation.basis : true);
+
+const matchesPermissionToPublish = (
+  permissionToPublishType: string | undefined,
+  authorisation: Authorisation
+) => {
+  if (permissionToPublishType) {
+    const permissionToPublish =
+      permissionToPublishType === PermissionToPublish.Yes;
+
+    return authorisation.permissionToPublish === permissionToPublish;
+  }
+
+  return true;
+};
 
 const matchesAuthorisationStatus = (
   { authorisationStatus }: ClerkTranslatorFilter,
@@ -209,17 +219,4 @@ const filterByName = (translator: ClerkTranslator, name: string) => {
   ].map(trimAndLowerCase);
 
   return nameCombs.some((comb) => comb.includes(trimAndLowerCase(name)));
-};
-
-const filterByPublished = (
-  translator: ClerkTranslator,
-  permissionToPublish: string
-) => {
-  const permissionToPublishBoolean =
-    permissionToPublish === PermissionToPublish.Yes ? true : false;
-
-  return translator.authorisations.some(
-    (authorisation) =>
-      authorisation.permissionToPublish === permissionToPublishBoolean
-  );
 };
