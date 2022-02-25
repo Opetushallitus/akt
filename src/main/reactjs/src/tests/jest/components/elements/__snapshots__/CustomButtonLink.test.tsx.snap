@@ -2,6 +2,7 @@
 
 exports[`CustomButtonLink should render correctly 1`] = `
 <a
+  className="custom-button-link"
   href="/akt/etusivu"
   onClick={[Function]}
 >

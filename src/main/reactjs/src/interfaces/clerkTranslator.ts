@@ -14,7 +14,7 @@ import { WithId } from 'interfaces/withId';
 import { WithVersion } from 'interfaces/withVersion';
 
 export interface ClerkTranslator
-  extends Omit<APIClerkTranslator, 'authorisations'> {
+  extends Omit<ClerkTranslatorOverview, 'authorisations'> {
   authorisations: Array<Authorisation>;
 }
 
@@ -24,7 +24,7 @@ export interface ClerkTranslatorResponse {
   meetingDates: Array<MeetingDate>;
 }
 
-export interface APIClerkTranslator extends WithId, WithVersion {
+export interface ClerkTranslatorOverview extends WithId, WithVersion {
   firstName: string;
   lastName: string;
   identityNumber?: string;
@@ -39,7 +39,7 @@ export interface APIClerkTranslator extends WithId, WithVersion {
 }
 
 export interface ClerkTranslatorAPIResponse {
-  translators: Array<APIClerkTranslator>;
+  translators: Array<ClerkTranslatorOverview>;
   langs: LanguagePairsDict;
   towns: Array<string>;
   meetingDates: Array<APIMeetingDate>;

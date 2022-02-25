@@ -142,7 +142,8 @@
             "town": "Postitoimipaikka",
             "country": "Maa",
             "email": "Sähköpostiosoite",
-            "phoneNumber": "Puhelinnumero"
+            "phoneNumber": "Puhelinnumero",
+            "extraInformation": "Lisätiedot"
           }
         },
         "authorisations": {
@@ -160,7 +161,11 @@
             "diaryNumber": "Asiatunnus"
           }
         },
-        "notFound": "Valittua kääntäjää ei löytynyt"
+        "toasts": {
+          "notFound": "Valittua kääntäjää ei löytynyt",
+          "updated": "Tiedot tallennettiin",
+          "updateFailed": "Tietojen tallennus epäonnistui"
+        }
       },
       "contactRequestForm": {
         "title": "Yhteydenottopyynnön jättäminen",

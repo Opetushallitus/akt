@@ -239,6 +239,7 @@ export const PublicTranslatorFilters = ({
               languages={langs.from}
               aria-label={`${t('languagePair.fromAriaLabel')}`}
               disabled={isLangFilterDisabled}
+              onKeyUp={handleKeyUp}
             />
             <LanguageSelect
               data-testid="public-translator-filters__to-language-select"
@@ -251,6 +252,7 @@ export const PublicTranslatorFilters = ({
               languages={langs.to}
               aria-label={`${t('languagePair.toAriaLabel')}`}
               disabled={isLangFilterDisabled}
+              onKeyUp={handleKeyUp}
             />
           </Box>
         </div>
@@ -282,6 +284,7 @@ export const PublicTranslatorFilters = ({
             label={t('town.placeholder')}
             id="filters-town"
             values={sortOptionsByLabels(towns.map(valueAsOption))}
+            onKeyUp={handleKeyUp}
           />
         </div>
       </div>

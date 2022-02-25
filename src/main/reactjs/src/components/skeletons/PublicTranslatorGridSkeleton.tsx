@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { CustomSkeleton } from 'components/elements/CustomSkeleton';
 import { H1, Text } from 'components/elements/Text';
-import { PublicTranslatorFilters } from 'components/publicTranslator/PublicTranslatorFilters';
+import { PublicTranslatorFilters } from 'components/publicTranslator/filters/PublicTranslatorFilters';
 import { useAppTranslation } from 'configs/i18n';
 import { SkeletonVariant } from 'enums/app';
 

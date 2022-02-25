@@ -4,9 +4,9 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import axiosInstance from 'configs/axios';
 import { APIEndpoints } from 'enums/api';
 import {
-  APIClerkTranslator,
   ClerkTranslator,
   ClerkTranslatorAPIResponse,
+  ClerkTranslatorOverview,
   ClerkTranslatorResponse,
 } from 'interfaces/clerkTranslator';
 import {
@@ -18,7 +18,7 @@ import {
 import { APIUtils } from 'utils/api';
 
 const convertAPITranslator = (
-  translator: APIClerkTranslator
+  translator: ClerkTranslatorOverview
 ): ClerkTranslator => {
   return {
     ...translator,
@@ -40,7 +40,7 @@ export const convertAPIResponse = (
   return { translators, langs, meetingDates };
 };
 
-function* fetchClerkTranslators() {
+export function* fetchClerkTranslators() {
   try {
     yield put({ type: CLERK_TRANSLATOR_LOADING });
     const apiResponse: AxiosResponse<ClerkTranslatorAPIResponse> = yield call(

@@ -1,9 +1,9 @@
 import { Divider, Grid, Paper } from '@mui/material';
 import { FC, useEffect } from 'react';
 
-import { ClerkTranslatorAutocompleteFilters } from 'components/clerkTranslator/ClerkTranslatorAutocompleteFilters';
-import { ClerkTranslatorListing } from 'components/clerkTranslator/ClerkTranslatorListing';
-import { ClerkTranslatorToggleFilters } from 'components/clerkTranslator/ClerkTranslatorToggleFilters';
+import { ClerkTranslatorAutocompleteFilters } from 'components/clerkTranslator/filters/ClerkTranslatorAutocompleteFilters';
+import { ClerkTranslatorToggleFilters } from 'components/clerkTranslator/filters/ClerkTranslatorToggleFilters';
+import { ClerkTranslatorListing } from 'components/clerkTranslator/listing/ClerkTranslatorListing';
 import { CustomButton } from 'components/elements/CustomButton';
 import { CustomButtonLink } from 'components/elements/CustomButtonLink';
 import { H1, H2, Text } from 'components/elements/Text';

@@ -5,9 +5,9 @@ import Footer from 'components/layouts/Footer';
 import Header from 'components/layouts/Header';
 import { Notifier } from 'components/notification/Notifier';
 import { AppRoutes } from 'enums/app';
-import { ClerkHomePage } from 'pages/ClerkHomePage';
-import { ClerkSendEmailPage } from 'pages/ClerkSendEmailPage';
-import { ClerkTranslatorOverviewPage } from 'pages/ClerkTranslatorOverviewPage';
+import { ClerkHomePage } from 'pages/clerk/ClerkHomePage';
+import { ClerkSendEmailPage } from 'pages/clerk/ClerkSendEmailPage';
+import { ClerkTranslatorOverviewPage } from 'pages/clerk/ClerkTranslatorOverviewPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { PublicHomePage } from 'pages/PublicHomePage';
 

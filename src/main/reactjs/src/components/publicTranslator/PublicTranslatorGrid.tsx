@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 import { HeaderSeparator } from 'components/elements/HeaderSeparator';
 import { H1, H2, Text } from 'components/elements/Text';
-import { PublicTranslatorFilters } from 'components/publicTranslator/PublicTranslatorFilters';
-import { PublicTranslatorListing } from 'components/publicTranslator/PublicTranslatorListing';
+import { PublicTranslatorFilters } from 'components/publicTranslator/filters/PublicTranslatorFilters';
+import { PublicTranslatorListing } from 'components/publicTranslator/listing/PublicTranslatorListing';
 import { PublicTranslatorGridSkeleton } from 'components/skeletons/PublicTranslatorGridSkeleton';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';

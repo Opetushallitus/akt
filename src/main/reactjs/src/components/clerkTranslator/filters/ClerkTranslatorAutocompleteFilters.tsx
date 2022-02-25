@@ -51,8 +51,8 @@ export const ClerkTranslatorAutocompleteFilters = () => {
   }, [debouncedName, dispatch]);
 
   return (
-    <div className="columns gapped">
-      <div className="rows gapped-xs flex-grow-3">
+    <div className="clerk-translator-autocomplete-filters columns gapped">
+      <div className="rows gapped-xs">
         <H3>{t('languagePair.title')}</H3>
         <div className="columns gapped">
           <LanguageSelect
@@ -77,7 +77,7 @@ export const ClerkTranslatorAutocompleteFilters = () => {
           />
         </div>
       </div>
-      <div className="rows gapped-xs flex-grow-2">
+      <div className="rows gapped-xs">
         <H3>{t('name.title')}</H3>
         <CustomTextField
           data-testid="clerk-translator-filters__name"
@@ -96,7 +96,7 @@ export const ClerkTranslatorAutocompleteFilters = () => {
           }}
         />
       </div>
-      <div className="rows gapped-xs flex-grow-1">
+      <div className="rows gapped-xs">
         <H3>{t('authorisationBasis.title')}</H3>
         <ComboBox
           autoHighlight
@@ -112,7 +112,7 @@ export const ClerkTranslatorAutocompleteFilters = () => {
           onChange={handleFilterChange('authorisationBasis')}
         />
       </div>
-      <div className="rows gapped-xs flex-grow-1">
+      <div className="rows gapped-xs">
         <H3>{t('published.title')}</H3>
         <ComboBox
           autoHighlight
