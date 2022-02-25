@@ -3,15 +3,16 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import * as React from 'react';
 
 import { useAppTranslation } from 'configs/i18n';
-import { DateUtils } from 'utils/date';
 
-export const DatePicker = () => {
-  const [value, setValue] = React.useState<Date | null>(
-    DateUtils.dateAtStartOfDay(new Date())
-  );
+export const DatePicker = ({
+  value,
+  setValue,
+}: {
+  value: Date | null;
+  setValue: (date: Date | null) => void;
+}) => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.addMeetingDate',
   });

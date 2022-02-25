@@ -173,7 +173,13 @@
       },
       "addMeetingDate": {
         "header": "Lisää kokouspäivä",
-        "datePickerLabel": "Kokouspäivämäärä"
+        "datePickerLabel": "Kokouspäivämäärä",
+        "button": {
+          "add": "Lisää kokouspäivä"
+        },
+        "toast": {
+          "error": "Kokouspäivän lisäys epäonnistui, yritä myöhemmin uudelleen."
+        }
       },
       "contactRequestForm": {
         "title": "Yhteydenottopyynnön jättäminen",

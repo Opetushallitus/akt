@@ -16,7 +16,6 @@ export interface MeetingDateState extends MeetingDates {
   filters: MeetingDateFilter;
   meetingDates: MeetingDate[];
 }
-
 export interface MeetingDateAction
   extends Action<string>,
     Partial<MeetingDates> {
