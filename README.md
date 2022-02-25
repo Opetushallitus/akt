@@ -204,19 +204,20 @@ mvn spring-boot:run -Dtomcat.util.http.parser.HttpParser.requestTargetAllow=|{}
 
 I18next is used as an internationalization framework. Localizations are stored in JSON files and committed to git.
 
-For inspection and modification by OPH clerks, it's possible to generate a CSV-file as shown below:
+For inspection and modification by OPH clerks, it's possible to create an excel sheet as shown below:
+
+&nbsp;
+#### JSON to XLSX
 
 ```sh
-npm run localisation:to_csv
+npx i18n-json-to-xlsx-converter --convert common.json, translation.json
 ```
 
-In order to import a CSV-file of localisations as contents of the localisation JSON files, run:
+#### XLSX to JSON
 
 ```sh
-npm run localisation:from_csv [path_to_csv_file] [delimiter]
+npx i18n-json-to-xlsx-converter --convert translation.xlsx
 ```
-
-By default,  `|` is used as a delimiter.
 
 &nbsp;
 

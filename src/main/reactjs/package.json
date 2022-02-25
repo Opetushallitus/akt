@@ -9,8 +9,6 @@
     "lint": "npm run eslint && npm run tslint && npm run stylelint",
     "format": "prettier --check \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "format:write": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "localisation:to_csv": "node ../../../scripts/localisation_to_csv.js",
-    "localisation:from_csv": "node ../../../scripts/localisation_from_csv.js",
     "test:jest": "jest",
     "test:cypress": "TZ=Europe/Helsinki cypress run",
     "test:cypress:open": "TZ=Europe/Helsinki cypress open",
