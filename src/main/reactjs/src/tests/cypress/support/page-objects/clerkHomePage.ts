@@ -64,7 +64,10 @@ class ClerkHomePage {
   }
 
   filterByName(name: string) {
-    this.elements.nameField().type(name);
+    this.elements.nameField().clear();
+    this.elements.nameField().type(name + '{enter}');
+    // Ensure debounced name filter gets applied by waiting for more than 300ms
+    cy.tick(400);
   }
 
   sendEmail() {

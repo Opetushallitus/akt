@@ -73,6 +73,11 @@ describe('ClerkHomePage', () => {
     onClerkHomePage.filterByToLang('iiri');
     onClerkHomePage.expectSelectedTranslatorsCount(1);
 
+    // First apply filter that doesn't match any name and expect zero results
+    onClerkHomePage.filterByName('Kari Kink');
+    onClerkHomePage.expectSelectedTranslatorsCount(0);
+
+    // Fix typo made above, check that results are as expected
     onClerkHomePage.filterByName('Kari Kin');
     onClerkHomePage.expectSelectedTranslatorsCount(1);
   });
