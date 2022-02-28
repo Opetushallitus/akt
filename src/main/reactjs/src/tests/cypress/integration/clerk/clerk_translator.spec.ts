@@ -59,9 +59,7 @@ describe('ClerkHomePage', () => {
   });
 
   it('should filter translators by name', () => {
-    // It takes 300ms before data is filtered
     onClerkHomePage.filterByName('Kari');
-    cy.wait(1000);
     onClerkHomePage.expectSelectedTranslatorsCount(3);
   });
 
