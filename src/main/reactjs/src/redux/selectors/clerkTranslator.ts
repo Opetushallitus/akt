@@ -149,7 +149,7 @@ const filterByAuthorisationCriteria = (
       matchesFromLang(filters, a) &&
       matchesToLang(filters, a) &&
       matchesAuthorisationBasis(filters, a) &&
-      matchesPermissionToPublish(filters.permissionToPublish, a) &&
+      matchesPermissionToPublish(filters, a) &&
       matchesAuthorisationStatus(filters, currentDate, expiringSoonDate, a)
   );
 };
@@ -170,14 +170,14 @@ const matchesAuthorisationBasis = (
 ) => (authorisationBasis ? authorisationBasis == authorisation.basis : true);
 
 const matchesPermissionToPublish = (
-  permissionToPublishType: string | undefined,
+  { permissionToPublish }: ClerkTranslatorFilter,
   authorisation: Authorisation
 ) => {
-  if (permissionToPublishType) {
-    const permissionToPublish =
-      permissionToPublishType === PermissionToPublish.Yes;
+  if (permissionToPublish) {
+    const permission =
+      permissionToPublish.toString() === PermissionToPublish.Yes;
 
-    return authorisation.permissionToPublish === permissionToPublish;
+    return authorisation.permissionToPublish === permission;
   }
 
   return true;
