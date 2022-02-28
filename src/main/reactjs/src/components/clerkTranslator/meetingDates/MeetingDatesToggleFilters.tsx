@@ -1,4 +1,4 @@
-import { ToggleFilter } from 'components/elements/ToggleFilter';
+import { ToggleFilterGroup } from 'components/elements/ToggleFilterGroup';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { MeetingStatus } from 'enums/meetingDate';
@@ -38,7 +38,7 @@ export const MeetingDatesToggleFilters = () => {
   ];
 
   return (
-    <ToggleFilter
+    <ToggleFilterGroup
       filters={filterData}
       activeStatus={filters.meetingStatus}
       onButtonClick={filterByDate}

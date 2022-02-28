@@ -1,23 +1,23 @@
 import { CustomButton } from 'components/elements/CustomButton';
 import { Color, Variant } from 'enums/app';
 
-interface ToggleFilterItem<T> {
+interface ToggleFilter<T> {
   status: T;
   label: string;
   count?: number;
   testId?: string;
 }
-interface ToggleFilterProps<T> {
-  filters: Array<ToggleFilterItem<T>>;
+interface ToggleFilterGroupProps<T> {
+  filters: Array<ToggleFilter<T>>;
   activeStatus: T;
   onButtonClick(T: T): void;
 }
 
-export function ToggleFilter<T>({
+export function ToggleFilterGroup<T>({
   filters,
   activeStatus,
   onButtonClick,
-}: ToggleFilterProps<T>) {
+}: ToggleFilterGroupProps<T>) {
   return (
     <>
       {filters.map(({ count, status, testId, label }, i) => (

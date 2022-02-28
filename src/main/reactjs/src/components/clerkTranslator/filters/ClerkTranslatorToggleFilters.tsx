@@ -1,4 +1,4 @@
-import { ToggleFilter } from 'components/elements/ToggleFilter';
+import { ToggleFilterGroup } from 'components/elements/ToggleFilterGroup';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
@@ -51,7 +51,7 @@ export const ClerkTranslatorToggleFilters = () => {
   ];
 
   return (
-    <ToggleFilter
+    <ToggleFilterGroup
       filters={filterData}
       activeStatus={filters.authorisationStatus}
       onButtonClick={filterByAuthorisationStatus}
