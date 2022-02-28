@@ -30,6 +30,31 @@ public class Authorisation extends BaseEntity {
   @Column(name = "authorisation_id", nullable = false)
   private long id;
 
+  @Column(name = "basis", nullable = false)
+  @Enumerated(value = EnumType.STRING)
+  private AuthorisationBasis basis;
+
+  @Size(min = 1, max = 10)
+  @Column(name = "from_lang", nullable = false, length = 10)
+  private String fromLang;
+
+  @Size(min = 1, max = 10)
+  @Column(name = "to_lang", nullable = false, length = 10)
+  private String toLang;
+
+  @Column(name = "term_begin_date")
+  private LocalDate termBeginDate;
+
+  @Column(name = "term_end_date")
+  private LocalDate termEndDate;
+
+  @Column(name = "permission_to_publish", nullable = false)
+  private boolean permissionToPublish;
+
+  @Size(min = 1, max = 255)
+  @Column(name = "diary_number", nullable = false, unique = true)
+  private String diaryNumber;
+
   @Column(name = "aut_date")
   private LocalDate autDate;
 
@@ -46,29 +71,10 @@ public class Authorisation extends BaseEntity {
   @JoinColumn(name = "translator_id", referencedColumnName = "translator_id", nullable = false)
   private Translator translator;
 
-  @Column(name = "basis", nullable = false)
-  @Enumerated(value = EnumType.STRING)
-  private AuthorisationBasis basis;
-
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "meeting_date_id", referencedColumnName = "meeting_date_id")
   private MeetingDate meetingDate;
 
   @OneToMany(mappedBy = "authorisation")
-  private Collection<AuthorisationTerm> terms = new ArrayList<>();
-
-  @Size(min = 1, max = 10)
-  @Column(name = "from_lang", nullable = false, length = 10)
-  private String fromLang;
-
-  @Size(min = 1, max = 10)
-  @Column(name = "to_lang", nullable = false, length = 10)
-  private String toLang;
-
-  @Column(name = "permission_to_publish", nullable = false)
-  private boolean permissionToPublish;
-
-  @Size(min = 1, max = 255)
-  @Column(name = "diary_number", nullable = false, unique = true)
-  private String diaryNumber;
+  private Collection<AuthorisationTermReminder> reminders = new ArrayList<>();
 }

@@ -9,17 +9,17 @@ import lombok.NonNull;
 
 public record AuthorisationCreateDTO(
   @NonNull @NotNull AuthorisationBasis basis,
+  @NonNull @NotBlank String from,
+  @NonNull @NotBlank String to,
+  @NonNull @NotNull LocalDate termBeginDate,
+  LocalDate termEndDate,
+  @NonNull @NotNull Boolean permissionToPublish,
+  @NonNull @NotBlank String diaryNumber,
+  @NonNull @NotNull LocalDate meetingDate,
   LocalDate autDate,
   String kktCheck,
   LocalDate virDate,
-  @NonNull @NotNull LocalDate assuranceDate,
-  @NonNull @NotNull LocalDate meetingDate,
-  @NonNull @NotBlank String from,
-  @NonNull @NotBlank String to,
-  @NonNull @NotNull Boolean permissionToPublish,
-  @NonNull @NotNull LocalDate beginDate,
-  LocalDate endDate,
-  @NonNull @NotBlank String diaryNumber
+  @NonNull @NotNull LocalDate assuranceDate
 )
   implements AuthorisationDTOCommonFields {
   // Workaround for bug in IntelliJ lombok plugin

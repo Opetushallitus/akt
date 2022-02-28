@@ -10,7 +10,6 @@ import fi.oph.akt.api.dto.translator.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.translator.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
-import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.AuthorisationRepository;
@@ -95,15 +94,17 @@ class PublicTranslatorServiceTest {
   }
 
   @Test
-  public void listShouldNotReturnTranslatorsWithOnlyENTVIRAuthorisations() {
+  public void listShouldNotReturnTranslatorsWithOnlyFormerVIRAuthorisations() {
     final Translator translator = Factory.translator();
 
     final Authorisation authorisation = Factory.authorisation(translator, null);
     authorisation.setBasis(AuthorisationBasis.VIR);
+    authorisation.setTermBeginDate(null);
+    authorisation.setTermEndDate(null);
+    authorisation.setPermissionToPublish(true);
     authorisation.setAutDate(null);
     authorisation.setVirDate(LocalDate.of(1990, 1, 1));
     authorisation.setAssuranceDate(null);
-    authorisation.setPermissionToPublish(true);
 
     entityManager.persist(translator);
     entityManager.persist(authorisation);
@@ -133,14 +134,12 @@ class PublicTranslatorServiceTest {
       .range(0, towns.size())
       .forEach(i -> {
         final Translator translator = Factory.translator();
-        translator.setTown(towns.get(i));
-
         final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-        final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
+
+        translator.setTown(towns.get(i));
 
         entityManager.persist(translator);
         entityManager.persist(authorisation);
-        entityManager.persist(authorisationTerm);
       });
 
     final PublicTranslatorResponseDTO responseDTO = publicTranslatorService.listTranslators();
@@ -188,8 +187,8 @@ class PublicTranslatorServiceTest {
 
   private void createTranslator(
     final MeetingDate meetingDate,
-    final LocalDate beginDate,
-    final LocalDate endDate,
+    final LocalDate termBeginDate,
+    final LocalDate termEndDate,
     final boolean permissionToPublish,
     final int i
   ) {
@@ -200,7 +199,7 @@ class PublicTranslatorServiceTest {
     translator.setCountry("Maa" + i);
 
     entityManager.persist(translator);
-    createAuthorisation(translator, meetingDate, beginDate, endDate, permissionToPublish, "EN");
+    createAuthorisation(translator, meetingDate, termBeginDate, termEndDate, permissionToPublish, "EN");
     // this authorisation is always expired
     createAuthorisation(
       translator,
@@ -215,21 +214,18 @@ class PublicTranslatorServiceTest {
   private void createAuthorisation(
     final Translator translator,
     final MeetingDate meetingDate,
-    final LocalDate beginDate,
-    final LocalDate endDate,
+    final LocalDate termBeginDate,
+    final LocalDate termEndDate,
     final boolean permissionToPublish,
     final String toLang
   ) {
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
     authorisation.setFromLang("FI");
     authorisation.setToLang(toLang);
+    authorisation.setTermBeginDate(termBeginDate);
+    authorisation.setTermEndDate(termEndDate);
     authorisation.setPermissionToPublish(permissionToPublish);
 
-    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
-    authorisationTerm.setBeginDate(beginDate);
-    authorisationTerm.setEndDate(endDate);
-
     entityManager.persist(authorisation);
-    entityManager.persist(authorisationTerm);
   }
 }

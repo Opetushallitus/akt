@@ -1,15 +1,14 @@
 package fi.oph.akt.service.email;
 
 import fi.oph.akt.api.dto.clerk.InformalEmailRequestDTO;
-import fi.oph.akt.model.AuthorisationTerm;
+import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationTermReminder;
 import fi.oph.akt.model.Email;
 import fi.oph.akt.model.EmailType;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
-import fi.oph.akt.repository.AuthorisationExpiryDataProjection;
+import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.AuthorisationTermReminderRepository;
-import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.EmailRepository;
 import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
@@ -33,10 +32,10 @@ public class ClerkEmailService {
   private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
   @Resource
-  private final AuthorisationTermReminderRepository authorisationTermReminderRepository;
+  private final AuthorisationRepository authorisationRepository;
 
   @Resource
-  private final AuthorisationTermRepository authorisationTermRepository;
+  private final AuthorisationTermReminderRepository authorisationTermReminderRepository;
 
   @Resource
   private final EmailRepository emailRepository;
@@ -101,15 +100,12 @@ public class ClerkEmailService {
   }
 
   @Transactional
-  public void createAuthorisationExpiryEmail(final long authorisationTermId) {
-    authorisationTermRepository.findById(authorisationTermId).ifPresent(this::createAuthorisationExpiryData);
+  public void createAuthorisationExpiryEmail(final long authorisationId) {
+    authorisationRepository.findById(authorisationId).ifPresent(this::createAuthorisationExpiryData);
   }
 
-  private void createAuthorisationExpiryData(final AuthorisationTerm authorisationTerm) {
-    final AuthorisationExpiryDataProjection expiryData = authorisationTermRepository.getExpiryDataProjection(
-      authorisationTerm.getId()
-    );
-    final Translator translator = translatorRepository.getById(expiryData.translatorId());
+  private void createAuthorisationExpiryData(final Authorisation authorisation) {
+    final Translator translator = authorisation.getTranslator();
 
     Optional
       .ofNullable(translator.getEmail())
@@ -120,9 +116,9 @@ public class ClerkEmailService {
 
         final String emailBody = getAuthorisationExpiryEmailBody(
           recipientName,
-          expiryData.fromLang(),
-          expiryData.toLang(),
-          authorisationTerm.getEndDate()
+          authorisation.getFromLang(),
+          authorisation.getToLang(),
+          authorisation.getTermEndDate()
         );
 
         final Long emailId = createEmail(
@@ -135,7 +131,7 @@ public class ClerkEmailService {
 
         final Email email = emailRepository.getById(emailId);
 
-        createAuthorisationTermReminder(authorisationTerm, email);
+        createAuthorisationTermReminder(authorisation, email);
       });
   }
 
@@ -177,9 +173,9 @@ public class ClerkEmailService {
     return date.format(DATE_FORMATTER);
   }
 
-  private void createAuthorisationTermReminder(final AuthorisationTerm authorisationTerm, final Email email) {
+  private void createAuthorisationTermReminder(final Authorisation authorisation, final Email email) {
     final AuthorisationTermReminder reminder = new AuthorisationTermReminder();
-    reminder.setAuthorisationTerm(authorisationTerm);
+    reminder.setAuthorisation(authorisation);
     reminder.setEmail(email);
 
     authorisationTermReminderRepository.save(reminder);

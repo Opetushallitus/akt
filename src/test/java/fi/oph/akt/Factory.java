@@ -2,7 +2,6 @@ package fi.oph.akt;
 
 import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.AuthorisationBasis;
-import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.AuthorisationTermReminder;
 import fi.oph.akt.model.Email;
 import fi.oph.akt.model.EmailType;
@@ -42,25 +41,16 @@ public class Factory {
     authorisation.setTranslator(translator);
     authorisation.setMeetingDate(meetingDate);
     authorisation.setBasis(AuthorisationBasis.AUT);
-    authorisation.setAutDate(LocalDate.now());
-    authorisation.setAssuranceDate(LocalDate.now());
     authorisation.setFromLang("FI");
     authorisation.setToLang("EN");
+    authorisation.setTermBeginDate(LocalDate.now());
+    authorisation.setTermEndDate(LocalDate.now().plusYears(1));
     authorisation.setPermissionToPublish(true);
     authorisation.setDiaryNumber(UUID.randomUUID().toString());
+    authorisation.setAutDate(LocalDate.now());
+    authorisation.setAssuranceDate(LocalDate.now());
 
     return authorisation;
-  }
-
-  public static AuthorisationTerm authorisationTerm(Authorisation authorisation) {
-    final AuthorisationTerm authorisationTerm = new AuthorisationTerm();
-    authorisation.getTerms().add(authorisationTerm);
-
-    authorisationTerm.setAuthorisation(authorisation);
-    authorisationTerm.setBeginDate(LocalDate.now());
-    authorisationTerm.setEndDate(LocalDate.now().plusYears(1));
-
-    return authorisationTerm;
   }
 
   public static Email email(final EmailType emailType) {
@@ -74,11 +64,14 @@ public class Factory {
     return email;
   }
 
-  public static AuthorisationTermReminder authorisationTermReminder(final AuthorisationTerm term, final Email email) {
+  public static AuthorisationTermReminder authorisationTermReminder(
+    final Authorisation authorisation,
+    final Email email
+  ) {
     final AuthorisationTermReminder reminder = new AuthorisationTermReminder();
-    term.getReminders().add(reminder);
+    authorisation.getReminders().add(reminder);
 
-    reminder.setAuthorisationTerm(term);
+    reminder.setAuthorisation(authorisation);
     reminder.setEmail(email);
 
     return reminder;

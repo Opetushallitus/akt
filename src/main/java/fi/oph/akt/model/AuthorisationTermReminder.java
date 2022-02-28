@@ -25,8 +25,8 @@ public class AuthorisationTermReminder extends BaseEntity {
   private long id;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "authorisation_term_id", referencedColumnName = "authorisation_term_id", nullable = false)
-  private AuthorisationTerm authorisationTerm;
+  @JoinColumn(name = "authorisation_id", referencedColumnName = "authorisation_id", nullable = false)
+  private Authorisation authorisation;
 
   @OneToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "email_id", referencedColumnName = "email_id", nullable = false)

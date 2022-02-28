@@ -3,7 +3,6 @@ package fi.oph.akt.service;
 import fi.oph.akt.api.dto.LanguagePairDTO;
 import fi.oph.akt.api.dto.LanguagePairsDictDTO;
 import fi.oph.akt.api.dto.clerk.AuthorisationDTO;
-import fi.oph.akt.api.dto.clerk.AuthorisationTermDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorDTO;
 import fi.oph.akt.api.dto.clerk.ClerkTranslatorResponseDTO;
 import fi.oph.akt.api.dto.clerk.MeetingDateDTO;
@@ -17,18 +16,15 @@ import fi.oph.akt.api.dto.clerk.modify.TranslatorUpdateDTO;
 import fi.oph.akt.audit.AktOperation;
 import fi.oph.akt.audit.AuditService;
 import fi.oph.akt.model.Authorisation;
-import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.AuthorisationTermReminder;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.AuthorisationProjection;
 import fi.oph.akt.repository.AuthorisationRepository;
-import fi.oph.akt.repository.AuthorisationTermProjection;
 import fi.oph.akt.repository.AuthorisationTermReminderRepository;
-import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
-import fi.oph.akt.util.AuthorisationTermProjectionComparator;
+import fi.oph.akt.util.AuthorisationProjectionComparator;
 import fi.oph.akt.util.exception.NotFoundException;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -46,13 +42,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ClerkTranslatorService {
 
-  private static final AuthorisationTermProjectionComparator authorisationTermProjectionComparator = new AuthorisationTermProjectionComparator();
+  private static final AuthorisationProjectionComparator AUTHORISATION_PROJECTION_COMPARATOR = new AuthorisationProjectionComparator();
 
   @Resource
   private final AuthorisationRepository authorisationRepository;
-
-  @Resource
-  private final AuthorisationTermRepository authorisationTermRepository;
 
   @Resource
   private final AuthorisationTermReminderRepository authorisationTermReminderRepository;
@@ -79,11 +72,10 @@ public class ClerkTranslatorService {
   private ClerkTranslatorResponseDTO listTranslatorsWithoutAudit() {
     final List<Translator> translators = translatorRepository.findAll();
     final Map<Long, List<AuthorisationProjection>> authorisationProjections = getAuthorisationProjections();
-    final Map<Long, List<AuthorisationTermProjection>> termProjections = getAuthorisationTermProjections();
+
     final List<ClerkTranslatorDTO> clerkTranslatorDTOS = createClerkTranslatorDTOs(
       translators,
-      authorisationProjections,
-      termProjections
+      authorisationProjections
     );
     final LanguagePairsDictDTO languagePairsDictDTO = getLanguagePairsDictDTO();
     final List<String> towns = getDistinctTowns(translators);
@@ -105,24 +97,15 @@ public class ClerkTranslatorService {
       .collect(Collectors.groupingBy(AuthorisationProjection::translatorId));
   }
 
-  private Map<Long, List<AuthorisationTermProjection>> getAuthorisationTermProjections() {
-    return authorisationTermRepository
-      .listAuthorisationTermProjections()
-      .stream()
-      .collect(Collectors.groupingBy(AuthorisationTermProjection::authorisationId));
-  }
-
   private List<ClerkTranslatorDTO> createClerkTranslatorDTOs(
     final List<Translator> translators,
-    final Map<Long, List<AuthorisationProjection>> authorisationProjectionsByTranslator,
-    final Map<Long, List<AuthorisationTermProjection>> termProjectionsByAuthorisation
+    final Map<Long, List<AuthorisationProjection>> authorisationProjectionsByTranslator
   ) {
     return translators
       .stream()
       .map(translator -> {
-        final List<AuthorisationDTO> authorisationDTOS = getAuthorisationDTOs(
-          authorisationProjectionsByTranslator.get(translator.getId()),
-          termProjectionsByAuthorisation
+        final List<AuthorisationDTO> authorisationDTOS = createAuthorisationDTOs(
+          authorisationProjectionsByTranslator.get(translator.getId())
         );
 
         return ClerkTranslatorDTO
@@ -145,36 +128,11 @@ public class ClerkTranslatorService {
       .toList();
   }
 
-  private List<AuthorisationDTO> getAuthorisationDTOs(
-    final List<AuthorisationProjection> authorisationProjections,
-    final Map<Long, List<AuthorisationTermProjection>> termProjectionsByAuthorisation
-  ) {
+  private List<AuthorisationDTO> createAuthorisationDTOs(final List<AuthorisationProjection> authorisationProjections) {
     return authorisationProjections
       .stream()
+      .sorted(AUTHORISATION_PROJECTION_COMPARATOR.reversed())
       .map(authProjection -> {
-        List<AuthorisationTermDTO> termDTOS = null;
-        final List<AuthorisationTermProjection> termProjections = termProjectionsByAuthorisation.getOrDefault(
-          authProjection.id(),
-          null
-        );
-
-        if (termProjections != null) {
-          termDTOS =
-            termProjections
-              .stream()
-              .sorted(authorisationTermProjectionComparator.reversed())
-              .map(tp ->
-                AuthorisationTermDTO
-                  .builder()
-                  .id(tp.id())
-                  .version(tp.version())
-                  .beginDate(tp.beginDate())
-                  .endDate(tp.endDate())
-                  .build()
-              )
-              .toList();
-        }
-
         final LanguagePairDTO languagePairDTO = LanguagePairDTO
           .builder()
           .from(authProjection.fromLang())
@@ -187,14 +145,15 @@ public class ClerkTranslatorService {
           .version(authProjection.version())
           .languagePair(languagePairDTO)
           .basis(authProjection.authorisationBasis())
+          .termBeginDate(authProjection.termBeginDate())
+          .termEndDate(authProjection.termEndDate())
+          .permissionToPublish(authProjection.permissionToPublish())
           .diaryNumber(authProjection.diaryNumber())
+          .meetingDate(authProjection.meetingDate())
           .autDate(authProjection.autDate())
           .kktCheck(authProjection.kktCheck())
           .virDate(authProjection.virDate())
           .assuranceDate(authProjection.assuranceDate())
-          .meetingDate(authProjection.meetingDate())
-          .terms(termDTOS)
-          .permissionToPublish(authProjection.permissionToPublish())
           .build();
       })
       .toList();
@@ -275,13 +234,13 @@ public class ClerkTranslatorService {
   @Transactional
   public void deleteTranslator(final long translatorId) {
     final Translator translator = translatorRepository.getById(translatorId);
-
     final Collection<Authorisation> authorisations = translator.getAuthorisations();
-    final List<AuthorisationTerm> terms = authorisations.stream().flatMap(a -> a.getTerms().stream()).toList();
-    final List<AuthorisationTermReminder> reminders = terms.stream().flatMap(t -> t.getReminders().stream()).toList();
+    final List<AuthorisationTermReminder> reminders = authorisations
+      .stream()
+      .flatMap(t -> t.getReminders().stream())
+      .toList();
 
     authorisationTermReminderRepository.deleteAllInBatch(reminders);
-    authorisationTermRepository.deleteAllInBatch(terms);
     authorisationRepository.deleteAllInBatch(authorisations);
     translatorRepository.deleteAllInBatch(List.of(translator));
 
@@ -312,14 +271,6 @@ public class ClerkTranslatorService {
 
     authorisationRepository.saveAndFlush(authorisation);
 
-    final AuthorisationTerm term = new AuthorisationTerm();
-    authorisation.getTerms().add(term);
-    term.setAuthorisation(authorisation);
-    term.setBeginDate(dto.beginDate());
-    term.setEndDate(dto.endDate());
-
-    authorisationTermRepository.saveAndFlush(term);
-
     return authorisation;
   }
 
@@ -332,22 +283,7 @@ public class ClerkTranslatorService {
 
     copyDtoFieldsToAuthorisation(dto, authorisation, meetingDates);
 
-    final Collection<AuthorisationTerm> terms = authorisation.getTerms();
-    if (terms.size() != 1) {
-      throw new RuntimeException(
-        String.format(
-          "Authorisation id: %d has invalid number of authorisation terms %d",
-          authorisation.getId(),
-          terms.size()
-        )
-      );
-    }
-    final AuthorisationTerm term = terms.iterator().next();
-    term.setBeginDate(dto.beginDate());
-    term.setEndDate(dto.endDate());
-
     authorisationRepository.flush();
-    authorisationTermRepository.flush();
 
     final Translator translator = authorisation.getTranslator();
 
@@ -366,15 +302,17 @@ public class ClerkTranslatorService {
       throw new RuntimeException("Invalid meeting date: " + dto.meetingDate());
     }
     authorisation.setBasis(dto.basis());
+    authorisation.setFromLang(dto.from());
+    authorisation.setToLang(dto.to());
+    authorisation.setTermBeginDate(dto.termBeginDate());
+    authorisation.setTermEndDate(dto.termEndDate());
+    authorisation.setPermissionToPublish(dto.permissionToPublish());
+    authorisation.setDiaryNumber(dto.diaryNumber());
     authorisation.setAutDate(dto.autDate());
     authorisation.setKktCheck(dto.kktCheck());
     authorisation.setVirDate(dto.virDate());
     authorisation.setAssuranceDate(dto.assuranceDate());
     authorisation.setMeetingDate(meetingDate);
-    authorisation.setFromLang(dto.from());
-    authorisation.setToLang(dto.to());
-    authorisation.setPermissionToPublish(dto.permissionToPublish());
-    authorisation.setDiaryNumber(dto.diaryNumber());
   }
 
   @Transactional
@@ -403,12 +341,9 @@ public class ClerkTranslatorService {
     if (translator.getAuthorisations().size() == 1) {
       throw new RuntimeException("Can not delete last authorisation");
     }
-
-    final Collection<AuthorisationTerm> terms = authorisation.getTerms();
-    final List<AuthorisationTermReminder> reminders = terms.stream().flatMap(t -> t.getReminders().stream()).toList();
+    final Collection<AuthorisationTermReminder> reminders = authorisation.getReminders();
 
     authorisationTermReminderRepository.deleteAllInBatch(reminders);
-    authorisationTermRepository.deleteAllInBatch(terms);
     authorisationRepository.deleteAllInBatch(List.of(authorisation));
 
     final ClerkTranslatorDTO result = getTranslatorWithoutAudit(translator.getId());

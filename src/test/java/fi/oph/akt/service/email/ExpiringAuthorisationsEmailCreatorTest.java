@@ -8,13 +8,13 @@ import static org.mockito.Mockito.verifyNoInteractions;
 
 import fi.oph.akt.Factory;
 import fi.oph.akt.model.Authorisation;
-import fi.oph.akt.model.AuthorisationTerm;
+import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTermReminder;
 import fi.oph.akt.model.Email;
 import fi.oph.akt.model.EmailType;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
-import fi.oph.akt.repository.AuthorisationTermRepository;
+import fi.oph.akt.repository.AuthorisationRepository;
 import java.time.LocalDate;
 import java.util.List;
 import javax.annotation.Resource;
@@ -34,7 +34,7 @@ public class ExpiringAuthorisationsEmailCreatorTest {
   private ExpiringAuthorisationsEmailCreator emailCreator;
 
   @Resource
-  private AuthorisationTermRepository authorisationTermRepository;
+  private AuthorisationRepository authorisationRepository;
 
   @MockBean
   private ClerkEmailService clerkEmailService;
@@ -47,7 +47,7 @@ public class ExpiringAuthorisationsEmailCreatorTest {
 
   @BeforeEach
   public void setup() {
-    emailCreator = new ExpiringAuthorisationsEmailCreator(authorisationTermRepository, clerkEmailService);
+    emailCreator = new ExpiringAuthorisationsEmailCreator(authorisationRepository, clerkEmailService);
   }
 
   @Test
@@ -55,35 +55,36 @@ public class ExpiringAuthorisationsEmailCreatorTest {
     final MeetingDate meetingDate = Factory.meetingDate();
     entityManager.persist(meetingDate);
 
-    final AuthorisationTerm term1 = createTerm(meetingDate, LocalDate.now(), "t1@invalid");
-    final AuthorisationTerm term2 = createTerm(meetingDate, LocalDate.now().plusDays(10), "t2@invalid");
-    final AuthorisationTerm term3 = createTerm(meetingDate, LocalDate.now().plusMonths(3), "t3@invalid");
+    final Authorisation auth1 = createAuthorisation(meetingDate, LocalDate.now(), "t1@invalid");
+    final Authorisation auth2 = createAuthorisation(meetingDate, LocalDate.now().plusDays(10), "t2@invalid");
+    final Authorisation auth3 = createAuthorisation(meetingDate, LocalDate.now().plusMonths(3), "t3@invalid");
 
-    final AuthorisationTerm pastTerm = createTerm(meetingDate, LocalDate.now().minusDays(1), "t4@invalid");
-    final AuthorisationTerm futureTerm = createTerm(
+    final Authorisation pastAuth = createAuthorisation(meetingDate, LocalDate.now().minusDays(1), "t4@invalid");
+    final Authorisation futureAuth = createAuthorisation(
       meetingDate,
       LocalDate.now().plusMonths(3).plusDays(1),
       "t5@invalid"
     );
+    final Authorisation authWithoutTermEndDate = createAuthorisation(meetingDate, null, "t6@invalid");
 
-    final AuthorisationTerm remindedTerm1 = createTerm(meetingDate, LocalDate.now().plusMonths(1), "t6@invalid");
-    createAuthorisationTermReminder(remindedTerm1);
+    final Authorisation remindedAuth1 = createAuthorisation(meetingDate, LocalDate.now().plusMonths(1), "t7@invalid");
+    createAuthorisationTermReminder(remindedAuth1);
 
-    final AuthorisationTerm remindedTerm2 = createTerm(meetingDate, LocalDate.now().plusMonths(2), "t7@invalid");
-    createAuthorisationTermReminder(remindedTerm2);
-    createAuthorisationTermReminder(remindedTerm2);
+    final Authorisation remindedAuth2 = createAuthorisation(meetingDate, LocalDate.now().plusMonths(2), "t8@invalid");
+    createAuthorisationTermReminder(remindedAuth2);
+    createAuthorisationTermReminder(remindedAuth2);
 
     emailCreator.pollExpiringAuthorisations();
 
     verify(clerkEmailService, times(3)).createAuthorisationExpiryEmail(longCaptor.capture());
 
-    final List<Long> expiringTermIds = longCaptor.getAllValues();
+    final List<Long> expiringAuthIds = longCaptor.getAllValues();
 
-    assertEquals(3, expiringTermIds.size());
+    assertEquals(3, expiringAuthIds.size());
 
-    assertTrue(expiringTermIds.contains(term1.getId()));
-    assertTrue(expiringTermIds.contains(term2.getId()));
-    assertTrue(expiringTermIds.contains(term3.getId()));
+    assertTrue(expiringAuthIds.contains(auth1.getId()));
+    assertTrue(expiringAuthIds.contains(auth2.getId()));
+    assertTrue(expiringAuthIds.contains(auth3.getId()));
   }
 
   @Test
@@ -91,39 +92,45 @@ public class ExpiringAuthorisationsEmailCreatorTest {
     final MeetingDate meetingDate = Factory.meetingDate();
     entityManager.persist(meetingDate);
 
-    createTerm(meetingDate, LocalDate.now(), null);
+    createAuthorisation(meetingDate, LocalDate.now(), null);
 
     emailCreator.pollExpiringAuthorisations();
 
     verifyNoInteractions(clerkEmailService);
   }
 
-  private AuthorisationTerm createTerm(
+  private Authorisation createAuthorisation(
     final MeetingDate meetingDate,
     final LocalDate termEndDate,
     final String translatorEmail
   ) {
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
     translator.setEmail(translatorEmail);
-    authorisationTerm.setBeginDate(termEndDate.minusYears(1));
-    authorisationTerm.setEndDate(termEndDate);
+    authorisation.setTermEndDate(termEndDate);
+
+    if (termEndDate != null) {
+      authorisation.setTermBeginDate(termEndDate.minusYears(1));
+    } else {
+      authorisation.setTermBeginDate(null);
+      authorisation.setBasis(AuthorisationBasis.VIR);
+      authorisation.setAutDate(null);
+      authorisation.setVirDate(LocalDate.now());
+    }
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
     entityManager.persist(authorisation);
-    entityManager.persist(authorisationTerm);
 
-    return authorisationTerm;
+    return authorisation;
   }
 
-  private void createAuthorisationTermReminder(final AuthorisationTerm term) {
+  private void createAuthorisationTermReminder(final Authorisation authorisation) {
     final Email email = Factory.email(EmailType.AUTHORISATION_EXPIRY);
     entityManager.persist(email);
 
-    final AuthorisationTermReminder reminder = Factory.authorisationTermReminder(term, email);
+    final AuthorisationTermReminder reminder = Factory.authorisationTermReminder(authorisation, email);
     entityManager.persist(reminder);
   }
 }

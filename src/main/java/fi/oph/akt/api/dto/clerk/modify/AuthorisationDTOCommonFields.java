@@ -6,6 +6,20 @@ import java.time.LocalDate;
 public interface AuthorisationDTOCommonFields {
   AuthorisationBasis basis();
 
+  String from();
+
+  String to();
+
+  LocalDate termBeginDate();
+
+  LocalDate termEndDate();
+
+  Boolean permissionToPublish();
+
+  String diaryNumber();
+
+  LocalDate meetingDate();
+
   LocalDate autDate();
 
   String kktCheck();
@@ -13,18 +27,4 @@ public interface AuthorisationDTOCommonFields {
   LocalDate virDate();
 
   LocalDate assuranceDate();
-
-  LocalDate meetingDate();
-
-  String from();
-
-  String to();
-
-  Boolean permissionToPublish();
-
-  LocalDate beginDate();
-
-  LocalDate endDate();
-
-  String diaryNumber();
 }

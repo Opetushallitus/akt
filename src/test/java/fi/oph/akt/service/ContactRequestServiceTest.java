@@ -10,7 +10,6 @@ import static org.mockito.Mockito.when;
 import fi.oph.akt.Factory;
 import fi.oph.akt.api.dto.translator.ContactRequestDTO;
 import fi.oph.akt.model.Authorisation;
-import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.ContactRequest;
 import fi.oph.akt.model.ContactRequestTranslator;
 import fi.oph.akt.model.MeetingDate;
@@ -171,14 +170,12 @@ class ContactRequestServiceTest {
     final MeetingDate meetingDate = createMeetingDate();
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
     authorisation.setFromLang(FROM_LANG);
     authorisation.setToLang(TO_LANG);
 
     entityManager.persist(translator);
     entityManager.persist(authorisation);
-    entityManager.persist(authorisationTerm);
 
     final List<Long> translatorIds = List.of(translator.getId());
 
@@ -242,7 +239,6 @@ class ContactRequestServiceTest {
     final MeetingDate meetingDate = createMeetingDate();
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
     authorisation.setFromLang(FROM_LANG);
     authorisation.setToLang(TO_LANG);
@@ -250,7 +246,6 @@ class ContactRequestServiceTest {
 
     entityManager.persist(translator);
     entityManager.persist(authorisation);
-    entityManager.persist(authorisationTerm);
 
     final List<Long> translatorIds = List.of(translator.getId());
 
@@ -316,11 +311,8 @@ class ContactRequestServiceTest {
         authorisation.setFromLang(FROM_LANG);
         authorisation.setToLang(TO_LANG);
 
-        final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
-
         entityManager.persist(translator);
         entityManager.persist(authorisation);
-        entityManager.persist(authorisationTerm);
 
         translatorIds.add(translator.getId());
       });

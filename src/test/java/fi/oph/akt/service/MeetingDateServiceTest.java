@@ -13,7 +13,6 @@ import fi.oph.akt.api.dto.clerk.modify.MeetingDateUpdateDTO;
 import fi.oph.akt.audit.AktOperation;
 import fi.oph.akt.audit.AuditService;
 import fi.oph.akt.model.Authorisation;
-import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.MeetingDateRepository;
@@ -133,12 +132,10 @@ class MeetingDateServiceTest {
     final MeetingDate meetingDate = Factory.meetingDate();
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
     entityManager.persist(authorisation);
-    entityManager.persist(authorisationTerm);
 
     final RuntimeException ex = assertThrows(
       RuntimeException.class,
@@ -154,12 +151,10 @@ class MeetingDateServiceTest {
     final MeetingDate meetingDate = Factory.meetingDate();
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
     entityManager.persist(authorisation);
-    entityManager.persist(authorisationTerm);
 
     final MeetingDateUpdateDTO updateDTO = MeetingDateUpdateDTO
       .builder()
