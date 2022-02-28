@@ -168,31 +168,34 @@ FROM authorisation
 WHERE mod(authorisation_id, 20) <> 0
 ;
 
--- add unauthorised VIR
-INSERT INTO authorisation (translator_id, basis, meeting_date_id, aut_date, kkt_check, vir_date, assurance_date,
-                           from_lang, to_lang, permission_to_publish, diary_number)
-VALUES ((SELECT max(translator_id) FROM translator), 'VIR', null, null, null, '1990-12-24', null, 'SEPO', 'DE', false,
-        'old unauthorised VIR');
-
 -- set diary numbers to match the ids of authorisations
 UPDATE authorisation
 SET diary_number = authorisation_id
 WHERE 1 = 1;
 
-INSERT INTO authorisation_term(authorisation_id, begin_date, end_date)
-SELECT authorisation_id,
-       -- NOTE mod 87 is expired term, its needed also to set town to null
-       (CASE WHEN mod(translator_id, 87) = 0 THEN '2019-01-01' ELSE '2022-01-01' END)::date,
-       -- VIR never expires
-       (CASE
-            WHEN basis <> 'VIR' THEN CASE
-                                         WHEN mod(translator_id, 87) = 0 THEN '2021-12-31'
-                                         ELSE '2022-01-15'::date +
-                                              (mod(translator_id, 365 * 5)::text || ' days')::interval END
-           END)::date
-FROM authorisation
-WHERE meeting_date_id IS NOT NULL
-;
+UPDATE authorisation
+SET term_begin_date = (CASE
+    WHEN mod(translator_id, 87) = 0 THEN '2019-01-01'
+    ELSE '2022-01-01'
+    END
+)::date
+WHERE meeting_date_id IS NOT NULL;
+
+UPDATE authorisation
+SET term_end_date = (CASE
+    WHEN basis <> 'VIR' THEN CASE
+        WHEN mod(translator_id, 87) = 0 THEN '2021-12-31'
+        ELSE '2022-01-15'::date + (mod(translator_id, 365 * 5)::text || ' days')::interval
+        END
+    END
+)::date
+WHERE meeting_date_id IS NOT NULL;
+
+-- add unauthorised VIR
+INSERT INTO authorisation (translator_id, basis, meeting_date_id, aut_date, kkt_check, vir_date, assurance_date,
+                           from_lang, to_lang, permission_to_publish, diary_number)
+VALUES ((SELECT max(translator_id) FROM translator), 'VIR', null, null, null, '1990-12-24', null, 'SEPO', 'DE', false,
+        'old unauthorised VIR');
 
 -- set some translator fields to null
 UPDATE translator
