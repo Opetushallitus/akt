@@ -3,7 +3,11 @@ import { FC } from 'react';
 
 import { Text } from 'components/elements/Text';
 import { Color } from 'enums/app';
-import { SkipLinkProps } from 'interfaces/link';
+
+export interface SkipLinkProps {
+  text: string;
+  href: string;
+}
 
 export const SkipLink: FC<SkipLinkProps> = ({ text, href }) => {
   return (

@@ -5,7 +5,11 @@ import {
   ComboBoxOption,
   ComboBoxProps,
 } from 'interfaces/combobox';
-import { LanguageSelectProps } from 'interfaces/languageSelect';
+
+export interface LanguageSelectProps {
+  excludedLanguage: string | undefined;
+  languages: Array<string>;
+}
 
 const primaryLanguages = ['FI', 'SV', 'SEIN', 'SEKO', 'SEPO'];
 
