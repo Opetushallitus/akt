@@ -24,7 +24,7 @@ export interface ClerkTranslatorResponse {
   meetingDates: Array<MeetingDate>;
 }
 
-export interface APIClerkTranslator extends WithId, WithVersion {
+export interface ClerkTranslatorBasicInformation {
   firstName: string;
   lastName: string;
   identityNumber?: string;
@@ -35,6 +35,12 @@ export interface APIClerkTranslator extends WithId, WithVersion {
   town?: string;
   country?: string;
   extraInformation?: string;
+}
+
+export interface APIClerkTranslator
+  extends ClerkTranslatorBasicInformation,
+    WithId,
+    WithVersion {
   authorisations: Array<APIAuthorisation>;
 }
 

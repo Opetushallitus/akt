@@ -1,4 +1,4 @@
-import { TextField, TextFieldProps } from '@mui/material';
+import { TextField } from '@mui/material';
 
 import { CustomTextFieldProps } from 'interfaces/customTextField';
 
@@ -8,7 +8,7 @@ export const CustomTextField = ({
   showHelperText,
   multiline,
   ...rest
-}: CustomTextFieldProps & TextFieldProps) => {
+}: CustomTextFieldProps) => {
   const minRows = multiline ? 5 : undefined;
   const maxRows = multiline ? 15 : undefined;
 

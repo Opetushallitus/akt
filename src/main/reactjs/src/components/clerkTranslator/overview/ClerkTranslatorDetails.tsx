@@ -2,15 +2,18 @@ import EditIcon from '@mui/icons-material/Edit';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { URLSearchParamsInit, useSearchParams } from 'react-router-dom';
 
+import { ClerkTranslatorDetailsField } from 'components/clerkTranslator/overview/ClerkTranslatorDetailsField';
 import { CustomButton } from 'components/elements/CustomButton';
-import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { Color, Severity, UIMode, Variant } from 'enums/app';
 import { usePrevious } from 'hooks/usePrevious';
-import { ClerkTranslator } from 'interfaces/clerkTranslator';
+import {
+  ClerkTranslator,
+  ClerkTranslatorBasicInformation,
+} from 'interfaces/clerkTranslator';
 import { updateClerkTranslatorDetails } from 'redux/actions/clerkTranslatorOverview';
 import { showNotifierToast } from 'redux/actions/notifier';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
@@ -69,13 +72,14 @@ export const ClerkTranslatorDetails = () => {
     }
   });
 
-  const getCommonTextFieldProps = (field: keyof ClerkTranslator) => ({
-    'data-testid': `clerk-translator-overview__translator-details__field-${field}`,
+  const getCommonTextFieldProps = (
+    field: keyof ClerkTranslatorBasicInformation
+  ) => ({
+    field,
+    translator: translatorDetails,
     disabled: isViewMode,
-    label: t(`translatorDetails.fields.${field}`),
-    onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    onFieldChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       handleTranslatorDetailsChange(e)(field),
-    value: translatorDetails ? translatorDetails[field] : undefined,
   });
 
   const handleTranslatorDetailsChange =
@@ -145,24 +149,32 @@ export const ClerkTranslatorDetails = () => {
     <>
       {renderControlButtons()}
       <div className="grid-columns gapped">
-        <CustomTextField {...getCommonTextFieldProps('lastName')} />
-        <CustomTextField {...getCommonTextFieldProps('firstName')} />
-        <CustomTextField {...getCommonTextFieldProps('identityNumber')} />
+        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('lastName')} />
+        <ClerkTranslatorDetailsField
+          {...getCommonTextFieldProps('firstName')}
+        />
+        <ClerkTranslatorDetailsField
+          {...getCommonTextFieldProps('identityNumber')}
+        />
       </div>
       <H3>{t('translatorDetails.header.address')}</H3>
       <div className="grid-columns gapped">
-        <CustomTextField {...getCommonTextFieldProps('street')} />
-        <CustomTextField {...getCommonTextFieldProps('postalCode')} />
-        <CustomTextField {...getCommonTextFieldProps('town')} />
-        <CustomTextField {...getCommonTextFieldProps('country')} />
+        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('street')} />
+        <ClerkTranslatorDetailsField
+          {...getCommonTextFieldProps('postalCode')}
+        />
+        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('town')} />
+        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('country')} />
       </div>
       <H3>{t('translatorDetails.header.contactInformation')}</H3>
       <div className="grid-columns gapped">
-        <CustomTextField {...getCommonTextFieldProps('email')} />
-        <CustomTextField {...getCommonTextFieldProps('phoneNumber')} />
+        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('email')} />
+        <ClerkTranslatorDetailsField
+          {...getCommonTextFieldProps('phoneNumber')}
+        />
       </div>
       <H3>{t('translatorDetails.header.extraInformation')}</H3>
-      <CustomTextField
+      <ClerkTranslatorDetailsField
         {...getCommonTextFieldProps('extraInformation')}
         multiline
         fullWidth
