@@ -1,7 +1,6 @@
-import { CustomButton } from 'components/elements/CustomButton';
+import { ToggleFilter } from 'components/elements/ToggleFilter';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { Color, Variant } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { setClerkTranslatorFilters } from 'redux/actions/clerkTranslator';
 import {
@@ -10,45 +9,47 @@ import {
 } from 'redux/selectors/clerkTranslator';
 
 export const ClerkTranslatorToggleFilters = () => {
-  const { authorised, expiring, expired } = useAppSelector(
-    selectTranslatorsByAuthorisationStatus
-  );
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorFilters.authorisationStatus',
   });
+
+  const { authorised, expiring, expired } = useAppSelector(
+    selectTranslatorsByAuthorisationStatus
+  );
+
   const dispatch = useAppDispatch();
   const { filters } = useAppSelector(clerkTranslatorsSelector);
+
   const filterByAuthorisationStatus = (status: AuthorisationStatus) => {
     dispatch(setClerkTranslatorFilters({ authorisationStatus: status }));
   };
-  const variantForStatus = (status: AuthorisationStatus) => {
-    return status === filters.authorisationStatus
-      ? Variant.Contained
-      : Variant.Outlined;
-  };
 
-  const countsForStatuses = [
-    { status: AuthorisationStatus.Authorised, count: authorised.length },
-    { status: AuthorisationStatus.Expiring, count: expiring.length },
-    { status: AuthorisationStatus.Expired, count: expired.length },
+  const filterData = [
+    {
+      status: AuthorisationStatus.Authorised,
+      count: authorised.length,
+      testId: `clerk-translator-filters__btn--${AuthorisationStatus.Authorised}`,
+      label: t(AuthorisationStatus.Authorised),
+    },
+    {
+      status: AuthorisationStatus.Expiring,
+      count: expiring.length,
+      testId: `clerk-translator-filters__btn--${AuthorisationStatus.Expiring}`,
+      label: t(AuthorisationStatus.Expiring),
+    },
+    {
+      status: AuthorisationStatus.Expired,
+      count: expired.length,
+      testId: `clerk-translator-filters__btn--${AuthorisationStatus.Expired}`,
+      label: t(AuthorisationStatus.Expired),
+    },
   ];
 
   return (
-    <>
-      {countsForStatuses.map(({ count, status }, i) => (
-        <CustomButton
-          key={i}
-          data-testid={`clerk-translator-filters__btn--${status}`}
-          color={Color.Secondary}
-          variant={variantForStatus(status)}
-          onClick={() => filterByAuthorisationStatus(status)}
-        >
-          <div className="columns gapped">
-            <div className="grow">{t(status)}</div>
-            <div>{`(${count})`}</div>
-          </div>
-        </CustomButton>
-      ))}
-    </>
+    <ToggleFilter
+      filters={filterData}
+      activeStatus={filters.authorisationStatus}
+      onButtonClick={filterByAuthorisationStatus}
+    />
   );
 };
