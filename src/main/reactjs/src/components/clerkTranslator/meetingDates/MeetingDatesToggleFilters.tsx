@@ -1,8 +1,6 @@
-import { Button } from '@mui/material';
-
+import { ToggleFilter } from 'components/elements/ToggleFilter';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { Color, Variant } from 'enums/app';
 import { MeetingStatus } from 'enums/meetingDate';
 import { setMeetingDateFilters } from 'redux/actions/meetingDate';
 import {
@@ -11,44 +9,39 @@ import {
 } from 'redux/selectors/meetingDate';
 
 export const MeetingDatesToggleFilters = () => {
-  const { upcoming, passed } = useAppSelector(
-    selectMeetingDatesByMeetingStatus
-  );
   const { t } = useAppTranslation({
     keyPrefix: 'akt.pages.meetingDatesPage',
   });
+
+  const { upcoming, passed } = useAppSelector(
+    selectMeetingDatesByMeetingStatus
+  );
+
   const dispatch = useAppDispatch();
   const { filters } = useAppSelector(meetingDateSelector);
+
   const filterByDate = (status: MeetingStatus) => {
     dispatch(setMeetingDateFilters({ meetingStatus: status }));
   };
-  const variantForStatus = (status: MeetingStatus) => {
-    return status === filters.meetingStatus
-      ? Variant.Contained
-      : Variant.Outlined;
-  };
 
-  const countsForStatuses = [
-    { status: MeetingStatus.Upcoming, count: upcoming.length },
-    { status: MeetingStatus.Passed, count: passed.length },
+  const filterData = [
+    {
+      status: MeetingStatus.Upcoming,
+      count: upcoming.length,
+      label: t(MeetingStatus.Upcoming),
+    },
+    {
+      status: MeetingStatus.Passed,
+      count: passed.length,
+      label: t(MeetingStatus.Passed),
+    },
   ];
 
   return (
-    <>
-      {countsForStatuses.map(({ count, status }, i) => (
-        <Button
-          key={i}
-          data-testid={`clerk-translator-filters__btn--${status}`}
-          color={Color.Secondary}
-          variant={variantForStatus(status)}
-          onClick={() => filterByDate(status)}
-        >
-          <div className="columns gapped">
-            <div className="grow">{t(status)}</div>
-            <div>{`(${count})`}</div>
-          </div>
-        </Button>
-      ))}
-    </>
+    <ToggleFilter
+      filters={filterData}
+      activeStatus={filters.meetingStatus}
+      onButtonClick={filterByDate}
+    />
   );
 };
