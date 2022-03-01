@@ -3,45 +3,41 @@ import { DateUtils } from 'utils/date';
 
 export class AuthorisationUtils {
   static isAuthorisationEffective(
-    { effectiveTerm }: Authorisation,
+    { termBeginDate, termEndDate }: Authorisation,
     currentDate: Date
   ) {
-    if (effectiveTerm && effectiveTerm.end) {
-      return DateUtils.isDatePartBeforeOrEqual(currentDate, effectiveTerm.end);
-    } else if (effectiveTerm) {
+    if (termEndDate) {
+      return DateUtils.isDatePartBeforeOrEqual(currentDate, termEndDate);
+    } else if (termBeginDate) {
       return true;
     } else {
       return false;
     }
   }
 
-  static isAuthorisationExpiring = (
-    { effectiveTerm }: Authorisation,
+  static isAuthorisationExpiring(
+    { termEndDate }: Authorisation,
     currentDate: Date,
     expiringThreshold: Date
-  ) => {
-    if (effectiveTerm && effectiveTerm.end) {
-      return (
-        DateUtils.isDatePartBeforeOrEqual(currentDate, effectiveTerm.end) &&
-        DateUtils.isDatePartBeforeOrEqual(effectiveTerm.end, expiringThreshold)
-      );
-    }
-
-    return false;
-  };
-
-  static isAuthorisationExpired(
-    { effectiveTerm }: Authorisation,
-    currentDate: Date
   ) {
-    if (effectiveTerm && effectiveTerm.end) {
-      return !DateUtils.isDatePartBeforeOrEqual(currentDate, effectiveTerm.end);
-    }
-
-    return false;
+    return (
+      termEndDate &&
+      DateUtils.isDatePartBeforeOrEqual(currentDate, termEndDate) &&
+      DateUtils.isDatePartBeforeOrEqual(termEndDate, expiringThreshold)
+    );
   }
 
-  static isAuthorisationForFormerVIR({ effectiveTerm }: Authorisation) {
-    return !effectiveTerm;
+  static isAuthorisationExpired(
+    { termEndDate }: Authorisation,
+    currentDate: Date
+  ) {
+    return (
+      termEndDate &&
+      !DateUtils.isDatePartBeforeOrEqual(currentDate, termEndDate)
+    );
+  }
+
+  static isAuthorisationForFormerVIR({ termBeginDate }: Authorisation) {
+    return !termBeginDate;
   }
 }

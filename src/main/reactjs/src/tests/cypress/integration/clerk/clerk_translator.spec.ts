@@ -16,9 +16,9 @@ beforeEach(() => {
 });
 
 const translatorCountsByAuthorisationStatus = {
-  [AuthorisationStatus.Authorised]: 98,
+  [AuthorisationStatus.Authorised]: 99,
   [AuthorisationStatus.Expiring]: 88,
-  [AuthorisationStatus.Expired]: 2,
+  [AuthorisationStatus.Expired]: 1,
   [AuthorisationStatus.FormerVIR]: 8,
 };
 
@@ -84,15 +84,17 @@ describe('ClerkHomePage', () => {
   });
 
   it('should combine multiple filters', () => {
-    onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
     onClerkHomePage.filterByAuthorisationBasis('KKT');
+    onClerkHomePage.expectSelectedTranslatorsCount(15);
+
+    onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
     onClerkHomePage.expectSelectedTranslatorsCount(13);
 
-    onClerkHomePage.filterByFromLang('ruotsi');
-    onClerkHomePage.expectSelectedTranslatorsCount(3);
+    onClerkHomePage.filterByFromLang('pohjoissaame');
+    onClerkHomePage.expectSelectedTranslatorsCount(2); // Kari Kinnunen, Anna Lehtonen
 
-    onClerkHomePage.filterByToLang('iiri');
-    onClerkHomePage.expectSelectedTranslatorsCount(1);
+    onClerkHomePage.filterByToLang('fääri');
+    onClerkHomePage.expectSelectedTranslatorsCount(1); // Anna Lehtonen
 
     onClerkHomePage.filterByPermissionToPublishBasis(false);
     onClerkHomePage.expectSelectedTranslatorsCount(0);

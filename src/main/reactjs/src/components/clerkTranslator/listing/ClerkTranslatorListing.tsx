@@ -102,19 +102,15 @@ const ListingRow = ({ translator }: { translator: ClerkTranslator }) => {
       </TableCell>
       <TableCell>
         <div className="rows">
-          {authorisations.map(({ effectiveTerm }, idx) => (
-            <Text key={idx}>
-              {DateUtils.formatOptionalDate(effectiveTerm?.start)}
-            </Text>
+          {authorisations.map(({ termBeginDate }, idx) => (
+            <Text key={idx}>{DateUtils.formatOptionalDate(termBeginDate)}</Text>
           ))}
         </div>
       </TableCell>
       <TableCell>
         <div className="rows">
-          {authorisations.map(({ effectiveTerm }, idx) => (
-            <Text key={idx}>
-              {DateUtils.formatOptionalDate(effectiveTerm?.end)}
-            </Text>
+          {authorisations.map(({ termEndDate }, idx) => (
+            <Text key={idx}>{DateUtils.formatOptionalDate(termEndDate)}</Text>
           ))}
         </div>
       </TableCell>
