@@ -26,7 +26,7 @@ describe('ClerkHomePage', () => {
     onClerkHomePage.expectTotalTranslatorsCount(100);
   });
 
-  it('should filter translators based on selected authorisation status', () => {
+  it('should filter translators by authorisation status', () => {
     // Use fixed date in tests as the as the authorisation status filters depend on it.
     onClerkHomePage.expectSelectedTranslatorsCount(
       translatorCountsByAuthorisationStatus[AuthorisationStatus.Authorised]
@@ -48,23 +48,38 @@ describe('ClerkHomePage', () => {
     );
   });
 
-  it('should allow combining multiple filters to narrow down on translators', () => {
-    onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Authorised);
+  it('should filter translators by from lang', () => {
+    onClerkHomePage.filterByFromLang('katalaani');
+    onClerkHomePage.expectSelectedTranslatorsCount(5); // 5 authorised, 1 expired
+  });
+
+  it('should filter translators by to lang', () => {
+    onClerkHomePage.filterByToLang('iiri');
+    onClerkHomePage.expectSelectedTranslatorsCount(7);
+  });
+
+  it('should filter translators by name', () => {
+    onClerkHomePage.filterByName('Kari');
+    onClerkHomePage.expectSelectedTranslatorsCount(3);
+  });
+
+  it('should filter translators by authorisation basis', () => {
     onClerkHomePage.filterByAuthorisationBasis('VIR');
     onClerkHomePage.expectSelectedTranslatorsCount(15);
 
     // Authorisation with basis VIR should never expire => expect 0 matching translators.
     onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
     onClerkHomePage.expectSelectedTranslatorsCount(0);
+  });
 
-    onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Authorised);
-    onClerkHomePage.filterByAuthorisationBasis('AUT');
-    onClerkHomePage.filterByPermissonToPublishBasis('Ei');
+  it('should filter translators by permission to publish', () => {
+    onClerkHomePage.filterByPermissionToPublishBasis(false);
     onClerkHomePage.expectSelectedTranslatorsCount(8);
+  });
 
+  it('should combine multiple filters', () => {
     onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
     onClerkHomePage.filterByAuthorisationBasis('KKT');
-    onClerkHomePage.clearFilterByPermissonToPublishBasis();
     onClerkHomePage.expectSelectedTranslatorsCount(13);
 
     onClerkHomePage.filterByFromLang('ruotsi');
@@ -73,7 +88,7 @@ describe('ClerkHomePage', () => {
     onClerkHomePage.filterByToLang('iiri');
     onClerkHomePage.expectSelectedTranslatorsCount(1);
 
-    onClerkHomePage.filterByName('Kari Kin');
-    onClerkHomePage.expectSelectedTranslatorsCount(1);
+    onClerkHomePage.filterByPermissionToPublishBasis(false);
+    onClerkHomePage.expectSelectedTranslatorsCount(0);
   });
 });
