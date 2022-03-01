@@ -21,35 +21,42 @@ public class ControllerExceptionAdvice {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<Object> handleMethodArgumentNotValidException(final MethodArgumentNotValidException ex) {
     LOG.error("MethodArgumentNotValidException: " + ex.getMessage());
-
-    return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    return badRequest();
   }
 
   @ExceptionHandler(IllegalArgumentException.class)
   public ResponseEntity<Object> handleIllegalArgumentException(final IllegalArgumentException ex) {
     LOG.error("IllegalArgumentException: " + ex.getMessage());
-
-    return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    return badRequest();
   }
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public ResponseEntity<Object> handleHttpMessageNotReadableException(final HttpMessageNotReadableException ex) {
     LOG.error("HttpMessageNotReadableException: " + ex.getMessage());
-
-    return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    return badRequest();
   }
 
   @ExceptionHandler(NotFoundException.class)
   public ResponseEntity<Object> handleNotFoundException(final NotFoundException ex) {
     LOG.error("NotFoundException: " + ex.getMessage());
-
-    return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    return notFound();
   }
 
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<Object> handleAll(final Exception ex) {
+  public ResponseEntity<Object> handleRest(final Exception ex) {
     LOG.error("Exception caught", ex);
+    return internalServerError();
+  }
 
-    return new ResponseEntity<>("exception: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+  private ResponseEntity<Object> badRequest() {
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+  }
+
+  private ResponseEntity<Object> notFound() {
+    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  }
+
+  private ResponseEntity<Object> internalServerError() {
+    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }
