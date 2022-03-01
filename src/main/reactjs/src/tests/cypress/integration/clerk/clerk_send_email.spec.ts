@@ -16,7 +16,7 @@ const fixedDateForTests = new Date('2022-01-17T12:35:00+0200');
 const selectedTranslatorIds = ['3', '4', '5'];
 
 const expectRegistryIsVisible = () => {
-  onClerkHomePage.expectTotalTranslatorsCount(100);
+  onClerkHomePage.expectTotalTranslatorsCount(10);
 };
 
 const fillAndSendMessage = () => {
@@ -34,7 +34,7 @@ beforeEach(() => {
   useFixedDate(fixedDateForTests);
   runWithIntercept(
     APIEndpoints.ClerkTranslator,
-    { fixture: 'clerk_translators_100.json' },
+    { fixture: 'clerk_translators_10.json' },
     () => cy.openClerkHomePage()
   );
   expectRegistryIsVisible();
