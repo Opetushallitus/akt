@@ -122,7 +122,7 @@ const ListingRow = ({ translator }: { translator: ClerkTranslator }) => {
         <div className="rows">
           {authorisations.map((a, idx) => (
             <Text key={idx}>
-              {AuthorisationUtils.isAuthorisationValid(a, currentDate)
+              {AuthorisationUtils.isAuthorisationEffective(a, currentDate)
                 ? translateCommon('yes')
                 : translateCommon('no')}
             </Text>

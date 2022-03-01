@@ -19,6 +19,7 @@ const translatorCountsByAuthorisationStatus = {
   [AuthorisationStatus.Authorised]: 98,
   [AuthorisationStatus.Expiring]: 88,
   [AuthorisationStatus.Expired]: 2,
+  [AuthorisationStatus.FormerVIR]: 8,
 };
 
 describe('ClerkHomePage', () => {
@@ -42,6 +43,11 @@ describe('ClerkHomePage', () => {
       translatorCountsByAuthorisationStatus[AuthorisationStatus.Expired]
     );
 
+    onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.FormerVIR);
+    onClerkHomePage.expectSelectedTranslatorsCount(
+      translatorCountsByAuthorisationStatus[AuthorisationStatus.FormerVIR]
+    );
+
     onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Authorised);
     onClerkHomePage.expectSelectedTranslatorsCount(
       translatorCountsByAuthorisationStatus[AuthorisationStatus.Authorised]
@@ -55,7 +61,7 @@ describe('ClerkHomePage', () => {
 
   it('should filter translators by to lang', () => {
     onClerkHomePage.filterByToLang('iiri');
-    onClerkHomePage.expectSelectedTranslatorsCount(7);
+    onClerkHomePage.expectSelectedTranslatorsCount(6); // 6 authorised, 1 former VIR
   });
 
   it('should filter translators by name', () => {
@@ -65,7 +71,7 @@ describe('ClerkHomePage', () => {
 
   it('should filter translators by authorisation basis', () => {
     onClerkHomePage.filterByAuthorisationBasis('VIR');
-    onClerkHomePage.expectSelectedTranslatorsCount(15);
+    onClerkHomePage.expectSelectedTranslatorsCount(7);
 
     // Authorisation with basis VIR should never expire => expect 0 matching translators.
     onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);

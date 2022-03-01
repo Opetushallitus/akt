@@ -10,7 +10,7 @@ import {
 } from 'redux/selectors/clerkTranslator';
 
 export const ClerkTranslatorToggleFilters = () => {
-  const { authorised, expiring, expired } = useAppSelector(
+  const { authorised, expiring, expired, formerVIR } = useAppSelector(
     selectTranslatorsByAuthorisationStatus
   );
   const { t } = useAppTranslation({
@@ -31,6 +31,7 @@ export const ClerkTranslatorToggleFilters = () => {
     { status: AuthorisationStatus.Authorised, count: authorised.length },
     { status: AuthorisationStatus.Expiring, count: expiring.length },
     { status: AuthorisationStatus.Expired, count: expired.length },
+    { status: AuthorisationStatus.FormerVIR, count: formerVIR.length },
   ];
 
   return (

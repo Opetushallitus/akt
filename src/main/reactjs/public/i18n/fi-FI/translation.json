@@ -113,7 +113,7 @@
           "authorised": "Auktorisoidut",
           "expiring": "Umpeutuvat",
           "expired": "Umpeutuneet",
-          "notAuthorised": "Ei auktorisoidut"
+          "formerVIR": "Ent. VIR"
         },
         "languagePair": {
           "title": "Haku kielittäin",

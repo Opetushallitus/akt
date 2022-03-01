@@ -22,28 +22,20 @@ export const selectTranslatorsByAuthorisationStatus = createSelector(
     // somehow make the dependency on time explicit!
     const currentDate = DateUtils.dateAtStartOfDay(new Date());
     const expiringSoonDate = expiringSoonThreshold(currentDate);
-    const authorised = translators.filter((t) =>
-      filterByAuthorisationStatus(
-        t,
-        AuthorisationStatus.Authorised,
-        currentDate,
-        expiringSoonDate
-      )
-    );
-    const expiring = translators.filter((t) =>
-      filterByAuthorisationStatus(
-        t,
-        AuthorisationStatus.Expiring,
-        currentDate,
-        expiringSoonDate
-      )
-    );
-    const expired = translators.filter((t) =>
-      filterByAuthorisationStatus(
-        t,
-        AuthorisationStatus.Expired,
-        currentDate,
-        expiringSoonDate
+
+    const [authorised, expiring, expired, formerVIR] = [
+      AuthorisationStatus.Authorised,
+      AuthorisationStatus.Expiring,
+      AuthorisationStatus.Expired,
+      AuthorisationStatus.FormerVIR,
+    ].map((authorisationStatus) =>
+      translators.filter((t) =>
+        filterByAuthorisationStatus(
+          t,
+          authorisationStatus,
+          currentDate,
+          expiringSoonDate
+        )
       )
     );
 
@@ -51,6 +43,7 @@ export const selectTranslatorsByAuthorisationStatus = createSelector(
       authorised,
       expiring,
       expired,
+      formerVIR,
     };
   }
 );
@@ -104,22 +97,6 @@ const expiringSoonThreshold = (currentDate: Date) => {
   expiringSoonThreshold.setMonth(expiringSoonThreshold.getMonth() + 3);
 
   return expiringSoonThreshold;
-};
-
-const isAuthorisationExpiringSoon = (
-  authorisation: Authorisation,
-  currentDate: Date,
-  expiringSoonThreshold: Date
-) => {
-  const term = authorisation.effectiveTerm;
-  if (!term || !term.end) {
-    return false;
-  }
-
-  return (
-    DateUtils.isDatePartBeforeOrEqual(currentDate, term.end) &&
-    DateUtils.isDatePartBeforeOrEqual(term.end, expiringSoonThreshold)
-  );
 };
 
 const filterByAuthorisationStatus = (
@@ -191,21 +168,23 @@ const matchesAuthorisationStatus = (
 ) => {
   switch (authorisationStatus) {
     case AuthorisationStatus.Authorised:
-      return AuthorisationUtils.isAuthorisationValid(
+      return AuthorisationUtils.isAuthorisationEffective(
         authorisation,
         currentDate
       );
     case AuthorisationStatus.Expiring:
-      return isAuthorisationExpiringSoon(
+      return AuthorisationUtils.isAuthorisationExpiring(
         authorisation,
         currentDate,
         expiringSoonThreshold
       );
     case AuthorisationStatus.Expired:
-      return !AuthorisationUtils.isAuthorisationValid(
+      return AuthorisationUtils.isAuthorisationExpired(
         authorisation,
         currentDate
       );
+    case AuthorisationStatus.FormerVIR:
+      return AuthorisationUtils.isAuthorisationForFormerVIR(authorisation);
   }
 };
 
