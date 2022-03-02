@@ -1,25 +1,24 @@
 import { APIEndpoints } from 'enums/api';
 import { UIMode } from 'enums/app';
 import {
-  existingTranslator,
+  apiTranslator,
   onClerkTranslatorOverviewPage,
 } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
 import { useFixedDate } from 'tests/cypress/support/utils/date';
 
 const fixedDateForTests = new Date('2022-01-17T12:35:00+0200');
-const existingTranslatorId = 2;
 
 beforeEach(() => {
   useFixedDate(fixedDateForTests);
 
   cy.intercept(
-    `${APIEndpoints.ClerkTranslator}/${existingTranslatorId}`,
-    existingTranslator
+    `${APIEndpoints.ClerkTranslator}/${apiTranslator.id}`,
+    apiTranslator
   ).as('getClerkTranslatorOverview');
 
   const updatedExistingTranslator = {
-    ...existingTranslator,
+    ...apiTranslator,
     version: 1,
     lastName: 'new last name',
   };
@@ -32,7 +31,7 @@ beforeEach(() => {
 
 describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
   it('should open view mode when the edit button is clicked', () => {
-    onClerkTranslatorOverviewPage.navigateById(existingTranslator.id);
+    onClerkTranslatorOverviewPage.navigateById(apiTranslator.id);
     cy.wait('@getClerkTranslatorOverview');
 
     onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();
@@ -41,7 +40,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
   });
 
   it('should return to view mode when the cancel button is clicked', () => {
-    onClerkTranslatorOverviewPage.navigateById(existingTranslator.id);
+    onClerkTranslatorOverviewPage.navigateById(apiTranslator.id);
     cy.wait('@getClerkTranslatorOverview');
 
     onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();
@@ -55,7 +54,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     const fieldType = 'input';
     const newLastName = 'new last name';
 
-    onClerkTranslatorOverviewPage.navigateById(existingTranslator.id);
+    onClerkTranslatorOverviewPage.navigateById(apiTranslator.id);
     cy.wait('@getClerkTranslatorOverview');
 
     onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();

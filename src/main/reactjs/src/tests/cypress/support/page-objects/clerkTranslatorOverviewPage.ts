@@ -1,5 +1,5 @@
 import { AppRoutes } from 'enums/app';
-import { ClerkTranslator } from 'interfaces/clerkTranslator';
+import { APIClerkTranslator } from 'interfaces/clerkTranslator';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
 
 class ClerkTranslatorOverviewPage {
@@ -102,7 +102,7 @@ class ClerkTranslatorOverviewPage {
     });
   }
 
-  expectTranslatorDetailsFields(translator: ClerkTranslator) {
+  expectTranslatorDetailsFields(translator: APIClerkTranslator) {
     const fields = [
       { field: 'firstName', fieldType: 'input' },
       { field: 'lastName', fieldType: 'input' },
@@ -131,7 +131,7 @@ class ClerkTranslatorOverviewPage {
     });
   }
 
-  expectTranslatorAuthorisationDetails(translator: ClerkTranslator) {
+  expectTranslatorAuthorisationDetails(translator: APIClerkTranslator) {
     translator.authorisations.forEach((a) => {
       onClerkTranslatorOverviewPage.expectAuthorisationRowToHaveText(
         a.id,
@@ -142,7 +142,7 @@ class ClerkTranslatorOverviewPage {
 }
 
 // Helpers
-export const existingTranslator: ClerkTranslator = {
+export const apiTranslator: APIClerkTranslator = {
   id: 2,
   version: 0,
   firstName: 'Ilkka',
@@ -163,13 +163,13 @@ export const existingTranslator: ClerkTranslator = {
         to: 'CS',
       },
       basis: 'AUT',
-      termBeginDate: new Date('2022-01-01'),
-      termEndDate: new Date('2022-01-17'),
+      termBeginDate: '2022-01-01',
+      termEndDate: '2022-01-17',
       permissionToPublish: true,
       diaryNumber: '2',
-      meetingDate: new Date('2021-12-20'),
-      autDate: new Date('2022-02-01'),
-      assuranceDate: new Date('2022-02-01'),
+      meetingDate: '2021-12-20',
+      autDate: '2022-02-01',
+      assuranceDate: '2022-02-01',
     },
     {
       id: 7266,
@@ -179,13 +179,13 @@ export const existingTranslator: ClerkTranslator = {
         to: 'SEIN',
       },
       basis: 'AUT',
-      termBeginDate: new Date('2022-01-01'),
-      termEndDate: new Date('2022-01-17'),
+      termBeginDate: '2022-01-01',
+      termEndDate: '2022-01-17',
       permissionToPublish: true,
       diaryNumber: '7266',
-      meetingDate: new Date('2021-12-20'),
-      autDate: new Date('2022-02-01'),
-      assuranceDate: new Date('2022-02-01'),
+      meetingDate: '2021-12-20',
+      autDate: '2022-02-01',
+      assuranceDate: '2022-02-01',
     },
   ],
 };
