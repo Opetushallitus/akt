@@ -35,18 +35,6 @@ describe('ClerkTranslatorOverview:Page', () => {
     );
   });
 
-  it('should be reachable by a URL', () => {
-    onClerkTranslatorOverviewPage.navigateById(apiTranslator.id);
-    cy.wait('@getClerkTranslatorOverview');
-
-    onClerkTranslatorOverviewPage.expectedEnabledAddAuthorisationButton();
-    onClerkTranslatorOverviewPage.expectEnabledEditTranslatorInfoBtn();
-    onClerkTranslatorOverviewPage.expectTranslatorDetailsFields(apiTranslator);
-    onClerkTranslatorOverviewPage.expectTranslatorAuthorisationDetails(
-      apiTranslator
-    );
-  });
-
   it('should display a "not found" message if no translator exists with the id given as the route parameter', () => {
     onClerkTranslatorOverviewPage.navigateById(1234567890);
 
