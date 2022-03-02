@@ -32,13 +32,12 @@ describe('ClerkTranslatorOverview:Page', () => {
     );
   });
 
-  it('should be reachable by directly navigating with a URL', () => {
+  it('should be reachable by a URL', () => {
     onClerkTranslatorOverviewPage.navigateById(existingTranslator.id);
     cy.wait('@getClerkTranslatorOverview');
 
     onClerkTranslatorOverviewPage.expectedEnabledAddAuthorisationButton();
     onClerkTranslatorOverviewPage.expectEnabledEditTranslatorInfoBtn();
-    onClerkTranslatorOverviewPage.expectMode(UIMode.View);
     onClerkTranslatorOverviewPage.expectTranslatorDetailsFields(
       existingTranslator
     );
