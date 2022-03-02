@@ -1,4 +1,8 @@
 import { APIAuthorisation, Authorisation } from 'interfaces/authorisation';
+import {
+  APIClerkTranslator,
+  ClerkTranslator,
+} from 'interfaces/clerkTranslator';
 import { APIMeetingDate } from 'interfaces/meetingDate';
 import { DateUtils } from 'utils/date';
 
@@ -30,6 +34,17 @@ export class APIUtils {
     return {
       ...meetingDate,
       date: DateUtils.dateAtStartOfDay(new Date(meetingDate.date)),
+    };
+  }
+
+  static convertAPIClerkTranslator(
+    translator: APIClerkTranslator
+  ): ClerkTranslator {
+    return {
+      ...translator,
+      authorisations: translator.authorisations.map(
+        APIUtils.convertAPIAuthorisation
+      ),
     };
   }
 }
