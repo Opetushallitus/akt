@@ -1,4 +1,5 @@
 import { AppBar, Toolbar } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 import { OPHLogoViewer } from 'components/elements/OPHLogoViewer';
 import { SkipLink } from 'components/elements/SkipLink';
@@ -6,14 +7,17 @@ import { LangSelector } from 'components/i18n/LangSelector';
 import { ClerkNavTabs } from 'components/layouts//clerkHeader/ClerkNavTabs';
 import { ClerkHeaderButtons } from 'components/layouts/clerkHeader/ClerkHeaderButtons';
 import { useAppTranslation } from 'configs/i18n';
-import { Direction } from 'enums/app';
+import { AppRoutes, Direction } from 'enums/app';
 import { useAuthentication } from 'hooks/useAuthentication';
 
-const Header = (): JSX.Element => {
+export const Header = (): JSX.Element => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.header.accessibility',
   });
   const [isClerkUI] = useAuthentication();
+  const logoRedirectURL = isClerkUI
+    ? AppRoutes.ClerkHomePage
+    : AppRoutes.PublicHomePage;
 
   return (
     <>
@@ -21,10 +25,12 @@ const Header = (): JSX.Element => {
       <AppBar className="header" position="static">
         <Toolbar className="header__toolbar">
           <div className="header__left">
-            <OPHLogoViewer
-              className="header__left__logo"
-              direction={Direction.Horizontal}
-            />
+            <Link to={logoRedirectURL}>
+              <OPHLogoViewer
+                className="header__left__logo"
+                direction={Direction.Horizontal}
+              />
+            </Link>
           </div>
           <div className="header__center">{isClerkUI && <ClerkNavTabs />}</div>
           <div className="header__right">
@@ -36,5 +42,3 @@ const Header = (): JSX.Element => {
     </>
   );
 };
-
-export default Header;

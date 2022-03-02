@@ -68,7 +68,8 @@
       }
     }
 
-    & > a {
+    & a,
+    & > a > button {
       color: $color-secondary-dark;
       font-size: 1.6rem;
       font-weight: 700;
@@ -76,7 +77,9 @@
       line-height: 1.9rem;
       margin: 0;
       padding: 6px 0;
+      text-decoration: none;
       text-transform: initial;
+
       @include phone {
         font-size: 1.5rem;
       }

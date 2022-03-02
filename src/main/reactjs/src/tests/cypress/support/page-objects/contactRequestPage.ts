@@ -11,7 +11,8 @@ class ContactRequestPage {
     cancelButton: () => cy.findByTestId('contact-request-page__cancel-btn'),
     submitButton: () => cy.findByTestId('contact-request-page__submit-btn'),
     homepageButton: () => cy.findByTestId('contact-request-page__homepage-btn'),
-    byLabel: (label: Matcher) => cy.findByLabelText(label),
+    byLabel: (label: Matcher) =>
+      cy.get('.contact-request-page').findByLabelText(label),
   };
 
   previous() {

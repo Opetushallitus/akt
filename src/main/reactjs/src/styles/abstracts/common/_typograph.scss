@@ -2,6 +2,19 @@
   display: inline-block;
 }
 
+.inline-text-box {
+  &#{&} {
+    & > * {
+      display: inline;
+      vertical-align: unset;
+    }
+
+    & > *:not(:first-child) {
+      padding-left: map-get($spacing, 'xxs');
+    }
+  }
+}
+
 .bold {
   &#{&} {
     font-weight: bold !important;

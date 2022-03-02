@@ -9,6 +9,7 @@ export enum AppRoutes {
   ClerkSendEmailPage = '/akt/virkailija/laheta-sahkoposti',
   ClerkLocalLogoutPage = '/akt/cas/localLogout',
   ClerkTranslatorOverviewPage = '/akt/virkailija/kaantaja/:translatorId',
+  AccessibilityStatementPage = '/akt/saavutettavuusseloste',
   NotFoundPage = '*',
 }
 
@@ -83,6 +84,7 @@ export enum I18nNamespace {
   Common = 'common',
   Translation = 'translation',
   KoodistoLanguages = 'koodistoLanguages',
+  Accessibility = 'accessibility',
 }
 
 export enum Color {

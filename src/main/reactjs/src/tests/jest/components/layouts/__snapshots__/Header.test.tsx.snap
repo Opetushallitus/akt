@@ -23,11 +23,16 @@ Array [
       <div
         className="header__left"
       >
-        <img
-          alt="ophLogo"
-          className="header__left__logo"
-          src="test"
-        />
+        <a
+          href="/akt/etusivu"
+          onClick={[Function]}
+        >
+          <img
+            alt="ophLogo"
+            className="header__left__logo"
+            src="test"
+          />
+        </a>
       </div>
       <div
         className="header__center"
