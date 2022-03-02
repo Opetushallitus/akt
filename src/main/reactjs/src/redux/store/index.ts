@@ -12,6 +12,7 @@ import { meetingDateReducer } from 'redux/reducers/meetingDate';
 import { notifierReducer } from 'redux/reducers/notifier';
 import { publicTranslatorReducer } from 'redux/reducers/publicTranslator';
 import { publicUIViewReducer } from 'redux/reducers/publicUIView';
+import { removeMeetingDateReducer } from 'redux/reducers/removeMeetingDate';
 import rootSaga from 'redux/sagas/index';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -31,6 +32,7 @@ export default () => {
       notifier: notifierReducer,
       meetingDate: meetingDateReducer,
       addMeetingDate: addMeetingDateReducer,
+      removeMeetingDate: removeMeetingDateReducer,
     }),
     composeEnhancers(middlewareEnhancer)
   );

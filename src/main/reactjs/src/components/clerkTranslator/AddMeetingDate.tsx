@@ -1,3 +1,4 @@
+import Dayjs from '@date-io/dayjs';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 
@@ -8,6 +9,8 @@ import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch } from 'configs/redux';
 import { Color, Variant } from 'enums/app';
 import { addMeetingDate } from 'redux/actions/addMeetingDate';
+
+const dayjs = new Dayjs();
 
 export const AddMeetingDate = () => {
   const [value, setValue] = useState<Date | null>(null);
@@ -27,13 +30,17 @@ export const AddMeetingDate = () => {
       <div className="rows gapped-xs flex-grow-3">
         <H3>{t('header')}</H3>
         <div className="columns gapped">
-          <DatePicker value={value} setValue={setValue} />
+          <DatePicker
+            value={value}
+            setValue={setValue}
+            label={t('datePickerLabel')}
+          />
           <CustomButton
             data-testid="clerk-translator-overview__authorisation-details__add-btn"
             variant={Variant.Outlined}
             color={Color.Secondary}
             startIcon={<AddIcon />}
-            disabled={value === null}
+            disabled={!dayjs.isValid(value)}
             onClick={handleOnClick}
           >
             {t('button.add')}

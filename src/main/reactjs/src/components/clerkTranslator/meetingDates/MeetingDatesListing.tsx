@@ -1,14 +1,16 @@
-import { TableCell, TableHead, TableRow } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/DeleteOutline';
+import { IconButton, TableCell, TableHead, TableRow } from '@mui/material';
 import { Box } from '@mui/system';
 import { FC } from 'react';
 
 import { H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
-import { useAppTranslation } from 'configs/i18n';
-import { useAppSelector } from 'configs/redux';
+import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { MeetingStatus } from 'enums/meetingDate';
 import { MeetingDate } from 'interfaces/meetingDate';
+import { removeMeetingDate } from 'redux/actions/addMeetingDate';
 import {
   meetingDateSelector,
   selectMeetingDatesByMeetingStatus,
@@ -20,11 +22,28 @@ const getRowDetails = (meetingDate: MeetingDate) => {
 };
 
 const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
+  const dispatch = useAppDispatch();
+  const { filters } = useAppSelector(meetingDateSelector);
+
+  const handleOnClick = (
+    e: React.MouseEvent<HTMLAnchorElement> | undefined
+  ) => {
+    e?.stopPropagation();
+    dispatch(removeMeetingDate(meetingDate.id));
+  };
+
   return (
     <TableRow data-testid={`meeting-date__id-${meetingDate.id}-row`}>
       <TableCell>
         <Text>{DateUtils.formatOptionalDate(meetingDate.date)}</Text>
       </TableCell>
+      {filters.meetingStatus === MeetingStatus.Upcoming && (
+        <TableCell align="right">
+          <IconButton onClick={handleOnClick}>
+            <DeleteIcon className="contact-request-page__delete-outline-icon" />
+          </IconButton>
+        </TableCell>
+      )}
     </TableRow>
   );
 };
@@ -33,6 +52,8 @@ const ListingHeader: FC = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.meetingDatesListing',
   });
+  const translateCommon = useCommonTranslation();
+  const { filters } = useAppSelector(meetingDateSelector);
 
   return (
     <TableHead>
@@ -40,6 +61,11 @@ const ListingHeader: FC = () => {
         <TableCell>
           <H3>{t('header')}</H3>
         </TableCell>
+        {filters.meetingStatus === MeetingStatus.Upcoming && (
+          <TableCell align="right">
+            <H3>{translateCommon('delete')}</H3>
+          </TableCell>
+        )}
       </TableRow>
     </TableHead>
   );

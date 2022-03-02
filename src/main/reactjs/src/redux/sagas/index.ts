@@ -9,6 +9,7 @@ import { watchFetchMeetingDates } from 'redux/sagas/meetingDate';
 import { watchClerkTranslatorEmailNotifier } from 'redux/sagas/notifier/clerkTranslatorEmail';
 import { watchContactRequestNotifier } from 'redux/sagas/notifier/contactRequest';
 import { watchFetchPublicTranslators } from 'redux/sagas/publicTranslator';
+import { watchRemoveMeetingDate } from 'redux/sagas/removeMeetingDate';
 
 export default function* rootSaga() {
   yield all([
@@ -21,5 +22,6 @@ export default function* rootSaga() {
     watchFetchClerkUser(),
     watchFetchMeetingDates(),
     watchAddMeetingDate(),
+    watchRemoveMeetingDate(),
   ]);
 }

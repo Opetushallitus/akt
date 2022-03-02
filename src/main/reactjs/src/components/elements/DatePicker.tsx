@@ -4,19 +4,22 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
-import { useAppTranslation } from 'configs/i18n';
+const defaultMask = '__.__.____';
+const defaultInputFormat = 'DD.MM.YYYY';
 
 export const DatePicker = ({
   value,
   setValue,
+  label,
+  inputFormat = defaultInputFormat,
+  mask = defaultMask,
 }: {
   value: Date | null;
   setValue: (date: Date | null) => void;
+  label: string;
+  mask?: string;
+  inputFormat?: string;
 }) => {
-  const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.addMeetingDate',
-  });
-
   const handleChange = (newValue: Date | null) => {
     setValue(newValue);
   };
@@ -25,11 +28,13 @@ export const DatePicker = ({
     <LocalizationProvider dateAdapter={DateAdapter}>
       <Stack spacing={3}>
         <DesktopDatePicker
-          label={t('datePickerLabel')}
-          inputFormat="DD.MM.YYYY"
+          className="oph-date-picker"
+          label={label}
+          inputFormat={inputFormat}
           value={value}
           onChange={handleChange}
           renderInput={(params) => <TextField {...params} />}
+          mask={mask}
         />
       </Stack>
     </LocalizationProvider>
