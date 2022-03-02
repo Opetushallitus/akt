@@ -1,19 +1,19 @@
 import { APIEndpoints } from 'enums/api';
 import { UIMode } from 'enums/app';
 import {
-  apiTranslator,
   onClerkTranslatorOverviewPage,
+  translatorResponse,
 } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
 
 beforeEach(() => {
   cy.intercept(
-    `${APIEndpoints.ClerkTranslator}/${apiTranslator.id}`,
-    apiTranslator
+    `${APIEndpoints.ClerkTranslator}/${translatorResponse.id}`,
+    translatorResponse
   ).as('getClerkTranslatorOverview');
 
   const updatedExistingTranslator = {
-    ...apiTranslator,
+    ...translatorResponse,
     version: 1,
     lastName: 'new last name',
   };
@@ -26,7 +26,7 @@ beforeEach(() => {
 
 describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
   it('should open view mode when the edit button is clicked', () => {
-    onClerkTranslatorOverviewPage.navigateById(apiTranslator.id);
+    onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
     cy.wait('@getClerkTranslatorOverview');
 
     onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();
@@ -35,7 +35,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
   });
 
   it('should return to view mode when the cancel button is clicked', () => {
-    onClerkTranslatorOverviewPage.navigateById(apiTranslator.id);
+    onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
     cy.wait('@getClerkTranslatorOverview');
 
     onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();
@@ -49,7 +49,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     const fieldType = 'input';
     const newLastName = 'new last name';
 
-    onClerkTranslatorOverviewPage.navigateById(apiTranslator.id);
+    onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
     cy.wait('@getClerkTranslatorOverview');
 
     onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();

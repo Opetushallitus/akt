@@ -2,8 +2,8 @@ import { APIEndpoints } from 'enums/api';
 import { AppRoutes } from 'enums/app';
 import { onClerkHomePage } from 'tests/cypress/support/page-objects/clerkHomePage';
 import {
-  apiTranslator,
   onClerkTranslatorOverviewPage,
+  translatorResponse,
 } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
 import { useFixedDate } from 'tests/cypress/support/utils/date';
 
@@ -17,21 +17,23 @@ beforeEach(() => {
   });
 
   cy.intercept(
-    `${APIEndpoints.ClerkTranslator}/${apiTranslator.id}`,
-    apiTranslator
+    `${APIEndpoints.ClerkTranslator}/${translatorResponse.id}`,
+    translatorResponse
   ).as('getClerkTranslatorOverview');
 });
 
 describe('ClerkTranslatorOverview:Page', () => {
   it("should be reachable from the ClerkTranslatorListing by a link on a translator's row", () => {
     cy.openClerkHomePage();
-    onClerkHomePage.clickTranslatorOverviewLink(apiTranslator.id);
+    onClerkHomePage.clickTranslatorOverviewLink(translatorResponse.id);
 
     onClerkTranslatorOverviewPage.expectedEnabledAddAuthorisationButton();
     onClerkTranslatorOverviewPage.expectEnabledEditTranslatorInfoBtn();
-    onClerkTranslatorOverviewPage.expectTranslatorDetailsFields(apiTranslator);
+    onClerkTranslatorOverviewPage.expectTranslatorDetailsFields(
+      translatorResponse
+    );
     onClerkTranslatorOverviewPage.expectTranslatorAuthorisationDetails(
-      apiTranslator
+      translatorResponse
     );
   });
 
@@ -45,7 +47,7 @@ describe('ClerkTranslatorOverview:Page', () => {
   });
 
   it('should allow navigating back to ClerkHomePage by clicking on the back button', () => {
-    onClerkTranslatorOverviewPage.navigateById(apiTranslator.id);
+    onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
     cy.wait('@getClerkTranslatorOverview');
 
     onClerkTranslatorOverviewPage.navigateBackToRegister();
@@ -56,7 +58,7 @@ describe('ClerkTranslatorOverview:Page', () => {
 
   it('should go back onto the clerk home page when the back button of the browser is clicked', () => {
     cy.openClerkHomePage();
-    onClerkHomePage.clickTranslatorOverviewLink(apiTranslator.id);
+    onClerkHomePage.clickTranslatorOverviewLink(translatorResponse.id);
 
     cy.goBack();
 

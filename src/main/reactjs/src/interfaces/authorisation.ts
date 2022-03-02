@@ -6,7 +6,7 @@ export type AuthorisationBasis = 'AUT' | 'KKT' | 'VIR';
 
 export interface Authorisation
   extends Omit<
-    APIAuthorisation,
+    AuthorisationResponse,
     | 'termBeginDate'
     | 'termEndDate'
     | 'meetingDate'
@@ -22,7 +22,7 @@ export interface Authorisation
   assuranceDate?: Date;
 }
 
-export interface APIAuthorisation extends WithId, WithVersion {
+export interface AuthorisationResponse extends WithId, WithVersion {
   languagePair: LanguagePair;
   basis: AuthorisationBasis;
   termBeginDate?: string;

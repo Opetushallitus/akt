@@ -3,7 +3,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 
 import axiosInstance from 'configs/axios';
 import { APIEndpoints } from 'enums/api';
-import { APIMeetingDate, MeetingDateResponse } from 'interfaces/meetingDate';
+import { MeetingDateResponse, MeetingDates } from 'interfaces/meetingDate';
 import {
   MEETING_DATE_ERROR,
   MEETING_DATE_LOAD,
@@ -13,9 +13,9 @@ import {
 import { APIUtils } from 'utils/api';
 
 export const convertAPIResponse = (
-  response: APIMeetingDate[]
-): MeetingDateResponse => {
-  const meetingDates = response.map(APIUtils.convertAPIMeetingDate);
+  response: MeetingDateResponse[]
+): MeetingDates => {
+  const meetingDates = response.map(APIUtils.convertMeetingDateResponse);
 
   return { meetingDates };
 };
@@ -23,7 +23,7 @@ export const convertAPIResponse = (
 function* fetchMeetingDates() {
   try {
     yield put({ type: MEETING_DATE_LOADING });
-    const apiResponse: AxiosResponse<Array<APIMeetingDate>> = yield call(
+    const apiResponse: AxiosResponse<Array<MeetingDateResponse>> = yield call(
       axiosInstance.get,
       APIEndpoints.meetingDates
     );
@@ -36,7 +36,7 @@ function* fetchMeetingDates() {
   }
 }
 
-export function* storeApiResults(response: MeetingDateResponse) {
+export function* storeApiResults(response: MeetingDates) {
   const { meetingDates } = response;
 
   yield put({

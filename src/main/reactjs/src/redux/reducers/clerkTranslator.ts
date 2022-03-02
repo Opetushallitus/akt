@@ -2,11 +2,10 @@ import { Reducer } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
+import { ClerkStateAction, ClerkUIState } from 'interfaces/clerkState';
 import {
   ClerkTranslator,
-  ClerkTranslatorAction,
   ClerkTranslatorFilter,
-  ClerkTranslatorState,
 } from 'interfaces/clerkTranslator';
 import { LanguagePairsDict } from 'interfaces/language';
 import { MeetingDate } from 'interfaces/meetingDate';
@@ -33,10 +32,10 @@ const defaultState = {
   },
 };
 
-export const clerkTranslatorReducer: Reducer<
-  ClerkTranslatorState,
-  ClerkTranslatorAction
-> = (state = defaultState, action) => {
+export const clerkTranslatorReducer: Reducer<ClerkUIState, ClerkStateAction> = (
+  state = defaultState,
+  action
+) => {
   const index = action.index as number;
   const filters = action.filters as Partial<ClerkTranslatorFilter>;
 

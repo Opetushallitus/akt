@@ -3,7 +3,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 
 import axiosInstance from 'configs/axios';
 import { APIEndpoints } from 'enums/api';
-import { APIClerkTranslator } from 'interfaces/clerkTranslator';
+import { ClerkTranslatorResponse } from 'interfaces/clerkTranslator';
 import { ClerkTranslatorOverviewAction } from 'interfaces/clerkTranslatorOverview';
 import { loadClerkTranslators } from 'redux/actions/clerkTranslator';
 import { startLoadingClerkTranslatorOverview } from 'redux/actions/clerkTranslatorOverview';
@@ -20,14 +20,14 @@ import { APIUtils } from 'utils/api';
 function* fetchClerkTranslatorOverview(action: ClerkTranslatorOverviewAction) {
   try {
     yield put(startLoadingClerkTranslatorOverview);
-    const apiResponse: AxiosResponse<APIClerkTranslator> = yield call(
+    const apiResponse: AxiosResponse<ClerkTranslatorResponse> = yield call(
       axiosInstance.get,
       `${APIEndpoints.ClerkTranslator}/${action.id}`
     );
 
     yield put({
       type: CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS,
-      translator: APIUtils.convertAPIClerkTranslator(apiResponse.data),
+      translator: APIUtils.convertClerkTranslatorResponse(apiResponse.data),
     });
   } catch (error) {
     yield put({
@@ -39,14 +39,14 @@ function* fetchClerkTranslatorOverview(action: ClerkTranslatorOverviewAction) {
 function* updateClerkTranslatorDetails(action: ClerkTranslatorOverviewAction) {
   try {
     yield put(startLoadingClerkTranslatorOverview);
-    const apiResponse: AxiosResponse<APIClerkTranslator> = yield call(
+    const apiResponse: AxiosResponse<ClerkTranslatorResponse> = yield call(
       axiosInstance.put,
       APIEndpoints.ClerkTranslator,
       JSON.stringify(action.translator)
     );
     yield put({
       type: CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS,
-      translator: APIUtils.convertAPIClerkTranslator(apiResponse.data),
+      translator: APIUtils.convertClerkTranslatorResponse(apiResponse.data),
     });
     yield put(loadClerkTranslators);
   } catch (error) {
