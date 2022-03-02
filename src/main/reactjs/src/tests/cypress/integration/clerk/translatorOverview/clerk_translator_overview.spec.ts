@@ -1,36 +1,26 @@
 import { APIEndpoints } from 'enums/api';
 import { AppRoutes, UIMode } from 'enums/app';
 import { onClerkHomePage } from 'tests/cypress/support/page-objects/clerkHomePage';
-import { onClerkTranslatorOverviewPage } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
-import { useFixedDate } from 'tests/cypress/support/utils/date';
-
-const fixedDateForTests = new Date('2022-01-17T12:35:00+0200');
-const fakeTranslatorId = 1234567890;
-const existingTranslatorId = 2;
-let existingTranslator = undefined;
+import {
+  existingTranslator,
+  onClerkTranslatorOverviewPage,
+} from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
 
 beforeEach(() => {
-  useFixedDate(fixedDateForTests);
-  cy.fixture('clerk_translators_100.json').then((clerkTranslatorsData) => {
-    cy.intercept(APIEndpoints.ClerkTranslator, clerkTranslatorsData).as(
-      'getClerkTranslators'
-    );
-
-    existingTranslator =
-      clerkTranslatorsData.translators[existingTranslatorId - 1];
-
-    cy.intercept(
-      `${APIEndpoints.ClerkTranslator}/${existingTranslatorId}`,
-      existingTranslator
-    ).as('getClerkTranslatorOverview');
+  cy.intercept(APIEndpoints.ClerkTranslator, {
+    fixture: 'clerk_translators_10.json',
   });
+
+  cy.intercept(
+    `${APIEndpoints.ClerkTranslator}/${existingTranslator.id}`,
+    existingTranslator
+  ).as('getClerkTranslatorOverview');
 });
 
 describe('ClerkTranslatorOverview:Page', () => {
   it("should be reachable from the ClerkTranslatorListing by a link on a translator's row", () => {
     cy.openClerkHomePage();
-    cy.wait('@getClerkTranslators');
-    onClerkHomePage.clickTranslatorOverviewLink(existingTranslatorId);
+    onClerkHomePage.clickTranslatorOverviewLink(existingTranslator.id);
 
     onClerkTranslatorOverviewPage.expectedEnabledAddAuthorisationButton();
     onClerkTranslatorOverviewPage.expectEnabledEditTranslatorInfoBtn();
@@ -43,7 +33,7 @@ describe('ClerkTranslatorOverview:Page', () => {
   });
 
   it('should be reachable by directly navigating with a URL', () => {
-    onClerkTranslatorOverviewPage.navigateById(existingTranslatorId);
+    onClerkTranslatorOverviewPage.navigateById(existingTranslator.id);
     cy.wait('@getClerkTranslatorOverview');
 
     onClerkTranslatorOverviewPage.expectedEnabledAddAuthorisationButton();
@@ -58,25 +48,27 @@ describe('ClerkTranslatorOverview:Page', () => {
   });
 
   it('should display a "not found" message if no translator exists with the id given as the route parameter', () => {
-    onClerkTranslatorOverviewPage.navigateById(fakeTranslatorId);
+    onClerkTranslatorOverviewPage.navigateById(1234567890);
 
     onClerkTranslatorOverviewPage.expectTranslatorNotFoundText();
-    onClerkHomePage.expectTotalTranslatorsCount(100);
+
+    onClerkHomePage.expectTotalTranslatorsCount(10);
+    cy.isOnPage(AppRoutes.ClerkHomePage);
   });
 
   it('should allow navigating back to ClerkHomePage by clicking on the back button', () => {
     onClerkTranslatorOverviewPage.navigateById(existingTranslator.id);
-    cy.wait(['@getClerkTranslatorOverview']);
+    cy.wait('@getClerkTranslatorOverview');
+
     onClerkTranslatorOverviewPage.navigateBackToRegister();
 
-    cy.wait(['@getClerkTranslators']);
-    onClerkHomePage.expectTotalTranslatorsCount(100);
+    onClerkHomePage.expectTotalTranslatorsCount(10);
+    cy.isOnPage(AppRoutes.ClerkHomePage);
   });
 
   it('should go back onto the clerk home page when the back button of the browser is clicked', () => {
     cy.openClerkHomePage();
-    cy.wait('@getClerkTranslators');
-    onClerkHomePage.clickTranslatorOverviewLink(existingTranslatorId);
+    onClerkHomePage.clickTranslatorOverviewLink(existingTranslator.id);
 
     cy.goBack();
 

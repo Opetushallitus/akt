@@ -33,7 +33,7 @@ beforeEach(() => {
 describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
   it('should open view mode when the edit button is clicked', () => {
     onClerkTranslatorOverviewPage.navigateById(existingTranslator.id);
-    cy.wait(['@getClerkTranslatorOverview']);
+    cy.wait('@getClerkTranslatorOverview');
 
     onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();
 

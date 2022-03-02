@@ -142,7 +142,7 @@ class ClerkTranslatorOverviewPage {
 }
 
 // Helpers
-export const existingTranslator = {
+export const existingTranslator: ClerkTranslator = {
   id: 2,
   version: 0,
   firstName: 'Ilkka',
@@ -164,15 +164,15 @@ export const existingTranslator = {
       },
       basis: 'AUT',
       diaryNumber: '2',
-      autDate: '2022-02-01',
-      assuranceDate: '2022-02-01',
-      meetingDate: '2021-12-20',
+      autDate: new Date('2022-02-01'),
+      assuranceDate: new Date('2022-02-01'),
+      meetingDate: new Date('2021-12-20'),
       terms: [
         {
           id: 9,
           version: 0,
-          beginDate: '2022-01-01',
-          endDate: '2022-01-17',
+          start: new Date('2022-01-01'),
+          end: new Date('2022-01-17'),
         },
       ],
       permissionToPublish: true,
@@ -186,15 +186,15 @@ export const existingTranslator = {
       },
       basis: 'AUT',
       diaryNumber: '7266',
-      autDate: '2022-02-01',
-      assuranceDate: '2022-02-01',
-      meetingDate: '2021-12-20',
+      autDate: new Date('2022-02-01'),
+      assuranceDate: new Date('2022-02-01'),
+      meetingDate: new Date('2021-12-20'),
       terms: [
         {
           id: 6923,
           version: 0,
-          beginDate: '2022-01-01',
-          endDate: '2022-01-17',
+          start: new Date('2022-01-01'),
+          end: new Date('2022-01-17'),
         },
       ],
       permissionToPublish: true,
