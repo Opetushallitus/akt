@@ -31,8 +31,13 @@ export const DialogBox = () => {
     setActiveDialog(undefined);
   };
 
-  const dispatchAction = (action: string, id: string) => {
-    dispatch(executeNotifierAction(action));
+  const dispatchAction = (action: string | (() => void), id: string) => {
+    if (typeof action === 'function') {
+      action();
+    } else {
+      dispatch(executeNotifierAction(action));
+    }
+
     handleDialogClose(id);
   };
 

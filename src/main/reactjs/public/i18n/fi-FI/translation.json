@@ -171,6 +171,10 @@
       "meetingDatesListing": {
         "header": "Kokouspäivä"
       },
+      "removeMeetingDateDialog": {
+        "header": "Haluatko varmasti poistaa kokouspäivän?",
+        "description": "Tätä toimintoa ei voi peruuttaa!"
+      },
       "addMeetingDate": {
         "header": "Lisää kokouspäivä",
         "datePickerLabel": "Kokouspäivämäärä",

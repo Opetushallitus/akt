@@ -8,13 +8,17 @@ import { PaginatedTable } from 'components/tables/Table';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
+import { Severity, Variant } from 'enums/app';
 import { MeetingStatus } from 'enums/meetingDate';
 import { MeetingDate } from 'interfaces/meetingDate';
 import { removeMeetingDate } from 'redux/actions/addMeetingDate';
+import { showNotifierDialog } from 'redux/actions/notifier';
+import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
 import {
   meetingDateSelector,
   selectMeetingDatesByMeetingStatus,
 } from 'redux/selectors/meetingDate';
+import { Utils } from 'utils';
 import { DateUtils } from 'utils/date';
 
 const getRowDetails = (meetingDate: MeetingDate) => {
@@ -24,12 +28,38 @@ const getRowDetails = (meetingDate: MeetingDate) => {
 const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
   const dispatch = useAppDispatch();
   const { filters } = useAppSelector(meetingDateSelector);
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.component.removeMeetingDateDialog',
+  });
+  const translateCommon = useCommonTranslation();
 
   const handleOnClick = (
     e: React.MouseEvent<HTMLAnchorElement> | undefined
   ) => {
     e?.stopPropagation();
-    dispatch(removeMeetingDate(meetingDate.id));
+    dispatchConfirmRemoveNotifier();
+  };
+
+  const dispatchConfirmRemoveNotifier = () => {
+    const notifier = Utils.createNotifierDialog(
+      t('header'),
+      Severity.Info,
+      t('description'),
+      [
+        {
+          title: translateCommon('back'),
+          variant: Variant.Outlined,
+          action: NOTIFIER_ACTION_DO_NOTHING,
+        },
+        {
+          title: translateCommon('yes'),
+          variant: Variant.Contained,
+          action: () => dispatch(removeMeetingDate(meetingDate.id)),
+        },
+      ]
+    );
+
+    dispatch(showNotifierDialog(notifier));
   };
 
   return (
