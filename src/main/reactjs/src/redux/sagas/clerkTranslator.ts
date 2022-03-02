@@ -4,9 +4,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import axiosInstance from 'configs/axios';
 import { APIEndpoints } from 'enums/api';
 import {
-  ClerkTranslator,
   ClerkTranslatorAPIResponse,
-  ClerkTranslatorOverview,
   ClerkTranslatorResponse,
 } from 'interfaces/clerkTranslator';
 import {
@@ -17,24 +15,13 @@ import {
 } from 'redux/actionTypes/clerkTranslators';
 import { APIUtils } from 'utils/api';
 
-const convertAPITranslator = (
-  translator: ClerkTranslatorOverview
-): ClerkTranslator => {
-  return {
-    ...translator,
-    authorisations: translator.authorisations.map(
-      APIUtils.convertAPIAuthorisation
-    ),
-  };
-};
-
 export const convertAPIResponse = (
   response: ClerkTranslatorAPIResponse
 ): ClerkTranslatorResponse => {
   const APITranslators = response.translators;
   const APIMeetingDates = response.meetingDates;
   const { langs } = response;
-  const translators = APITranslators.map(convertAPITranslator);
+  const translators = APITranslators.map(APIUtils.convertAPIClerkTranslator);
   const meetingDates = APIMeetingDates.map(APIUtils.convertAPIMeetingDate);
 
   return { translators, langs, meetingDates };

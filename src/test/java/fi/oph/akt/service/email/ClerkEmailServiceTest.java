@@ -11,11 +11,10 @@ import static org.mockito.Mockito.when;
 import fi.oph.akt.Factory;
 import fi.oph.akt.api.dto.clerk.InformalEmailRequestDTO;
 import fi.oph.akt.model.Authorisation;
-import fi.oph.akt.model.AuthorisationTerm;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
+import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.AuthorisationTermReminderRepository;
-import fi.oph.akt.repository.AuthorisationTermRepository;
 import fi.oph.akt.repository.EmailRepository;
 import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
@@ -42,11 +41,11 @@ public class ClerkEmailServiceTest {
 
   private ClerkEmailService clerkEmailService;
 
+  @Resource
+  private AuthorisationRepository authorisationRepository;
+
   @MockBean
   private AuthorisationTermReminderRepository authorisationTermReminderRepository;
-
-  @Resource
-  private AuthorisationTermRepository authorisationTermRepository;
 
   @Resource
   private EmailRepository emailRepository;
@@ -75,8 +74,8 @@ public class ClerkEmailServiceTest {
 
     clerkEmailService =
       new ClerkEmailService(
+        authorisationRepository,
         authorisationTermReminderRepository,
-        authorisationTermRepository,
         emailRepository,
         emailService,
         languageService,
@@ -102,11 +101,9 @@ public class ClerkEmailServiceTest {
         translator.setEmail("etu.suku" + i + "@invalid");
 
         final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-        final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
         entityManager.persist(translator);
         entityManager.persist(authorisation);
-        entityManager.persist(authorisationTerm);
 
         translators.add(translator);
       });
@@ -144,14 +141,12 @@ public class ClerkEmailServiceTest {
     final MeetingDate meetingDate = Factory.meetingDate();
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
     translator.setEmail("foo.bar@invalid");
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
     entityManager.persist(authorisation);
-    entityManager.persist(authorisationTerm);
 
     final InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO
       .builder()
@@ -170,12 +165,10 @@ public class ClerkEmailServiceTest {
     final MeetingDate meetingDate = Factory.meetingDate();
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
     entityManager.persist(authorisation);
-    entityManager.persist(authorisationTerm);
 
     final InformalEmailRequestDTO emailRequestDTO = InformalEmailRequestDTO
       .builder()
@@ -208,7 +201,6 @@ public class ClerkEmailServiceTest {
     final MeetingDate meetingDate3 = Factory.meetingDate(LocalDate.of(2060, 1, 10));
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate1);
-    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
     translator.setFirstName("Etu");
     translator.setLastName("Suku");
@@ -216,14 +208,13 @@ public class ClerkEmailServiceTest {
 
     authorisation.setFromLang("SV");
     authorisation.setToLang("EN");
-    authorisationTerm.setEndDate(LocalDate.of(2049, 12, 1));
+    authorisation.setTermEndDate(LocalDate.of(2049, 12, 1));
 
     entityManager.persist(meetingDate1);
     entityManager.persist(meetingDate2);
     entityManager.persist(meetingDate3);
     entityManager.persist(translator);
     entityManager.persist(authorisation);
-    entityManager.persist(authorisationTerm);
 
     final Map<String, Object> expectedTemplateParams = Map.of(
       "translatorName",
@@ -241,7 +232,7 @@ public class ClerkEmailServiceTest {
     when(templateRenderer.renderAuthorisationExpiryEmailBody(expectedTemplateParams))
       .thenReturn("Auktorisointisi päättyy 01.12.2049");
 
-    clerkEmailService.createAuthorisationExpiryEmail(authorisationTerm.getId());
+    clerkEmailService.createAuthorisationExpiryEmail(authorisation.getId());
 
     verify(emailService).saveEmail(any(), emailDataCaptor.capture());
 
@@ -260,7 +251,6 @@ public class ClerkEmailServiceTest {
     final MeetingDate meetingDate = Factory.meetingDate(LocalDate.of(2020, 1, 10));
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
     translator.setFirstName("Etu");
     translator.setLastName("Suku");
@@ -268,12 +258,11 @@ public class ClerkEmailServiceTest {
 
     authorisation.setFromLang("SV");
     authorisation.setToLang("EN");
-    authorisationTerm.setEndDate(LocalDate.of(2049, 12, 1));
+    authorisation.setTermEndDate(LocalDate.of(2049, 12, 1));
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
     entityManager.persist(authorisation);
-    entityManager.persist(authorisationTerm);
 
     final Map<String, Object> expectedTemplateParams = Map.of(
       "translatorName",
@@ -291,7 +280,7 @@ public class ClerkEmailServiceTest {
     when(templateRenderer.renderAuthorisationExpiryEmailBody(expectedTemplateParams))
       .thenReturn("Auktorisointisi päättyy 01.12.2049");
 
-    clerkEmailService.createAuthorisationExpiryEmail(authorisationTerm.getId());
+    clerkEmailService.createAuthorisationExpiryEmail(authorisation.getId());
 
     verify(emailService).saveEmail(any(), emailDataCaptor.capture());
 
@@ -305,14 +294,12 @@ public class ClerkEmailServiceTest {
     final MeetingDate meetingDate = Factory.meetingDate();
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-    final AuthorisationTerm authorisationTerm = Factory.authorisationTerm(authorisation);
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
     entityManager.persist(authorisation);
-    entityManager.persist(authorisationTerm);
 
-    clerkEmailService.createAuthorisationExpiryEmail(authorisationTerm.getId());
+    clerkEmailService.createAuthorisationExpiryEmail(authorisation.getId());
 
     verifyNoInteractions(emailService);
     verifyNoInteractions(authorisationTermReminderRepository);

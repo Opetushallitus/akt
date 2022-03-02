@@ -1,6 +1,6 @@
 package fi.oph.akt.service.email;
 
-import fi.oph.akt.repository.AuthorisationTermRepository;
+import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.util.SchedulingUtil;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,7 +27,7 @@ public class ExpiringAuthorisationsEmailCreator {
   private static final String LOCK_AT_MOST = "PT2H";
 
   @Resource
-  private final AuthorisationTermRepository termRepository;
+  private final AuthorisationRepository authorisationRepository;
 
   @Resource
   private final ClerkEmailService clerkEmailService;
@@ -41,8 +41,8 @@ public class ExpiringAuthorisationsEmailCreator {
       final LocalDate expiryBetweenEnd = expiryBetweenStart.plusMonths(3);
       final LocalDateTime previousReminderSentBefore = expiryBetweenStart.minusMonths(4).atStartOfDay();
 
-      termRepository
-        .findExpiringAuthorisationTerms(expiryBetweenStart, expiryBetweenEnd, previousReminderSentBefore)
+      authorisationRepository
+        .findExpiringAuthorisations(expiryBetweenStart, expiryBetweenEnd, previousReminderSentBefore)
         .forEach(clerkEmailService::createAuthorisationExpiryEmail);
     });
   }

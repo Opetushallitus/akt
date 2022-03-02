@@ -534,4 +534,41 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="2022-02-28-move_authorisation_term_contents_under_authorisation" author="mikhuttu">
+        <dropForeignKeyConstraint baseTableName="authorisation_term"
+                                  constraintName="fk_authorisation_term_authorisation"/>
+
+        <dropForeignKeyConstraint baseTableName="authorisation_term_reminder"
+                                  constraintName="fk_authorisation_term_reminder_authorisation_term"/>
+
+        <delete tableName="authorisation_term_reminder"/>
+        <delete tableName="authorisation_term"/>
+
+        <dropTable tableName="authorisation_term"/>
+        <dropColumn tableName="authorisation_term_reminder" columnName="authorisation_term_id"/>
+
+        <addColumn tableName="authorisation_term_reminder">
+            <column name="authorisation_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <addForeignKeyConstraint baseTableName="authorisation_term_reminder" baseColumnNames="authorisation_id"
+                                 referencedTableName="authorisation" referencedColumnNames="authorisation_id"
+                                 constraintName="fk_authorisation_term_reminder_authorisation"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+
+        <addColumn tableName="authorisation">
+            <column name="term_begin_date" type="DATE"/>
+            <column name="term_end_date" type="DATE"/>
+        </addColumn>
+
+        <sql><![CDATA[
+            ALTER TABLE authorisation
+                ADD CONSTRAINT ck_authorisation_term_end_date
+                    CHECK (term_end_date IS NULL OR term_begin_date < term_end_date)
+            ]]>
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

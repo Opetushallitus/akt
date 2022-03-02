@@ -78,14 +78,10 @@ export const AuthorisationDetails = () => {
                 <Text>{a.basis}</Text>
               </TableCell>
               <TableCell>
-                <Text>
-                  {DateUtils.formatOptionalDate(a.effectiveTerm?.start)}
-                </Text>
+                <Text>{DateUtils.formatOptionalDate(a.termBeginDate)}</Text>
               </TableCell>
               <TableCell>
-                <Text>
-                  {DateUtils.formatOptionalDate(a.effectiveTerm?.end)}
-                </Text>
+                <Text>{DateUtils.formatOptionalDate(a.termEndDate)}</Text>
               </TableCell>
               <TableCell>
                 <Text>

@@ -89,6 +89,7 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 2022-02-01-rename_email_type_contact_request	mikhuttu	migrations.xml	2022-02-01 08:51:57.274921	24	EXECUTED	8:636e63499d0a369945bd90269688102d	insert tableName=email_type; update tableName=email; delete tableName=email_type		\N	4.3.5	\N	\N	3705517103
 2022-02-08-check_from_lang_and_to_lang	terova	migrations.xml	2022-02-09 15:53:47.664419	25	EXECUTED	8:b4c7cad76249520a682116e1b3e936ae	sql		\N	4.3.5	\N	\N	4422027486
 2022-02-09-add-column-translator_extra_information	mikhuttu	migrations.xml	2022-02-09 15:53:47.676833	26	EXECUTED	8:529f01eadf925629f9f9f5a85f25dadc	addColumn tableName=translator		\N	4.3.5	\N	\N	4422027486
+2022-02-28-move_authorisation_term_contents_under_authorisation	mikhuttu	migrations.xml	2022-02-28 10:33:22.318797	27	EXECUTED	8:aa2182fccae1c40bc76f6e82cc068187	dropForeignKeyConstraint baseTableName=authorisation_term, constraintName=fk_authorisation_term_authorisation; dropForeignKeyConstraint baseTableName=authorisation_term_reminder, constraintName=fk_authorisation_term_reminder_authorisation_term; de...		\N	4.3.5	\N	\N	6044401975
 \.
 
 

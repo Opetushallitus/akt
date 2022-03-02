@@ -1,48 +1,49 @@
 import { APIEndpoints } from 'enums/api';
-import { AppRoutes, UIMode } from 'enums/app';
+import { AppRoutes } from 'enums/app';
 import { onClerkHomePage } from 'tests/cypress/support/page-objects/clerkHomePage';
 import {
-  existingTranslator,
+  apiTranslator,
   onClerkTranslatorOverviewPage,
 } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
+import { useFixedDate } from 'tests/cypress/support/utils/date';
+
+const fixedDateForTests = new Date('2022-01-17T12:35:00+0200');
 
 beforeEach(() => {
+  useFixedDate(fixedDateForTests);
+
   cy.intercept(APIEndpoints.ClerkTranslator, {
     fixture: 'clerk_translators_10.json',
   });
 
   cy.intercept(
-    `${APIEndpoints.ClerkTranslator}/${existingTranslator.id}`,
-    existingTranslator
+    `${APIEndpoints.ClerkTranslator}/${apiTranslator.id}`,
+    apiTranslator
   ).as('getClerkTranslatorOverview');
 });
 
 describe('ClerkTranslatorOverview:Page', () => {
   it("should be reachable from the ClerkTranslatorListing by a link on a translator's row", () => {
     cy.openClerkHomePage();
-    onClerkHomePage.clickTranslatorOverviewLink(existingTranslator.id);
+    onClerkHomePage.clickTranslatorOverviewLink(apiTranslator.id);
 
     onClerkTranslatorOverviewPage.expectedEnabledAddAuthorisationButton();
     onClerkTranslatorOverviewPage.expectEnabledEditTranslatorInfoBtn();
-    onClerkTranslatorOverviewPage.expectTranslatorDetailsFields(
-      existingTranslator
-    );
+    onClerkTranslatorOverviewPage.expectTranslatorDetailsFields(apiTranslator);
     onClerkTranslatorOverviewPage.expectTranslatorAuthorisationDetails(
-      existingTranslator
+      apiTranslator
     );
   });
 
   it('should be reachable by a URL', () => {
-    onClerkTranslatorOverviewPage.navigateById(existingTranslator.id);
+    onClerkTranslatorOverviewPage.navigateById(apiTranslator.id);
     cy.wait('@getClerkTranslatorOverview');
 
     onClerkTranslatorOverviewPage.expectedEnabledAddAuthorisationButton();
     onClerkTranslatorOverviewPage.expectEnabledEditTranslatorInfoBtn();
-    onClerkTranslatorOverviewPage.expectTranslatorDetailsFields(
-      existingTranslator
-    );
+    onClerkTranslatorOverviewPage.expectTranslatorDetailsFields(apiTranslator);
     onClerkTranslatorOverviewPage.expectTranslatorAuthorisationDetails(
-      existingTranslator
+      apiTranslator
     );
   });
 
@@ -56,7 +57,7 @@ describe('ClerkTranslatorOverview:Page', () => {
   });
 
   it('should allow navigating back to ClerkHomePage by clicking on the back button', () => {
-    onClerkTranslatorOverviewPage.navigateById(existingTranslator.id);
+    onClerkTranslatorOverviewPage.navigateById(apiTranslator.id);
     cy.wait('@getClerkTranslatorOverview');
 
     onClerkTranslatorOverviewPage.navigateBackToRegister();
@@ -67,7 +68,7 @@ describe('ClerkTranslatorOverview:Page', () => {
 
   it('should go back onto the clerk home page when the back button of the browser is clicked', () => {
     cy.openClerkHomePage();
-    onClerkHomePage.clickTranslatorOverviewLink(existingTranslator.id);
+    onClerkHomePage.clickTranslatorOverviewLink(apiTranslator.id);
 
     cy.goBack();
 

@@ -16,5 +16,7 @@ public record AuthorisationProjection(
   LocalDate assuranceDate,
   String fromLang,
   String toLang,
-  boolean permissionToPublish
+  boolean permissionToPublish,
+  LocalDate termBeginDate,
+  LocalDate termEndDate
 ) {}

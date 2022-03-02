@@ -1,5 +1,5 @@
 import { AppRoutes } from 'enums/app';
-import { ClerkTranslator } from 'interfaces/clerkTranslator';
+import { APIClerkTranslator } from 'interfaces/clerkTranslator';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
 
 class ClerkTranslatorOverviewPage {
@@ -102,7 +102,7 @@ class ClerkTranslatorOverviewPage {
     });
   }
 
-  expectTranslatorDetailsFields(translator: ClerkTranslator) {
+  expectTranslatorDetailsFields(translator: APIClerkTranslator) {
     const fields = [
       { field: 'firstName', fieldType: 'input' },
       { field: 'lastName', fieldType: 'input' },
@@ -131,7 +131,7 @@ class ClerkTranslatorOverviewPage {
     });
   }
 
-  expectTranslatorAuthorisationDetails(translator: ClerkTranslator) {
+  expectTranslatorAuthorisationDetails(translator: APIClerkTranslator) {
     translator.authorisations.forEach((a) => {
       onClerkTranslatorOverviewPage.expectAuthorisationRowToHaveText(
         a.id,
@@ -142,7 +142,8 @@ class ClerkTranslatorOverviewPage {
 }
 
 // Helpers
-export const existingTranslator: ClerkTranslator = {
+// clerk_translator_overview.spec expects this to match translator with id: 2 from clerk_translator_10.json
+export const apiTranslator: APIClerkTranslator = {
   id: 2,
   version: 0,
   firstName: 'Ilkka',
@@ -154,50 +155,40 @@ export const existingTranslator: ClerkTranslator = {
   postalCode: '06100',
   town: 'Hämeenlinna',
   country: 'SUOMI',
+  extraInformation:
+    'Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen',
   authorisations: [
     {
       id: 2,
       version: 0,
       languagePair: {
-        from: 'SEIN',
+        from: 'SEKO',
         to: 'CS',
       },
       basis: 'AUT',
-      diaryNumber: '2',
-      autDate: new Date('2022-02-01'),
-      assuranceDate: new Date('2022-02-01'),
-      meetingDate: new Date('2021-12-20'),
-      terms: [
-        {
-          id: 9,
-          version: 0,
-          start: new Date('2022-01-01'),
-          end: new Date('2022-01-17'),
-        },
-      ],
+      termBeginDate: '2022-01-01',
+      termEndDate: '2022-01-17',
       permissionToPublish: true,
+      diaryNumber: '2',
+      meetingDate: '2021-12-20',
+      autDate: '2022-03-01',
+      assuranceDate: '2022-03-01',
     },
     {
       id: 7266,
       version: 0,
       languagePair: {
         from: 'CS',
-        to: 'SEIN',
+        to: 'SEKO',
       },
       basis: 'AUT',
-      diaryNumber: '7266',
-      autDate: new Date('2022-02-01'),
-      assuranceDate: new Date('2022-02-01'),
-      meetingDate: new Date('2021-12-20'),
-      terms: [
-        {
-          id: 6923,
-          version: 0,
-          start: new Date('2022-01-01'),
-          end: new Date('2022-01-17'),
-        },
-      ],
+      termBeginDate: '2022-01-01',
+      termEndDate: '2022-01-17',
       permissionToPublish: true,
+      diaryNumber: '7266',
+      meetingDate: '2021-12-20',
+      autDate: '2022-03-01',
+      assuranceDate: '2022-03-01',
     },
   ],
 };

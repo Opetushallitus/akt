@@ -2,36 +2,42 @@
   "meetingDates": [
     {
       "id": 7,
+      "version": 0,
       "date": "2025-01-01"
     },
     {
       "id": 6,
+      "version": 0,
       "date": "2022-11-01"
     },
     {
       "id": 5,
+      "version": 0,
       "date": "2022-08-30"
     },
     {
       "id": 4,
+      "version": 0,
       "date": "2022-02-15"
     },
     {
       "id": 3,
+      "version": 0,
       "date": "2021-12-20"
     },
     {
       "id": 2,
+      "version": 0,
       "date": "2021-04-09"
     },
     {
       "id": 1,
+      "version": 0,
       "date": "2020-10-03"
     }
   ],
   "langs": {
     "from": [
-      "BN",
       "CA",
       "CS",
       "DA",
@@ -43,22 +49,11 @@
       "FJ",
       "FO",
       "FR",
-      "GA",
-      "HE",
-      "HR",
-      "HU",
-      "JA",
-      "RU",
-      "SV",
-      "TT",
-      "TY",
-      "UG",
-      "UK",
-      "VI",
-      "ZH"
+      "SEIN",
+      "SEKO",
+      "SEPO"
     ],
     "to": [
-      "BN",
       "CA",
       "CS",
       "DA",
@@ -70,50 +65,20 @@
       "FJ",
       "FO",
       "FR",
-      "GA",
-      "HE",
-      "HR",
-      "HU",
-      "JA",
-      "RU",
-      "SV",
-      "TT",
-      "TY",
-      "UG",
-      "UK",
-      "VI",
-      "ZH"
+      "SEIN",
+      "SEKO",
+      "SEPO"
     ]
   },
   "towns": [
-    "Aatnav",
-    "Aktok",
-    "Alovuok",
-    "Annilneemäh",
-    "Erepmat",
-    "Helsinki",
     "Hämeenlinna",
-    "Iknupuakisuu",
-    "Imeinavor",
-    "Inaajak",
-    "Ithal",
-    "Joensuu",
-    "Järvenpää",
-    "Kajaani",
-    "Kotka",
     "Kouvola",
     "Kuopio",
     "Lahti",
-    "Oipouk",
-    "Oovrop",
     "Oulu",
     "Porvoo",
-    "Rovaniemi",
     "Tampere",
     "Turku",
-    "Ukrut",
-    "Uusikaupunki",
-    "Uusneoj",
     "Vantaa",
     "Ääpnevräj"
   ],
@@ -130,50 +95,39 @@
       "postalCode": "01200",
       "town": "Turku",
       "country": "suomi",
+      "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
       "authorisations": [
         {
           "id": 1,
           "version": 0,
           "languagePair": {
-            "from": "SV",
+            "from": "SEIN",
             "to": "CA"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-16",
+          "permissionToPublish": true,
           "diaryNumber": "1",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 8,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2024-01-16"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         },
         {
           "id": 7265,
           "version": 0,
           "languagePair": {
             "from": "CA",
-            "to": "SV"
+            "to": "SEIN"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-16",
+          "permissionToPublish": true,
           "diaryNumber": "7265",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 6922,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2024-01-16"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         }
       ]
     },
@@ -189,50 +143,39 @@
       "postalCode": "06100",
       "town": "Hämeenlinna",
       "country": "SUOMI",
+      "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
       "authorisations": [
         {
           "id": 2,
           "version": 0,
           "languagePair": {
-            "from": "SEIN",
+            "from": "SEKO",
             "to": "CS"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-17",
+          "permissionToPublish": true,
           "diaryNumber": "2",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 9,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2024-01-17"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         },
         {
           "id": 7266,
           "version": 0,
           "languagePair": {
             "from": "CS",
-            "to": "SEIN"
+            "to": "SEKO"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-17",
+          "permissionToPublish": true,
           "diaryNumber": "7266",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 6923,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2024-01-17"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         }
       ]
     },
@@ -248,50 +191,39 @@
       "postalCode": "13500",
       "town": "Kuopio",
       "country": "Finland",
+      "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
       "authorisations": [
         {
           "id": 3,
           "version": 0,
           "languagePair": {
-            "from": "SEKO",
+            "from": "SEPO",
             "to": "DA"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-18",
+          "permissionToPublish": true,
           "diaryNumber": "3",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 10,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-18"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         },
         {
           "id": 7267,
           "version": 0,
           "languagePair": {
             "from": "DA",
-            "to": "SEKO"
+            "to": "SEPO"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-18",
+          "permissionToPublish": true,
           "diaryNumber": "7267",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 6924,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-18"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         }
       ]
     },
@@ -311,45 +243,33 @@
           "id": 4,
           "version": 0,
           "languagePair": {
-            "from": "SEPO",
+            "from": "FI",
             "to": "DE"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-19",
+          "permissionToPublish": true,
           "diaryNumber": "4",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 11,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-19"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         },
         {
           "id": 7268,
           "version": 0,
           "languagePair": {
             "from": "DE",
-            "to": "SEPO"
+            "to": "FI"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-19",
+          "permissionToPublish": true,
           "diaryNumber": "7268",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 6925,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-19"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         }
       ]
     },
@@ -365,50 +285,39 @@
       "postalCode": "48600",
       "town": "Porvoo",
       "country": "Suomi",
+      "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
       "authorisations": [
         {
           "id": 5,
           "version": 0,
           "languagePair": {
-            "from": "FI",
+            "from": "SEIN",
             "to": "EL"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-20",
+          "permissionToPublish": true,
           "diaryNumber": "5",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 12,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-20"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         },
         {
           "id": 7269,
           "version": 0,
           "languagePair": {
             "from": "EL",
-            "to": "FI"
+            "to": "SEIN"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-20",
+          "permissionToPublish": true,
           "diaryNumber": "7269",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 6926,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-20"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         }
       ]
     },
@@ -424,50 +333,39 @@
       "postalCode": "54460",
       "town": "Vantaa",
       "country": "suomi",
+      "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
       "authorisations": [
         {
           "id": 6,
           "version": 0,
           "languagePair": {
-            "from": "SV",
+            "from": "SEKO",
             "to": "EN"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-21",
+          "permissionToPublish": true,
           "diaryNumber": "6",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 13,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-21"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         },
         {
           "id": 7270,
           "version": 0,
           "languagePair": {
             "from": "EN",
-            "to": "SV"
+            "to": "SEKO"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-21",
+          "permissionToPublish": true,
           "diaryNumber": "7270",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 6927,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-21"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         }
       ]
     },
@@ -483,50 +381,39 @@
       "postalCode": "00100",
       "town": "Ääpnevräj",
       "country": "Latvia",
+      "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
       "authorisations": [
         {
           "id": 7,
           "version": 0,
           "languagePair": {
-            "from": "SEIN",
+            "from": "SEPO",
             "to": "ET"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-22",
+          "permissionToPublish": true,
           "diaryNumber": "7",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 14,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-22"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         },
         {
           "id": 7271,
           "version": 0,
           "languagePair": {
             "from": "ET",
-            "to": "SEIN"
+            "to": "SEPO"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-22",
+          "permissionToPublish": true,
           "diaryNumber": "7271",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 6928,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-22"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         }
       ]
     },
@@ -542,50 +429,39 @@
       "postalCode": "01200",
       "town": "Kouvola",
       "country": "Finland",
+      "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
       "authorisations": [
         {
           "id": 8,
           "version": 0,
           "languagePair": {
-            "from": "SEKO",
+            "from": "FI",
             "to": "FJ"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-23",
+          "permissionToPublish": true,
           "diaryNumber": "8",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 15,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-23"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         },
         {
           "id": 7272,
           "version": 0,
           "languagePair": {
             "from": "FJ",
-            "to": "SEKO"
+            "to": "FI"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-23",
+          "permissionToPublish": true,
           "diaryNumber": "7272",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 6929,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-23"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         }
       ]
     },
@@ -605,45 +481,33 @@
           "id": 9,
           "version": 0,
           "languagePair": {
-            "from": "SEPO",
+            "from": "SEIN",
             "to": "FO"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-24",
+          "permissionToPublish": true,
           "diaryNumber": "9",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 16,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-24"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         },
         {
           "id": 7273,
           "version": 0,
           "languagePair": {
             "from": "FO",
-            "to": "SEPO"
+            "to": "SEIN"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-24",
+          "permissionToPublish": true,
           "diaryNumber": "7273",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 6930,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-24"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         }
       ]
     },
@@ -659,52 +523,41 @@
       "postalCode": "13500",
       "town": "Oulu",
       "country": "Suomi",
+      "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
       "authorisations": [
         {
           "id": 10,
           "version": 0,
           "languagePair": {
-            "from": "FI",
+            "from": "SEKO",
             "to": "FR"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-25",
+          "permissionToPublish": true,
           "diaryNumber": "10",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 17,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-25"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         },
         {
           "id": 7274,
           "version": 0,
           "languagePair": {
             "from": "FR",
-            "to": "FI"
+            "to": "SEKO"
           },
           "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-01-25",
+          "permissionToPublish": true,
           "diaryNumber": "7274",
-          "autDate": "2022-02-01",
-          "assuranceDate": "2022-02-01",
           "meetingDate": "2021-12-20",
-          "terms": [
-            {
-              "id": 6931,
-              "version": 0,
-              "beginDate": "2022-01-01",
-              "endDate": "2022-01-25"
-            }
-          ],
-          "permissionToPublish": true
+          "autDate": "2022-03-02",
+          "assuranceDate": "2022-03-02"
         }
       ]
     }
-  ]
+  ]  
 }
