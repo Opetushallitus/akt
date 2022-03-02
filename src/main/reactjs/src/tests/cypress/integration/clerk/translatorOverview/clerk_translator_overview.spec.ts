@@ -5,8 +5,13 @@ import {
   apiTranslator,
   onClerkTranslatorOverviewPage,
 } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
+import { useFixedDate } from 'tests/cypress/support/utils/date';
+
+const fixedDateForTests = new Date('2022-01-17T12:35:00+0200');
 
 beforeEach(() => {
+  useFixedDate(fixedDateForTests);
+
   cy.intercept(APIEndpoints.ClerkTranslator, {
     fixture: 'clerk_translators_10.json',
   });

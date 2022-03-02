@@ -5,13 +5,8 @@ import {
   onClerkTranslatorOverviewPage,
 } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
-import { useFixedDate } from 'tests/cypress/support/utils/date';
-
-const fixedDateForTests = new Date('2022-01-17T12:35:00+0200');
 
 beforeEach(() => {
-  useFixedDate(fixedDateForTests);
-
   cy.intercept(
     `${APIEndpoints.ClerkTranslator}/${apiTranslator.id}`,
     apiTranslator
