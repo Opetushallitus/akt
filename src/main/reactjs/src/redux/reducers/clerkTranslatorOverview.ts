@@ -11,6 +11,7 @@ import {
   CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS,
   CLERK_TRANSLATOR_OVERVIEW_LOAD,
   CLERK_TRANSLATOR_OVERVIEW_LOADING,
+  CLERK_TRANSLATOR_OVERVIEW_RESET_UPDATE,
   CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS,
   CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_FAIL,
   CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS,
@@ -45,6 +46,11 @@ export const clerkTranslatorOverviewReducer: Reducer<
       return {
         ...state,
         translatorDetailsStatus: APIResponseStatus.InProgress,
+      };
+    case CLERK_TRANSLATOR_OVERVIEW_RESET_UPDATE:
+      return {
+        ...state,
+        translatorDetailsStatus: APIResponseStatus.NotStarted,
       };
     case CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS:
       return {

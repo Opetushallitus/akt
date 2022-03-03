@@ -5,7 +5,6 @@ import axiosInstance from 'configs/axios';
 import { APIEndpoints } from 'enums/api';
 import { ClerkTranslatorResponse } from 'interfaces/clerkTranslator';
 import { ClerkTranslatorOverviewAction } from 'interfaces/clerkTranslatorOverview';
-import { loadClerkTranslators } from 'redux/actions/clerkTranslator';
 import { startLoadingClerkTranslatorOverview } from 'redux/actions/clerkTranslatorOverview';
 import {
   CLERK_TRANSLATOR_OVERVIEW_FETCH,
@@ -38,7 +37,6 @@ function* fetchClerkTranslatorOverview(action: ClerkTranslatorOverviewAction) {
 
 function* updateClerkTranslatorDetails(action: ClerkTranslatorOverviewAction) {
   try {
-    yield put(startLoadingClerkTranslatorOverview);
     const apiResponse: AxiosResponse<ClerkTranslatorResponse> = yield call(
       axiosInstance.put,
       APIEndpoints.ClerkTranslator,
@@ -48,7 +46,6 @@ function* updateClerkTranslatorDetails(action: ClerkTranslatorOverviewAction) {
       type: CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS,
       translator: APIUtils.convertClerkTranslatorResponse(apiResponse.data),
     });
-    yield put(loadClerkTranslators);
   } catch (error) {
     yield put({
       type: CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_FAIL,
