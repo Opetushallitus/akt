@@ -18,6 +18,7 @@ public record TranslatorCreateDTO(
   String town,
   String country,
   String extraInformation,
+  @NonNull Boolean isAssured,
   @NonNull @NotEmpty List<AuthorisationCreateDTO> authorisations
 )
   implements TranslatorDTOCommonFields {

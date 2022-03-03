@@ -20,4 +20,6 @@ public interface TranslatorDTOCommonFields {
   String country();
 
   String extraInformation();
+
+  Boolean isAssured();
 }

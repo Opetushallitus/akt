@@ -17,6 +17,7 @@ public record ClerkTranslatorDTO(
   String town,
   String country,
   String extraInformation,
+  @NonNull Boolean isAssured,
   @NonNull List<AuthorisationDTO> authorisations
 ) {
   // Workaround for bug in IntelliJ lombok plugin
