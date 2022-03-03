@@ -2,9 +2,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { URLSearchParamsInit, useSearchParams } from 'react-router-dom';
 
-import { ClerkTranslatorDetailsField } from 'components/clerkTranslator/overview/ClerkTranslatorDetailsField';
+import { ClerkTranslatorDetailsFields } from 'components/clerkTranslator/overview/ClerkTranslatorDetailsFields';
 import { CustomButton } from 'components/elements/CustomButton';
-import { H3 } from 'components/elements/Text';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
@@ -18,6 +17,56 @@ import { updateClerkTranslatorDetails } from 'redux/actions/clerkTranslatorOverv
 import { showNotifierToast } from 'redux/actions/notifier';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
 import { Utils } from 'utils';
+
+const ControlButtons = ({
+  isViewMode,
+  onCancelBtnClick,
+  onEditBtnClick,
+  onSaveBtnClick,
+}: {
+  isViewMode: boolean;
+  onCancelBtnClick: () => void;
+  onEditBtnClick: () => void;
+  onSaveBtnClick: () => void;
+}) => {
+  const translateCommon = useCommonTranslation();
+
+  if (isViewMode) {
+    return (
+      <CustomButton
+        data-testid="clerk-translator-overview__translator-details__edit-btn"
+        variant={Variant.Contained}
+        color={Color.Secondary}
+        startIcon={<EditIcon />}
+        onClick={onEditBtnClick}
+        disabled={!isViewMode}
+      >
+        {translateCommon('edit')}
+      </CustomButton>
+    );
+  } else {
+    return (
+      <div className="columns gapped">
+        <CustomButton
+          data-testid="clerk-translator-overview__translator-details__cancel-btn"
+          variant={Variant.Text}
+          color={Color.Secondary}
+          onClick={onCancelBtnClick}
+        >
+          {translateCommon('cancel')}
+        </CustomButton>
+        <CustomButton
+          data-testid="clerk-translator-overview__translator-details__save-btn"
+          variant={Variant.Contained}
+          color={Color.Secondary}
+          onClick={onSaveBtnClick}
+        >
+          {translateCommon('save')}
+        </CustomButton>
+      </div>
+    );
+  }
+};
 
 export const ClerkTranslatorDetails = () => {
   // Redux
@@ -49,8 +98,6 @@ export const ClerkTranslatorDetails = () => {
     keyPrefix: 'akt.component.clerkTranslatorOverview',
   });
 
-  const translateCommon = useCommonTranslation();
-
   useEffect(() => {
     if (!currentUIMode) {
       replaceSearchParams({ mode: UIMode.View });
@@ -72,19 +119,9 @@ export const ClerkTranslatorDetails = () => {
     }
   });
 
-  const getCommonTextFieldProps = (
-    field: keyof ClerkTranslatorBasicInformation
-  ) => ({
-    field,
-    translator: translatorDetails,
-    disabled: isViewMode,
-    onFieldChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      handleTranslatorDetailsChange(e)(field),
-  });
-
   const handleTranslatorDetailsChange =
-    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    (field: keyof ClerkTranslator) => {
+    (field: keyof ClerkTranslatorBasicInformation) =>
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const updatedTranslatorDetails = {
         ...translatorDetails,
         [field]: event.target.value,
@@ -106,79 +143,21 @@ export const ClerkTranslatorDetails = () => {
     replaceSearchParams({ mode: UIMode.View });
   };
 
-  const renderControlButtons = () => (
-    <div className="columns margin-top-lg">
-      <div className="columns margin-top-lg grow">
-        <H3>{t('translatorDetails.header.personalInformation')}</H3>
-      </div>
-      {isViewMode ? (
-        <CustomButton
-          data-testid="clerk-translator-overview__translator-details__edit-btn"
-          variant={Variant.Contained}
-          color={Color.Secondary}
-          startIcon={<EditIcon />}
-          onClick={handleEditBtnClick}
-          disabled={!isViewMode}
-        >
-          {translateCommon('edit')}
-        </CustomButton>
-      ) : (
-        <div className="columns gapped">
-          <CustomButton
-            data-testid="clerk-translator-overview__translator-details__cancel-btn"
-            variant={Variant.Text}
-            color={Color.Secondary}
-            onClick={handleCancelBtnClick}
-          >
-            {translateCommon('cancel')}
-          </CustomButton>
-          <CustomButton
-            data-testid="clerk-translator-overview__translator-details__save-btn"
-            variant={Variant.Contained}
-            color={Color.Secondary}
-            onClick={handleSaveBtnClick}
-          >
-            {translateCommon('save')}
-          </CustomButton>
-        </div>
-      )}
-    </div>
-  );
-
   return (
-    <>
-      {renderControlButtons()}
-      <div className="grid-columns gapped">
-        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('lastName')} />
-        <ClerkTranslatorDetailsField
-          {...getCommonTextFieldProps('firstName')}
+    <ClerkTranslatorDetailsFields
+      translator={translatorDetails}
+      onFieldChange={(field: keyof ClerkTranslatorBasicInformation) =>
+        handleTranslatorDetailsChange(field)
+      }
+      editDisabled={isViewMode}
+      controlButtons={
+        <ControlButtons
+          onCancelBtnClick={handleCancelBtnClick}
+          onEditBtnClick={handleEditBtnClick}
+          onSaveBtnClick={handleSaveBtnClick}
+          isViewMode={isViewMode}
         />
-        <ClerkTranslatorDetailsField
-          {...getCommonTextFieldProps('identityNumber')}
-        />
-      </div>
-      <H3>{t('translatorDetails.header.address')}</H3>
-      <div className="grid-columns gapped">
-        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('street')} />
-        <ClerkTranslatorDetailsField
-          {...getCommonTextFieldProps('postalCode')}
-        />
-        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('town')} />
-        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('country')} />
-      </div>
-      <H3>{t('translatorDetails.header.contactInformation')}</H3>
-      <div className="grid-columns gapped">
-        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('email')} />
-        <ClerkTranslatorDetailsField
-          {...getCommonTextFieldProps('phoneNumber')}
-        />
-      </div>
-      <H3>{t('translatorDetails.header.extraInformation')}</H3>
-      <ClerkTranslatorDetailsField
-        {...getCommonTextFieldProps('extraInformation')}
-        multiline
-        fullWidth
-      />
-    </>
+      }
+    />
   );
 };
