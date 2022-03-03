@@ -30,7 +30,7 @@ public class Translator extends BaseEntity {
   @OneToMany(mappedBy = "translator")
   private Collection<ContactRequestTranslator> contactRequestTranslators = new ArrayList<>();
 
-  @Size(min = 1, max = 255)
+  @Size(max = 255)
   @Column(name = "identity_number", unique = true)
   private String identityNumber;
 
@@ -40,7 +40,7 @@ public class Translator extends BaseEntity {
   @Column(name = "last_name", nullable = false)
   private String lastName;
 
-  @Size(min = 1, max = 255)
+  @Size(max = 255)
   @Column(name = "email", unique = true)
   private String email;
 
