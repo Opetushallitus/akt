@@ -46,8 +46,6 @@ public class Factory {
     authorisation.setTermEndDate(LocalDate.now().plusYears(1));
     authorisation.setPermissionToPublish(true);
     authorisation.setDiaryNumber("12345");
-    authorisation.setAutDate(LocalDate.now());
-    authorisation.setAssuranceDate(LocalDate.now());
 
     return authorisation;
   }

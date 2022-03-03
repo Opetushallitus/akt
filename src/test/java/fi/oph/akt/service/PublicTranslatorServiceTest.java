@@ -102,9 +102,6 @@ class PublicTranslatorServiceTest {
     authorisation.setTermBeginDate(null);
     authorisation.setTermEndDate(null);
     authorisation.setPermissionToPublish(true);
-    authorisation.setAutDate(null);
-    authorisation.setVirDate(LocalDate.of(1990, 1, 1));
-    authorisation.setAssuranceDate(null);
 
     entityManager.persist(translator);
     entityManager.persist(authorisation);

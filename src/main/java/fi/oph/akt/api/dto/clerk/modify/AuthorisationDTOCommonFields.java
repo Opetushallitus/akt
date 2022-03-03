@@ -21,10 +21,4 @@ public interface AuthorisationDTOCommonFields {
   LocalDate meetingDate();
 
   LocalDate autDate();
-
-  String kktCheck();
-
-  LocalDate virDate();
-
-  LocalDate assuranceDate();
 }
