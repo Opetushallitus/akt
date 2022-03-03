@@ -3,10 +3,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 
 import axiosInstance from 'configs/axios';
 import { APIEndpoints } from 'enums/api';
-import {
-  ClerkTranslatorAPIResponse,
-  ClerkTranslatorResponse,
-} from 'interfaces/clerkTranslator';
+import { ClerkState, ClerkStateResponse } from 'interfaces/clerkState';
 import {
   CLERK_TRANSLATOR_ERROR,
   CLERK_TRANSLATOR_LOAD,
@@ -16,13 +13,15 @@ import {
 import { APIUtils } from 'utils/api';
 
 export const convertAPIResponse = (
-  response: ClerkTranslatorAPIResponse
-): ClerkTranslatorResponse => {
-  const APITranslators = response.translators;
-  const APIMeetingDates = response.meetingDates;
+  response: ClerkStateResponse
+): ClerkState => {
   const { langs } = response;
-  const translators = APITranslators.map(APIUtils.convertAPIClerkTranslator);
-  const meetingDates = APIMeetingDates.map(APIUtils.convertAPIMeetingDate);
+  const translators = response.translators.map(
+    APIUtils.convertClerkTranslatorResponse
+  );
+  const meetingDates = response.meetingDates.map(
+    APIUtils.convertMeetingDateResponse
+  );
 
   return { translators, langs, meetingDates };
 };
@@ -30,7 +29,7 @@ export const convertAPIResponse = (
 export function* fetchClerkTranslators() {
   try {
     yield put({ type: CLERK_TRANSLATOR_LOADING });
-    const apiResponse: AxiosResponse<ClerkTranslatorAPIResponse> = yield call(
+    const apiResponse: AxiosResponse<ClerkStateResponse> = yield call(
       axiosInstance.get,
       APIEndpoints.ClerkTranslator
     );
@@ -41,7 +40,7 @@ export function* fetchClerkTranslators() {
   }
 }
 
-export function* storeApiResults(response: ClerkTranslatorResponse) {
+export function* storeApiResults(response: ClerkState) {
   const { translators, langs, meetingDates } = response;
   yield put({
     type: CLERK_TRANSLATOR_RECEIVED,

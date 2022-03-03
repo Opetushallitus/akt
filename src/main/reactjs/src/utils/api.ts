@@ -1,14 +1,14 @@
-import { APIAuthorisation, Authorisation } from 'interfaces/authorisation';
+import { Authorisation, AuthorisationResponse } from 'interfaces/authorisation';
 import {
-  APIClerkTranslator,
   ClerkTranslator,
+  ClerkTranslatorResponse,
 } from 'interfaces/clerkTranslator';
-import { APIMeetingDate } from 'interfaces/meetingDate';
+import { MeetingDateResponse } from 'interfaces/meetingDate';
 import { DateUtils } from 'utils/date';
 
 export class APIUtils {
-  static convertAPIAuthorisation(
-    authorisation: APIAuthorisation
+  static convertAuthorisationResponse(
+    authorisation: AuthorisationResponse
   ): Authorisation {
     const stringToDate = DateUtils.optionalStringToDate;
 
@@ -30,20 +30,20 @@ export class APIUtils {
     };
   }
 
-  static convertAPIMeetingDate(meetingDate: APIMeetingDate) {
+  static convertMeetingDateResponse(meetingDate: MeetingDateResponse) {
     return {
       ...meetingDate,
       date: DateUtils.dateAtStartOfDay(new Date(meetingDate.date)),
     };
   }
 
-  static convertAPIClerkTranslator(
-    translator: APIClerkTranslator
+  static convertClerkTranslatorResponse(
+    translator: ClerkTranslatorResponse
   ): ClerkTranslator {
     return {
       ...translator,
       authorisations: translator.authorisations.map(
-        APIUtils.convertAPIAuthorisation
+        APIUtils.convertAuthorisationResponse
       ),
     };
   }

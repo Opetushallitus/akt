@@ -1,5 +1,5 @@
 import { AppRoutes } from 'enums/app';
-import { APIClerkTranslator } from 'interfaces/clerkTranslator';
+import { ClerkTranslatorResponse } from 'interfaces/clerkTranslator';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
 
 class ClerkTranslatorOverviewPage {
@@ -102,7 +102,7 @@ class ClerkTranslatorOverviewPage {
     });
   }
 
-  expectTranslatorDetailsFields(translator: APIClerkTranslator) {
+  expectTranslatorDetailsFields(translator: ClerkTranslatorResponse) {
     const fields = [
       { field: 'firstName', fieldType: 'input' },
       { field: 'lastName', fieldType: 'input' },
@@ -131,7 +131,7 @@ class ClerkTranslatorOverviewPage {
     });
   }
 
-  expectTranslatorAuthorisationDetails(translator: APIClerkTranslator) {
+  expectTranslatorAuthorisationDetails(translator: ClerkTranslatorResponse) {
     translator.authorisations.forEach((a) => {
       onClerkTranslatorOverviewPage.expectAuthorisationRowToHaveText(
         a.id,
@@ -143,7 +143,7 @@ class ClerkTranslatorOverviewPage {
 
 // Helpers
 // clerk_translator_overview.spec expects this to match translator with id: 2 from clerk_translator_10.json
-export const apiTranslator: APIClerkTranslator = {
+export const translatorResponse: ClerkTranslatorResponse = {
   id: 2,
   version: 0,
   firstName: 'Ilkka',
