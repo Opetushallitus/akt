@@ -11,6 +11,7 @@ import {
 import { ClerkTranslatorDetailsFieldProps } from 'interfaces/clerkTranslatorDetailsField';
 import { Utils } from 'utils';
 
+// TODO: should return something else for 'isAssured' than Text
 const getFieldType = (field: keyof ClerkTranslatorBasicInformation) => {
   switch (field) {
     case 'phoneNumber':
@@ -28,10 +29,14 @@ const getFieldError = (
   translator: ClerkTranslator | undefined,
   field: keyof ClerkTranslatorBasicInformation
 ) => {
-  const type = getFieldType(field);
-  const fieldValue = (translator && translator[field]) || '';
+  if (field !== 'isAssured') {
+    const type = getFieldType(field);
+    const fieldValue = (translator && translator[field]) || '';
 
-  return Utils.inspectCustomTextFieldErrors(type, fieldValue, false) || '';
+    return Utils.inspectCustomTextFieldErrors(type, fieldValue, false) || '';
+  }
+
+  return '';
 };
 
 const ClerkTranslatorDetailsField = ({

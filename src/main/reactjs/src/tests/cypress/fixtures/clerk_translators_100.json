@@ -142,6 +142,7 @@
       "town": "Turku",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 1,
@@ -188,6 +189,7 @@
       "town": "Hämeenlinna",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 2,
@@ -234,6 +236,7 @@
       "town": "Kuopio",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 3,
@@ -278,6 +281,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "31600",
       "town": "Lahti",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 4,
@@ -324,6 +328,7 @@
       "town": "Porvoo",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 5,
@@ -370,6 +375,7 @@
       "town": "Vantaa",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 6,
@@ -416,6 +422,7 @@
       "town": "Ääpnevräj",
       "country": "Latvia",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 7,
@@ -462,6 +469,7 @@
       "town": "Kouvola",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 8,
@@ -506,6 +514,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "06100",
       "town": "Tampere",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 9,
@@ -552,6 +561,7 @@
       "town": "Oulu",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 10,
@@ -597,6 +607,7 @@
       "town": "Rovaniemi",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 11,
@@ -641,6 +652,7 @@
       "town": "Kajaani",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 12,
@@ -687,6 +699,7 @@
       "town": "Joensuu",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 13,
@@ -758,6 +771,7 @@
       "postalCode": "00100",
       "town": "Iknupuakisuu",
       "country": "Latvia",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 14,
@@ -804,6 +818,7 @@
       "town": "Kuopio",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 15,
@@ -872,6 +887,7 @@
       "town": "Kotka",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 16,
@@ -918,6 +934,7 @@
       "town": "Helsinki",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 5603,
@@ -986,6 +1003,7 @@
       "town": "Turku",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 18,
@@ -1030,6 +1048,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "48600",
       "town": "Hämeenlinna",
+      "isAssured": false,
       "authorisations": [
         {
           "id": 19,
@@ -1106,6 +1125,7 @@
       "town": "Kuopio",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 20,
@@ -1167,6 +1187,7 @@
       "town": "Ithal",
       "country": "Latvia",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 21,
@@ -1242,6 +1263,7 @@
       "town": "Porvoo",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 22,
@@ -1316,6 +1338,7 @@
       "town": "Vantaa",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 23,
@@ -1390,6 +1413,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "13500",
       "town": "Järvenpää",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 24,
@@ -1464,6 +1488,7 @@
       "town": "Kouvola",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 25,
@@ -1510,6 +1535,7 @@
       "town": "Tampere",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 26,
@@ -1582,6 +1608,7 @@
       "town": "Oulu",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 27,
@@ -1628,6 +1655,7 @@
       "town": "Imeinavor",
       "country": "Latvia",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 28,
@@ -1672,6 +1700,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "01200",
       "town": "Kajaani",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 29,
@@ -1718,6 +1747,7 @@
       "town": "Joensuu",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 30,
@@ -1794,6 +1824,7 @@
       "town": "Uusikaupunki",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 31,
@@ -1840,6 +1871,7 @@
       "town": "Kuopio",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 32,
@@ -1885,6 +1917,7 @@
       "town": "Kotka",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 33,
@@ -1927,6 +1960,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "54460",
       "town": "Helsinki",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 5604,
@@ -1995,6 +2029,7 @@
       "town": "Ukrut",
       "country": "Latvia",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 35,
@@ -2041,6 +2076,7 @@
       "town": "Hämeenlinna",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 36,
@@ -2087,6 +2123,7 @@
       "town": "Kuopio",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 37,
@@ -2133,6 +2170,7 @@
       "town": "Lahti",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": false,
       "authorisations": [
         {
           "id": 38,
@@ -2207,6 +2245,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "31600",
       "town": "Porvoo",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 39,
@@ -2279,6 +2318,7 @@
       "town": "Vantaa",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 40,
@@ -2340,6 +2380,7 @@
       "town": "Järvenpää",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 41,
@@ -2386,6 +2427,7 @@
       "town": "Alovuok",
       "country": "Latvia",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 42,
@@ -2462,6 +2504,7 @@
       "town": "Tampere",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 43,
@@ -2505,6 +2548,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "06100",
       "town": "Oulu",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 44,
@@ -2571,6 +2615,7 @@
       "town": "Rovaniemi",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 45,
@@ -2647,6 +2692,7 @@
       "town": "Kajaani",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 46,
@@ -2723,6 +2769,7 @@
       "town": "Joensuu",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 47,
@@ -2769,6 +2816,7 @@
       "town": "Uusikaupunki",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 48,
@@ -2844,6 +2892,7 @@
       "postalCode": "00100",
       "town": "Oipouk",
       "country": "Latvia",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 49,
@@ -2888,6 +2937,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "48600",
       "town": "Kuopio",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 54,
@@ -2934,6 +2984,7 @@
       "town": "Oovrop",
       "country": "Latvia",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 56,
@@ -2980,6 +3031,7 @@
       "town": "Vantaa",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": false,
       "authorisations": [
         {
           "id": 57,
@@ -3056,6 +3108,7 @@
       "town": "Järvenpää",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 58,
@@ -3100,6 +3153,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "13500",
       "town": "Kouvola",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 59,
@@ -3146,6 +3200,7 @@
       "town": "Tampere",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 60,
@@ -3218,6 +3273,7 @@
       "town": "Oulu",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 61,
@@ -3263,6 +3319,7 @@
       "town": "Kotka",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 50,
@@ -3308,6 +3365,7 @@
       "town": "Helsinki",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 5605,
@@ -3374,6 +3432,7 @@
       "town": "Lahti",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 55,
@@ -3418,6 +3477,7 @@
       "town": "Rovaniemi",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 62,
@@ -3464,6 +3524,7 @@
       "town": "Inaajak",
       "country": "Latvia",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 63,
@@ -3538,6 +3599,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "01200",
       "town": "Joensuu",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 64,
@@ -3584,6 +3646,7 @@
       "town": "Uusikaupunki",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 65,
@@ -3653,6 +3716,7 @@
       "town": "Kuopio",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 66,
@@ -3727,6 +3791,7 @@
       "town": "Kotka",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 67,
@@ -3773,6 +3838,7 @@
       "town": "Helsinki",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 5606,
@@ -3839,6 +3905,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "54460",
       "town": "Turku",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 69,
@@ -3913,6 +3980,7 @@
       "town": "Annilneemäh",
       "country": "Latvia",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 70,
@@ -3959,6 +4027,7 @@
       "town": "Kuopio",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 71,
@@ -4005,6 +4074,7 @@
       "town": "Lahti",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 72,
@@ -4081,6 +4151,7 @@
       "town": "Porvoo",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 73,
@@ -4125,6 +4196,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "31600",
       "town": "Vantaa",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 74,
@@ -4171,6 +4243,7 @@
       "town": "Järvenpää",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 75,
@@ -4245,6 +4318,7 @@
       "town": "Kouvola",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": false,
       "authorisations": [
         {
           "id": 76,
@@ -4320,6 +4394,7 @@
       "town": "Erepmat",
       "country": "Latvia",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 77,
@@ -4364,6 +4439,7 @@
       "town": "Oulu",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 78,
@@ -4434,6 +4510,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "06100",
       "town": "Rovaniemi",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 79,
@@ -4480,6 +4557,7 @@
       "town": "Kajaani",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 80,
@@ -4533,6 +4611,7 @@
       "town": "Joensuu",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 81,
@@ -4567,60 +4646,61 @@
       ]
     },
     {
-      "id": 400,
+      "id": 200,
       "version": 0,
-      "firstName": "Marjatta",
-      "lastName": "Manninen",
-      "email": "translator400@example.invalid",
-      "phoneNumber": "+358401000400",
+      "firstName": "Tapani",
+      "lastName": "Karjalainen",
+      "email": "translator200@example.invalid",
+      "phoneNumber": "+358401000200",
       "street": "Malminkatu 1",
-      "postalCode": "01200",
-      "town": "Tampere",
+      "postalCode": "31600",
+      "town": "Joensuu",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
-          "id": 400,
+          "id": 200,
           "version": 0,
           "languagePair": {
             "from": "FI",
-            "to": "FO"
+            "to": "RU"
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2023-02-19",
+          "termEndDate": "2022-08-03",
           "permissionToPublish": true,
-          "diaryNumber": "400",
+          "diaryNumber": "200",
           "meetingDate": "2021-12-20",
           "autDate": "2022-03-03"
         },
         {
-          "id": 6167,
+          "id": 6157,
           "version": 0,
           "languagePair": {
             "from": "SEIN",
-            "to": "HU"
+            "to": "UK"
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2023-02-19",
+          "termEndDate": "2022-08-03",
           "permissionToPublish": true,
-          "diaryNumber": "6167",
+          "diaryNumber": "6157",
           "meetingDate": "2021-12-20",
           "autDate": "2022-03-03"
         },
         {
-          "id": 13123,
+          "id": 13114,
           "version": 0,
           "languagePair": {
-            "from": "HU",
+            "from": "UK",
             "to": "SEIN"
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2023-02-19",
+          "termEndDate": "2022-08-03",
           "permissionToPublish": true,
-          "diaryNumber": "13123",
+          "diaryNumber": "13114",
           "meetingDate": "2021-12-20",
           "autDate": "2022-03-03"
         }
@@ -4639,6 +4719,7 @@
       "town": "Uusikaupunki",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 82,
@@ -4685,6 +4766,7 @@
       "town": "Kuopio",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 83,
@@ -4730,6 +4812,7 @@
       "postalCode": "00100",
       "town": "Aktok",
       "country": "Latvia",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 84,
@@ -4806,6 +4889,7 @@
       "town": "Helsinki",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 5607,
@@ -4872,6 +4956,7 @@
       "town": "Turku",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 86,
@@ -4917,6 +5002,7 @@
       "town": "Kuopio",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 88,
@@ -4989,6 +5075,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "48600",
       "town": "Lahti",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 89,
@@ -5035,6 +5122,7 @@
       "town": "Porvoo",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 90,
@@ -5111,6 +5199,7 @@
       "town": "Aatnav",
       "country": "Latvia",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 91,
@@ -5183,6 +5272,7 @@
       "town": "Järvenpää",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 92,
@@ -5259,6 +5349,7 @@
       "town": "Kouvola",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 93,
@@ -5303,6 +5394,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "13500",
       "town": "Tampere",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 94,
@@ -5349,6 +5441,7 @@
       "town": "Oulu",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": false,
       "authorisations": [
         {
           "id": 95,
@@ -5423,6 +5516,7 @@
       "town": "Rovaniemi",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 96,
@@ -5499,6 +5593,7 @@
       "town": "Kajaani",
       "country": "SUOMI",
       "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 97,
@@ -5545,6 +5640,7 @@
       "town": "Uusneoj",
       "country": "Latvia",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 98,
@@ -5588,6 +5684,7 @@
       "street": "Pirkkolantie 123",
       "postalCode": "01200",
       "town": "Uusikaupunki",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 99,
@@ -5632,6 +5729,7 @@
       "town": "Kotka",
       "country": "suomi",
       "extraInformation": "Kääntäjän nimeä muutettu. Vanhassa nimessä oli typo.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 101,
@@ -5677,6 +5775,7 @@
       "town": "Kuopio",
       "country": "Suomi",
       "extraInformation": "Osoitetiedot päivitetty 1.1.1970.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 100,
@@ -5738,6 +5837,7 @@
       "town": "Turku",
       "country": "Finland",
       "extraInformation": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut vehicula sem nulla eu placerat libero dapibus eget. Ut ac pretium velit ac hendrerit eros. Nullam in tortor in augue dignissim vehicula. Nulla ac cursus ligula. Nulla ut magna dapibus egestas tortor eget consequat augue. Pellentesque tempor sapien ut orci commodo et commodo mi condimentum. Aliquam lacinia commodo elit id bibendum quam condimentum suscipit. Phasellus nibh turpis laoreet non gravida sed gravida ac magna. Nulla ut lectus augue. Curabitur finibus laoreet ullamcorper. Nullam id dapibus ex et fermentum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas varius lectus id felis mattis ac sodales purus posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed a pharetra massa.",
+      "isAssured": true,
       "authorisations": [
         {
           "id": 103,

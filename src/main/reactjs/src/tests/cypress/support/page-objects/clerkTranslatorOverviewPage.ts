@@ -157,6 +157,7 @@ export const translatorResponse: ClerkTranslatorResponse = {
   country: 'SUOMI',
   extraInformation:
     'Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen',
+  isAssured: true,
   authorisations: [
     {
       id: 2,
