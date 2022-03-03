@@ -1,11 +1,11 @@
 package fi.oph.akt.api.dto.clerk.modify;
 
 public interface TranslatorDTOCommonFields {
-  String identityNumber();
-
   String firstName();
 
   String lastName();
+
+  String identityNumber();
 
   String email();
 
@@ -13,9 +13,9 @@ public interface TranslatorDTOCommonFields {
 
   String street();
 
-  String town();
-
   String postalCode();
+
+  String town();
 
   String country();
 

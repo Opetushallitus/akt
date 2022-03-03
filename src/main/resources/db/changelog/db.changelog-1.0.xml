@@ -571,4 +571,27 @@
         </sql>
     </changeSet>
 
+    <changeSet id="2022-03-03-drop_authorisation_unused_date_columns" author="mikhuttu">
+        <sql>
+            ALTER TABLE authorisation DROP CONSTRAINT ck_authorisation_by_basis
+        </sql>
+        <sql>
+            ALTER TABLE authorisation
+                ADD CONSTRAINT ck_authorisation_aut_date
+                    CHECK (basis = 'AUT' OR aut_date IS NULL)
+        </sql>
+
+        <dropColumn tableName="authorisation" columnName="kkt_check"/>
+        <dropColumn tableName="authorisation" columnName="vir_date"/>
+        <dropColumn tableName="authorisation" columnName="assurance_date"/>
+    </changeSet>
+
+    <changeSet id="2022-03-03-nullable_authorisation_diary_number" author="mikhuttu">
+        <dropColumn tableName="authorisation" columnName="diary_number"/>
+
+        <addColumn tableName="authorisation">
+            <column name="diary_number" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

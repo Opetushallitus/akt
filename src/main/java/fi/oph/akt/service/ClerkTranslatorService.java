@@ -151,9 +151,6 @@ public class ClerkTranslatorService {
           .diaryNumber(authProjection.diaryNumber())
           .meetingDate(authProjection.meetingDate())
           .autDate(authProjection.autDate())
-          .kktCheck(authProjection.kktCheck())
-          .virDate(authProjection.virDate())
-          .assuranceDate(authProjection.assuranceDate())
           .build();
       })
       .toList();
@@ -309,9 +306,6 @@ public class ClerkTranslatorService {
     authorisation.setPermissionToPublish(dto.permissionToPublish());
     authorisation.setDiaryNumber(dto.diaryNumber());
     authorisation.setAutDate(dto.autDate());
-    authorisation.setKktCheck(dto.kktCheck());
-    authorisation.setVirDate(dto.virDate());
-    authorisation.setAssuranceDate(dto.assuranceDate());
     authorisation.setMeetingDate(meetingDate);
   }
 

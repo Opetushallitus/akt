@@ -9,15 +9,15 @@ import lombok.NonNull;
 public record TranslatorUpdateDTO(
   @NonNull @NotNull Long id,
   @NonNull @NotNull Integer version,
-  @NonNull @NotBlank String identityNumber,
   @NonNull @NotBlank String firstName,
   @NonNull @NotBlank String lastName,
-  @NonNull @NotBlank @Email String email,
-  @NonNull @NotBlank String phoneNumber,
-  @NonNull @NotBlank String street,
-  @NonNull @NotBlank String town,
-  @NonNull @NotBlank String postalCode,
-  @NonNull @NotBlank String country,
+  String identityNumber,
+  @Email String email,
+  String phoneNumber,
+  String street,
+  String postalCode,
+  String town,
+  String country,
   String extraInformation
 )
   implements TranslatorDTOCommonFields {
