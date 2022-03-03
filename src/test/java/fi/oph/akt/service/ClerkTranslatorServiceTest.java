@@ -39,7 +39,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -708,7 +707,7 @@ class ClerkTranslatorServiceTest {
       .permissionToPublish(!authorisation.isPermissionToPublish())
       .termBeginDate(authorisation.getTermBeginDate().minusDays(1))
       .termEndDate(authorisation.getTermEndDate().plusDays(1))
-      .diaryNumber(UUID.randomUUID().toString())
+      .diaryNumber("012345")
       .build();
 
     final ClerkTranslatorDTO response = clerkTranslatorService.updateAuthorisation(updateDTO);

@@ -8,7 +8,6 @@ import fi.oph.akt.model.EmailType;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class Factory {
 
@@ -46,7 +45,7 @@ public class Factory {
     authorisation.setTermBeginDate(LocalDate.now());
     authorisation.setTermEndDate(LocalDate.now().plusYears(1));
     authorisation.setPermissionToPublish(true);
-    authorisation.setDiaryNumber(UUID.randomUUID().toString());
+    authorisation.setDiaryNumber("12345");
     authorisation.setAutDate(LocalDate.now());
     authorisation.setAssuranceDate(LocalDate.now());
 

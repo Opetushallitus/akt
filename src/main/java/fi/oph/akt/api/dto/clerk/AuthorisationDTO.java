@@ -14,7 +14,7 @@ public record AuthorisationDTO(
   LocalDate termBeginDate,
   LocalDate termEndDate,
   @NonNull Boolean permissionToPublish,
-  @NonNull String diaryNumber,
+  String diaryNumber,
   LocalDate meetingDate,
   LocalDate autDate,
   String kktCheck,
