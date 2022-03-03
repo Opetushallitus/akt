@@ -92,6 +92,7 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 2022-02-28-move_authorisation_term_contents_under_authorisation	mikhuttu	migrations.xml	2022-02-28 10:33:22.318797	27	EXECUTED	8:aa2182fccae1c40bc76f6e82cc068187	dropForeignKeyConstraint baseTableName=authorisation_term, constraintName=fk_authorisation_term_authorisation; dropForeignKeyConstraint baseTableName=authorisation_term_reminder, constraintName=fk_authorisation_term_reminder_authorisation_term; de...		\N	4.3.5	\N	\N	6044401975
 2022-03-03-drop_authorisation_unused_date_columns	mikhuttu	migrations.xml	2022-03-03 13:29:48.667704	28	EXECUTED	8:772ddd0214963788b04ff8a118db6c37	sql; sql; dropColumn columnName=kkt_check, tableName=authorisation; dropColumn columnName=vir_date, tableName=authorisation; dropColumn columnName=assurance_date, tableName=authorisation		\N	4.3.5	\N	\N	6314188424
 2022-03-03-nullable_authorisation_diary_number	mikhuttu	migrations.xml	2022-03-03 13:29:48.68439	29	EXECUTED	8:4b9a27fa6f1252767f46578d7ae94f32	dropColumn columnName=diary_number, tableName=authorisation; addColumn tableName=authorisation		\N	4.3.5	\N	\N	6314188424
+2022-03-04-add_translator_has_assurance	mikhuttu	migrations.xml	2022-03-03 14:36:02.923327	30	EXECUTED	8:caed743700d7bdfaaae6d250b9ebdbe7	addColumn tableName=translator; dropDefaultValue columnName=is_assured, tableName=translator		\N	4.3.5	\N	\N	6318162732
 \.
 
 
