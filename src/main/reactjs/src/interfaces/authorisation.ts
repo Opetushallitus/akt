@@ -7,19 +7,12 @@ export type AuthorisationBasis = 'AUT' | 'KKT' | 'VIR';
 export interface Authorisation
   extends Omit<
     AuthorisationResponse,
-    | 'termBeginDate'
-    | 'termEndDate'
-    | 'meetingDate'
-    | 'autDate'
-    | 'virDate'
-    | 'assuranceDate'
+    'termBeginDate' | 'termEndDate' | 'meetingDate' | 'autDate'
   > {
   termBeginDate?: Date;
   termEndDate?: Date;
   meetingDate?: Date;
   autDate?: Date;
-  virDate?: Date;
-  assuranceDate?: Date;
 }
 
 export interface AuthorisationResponse extends WithId, WithVersion {
@@ -28,10 +21,7 @@ export interface AuthorisationResponse extends WithId, WithVersion {
   termBeginDate?: string;
   termEndDate?: string;
   permissionToPublish: boolean;
-  diaryNumber: string;
+  diaryNumber?: string;
   meetingDate?: string;
   autDate?: string;
-  kktCheck?: string;
-  virDate?: string;
-  assuranceDate?: string;
 }

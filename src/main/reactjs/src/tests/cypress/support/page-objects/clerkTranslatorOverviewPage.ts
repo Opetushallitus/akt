@@ -171,8 +171,7 @@ export const translatorResponse: ClerkTranslatorResponse = {
       permissionToPublish: true,
       diaryNumber: '2',
       meetingDate: '2021-12-20',
-      autDate: '2022-03-01',
-      assuranceDate: '2022-03-01',
+      autDate: '2022-03-03',
     },
     {
       id: 7266,
@@ -187,8 +186,7 @@ export const translatorResponse: ClerkTranslatorResponse = {
       permissionToPublish: true,
       diaryNumber: '7266',
       meetingDate: '2021-12-20',
-      autDate: '2022-03-01',
-      assuranceDate: '2022-03-01',
+      autDate: '2022-03-03',
     },
   ],
 };
