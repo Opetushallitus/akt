@@ -91,6 +91,7 @@ export enum Color {
   Primary = 'primary',
   Secondary = 'secondary',
   Inherit = 'inherit',
+  Error = 'error',
 }
 
 export enum HTTPStatusCode {

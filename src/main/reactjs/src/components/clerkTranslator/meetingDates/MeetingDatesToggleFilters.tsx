@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { MeetingStatus } from 'enums/meetingDate';
 import { setMeetingDateFilters } from 'redux/actions/meetingDate';
 import {
-  meetingDateSelector,
+  meetingDatesSelector,
   selectMeetingDatesByMeetingStatus,
 } from 'redux/selectors/meetingDate';
 
@@ -18,7 +18,9 @@ export const MeetingDatesToggleFilters = () => {
   );
 
   const dispatch = useAppDispatch();
-  const { filters } = useAppSelector(meetingDateSelector);
+  const {
+    meetingDates: { filters },
+  } = useAppSelector(meetingDatesSelector);
 
   const filterByDate = (status: MeetingStatus) => {
     dispatch(setMeetingDateFilters({ meetingStatus: status }));

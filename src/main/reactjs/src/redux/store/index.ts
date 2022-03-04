@@ -2,7 +2,6 @@ import createSagaMiddleware from '@redux-saga/core';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { addMeetingDateReducer } from 'redux/reducers/addMeetingDate';
 import { clerkTranslatorReducer } from 'redux/reducers/clerkTranslator';
 import { clerkTranslatorEmailReducer } from 'redux/reducers/clerkTranslatorEmail';
 import { clerkTranslatorOverviewReducer } from 'redux/reducers/clerkTranslatorOverview';
@@ -12,7 +11,6 @@ import { meetingDateReducer } from 'redux/reducers/meetingDate';
 import { notifierReducer } from 'redux/reducers/notifier';
 import { publicTranslatorReducer } from 'redux/reducers/publicTranslator';
 import { publicUIViewReducer } from 'redux/reducers/publicUIView';
-import { removeMeetingDateReducer } from 'redux/reducers/removeMeetingDate';
 import rootSaga from 'redux/sagas/index';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -31,8 +29,6 @@ export default () => {
       clerkUser: clerkUserReducer,
       notifier: notifierReducer,
       meetingDate: meetingDateReducer,
-      addMeetingDate: addMeetingDateReducer,
-      removeMeetingDate: removeMeetingDateReducer,
     }),
     composeEnhancers(middlewareEnhancer)
   );

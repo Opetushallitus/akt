@@ -19,12 +19,10 @@
     "build": "webpack --env prod"
   },
   "dependencies": {
-    "@date-io/dayjs": "^2.13.1",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@fontsource/roboto": "^4.5.1",
     "@mui/icons-material": "^5.1.0",
-    "@mui/lab": "^5.0.0-alpha.70",
     "@mui/material": "^5.0.6",
     "axios": "^0.26.0",
     "i18next": "^21.5.4",

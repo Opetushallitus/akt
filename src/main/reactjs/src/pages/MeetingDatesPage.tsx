@@ -1,7 +1,7 @@
 import { Divider, Grid, Paper } from '@mui/material';
 import { FC, useEffect } from 'react';
 
-import { AddMeetingDate } from 'components/clerkTranslator/AddMeetingDate';
+import { AddMeetingDate } from 'components/clerkTranslator/meetingDates/AddMeetingDate';
 import { MeetingDatesListing } from 'components/clerkTranslator/meetingDates/MeetingDatesListing';
 import { MeetingDatesToggleFilters } from 'components/clerkTranslator/meetingDates/MeetingDatesToggleFilters';
 import { H1, H2, Text } from 'components/elements/Text';
@@ -10,10 +10,12 @@ import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { loadMeetingDates } from 'redux/actions/meetingDate';
-import { meetingDateSelector } from 'redux/selectors/meetingDate';
+import { meetingDatesSelector } from 'redux/selectors/meetingDate';
 
 export const MeetingDatesPage: FC = () => {
-  const { status, meetingDates } = useAppSelector(meetingDateSelector);
+  const {
+    meetingDates: { status, meetingDates },
+  } = useAppSelector(meetingDatesSelector);
   const isLoading = status === APIResponseStatus.InProgress;
   const dispatch = useAppDispatch();
 
@@ -39,12 +41,11 @@ export const MeetingDatesPage: FC = () => {
       <Grid item>
         <Divider />
       </Grid>
-      <Grid item>
-        <div className="columns">
-          <div className="meeting-dates-page__grid-container__date-controls grow columns">
-            <MeetingDatesToggleFilters />
-          </div>
-        </div>
+      <Grid
+        className="meeting-dates-page__grid-container__date-controls grow columns"
+        item
+      >
+        <MeetingDatesToggleFilters />
       </Grid>
       <Grid item>
         <AddMeetingDate />

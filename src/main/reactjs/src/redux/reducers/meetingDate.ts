@@ -9,17 +9,34 @@ import {
   MeetingDateState,
 } from 'interfaces/meetingDate';
 import {
+  MEETING_DATE_ADD,
+  MEETING_DATE_ADD_ERROR,
   MEETING_DATE_ADD_FILTER,
+  MEETING_DATE_ADD_SUCCESS,
   MEETING_DATE_ERROR,
   MEETING_DATE_LOADING,
   MEETING_DATE_RECEIVED,
+  MEETING_DATE_REMOVE,
+  MEETING_DATE_REMOVE_ERROR,
+  MEETING_DATE_REMOVE_SUCCESS,
 } from 'redux/actionTypes/meetingDate';
+import { DateUtils } from 'utils/date';
 
 const defaultState = {
-  status: APIResponseStatus.NotStarted,
-  meetingDates: [],
-  filters: {
-    meetingStatus: MeetingStatus.Upcoming,
+  meetingDates: {
+    status: APIResponseStatus.NotStarted,
+    meetingDates: [],
+    filters: {
+      meetingStatus: MeetingStatus.Upcoming,
+    },
+  },
+  addMeetingDate: {
+    status: APIResponseStatus.NotStarted,
+    date: DateUtils.dateAtStartOfDay(new Date()),
+  },
+  removeMeetingDate: {
+    status: APIResponseStatus.NotStarted,
+    meetingDateId: undefined,
   },
 };
 
@@ -29,23 +46,102 @@ export const meetingDateReducer: Reducer<
 > = (state = defaultState, action) => {
   const filters = action.filters as MeetingDateFilter;
   switch (action.type) {
+    // Fetching meetings
     case MEETING_DATE_LOADING:
-      return { ...state, status: APIResponseStatus.InProgress };
+      return {
+        ...state,
+        meetingDates: {
+          ...state.meetingDates,
+          status: APIResponseStatus.InProgress,
+        },
+      };
     case MEETING_DATE_RECEIVED:
       const meetingDates = action.meetingDates as Array<MeetingDate>;
 
       return {
         ...state,
-        meetingDates,
-        status: APIResponseStatus.Success,
+        meetingDates: {
+          ...state.meetingDates,
+          meetingDates,
+          status: APIResponseStatus.Success,
+        },
       };
     case MEETING_DATE_ERROR:
-      return { ...state, status: APIResponseStatus.Error };
+      return {
+        ...state,
+        meetingDates: {
+          ...state.meetingDates,
+          status: APIResponseStatus.Error,
+        },
+      };
+
     case MEETING_DATE_ADD_FILTER:
       return {
         ...state,
-        filters: { ...state.filters, ...filters },
+        meetingDates: {
+          ...state.meetingDates,
+          filters: { ...state.meetingDates.filters, ...filters },
+        },
       };
+
+    // Removing meetings
+    case MEETING_DATE_REMOVE:
+      const { meetingDateId } = action;
+
+      return {
+        ...state,
+        removeMeetingDate: {
+          ...state.removeMeetingDate,
+          meetingDateId,
+          status: APIResponseStatus.InProgress,
+        },
+      };
+    case MEETING_DATE_REMOVE_SUCCESS:
+      return {
+        ...state,
+        removeMeetingDate: {
+          ...state.removeMeetingDate,
+          status: APIResponseStatus.Success,
+        },
+      };
+    case MEETING_DATE_REMOVE_ERROR:
+      return {
+        ...state,
+        removeMeetingDate: {
+          ...state.removeMeetingDate,
+          status: APIResponseStatus.Error,
+        },
+      };
+
+    // Adding meetings
+    case MEETING_DATE_ADD:
+      const date = action.date as Date;
+
+      return {
+        ...state,
+        addMeetingDate: {
+          ...state.addMeetingDate,
+          date,
+          status: APIResponseStatus.InProgress,
+        },
+      };
+    case MEETING_DATE_ADD_SUCCESS:
+      return {
+        ...state,
+        addMeetingDate: {
+          ...state.addMeetingDate,
+          status: APIResponseStatus.Success,
+        },
+      };
+    case MEETING_DATE_ADD_ERROR:
+      return {
+        ...state,
+        addMeetingDate: {
+          ...state.addMeetingDate,
+          status: APIResponseStatus.Error,
+        },
+      };
+
     default:
       return state;
   }

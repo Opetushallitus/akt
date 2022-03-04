@@ -1,42 +1,38 @@
-import DateAdapter from '@mui/lab/AdapterDayjs';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
-const defaultMask = '__.__.____';
-const defaultInputFormat = 'DD.MM.YYYY';
+import { DatePickerProps } from 'interfaces/datePicker';
+import { DateUtils } from 'utils/date';
+
+const MAX_DATE = '2222-02-22';
 
 export const DatePicker = ({
   value,
   setValue,
   label,
-  inputFormat = defaultInputFormat,
-  mask = defaultMask,
-}: {
-  value: Date | null;
-  setValue: (date: Date | null) => void;
-  label: string;
-  mask?: string;
-  inputFormat?: string;
-}) => {
-  const handleChange = (newValue: Date | null) => {
-    setValue(newValue);
+}: DatePickerProps): JSX.Element => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
   };
 
   return (
-    <LocalizationProvider dateAdapter={DateAdapter}>
-      <Stack spacing={3}>
-        <DesktopDatePicker
-          className="oph-date-picker"
-          label={label}
-          inputFormat={inputFormat}
-          value={value}
-          onChange={handleChange}
-          renderInput={(params) => <TextField {...params} />}
-          mask={mask}
-        />
-      </Stack>
-    </LocalizationProvider>
+    <Stack spacing={3}>
+      <TextField
+        label={label}
+        type="date"
+        onChange={handleChange}
+        value={value}
+        sx={{ width: 220 }}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        inputProps={{
+          max: MAX_DATE,
+          min: DateUtils.dateAtStartOfDay(new Date())
+            .toISOString()
+            .split('T')[0],
+        }}
+      />
+    </Stack>
   );
 };

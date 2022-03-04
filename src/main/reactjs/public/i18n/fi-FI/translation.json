@@ -171,20 +171,6 @@
       "meetingDatesListing": {
         "header": "Kokouspäivä"
       },
-      "removeMeetingDateDialog": {
-        "header": "Haluatko varmasti poistaa kokouspäivän?",
-        "description": "Tätä toimintoa ei voi peruuttaa!"
-      },
-      "addMeetingDate": {
-        "header": "Lisää kokouspäivä",
-        "datePickerLabel": "Kokouspäivämäärä",
-        "button": {
-          "add": "Lisää kokouspäivä"
-        },
-        "toast": {
-          "error": "Kokouspäivän lisäys epäonnistui, yritä myöhemmin uudelleen."
-        }
-      },
       "contactRequestForm": {
         "title": "Yhteydenottopyynnön jättäminen",
         "description": "Tällä yhteydenottolomakkeella voit jättää valitsemillesi kääntäjille yhteydenottopyynnön. Kirjoitathan viestiin mahdollisimman tarkan kuvauksen tarvittavasta käännöstyöstä.",
@@ -283,7 +269,25 @@
       "meetingDatesPage": {
         "title": "Kokouspäivät",
         "upcoming": "Tulevat",
-        "passed": "Menneet"
+        "passed": "Menneet",
+        "removeMeetingDate": {
+          "dialogHeader": "Haluatko varmasti poistaa kokouspäivän?",
+          "dialogDescription": "Tätä toimintoa ei voi peruuttaa!",
+          "toast": {
+            "error": "Kokouspäivän lisäys epäonnistui, yritä myöhemmin uudelleen."
+          },
+          "removeButtonAriaLabel": "Poista kokouspäivä"
+        },
+        "addMeetingDate": {
+          "header": "Lisää kokouspäivä",
+          "datePickerLabel": "Kokouspäivämäärä",
+          "button": {
+            "add": "Lisää kokouspäivä"
+          },
+          "toast": {
+            "error": "Kokouspäivän lisäys epäonnistui, yritä myöhemmin uudelleen."
+          }
+        }
       },
       "notFoundPage": {
         "title": "Valitettavasti etsimääsi sivua ei löytynyt",

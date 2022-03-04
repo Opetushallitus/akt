@@ -2,15 +2,78 @@ import { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import axiosInstance from 'configs/axios';
+import { translateOutsideComponent } from 'configs/i18n';
 import { APIEndpoints } from 'enums/api';
-import { MeetingDateResponse, MeetingDates } from 'interfaces/meetingDate';
+import { Severity } from 'enums/app';
 import {
+  AddMeetingDateActionType,
+  MeetingDateResponse,
+  MeetingDates,
+  RemoveMeetingDateActionType,
+} from 'interfaces/meetingDate';
+import {
+  MEETING_DATE_ADD,
+  MEETING_DATE_ADD_ERROR,
+  MEETING_DATE_ADD_SUCCESS,
   MEETING_DATE_ERROR,
   MEETING_DATE_LOAD,
   MEETING_DATE_LOADING,
   MEETING_DATE_RECEIVED,
+  MEETING_DATE_REMOVE,
+  MEETING_DATE_REMOVE_ERROR,
+  MEETING_DATE_REMOVE_SUCCESS,
 } from 'redux/actionTypes/meetingDate';
+import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
+import { Utils } from 'utils';
 import { APIUtils } from 'utils/api';
+
+function* showErrorToastonRemove() {
+  const t = translateOutsideComponent();
+  const notifier = Utils.createNotifierToast(
+    Severity.Error,
+    t('akt.pages.meetingDatesPage.removeMeetingDate.toast.error')
+  );
+  yield put({ type: NOTIFIER_TOAST_ADD, notifier });
+}
+
+export function* removeMeetingDate(action: RemoveMeetingDateActionType) {
+  try {
+    yield call(
+      axiosInstance.delete,
+      `${APIEndpoints.meetingDates}/${action.meetingDateId}`
+    );
+    yield put({ type: MEETING_DATE_REMOVE_SUCCESS });
+    yield put({ type: MEETING_DATE_LOAD });
+  } catch (error) {
+    yield put({ type: MEETING_DATE_REMOVE_ERROR });
+    yield call(showErrorToastonRemove);
+  }
+}
+function* showErrorToastOnAdd() {
+  const t = translateOutsideComponent();
+  const notifier = Utils.createNotifierToast(
+    Severity.Error,
+    t('akt.pages.meetingDatesPage.addMeetingDate.toast.error')
+  );
+  yield put({ type: NOTIFIER_TOAST_ADD, notifier });
+}
+
+export function* addMeetingDate(action: AddMeetingDateActionType) {
+  try {
+    yield call(
+      axiosInstance.post,
+      APIEndpoints.meetingDates,
+      JSON.stringify({
+        date: action.date,
+      })
+    );
+    yield put({ type: MEETING_DATE_ADD_SUCCESS });
+    yield put({ type: MEETING_DATE_LOAD });
+  } catch (error) {
+    yield put({ type: MEETING_DATE_ADD_ERROR });
+    yield call(showErrorToastOnAdd);
+  }
+}
 
 export const convertAPIResponse = (
   response: MeetingDateResponse[]
@@ -45,6 +108,8 @@ export function* storeApiResults(response: MeetingDates) {
   });
 }
 
-export function* watchFetchMeetingDates() {
+export function* watchMeetingDates() {
   yield takeLatest(MEETING_DATE_LOAD, fetchMeetingDates);
+  yield takeLatest(MEETING_DATE_ADD, addMeetingDate);
+  yield takeLatest(MEETING_DATE_REMOVE, removeMeetingDate);
 }

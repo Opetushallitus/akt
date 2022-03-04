@@ -1,3 +1,4 @@
+import { AddMeetingDate } from 'components/clerkTranslator/meetingDates/AddMeetingDate';
 import { MeetingDatesListing } from 'components/clerkTranslator/meetingDates/MeetingDatesListing';
 import { MeetingDatesToggleFilters } from 'components/clerkTranslator/meetingDates/MeetingDatesToggleFilters';
 import { CustomSkeleton } from 'components/elements/CustomSkeleton';
@@ -18,6 +19,12 @@ export const MeetingDatesPageSkeleton = () => {
       </CustomSkeleton>
       <CustomSkeleton variant={SkeletonVariant.Rectangular}>
         <MeetingDatesToggleFilters />
+      </CustomSkeleton>
+      <CustomSkeleton
+        className="full-max-width"
+        variant={SkeletonVariant.Rectangular}
+      >
+        <AddMeetingDate />
       </CustomSkeleton>
       <CustomSkeleton
         className="full-max-width full-height"

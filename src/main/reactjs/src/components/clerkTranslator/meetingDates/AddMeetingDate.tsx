@@ -1,4 +1,3 @@
-import Dayjs from '@date-io/dayjs';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 
@@ -6,23 +5,36 @@ import { CustomButton } from 'components/elements/CustomButton';
 import { DatePicker } from 'components/elements/DatePicker';
 import { H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
-import { useAppDispatch } from 'configs/redux';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { Color, Variant } from 'enums/app';
-import { addMeetingDate } from 'redux/actions/addMeetingDate';
-
-const dayjs = new Dayjs();
+import { addMeetingDate } from 'redux/actions/meetingDate';
+import { selectMeetingDatesByMeetingStatus } from 'redux/selectors/meetingDate';
+import { DateUtils } from 'utils/date';
 
 export const AddMeetingDate = () => {
-  const [value, setValue] = useState<Date | null>(null);
-  // i18n
+  const [value, setValue] = useState<string>('');
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.addMeetingDate',
+    keyPrefix: 'akt.pages.meetingDatesPage.addMeetingDate',
   });
+  const { upcoming } = useAppSelector(selectMeetingDatesByMeetingStatus);
 
   const dispatch = useAppDispatch();
 
   const handleOnClick = () => {
-    dispatch(addMeetingDate(value as Date));
+    value &&
+      dispatch(addMeetingDate(DateUtils.dateAtStartOfDay(new Date(value))));
+  };
+
+  const shouldDisableAddMeetingDateButton = () => {
+    if (!value) {
+      return true;
+    } else {
+      const date = DateUtils.dateAtStartOfDay(new Date(value));
+
+      return upcoming.some(
+        (upcomingDate) => upcomingDate.date.getTime() === date.getTime()
+      );
+    }
   };
 
   return (
@@ -40,7 +52,7 @@ export const AddMeetingDate = () => {
             variant={Variant.Outlined}
             color={Color.Secondary}
             startIcon={<AddIcon />}
-            disabled={!dayjs.isValid(value)}
+            disabled={shouldDisableAddMeetingDateButton()}
             onClick={handleOnClick}
           >
             {t('button.add')}
