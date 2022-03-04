@@ -62,7 +62,7 @@ describe('ClerkSendEmailPage', () => {
     );
 
     expectRegistryIsVisible();
-    onToast.expectText('Sähköpostisi lähetettiin kääntäjille.');
+    onToast.expectText('Sähköpostisi lähetettiin kääntäjille');
   });
 
   it('should display an error toast if there was an error when sending the email', () => {

@@ -59,7 +59,7 @@ describe('ContactRequestPage', () => {
       onContactRequestPage.submit()
     );
 
-    onDialog.expectText('Virhe lähetettäessä yhteydenottopyyntöä.');
+    onDialog.expectText('Virhe lähetettäessä yhteydenottopyyntöä');
     onDialog.clickButtonByText('Takaisin');
 
     // Verify last step is shown after dialog is closed
