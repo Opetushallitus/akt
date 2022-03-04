@@ -4,11 +4,11 @@
       "header": {
         "lang": {
           "fi": "Suomeksi",
-          "sv": "På Svenska",
+          "sv": "På svenska",
           "en": "In English"
         },
         "clerk": {
-          "backToOph": "Takaisin opintopolkuun",
+          "backToOph": "Takaisin Opintopolkuun",
           "logOut": "Kirjaudu ulos",
           "navLinks": {
             "certificateCreation": "Todistuksen tekeminen",
@@ -96,7 +96,7 @@
           "authorisationBasis": "Peruste",
           "valid": "Voimassa",
           "authorisationBeginDate": "Alkamispäivä",
-          "authorisationEndDate": "Päätymispäivä",
+          "authorisationEndDate": "Päättymispäivä",
           "permissionToPublish": "Julkaistu"
         },
         "detailsButton": "Lisätiedot"
@@ -155,7 +155,7 @@
           "fields": {
             "languagePair": "Kielipari",
             "startDate": "Alkamispäivä",
-            "endDate": "Päätymispäivä",
+            "endDate": "Päättymispäivä",
             "basis": "Peruste",
             "isValid": "Voimassa",
             "isPublished": "Julkaistu",
@@ -173,7 +173,7 @@
       },
       "contactRequestForm": {
         "title": "Yhteydenottopyynnön jättäminen",
-        "description": "Tällä yhteydenottolomakkeella voit jättää valitsemillesi kääntäjille yhteydenottopyynnön. Kirjoitathan viestiin mahdollisimman tarkan kuvauksen tarvittavasta käännöstyöstä.",
+        "description": "Tällä yhteydenottolomakkeella voit jättää valitsemillesi auktorisoiduille kääntäjille yhteydenottopyynnön. Kirjoitathan viestiin mahdollisimman tarkan kuvauksen tarvittavasta käännöstyöstä.",
         "steps": {
           "VerifyTranslators": "Vahvista kääntäjät",
           "FillContactDetails": "Täytä yhteystiedot",
@@ -204,8 +204,8 @@
           "writeMessageHere": "Viesti"
         },
         "errorDialog": {
-          "title": "Virhe lähetettäessä yhteydenottopyyntöä.",
-          "description": "Kokeile myöhemmin uudelleen. Jos ongelma toistuu, ota yhteyttä sähköpostilla: akt@oph.fi",
+          "title": "Virhe lähetettäessä yhteydenottopyyntöä",
+          "description": "Kokeile myöhemmin uudelleen. Jos ongelma toistuu, ota yhteyttä sähköpostilla: auktoris.lautakunta@oph.fi",
           "back": "Takaisin"
         },
         "cancelRequestDialog": {
@@ -217,7 +217,7 @@
     "pages": {
       "homepage": {
         "title": "Auktorisoitujen kääntäjien rekisteri",
-        "description": "Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä joko nimen tai käännöskielen mukaan. Voit jättää valitsemellesi kääntäjille yhteydenottopyynnön alla olevalla hakulomakkeella.",
+        "description": "Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä joko nimen tai kieliparin mukaan. Voit jättää valitsemillesi kääntäjille yhteydenottopyynnön alla olevalla hakulomakkeella.",
         "note": "Huomaa, että kielittäin haettaessa mahdolliset hakuvaihtoehdot ovat kotimaisista kielistä (suomi, ruotsi, saamen kielet) vieraisiin kieliin tai toisinpäin sekä kotimaisten kielten välillä.",
         "filters": {
           "title": "Hae auktorisoitua kääntäjää"
@@ -244,7 +244,7 @@
           "message": "Kirjoita viestisi tähän"
         },
         "toasts": {
-          "success": "Sähköpostisi lähetettiin kääntäjille.",
+          "success": "Sähköpostisi lähetettiin kääntäjille",
           "error": "Sähköpostin lähetys ei onnistunut. Virhe voi olla tilapäinen, yritä uudestaan."
         },
         "dialogs": {
