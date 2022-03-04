@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AuthorisationRepository extends JpaRepository<Authorisation, Long> {
   @Query(
-    "SELECT new fi.oph.akt.repository.AuthorisationProjection(a.id, a.version, a.translator.id, md.date, a.basis," +
+    "SELECT new fi.oph.akt.repository.AuthorisationProjection(a.id, a.version, a.translator.id, a.basis," +
     " a.diaryNumber, a.autDate, a.fromLang, a.toLang, a.permissionToPublish, a.termBeginDate, a.termEndDate)" +
-    " FROM Authorisation a LEFT JOIN a.meetingDate md"
+    " FROM Authorisation a"
   )
   List<AuthorisationProjection> listAuthorisationProjections();
 

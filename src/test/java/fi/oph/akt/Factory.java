@@ -34,17 +34,18 @@ public class Factory {
   public static Authorisation authorisation(Translator translator, MeetingDate meetingDate) {
     final Authorisation authorisation = new Authorisation();
     translator.getAuthorisations().add(authorisation);
-    if (meetingDate != null) {
-      meetingDate.getAuthorisations().add(authorisation);
-    }
-
     authorisation.setTranslator(translator);
-    authorisation.setMeetingDate(meetingDate);
-    authorisation.setBasis(AuthorisationBasis.AUT);
+
+    if (meetingDate == null) {
+      authorisation.setBasis(AuthorisationBasis.VIR);
+    } else {
+      meetingDate.getAuthorisations().add(authorisation);
+      authorisation.setBasis(AuthorisationBasis.AUT);
+      authorisation.setTermBeginDate(meetingDate.getDate());
+      authorisation.setTermEndDate(meetingDate.getDate().plusYears(1));
+    }
     authorisation.setFromLang("FI");
     authorisation.setToLang("EN");
-    authorisation.setTermBeginDate(LocalDate.now());
-    authorisation.setTermEndDate(LocalDate.now().plusYears(1));
     authorisation.setPermissionToPublish(true);
     authorisation.setDiaryNumber("12345");
 

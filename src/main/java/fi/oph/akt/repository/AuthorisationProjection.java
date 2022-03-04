@@ -7,7 +7,6 @@ public record AuthorisationProjection(
   long id,
   int version,
   long translatorId,
-  LocalDate meetingDate,
   AuthorisationBasis authorisationBasis,
   String diaryNumber,
   LocalDate autDate,
