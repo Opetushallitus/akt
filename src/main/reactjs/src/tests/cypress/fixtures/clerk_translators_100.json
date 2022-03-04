@@ -1,39 +1,69 @@
 {
   "meetingDates": [
     {
+      "id": 13,
+      "version": 0,
+      "date": "2023-11-29"
+    },
+    {
+      "id": 12,
+      "version": 0,
+      "date": "2023-09-09"
+    },
+    {
+      "id": 11,
+      "version": 0,
+      "date": "2023-04-11"
+    },
+    {
+      "id": 10,
+      "version": 0,
+      "date": "2023-02-28"
+    },
+    {
+      "id": 9,
+      "version": 0,
+      "date": "2022-12-03"
+    },
+    {
+      "id": 8,
+      "version": 0,
+      "date": "2022-09-25"
+    },
+    {
       "id": 7,
       "version": 0,
-      "date": "2025-01-01"
+      "date": "2022-05-14"
     },
     {
       "id": 6,
       "version": 0,
-      "date": "2022-11-01"
+      "date": "2022-01-01"
     },
     {
       "id": 5,
       "version": 0,
-      "date": "2022-08-30"
+      "date": "2021-11-18"
     },
     {
       "id": 4,
       "version": 0,
-      "date": "2022-02-15"
+      "date": "2021-08-15"
     },
     {
       "id": 3,
       "version": 0,
-      "date": "2021-12-20"
+      "date": "2021-06-10"
     },
     {
       "id": 2,
       "version": 0,
-      "date": "2021-04-09"
+      "date": "2021-03-09"
     },
     {
       "id": 1,
       "version": 0,
-      "date": "2020-10-03"
+      "date": "2020-12-30"
     }
   ],
   "langs": {
@@ -153,11 +183,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-16",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "1",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7265,
@@ -167,12 +196,11 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-16",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7265",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -192,21 +220,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 2,
-          "version": 0,
-          "languagePair": {
-            "from": "SEKO",
-            "to": "CS"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-17",
-          "permissionToPublish": true,
-          "diaryNumber": "2",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7266,
           "version": 0,
           "languagePair": {
@@ -215,11 +228,24 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-17",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "7266",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 2,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "CS"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "2",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -239,21 +265,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 3,
-          "version": 0,
-          "languagePair": {
-            "from": "SEPO",
-            "to": "DA"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-18",
-          "permissionToPublish": true,
-          "diaryNumber": "3",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7267,
           "version": 0,
           "languagePair": {
@@ -261,12 +272,25 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-18",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7267",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 3,
+          "version": 0,
+          "languagePair": {
+            "from": "SEPO",
+            "to": "DA"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
+          "permissionToPublish": true,
+          "diaryNumber": "3",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -284,21 +308,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 4,
-          "version": 0,
-          "languagePair": {
-            "from": "FI",
-            "to": "DE"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-19",
-          "permissionToPublish": true,
-          "diaryNumber": "4",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7268,
           "version": 0,
           "languagePair": {
@@ -307,11 +316,24 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-19",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "7268",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 4,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "DE"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "4",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -338,12 +360,11 @@
             "to": "EL"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-20",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "5",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7269,
@@ -353,12 +374,11 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-20",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "7269",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -378,21 +398,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 6,
-          "version": 0,
-          "languagePair": {
-            "from": "SEKO",
-            "to": "EN"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-21",
-          "permissionToPublish": true,
-          "diaryNumber": "6",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7270,
           "version": 0,
           "languagePair": {
@@ -400,12 +405,25 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-21",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7270",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 6,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "EN"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "6",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -432,12 +450,11 @@
             "to": "ET"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-22",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7271,
@@ -447,12 +464,11 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-22",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7271",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -480,11 +496,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-23",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "8",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7272,
@@ -495,11 +510,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-23",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "7272",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -517,21 +531,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 9,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "FO"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-24",
-          "permissionToPublish": true,
-          "diaryNumber": "9",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7273,
           "version": 0,
           "languagePair": {
@@ -539,12 +538,25 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-24",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7273",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 9,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "FO"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "9",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -571,12 +583,11 @@
             "to": "FR"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-25",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "10",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7274,
@@ -586,12 +597,11 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-25",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7274",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -610,20 +620,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 11,
-          "version": 0,
-          "languagePair": {
-            "from": "SEPO",
-            "to": "GA"
-          },
-          "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-26",
-          "permissionToPublish": true,
-          "diaryNumber": "11",
-          "meetingDate": "2020-10-03"
-        },
-        {
           "id": 7275,
           "version": 0,
           "languagePair": {
@@ -631,11 +627,23 @@
             "to": "SEPO"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-26",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
-          "diaryNumber": "7275",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "7275"
+        },
+        {
+          "id": 11,
+          "version": 0,
+          "languagePair": {
+            "from": "SEPO",
+            "to": "GA"
+          },
+          "basis": "KKT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
+          "permissionToPublish": true,
+          "diaryNumber": "11"
         }
       ]
     },
@@ -663,11 +671,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-27",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "12",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7276,
@@ -677,12 +684,11 @@
             "to": "FI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-27",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "7276",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -702,19 +708,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 13,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "HR"
-          },
-          "basis": "VIR",
-          "termBeginDate": "2022-01-01",
-          "permissionToPublish": true,
-          "diaryNumber": "13",
-          "meetingDate": "2021-04-09"
-        },
-        {
           "id": 4901,
           "version": 0,
           "languagePair": {
@@ -722,12 +715,23 @@
             "to": "HU"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-28",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "4901",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 13,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "HR"
+          },
+          "basis": "VIR",
+          "termBeginDate": "2020-12-30",
+          "permissionToPublish": true,
+          "diaryNumber": "13"
         },
         {
           "id": 7277,
@@ -737,25 +741,23 @@
             "to": "SEIN"
           },
           "basis": "VIR",
-          "termBeginDate": "2022-01-01",
+          "termBeginDate": "2020-12-30",
           "permissionToPublish": true,
-          "diaryNumber": "7277",
-          "meetingDate": "2021-04-09"
+          "diaryNumber": "7277"
         },
         {
-          "id": 11920,
+          "id": 11922,
           "version": 0,
           "languagePair": {
             "from": "HU",
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-28",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
-          "diaryNumber": "11920",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "11922",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -781,12 +783,11 @@
             "to": "HU"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-29",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "14",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7278,
@@ -796,12 +797,11 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-29",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "7278",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -821,21 +821,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 15,
-          "version": 0,
-          "languagePair": {
-            "from": "SEPO",
-            "to": "JA"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-30",
-          "permissionToPublish": true,
-          "diaryNumber": "15",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7279,
           "version": 0,
           "languagePair": {
@@ -844,22 +829,36 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-30",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "7279",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
-          "id": 12278,
+          "id": 12280,
           "version": 0,
           "languagePair": {
             "from": "SV",
             "to": "SEIN"
           },
           "basis": "VIR",
+          "termBeginDate": "2021-06-10",
           "permissionToPublish": true,
-          "diaryNumber": "12278"
+          "diaryNumber": "12280"
+        },
+        {
+          "id": 15,
+          "version": 0,
+          "languagePair": {
+            "from": "SEPO",
+            "to": "JA"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "15",
+          "autDate": "2022-03-07"
         },
         {
           "id": 5277,
@@ -869,6 +868,7 @@
             "to": "SV"
           },
           "basis": "VIR",
+          "termBeginDate": "2020-12-30",
           "permissionToPublish": true,
           "diaryNumber": "5277"
         }
@@ -890,21 +890,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 16,
-          "version": 0,
-          "languagePair": {
-            "from": "FI",
-            "to": "RU"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-31",
-          "permissionToPublish": true,
-          "diaryNumber": "16",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7280,
           "version": 0,
           "languagePair": {
@@ -913,11 +898,24 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-01-31",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "7280",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 16,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "RU"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
+          "permissionToPublish": true,
+          "diaryNumber": "16",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -945,37 +943,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-01",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "5603",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 12587,
-          "version": 0,
-          "languagePair": {
-            "from": "UG",
-            "to": "FI"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-01",
-          "permissionToPublish": true,
-          "diaryNumber": "12587",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 7281,
-          "version": 0,
-          "languagePair": {
-            "from": "SV",
-            "to": "SEIN"
-          },
-          "basis": "VIR",
-          "permissionToPublish": true,
-          "diaryNumber": "7281"
+          "autDate": "2022-03-07"
         },
         {
           "id": 17,
@@ -985,8 +956,35 @@
             "to": "SV"
           },
           "basis": "VIR",
+          "termBeginDate": "2021-11-18",
           "permissionToPublish": true,
           "diaryNumber": "17"
+        },
+        {
+          "id": 7281,
+          "version": 0,
+          "languagePair": {
+            "from": "SV",
+            "to": "SEIN"
+          },
+          "basis": "VIR",
+          "termBeginDate": "2021-11-18",
+          "permissionToPublish": true,
+          "diaryNumber": "7281"
+        },
+        {
+          "id": 12588,
+          "version": 0,
+          "languagePair": {
+            "from": "UG",
+            "to": "FI"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "12588",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1014,11 +1012,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-02",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "18",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7282,
@@ -1028,12 +1025,11 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-02",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7282",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1059,11 +1055,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-03",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "19",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 5891,
@@ -1073,12 +1068,11 @@
             "to": "BN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-03",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "5891",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7283,
@@ -1088,27 +1082,25 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-03",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7283",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
-          "id": 12861,
+          "id": 12862,
           "version": 0,
           "languagePair": {
             "from": "BN",
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-03",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
-          "diaryNumber": "12861",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "12862",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1128,21 +1120,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 20,
-          "version": 0,
-          "languagePair": {
-            "from": "FI",
-            "to": "UG"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-04",
-          "permissionToPublish": true,
-          "diaryNumber": "20",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 6148,
           "version": 0,
           "languagePair": {
@@ -1151,11 +1128,24 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-04",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "6148",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 20,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "UG"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
+          "permissionToPublish": true,
+          "diaryNumber": "20",
+          "autDate": "2022-03-07"
         },
         {
           "id": 13105,
@@ -1165,12 +1155,11 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-04",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "13105",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1190,21 +1179,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 21,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "UK"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-05",
-          "permissionToPublish": false,
-          "diaryNumber": "21",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 6393,
           "version": 0,
           "languagePair": {
@@ -1212,27 +1186,11 @@
             "to": "DE"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-05",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "6393",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 7284,
-          "version": 0,
-          "languagePair": {
-            "from": "UK",
-            "to": "SEIN"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-05",
-          "permissionToPublish": true,
-          "diaryNumber": "7284",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 13338,
@@ -1242,12 +1200,39 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-05",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "13338",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 21,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "UK"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
+          "permissionToPublish": false,
+          "diaryNumber": "21",
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 7284,
+          "version": 0,
+          "languagePair": {
+            "from": "UK",
+            "to": "SEIN"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "7284",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1266,20 +1251,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 22,
-          "version": 0,
-          "languagePair": {
-            "from": "SEKO",
-            "to": "VI"
-          },
-          "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-06",
-          "permissionToPublish": true,
-          "diaryNumber": "22",
-          "meetingDate": "2020-10-03"
-        },
-        {
           "id": 6626,
           "version": 0,
           "languagePair": {
@@ -1288,25 +1259,23 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-06",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "6626",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
-          "id": 7285,
+          "id": 22,
           "version": 0,
           "languagePair": {
-            "from": "VI",
-            "to": "SEKO"
+            "from": "SEKO",
+            "to": "VI"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-06",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
-          "diaryNumber": "7285",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "22"
         },
         {
           "id": 13559,
@@ -1316,12 +1285,24 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-06",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "13559",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 7285,
+          "version": 0,
+          "languagePair": {
+            "from": "VI",
+            "to": "SEKO"
+          },
+          "basis": "KKT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "7285"
         }
       ]
     },
@@ -1341,21 +1322,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 23,
-          "version": 0,
-          "languagePair": {
-            "from": "SEPO",
-            "to": "BN"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-07",
-          "permissionToPublish": true,
-          "diaryNumber": "23",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 6848,
           "version": 0,
           "languagePair": {
@@ -1363,27 +1329,25 @@
             "to": "FJ"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-07",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "6848",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
-          "id": 7286,
+          "id": 23,
           "version": 0,
           "languagePair": {
-            "from": "BN",
-            "to": "SEPO"
+            "from": "SEPO",
+            "to": "BN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-07",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
-          "diaryNumber": "7286",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "23",
+          "autDate": "2022-03-07"
         },
         {
           "id": 13770,
@@ -1393,12 +1357,25 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-07",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "13770",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 7286,
+          "version": 0,
+          "languagePair": {
+            "from": "BN",
+            "to": "SEPO"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "7286",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1416,19 +1393,18 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 24,
+          "id": 7287,
           "version": 0,
           "languagePair": {
-            "from": "FI",
-            "to": "CA"
+            "from": "CA",
+            "to": "FI"
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-08",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
-          "diaryNumber": "24",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "7287",
+          "autDate": "2022-03-07"
         },
         {
           "id": 7061,
@@ -1438,26 +1414,24 @@
             "to": "FR"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-08",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
-          "diaryNumber": "7061",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "7061"
         },
         {
-          "id": 7287,
+          "id": 24,
           "version": 0,
           "languagePair": {
-            "from": "CA",
-            "to": "FI"
+            "from": "FI",
+            "to": "CA"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-08",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
-          "diaryNumber": "7287",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "24",
+          "autDate": "2022-03-07"
         },
         {
           "id": 13972,
@@ -1467,11 +1441,10 @@
             "to": "SEIN"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-08",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
-          "diaryNumber": "13972",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "13972"
         }
       ]
     },
@@ -1498,12 +1471,11 @@
             "to": "CS"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-09",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "25",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7288,
@@ -1513,12 +1485,11 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-09",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7288",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1538,34 +1509,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 26,
-          "version": 0,
-          "languagePair": {
-            "from": "SEKO",
-            "to": "DA"
-          },
-          "basis": "VIR",
-          "termBeginDate": "2022-01-01",
-          "permissionToPublish": true,
-          "diaryNumber": "26",
-          "meetingDate": "2021-04-09"
-        },
-        {
-          "id": 4902,
-          "version": 0,
-          "languagePair": {
-            "from": "SEPO",
-            "to": "DE"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-10",
-          "permissionToPublish": true,
-          "diaryNumber": "4902",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7289,
           "version": 0,
           "languagePair": {
@@ -1575,23 +1518,47 @@
           "basis": "VIR",
           "termBeginDate": "2022-01-01",
           "permissionToPublish": true,
-          "diaryNumber": "7289",
-          "meetingDate": "2021-04-09"
+          "diaryNumber": "7289"
         },
         {
-          "id": 11921,
+          "id": 26,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "DA"
+          },
+          "basis": "VIR",
+          "termBeginDate": "2021-11-18",
+          "permissionToPublish": true,
+          "diaryNumber": "26"
+        },
+        {
+          "id": 11923,
           "version": 0,
           "languagePair": {
             "from": "DE",
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-10",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
-          "diaryNumber": "11921",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "11923",
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 4902,
+          "version": 0,
+          "languagePair": {
+            "from": "SEPO",
+            "to": "DE"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "4902",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1618,12 +1585,11 @@
             "to": "DE"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-11",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "27",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7290,
@@ -1633,12 +1599,11 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-11",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "7290",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1665,12 +1630,11 @@
             "to": "EL"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-12",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "28",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7291,
@@ -1680,12 +1644,11 @@
             "to": "FI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-12",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "7291",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1703,21 +1666,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 29,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "EN"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-13",
-          "permissionToPublish": true,
-          "diaryNumber": "29",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7292,
           "version": 0,
           "languagePair": {
@@ -1725,12 +1673,25 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-13",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7292",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 29,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "EN"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
+          "permissionToPublish": true,
+          "diaryNumber": "29",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1750,6 +1711,20 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
+          "id": 12281,
+          "version": 0,
+          "languagePair": {
+            "from": "FO",
+            "to": "FI"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-07-01",
+          "permissionToPublish": true,
+          "diaryNumber": "12281",
+          "autDate": "2022-03-07"
+        },
+        {
           "id": 30,
           "version": 0,
           "languagePair": {
@@ -1757,12 +1732,11 @@
             "to": "ET"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-14",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "30",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 5278,
@@ -1772,12 +1746,11 @@
             "to": "FO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-14",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "5278",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7293,
@@ -1787,27 +1760,11 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-14",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "7293",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 12279,
-          "version": 0,
-          "languagePair": {
-            "from": "FO",
-            "to": "FI"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-14",
-          "permissionToPublish": true,
-          "diaryNumber": "12279",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1834,12 +1791,11 @@
             "to": "FJ"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-15",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "31",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7294,
@@ -1849,12 +1805,11 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-15",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "7294",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1874,21 +1829,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 32,
-          "version": 0,
-          "languagePair": {
-            "from": "FI",
-            "to": "FO"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-16",
-          "permissionToPublish": true,
-          "diaryNumber": "32",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7295,
           "version": 0,
           "languagePair": {
@@ -1896,12 +1836,25 @@
             "to": "FI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-16",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "7295",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 32,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "FO"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "32",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -1927,11 +1880,10 @@
             "to": "FR"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-17",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
-          "diaryNumber": "33",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "33"
         },
         {
           "id": 7296,
@@ -1941,11 +1893,10 @@
             "to": "SEIN"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-17",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
-          "diaryNumber": "7296",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "7296"
         }
       ]
     },
@@ -1963,6 +1914,18 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
+          "id": 7297,
+          "version": 0,
+          "languagePair": {
+            "from": "GA",
+            "to": "SEKO"
+          },
+          "basis": "VIR",
+          "termBeginDate": "2022-01-01",
+          "permissionToPublish": true,
+          "diaryNumber": "7297"
+        },
+        {
           "id": 5604,
           "version": 0,
           "languagePair": {
@@ -1971,14 +1934,13 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-18",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "5604",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
-          "id": 12588,
+          "id": 12589,
           "version": 0,
           "languagePair": {
             "from": "HU",
@@ -1986,22 +1948,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-18",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
-          "diaryNumber": "12588",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 7297,
-          "version": 0,
-          "languagePair": {
-            "from": "GA",
-            "to": "SEKO"
-          },
-          "basis": "VIR",
-          "permissionToPublish": true,
-          "diaryNumber": "7297"
+          "diaryNumber": "12589",
+          "autDate": "2022-03-07"
         },
         {
           "id": 34,
@@ -2011,6 +1961,7 @@
             "to": "GA"
           },
           "basis": "VIR",
+          "termBeginDate": "2021-08-15",
           "permissionToPublish": true,
           "diaryNumber": "34"
         }
@@ -2039,12 +1990,11 @@
             "to": "HE"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-19",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "35",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7298,
@@ -2054,12 +2004,11 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-19",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "7298",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2087,11 +2036,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-20",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "36",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7299,
@@ -2101,12 +2049,11 @@
             "to": "FI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-20",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7299",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2126,21 +2073,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 37,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "HU"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-21",
-          "permissionToPublish": true,
-          "diaryNumber": "37",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7300,
           "version": 0,
           "languagePair": {
@@ -2148,12 +2080,25 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-21",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7300",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 37,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "HU"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "37",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2173,6 +2118,34 @@
       "isAssuranceGiven": false,
       "authorisations": [
         {
+          "id": 7301,
+          "version": 0,
+          "languagePair": {
+            "from": "JA",
+            "to": "SEKO"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-07-01",
+          "permissionToPublish": true,
+          "diaryNumber": "7301",
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 12863,
+          "version": 0,
+          "languagePair": {
+            "from": "TY",
+            "to": "SEKO"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-07-01",
+          "permissionToPublish": true,
+          "diaryNumber": "12863",
+          "autDate": "2022-03-07"
+        },
+        {
           "id": 38,
           "version": 0,
           "languagePair": {
@@ -2180,12 +2153,11 @@
             "to": "JA"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-22",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "38",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 5892,
@@ -2195,42 +2167,11 @@
             "to": "TY"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-22",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": false,
           "diaryNumber": "5892",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 7301,
-          "version": 0,
-          "languagePair": {
-            "from": "JA",
-            "to": "SEKO"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-22",
-          "permissionToPublish": true,
-          "diaryNumber": "7301",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 12862,
-          "version": 0,
-          "languagePair": {
-            "from": "TY",
-            "to": "SEKO"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-22",
-          "permissionToPublish": true,
-          "diaryNumber": "12862",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2255,10 +2196,23 @@
             "to": "RU"
           },
           "basis": "VIR",
-          "termBeginDate": "2022-01-01",
+          "termBeginDate": "2021-11-18",
           "permissionToPublish": true,
-          "diaryNumber": "39",
-          "meetingDate": "2021-04-09"
+          "diaryNumber": "39"
+        },
+        {
+          "id": 11924,
+          "version": 0,
+          "languagePair": {
+            "from": "SV",
+            "to": "FI"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
+          "permissionToPublish": true,
+          "diaryNumber": "11924",
+          "autDate": "2022-03-07"
         },
         {
           "id": 4903,
@@ -2268,12 +2222,11 @@
             "to": "SV"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-23",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "4903",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7302,
@@ -2283,25 +2236,9 @@
             "to": "SEPO"
           },
           "basis": "VIR",
-          "termBeginDate": "2022-01-01",
+          "termBeginDate": "2021-03-09",
           "permissionToPublish": true,
-          "diaryNumber": "7302",
-          "meetingDate": "2021-04-09"
-        },
-        {
-          "id": 11922,
-          "version": 0,
-          "languagePair": {
-            "from": "SV",
-            "to": "FI"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-23",
-          "permissionToPublish": true,
-          "diaryNumber": "11922",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "7302"
         }
       ]
     },
@@ -2328,12 +2265,11 @@
             "to": "SV"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-24",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "40",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 6149,
@@ -2343,12 +2279,11 @@
             "to": "VI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-24",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "6149",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 13106,
@@ -2358,12 +2293,11 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-24",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "13106",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2390,12 +2324,11 @@
             "to": "TT"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-25",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "41",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7303,
@@ -2405,12 +2338,11 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-25",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7303",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2438,11 +2370,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-26",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": false,
           "diaryNumber": "42",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 6394,
@@ -2452,12 +2383,11 @@
             "to": "CS"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-26",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "6394",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7304,
@@ -2467,12 +2397,11 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-26",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "7304",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 13339,
@@ -2482,12 +2411,11 @@
             "to": "FI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-26",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "13339",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2507,21 +2435,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 43,
-          "version": 0,
-          "languagePair": {
-            "from": "SEPO",
-            "to": "UG"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-27",
-          "permissionToPublish": true,
-          "diaryNumber": "43",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7305,
           "version": 0,
           "languagePair": {
@@ -2529,12 +2442,25 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-27",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7305",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 43,
+          "version": 0,
+          "languagePair": {
+            "from": "SEPO",
+            "to": "UG"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
+          "permissionToPublish": true,
+          "diaryNumber": "43",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2551,18 +2477,16 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 44,
+          "id": 6627,
           "version": 0,
           "languagePair": {
-            "from": "FI",
-            "to": "UK"
+            "from": "SEPO",
+            "to": "EL"
           },
-          "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-28",
+          "basis": "VIR",
+          "termBeginDate": "2021-11-18",
           "permissionToPublish": true,
-          "diaryNumber": "44",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "6627"
         },
         {
           "id": 7306,
@@ -2572,11 +2496,23 @@
             "to": "FI"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-02-28",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
-          "diaryNumber": "7306",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "7306"
+        },
+        {
+          "id": 44,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "UK"
+          },
+          "basis": "KKT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "44"
         },
         {
           "id": 13560,
@@ -2586,19 +2522,9 @@
             "to": "SEPO"
           },
           "basis": "VIR",
+          "termBeginDate": "2020-12-30",
           "permissionToPublish": true,
           "diaryNumber": "13560"
-        },
-        {
-          "id": 6627,
-          "version": 0,
-          "languagePair": {
-            "from": "SEPO",
-            "to": "EL"
-          },
-          "basis": "VIR",
-          "permissionToPublish": true,
-          "diaryNumber": "6627"
         }
       ]
     },
@@ -2618,19 +2544,32 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 45,
+          "id": 7307,
           "version": 0,
           "languagePair": {
-            "from": "SEIN",
-            "to": "VI"
+            "from": "VI",
+            "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-01",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
-          "diaryNumber": "45",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "7307",
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 12282,
+          "version": 0,
+          "languagePair": {
+            "from": "CA",
+            "to": "SEPO"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
+          "permissionToPublish": true,
+          "diaryNumber": "12282",
+          "autDate": "2022-03-07"
         },
         {
           "id": 5279,
@@ -2640,42 +2579,25 @@
             "to": "CA"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-01",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "5279",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
-          "id": 7307,
+          "id": 45,
           "version": 0,
           "languagePair": {
-            "from": "VI",
-            "to": "SEIN"
+            "from": "SEIN",
+            "to": "VI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-01",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
-          "diaryNumber": "7307",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 12280,
-          "version": 0,
-          "languagePair": {
-            "from": "CA",
-            "to": "SEPO"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-01",
-          "permissionToPublish": true,
-          "diaryNumber": "12280",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "45",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2695,21 +2617,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 46,
-          "version": 0,
-          "languagePair": {
-            "from": "SEKO",
-            "to": "BN"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-02",
-          "permissionToPublish": true,
-          "diaryNumber": "46",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 6849,
           "version": 0,
           "languagePair": {
@@ -2718,11 +2625,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-02",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "6849",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7308,
@@ -2733,11 +2639,24 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-02",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "7308",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 46,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "BN"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
+          "permissionToPublish": true,
+          "diaryNumber": "46",
+          "autDate": "2022-03-07"
         },
         {
           "id": 13771,
@@ -2747,12 +2666,11 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-02",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "13771",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2779,12 +2697,11 @@
             "to": "CA"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-03",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "47",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7309,
@@ -2794,12 +2711,11 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-03",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "7309",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2819,21 +2735,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 48,
-          "version": 0,
-          "languagePair": {
-            "from": "FI",
-            "to": "CS"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-04",
-          "permissionToPublish": true,
-          "diaryNumber": "48",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7062,
           "version": 0,
           "languagePair": {
@@ -2842,26 +2743,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-04",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "7062",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 7310,
-          "version": 0,
-          "languagePair": {
-            "from": "CS",
-            "to": "FI"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-04",
-          "permissionToPublish": true,
-          "diaryNumber": "7310",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 13973,
@@ -2871,12 +2756,39 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-04",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "13973",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 7310,
+          "version": 0,
+          "languagePair": {
+            "from": "CS",
+            "to": "FI"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
+          "permissionToPublish": true,
+          "diaryNumber": "7310",
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 48,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "CS"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "48",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2895,21 +2807,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 49,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "DA"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-05",
-          "permissionToPublish": true,
-          "diaryNumber": "49",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7311,
           "version": 0,
           "languagePair": {
@@ -2918,11 +2815,24 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-05",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "7311",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 49,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "DA"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "49",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2940,21 +2850,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 54,
-          "version": 0,
-          "languagePair": {
-            "from": "SEKO",
-            "to": "FJ"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-10",
-          "permissionToPublish": true,
-          "diaryNumber": "54",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7316,
           "version": 0,
           "languagePair": {
@@ -2962,12 +2857,25 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-10",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7316",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 54,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "FJ"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
+          "permissionToPublish": true,
+          "diaryNumber": "54",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -2987,21 +2895,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 56,
-          "version": 0,
-          "languagePair": {
-            "from": "FI",
-            "to": "FR"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-12",
-          "permissionToPublish": true,
-          "diaryNumber": "56",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7318,
           "version": 0,
           "languagePair": {
@@ -3009,12 +2902,25 @@
             "to": "FI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-12",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7318",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 56,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "FR"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "56",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -3034,19 +2940,18 @@
       "isAssuranceGiven": false,
       "authorisations": [
         {
-          "id": 57,
+          "id": 12864,
           "version": 0,
           "languagePair": {
-            "from": "SEIN",
-            "to": "GA"
+            "from": "JA",
+            "to": "SEIN"
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-13",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
-          "diaryNumber": "57",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "12864",
+          "autDate": "2022-03-07"
         },
         {
           "id": 5893,
@@ -3056,12 +2961,11 @@
             "to": "JA"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-13",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "5893",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7319,
@@ -3071,27 +2975,25 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-13",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "7319",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
-          "id": 12863,
+          "id": 57,
           "version": 0,
           "languagePair": {
-            "from": "JA",
-            "to": "SEIN"
+            "from": "SEIN",
+            "to": "GA"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-13",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
-          "diaryNumber": "12863",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "57",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -3119,11 +3021,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-14",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "58",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7320,
@@ -3133,12 +3034,11 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-14",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "7320",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -3156,21 +3056,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 59,
-          "version": 0,
-          "languagePair": {
-            "from": "SEPO",
-            "to": "HR"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-15",
-          "permissionToPublish": true,
-          "diaryNumber": "59",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7321,
           "version": 0,
           "languagePair": {
@@ -3179,11 +3064,24 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-15",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "7321",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 59,
+          "version": 0,
+          "languagePair": {
+            "from": "SEPO",
+            "to": "HR"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "59",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -3203,49 +3101,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 60,
-          "version": 0,
-          "languagePair": {
-            "from": "FI",
-            "to": "HU"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-16",
-          "permissionToPublish": true,
-          "diaryNumber": "60",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 5280,
-          "version": 0,
-          "languagePair": {
-            "from": "SEKO",
-            "to": "RU"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-16",
-          "permissionToPublish": true,
-          "diaryNumber": "5280",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 6150,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "TY"
-          },
-          "basis": "VIR",
-          "termBeginDate": "2022-01-01",
-          "permissionToPublish": true,
-          "diaryNumber": "6150",
-          "meetingDate": "2021-04-09"
-        },
-        {
           "id": 13107,
           "version": 0,
           "languagePair": {
@@ -3255,8 +3110,47 @@
           "basis": "VIR",
           "termBeginDate": "2022-01-01",
           "permissionToPublish": true,
-          "diaryNumber": "13107",
-          "meetingDate": "2021-04-09"
+          "diaryNumber": "13107"
+        },
+        {
+          "id": 60,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "HU"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "60",
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 5280,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "RU"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "5280",
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 6150,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "TY"
+          },
+          "basis": "VIR",
+          "termBeginDate": "2020-12-30",
+          "permissionToPublish": true,
+          "diaryNumber": "6150"
         }
       ]
     },
@@ -3276,21 +3170,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 61,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "JA"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-17",
-          "permissionToPublish": true,
-          "diaryNumber": "61",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7322,
           "version": 0,
           "languagePair": {
@@ -3298,12 +3177,25 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-17",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7322",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 61,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "JA"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
+          "permissionToPublish": true,
+          "diaryNumber": "61",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -3322,21 +3214,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 50,
-          "version": 0,
-          "languagePair": {
-            "from": "SEKO",
-            "to": "DE"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-06",
-          "permissionToPublish": true,
-          "diaryNumber": "50",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7312,
           "version": 0,
           "languagePair": {
@@ -3344,12 +3221,25 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-06",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7312",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 50,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "DE"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "50",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -3368,36 +3258,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 5605,
-          "version": 0,
-          "languagePair": {
-            "from": "SEKO",
-            "to": "FJ"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-07",
-          "permissionToPublish": true,
-          "diaryNumber": "5605",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 12589,
-          "version": 0,
-          "languagePair": {
-            "from": "FJ",
-            "to": "SEKO"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-07",
-          "permissionToPublish": true,
-          "diaryNumber": "12589",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7313,
           "version": 0,
           "languagePair": {
@@ -3405,8 +3265,23 @@
             "to": "SEPO"
           },
           "basis": "VIR",
+          "termBeginDate": "2022-01-01",
           "permissionToPublish": true,
           "diaryNumber": "7313"
+        },
+        {
+          "id": 12590,
+          "version": 0,
+          "languagePair": {
+            "from": "FJ",
+            "to": "SEKO"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
+          "permissionToPublish": true,
+          "diaryNumber": "12590",
+          "autDate": "2022-03-07"
         },
         {
           "id": 51,
@@ -3416,8 +3291,23 @@
             "to": "EL"
           },
           "basis": "VIR",
+          "termBeginDate": "2021-03-09",
           "permissionToPublish": true,
           "diaryNumber": "51"
+        },
+        {
+          "id": 5605,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "FJ"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "5605",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -3442,11 +3332,10 @@
             "to": "FO"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-11",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
-          "diaryNumber": "55",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "55"
         },
         {
           "id": 7317,
@@ -3456,11 +3345,10 @@
             "to": "SEPO"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-11",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
-          "diaryNumber": "7317",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "7317"
         }
       ]
     },
@@ -3487,12 +3375,11 @@
             "to": "RU"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-18",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "62",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7323,
@@ -3502,12 +3389,11 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-18",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "7323",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -3527,36 +3413,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 63,
-          "version": 0,
-          "languagePair": {
-            "from": "SEPO",
-            "to": "SV"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-19",
-          "permissionToPublish": false,
-          "diaryNumber": "63",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 6395,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "BN"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-19",
-          "permissionToPublish": true,
-          "diaryNumber": "6395",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7324,
           "version": 0,
           "languagePair": {
@@ -3564,12 +3420,25 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-19",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7324",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 63,
+          "version": 0,
+          "languagePair": {
+            "from": "SEPO",
+            "to": "SV"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
+          "permissionToPublish": false,
+          "diaryNumber": "63",
+          "autDate": "2022-03-07"
         },
         {
           "id": 13340,
@@ -3579,12 +3448,25 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-19",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "13340",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 6395,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "BN"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
+          "permissionToPublish": true,
+          "diaryNumber": "6395",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -3602,21 +3484,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 64,
-          "version": 0,
-          "languagePair": {
-            "from": "FI",
-            "to": "TT"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-20",
-          "permissionToPublish": true,
-          "diaryNumber": "64",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7325,
           "version": 0,
           "languagePair": {
@@ -3624,12 +3491,25 @@
             "to": "FI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-20",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "7325",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 64,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "TT"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "64",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -3658,8 +3538,7 @@
           "basis": "VIR",
           "termBeginDate": "2022-01-01",
           "permissionToPublish": true,
-          "diaryNumber": "65",
-          "meetingDate": "2021-04-09"
+          "diaryNumber": "65"
         },
         {
           "id": 4905,
@@ -3670,10 +3549,22 @@
           },
           "basis": "KKT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-21",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
-          "diaryNumber": "4905",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "4905"
+        },
+        {
+          "id": 11926,
+          "version": 0,
+          "languagePair": {
+            "from": "UG",
+            "to": "SEKO"
+          },
+          "basis": "KKT",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
+          "permissionToPublish": true,
+          "diaryNumber": "11926"
         },
         {
           "id": 7326,
@@ -3683,24 +3574,9 @@
             "to": "SEIN"
           },
           "basis": "VIR",
-          "termBeginDate": "2022-01-01",
+          "termBeginDate": "2021-06-10",
           "permissionToPublish": true,
-          "diaryNumber": "7326",
-          "meetingDate": "2021-04-09"
-        },
-        {
-          "id": 11924,
-          "version": 0,
-          "languagePair": {
-            "from": "UG",
-            "to": "SEKO"
-          },
-          "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-21",
-          "permissionToPublish": true,
-          "diaryNumber": "11924",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "7326"
         }
       ]
     },
@@ -3726,11 +3602,10 @@
             "to": "UG"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-22",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
-          "diaryNumber": "66",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "66"
         },
         {
           "id": 6628,
@@ -3740,12 +3615,11 @@
             "to": "DE"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-22",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "6628",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7327,
@@ -3755,11 +3629,10 @@
             "to": "SEKO"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-22",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
-          "diaryNumber": "7327",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "7327"
         },
         {
           "id": 13561,
@@ -3769,12 +3642,11 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-22",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "13561",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -3794,21 +3666,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 67,
-          "version": 0,
-          "languagePair": {
-            "from": "SEPO",
-            "to": "UK"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-23",
-          "permissionToPublish": true,
-          "diaryNumber": "67",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7328,
           "version": 0,
           "languagePair": {
@@ -3816,12 +3673,25 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-23",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7328",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 67,
+          "version": 0,
+          "languagePair": {
+            "from": "SEPO",
+            "to": "UK"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "67",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -3841,22 +3711,19 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 5606,
+          "id": 68,
           "version": 0,
           "languagePair": {
-            "from": "SEPO",
-            "to": "CS"
+            "from": "FI",
+            "to": "VI"
           },
-          "basis": "AUT",
+          "basis": "VIR",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-24",
           "permissionToPublish": true,
-          "diaryNumber": "5606",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "68"
         },
         {
-          "id": 12590,
+          "id": 12591,
           "version": 0,
           "languagePair": {
             "from": "CS",
@@ -3864,11 +3731,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-24",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
-          "diaryNumber": "12590",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "12591",
+          "autDate": "2022-03-07"
         },
         {
           "id": 7329,
@@ -3878,19 +3744,23 @@
             "to": "FI"
           },
           "basis": "VIR",
+          "termBeginDate": "2021-11-18",
           "permissionToPublish": true,
           "diaryNumber": "7329"
         },
         {
-          "id": 68,
+          "id": 5606,
           "version": 0,
           "languagePair": {
-            "from": "FI",
-            "to": "VI"
+            "from": "SEPO",
+            "to": "CS"
           },
-          "basis": "VIR",
+          "basis": "AUT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
-          "diaryNumber": "68"
+          "diaryNumber": "5606",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -3908,33 +3778,17 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 69,
+          "id": 13772,
           "version": 0,
           "languagePair": {
-            "from": "SEIN",
-            "to": "BN"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-25",
-          "permissionToPublish": true,
-          "diaryNumber": "69",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 6850,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "FJ"
+            "from": "FJ",
+            "to": "SEIN"
           },
           "basis": "KKT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-25",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
-          "diaryNumber": "6850",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "13772"
         },
         {
           "id": 7330,
@@ -3944,26 +3798,38 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-25",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7330",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
-          "id": 13772,
+          "id": 69,
           "version": 0,
           "languagePair": {
-            "from": "FJ",
-            "to": "SEIN"
+            "from": "SEIN",
+            "to": "BN"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
+          "permissionToPublish": true,
+          "diaryNumber": "69",
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 6850,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "FJ"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-25",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
-          "diaryNumber": "13772",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "6850"
         }
       ]
     },
@@ -3990,12 +3856,11 @@
             "to": "CA"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-26",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "70",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7331,
@@ -4005,12 +3870,11 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-26",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7331",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -4037,12 +3901,11 @@
             "to": "CS"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-27",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "71",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7332,
@@ -4052,12 +3915,11 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-27",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "7332",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -4077,21 +3939,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 72,
-          "version": 0,
-          "languagePair": {
-            "from": "FI",
-            "to": "DA"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-28",
-          "permissionToPublish": true,
-          "diaryNumber": "72",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7063,
           "version": 0,
           "languagePair": {
@@ -4099,12 +3946,11 @@
             "to": "HE"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-28",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7063",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7333,
@@ -4114,12 +3960,25 @@
             "to": "FI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-28",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7333",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 72,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "DA"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
+          "permissionToPublish": true,
+          "diaryNumber": "72",
+          "autDate": "2022-03-07"
         },
         {
           "id": 13974,
@@ -4129,12 +3988,11 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-28",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "13974",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -4162,11 +4020,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-29",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "73",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7334,
@@ -4176,12 +4033,11 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-29",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "7334",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -4207,11 +4063,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-30",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "74",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7335,
@@ -4222,11 +4077,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-30",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "7335",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -4253,26 +4107,24 @@
             "to": "EN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-31",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "75",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
-          "id": 5281,
+          "id": 12283,
           "version": 0,
           "languagePair": {
-            "from": "SEIN",
-            "to": "FJ"
+            "from": "FJ",
+            "to": "SEIN"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-31",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
-          "diaryNumber": "5281",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "12283"
         },
         {
           "id": 7336,
@@ -4282,26 +4134,24 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-31",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "7336",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
-          "id": 12281,
+          "id": 5281,
           "version": 0,
           "languagePair": {
-            "from": "FJ",
-            "to": "SEIN"
+            "from": "SEIN",
+            "to": "FJ"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-03-31",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
-          "diaryNumber": "12281",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "5281"
         }
       ]
     },
@@ -4321,21 +4171,6 @@
       "isAssuranceGiven": false,
       "authorisations": [
         {
-          "id": 76,
-          "version": 0,
-          "languagePair": {
-            "from": "FI",
-            "to": "ET"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-01",
-          "permissionToPublish": true,
-          "diaryNumber": "76",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 5894,
           "version": 0,
           "languagePair": {
@@ -4343,12 +4178,11 @@
             "to": "GA"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-01",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "5894",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7337,
@@ -4358,27 +4192,39 @@
             "to": "FI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-01",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7337",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
-          "id": 12864,
+          "id": 12865,
           "version": 0,
           "languagePair": {
             "from": "GA",
             "to": "FI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-01",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
-          "diaryNumber": "12864",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "12865",
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 76,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "ET"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
+          "permissionToPublish": true,
+          "diaryNumber": "76",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -4397,20 +4243,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 77,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "FJ"
-          },
-          "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-02",
-          "permissionToPublish": true,
-          "diaryNumber": "77",
-          "meetingDate": "2020-10-03"
-        },
-        {
           "id": 7338,
           "version": 0,
           "languagePair": {
@@ -4419,10 +4251,22 @@
           },
           "basis": "KKT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-02",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
-          "diaryNumber": "7338",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "7338"
+        },
+        {
+          "id": 77,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "FJ"
+          },
+          "basis": "KKT",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
+          "permissionToPublish": true,
+          "diaryNumber": "77"
         }
       ]
     },
@@ -4442,19 +4286,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 78,
-          "version": 0,
-          "languagePair": {
-            "from": "SEKO",
-            "to": "FO"
-          },
-          "basis": "VIR",
-          "termBeginDate": "2022-01-01",
-          "permissionToPublish": true,
-          "diaryNumber": "78",
-          "meetingDate": "2021-04-09"
-        },
-        {
           "id": 4906,
           "version": 0,
           "languagePair": {
@@ -4462,12 +4293,23 @@
             "to": "FR"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-03",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "4906",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 78,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "FO"
+          },
+          "basis": "VIR",
+          "termBeginDate": "2021-06-10",
+          "permissionToPublish": true,
+          "diaryNumber": "78"
         },
         {
           "id": 7339,
@@ -4477,25 +4319,23 @@
             "to": "SEKO"
           },
           "basis": "VIR",
-          "termBeginDate": "2022-01-01",
+          "termBeginDate": "2021-06-10",
           "permissionToPublish": true,
-          "diaryNumber": "7339",
-          "meetingDate": "2021-04-09"
+          "diaryNumber": "7339"
         },
         {
-          "id": 11925,
+          "id": 11927,
           "version": 0,
           "languagePair": {
             "from": "FR",
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-03",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
-          "diaryNumber": "11925",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "11927",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -4520,12 +4360,11 @@
             "to": "FR"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-04",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "79",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7340,
@@ -4535,12 +4374,11 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-04",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "7340",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -4560,21 +4398,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 80,
-          "version": 0,
-          "languagePair": {
-            "from": "FI",
-            "to": "GA"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-05",
-          "permissionToPublish": true,
-          "diaryNumber": "80",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 13108,
           "version": 0,
           "languagePair": {
@@ -4582,8 +4405,23 @@
             "to": "SEIN"
           },
           "basis": "VIR",
+          "termBeginDate": "2021-11-18",
           "permissionToPublish": true,
           "diaryNumber": "13108"
+        },
+        {
+          "id": 80,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "GA"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
+          "permissionToPublish": true,
+          "diaryNumber": "80",
+          "autDate": "2022-03-07"
         },
         {
           "id": 6151,
@@ -4593,6 +4431,7 @@
             "to": "RU"
           },
           "basis": "VIR",
+          "termBeginDate": "2021-08-15",
           "permissionToPublish": true,
           "diaryNumber": "6151"
         }
@@ -4614,21 +4453,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 81,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "HE"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-06",
-          "permissionToPublish": true,
-          "diaryNumber": "81",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7341,
           "version": 0,
           "languagePair": {
@@ -4636,12 +4460,25 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-06",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7341",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 81,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "HE"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
+          "permissionToPublish": true,
+          "diaryNumber": "81",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -4660,21 +4497,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 200,
-          "version": 0,
-          "languagePair": {
-            "from": "FI",
-            "to": "RU"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-08-03",
-          "permissionToPublish": true,
-          "diaryNumber": "200",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 6157,
           "version": 0,
           "languagePair": {
@@ -4683,11 +4505,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-08-03",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "6157",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 13114,
@@ -4698,11 +4519,24 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-08-03",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "13114",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 200,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "RU"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "200",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -4729,12 +4563,11 @@
             "to": "HR"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-07",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "82",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7342,
@@ -4744,12 +4577,11 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-07",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7342",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -4776,12 +4608,11 @@
             "to": "HU"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-08",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "83",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7343,
@@ -4791,12 +4622,11 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-08",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "7343",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -4823,26 +4653,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-09",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": false,
           "diaryNumber": "84",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 6396,
-          "version": 0,
-          "languagePair": {
-            "from": "SEKO",
-            "to": "UK"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-09",
-          "permissionToPublish": true,
-          "diaryNumber": "6396",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7344,
@@ -4852,12 +4666,11 @@
             "to": "FI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-09",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7344",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 13341,
@@ -4867,12 +4680,25 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-09",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "13341",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 6396,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "UK"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "6396",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -4892,6 +4718,18 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
+          "id": 85,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "RU"
+          },
+          "basis": "VIR",
+          "termBeginDate": "2022-01-01",
+          "permissionToPublish": true,
+          "diaryNumber": "85"
+        },
+        {
           "id": 5607,
           "version": 0,
           "languagePair": {
@@ -4900,24 +4738,9 @@
           },
           "basis": "KKT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-10",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
-          "diaryNumber": "5607",
-          "meetingDate": "2020-10-03"
-        },
-        {
-          "id": 12591,
-          "version": 0,
-          "languagePair": {
-            "from": "TY",
-            "to": "FI"
-          },
-          "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-10",
-          "permissionToPublish": true,
-          "diaryNumber": "12591",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "5607"
         },
         {
           "id": 7345,
@@ -4927,19 +4750,22 @@
             "to": "SEIN"
           },
           "basis": "VIR",
+          "termBeginDate": "2021-08-15",
           "permissionToPublish": true,
           "diaryNumber": "7345"
         },
         {
-          "id": 85,
+          "id": 12592,
           "version": 0,
           "languagePair": {
-            "from": "SEIN",
-            "to": "RU"
+            "from": "TY",
+            "to": "FI"
           },
-          "basis": "VIR",
+          "basis": "KKT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
-          "diaryNumber": "85"
+          "diaryNumber": "12592"
         }
       ]
     },
@@ -4967,11 +4793,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-11",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "86",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7346,
@@ -4981,12 +4806,11 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-11",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "7346",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -5005,18 +4829,18 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 88,
+          "id": 13562,
           "version": 0,
           "languagePair": {
-            "from": "FI",
-            "to": "TY"
+            "from": "DA",
+            "to": "SEPO"
           },
-          "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-13",
+          "basis": "AUT",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
-          "diaryNumber": "88",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "13562",
+          "autDate": "2022-03-07"
         },
         {
           "id": 6629,
@@ -5026,12 +4850,11 @@
             "to": "DA"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-13",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "6629",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7348,
@@ -5041,26 +4864,23 @@
             "to": "FI"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-13",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
-          "diaryNumber": "7348",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "7348"
         },
         {
-          "id": 13562,
+          "id": 88,
           "version": 0,
           "languagePair": {
-            "from": "DA",
-            "to": "SEPO"
+            "from": "FI",
+            "to": "TY"
           },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-13",
+          "basis": "KKT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
-          "diaryNumber": "13562",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "88"
         }
       ]
     },
@@ -5078,21 +4898,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 89,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "UG"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-14",
-          "permissionToPublish": true,
-          "diaryNumber": "89",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7349,
           "version": 0,
           "languagePair": {
@@ -5100,12 +4905,25 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-14",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7349",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 89,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "UG"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
+          "permissionToPublish": true,
+          "diaryNumber": "89",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -5125,21 +4943,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 90,
-          "version": 0,
-          "languagePair": {
-            "from": "SEKO",
-            "to": "UK"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-15",
-          "permissionToPublish": true,
-          "diaryNumber": "90",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 5282,
           "version": 0,
           "languagePair": {
@@ -5147,12 +4950,39 @@
             "to": "BN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-15",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "5282",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 12284,
+          "version": 0,
+          "languagePair": {
+            "from": "BN",
+            "to": "FI"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
+          "permissionToPublish": true,
+          "diaryNumber": "12284",
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 90,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "UK"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "90",
+          "autDate": "2022-03-07"
         },
         {
           "id": 7350,
@@ -5162,27 +4992,11 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-15",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "7350",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 12282,
-          "version": 0,
-          "languagePair": {
-            "from": "BN",
-            "to": "FI"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-15",
-          "permissionToPublish": true,
-          "diaryNumber": "12282",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -5202,17 +5016,18 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 91,
+          "id": 11928,
           "version": 0,
           "languagePair": {
-            "from": "SEPO",
-            "to": "VI"
+            "from": "BN",
+            "to": "FI"
           },
-          "basis": "VIR",
+          "basis": "AUT",
           "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
-          "diaryNumber": "91",
-          "meetingDate": "2021-04-09"
+          "diaryNumber": "11928",
+          "autDate": "2022-03-07"
         },
         {
           "id": 4907,
@@ -5222,12 +5037,11 @@
             "to": "BN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-16",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "4907",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7351,
@@ -5237,25 +5051,21 @@
             "to": "SEPO"
           },
           "basis": "VIR",
-          "termBeginDate": "2022-01-01",
+          "termBeginDate": "2021-06-10",
           "permissionToPublish": true,
-          "diaryNumber": "7351",
-          "meetingDate": "2021-04-09"
+          "diaryNumber": "7351"
         },
         {
-          "id": 11926,
+          "id": 91,
           "version": 0,
           "languagePair": {
-            "from": "BN",
-            "to": "FI"
+            "from": "SEPO",
+            "to": "VI"
           },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-16",
+          "basis": "VIR",
+          "termBeginDate": "2021-03-09",
           "permissionToPublish": true,
-          "diaryNumber": "11926",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "91"
         }
       ]
     },
@@ -5275,19 +5085,18 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 92,
+          "id": 13773,
           "version": 0,
           "languagePair": {
-            "from": "FI",
-            "to": "BN"
+            "from": "FJ",
+            "to": "FI"
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-17",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
-          "diaryNumber": "92",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "13773",
+          "autDate": "2022-03-07"
         },
         {
           "id": 6851,
@@ -5297,12 +5106,25 @@
             "to": "FJ"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-17",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "6851",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 92,
+          "version": 0,
+          "languagePair": {
+            "from": "FI",
+            "to": "BN"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
+          "permissionToPublish": true,
+          "diaryNumber": "92",
+          "autDate": "2022-03-07"
         },
         {
           "id": 7352,
@@ -5312,27 +5134,11 @@
             "to": "FI"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-17",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "7352",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 13773,
-          "version": 0,
-          "languagePair": {
-            "from": "FJ",
-            "to": "FI"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-17",
-          "permissionToPublish": true,
-          "diaryNumber": "13773",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -5359,12 +5165,11 @@
             "to": "CA"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-18",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
           "permissionToPublish": true,
           "diaryNumber": "93",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7353,
@@ -5374,12 +5179,11 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-18",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "7353",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -5397,21 +5201,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 94,
-          "version": 0,
-          "languagePair": {
-            "from": "SEKO",
-            "to": "CS"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-19",
-          "permissionToPublish": true,
-          "diaryNumber": "94",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7354,
           "version": 0,
           "languagePair": {
@@ -5419,12 +5208,25 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-19",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "7354",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 94,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "CS"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "94",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -5444,19 +5246,18 @@
       "isAssuranceGiven": false,
       "authorisations": [
         {
-          "id": 95,
+          "id": 7355,
           "version": 0,
           "languagePair": {
-            "from": "SEPO",
-            "to": "DA"
+            "from": "DA",
+            "to": "SEPO"
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-20",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
-          "diaryNumber": "95",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "7355",
+          "autDate": "2022-03-07"
         },
         {
           "id": 5895,
@@ -5466,40 +5267,37 @@
             "to": "ET"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-20",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
-          "diaryNumber": "5895",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "5895"
         },
         {
-          "id": 7355,
+          "id": 95,
           "version": 0,
           "languagePair": {
-            "from": "DA",
-            "to": "SEPO"
+            "from": "SEPO",
+            "to": "DA"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-20",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
-          "diaryNumber": "7355",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "diaryNumber": "95",
+          "autDate": "2022-03-07"
         },
         {
-          "id": 12865,
+          "id": 12866,
           "version": 0,
           "languagePair": {
             "from": "ET",
             "to": "SEPO"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-20",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
-          "diaryNumber": "12865",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "12866"
         }
       ]
     },
@@ -5527,41 +5325,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-21",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "96",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 7064,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "HR"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-21",
-          "permissionToPublish": false,
-          "diaryNumber": "7064",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 7356,
-          "version": 0,
-          "languagePair": {
-            "from": "DE",
-            "to": "FI"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-21",
-          "permissionToPublish": true,
-          "diaryNumber": "7356",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 13975,
@@ -5572,11 +5339,38 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-21",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "13975",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 7356,
+          "version": 0,
+          "languagePair": {
+            "from": "DE",
+            "to": "FI"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
+          "permissionToPublish": true,
+          "diaryNumber": "7356",
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 7064,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "HR"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
+          "permissionToPublish": false,
+          "diaryNumber": "7064",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -5603,12 +5397,11 @@
             "to": "EL"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-22",
+          "termBeginDate": "2021-03-09",
+          "termEndDate": "2021-09-09",
           "permissionToPublish": true,
           "diaryNumber": "97",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7357,
@@ -5618,12 +5411,11 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-22",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
           "permissionToPublish": true,
           "diaryNumber": "7357",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -5651,11 +5443,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-23",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "98",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7358,
@@ -5665,12 +5456,11 @@
             "to": "SEKO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-23",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": false,
           "diaryNumber": "7358",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -5687,20 +5477,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 99,
-          "version": 0,
-          "languagePair": {
-            "from": "SEPO",
-            "to": "ET"
-          },
-          "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-24",
-          "permissionToPublish": true,
-          "diaryNumber": "99",
-          "meetingDate": "2020-10-03"
-        },
-        {
           "id": 7359,
           "version": 0,
           "languagePair": {
@@ -5708,11 +5484,23 @@
             "to": "SEPO"
           },
           "basis": "KKT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-24",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
-          "diaryNumber": "7359",
-          "meetingDate": "2020-10-03"
+          "diaryNumber": "7359"
+        },
+        {
+          "id": 99,
+          "version": 0,
+          "languagePair": {
+            "from": "SEPO",
+            "to": "ET"
+          },
+          "basis": "KKT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
+          "permissionToPublish": true,
+          "diaryNumber": "99"
         }
       ]
     },
@@ -5740,11 +5528,10 @@
           },
           "basis": "AUT",
           "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-26",
+          "termEndDate": "2022-07-01",
           "permissionToPublish": true,
           "diaryNumber": "101",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 7360,
@@ -5754,12 +5541,11 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-26",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7360",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -5785,27 +5571,11 @@
             "to": "FJ"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-25",
+          "termBeginDate": "2021-11-18",
+          "termEndDate": "2022-05-18",
           "permissionToPublish": true,
           "diaryNumber": "100",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
-          "id": 6152,
-          "version": 0,
-          "languagePair": {
-            "from": "SEIN",
-            "to": "HR"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-25",
-          "permissionToPublish": false,
-          "diaryNumber": "6152",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
         },
         {
           "id": 13109,
@@ -5815,12 +5585,25 @@
             "to": "SEIN"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-25",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "13109",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 6152,
+          "version": 0,
+          "languagePair": {
+            "from": "SEIN",
+            "to": "HR"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2021-06-10",
+          "termEndDate": "2021-12-10",
+          "permissionToPublish": false,
+          "diaryNumber": "6152",
+          "autDate": "2022-03-07"
         }
       ]
     },
@@ -5840,21 +5623,6 @@
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 103,
-          "version": 0,
-          "languagePair": {
-            "from": "SEPO",
-            "to": "GA"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-28",
-          "permissionToPublish": true,
-          "diaryNumber": "103",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
-        },
-        {
           "id": 7362,
           "version": 0,
           "languagePair": {
@@ -5862,12 +5630,25 @@
             "to": "SEPO"
           },
           "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-04-28",
+          "termBeginDate": "2021-08-15",
+          "termEndDate": "2022-02-15",
           "permissionToPublish": true,
           "diaryNumber": "7362",
-          "meetingDate": "2021-12-20",
-          "autDate": "2022-03-03"
+          "autDate": "2022-03-07"
+        },
+        {
+          "id": 103,
+          "version": 0,
+          "languagePair": {
+            "from": "SEPO",
+            "to": "GA"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-12-30",
+          "termEndDate": "2021-06-30",
+          "permissionToPublish": true,
+          "diaryNumber": "103",
+          "autDate": "2022-03-07"
         }
       ]
     }

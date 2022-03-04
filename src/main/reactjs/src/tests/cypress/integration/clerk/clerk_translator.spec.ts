@@ -16,10 +16,10 @@ beforeEach(() => {
 });
 
 const translatorCountsByAuthorisationStatus = {
-  [AuthorisationStatus.Authorised]: 99,
-  [AuthorisationStatus.Expiring]: 88,
-  [AuthorisationStatus.Expired]: 1,
-  [AuthorisationStatus.FormerVIR]: 8,
+  [AuthorisationStatus.Authorised]: 88,
+  [AuthorisationStatus.Expiring]: 42,
+  [AuthorisationStatus.Expired]: 72,
+  [AuthorisationStatus.FormerVIR]: 0,
 };
 
 describe('ClerkHomePage', () => {
@@ -56,12 +56,12 @@ describe('ClerkHomePage', () => {
 
   it('should filter translators by from lang', () => {
     onClerkHomePage.filterByFromLang('katalaani');
-    onClerkHomePage.expectSelectedTranslatorsCount(5); // 5 authorised, 1 expired
+    onClerkHomePage.expectSelectedTranslatorsCount(4); // 4 authorised, 2 expired
   });
 
   it('should filter translators by to lang', () => {
-    onClerkHomePage.filterByToLang('iiri');
-    onClerkHomePage.expectSelectedTranslatorsCount(6); // 6 authorised, 1 former VIR
+    onClerkHomePage.filterByToLang('bengali');
+    onClerkHomePage.expectSelectedTranslatorsCount(5); // 5 authorised, 3 expired
   });
 
   it('should filter translators by name', () => {
@@ -71,7 +71,7 @@ describe('ClerkHomePage', () => {
 
   it('should filter translators by authorisation basis', () => {
     onClerkHomePage.filterByAuthorisationBasis('VIR');
-    onClerkHomePage.expectSelectedTranslatorsCount(7);
+    onClerkHomePage.expectSelectedTranslatorsCount(15);
 
     // Authorisation with basis VIR should never expire => expect 0 matching translators.
     onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
@@ -80,21 +80,21 @@ describe('ClerkHomePage', () => {
 
   it('should filter translators by permission to publish', () => {
     onClerkHomePage.filterByPermissionToPublishBasis(false);
-    onClerkHomePage.expectSelectedTranslatorsCount(8);
+    onClerkHomePage.expectSelectedTranslatorsCount(5); // 5 authorised, 3 expired
   });
 
   it('should combine multiple filters', () => {
     onClerkHomePage.filterByAuthorisationBasis('KKT');
-    onClerkHomePage.expectSelectedTranslatorsCount(15);
-
-    onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
     onClerkHomePage.expectSelectedTranslatorsCount(13);
 
+    onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
+    onClerkHomePage.expectSelectedTranslatorsCount(9);
+
     onClerkHomePage.filterByFromLang('pohjoissaame');
-    onClerkHomePage.expectSelectedTranslatorsCount(2); // Kari Kinnunen, Anna Lehtonen
+    onClerkHomePage.expectSelectedTranslatorsCount(1); // Anna Lehtonen
 
     onClerkHomePage.filterByToLang('fääri');
-    onClerkHomePage.expectSelectedTranslatorsCount(1); // Anna Lehtonen
+    onClerkHomePage.expectSelectedTranslatorsCount(1);
 
     onClerkHomePage.filterByPermissionToPublishBasis(false);
     onClerkHomePage.expectSelectedTranslatorsCount(0);

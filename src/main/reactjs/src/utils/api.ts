@@ -14,14 +14,12 @@ export class APIUtils {
 
     const termBeginDate = stringToDate(authorisation.termBeginDate);
     const termEndDate = stringToDate(authorisation.termEndDate);
-    const meetingDate = stringToDate(authorisation.meetingDate);
     const autDate = stringToDate(authorisation.autDate);
 
     return {
       ...authorisation,
       termBeginDate,
       termEndDate,
-      meetingDate,
       autDate,
     };
   }
