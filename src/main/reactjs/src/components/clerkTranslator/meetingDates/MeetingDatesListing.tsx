@@ -73,7 +73,7 @@ const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
             onClick={dispatchConfirmRemoveNotifier}
             aria-label={`${t('removeButtonAriaLabel')} ${formattedDate}`}
           >
-            <DeleteIcon />
+            <DeleteIcon color={Color.Error} />
           </CustomIconButton>
         </TableCell>
       )}

@@ -27,7 +27,7 @@ export const MeetingDatesPageSkeleton = () => {
         <AddMeetingDate />
       </CustomSkeleton>
       <CustomSkeleton
-        className="full-max-width full-height"
+        className="full-max-width"
         variant={SkeletonVariant.Rectangular}
       >
         <MeetingDatesListing />
