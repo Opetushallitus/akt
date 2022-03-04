@@ -6,7 +6,7 @@ import {
   ClerkTranslatorFilter,
   ClerkTranslatorResponse,
 } from 'interfaces/clerkTranslator';
-import { LanguagePairsDict } from 'interfaces/language';
+import { LanguagePairsDict } from 'interfaces/languagePair';
 import { MeetingDate, MeetingDateResponse } from 'interfaces/meetingDate';
 
 export interface ClerkState {

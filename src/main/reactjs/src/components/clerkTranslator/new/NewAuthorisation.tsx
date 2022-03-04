@@ -10,7 +10,7 @@ import { H3, Text } from 'components/elements/Text';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { Color, TextFieldVariant, Variant } from 'enums/app';
 import { Authorisation, AuthorisationBasis } from 'interfaces/authorisation';
-import { AutocompleteValue } from 'interfaces/combobox';
+import { AutocompleteValue } from 'interfaces/components/combobox';
 import { MeetingDate } from 'interfaces/meetingDate';
 import { AuthorisationUtils } from 'utils/authorisation';
 

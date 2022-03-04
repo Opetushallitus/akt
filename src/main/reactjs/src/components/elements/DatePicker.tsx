@@ -1,7 +1,13 @@
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
-import { DatePickerProps } from 'interfaces/datePicker';
+export interface DatePickerProps {
+  value: string;
+  setValue: (value: string) => void;
+  label: string;
+  minDate: Date;
+  maxDate: Date;
+}
 
 export const DatePicker = ({
   value,

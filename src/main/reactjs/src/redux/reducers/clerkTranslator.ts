@@ -7,7 +7,7 @@ import {
   ClerkTranslator,
   ClerkTranslatorFilter,
 } from 'interfaces/clerkTranslator';
-import { LanguagePairsDict } from 'interfaces/language';
+import { LanguagePairsDict } from 'interfaces/languagePair';
 import { MeetingDate } from 'interfaces/meetingDate';
 import {
   CLERK_TRANSLATOR_ADD_FILTER,

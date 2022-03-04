@@ -2,7 +2,7 @@ import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
 import { ContactRequestFormStep } from 'enums/contactRequest';
-import { LanguagePair } from 'interfaces/language';
+import { LanguagePair } from 'interfaces/languagePair';
 
 export interface ContactDetails {
   email: string;

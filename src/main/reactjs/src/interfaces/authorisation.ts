@@ -1,6 +1,5 @@
-import { LanguagePair } from 'interfaces/language';
-import { WithId } from 'interfaces/withId';
-import { WithVersion } from 'interfaces/withVersion';
+import { LanguagePair } from 'interfaces/languagePair';
+import { WithId, WithVersion } from 'interfaces/with';
 
 export type AuthorisationBasis = 'AUT' | 'KKT' | 'VIR';
 

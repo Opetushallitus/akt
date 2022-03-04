@@ -2,8 +2,8 @@ import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
 import { SearchFilter } from 'enums/app';
-import { AutocompleteValue } from 'interfaces/combobox';
-import { LanguagePair, LanguagePairsDict } from 'interfaces/language';
+import { AutocompleteValue } from 'interfaces/components/combobox';
+import { LanguagePair, LanguagePairsDict } from 'interfaces/languagePair';
 import { WithId } from 'interfaces/withId';
 
 export interface PublicTranslator extends WithId {

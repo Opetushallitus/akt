@@ -28,7 +28,7 @@ import {
   Variant,
 } from 'enums/app';
 import { useWindowProperties } from 'hooks/useWindowProperties';
-import { AutocompleteValue } from 'interfaces/combobox';
+import { AutocompleteValue } from 'interfaces/components/combobox';
 import { PublicTranslatorFilterValues } from 'interfaces/publicTranslator';
 import { showNotifierToast } from 'redux/actions/notifier';
 import {

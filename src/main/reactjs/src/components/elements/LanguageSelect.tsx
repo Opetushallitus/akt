@@ -4,7 +4,7 @@ import {
   AutoCompleteComboBox,
   ComboBoxOption,
   ComboBoxProps,
-} from 'interfaces/combobox';
+} from 'interfaces/components/combobox';
 
 export interface LanguageSelectProps {
   excludedLanguage: string | undefined;
