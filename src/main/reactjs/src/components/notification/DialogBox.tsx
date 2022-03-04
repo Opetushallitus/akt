@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { CustomButton } from 'components/elements/CustomButton';
 import { Text } from 'components/elements/Text';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { Color } from 'enums/app';
 import { Dialog as DialogType } from 'interfaces/notifier';
 import {
   executeNotifierAction,
@@ -31,8 +32,13 @@ export const DialogBox = () => {
     setActiveDialog(undefined);
   };
 
-  const dispatchAction = (action: string, id: string) => {
-    dispatch(executeNotifierAction(action));
+  const dispatchAction = (action: string | (() => void), id: string) => {
+    if (typeof action === 'function') {
+      action();
+    } else {
+      dispatch(executeNotifierAction(action));
+    }
+
     handleDialogClose(id);
   };
 
@@ -60,7 +66,7 @@ export const DialogBox = () => {
               <CustomButton
                 key={i}
                 variant={a.variant}
-                color="secondary"
+                color={a.buttonColor ?? Color.Secondary}
                 onClick={() => dispatchAction(a.action, activeDialog.id)}
               >
                 {a.title}

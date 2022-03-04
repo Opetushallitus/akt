@@ -1,18 +1,25 @@
+import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import { TableCell, TableHead, TableRow } from '@mui/material';
 import { Box } from '@mui/system';
 import { FC } from 'react';
 
+import { CustomIconButton } from 'components/elements/CustomIconButton';
 import { H3, Text } from 'components/elements/Text';
 import { PaginatedTable } from 'components/tables/Table';
-import { useAppTranslation } from 'configs/i18n';
-import { useAppSelector } from 'configs/redux';
+import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
+import { Color, Severity, Variant } from 'enums/app';
 import { MeetingStatus } from 'enums/meetingDate';
 import { MeetingDate } from 'interfaces/meetingDate';
+import { removeMeetingDate } from 'redux/actions/meetingDate';
+import { showNotifierDialog } from 'redux/actions/notifier';
+import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
 import {
-  meetingDateSelector,
+  meetingDatesSelector,
   selectMeetingDatesByMeetingStatus,
 } from 'redux/selectors/meetingDate';
+import { Utils } from 'utils';
 import { DateUtils } from 'utils/date';
 
 const getRowDetails = (meetingDate: MeetingDate) => {
@@ -20,11 +27,56 @@ const getRowDetails = (meetingDate: MeetingDate) => {
 };
 
 const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
+  const dispatch = useAppDispatch();
+  const {
+    meetingDates: { filters },
+  } = useAppSelector(meetingDatesSelector);
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.pages.meetingDatesPage.removeMeetingDate',
+  });
+  const translateCommon = useCommonTranslation();
+
+  const dispatchConfirmRemoveNotifier = () => {
+    const notifier = Utils.createNotifierDialog(
+      t('dialogHeader'),
+      Severity.Error,
+      t('dialogDescription'),
+      [
+        {
+          title: translateCommon('back'),
+          variant: Variant.Outlined,
+          action: NOTIFIER_ACTION_DO_NOTHING,
+        },
+        {
+          title: translateCommon('yes'),
+          variant: Variant.Contained,
+          action: () => dispatch(removeMeetingDate(meetingDate.id)),
+          buttonColor: Color.Error,
+        },
+      ]
+    );
+
+    dispatch(showNotifierDialog(notifier));
+  };
+
+  const formattedDate = DateUtils.formatOptionalDate(meetingDate.date);
+
   return (
     <TableRow data-testid={`meeting-date__id-${meetingDate.id}-row`}>
       <TableCell>
-        <Text>{DateUtils.formatOptionalDate(meetingDate.date)}</Text>
+        <Text>{formattedDate}</Text>
       </TableCell>
+      {filters.meetingStatus === MeetingStatus.Upcoming && (
+        <TableCell align="right">
+          <CustomIconButton
+            data-testid="meeting-dates-page__add-button"
+            onClick={dispatchConfirmRemoveNotifier}
+            aria-label={`${t('removeButtonAriaLabel')} ${formattedDate}`}
+          >
+            <DeleteIcon color={Color.Error} />
+          </CustomIconButton>
+        </TableCell>
+      )}
     </TableRow>
   );
 };
@@ -33,6 +85,10 @@ const ListingHeader: FC = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.meetingDatesListing',
   });
+  const translateCommon = useCommonTranslation();
+  const {
+    meetingDates: { filters },
+  } = useAppSelector(meetingDatesSelector);
 
   return (
     <TableHead>
@@ -40,6 +96,11 @@ const ListingHeader: FC = () => {
         <TableCell>
           <H3>{t('header')}</H3>
         </TableCell>
+        {filters.meetingStatus === MeetingStatus.Upcoming && (
+          <TableCell align="right">
+            <H3>{translateCommon('delete')}</H3>
+          </TableCell>
+        )}
       </TableRow>
     </TableHead>
   );
@@ -47,7 +108,9 @@ const ListingHeader: FC = () => {
 
 export const MeetingDatesListing: FC = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt' });
-  const { status, filters } = useAppSelector(meetingDateSelector);
+  const {
+    meetingDates: { status, filters },
+  } = useAppSelector(meetingDatesSelector);
   const { upcoming, passed } = useAppSelector(
     selectMeetingDatesByMeetingStatus
   );
