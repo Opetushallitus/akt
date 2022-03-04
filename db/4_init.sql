@@ -3,19 +3,11 @@ TRUNCATE meeting_date CASCADE;
 TRUNCATE email CASCADE;
 
 INSERT INTO meeting_date(date)
-VALUES ('2020-10-03');
-INSERT INTO meeting_date(date)
-VALUES ('2021-04-09');
-INSERT INTO meeting_date(date)
-VALUES ('2021-12-20');
-INSERT INTO meeting_date(date)
-VALUES ('2022-02-15');
-INSERT INTO meeting_date(date)
-VALUES ('2022-08-30');
-INSERT INTO meeting_date(date)
-VALUES ('2022-11-01');
-INSERT INTO meeting_date(date)
-VALUES ('2025-01-01');
+SELECT meeting_dates[i]
+FROM generate_series(1, 13) AS i,
+     (SELECT ('{2020-12-30, 2021-03-09, 2021-06-10, 2021-08-15, 2021-11-18, 2022-01-01, 2022-05-14, 2022-09-25, ' ||
+              '2022-12-03, 2023-02-28, 2023-04-11, 2023-09-09, 2023-11-29}')::date[] AS meeting_dates
+     ) AS meeting_dates_table;
 
 INSERT INTO translator(identity_number, first_name, last_name, email, phone_number, street, town, postal_code, country,
                        extra_information, is_assurance_given)
@@ -114,11 +106,7 @@ SELECT translator_id,
            WHEN mod(i, 13) = 0 THEN 'VIR'
            WHEN mod(i, 17) = 0 THEN 'VIR'
            ELSE 'AUT' END,
-       CASE
-           WHEN mod(i, 11) = 0 THEN (SELECT meeting_date_id FROM meeting_date WHERE date = '2020-10-03')
-           WHEN mod(i, 13) = 0 THEN (SELECT meeting_date_id FROM meeting_date WHERE date = '2021-04-09')
-           WHEN mod(i, 17) = 0 THEN NULL
-           ELSE (SELECT meeting_date_id FROM meeting_date WHERE date = '2021-12-20') END,
+       (SELECT meeting_date_id FROM meeting_date WHERE date = '2020-12-30'::date),
        CASE
            WHEN mod(i, 11) = 0 THEN NULL
            WHEN mod(i, 13) = 0 THEN NULL
@@ -151,27 +139,26 @@ UPDATE authorisation
 SET diary_number = authorisation_id
 WHERE 1 = 1;
 
+-- set random authorisation meeting dates
 UPDATE authorisation
-SET term_begin_date = (CASE
-    WHEN mod(translator_id, 87) = 0 THEN '2019-01-01'
-    ELSE '2022-01-01'
-    END
-)::date
-WHERE meeting_date_id IS NOT NULL;
+SET meeting_date_id = (
+    SELECT md.meeting_date_id FROM meeting_date md
+    WHERE md.date < CURRENT_DATE
+    ORDER BY random() + authorisation_id LIMIT 1
+);
 
+-- set authorisation term begin dates
 UPDATE authorisation
-SET term_end_date = (CASE
-    WHEN basis <> 'VIR' THEN CASE
-        WHEN mod(translator_id, 87) = 0 THEN '2021-12-31'
-        ELSE '2022-01-15'::date + (mod(translator_id, 365 * 5)::text || ' days')::interval
-        END
-    END
-)::date
-WHERE meeting_date_id IS NOT NULL;
+SET term_begin_date = (SELECT md.date FROM meeting_date md WHERE md.meeting_date_id = authorisation.meeting_date_id);
+
+-- set authorisation term end dates
+UPDATE authorisation
+SET term_end_date = term_begin_date + '6 months'::interval
+WHERE basis <> 'VIR';
 
 -- add unauthorised VIR
-INSERT INTO authorisation (translator_id, basis, meeting_date_id, from_lang, to_lang, permission_to_publish, diary_number)
-VALUES ((SELECT max(translator_id) FROM translator), 'VIR', null, 'SEPO', 'DE', false, 'old unauthorised VIR');
+INSERT INTO authorisation (translator_id, basis, from_lang, to_lang, permission_to_publish, diary_number)
+VALUES ((SELECT max(translator_id) FROM translator), 'VIR', 'SEPO', 'DE', false, 'old unauthorised VIR');
 
 -- set some translator fields to null
 UPDATE translator

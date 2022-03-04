@@ -40,6 +40,7 @@ public class Factory {
       authorisation.setBasis(AuthorisationBasis.VIR);
     } else {
       meetingDate.getAuthorisations().add(authorisation);
+      authorisation.setMeetingDate(meetingDate);
       authorisation.setBasis(AuthorisationBasis.AUT);
       authorisation.setTermBeginDate(meetingDate.getDate());
       authorisation.setTermEndDate(meetingDate.getDate().plusYears(1));
