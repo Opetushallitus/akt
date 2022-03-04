@@ -308,7 +308,8 @@
         "required": "Tieto on pakollinen",
         "maxLength": "Teksti on liian pitkä",
         "emailFormat": "Sähköpostiosoite on virheellinen",
-        "telFormat": "Puhelinnumero on virheellinen"
+        "telFormat": "Puhelinnumero on virheellinen",
+        "personalIdentityCodeFormat": "Henkilötunnuksen muotoa ei tunnistettu"
       }
     }
   }

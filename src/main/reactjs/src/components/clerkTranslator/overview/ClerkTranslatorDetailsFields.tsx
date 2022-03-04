@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react';
 
 import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
-import { useAppTranslation } from 'configs/i18n';
+import { translateOutsideComponent, useAppTranslation } from 'configs/i18n';
 import { TextFieldTypes } from 'enums/app';
 import {
   ClerkTranslator,
@@ -14,35 +14,42 @@ import {
 } from 'interfaces/clerkTranslatorTextField';
 import { Utils } from 'utils';
 
+const getFieldType = (field: keyof ClerkTranslatorTextField) => {
+  switch (field) {
+    case 'phoneNumber':
+      return TextFieldTypes.PhoneNumber;
+    case 'email':
+      return TextFieldTypes.Email;
+    case 'extraInformation':
+      return TextFieldTypes.Textarea;
+    case 'identityNumber':
+      return TextFieldTypes.PersonalIdentityCode;
+    default:
+      return TextFieldTypes.Text;
+  }
+};
+
+const getFieldError = (
+  translator: ClerkTranslator | undefined,
+  field: keyof ClerkTranslatorTextField
+) => {
+  const t = translateOutsideComponent();
+  const type = getFieldType(field);
+  const fieldValue = (translator && translator[field]) || '';
+  const error = Utils.inspectCustomTextFieldErrors(type, fieldValue, false);
+  if (error) {
+    return t(`akt.${error}`);
+  } else {
+    return '';
+  }
+};
+
 const ClerkTranslatorDetailsTextField = ({
   translator,
   field,
   onChange,
   ...rest
 }: ClerkTranslatorTextFieldProps) => {
-  const getFieldType = (field: keyof ClerkTranslatorTextField) => {
-    switch (field) {
-      case 'phoneNumber':
-        return TextFieldTypes.PhoneNumber;
-      case 'email':
-        return TextFieldTypes.Email;
-      case 'extraInformation':
-        return TextFieldTypes.Textarea;
-      default:
-        return TextFieldTypes.Text;
-    }
-  };
-
-  const getFieldError = (
-    translator: ClerkTranslator | undefined,
-    field: keyof ClerkTranslatorTextField
-  ) => {
-    const type = getFieldType(field);
-    const fieldValue = (translator && translator[field]) || '';
-
-    return Utils.inspectCustomTextFieldErrors(type, fieldValue, false) || '';
-  };
-
   // I18n
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorOverview.translatorDetails.fields',
@@ -57,6 +64,7 @@ const ClerkTranslatorDetailsTextField = ({
       onChange={onChange}
       type={getFieldType(field)}
       error={fieldError?.length > 0}
+      helperText={fieldError}
       {...rest}
     />
   );

@@ -1,3 +1,4 @@
+import { isValid as isValidFinnishPIC } from 'finnish-personal-identity-code-validator';
 import { TFunction } from 'i18next';
 
 import {
@@ -102,9 +103,13 @@ export class Utils {
           return CustomTextFieldErrors.TelFormat;
         }
         break;
-      default:
-        return '';
+      case TextFieldTypes.PersonalIdentityCode:
+        if (!isValidFinnishPIC(value)) {
+          return CustomTextFieldErrors.PersonalIdentityCodeFormat;
+        }
         break;
     }
+
+    return '';
   }
 }

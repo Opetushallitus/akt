@@ -26,6 +26,7 @@
     "@mui/icons-material": "^5.1.0",
     "@mui/material": "^5.0.6",
     "axios": "^0.26.0",
+    "finnish-personal-identity-code-validator": "^2.1.0",
     "i18next": "^21.5.4",
     "i18next-browser-languagedetector": "^6.1.2",
     "normalize.css": "^8.0.1",
