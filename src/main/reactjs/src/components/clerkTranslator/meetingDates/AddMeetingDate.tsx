@@ -14,7 +14,7 @@ import { DateUtils } from 'utils/date';
 export const AddMeetingDate = () => {
   const [value, setValue] = useState<string>('');
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.pages.meetingDatesPage.addMeetingDate',
+    keyPrefix: 'akt.component.addMeetingDate',
   });
   const { upcoming } = useAppSelector(selectMeetingDatesByMeetingStatus);
 
@@ -45,7 +45,6 @@ export const AddMeetingDate = () => {
             value={value}
             setValue={setValue}
             label={t('datePicker.label')}
-            placeholder={t('datePicker.placeholder')}
           />
           <CustomButton
             data-testid="clerk-translator-overview__authorisation-details__add-btn"
@@ -55,7 +54,7 @@ export const AddMeetingDate = () => {
             disabled={isAddButtonDisabled()}
             onClick={handleOnClick}
           >
-            {t('button.add')}
+            {t('buttons.add')}
           </CustomButton>
         </div>
       </div>

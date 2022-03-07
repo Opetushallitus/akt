@@ -32,15 +32,15 @@ const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
     meetingDates: { filters },
   } = useAppSelector(meetingDatesSelector);
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.pages.meetingDatesPage.removeMeetingDate',
+    keyPrefix: 'akt.component.meetingDatesListing.row.removal',
   });
   const translateCommon = useCommonTranslation();
 
   const dispatchConfirmRemoveNotifier = () => {
     const notifier = Utils.createNotifierDialog(
-      t('dialogHeader'),
+      t('dialog.header'),
       Severity.Info,
-      t('dialogDescription'),
+      t('dialog.description'),
       [
         {
           title: translateCommon('back'),
@@ -71,7 +71,7 @@ const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
           <CustomIconButton
             data-testid="meeting-dates-page__add-button"
             onClick={dispatchConfirmRemoveNotifier}
-            aria-label={`${t('removeButtonAriaLabel')} ${formattedDate}`}
+            aria-label={`${t('ariaLabel')} ${formattedDate}`}
           >
             <DeleteIcon color={Color.Error} />
           </CustomIconButton>

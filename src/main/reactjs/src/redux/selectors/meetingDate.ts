@@ -17,13 +17,13 @@ export const selectMeetingDatesByMeetingStatus = createSelector(
       .filter(({ date }) =>
         filterMeetingDateByStatus(date, MeetingStatus.Upcoming, currentDate)
       )
-      .sort((a, b) => a.date - b.date);
+      .sort((a, b) => a.date.getTime() - b.date.getTime());
 
     const passed = meetingDates.meetingDates
       .filter(({ date }) =>
         filterMeetingDateByStatus(date, MeetingStatus.Passed, currentDate)
       )
-      .sort((a, b) => b.date - a.date);
+      .sort((a, b) => b.date.getTime() - a.date.getTime());
 
     return {
       upcoming,

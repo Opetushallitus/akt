@@ -9,7 +9,6 @@ export const DatePicker = ({
   value,
   setValue,
   label,
-  placeholder,
 }: DatePickerProps): JSX.Element => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -19,7 +18,6 @@ export const DatePicker = ({
     <Stack spacing={3}>
       <TextField
         label={label}
-        placeholder={placeholder}
         type="date"
         onChange={handleChange}
         value={value}

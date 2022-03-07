@@ -168,8 +168,36 @@
           "updateFailed": "Tietojen tallennus epäonnistui"
         }
       },
+      "meetingDatesToggleFilters": {
+        "upcoming": "Tulevat",
+        "passed": "Menneet"
+      },
+      "addMeetingDate": {
+        "header": "Lisää kokouspäivä",
+        "datePicker": {
+          "label": "Kokouspäivämäärä"
+        },
+        "buttons": {
+          "add": "Lisää kokouspäivä"
+        },
+        "toasts": {
+          "error": "Kokouspäivän lisäys epäonnistui"
+        }
+      },
       "meetingDatesListing": {
-        "header": "Kokouspäivä"
+        "header": "Kokouspäivä",
+        "row": {
+          "removal": {
+            "ariaLabel": "Poista kokouspäivä",
+            "dialog": {
+              "header": "Haluatko varmasti poistaa kokouspäivän?",
+              "description": "Tätä toimintoa ei voi peruuttaa!"
+            },
+            "toasts": {
+              "error": "Kokouspäivän poisto epäonnistui"
+            }
+          }
+        }
       },
       "contactRequestForm": {
         "title": "Yhteydenottopyynnön jättäminen",
@@ -267,30 +295,7 @@
         "town": "Asuinkunta"
       },
       "meetingDatesPage": {
-        "title": "Kokouspäivät",
-        "upcoming": "Tulevat",
-        "passed": "Menneet",
-        "removeMeetingDate": {
-          "dialogHeader": "Haluatko varmasti poistaa kokouspäivän?",
-          "dialogDescription": "Tätä toimintoa ei voi peruuttaa!",
-          "toast": {
-            "error": "Kokouspäivän lisäys epäonnistui, yritä myöhemmin uudelleen."
-          },
-          "removeButtonAriaLabel": "Poista kokouspäivä"
-        },
-        "addMeetingDate": {
-          "header": "Lisää kokouspäivä",
-          "datePicker": {
-            "label": "Kokouspäivämäärä",
-            "placeholder": "pp.kk.vvvv"
-          },
-          "button": {
-            "add": "Lisää kokouspäivä"
-          },
-          "toast": {
-            "error": "Kokouspäivän lisäys epäonnistui, yritä myöhemmin uudelleen."
-          }
-        }
+        "title": "Kokouspäivät"
       },
       "notFoundPage": {
         "title": "Valitettavasti etsimääsi sivua ei löytynyt",
