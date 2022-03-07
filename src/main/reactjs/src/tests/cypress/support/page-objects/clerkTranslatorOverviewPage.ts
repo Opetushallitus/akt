@@ -1,4 +1,4 @@
-import { AppRoutes } from 'enums/app';
+import { AppRoutes, UIMode } from 'enums/app';
 import { ClerkTranslatorResponse } from 'interfaces/clerkTranslator';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
 
@@ -96,10 +96,19 @@ class ClerkTranslatorOverviewPage {
     onToast.expectText('Valittua kääntäjää ei löytynyt');
   }
 
-  expectMode(mode: string) {
-    cy.location().should((loc) => {
-      expect(loc.search).to.eq(`?mode=${mode}`);
-    });
+  expectMode(mode: UIMode) {
+    switch (mode) {
+      case UIMode.View:
+        this.elements.addAuthorisationBtn().should('be.visible');
+        this.elements.editTranslatorInfoBtn().should('be.visible');
+        break;
+      case UIMode.EditTranslatorDetails:
+        this.elements.cancelTranslatorInfoBtn().should('be.visible');
+        break;
+      case UIMode.EditAuthorizationDetails:
+        // not implemented yet
+        assert(false);
+    }
   }
 
   expectTranslatorDetailsFields(translator: ClerkTranslatorResponse) {
