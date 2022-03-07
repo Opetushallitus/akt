@@ -113,11 +113,11 @@ export const ClerkTranslatorAutocompleteFilters = () => {
         />
       </div>
       <div className="rows gapped-xs">
-        <H3>{t('published.title')}</H3>
+        <H3>{t('permissionToPublish.title')}</H3>
         <ComboBox
           autoHighlight
           data-testid="clerk-translator-filters__permission-to-publish-basis"
-          label={t('published.placeholder')}
+          label={t('permissionToPublish.placeholder')}
           values={['Kyllä', 'Ei'].map(valueAsOption)}
           value={
             filters.permissionToPublish

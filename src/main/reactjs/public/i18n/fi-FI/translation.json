@@ -97,7 +97,7 @@
           "valid": "Voimassa",
           "authorisationBeginDate": "Alkamispäivä",
           "authorisationEndDate": "Päättymispäivä",
-          "permissionToPublish": "Julkaistu"
+          "permissionToPublish": "Julkaisulupa"
         },
         "detailsButton": "Lisätiedot"
       },
@@ -106,7 +106,7 @@
           "title": "Peruste",
           "placeholder": "Auktorisointi"
         },
-        "published": {
+        "permissionToPublish": {
           "title": "Julkaisulupa",
           "placeholder": "Kaikki"
         },
