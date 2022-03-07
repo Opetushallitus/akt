@@ -39,7 +39,7 @@ const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
   const dispatchConfirmRemoveNotifier = () => {
     const notifier = Utils.createNotifierDialog(
       t('dialogHeader'),
-      Severity.Error,
+      Severity.Info,
       t('dialogDescription'),
       [
         {

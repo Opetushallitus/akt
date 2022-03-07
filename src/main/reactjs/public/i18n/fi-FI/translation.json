@@ -280,7 +280,10 @@
         },
         "addMeetingDate": {
           "header": "Lisää kokouspäivä",
-          "datePickerLabel": "Kokouspäivämäärä",
+          "datePicker": {
+            "label": "Kokouspäivämäärä",
+            "placeholder": "pp.kk.vvvv"
+          },
           "button": {
             "add": "Lisää kokouspäivä"
           },

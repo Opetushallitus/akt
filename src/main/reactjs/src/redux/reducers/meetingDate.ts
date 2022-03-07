@@ -20,7 +20,6 @@ import {
   MEETING_DATE_REMOVE_ERROR,
   MEETING_DATE_REMOVE_SUCCESS,
 } from 'redux/actionTypes/meetingDate';
-import { DateUtils } from 'utils/date';
 
 const defaultState = {
   meetingDates: {
@@ -32,7 +31,7 @@ const defaultState = {
   },
   addMeetingDate: {
     status: APIResponseStatus.NotStarted,
-    date: DateUtils.dateAtStartOfDay(new Date()),
+    date: new Date(),
   },
   removeMeetingDate: {
     status: APIResponseStatus.NotStarted,
