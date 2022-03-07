@@ -7,6 +7,7 @@ import {
   ClerkTranslatorOverviewState,
 } from 'interfaces/clerkTranslatorOverview';
 import {
+  CLERK_TRANSLATOR_OVERVIEW_CANCEL_UPDATE,
   CLERK_TRANSLATOR_OVERVIEW_FETCH_FAIL,
   CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS,
   CLERK_TRANSLATOR_OVERVIEW_LOAD,
@@ -46,6 +47,11 @@ export const clerkTranslatorOverviewReducer: Reducer<
       return {
         ...state,
         translatorDetailsStatus: APIResponseStatus.InProgress,
+      };
+    case CLERK_TRANSLATOR_OVERVIEW_CANCEL_UPDATE:
+      return {
+        ...state,
+        translatorDetailsStatus: APIResponseStatus.Cancelled,
       };
     case CLERK_TRANSLATOR_OVERVIEW_RESET_UPDATE:
       return {

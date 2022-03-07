@@ -145,6 +145,10 @@
             "email": "Sähköpostiosoite",
             "phoneNumber": "Puhelinnumero",
             "extraInformation": "Lisätiedot"
+          },
+          "cancelUpdateDialog": {
+            "title": "Haluatko poistua muokkausnäkymästä?",
+            "description": "Menetät tekemäsi muutokset."
           }
         },
         "authorisations": {

@@ -7,6 +7,7 @@ import { ClerkTranslatorResponse } from 'interfaces/clerkTranslator';
 import { ClerkTranslatorOverviewAction } from 'interfaces/clerkTranslatorOverview';
 import { startLoadingClerkTranslatorOverview } from 'redux/actions/clerkTranslatorOverview';
 import {
+  CLERK_TRANSLATOR_OVERVIEW_CANCEL_UPDATE,
   CLERK_TRANSLATOR_OVERVIEW_FETCH,
   CLERK_TRANSLATOR_OVERVIEW_FETCH_FAIL,
   CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS,
@@ -15,6 +16,10 @@ import {
   CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS,
 } from 'redux/actionTypes/clerkTranslatorOverview';
 import { APIUtils } from 'utils/api';
+
+export function* cancel() {
+  yield put({ type: CLERK_TRANSLATOR_OVERVIEW_CANCEL_UPDATE });
+}
 
 function* fetchClerkTranslatorOverview(action: ClerkTranslatorOverviewAction) {
   try {

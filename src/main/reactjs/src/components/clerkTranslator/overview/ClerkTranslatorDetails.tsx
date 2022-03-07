@@ -1,5 +1,5 @@
 import EditIcon from '@mui/icons-material/Edit';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 import { ClerkTranslatorDetailsFields } from 'components/clerkTranslator/overview/ClerkTranslatorDetailsFields';
 import { CustomButton } from 'components/elements/CustomButton';
@@ -16,7 +16,11 @@ import {
   resetClerkTranslatorDetailsUpdate,
   updateClerkTranslatorDetails,
 } from 'redux/actions/clerkTranslatorOverview';
-import { showNotifierToast } from 'redux/actions/notifier';
+import { showNotifierDialog, showNotifierToast } from 'redux/actions/notifier';
+import {
+  NOTIFIER_ACTION_CLERK_TRANSLATOR_DETAILS_CANCEL_UPDATE,
+  NOTIFIER_ACTION_DO_NOTHING,
+} from 'redux/actionTypes/notifier';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
 import { Utils } from 'utils';
 
@@ -83,11 +87,15 @@ export const ClerkTranslatorDetails = () => {
   const [currentUIMode, setCurrentUIMode] = useState(UIMode.View);
   const prevTranslatorDetails = usePrevious(translatorDetails);
   const isViewMode = currentUIMode !== UIMode.EditTranslatorDetails;
+  const resetLocalStateFromRedux = useCallback(() => {
+    setTranslatorDetails(selectedTranslator);
+  }, [selectedTranslator]);
 
   // I18n
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorOverview',
   });
+  const translateCommon = useCommonTranslation();
 
   useEffect(() => {
     if (
@@ -102,11 +110,20 @@ export const ClerkTranslatorDetails = () => {
       dispatch(showNotifierToast(toast));
       dispatch(resetClerkTranslatorDetailsUpdate);
       setCurrentUIMode(UIMode.View);
+    } else if (
+      translatorDetailsStatus === APIResponseStatus.Cancelled &&
+      currentUIMode === UIMode.EditTranslatorDetails
+    ) {
+      // Flow was reset through the cancel dialog -> reset UI state.
+      dispatch(resetClerkTranslatorDetailsUpdate);
+      resetLocalStateFromRedux();
+      setCurrentUIMode(UIMode.View);
     }
   }, [
     currentUIMode,
     dispatch,
     prevTranslatorDetails?.version,
+    resetLocalStateFromRedux,
     selectedTranslator?.version,
     t,
     translatorDetailsStatus,
@@ -128,18 +145,30 @@ export const ClerkTranslatorDetails = () => {
     );
   };
 
-  const resetLocalStateFromRedux = () => {
-    setTranslatorDetails(selectedTranslator);
-  };
-
   const handleEditBtnClick = () => {
     resetLocalStateFromRedux();
     setCurrentUIMode(UIMode.EditTranslatorDetails);
   };
 
-  const handleCancelBtnClick = () => {
-    resetLocalStateFromRedux();
-    setCurrentUIMode(UIMode.View);
+  const openCancelDialog = () => {
+    const dialog = Utils.createNotifierDialog(
+      t('translatorDetails.cancelUpdateDialog.title'),
+      Severity.Info,
+      t('translatorDetails.cancelUpdateDialog.description'),
+      [
+        {
+          title: translateCommon('back'),
+          variant: Variant.Outlined,
+          action: NOTIFIER_ACTION_DO_NOTHING,
+        },
+        {
+          title: translateCommon('yes'),
+          variant: Variant.Contained,
+          action: NOTIFIER_ACTION_CLERK_TRANSLATOR_DETAILS_CANCEL_UPDATE,
+        },
+      ]
+    );
+    dispatch(showNotifierDialog(dialog));
   };
 
   return (
@@ -151,7 +180,7 @@ export const ClerkTranslatorDetails = () => {
       editDisabled={isViewMode}
       controlButtons={
         <ControlButtons
-          onCancelBtnClick={handleCancelBtnClick}
+          onCancelBtnClick={openCancelDialog}
           onEditBtnClick={handleEditBtnClick}
           onSaveBtnClick={handleSaveBtnClick}
           isViewMode={isViewMode}
