@@ -113,10 +113,8 @@ public class ExpiringAuthorisationsEmailCreatorTest {
     if (termEndDate != null) {
       authorisation.setTermBeginDate(termEndDate.minusYears(1));
     } else {
-      authorisation.setTermBeginDate(null);
       authorisation.setBasis(AuthorisationBasis.VIR);
-      authorisation.setAutDate(null);
-      authorisation.setVirDate(LocalDate.now());
+      authorisation.setTermBeginDate(null);
     }
 
     entityManager.persist(meetingDate);

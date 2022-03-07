@@ -16,8 +16,6 @@ export class APIUtils {
     const termEndDate = stringToDate(authorisation.termEndDate);
     const meetingDate = stringToDate(authorisation.meetingDate);
     const autDate = stringToDate(authorisation.autDate);
-    const virDate = stringToDate(authorisation.virDate);
-    const assuranceDate = stringToDate(authorisation.assuranceDate);
 
     return {
       ...authorisation,
@@ -25,8 +23,6 @@ export class APIUtils {
       termEndDate,
       meetingDate,
       autDate,
-      virDate,
-      assuranceDate,
     };
   }
 

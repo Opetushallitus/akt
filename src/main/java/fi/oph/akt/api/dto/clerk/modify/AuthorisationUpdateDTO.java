@@ -16,12 +16,9 @@ public record AuthorisationUpdateDTO(
   @NonNull @NotNull LocalDate termBeginDate,
   LocalDate termEndDate,
   @NonNull @NotNull Boolean permissionToPublish,
-  @NonNull @NotBlank String diaryNumber,
+  String diaryNumber,
   @NonNull @NotNull LocalDate meetingDate,
-  LocalDate autDate,
-  String kktCheck,
-  LocalDate virDate,
-  @NonNull @NotNull LocalDate assuranceDate
+  LocalDate autDate
 )
   implements AuthorisationDTOCommonFields {
   // Workaround for bug in IntelliJ lombok plugin

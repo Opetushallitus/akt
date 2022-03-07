@@ -39,7 +39,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -286,8 +285,7 @@ class ClerkTranslatorServiceTest {
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
 
     authorisation.setBasis(AuthorisationBasis.AUT);
-    authorisation.setAutDate(LocalDate.parse("2021-12-31"));
-    authorisation.setAssuranceDate(LocalDate.parse("2021-12-01"));
+    authorisation.setAutDate(LocalDate.of(2021, 12, 31));
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
@@ -301,9 +299,6 @@ class ClerkTranslatorServiceTest {
     assertEquals(authorisation.getTermEndDate(), authorisationDTO.termEndDate());
     assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertEquals(authorisation.getAutDate(), authorisationDTO.autDate());
-    assertNull(authorisationDTO.kktCheck());
-    assertNull(authorisationDTO.virDate());
-    assertEquals(authorisation.getAssuranceDate(), authorisationDTO.assuranceDate());
     assertEquals(meetingDate.getDate(), authorisationDTO.meetingDate());
   }
 
@@ -314,8 +309,6 @@ class ClerkTranslatorServiceTest {
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
 
     authorisation.setBasis(AuthorisationBasis.KKT);
-    authorisation.setAutDate(null);
-    authorisation.setKktCheck("kkt-check");
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
@@ -329,9 +322,6 @@ class ClerkTranslatorServiceTest {
     assertEquals(authorisation.getTermEndDate(), authorisationDTO.termEndDate());
     assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertNull(authorisationDTO.autDate());
-    assertEquals(authorisation.getKktCheck(), authorisationDTO.kktCheck());
-    assertNull(authorisationDTO.virDate());
-    assertEquals(authorisation.getAssuranceDate(), authorisationDTO.assuranceDate());
     assertEquals(meetingDate.getDate(), authorisationDTO.meetingDate());
   }
 
@@ -344,8 +334,6 @@ class ClerkTranslatorServiceTest {
     authorisation.setBasis(AuthorisationBasis.VIR);
     authorisation.setTermBeginDate(LocalDate.now().minusYears(1));
     authorisation.setTermEndDate(null);
-    authorisation.setAutDate(null);
-    authorisation.setVirDate(LocalDate.now().minusYears(2));
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
@@ -359,9 +347,6 @@ class ClerkTranslatorServiceTest {
     assertNull(authorisationDTO.termEndDate());
     assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertNull(authorisationDTO.autDate());
-    assertNull(authorisationDTO.kktCheck());
-    assertEquals(authorisation.getVirDate(), authorisationDTO.virDate());
-    assertEquals(authorisation.getAssuranceDate(), authorisationDTO.assuranceDate());
     assertEquals(meetingDate.getDate(), authorisationDTO.meetingDate());
   }
 
@@ -373,9 +358,6 @@ class ClerkTranslatorServiceTest {
     authorisation.setBasis(AuthorisationBasis.VIR);
     authorisation.setTermBeginDate(null);
     authorisation.setTermEndDate(null);
-    authorisation.setAutDate(null);
-    authorisation.setVirDate(LocalDate.now().minusYears(2));
-    authorisation.setAssuranceDate(null);
 
     entityManager.persist(translator);
     entityManager.persist(authorisation);
@@ -388,9 +370,6 @@ class ClerkTranslatorServiceTest {
     assertNull(authorisationDTO.termEndDate());
     assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertNull(authorisationDTO.autDate());
-    assertNull(authorisationDTO.kktCheck());
-    assertEquals(authorisation.getVirDate(), authorisationDTO.virDate());
-    assertNull(authorisationDTO.assuranceDate());
     assertNull(authorisationDTO.meetingDate());
   }
 
@@ -418,8 +397,6 @@ class ClerkTranslatorServiceTest {
     final LocalDate term2EndDate = term2BeginDate.plusYears(3);
 
     authorisation2.setBasis(AuthorisationBasis.KKT);
-    authorisation2.setAutDate(null);
-    authorisation2.setKktCheck("kkt-check");
     authorisation2.setTermBeginDate(term2BeginDate);
     authorisation2.setTermEndDate(term2EndDate);
     authorisation2.setFromLang(FI);
@@ -477,9 +454,8 @@ class ClerkTranslatorServiceTest {
 
     final Authorisation authorisation3 = Factory.authorisation(translator, meetingDate);
     authorisation3.setBasis(AuthorisationBasis.VIR);
-    authorisation3.setAutDate(null);
-    authorisation3.setVirDate(LocalDate.now());
     authorisation3.setTermBeginDate(null);
+    authorisation3.setTermEndDate(null);
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
@@ -503,8 +479,6 @@ class ClerkTranslatorServiceTest {
     final AuthorisationCreateDTO expectedAuth = AuthorisationCreateDTO
       .builder()
       .basis(AuthorisationBasis.KKT)
-      .kktCheck("checked")
-      .assuranceDate(LocalDate.now())
       .meetingDate(meetingDate.getDate())
       .from(FI)
       .to(SV)
@@ -654,8 +628,6 @@ class ClerkTranslatorServiceTest {
     final AuthorisationCreateDTO createDTO = AuthorisationCreateDTO
       .builder()
       .basis(AuthorisationBasis.KKT)
-      .kktCheck("checked")
-      .assuranceDate(LocalDate.now())
       .meetingDate(meetingDate.getDate())
       .from(FI)
       .to(SV)
@@ -700,15 +672,13 @@ class ClerkTranslatorServiceTest {
       .id(authorisation.getId())
       .version(authorisation.getVersion())
       .basis(AuthorisationBasis.KKT)
-      .kktCheck("kkt done")
-      .assuranceDate(authorisation.getAssuranceDate().minusDays(1))
       .meetingDate(meetingDate2.getDate())
       .from(FI)
       .to(SV)
       .permissionToPublish(!authorisation.isPermissionToPublish())
       .termBeginDate(authorisation.getTermBeginDate().minusDays(1))
       .termEndDate(authorisation.getTermEndDate().plusDays(1))
-      .diaryNumber(UUID.randomUUID().toString())
+      .diaryNumber("012345")
       .build();
 
     final ClerkTranslatorDTO response = clerkTranslatorService.updateAuthorisation(updateDTO);
@@ -729,10 +699,7 @@ class ClerkTranslatorServiceTest {
     final AuthorisationDTO authorisationDTO
   ) {
     assertEquals(expected.basis(), authorisationDTO.basis());
-    assertEquals(expected.kktCheck(), authorisationDTO.kktCheck());
     assertEquals(expected.autDate(), authorisationDTO.autDate());
-    assertEquals(expected.virDate(), authorisationDTO.virDate());
-    assertEquals(expected.assuranceDate(), authorisationDTO.assuranceDate());
     assertEquals(expected.meetingDate(), authorisationDTO.meetingDate());
     assertEquals(expected.from(), authorisationDTO.languagePair().from());
     assertEquals(expected.to(), authorisationDTO.languagePair().to());
@@ -842,8 +809,6 @@ class ClerkTranslatorServiceTest {
     final AuthorisationCreateDTO createDTO = AuthorisationCreateDTO
       .builder()
       .basis(AuthorisationBasis.KKT)
-      .kktCheck("checked")
-      .assuranceDate(LocalDate.now())
       .meetingDate(date)
       .from(FI)
       .to(SV)

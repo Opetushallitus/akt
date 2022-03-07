@@ -101,8 +101,7 @@ WITH translator_ids AS (
     WHERE mod(translator_id, 24) = 0
 )
 INSERT
-INTO authorisation(translator_id, basis, meeting_date_id, aut_date, kkt_check, vir_date, assurance_date,
-                   from_lang, to_lang, permission_to_publish, diary_number)
+INTO authorisation(translator_id, basis, meeting_date_id, aut_date, from_lang, to_lang, permission_to_publish)
 SELECT translator_id,
        -- 11 KKT
        -- 13 VIR authorized
@@ -123,47 +122,24 @@ SELECT translator_id,
            WHEN mod(i, 13) = 0 THEN NULL
            WHEN mod(i, 17) = 0 THEN NULL
            ELSE now() END,
-       CASE
-           WHEN mod(i, 11) = 0 THEN 'ToDo'
-           WHEN mod(i, 13) = 0 THEN NULL
-           WHEN mod(i, 17) = 0 THEN NULL
-           ELSE NULL END,
-       CASE
-           WHEN mod(i, 11) = 0 THEN NULL
-           WHEN mod(i, 13) = 0 THEN now()
-           WHEN mod(i, 17) = 0 THEN now()
-           ELSE NULL END,
-       CASE
-           WHEN mod(i, 11) = 0 THEN now()
-           WHEN mod(i, 13) = 0 THEN now()
-           WHEN mod(i, 17) = 0 THEN NULL
-           ELSE now() END,
        from_langs[mod(i, array_length(from_langs, 1)) + 1],
        to_langs[mod(i, array_length(to_langs, 1)) + 1],
-       mod(i, 21) <> 0,
-       -- temporary diary_number entries
-       md5(random()::text)
+       mod(i, 21) <> 0
 FROM translator_ids,
      (SELECT ('{FI, SEIN, SEKO, SEPO}')::text[] AS from_langs) AS from_langs_table,
      (SELECT ('{BN, CA, CS, DA, DE, EL, EN, ET, FJ, FO, FR, GA, HE, HR, HU, JA, RU, SV, TT, TY, UG, UK, VI}')::text[] AS to_langs) AS to_langs_table
 ;
 
 -- add inverse language pairs
-INSERT INTO authorisation(translator_id, basis, meeting_date_id, aut_date, kkt_check, vir_date, assurance_date,
-                          from_lang, to_lang, permission_to_publish, diary_number)
+INSERT INTO authorisation(translator_id, basis, meeting_date_id, aut_date, from_lang, to_lang, permission_to_publish)
 SELECT translator_id,
        basis,
        meeting_date_id,
        aut_date,
-       kkt_check,
-       vir_date,
-       assurance_date,
        -- note to_lang and from_lang are swapped
        to_lang,
        from_lang,
-       mod(translator_id, 98) <> 0,
-       -- temporary diary_number entries
-       md5(random()::text)
+       mod(translator_id, 98) <> 0
 FROM authorisation
 WHERE mod(authorisation_id, 20) <> 0
 ;
@@ -192,10 +168,8 @@ SET term_end_date = (CASE
 WHERE meeting_date_id IS NOT NULL;
 
 -- add unauthorised VIR
-INSERT INTO authorisation (translator_id, basis, meeting_date_id, aut_date, kkt_check, vir_date, assurance_date,
-                           from_lang, to_lang, permission_to_publish, diary_number)
-VALUES ((SELECT max(translator_id) FROM translator), 'VIR', null, null, null, '1990-12-24', null, 'SEPO', 'DE', false,
-        'old unauthorised VIR');
+INSERT INTO authorisation (translator_id, basis, meeting_date_id, from_lang, to_lang, permission_to_publish, diary_number)
+VALUES ((SELECT max(translator_id) FROM translator), 'VIR', null, 'SEPO', 'DE', false, 'old unauthorised VIR');
 
 -- set some translator fields to null
 UPDATE translator
