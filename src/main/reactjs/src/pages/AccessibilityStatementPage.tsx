@@ -103,7 +103,9 @@ export const AccessibilityStatementPage = () => {
             <H2>{translateAccessibility('content.feedback.title')}</H2>
             <Text>{translateAccessibility('content.feedback.subtitle')}</Text>
             <Text>
-              {translateAccessibility('content.feedback.description')}
+              {translateAccessibility('content.feedback.description', {
+                email: translateCommon('contactEmail'),
+              })}
             </Text>
           </div>
           <div className="rows gapped-xxs">

@@ -41,6 +41,11 @@ export const Footer = () => {
                   endIcon={<OpenInNewIcon />}
                   aria-label={t('links.aktHomepage.ariaLabel')}
                 />
+                <ExtLink
+                  className="footer__container--links__contact-email"
+                  href={`mailto:${translateCommon('contactEmail')}`}
+                  text={translateCommon('contactEmail')}
+                ></ExtLink>
               </div>
               <div className="footer__container footer__container--contact-details">
                 <H3>{t('address.name')}</H3>

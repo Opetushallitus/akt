@@ -17,7 +17,8 @@
       "edit": "Muokkaa",
       "delete": "Poista",
       "loadingContent": "Sisältöä ladataan",
-      "phase": "Vaihe"
+      "phase": "Vaihe",
+      "contactEmail": "auktoris.lautakunta@oph.fi"
     }
   }
 }

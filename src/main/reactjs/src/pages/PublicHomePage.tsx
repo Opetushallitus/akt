@@ -1,7 +1,7 @@
 import { Box, Grid } from '@mui/material';
 import { FC, useEffect } from 'react';
 
-import { NewAuthorisation } from 'components/clerkTranslator/new/NewAuthorisation';
+import { AddAuthorisation } from 'components/clerkTranslator/new/AddAuthorisation';
 import { PublicTranslatorGrid } from 'components/publicTranslator/PublicTranslatorGrid';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { PublicUIViews } from 'enums/app';
@@ -26,7 +26,7 @@ export const PublicHomePage: FC = () => {
         direction="column"
         className="public-homepage__grid-container"
       >
-        <NewAuthorisation />
+        <AddAuthorisation />
         {currentView == PublicUIViews.ContactRequest ? (
           <ContactRequestPage />
         ) : (

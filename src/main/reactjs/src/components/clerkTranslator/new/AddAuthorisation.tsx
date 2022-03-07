@@ -5,33 +5,35 @@ import { ComboBox, valueAsOption } from 'components/elements/ComboBox';
 import { CustomButton } from 'components/elements/CustomButton';
 import { CustomSwitch } from 'components/elements/CustomSwitch';
 import { CustomTextField } from 'components/elements/CustomTextField';
+import { DatePicker } from 'components/elements/DatePicker';
 import { LanguageSelect } from 'components/elements/LanguageSelect';
-import { H3, Text } from 'components/elements/Text';
+import { Text } from 'components/elements/Text';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { Color, TextFieldVariant, Variant } from 'enums/app';
-import { Authorisation, AuthorisationBasis } from 'interfaces/authorisation';
+import { Authorisation } from 'interfaces/authorisation';
 import { AutocompleteValue } from 'interfaces/components/combobox';
 import { MeetingDate } from 'interfaces/meetingDate';
 import { AuthorisationUtils } from 'utils/authorisation';
 
-interface NewAuthorisationProps {
+interface AddAuthorisationProps {
   meetingDates: Array<MeetingDate>;
   onNewAuthorisationAdd(authorisation: Authorisation): void;
 }
 
-export const NewAuthorisation = () => {
+export const AddAuthorisation = () => {
+  const [authorisation, setAuthorisation] = useState({
+    langPair: { from: null, to: null },
+    basis: '',
+    termBeginDate: '',
+    termEndDate: '',
+    diaryNumber: '',
+    permissionToPublish: true,
+  });
+
   const translateCommon = useCommonTranslation();
 
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.newAuthorisation',
-  });
-
-  const [authorisation, setAuthorisation] = useState({
-    langPair: { from: null, to: null },
-    basis: null,
-    diaryNumber: '',
-    meetingDate: '',
-    permissionToPublish: true,
   });
 
   const handleSwitchChange = (newValue: boolean) => (event: ChangeEvent) => {
@@ -99,6 +101,12 @@ export const NewAuthorisation = () => {
           variant={TextFieldVariant.Outlined}
           onChange={handleBasisChange}
         />
+        {/* <DatePicker
+          value={authorisation.termEndDate}
+          setValue={setValue}
+          label={t('datePickerLabel')}
+        /> */}
+
         <CustomTextField
           label={t('fieldLabels.diaryNumber')}
           value={authorisation.diaryNumber}
