@@ -97,7 +97,7 @@
           "valid": "Voimassa",
           "authorisationBeginDate": "Alkamispäivä",
           "authorisationEndDate": "Päättymispäivä",
-          "permissionToPublish": "Julkaistu"
+          "permissionToPublish": "Julkaisulupa"
         },
         "detailsButton": "Lisätiedot"
       },
@@ -106,7 +106,7 @@
           "title": "Peruste",
           "placeholder": "Auktorisointi"
         },
-        "published": {
+        "permissionToPublish": {
           "title": "Julkaisulupa",
           "placeholder": "Kaikki"
         },
@@ -168,8 +168,36 @@
           "updateFailed": "Tietojen tallennus epäonnistui"
         }
       },
+      "meetingDatesToggleFilters": {
+        "upcoming": "Tulevat",
+        "passed": "Menneet"
+      },
+      "addMeetingDate": {
+        "header": "Lisää kokouspäivä",
+        "datePicker": {
+          "label": "Kokouspäivämäärä"
+        },
+        "buttons": {
+          "add": "Lisää kokouspäivä"
+        },
+        "toasts": {
+          "error": "Kokouspäivän lisäys epäonnistui"
+        }
+      },
       "meetingDatesListing": {
-        "header": "Kokouspäivä"
+        "header": "Kokouspäivä",
+        "row": {
+          "removal": {
+            "ariaLabel": "Poista kokouspäivä",
+            "dialog": {
+              "header": "Haluatko varmasti poistaa kokouspäivän?",
+              "description": "Kokouspäivän poisto on mahdollista, jos siihen ei liity yhtään auktorisointia."
+            },
+            "toasts": {
+              "error": "Kokouspäivän poisto epäonnistui"
+            }
+          }
+        }
       },
       "contactRequestForm": {
         "title": "Yhteydenottopyynnön jättäminen",
@@ -267,27 +295,7 @@
         "town": "Asuinkunta"
       },
       "meetingDatesPage": {
-        "title": "Kokouspäivät",
-        "upcoming": "Tulevat",
-        "passed": "Menneet",
-        "removeMeetingDate": {
-          "dialogHeader": "Haluatko varmasti poistaa kokouspäivän?",
-          "dialogDescription": "Tätä toimintoa ei voi peruuttaa!",
-          "toast": {
-            "error": "Kokouspäivän lisäys epäonnistui, yritä myöhemmin uudelleen."
-          },
-          "removeButtonAriaLabel": "Poista kokouspäivä"
-        },
-        "addMeetingDate": {
-          "header": "Lisää kokouspäivä",
-          "datePickerLabel": "Kokouspäivämäärä",
-          "button": {
-            "add": "Lisää kokouspäivä"
-          },
-          "toast": {
-            "error": "Kokouspäivän lisäys epäonnistui, yritä myöhemmin uudelleen."
-          }
-        }
+        "title": "Kokouspäivät"
       },
       "notFoundPage": {
         "title": "Valitettavasti etsimääsi sivua ei löytynyt",

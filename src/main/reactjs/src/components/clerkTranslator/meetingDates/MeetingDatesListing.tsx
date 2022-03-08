@@ -28,19 +28,17 @@ const getRowDetails = (meetingDate: MeetingDate) => {
 
 const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
   const dispatch = useAppDispatch();
-  const {
-    meetingDates: { filters },
-  } = useAppSelector(meetingDatesSelector);
+
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.pages.meetingDatesPage.removeMeetingDate',
+    keyPrefix: 'akt.component.meetingDatesListing.row.removal',
   });
   const translateCommon = useCommonTranslation();
 
   const dispatchConfirmRemoveNotifier = () => {
     const notifier = Utils.createNotifierDialog(
-      t('dialogHeader'),
-      Severity.Error,
-      t('dialogDescription'),
+      t('dialog.header'),
+      Severity.Info,
+      t('dialog.description'),
       [
         {
           title: translateCommon('back'),
@@ -51,7 +49,6 @@ const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
           title: translateCommon('yes'),
           variant: Variant.Contained,
           action: () => dispatch(removeMeetingDate(meetingDate.id)),
-          buttonColor: Color.Error,
         },
       ]
     );
@@ -66,17 +63,15 @@ const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
       <TableCell>
         <Text>{formattedDate}</Text>
       </TableCell>
-      {filters.meetingStatus === MeetingStatus.Upcoming && (
-        <TableCell align="right">
-          <CustomIconButton
-            data-testid="meeting-dates-page__add-button"
-            onClick={dispatchConfirmRemoveNotifier}
-            aria-label={`${t('removeButtonAriaLabel')} ${formattedDate}`}
-          >
-            <DeleteIcon color={Color.Error} />
-          </CustomIconButton>
-        </TableCell>
-      )}
+      <TableCell align="right">
+        <CustomIconButton
+          data-testid="meeting-dates-page__add-button"
+          onClick={dispatchConfirmRemoveNotifier}
+          aria-label={`${t('ariaLabel')} ${formattedDate}`}
+        >
+          <DeleteIcon color={Color.Error} />
+        </CustomIconButton>
+      </TableCell>
     </TableRow>
   );
 };
@@ -86,9 +81,6 @@ const ListingHeader: FC = () => {
     keyPrefix: 'akt.component.meetingDatesListing',
   });
   const translateCommon = useCommonTranslation();
-  const {
-    meetingDates: { filters },
-  } = useAppSelector(meetingDatesSelector);
 
   return (
     <TableHead>
@@ -96,11 +88,9 @@ const ListingHeader: FC = () => {
         <TableCell>
           <H3>{t('header')}</H3>
         </TableCell>
-        {filters.meetingStatus === MeetingStatus.Upcoming && (
-          <TableCell align="right">
-            <H3>{translateCommon('delete')}</H3>
-          </TableCell>
-        )}
+        <TableCell align="right">
+          <H3>{translateCommon('delete')}</H3>
+        </TableCell>
       </TableRow>
     </TableHead>
   );

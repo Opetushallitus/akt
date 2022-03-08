@@ -10,7 +10,7 @@ import {
 
 export const MeetingDatesToggleFilters = () => {
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.pages.meetingDatesPage',
+    keyPrefix: 'akt.component.meetingDatesToggleFilters',
   });
 
   const { upcoming, passed } = useAppSelector(

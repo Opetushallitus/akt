@@ -27,11 +27,11 @@ import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
 import { Utils } from 'utils';
 import { APIUtils } from 'utils/api';
 
-function* showErrorToastonRemove() {
+function* showErrorToastOnRemove() {
   const t = translateOutsideComponent();
   const notifier = Utils.createNotifierToast(
     Severity.Error,
-    t('akt.pages.meetingDatesPage.removeMeetingDate.toast.error')
+    t('akt.component.meetingDatesListing.row.removal.toasts.error')
   );
   yield put({ type: NOTIFIER_TOAST_ADD, notifier });
 }
@@ -46,14 +46,14 @@ export function* removeMeetingDate(action: RemoveMeetingDateActionType) {
     yield put({ type: MEETING_DATE_LOAD });
   } catch (error) {
     yield put({ type: MEETING_DATE_REMOVE_ERROR });
-    yield call(showErrorToastonRemove);
+    yield call(showErrorToastOnRemove);
   }
 }
 function* showErrorToastOnAdd() {
   const t = translateOutsideComponent();
   const notifier = Utils.createNotifierToast(
     Severity.Error,
-    t('akt.pages.meetingDatesPage.addMeetingDate.toast.error')
+    t('akt.component.addMeetingDate.toasts.error')
   );
   yield put({ type: NOTIFIER_TOAST_ADD, notifier });
 }

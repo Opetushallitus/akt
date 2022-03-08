@@ -14,7 +14,7 @@ import {
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { TextFieldVariant } from 'enums/app';
+import { PermissionToPublish, TextFieldVariant } from 'enums/app';
 import { useDebouncedValue } from 'hooks/useDebouncedValue';
 import { ClerkTranslatorFilter } from 'interfaces/clerkTranslator';
 import { AutocompleteValue } from 'interfaces/combobox';
@@ -113,12 +113,12 @@ export const ClerkTranslatorAutocompleteFilters = () => {
         />
       </div>
       <div className="rows gapped-xs">
-        <H3>{t('published.title')}</H3>
+        <H3>{t('permissionToPublish.title')}</H3>
         <ComboBox
           autoHighlight
           data-testid="clerk-translator-filters__permission-to-publish-basis"
-          label={t('published.placeholder')}
-          values={['Kyllä', 'Ei'].map(valueAsOption)}
+          label={t('permissionToPublish.placeholder')}
+          values={Object.values(PermissionToPublish).map(valueAsOption)}
           value={
             filters.permissionToPublish
               ? valueAsOption(filters.permissionToPublish)
