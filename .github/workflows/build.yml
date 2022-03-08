@@ -60,7 +60,7 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - uses: szenius/set-timezone@v1.0q
+      - uses: szenius/set-timezone@v1.0
         with:
           timezoneLinux: "Europe/Helsinki"
       - name: Build with Maven
