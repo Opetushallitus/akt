@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Authorised Translator’s System",
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "cd ../../.. && husky install",
     "eslint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
     "stylelint": "stylelint --fix \"./src/**/*.scss\"",
     "tslint": "tsc --pretty --noEmit",
