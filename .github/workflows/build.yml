@@ -36,8 +36,6 @@ jobs:
         run: npm run format
       - name: Run Jest Tests
         run: npm run test:jest
-      - name: Checkout Cypress
-        uses: actions/checkout@v2
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2
         with:
@@ -66,8 +64,7 @@ jobs:
         with:
           timezoneLinux: "Europe/Helsinki"
       - name: Build with Maven
-        run: mvn clean install -P travis -Dbranch=${TRAVIS_BRANCH} -Drevision=${TRAVIS_COMMIT} -DbuildNumber=${TRAVIS_BUILD_NUMBER}
-      - uses: actions/cache@v2
+        run: mvn clean install
         id: restore-build
         with:
           path: target/akt-*.jar
