@@ -32,7 +32,7 @@ jobs:
       before_script:
         - cd src/main/reactjs
       script:
-        - npm ci
+        - npm ci --ignore-scripts
         - npm run qa
       after_script:
         - kill $(jobs -p) || true

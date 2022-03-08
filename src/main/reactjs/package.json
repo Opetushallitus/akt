@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Authorised Translator’s System",
   "scripts": {
+    "prepare": "cd ../../.. && husky install",
     "eslint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
     "stylelint": "stylelint --fix \"./src/**/*.scss\"",
     "tslint": "tsc --pretty --noEmit",
@@ -72,9 +73,8 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-webpack-plugin": "^3.1.0",
     "html-webpack-plugin": "^5.5.0",
-    "husky": "^7.0.0",
+    "husky": "^7.0.4",
     "jest": "^27.3.1",
-    "lint-staged": "^12.3.2",
     "mini-css-extract-plugin": "^2.4.3",
     "prettier": "^2.4.1",
     "react-test-renderer": "^17.0.2",
@@ -90,15 +90,5 @@
     "webpack": "^5.66.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.7.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,css,scss}": [
-      "npm run format:write"
-    ]
   }
 }
