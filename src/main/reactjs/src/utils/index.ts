@@ -75,14 +75,14 @@ export class Utils {
 
   static getMaxTextAreaLength = () => 6000;
 
+  static EMAIL_REG_EXR = /^.+@.+\..+$/;
+  static TEL_REG_EXR = /\d{7,14}$/;
+
   static inspectCustomTextFieldErrors(
     type: TextFieldTypes,
     value: string,
     required = true
   ) {
-    const EMAIL_REG_EXR = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    const TEL_REG_EXR = /\d{7,14}$/;
-
     if (required && value.length <= 0) {
       return CustomTextFieldErrors.Required;
     }
@@ -94,12 +94,12 @@ export class Utils {
         }
         break;
       case TextFieldTypes.Email:
-        if (!value.match(EMAIL_REG_EXR)) {
+        if (!Utils.EMAIL_REG_EXR.test(value)) {
           return CustomTextFieldErrors.EmailFormat;
         }
         break;
       case TextFieldTypes.PhoneNumber:
-        if (value.length > 0 && !value.match(TEL_REG_EXR)) {
+        if (!Utils.TEL_REG_EXR.test(value)) {
           return CustomTextFieldErrors.TelFormat;
         }
         break;
