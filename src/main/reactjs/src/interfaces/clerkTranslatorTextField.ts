@@ -2,12 +2,12 @@ import { ChangeEvent } from 'react';
 
 import {
   ClerkTranslator,
-  ClerkTranslatorBasicInformation,
+  ClerkTranslatorTextField,
 } from 'interfaces/clerkTranslator';
 import { CustomTextFieldProps } from 'interfaces/customTextField';
 
-export type ClerkTranslatorDetailsFieldProps = {
+export type ClerkTranslatorTextFieldProps = {
   translator?: ClerkTranslator;
-  field: keyof ClerkTranslatorBasicInformation;
+  field: keyof ClerkTranslatorTextField;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 } & CustomTextFieldProps;

@@ -8,7 +8,7 @@ import {
 import { WithId } from 'interfaces/withId';
 import { WithVersion } from 'interfaces/withVersion';
 
-export interface ClerkTranslatorBasicInformation {
+export interface ClerkTranslatorTextField {
   firstName: string;
   lastName: string;
   identityNumber?: string;
@@ -19,6 +19,10 @@ export interface ClerkTranslatorBasicInformation {
   town?: string;
   country?: string;
   extraInformation?: string;
+}
+
+export interface ClerkTranslatorBasicInformation
+  extends ClerkTranslatorTextField {
   isAssured: boolean;
 }
 
