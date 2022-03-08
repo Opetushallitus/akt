@@ -49,7 +49,6 @@ const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
           title: translateCommon('yes'),
           variant: Variant.Contained,
           action: () => dispatch(removeMeetingDate(meetingDate.id)),
-          buttonColor: Color.Error,
         },
       ]
     );

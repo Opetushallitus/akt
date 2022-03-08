@@ -191,7 +191,7 @@
             "ariaLabel": "Poista kokouspäivä",
             "dialog": {
               "header": "Haluatko varmasti poistaa kokouspäivän?",
-              "description": "Tätä toimintoa ei voi peruuttaa!"
+              "description": "Kokouspäivän poisto on mahdollista, jos siihen ei liity yhtään auktorisointia."
             },
             "toasts": {
               "error": "Kokouspäivän poisto epäonnistui"
