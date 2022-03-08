@@ -8,6 +8,13 @@ const getDateTimeFormatter = (lang: AppLanguage) => {
 };
 
 export class DateUtils {
+  static newDate(dateChange: number) {
+    const date = new Date();
+    date.setDate(date.getDate() + dateChange);
+
+    return date;
+  }
+
   static formatOptionalDate(date?: Date) {
     if (!date) {
       return '-';

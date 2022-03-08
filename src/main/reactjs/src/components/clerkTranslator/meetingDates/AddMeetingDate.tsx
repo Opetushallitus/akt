@@ -8,7 +8,7 @@ import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { Color, Variant } from 'enums/app';
 import { addMeetingDate } from 'redux/actions/meetingDate';
-import { selectMeetingDatesByMeetingStatus } from 'redux/selectors/meetingDate';
+import { meetingDatesSelector } from 'redux/selectors/meetingDate';
 import { DateUtils } from 'utils/date';
 
 export const AddMeetingDate = () => {
@@ -16,7 +16,10 @@ export const AddMeetingDate = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.addMeetingDate',
   });
-  const { upcoming } = useAppSelector(selectMeetingDatesByMeetingStatus);
+
+  const {
+    meetingDates: { meetingDates },
+  } = useAppSelector(meetingDatesSelector);
 
   const dispatch = useAppDispatch();
 
@@ -28,8 +31,8 @@ export const AddMeetingDate = () => {
     if (value) {
       const date = new Date(value);
 
-      return upcoming.some((upcomingDate) =>
-        DateUtils.isDatePartEqual(upcomingDate.date, date)
+      return meetingDates.some((meetingDate) =>
+        DateUtils.isDatePartEqual(meetingDate.date, date)
       );
     }
 
@@ -45,6 +48,8 @@ export const AddMeetingDate = () => {
             value={value}
             setValue={setValue}
             label={t('datePicker.label')}
+            minDate={DateUtils.newDate(-365 * 100)}
+            maxDate={DateUtils.newDate(365 * 100)}
           />
           <CustomButton
             data-testid="clerk-translator-overview__authorisation-details__add-btn"

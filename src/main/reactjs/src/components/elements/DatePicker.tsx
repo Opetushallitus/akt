@@ -3,12 +3,12 @@ import TextField from '@mui/material/TextField';
 
 import { DatePickerProps } from 'interfaces/datePicker';
 
-const MAX_DATE = '2222-02-22';
-
 export const DatePicker = ({
   value,
   setValue,
   label,
+  minDate,
+  maxDate,
 }: DatePickerProps): JSX.Element => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -26,8 +26,8 @@ export const DatePicker = ({
           shrink: true,
         }}
         inputProps={{
-          min: new Date().toISOString().split('T')[0],
-          max: MAX_DATE,
+          min: minDate.toISOString().split('T')[0],
+          max: maxDate.toISOString().split('T')[0],
         }}
       />
     </Stack>
