@@ -26,6 +26,7 @@ public class Factory {
     final Translator translator = new Translator();
     translator.setFirstName("Foo");
     translator.setLastName("Bar");
+    translator.setAssuranceGiven(true);
 
     return translator;
   }

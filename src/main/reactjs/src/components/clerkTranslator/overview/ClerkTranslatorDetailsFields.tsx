@@ -8,38 +8,41 @@ import {
   ClerkTranslator,
   ClerkTranslatorBasicInformation,
 } from 'interfaces/clerkTranslator';
-import { ClerkTranslatorDetailsFieldProps } from 'interfaces/clerkTranslatorDetailsField';
+import {
+  ClerkTranslatorTextField,
+  ClerkTranslatorTextFieldProps,
+} from 'interfaces/clerkTranslatorTextField';
 import { Utils } from 'utils';
 
-const getFieldType = (field: keyof ClerkTranslatorBasicInformation) => {
-  switch (field) {
-    case 'phoneNumber':
-      return TextFieldTypes.PhoneNumber;
-    case 'email':
-      return TextFieldTypes.Email;
-    case 'extraInformation':
-      return TextFieldTypes.Textarea;
-    default:
-      return TextFieldTypes.Text;
-  }
-};
-
-const getFieldError = (
-  translator: ClerkTranslator | undefined,
-  field: keyof ClerkTranslatorBasicInformation
-) => {
-  const type = getFieldType(field);
-  const fieldValue = (translator && translator[field]) || '';
-
-  return Utils.inspectCustomTextFieldErrors(type, fieldValue, false) || '';
-};
-
-const ClerkTranslatorDetailsField = ({
+const ClerkTranslatorDetailsTextField = ({
   translator,
   field,
   onChange,
   ...rest
-}: ClerkTranslatorDetailsFieldProps) => {
+}: ClerkTranslatorTextFieldProps) => {
+  const getFieldType = (field: keyof ClerkTranslatorTextField) => {
+    switch (field) {
+      case 'phoneNumber':
+        return TextFieldTypes.PhoneNumber;
+      case 'email':
+        return TextFieldTypes.Email;
+      case 'extraInformation':
+        return TextFieldTypes.Textarea;
+      default:
+        return TextFieldTypes.Text;
+    }
+  };
+
+  const getFieldError = (
+    translator: ClerkTranslator | undefined,
+    field: keyof ClerkTranslatorTextField
+  ) => {
+    const type = getFieldType(field);
+    const fieldValue = (translator && translator[field]) || '';
+
+    return Utils.inspectCustomTextFieldErrors(type, fieldValue, false) || '';
+  };
+
   // I18n
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorOverview.translatorDetails.fields',
@@ -77,9 +80,7 @@ export const ClerkTranslatorDetailsFields = ({
     keyPrefix: 'akt.component.clerkTranslatorOverview.translatorDetails',
   });
 
-  const getCommonTextFieldProps = (
-    field: keyof ClerkTranslatorBasicInformation
-  ) => ({
+  const getCommonTextFieldProps = (field: keyof ClerkTranslatorTextField) => ({
     field,
     translator,
     disabled: editDisabled,
@@ -95,32 +96,40 @@ export const ClerkTranslatorDetailsFields = ({
         {controlButtons}
       </div>
       <div className="grid-columns gapped">
-        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('lastName')} />
-        <ClerkTranslatorDetailsField
+        <ClerkTranslatorDetailsTextField
+          {...getCommonTextFieldProps('lastName')}
+        />
+        <ClerkTranslatorDetailsTextField
           {...getCommonTextFieldProps('firstName')}
         />
-        <ClerkTranslatorDetailsField
+        <ClerkTranslatorDetailsTextField
           {...getCommonTextFieldProps('identityNumber')}
         />
       </div>
       <H3>{t('header.address')}</H3>
       <div className="grid-columns gapped">
-        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('street')} />
-        <ClerkTranslatorDetailsField
+        <ClerkTranslatorDetailsTextField
+          {...getCommonTextFieldProps('street')}
+        />
+        <ClerkTranslatorDetailsTextField
           {...getCommonTextFieldProps('postalCode')}
         />
-        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('town')} />
-        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('country')} />
+        <ClerkTranslatorDetailsTextField {...getCommonTextFieldProps('town')} />
+        <ClerkTranslatorDetailsTextField
+          {...getCommonTextFieldProps('country')}
+        />
       </div>
       <H3>{t('header.contactInformation')}</H3>
       <div className="grid-columns gapped">
-        <ClerkTranslatorDetailsField {...getCommonTextFieldProps('email')} />
-        <ClerkTranslatorDetailsField
+        <ClerkTranslatorDetailsTextField
+          {...getCommonTextFieldProps('email')}
+        />
+        <ClerkTranslatorDetailsTextField
           {...getCommonTextFieldProps('phoneNumber')}
         />
       </div>
       <H3>{t('header.extraInformation')}</H3>
-      <ClerkTranslatorDetailsField
+      <ClerkTranslatorDetailsTextField
         {...getCommonTextFieldProps('extraInformation')}
         multiline
         fullWidth

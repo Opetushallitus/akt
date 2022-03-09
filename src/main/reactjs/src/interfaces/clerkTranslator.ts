@@ -19,6 +19,7 @@ export interface ClerkTranslatorBasicInformation {
   town?: string;
   country?: string;
   extraInformation?: string;
+  isAssuranceGiven: boolean;
 }
 
 export interface ClerkTranslatorResponse

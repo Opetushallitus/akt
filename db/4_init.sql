@@ -17,7 +17,8 @@ VALUES ('2022-11-01');
 INSERT INTO meeting_date(date)
 VALUES ('2025-01-01');
 
-INSERT INTO translator(identity_number, first_name, last_name, email, phone_number, street, town, postal_code, country, extra_information)
+INSERT INTO translator(identity_number, first_name, last_name, email, phone_number, street, town, postal_code, country,
+                       extra_information, is_assurance_given)
 SELECT 'id' || i::text,
        first_names[mod(i, array_length(first_names, 1)) + 1],
        last_names[mod(i, array_length(last_names, 1)) + 1],
@@ -33,7 +34,8 @@ SELECT 'id' || i::text,
        CASE mod(i, 7)
            WHEN 0 THEN 'Latvia'
            ELSE country[mod(i, array_length(country, 1)) + 1] END,
-       extra_information[mod(i, array_length(extra_information, 1)) + 1]
+       extra_information[mod(i, array_length(extra_information, 1)) + 1],
+       mod(i, 19) <> 0
 FROM generate_series(1, 4900) AS i,
      (SELECT ('{Antti, Eero, Ilkka, Jari, Juha, Matti, Pekka, Timo, Iiro, Jukka, Kalle, ' ||
               'Kari, Marko, Mikko, Tapani, Ville, Anneli, Ella, Hanna, Iiris, Liisa, ' ||

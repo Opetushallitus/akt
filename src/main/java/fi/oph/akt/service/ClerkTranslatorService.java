@@ -122,6 +122,7 @@ public class ClerkTranslatorService {
           .town(translator.getTown())
           .country(translator.getCountry())
           .extraInformation(translator.getExtraInformation())
+          .isAssuranceGiven(translator.isAssuranceGiven())
           .authorisations(authorisationDTOS)
           .build();
       })
@@ -226,6 +227,7 @@ public class ClerkTranslatorService {
     translator.setPostalCode(dto.postalCode());
     translator.setCountry(dto.country());
     translator.setExtraInformation(dto.extraInformation());
+    translator.setAssuranceGiven(dto.isAssuranceGiven());
   }
 
   @Transactional

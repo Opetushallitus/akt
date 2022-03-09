@@ -161,25 +161,28 @@ class PublicTranslatorServiceTest {
   private void createVariousTranslators(final MeetingDate meetingDate) {
     int i = 0;
     // Term active
-    createTranslator(meetingDate, LocalDate.now(), LocalDate.now().plusDays(1), true, i++);
+    createTranslator(meetingDate, LocalDate.now(), LocalDate.now().plusDays(1), true, true, i++);
 
     // Term active
-    createTranslator(meetingDate, LocalDate.now().minusDays(1), LocalDate.now(), true, i++);
+    createTranslator(meetingDate, LocalDate.now().minusDays(1), LocalDate.now(), true, true, i++);
 
     // Term active (no end date)
-    createTranslator(meetingDate, LocalDate.now(), null, true, i++);
+    createTranslator(meetingDate, LocalDate.now(), null, true, true, i++);
 
     // Term active but no permission given
-    createTranslator(meetingDate, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), false, i++);
+    createTranslator(meetingDate, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), false, true, i++);
+
+    // Term active, but not assured
+    createTranslator(meetingDate, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), true, false, i++);
 
     // Term ended
-    createTranslator(meetingDate, LocalDate.now().minusDays(10), LocalDate.now().minusDays(1), true, i++);
+    createTranslator(meetingDate, LocalDate.now().minusDays(10), LocalDate.now().minusDays(1), true, true, i++);
 
     // Term in future
-    createTranslator(meetingDate, LocalDate.now().plusDays(1), LocalDate.now().plusDays(10), true, i++);
+    createTranslator(meetingDate, LocalDate.now().plusDays(1), LocalDate.now().plusDays(10), true, true, i++);
 
     // Term in future (no end date)
-    createTranslator(meetingDate, LocalDate.now().plusDays(1), null, true, i++);
+    createTranslator(meetingDate, LocalDate.now().plusDays(1), null, true, true, i);
   }
 
   private void createTranslator(
@@ -187,6 +190,7 @@ class PublicTranslatorServiceTest {
     final LocalDate termBeginDate,
     final LocalDate termEndDate,
     final boolean permissionToPublish,
+    final boolean isAssuranceGiven,
     final int i
   ) {
     final Translator translator = Factory.translator();
@@ -194,6 +198,7 @@ class PublicTranslatorServiceTest {
     translator.setLastName("Suku" + i);
     translator.setTown("Kaupunki" + i);
     translator.setCountry("Maa" + i);
+    translator.setAssuranceGiven(isAssuranceGiven);
 
     entityManager.persist(translator);
     createAuthorisation(translator, meetingDate, termBeginDate, termEndDate, permissionToPublish, "EN");

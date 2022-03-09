@@ -21,7 +21,7 @@ public interface AuthorisationRepository extends JpaRepository<Authorisation, Lo
     "SELECT new fi.oph.akt.repository.TranslatorLanguagePairProjection(t.id, a.fromLang, a.toLang)" +
     " FROM Authorisation a" +
     " JOIN a.translator t" +
-    " WHERE a.permissionToPublish = true" +
+    " WHERE t.isAssuranceGiven = true AND a.permissionToPublish = true" +
     " AND a.termBeginDate IS NOT NULL AND CURRENT_DATE >= a.termBeginDate" +
     " AND (a.termEndDate IS NULL OR CURRENT_DATE <= a.termEndDate)" +
     " GROUP BY t.id, a.fromLang, a.toLang"

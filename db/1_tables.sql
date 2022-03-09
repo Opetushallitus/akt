@@ -303,7 +303,8 @@ CREATE TABLE public.translator (
     town text,
     postal_code text,
     country text,
-    extra_information text
+    extra_information text,
+    is_assurance_given boolean NOT NULL
 );
 
 
