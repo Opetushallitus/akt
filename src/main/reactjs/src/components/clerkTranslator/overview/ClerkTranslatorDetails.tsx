@@ -7,7 +7,6 @@ import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { Color, Severity, UIMode, Variant } from 'enums/app';
-import { usePrevious } from 'hooks/usePrevious';
 import {
   ClerkTranslator,
   ClerkTranslatorBasicInformation,
@@ -85,7 +84,6 @@ export const ClerkTranslatorDetails = () => {
   const [translatorDetails, setTranslatorDetails] =
     useState(selectedTranslator);
   const [currentUIMode, setCurrentUIMode] = useState(UIMode.View);
-  const prevTranslatorDetails = usePrevious(translatorDetails);
   const isViewMode = currentUIMode !== UIMode.EditTranslatorDetails;
   const resetLocalStateFromRedux = useCallback(() => {
     setTranslatorDetails(selectedTranslator);
@@ -100,8 +98,7 @@ export const ClerkTranslatorDetails = () => {
   useEffect(() => {
     if (
       translatorDetailsStatus === APIResponseStatus.Success &&
-      currentUIMode === UIMode.EditTranslatorDetails &&
-      selectedTranslator?.version != prevTranslatorDetails?.version
+      currentUIMode === UIMode.EditTranslatorDetails
     ) {
       const toast = Utils.createNotifierToast(
         Severity.Success,
@@ -122,9 +119,7 @@ export const ClerkTranslatorDetails = () => {
   }, [
     currentUIMode,
     dispatch,
-    prevTranslatorDetails?.version,
     resetLocalStateFromRedux,
-    selectedTranslator?.version,
     t,
     translatorDetailsStatus,
   ]);

@@ -143,7 +143,7 @@ export enum Direction {
 export enum UIMode {
   View = 'view',
   EditTranslatorDetails = 'editTranslatorDetails',
-  EditAuthorizationDetails = 'editAuthorizationDetails',
+  EditAuthorisationDetails = 'editAuthorisationDetails',
 }
 
 export enum HeaderTabNav {

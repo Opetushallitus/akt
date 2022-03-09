@@ -105,7 +105,7 @@ class ClerkTranslatorOverviewPage {
       case UIMode.EditTranslatorDetails:
         this.elements.cancelTranslatorInfoBtn().should('be.visible');
         break;
-      case UIMode.EditAuthorizationDetails:
+      case UIMode.EditAuthorisationDetails:
         // not implemented yet
         assert(false);
     }
@@ -180,7 +180,6 @@ export const translatorResponse: ClerkTranslatorResponse = {
       termEndDate: '2022-01-17',
       permissionToPublish: true,
       diaryNumber: '2',
-      meetingDate: '2021-12-20',
       autDate: '2022-03-03',
     },
     {
@@ -195,7 +194,6 @@ export const translatorResponse: ClerkTranslatorResponse = {
       termEndDate: '2022-01-17',
       permissionToPublish: true,
       diaryNumber: '7266',
-      meetingDate: '2021-12-20',
       autDate: '2022-03-03',
     },
   ],
