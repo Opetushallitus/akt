@@ -79,6 +79,27 @@ exports[`Footer should render Footer correctly 1`] = `
             </svg>
           </span>
         </a>
+        <a
+          className="MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButtonBase-root footer__container--links__contact-email css-1y942vo-MuiButtonBase-root-MuiButton-root"
+          href="mailto:contactEmail"
+          onBlur={[Function]}
+          onContextMenu={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          rel="noreferrer"
+          tabIndex={0}
+          target="_blank"
+        >
+          contactEmail
+        </a>
       </div>
       <div
         className="footer__container footer__container--contact-details"
