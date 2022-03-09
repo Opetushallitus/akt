@@ -4,6 +4,7 @@ import {
   onClerkTranslatorOverviewPage,
   translatorResponse,
 } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
+import { onDialog } from 'tests/cypress/support/page-objects/dialog';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
 
 beforeEach(() => {
@@ -25,7 +26,7 @@ beforeEach(() => {
 });
 
 describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
-  it('should open view mode when the edit button is clicked', () => {
+  it('should open edit mode when the edit button is clicked', () => {
     onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
     cy.wait('@getClerkTranslatorOverview');
 
@@ -34,12 +35,28 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     onClerkTranslatorOverviewPage.expectMode(UIMode.EditTranslatorDetails);
   });
 
-  it('should return to view mode when the cancel button is clicked', () => {
+  it('should open a confirmation dialog when cancel is clicked and stay in edit mode if user backs out', () => {
     onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
     cy.wait('@getClerkTranslatorOverview');
-
     onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();
+
     onClerkTranslatorOverviewPage.clickCancelTranslatorInfoBtn();
+
+    onDialog.expectText('Haluatko poistua muokkausnäkymästä?');
+    onDialog.clickButtonByText('Takaisin');
+
+    onClerkTranslatorOverviewPage.expectMode(UIMode.EditTranslatorDetails);
+  });
+
+  it('should open a confirmation dialog when cancel is clicked and return to view mode if user confirms', () => {
+    onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
+    cy.wait('@getClerkTranslatorOverview');
+    onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();
+
+    onClerkTranslatorOverviewPage.clickCancelTranslatorInfoBtn();
+
+    onDialog.expectText('Haluatko poistua muokkausnäkymästä?');
+    onDialog.clickButtonByText('Kyllä');
 
     onClerkTranslatorOverviewPage.expectMode(UIMode.View);
   });

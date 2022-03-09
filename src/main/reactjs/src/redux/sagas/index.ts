@@ -5,6 +5,7 @@ import { watchClerkTranslatorOverview } from 'redux/sagas/clerkTranslatorOvervie
 import { watchFetchClerkUser } from 'redux/sagas/clerkUser';
 import { watchContactRequest } from 'redux/sagas/contactRequest';
 import { watchMeetingDates } from 'redux/sagas/meetingDate';
+import { watchClerkTranslatorDetailsNotifier } from 'redux/sagas/notifier/clerkTranslatorDetails';
 import { watchClerkTranslatorEmailNotifier } from 'redux/sagas/notifier/clerkTranslatorEmail';
 import { watchContactRequestNotifier } from 'redux/sagas/notifier/contactRequest';
 import { watchFetchPublicTranslators } from 'redux/sagas/publicTranslator';
@@ -17,6 +18,7 @@ export default function* rootSaga() {
     watchContactRequestNotifier(),
     watchClerkTranslatorEmailNotifier(),
     watchClerkTranslatorOverview(),
+    watchClerkTranslatorDetailsNotifier(),
     watchFetchClerkUser(),
     watchMeetingDates(),
   ]);

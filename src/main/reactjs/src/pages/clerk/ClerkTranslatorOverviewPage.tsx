@@ -22,20 +22,19 @@ export const ClerkTranslatorOverviewPage = () => {
   // Redux
   const dispatch = useAppDispatch();
   const { overviewStatus } = useAppSelector(clerkTranslatorOverviewSelector);
-  const { selectedTranslator } = useAppSelector(
-    clerkTranslatorOverviewSelector
-  );
+  const selectedTranslatorId = useAppSelector(clerkTranslatorOverviewSelector)
+    .selectedTranslator?.id;
   // React Router
   const navigate = useNavigate();
   const params = useParams();
 
   const isLoading =
-    overviewStatus === APIResponseStatus.InProgress || !selectedTranslator;
+    overviewStatus === APIResponseStatus.InProgress || !selectedTranslatorId;
 
   useEffect(() => {
     if (
       overviewStatus === APIResponseStatus.NotStarted &&
-      !selectedTranslator &&
+      !selectedTranslatorId &&
       params.translatorId
     ) {
       // Fetch translator overview
@@ -57,7 +56,7 @@ export const ClerkTranslatorOverviewPage = () => {
     dispatch,
     navigate,
     params.translatorId,
-    selectedTranslator,
+    selectedTranslatorId,
     t,
   ]);
 

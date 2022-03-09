@@ -145,6 +145,10 @@
             "email": "Sähköpostiosoite",
             "phoneNumber": "Puhelinnumero",
             "extraInformation": "Lisätiedot"
+          },
+          "cancelUpdateDialog": {
+            "title": "Haluatko poistua muokkausnäkymästä?",
+            "description": "Menetät tekemäsi muutokset."
           }
         },
         "authorisations": {
@@ -308,7 +312,8 @@
         "required": "Tieto on pakollinen",
         "maxLength": "Teksti on liian pitkä",
         "emailFormat": "Sähköpostiosoite on virheellinen",
-        "telFormat": "Puhelinnumero on virheellinen"
+        "telFormat": "Puhelinnumero on virheellinen",
+        "personalIdentityCodeFormat": "Henkilötunnuksen muotoa ei tunnistettu"
       }
     }
   }

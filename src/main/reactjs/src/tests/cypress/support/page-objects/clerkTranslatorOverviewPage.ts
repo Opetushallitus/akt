@@ -1,4 +1,4 @@
-import { AppRoutes } from 'enums/app';
+import { AppRoutes, UIMode } from 'enums/app';
 import { ClerkTranslatorResponse } from 'interfaces/clerkTranslator';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
 
@@ -96,10 +96,19 @@ class ClerkTranslatorOverviewPage {
     onToast.expectText('Valittua kääntäjää ei löytynyt');
   }
 
-  expectMode(mode: string) {
-    cy.location().should((loc) => {
-      expect(loc.search).to.eq(`?mode=${mode}`);
-    });
+  expectMode(mode: UIMode) {
+    switch (mode) {
+      case UIMode.View:
+        this.elements.addAuthorisationBtn().should('be.visible');
+        this.elements.editTranslatorInfoBtn().should('be.visible');
+        break;
+      case UIMode.EditTranslatorDetails:
+        this.elements.cancelTranslatorInfoBtn().should('be.visible');
+        break;
+      case UIMode.EditAuthorisationDetails:
+        // not implemented yet
+        assert(false);
+    }
   }
 
   expectTranslatorDetailsFields(translator: ClerkTranslatorResponse) {
@@ -171,7 +180,6 @@ export const translatorResponse: ClerkTranslatorResponse = {
       termEndDate: '2022-01-17',
       permissionToPublish: true,
       diaryNumber: '2',
-      meetingDate: '2021-12-20',
       autDate: '2022-03-03',
     },
     {
@@ -186,7 +194,6 @@ export const translatorResponse: ClerkTranslatorResponse = {
       termEndDate: '2022-01-17',
       permissionToPublish: true,
       diaryNumber: '7266',
-      meetingDate: '2021-12-20',
       autDate: '2022-03-03',
     },
   ],

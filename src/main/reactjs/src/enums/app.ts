@@ -41,6 +41,7 @@ export enum TextFieldTypes {
   Email = 'email',
   PhoneNumber = 'tel',
   Textarea = 'textarea',
+  PersonalIdentityCode = 'personalIdentityCode',
 }
 
 export enum CustomTextFieldErrors {
@@ -48,6 +49,7 @@ export enum CustomTextFieldErrors {
   MaxLength = 'errors.customTextField.maxLength',
   EmailFormat = 'errors.customTextField.emailFormat',
   TelFormat = 'errors.customTextField.telFormat',
+  PersonalIdentityCodeFormat = 'errors.customTextField.personalIdentityCodeFormat',
 }
 
 export enum NotifierTypes {
@@ -141,7 +143,7 @@ export enum Direction {
 export enum UIMode {
   View = 'view',
   EditTranslatorDetails = 'editTranslatorDetails',
-  EditAuthorizationDetails = 'editAuthorizationDetails',
+  EditAuthorisationDetails = 'editAuthorisationDetails',
 }
 
 export enum HeaderTabNav {

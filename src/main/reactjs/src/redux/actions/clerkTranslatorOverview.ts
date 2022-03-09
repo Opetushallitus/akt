@@ -3,6 +3,7 @@ import {
   CLERK_TRANSLATOR_OVERVIEW_FETCH,
   CLERK_TRANSLATOR_OVERVIEW_LOAD,
   CLERK_TRANSLATOR_OVERVIEW_LOADING,
+  CLERK_TRANSLATOR_OVERVIEW_RESET_UPDATE,
   CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS,
 } from 'redux/actionTypes/clerkTranslatorOverview';
 
@@ -20,6 +21,10 @@ export const loadClerkTranslatorOverview = (translator: ClerkTranslator) => ({
   type: CLERK_TRANSLATOR_OVERVIEW_LOAD,
   translator,
 });
+
+export const resetClerkTranslatorDetailsUpdate = {
+  type: CLERK_TRANSLATOR_OVERVIEW_RESET_UPDATE,
+};
 
 export const startLoadingClerkTranslatorOverview = {
   type: CLERK_TRANSLATOR_OVERVIEW_LOADING,
