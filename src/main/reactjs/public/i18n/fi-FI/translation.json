@@ -250,7 +250,7 @@
           "from": "Mistä",
           "to": "Mihin",
           "termBeginDate": "Alkamispäivä",
-          "termEndDate": "Päätymispäivä",
+          "termEndDate": "Päättymispäivä",
           "autDate": "Tutkintopäivä (AUT)",
           "basis": "Peruste",
           "diaryNumber": "Asiatunnus"
