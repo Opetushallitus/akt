@@ -249,8 +249,9 @@
         "fieldLabels": {
           "from": "Mistä",
           "to": "Mihin",
-          "startDate": "Alkamispäivä",
-          "endDate": "Päätymispäivä",
+          "termBeginDate": "Alkamispäivä",
+          "termEndDate": "Päätymispäivä",
+          "autDate": "Tutkintopäivä (AUT)",
           "basis": "Peruste",
           "diaryNumber": "Asiatunnus"
         },

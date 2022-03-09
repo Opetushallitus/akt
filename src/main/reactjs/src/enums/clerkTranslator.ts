@@ -7,3 +7,9 @@ export enum AuthorisationStatus {
   Expired = 'expired',
   FormerVIR = 'formerVIR',
 }
+
+export enum AuthorisationBasisEnum {
+  AUT = 'AUT',
+  KKT = 'KKT',
+  VIR = 'VIR',
+}

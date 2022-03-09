@@ -2,8 +2,7 @@ import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
 import { MeetingStatus } from 'enums/meetingDate';
-import { WithId } from 'interfaces/withId';
-import { WithVersion } from 'interfaces/withVersion';
+import { WithId, WithVersion } from 'interfaces/with';
 import {
   MEETING_DATE_ADD,
   MEETING_DATE_REMOVE,

@@ -1,7 +1,8 @@
+import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { LanguagePair } from 'interfaces/languagePair';
 import { WithId, WithVersion } from 'interfaces/with';
 
-export type AuthorisationBasis = 'AUT' | 'KKT' | 'VIR';
+export type AuthorisationBasis = keyof typeof AuthorisationBasisEnum;
 
 export interface Authorisation
   extends Omit<

@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import { getCurrentLang, supportedLangs } from 'configs/i18n';
 import { AppLanguage } from 'enums/app';
 
@@ -8,11 +10,10 @@ const getDateTimeFormatter = (lang: AppLanguage) => {
 };
 
 export class DateUtils {
-  static newDate(dateChange: number) {
-    const date = new Date();
-    date.setDate(date.getDate() + dateChange);
+  static dayjs() {
+    dayjs.locale(getCurrentLang());
 
-    return date;
+    return dayjs;
   }
 
   static formatOptionalDate(date?: Date) {
@@ -45,29 +46,11 @@ export class DateUtils {
   }
 
   static isDatePartBefore(before: Date, after: Date) {
-    // Compare years
-    if (before.getFullYear() < after.getFullYear()) {
-      return true;
-    } else if (before.getFullYear() > after.getFullYear()) {
-      return false;
-    }
-    // Equal years, compare months
-    if (before.getMonth() < after.getMonth()) {
-      return true;
-    } else if (before.getMonth() > after.getMonth()) {
-      return false;
-    }
-
-    // Equal months, finally compare dates
-    return before.getDate() < after.getDate();
+    return dayjs(before).isBefore(after);
   }
 
   static isDatePartEqual(before: Date, after: Date) {
-    return (
-      before.getFullYear() === after.getFullYear() &&
-      before.getMonth() === after.getMonth() &&
-      before.getDate() === after.getDate()
-    );
+    return dayjs(before).isSame(after);
   }
 
   static isDatePartBeforeOrEqual(before: Date, after: Date) {
