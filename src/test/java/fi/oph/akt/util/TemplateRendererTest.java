@@ -58,7 +58,7 @@ class TemplateRendererTest {
     final String renderedContent = templateRenderer.renderContactRequestClerkEmailBody(
       Map.of(
         "translators",
-        List.of(Map.of("id", "1", "name", "Jack Smith", "phone", "+358 400 888 666")),
+        List.of(Map.of("id", "1", "name", "Jack Smith")),
         "requesterName",
         "John Doe",
         "requesterEmail",
@@ -70,9 +70,8 @@ class TemplateRendererTest {
 
     assertNotNull(renderedContent);
     assertTrue(renderedContent.contains("<html "));
-    assertTrue(renderedContent.contains("1"));
     assertTrue(renderedContent.contains("Jack Smith"));
-    assertTrue(renderedContent.contains("+358 400 888 666"));
+    assertTrue(renderedContent.contains("https://virkailija.opintopolku.fi/akt/virkailija/kaantaja/1"));
     assertTrue(renderedContent.contains("John Doe"));
     assertTrue(renderedContent.contains("john.doe@unknown.invalid"));
     assertTrue(renderedContent.contains("+358 400 888 777"));
