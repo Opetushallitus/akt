@@ -1,8 +1,6 @@
-import { TextField, TextFieldProps } from '@mui/material';
+import { TextField } from '@mui/material';
 
-export type CustomTextFieldProps = {
-  showHelperText?: boolean;
-} & TextFieldProps;
+import { CustomTextFieldProps } from 'interfaces/components/customTextField';
 
 export const CustomTextField = ({
   error,

@@ -1,4 +1,4 @@
-import { WithId } from 'interfaces/withId';
+import { WithId } from 'interfaces/with';
 export interface PaginatedTableProps<T extends WithId> {
   header?: JSX.Element;
   data: Array<T>;

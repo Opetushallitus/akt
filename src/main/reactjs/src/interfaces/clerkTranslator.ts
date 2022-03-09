@@ -5,8 +5,7 @@ import {
   AuthorisationBasis,
   AuthorisationResponse,
 } from 'interfaces/authorisation';
-import { WithId } from 'interfaces/withId';
-import { WithVersion } from 'interfaces/withVersion';
+import { WithId, WithVersion } from 'interfaces/with';
 
 export interface ClerkTranslatorBasicInformation {
   firstName: string;

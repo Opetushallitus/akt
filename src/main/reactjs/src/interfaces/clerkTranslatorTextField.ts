@@ -1,10 +1,10 @@
-import { CustomTextFieldProps } from 'interfaces/customTextField';
 import { ChangeEvent } from 'react';
 
 import {
   ClerkTranslator,
   ClerkTranslatorBasicInformation,
 } from 'interfaces/clerkTranslator';
+import { CustomTextFieldProps } from 'interfaces/components/customTextField';
 
 export type ClerkTranslatorTextField = Omit<
   ClerkTranslatorBasicInformation,
