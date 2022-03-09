@@ -7,9 +7,11 @@ import { TextFieldTypes } from 'enums/app';
 import {
   ClerkTranslator,
   ClerkTranslatorBasicInformation,
-  ClerkTranslatorTextField,
 } from 'interfaces/clerkTranslator';
-import { ClerkTranslatorTextFieldProps } from 'interfaces/clerkTranslatorTextField';
+import {
+  ClerkTranslatorTextField,
+  ClerkTranslatorTextFieldProps,
+} from 'interfaces/clerkTranslatorTextField';
 import { Utils } from 'utils';
 
 const ClerkTranslatorDetailsTextField = ({
