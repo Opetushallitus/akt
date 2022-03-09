@@ -3,11 +3,8 @@ TRUNCATE meeting_date CASCADE;
 TRUNCATE email CASCADE;
 
 INSERT INTO meeting_date(date)
-SELECT meeting_dates[i]
-FROM generate_series(1, 13) AS i,
-     (SELECT ('{2020-12-30, 2021-03-09, 2021-06-10, 2021-08-15, 2021-11-18, 2022-01-01, 2022-05-14, 2022-09-25, ' ||
-              '2022-12-03, 2023-02-28, 2023-04-11, 2023-09-09, 2023-11-29}')::date[] AS meeting_dates
-     ) AS meeting_dates_table;
+VALUES ('2020-12-30'), ('2021-03-09'), ('2021-06-10'), ('2021-08-15'), ('2021-11-18'), ('2022-01-01'), ('2022-05-14'),
+       ('2022-09-25'), ('2022-12-03'), ('2023-02-28'), ('2023-04-11'), ('2023-09-09'), ('2023-11-29');
 
 INSERT INTO translator(identity_number, first_name, last_name, email, phone_number, street, town, postal_code, country,
                        extra_information, is_assurance_given)
