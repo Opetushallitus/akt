@@ -15,7 +15,6 @@ public record AuthorisationDTO(
   LocalDate termEndDate,
   @NonNull Boolean permissionToPublish,
   String diaryNumber,
-  LocalDate meetingDate,
   LocalDate autDate
 ) {
   // Workaround for bug in IntelliJ lombok plugin

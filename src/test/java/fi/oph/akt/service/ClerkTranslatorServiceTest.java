@@ -1,11 +1,9 @@
 package fi.oph.akt.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -304,7 +302,6 @@ class ClerkTranslatorServiceTest {
     assertEquals(authorisation.getTermEndDate(), authorisationDTO.termEndDate());
     assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertEquals(authorisation.getAutDate(), authorisationDTO.autDate());
-    assertEquals(meetingDate.getDate(), authorisationDTO.meetingDate());
   }
 
   @Test
@@ -327,7 +324,6 @@ class ClerkTranslatorServiceTest {
     assertEquals(authorisation.getTermEndDate(), authorisationDTO.termEndDate());
     assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertNull(authorisationDTO.autDate());
-    assertEquals(meetingDate.getDate(), authorisationDTO.meetingDate());
   }
 
   @Test
@@ -337,7 +333,7 @@ class ClerkTranslatorServiceTest {
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
 
     authorisation.setBasis(AuthorisationBasis.VIR);
-    authorisation.setTermBeginDate(LocalDate.now().minusYears(1));
+    authorisation.setTermBeginDate(meetingDate.getDate());
     authorisation.setTermEndDate(null);
 
     entityManager.persist(meetingDate);
@@ -352,17 +348,12 @@ class ClerkTranslatorServiceTest {
     assertNull(authorisationDTO.termEndDate());
     assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertNull(authorisationDTO.autDate());
-    assertEquals(meetingDate.getDate(), authorisationDTO.meetingDate());
   }
 
   @Test
   public void listShouldReturnProperDataForTranslatorWithFormerVIRBasis() {
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, null);
-
-    authorisation.setBasis(AuthorisationBasis.VIR);
-    authorisation.setTermBeginDate(null);
-    authorisation.setTermEndDate(null);
 
     entityManager.persist(translator);
     entityManager.persist(authorisation);
@@ -375,7 +366,6 @@ class ClerkTranslatorServiceTest {
     assertNull(authorisationDTO.termEndDate());
     assertEquals(authorisation.getDiaryNumber(), authorisationDTO.diaryNumber());
     assertNull(authorisationDTO.autDate());
-    assertNull(authorisationDTO.meetingDate());
   }
 
   @Test
@@ -384,35 +374,23 @@ class ClerkTranslatorServiceTest {
     final MeetingDate meetingDate2 = Factory.meetingDate(LocalDate.of(2018, 6, 1));
     final Translator translator = Factory.translator();
 
-    //
-    final Authorisation authorisation1 = Factory.authorisation(translator, meetingDate1);
-    final LocalDate term1BeginDate = meetingDate1.getDate();
-    final LocalDate term1EndDate = term1BeginDate.plusYears(3);
+    final Authorisation autAuth = Factory.authorisation(translator, meetingDate1);
+    autAuth.setBasis(AuthorisationBasis.AUT);
+    autAuth.setFromLang(RU);
+    autAuth.setToLang(FI);
+    autAuth.setPermissionToPublish(true);
 
-    authorisation1.setBasis(AuthorisationBasis.AUT);
-    authorisation1.setTermBeginDate(term1BeginDate);
-    authorisation1.setTermEndDate(term1EndDate);
-    authorisation1.setFromLang(RU);
-    authorisation1.setToLang(FI);
-    authorisation1.setPermissionToPublish(true);
-
-    //
-    final Authorisation authorisation2 = Factory.authorisation(translator, meetingDate2);
-    final LocalDate term2BeginDate = meetingDate2.getDate();
-    final LocalDate term2EndDate = term2BeginDate.plusYears(3);
-
-    authorisation2.setBasis(AuthorisationBasis.KKT);
-    authorisation2.setTermBeginDate(term2BeginDate);
-    authorisation2.setTermEndDate(term2EndDate);
-    authorisation2.setFromLang(FI);
-    authorisation2.setToLang(EN);
-    authorisation2.setPermissionToPublish(false);
+    final Authorisation kktAuth = Factory.authorisation(translator, meetingDate2);
+    kktAuth.setBasis(AuthorisationBasis.KKT);
+    kktAuth.setFromLang(FI);
+    kktAuth.setToLang(EN);
+    kktAuth.setPermissionToPublish(false);
 
     entityManager.persist(meetingDate1);
     entityManager.persist(meetingDate2);
     entityManager.persist(translator);
-    entityManager.persist(authorisation1);
-    entityManager.persist(authorisation2);
+    entityManager.persist(autAuth);
+    entityManager.persist(kktAuth);
 
     final ClerkTranslatorResponseDTO responseDTO = clerkTranslatorService.listTranslators();
     final List<AuthorisationDTO> authorisationDTOS = responseDTO.translators().get(0).authorisations();
@@ -431,38 +409,30 @@ class ClerkTranslatorServiceTest {
       .toList()
       .get(0);
 
-    assertEquals(meetingDate1.getDate(), autAuthorisationDTO.meetingDate());
-    assertEquals(term1BeginDate, autAuthorisationDTO.termBeginDate());
-    assertEquals(term1EndDate, autAuthorisationDTO.termEndDate());
-    assertEquals(RU, autAuthorisationDTO.languagePair().from());
-    assertEquals(FI, autAuthorisationDTO.languagePair().to());
-    assertTrue(autAuthorisationDTO.permissionToPublish());
+    assertEquals(autAuth.getTermBeginDate(), autAuthorisationDTO.termBeginDate());
+    assertEquals(autAuth.getTermEndDate(), autAuthorisationDTO.termEndDate());
+    assertEquals(autAuth.getFromLang(), autAuthorisationDTO.languagePair().from());
+    assertEquals(autAuth.getToLang(), autAuthorisationDTO.languagePair().to());
+    assertEquals(autAuth.isPermissionToPublish(), autAuthorisationDTO.permissionToPublish());
 
-    assertEquals(meetingDate2.getDate(), kktAuthorisationDTO.meetingDate());
-    assertEquals(term2BeginDate, kktAuthorisationDTO.termBeginDate());
-    assertEquals(term2EndDate, kktAuthorisationDTO.termEndDate());
-    assertEquals(FI, kktAuthorisationDTO.languagePair().from());
-    assertEquals(EN, kktAuthorisationDTO.languagePair().to());
-    assertFalse(kktAuthorisationDTO.permissionToPublish());
+    assertEquals(kktAuth.getTermBeginDate(), kktAuthorisationDTO.termBeginDate());
+    assertEquals(kktAuth.getTermEndDate(), kktAuthorisationDTO.termEndDate());
+    assertEquals(kktAuth.getFromLang(), kktAuthorisationDTO.languagePair().from());
+    assertEquals(kktAuth.getToLang(), kktAuthorisationDTO.languagePair().to());
+    assertEquals(kktAuth.isPermissionToPublish(), kktAuthorisationDTO.permissionToPublish());
   }
 
   @Test
   public void listShouldReturnTranslatorsAuthorisationsOrderedByTermBeginDate() {
-    final MeetingDate meetingDate = Factory.meetingDate();
+    final MeetingDate meetingDate1 = Factory.meetingDate(LocalDate.now().minusYears(1));
+    final MeetingDate meetingDate2 = Factory.meetingDate(LocalDate.now());
     final Translator translator = Factory.translator();
+    final Authorisation authorisation1 = Factory.authorisation(translator, meetingDate1);
+    final Authorisation authorisation2 = Factory.authorisation(translator, meetingDate2);
+    final Authorisation authorisation3 = Factory.authorisation(translator, null);
 
-    final Authorisation authorisation1 = Factory.authorisation(translator, meetingDate);
-    authorisation1.setTermBeginDate(LocalDate.now().minusYears(1));
-
-    final Authorisation authorisation2 = Factory.authorisation(translator, meetingDate);
-    authorisation2.setTermBeginDate(LocalDate.now());
-
-    final Authorisation authorisation3 = Factory.authorisation(translator, meetingDate);
-    authorisation3.setBasis(AuthorisationBasis.VIR);
-    authorisation3.setTermBeginDate(null);
-    authorisation3.setTermEndDate(null);
-
-    entityManager.persist(meetingDate);
+    entityManager.persist(meetingDate1);
+    entityManager.persist(meetingDate2);
     entityManager.persist(translator);
     entityManager.persist(authorisation1);
     entityManager.persist(authorisation2);
@@ -478,17 +448,16 @@ class ClerkTranslatorServiceTest {
 
   @Test
   public void testTranslatorCreate() {
-    final MeetingDate meetingDate = Factory.meetingDate();
+    final MeetingDate meetingDate = Factory.meetingDate(LocalDate.now().minusDays(10));
     entityManager.persist(meetingDate);
 
     final AuthorisationCreateDTO expectedAuth = AuthorisationCreateDTO
       .builder()
       .basis(AuthorisationBasis.KKT)
-      .meetingDate(meetingDate.getDate())
       .from(FI)
       .to(SV)
       .permissionToPublish(true)
-      .termBeginDate(LocalDate.now())
+      .termBeginDate(meetingDate.getDate())
       .termEndDate(LocalDate.now().plusDays(1))
       .diaryNumber("012345")
       .build();
@@ -627,7 +596,7 @@ class ClerkTranslatorServiceTest {
 
   @Test
   public void testAuthorisationCreate() {
-    final MeetingDate meetingDate = Factory.meetingDate();
+    final MeetingDate meetingDate = Factory.meetingDate(LocalDate.now().minusYears(1));
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
 
@@ -638,11 +607,10 @@ class ClerkTranslatorServiceTest {
     final AuthorisationCreateDTO createDTO = AuthorisationCreateDTO
       .builder()
       .basis(AuthorisationBasis.KKT)
-      .meetingDate(meetingDate.getDate())
       .from(FI)
       .to(SV)
       .permissionToPublish(true)
-      .termBeginDate(LocalDate.now())
+      .termBeginDate(meetingDate.getDate())
       .termEndDate(LocalDate.now().plusDays(1))
       .diaryNumber("012345")
       .build();
@@ -682,11 +650,10 @@ class ClerkTranslatorServiceTest {
       .id(authorisation.getId())
       .version(authorisation.getVersion())
       .basis(AuthorisationBasis.KKT)
-      .meetingDate(meetingDate2.getDate())
       .from(FI)
       .to(SV)
       .permissionToPublish(!authorisation.isPermissionToPublish())
-      .termBeginDate(authorisation.getTermBeginDate().minusDays(1))
+      .termBeginDate(meetingDate2.getDate())
       .termEndDate(authorisation.getTermEndDate().plusDays(1))
       .diaryNumber("012345")
       .build();
@@ -710,7 +677,6 @@ class ClerkTranslatorServiceTest {
   ) {
     assertEquals(expected.basis(), authorisationDTO.basis());
     assertEquals(expected.autDate(), authorisationDTO.autDate());
-    assertEquals(expected.meetingDate(), authorisationDTO.meetingDate());
     assertEquals(expected.from(), authorisationDTO.languagePair().from());
     assertEquals(expected.to(), authorisationDTO.languagePair().to());
     assertEquals(expected.permissionToPublish(), authorisationDTO.permissionToPublish());
@@ -807,8 +773,7 @@ class ClerkTranslatorServiceTest {
 
   @Test
   public void testAuthorisationCreateFailsOnMissingMeetingDate() {
-    final LocalDate date = LocalDate.of(2022, 1, 19);
-    final MeetingDate meetingDate = Factory.meetingDate(date.plusDays(1));
+    final MeetingDate meetingDate = Factory.meetingDate(LocalDate.of(2020, 1, 10));
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
 
@@ -819,12 +784,11 @@ class ClerkTranslatorServiceTest {
     final AuthorisationCreateDTO createDTO = AuthorisationCreateDTO
       .builder()
       .basis(AuthorisationBasis.KKT)
-      .meetingDate(date)
       .from(FI)
       .to(SV)
       .permissionToPublish(true)
-      .termBeginDate(LocalDate.now())
-      .termEndDate(LocalDate.now().plusDays(1))
+      .termBeginDate(LocalDate.of(2021, 1, 10))
+      .termEndDate(LocalDate.of(2026, 1, 10))
       .diaryNumber("012345")
       .build();
 
@@ -832,7 +796,7 @@ class ClerkTranslatorServiceTest {
       RuntimeException.class,
       () -> clerkTranslatorService.createAuthorisation(translator.getId(), createDTO)
     );
-    assertEquals("Invalid meeting date: 2022-01-19", ex.getMessage());
+    assertEquals("Given termBeginDate: 2021-01-10 is not a meeting date", ex.getMessage());
 
     verifyNoInteractions(auditService);
   }

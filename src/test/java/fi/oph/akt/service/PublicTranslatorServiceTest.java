@@ -9,7 +9,6 @@ import fi.oph.akt.api.dto.LanguagePairsDictDTO;
 import fi.oph.akt.api.dto.translator.PublicTranslatorDTO;
 import fi.oph.akt.api.dto.translator.PublicTranslatorResponseDTO;
 import fi.oph.akt.model.Authorisation;
-import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.AuthorisationRepository;
@@ -96,11 +95,8 @@ class PublicTranslatorServiceTest {
   @Test
   public void listShouldNotReturnTranslatorsWithOnlyFormerVIRAuthorisations() {
     final Translator translator = Factory.translator();
-
     final Authorisation authorisation = Factory.authorisation(translator, null);
-    authorisation.setBasis(AuthorisationBasis.VIR);
-    authorisation.setTermBeginDate(null);
-    authorisation.setTermEndDate(null);
+
     authorisation.setPermissionToPublish(true);
 
     entityManager.persist(translator);

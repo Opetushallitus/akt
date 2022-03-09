@@ -150,7 +150,6 @@ public class ClerkTranslatorService {
           .termEndDate(authProjection.termEndDate())
           .permissionToPublish(authProjection.permissionToPublish())
           .diaryNumber(authProjection.diaryNumber())
-          .meetingDate(authProjection.meetingDate())
           .autDate(authProjection.autDate())
           .build();
       })
@@ -171,13 +170,10 @@ public class ClerkTranslatorService {
   @Transactional
   public ClerkTranslatorDTO createTranslator(final TranslatorCreateDTO dto) {
     final Translator translator = new Translator();
-
     copyDtoFieldsToTranslator(dto, translator);
-
     translatorRepository.saveAndFlush(translator);
 
     final Map<LocalDate, MeetingDate> meetingDates = getLocalDateMeetingDateMap();
-
     dto.authorisations().forEach(authDto -> createAuthorisation(translator, meetingDates, authDto));
 
     final ClerkTranslatorDTO result = getTranslatorWithoutAudit(translator.getId());
@@ -206,9 +202,7 @@ public class ClerkTranslatorService {
   public ClerkTranslatorDTO updateTranslator(final TranslatorUpdateDTO dto) {
     final Translator translator = translatorRepository.getById(dto.id());
     translator.assertVersion(dto.version());
-
     copyDtoFieldsToTranslator(dto, translator);
-
     translatorRepository.flush();
 
     final ClerkTranslatorDTO result = getTranslatorWithoutAudit(translator.getId());
@@ -267,7 +261,6 @@ public class ClerkTranslatorService {
     authorisation.setTranslator(translator);
 
     copyDtoFieldsToAuthorisation(dto, authorisation, meetingDates);
-
     authorisationRepository.saveAndFlush(authorisation);
 
     return authorisation;
@@ -275,13 +268,11 @@ public class ClerkTranslatorService {
 
   @Transactional
   public ClerkTranslatorDTO updateAuthorisation(final AuthorisationUpdateDTO dto) {
-    final Map<LocalDate, MeetingDate> meetingDates = getLocalDateMeetingDateMap();
-
     final Authorisation authorisation = authorisationRepository.getById(dto.id());
     authorisation.assertVersion(dto.version());
 
+    final Map<LocalDate, MeetingDate> meetingDates = getLocalDateMeetingDateMap();
     copyDtoFieldsToAuthorisation(dto, authorisation, meetingDates);
-
     authorisationRepository.flush();
 
     final Translator translator = authorisation.getTranslator();
@@ -296,10 +287,11 @@ public class ClerkTranslatorService {
     final Authorisation authorisation,
     final Map<LocalDate, MeetingDate> meetingDates
   ) {
-    final MeetingDate meetingDate = meetingDates.get(dto.meetingDate());
+    final MeetingDate meetingDate = meetingDates.get(dto.termBeginDate());
     if (meetingDate == null) {
-      throw new RuntimeException("Invalid meeting date: " + dto.meetingDate());
+      throw new RuntimeException(String.format("Given termBeginDate: %s is not a meeting date", dto.termBeginDate()));
     }
+
     authorisation.setBasis(dto.basis());
     authorisation.setFromLang(dto.from());
     authorisation.setToLang(dto.to());

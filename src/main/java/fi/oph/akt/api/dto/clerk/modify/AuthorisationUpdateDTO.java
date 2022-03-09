@@ -17,7 +17,6 @@ public record AuthorisationUpdateDTO(
   LocalDate termEndDate,
   @NonNull @NotNull Boolean permissionToPublish,
   String diaryNumber,
-  @NonNull @NotNull LocalDate meetingDate,
   LocalDate autDate
 )
   implements AuthorisationDTOCommonFields {

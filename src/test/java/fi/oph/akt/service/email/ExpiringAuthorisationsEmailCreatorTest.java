@@ -8,7 +8,6 @@ import static org.mockito.Mockito.verifyNoInteractions;
 
 import fi.oph.akt.Factory;
 import fi.oph.akt.model.Authorisation;
-import fi.oph.akt.model.AuthorisationBasis;
 import fi.oph.akt.model.AuthorisationTermReminder;
 import fi.oph.akt.model.Email;
 import fi.oph.akt.model.EmailType;
@@ -52,25 +51,26 @@ public class ExpiringAuthorisationsEmailCreatorTest {
 
   @Test
   public void testPollExpiringAuthorisations() {
-    final MeetingDate meetingDate = Factory.meetingDate();
+    final LocalDate date = LocalDate.now();
+    final MeetingDate meetingDate = Factory.meetingDate(date.minusYears(1));
     entityManager.persist(meetingDate);
 
-    final Authorisation auth1 = createAuthorisation(meetingDate, LocalDate.now(), "t1@invalid");
-    final Authorisation auth2 = createAuthorisation(meetingDate, LocalDate.now().plusDays(10), "t2@invalid");
-    final Authorisation auth3 = createAuthorisation(meetingDate, LocalDate.now().plusMonths(3), "t3@invalid");
+    final Authorisation auth1 = createAuthorisation(meetingDate, date, "t1@invalid");
+    final Authorisation auth2 = createAuthorisation(meetingDate, date.plusDays(10), "t2@invalid");
+    final Authorisation auth3 = createAuthorisation(meetingDate, date.plusMonths(3), "t3@invalid");
 
-    final Authorisation pastAuth = createAuthorisation(meetingDate, LocalDate.now().minusDays(1), "t4@invalid");
-    final Authorisation futureAuth = createAuthorisation(
+    final Authorisation expiredAuth = createAuthorisation(meetingDate, date.minusDays(1), "t4@invalid");
+    final Authorisation authExpiringLater = createAuthorisation(
       meetingDate,
-      LocalDate.now().plusMonths(3).plusDays(1),
+      date.plusMonths(3).plusDays(1),
       "t5@invalid"
     );
-    final Authorisation authWithoutTermEndDate = createAuthorisation(meetingDate, null, "t6@invalid");
+    final Authorisation authForFormerVIR = createAuthorisation(null, null, "t6@invalid");
 
-    final Authorisation remindedAuth1 = createAuthorisation(meetingDate, LocalDate.now().plusMonths(1), "t7@invalid");
+    final Authorisation remindedAuth1 = createAuthorisation(meetingDate, date.plusMonths(1), "t7@invalid");
     createAuthorisationTermReminder(remindedAuth1);
 
-    final Authorisation remindedAuth2 = createAuthorisation(meetingDate, LocalDate.now().plusMonths(2), "t8@invalid");
+    final Authorisation remindedAuth2 = createAuthorisation(meetingDate, date.plusMonths(2), "t8@invalid");
     createAuthorisationTermReminder(remindedAuth2);
     createAuthorisationTermReminder(remindedAuth2);
 
@@ -89,10 +89,10 @@ public class ExpiringAuthorisationsEmailCreatorTest {
 
   @Test
   public void testPollExpiringAuthorisationsWithTranslatorWithoutEmailAddress() {
-    final MeetingDate meetingDate = Factory.meetingDate();
+    final MeetingDate meetingDate = Factory.meetingDate(LocalDate.now().minusYears(1));
     entityManager.persist(meetingDate);
 
-    createAuthorisation(meetingDate, LocalDate.now(), null);
+    createAuthorisation(meetingDate, LocalDate.now().plusDays(10), null);
 
     emailCreator.pollExpiringAuthorisations();
 
@@ -110,14 +110,9 @@ public class ExpiringAuthorisationsEmailCreatorTest {
     translator.setEmail(translatorEmail);
     authorisation.setTermEndDate(termEndDate);
 
-    if (termEndDate != null) {
-      authorisation.setTermBeginDate(termEndDate.minusYears(1));
-    } else {
-      authorisation.setBasis(AuthorisationBasis.VIR);
-      authorisation.setTermBeginDate(null);
+    if (meetingDate != null) {
+      entityManager.persist(meetingDate);
     }
-
-    entityManager.persist(meetingDate);
     entityManager.persist(translator);
     entityManager.persist(authorisation);
 
