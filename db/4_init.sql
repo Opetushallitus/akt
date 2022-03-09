@@ -18,7 +18,7 @@ INSERT INTO meeting_date(date)
 VALUES ('2025-01-01');
 
 INSERT INTO translator(identity_number, first_name, last_name, email, phone_number, street, town, postal_code, country,
-                       extra_information, is_assured)
+                       extra_information, is_assurance_given)
 SELECT 'id' || i::text,
        first_names[mod(i, array_length(first_names, 1)) + 1],
        last_names[mod(i, array_length(last_names, 1)) + 1],

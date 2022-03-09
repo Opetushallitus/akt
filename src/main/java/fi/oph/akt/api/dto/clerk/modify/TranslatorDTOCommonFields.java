@@ -21,5 +21,5 @@ public interface TranslatorDTOCommonFields {
 
   String extraInformation();
 
-  Boolean isAssured();
+  Boolean isAssuranceGiven();
 }

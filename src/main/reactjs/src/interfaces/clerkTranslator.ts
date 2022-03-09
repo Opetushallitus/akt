@@ -23,7 +23,7 @@ export interface ClerkTranslatorTextField {
 
 export interface ClerkTranslatorBasicInformation
   extends ClerkTranslatorTextField {
-  isAssured: boolean;
+  isAssuranceGiven: boolean;
 }
 
 export interface ClerkTranslatorResponse

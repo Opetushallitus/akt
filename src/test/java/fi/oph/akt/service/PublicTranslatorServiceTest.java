@@ -190,7 +190,7 @@ class PublicTranslatorServiceTest {
     final LocalDate termBeginDate,
     final LocalDate termEndDate,
     final boolean permissionToPublish,
-    final boolean isAssured,
+    final boolean isAssuranceGiven,
     final int i
   ) {
     final Translator translator = Factory.translator();
@@ -198,7 +198,7 @@ class PublicTranslatorServiceTest {
     translator.setLastName("Suku" + i);
     translator.setTown("Kaupunki" + i);
     translator.setCountry("Maa" + i);
-    translator.setAssured(isAssured);
+    translator.setAssuranceGiven(isAssuranceGiven);
 
     entityManager.persist(translator);
     createAuthorisation(translator, meetingDate, termBeginDate, termEndDate, permissionToPublish, "EN");

@@ -248,7 +248,7 @@ class ClerkTranslatorServiceTest {
         translator.setTown(towns.get(i));
         translator.setCountry(countries.get(i));
         translator.setExtraInformation(extraInformations.get(i));
-        translator.setAssured(assurances.get(i));
+        translator.setAssuranceGiven(assurances.get(i));
 
         final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
 
@@ -272,7 +272,7 @@ class ClerkTranslatorServiceTest {
     assertTranslatorTextField(countries, translators, ClerkTranslatorDTO::country);
     assertTranslatorTextField(extraInformations, translators, ClerkTranslatorDTO::extraInformation);
 
-    assertEquals(assurances, translators.stream().map(ClerkTranslatorDTO::isAssured).toList());
+    assertEquals(assurances, translators.stream().map(ClerkTranslatorDTO::isAssuranceGiven).toList());
   }
 
   private void assertTranslatorTextField(
@@ -504,7 +504,7 @@ class ClerkTranslatorServiceTest {
       .postalCode("pstl")
       .country("ct")
       .extraInformation("extra")
-      .isAssured(true)
+      .isAssuranceGiven(true)
       .authorisations(List.of(expectedAuth))
       .build();
 
@@ -565,7 +565,7 @@ class ClerkTranslatorServiceTest {
       .postalCode("pstl")
       .country("ct")
       .extraInformation("extra")
-      .isAssured(false)
+      .isAssuranceGiven(false)
       .build();
 
     final ClerkTranslatorDTO response = clerkTranslatorService.updateTranslator(updateDTO);
@@ -591,7 +591,7 @@ class ClerkTranslatorServiceTest {
     assertEquals(expected.postalCode(), dto.postalCode());
     assertEquals(expected.country(), dto.country());
     assertEquals(expected.extraInformation(), dto.extraInformation());
-    assertEquals(expected.isAssured(), dto.isAssured());
+    assertEquals(expected.isAssuranceGiven(), dto.isAssuranceGiven());
   }
 
   @Test
