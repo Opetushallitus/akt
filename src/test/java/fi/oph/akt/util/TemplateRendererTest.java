@@ -28,9 +28,7 @@ class TemplateRendererTest {
         "expiryDate",
         "06.02.2022",
         "nextMeetingDate",
-        "13.12.2021",
-        "contactEmail",
-        "auktoris.lautakunta@oph.fi"
+        "13.12.2021"
       )
     );
 
@@ -40,7 +38,6 @@ class TemplateRendererTest {
     assertTrue(renderedContent.contains("englanti - ruotsi"));
     assertTrue(renderedContent.contains("06.02.2022"));
     assertTrue(renderedContent.contains("13.12.2021"));
-    assertTrue(renderedContent.contains("auktoris.lautakunta@oph.fi"));
   }
 
   @Test

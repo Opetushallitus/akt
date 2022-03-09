@@ -161,9 +161,7 @@ public class ClerkEmailService {
       "expiryDate",
       formatDate(expiryDate),
       "nextMeetingDate",
-      nextMeetingDateOption.map(this::formatDate).orElse("[ei tiedossa]"),
-      "contactEmail",
-      "auktoris.lautakunta@oph.fi"
+      nextMeetingDateOption.map(this::formatDate).orElse("[ei tiedossa]")
     );
 
     return templateRenderer.renderAuthorisationExpiryEmailBody(templateParams);
