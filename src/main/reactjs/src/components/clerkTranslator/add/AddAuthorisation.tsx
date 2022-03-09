@@ -43,6 +43,8 @@ export const AddAuthorisation = ({
   });
 
   const [authorisation, setAuthorisation] = useState<Authorisation>({
+    id: 0,
+    version: 0,
     languagePair: { from: '', to: '' },
     basis: null as unknown as AuthorisationBasis,
     termBeginDate: undefined,
