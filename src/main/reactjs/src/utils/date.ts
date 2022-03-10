@@ -34,15 +34,7 @@ export class DateUtils {
   }
 
   static dateAtStartOfDay(date: Date) {
-    return new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
-      0,
-      0,
-      0,
-      0
-    );
+    return dayjs(date).startOf('day').toDate();
   }
 
   static isDatePartBefore(before: Date, after: Date) {
