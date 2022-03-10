@@ -7,5 +7,9 @@
     & &--centered {
       text-align: center;
     }
+
+    & &__delete-outline-icon {
+      color: $color-red-500;
+    }
   }
 }

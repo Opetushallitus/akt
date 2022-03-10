@@ -86,7 +86,7 @@ const AuthorisationsListing = ({
               <Text>{a.diaryNumber}</Text>
             </TableCell>
             <TableCell className="clerk-translator-details__authorisations-table--centered">
-              <DeleteOutline color={Color.Error} />
+              <DeleteOutline className="clerk-translator-details__authorisations-table__delete-outline-icon" />
             </TableCell>
           </TableRow>
         ))}
