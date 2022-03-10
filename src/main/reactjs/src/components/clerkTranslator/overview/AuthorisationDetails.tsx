@@ -48,8 +48,8 @@ const AuthorisationsListing = ({
           <TableCell>{t('fields.basis')}</TableCell>
           <TableCell>{t('fields.startDate')}</TableCell>
           <TableCell>{t('fields.endDate')}</TableCell>
-          <TableCell>{t('fields.isValid')}</TableCell>
-          <TableCell>{t('fields.isPublished')}</TableCell>
+          <TableCell>{t('fields.isEffective')}</TableCell>
+          <TableCell>{t('fields.permissionToPublish')}</TableCell>
           <TableCell>{t('fields.diaryNumber')}</TableCell>
           <TableCell>{translateCommon('delete')}</TableCell>
         </TableRow>

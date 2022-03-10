@@ -161,8 +161,8 @@
             "startDate": "Alkamispäivä",
             "endDate": "Päättymispäivä",
             "basis": "Peruste",
-            "isValid": "Voimassa",
-            "isPublished": "Julkaisulupa",
+            "isEffective": "Voimassa",
+            "permissionToPublish": "Julkaisulupa",
             "diaryNumber": "Asiatunnus"
           }
         },
