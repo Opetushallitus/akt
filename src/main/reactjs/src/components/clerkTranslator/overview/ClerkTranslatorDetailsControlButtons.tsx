@@ -25,7 +25,6 @@ export const ControlButtons = ({
         color={Color.Secondary}
         startIcon={<EditIcon />}
         onClick={onEditBtnClick}
-        disabled={!isViewMode}
       >
         {translateCommon('edit')}
       </CustomButton>
