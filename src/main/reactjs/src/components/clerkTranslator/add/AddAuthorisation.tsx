@@ -97,10 +97,10 @@ export const AddAuthorisation = ({
     });
   };
 
-  const handleSwitchValueChange = (value: boolean) => {
+  const handleSwitchValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     setAuthorisation({
       ...authorisation,
-      permissionToPublish: value,
+      permissionToPublish: event?.target.checked,
     });
   };
 
@@ -207,7 +207,7 @@ export const AddAuthorisation = ({
             value={authorisation.permissionToPublish}
             leftLabel={translateCommon('no')}
             rightLabel={translateCommon('yes')}
-            onSwitchValueChange={handleSwitchValueChange}
+            onChange={handleSwitchValueChange}
           />
         </div>
         <CustomButton

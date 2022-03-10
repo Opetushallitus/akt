@@ -1,12 +1,11 @@
-import EditIcon from '@mui/icons-material/Edit';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
+import { ControlButtons } from 'components/clerkTranslator/overview/ClerkTranslatorDetailsControlButtons';
 import { ClerkTranslatorDetailsFields } from 'components/clerkTranslator/overview/ClerkTranslatorDetailsFields';
-import { CustomButton } from 'components/elements/CustomButton';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
-import { Color, Severity, UIMode, Variant } from 'enums/app';
+import { Severity, UIMode, Variant } from 'enums/app';
 import {
   ClerkTranslator,
   ClerkTranslatorBasicInformation,
@@ -22,56 +21,6 @@ import {
 } from 'redux/actionTypes/notifier';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
 import { Utils } from 'utils';
-
-const ControlButtons = ({
-  isViewMode,
-  onCancelBtnClick,
-  onEditBtnClick,
-  onSaveBtnClick,
-}: {
-  isViewMode: boolean;
-  onCancelBtnClick: () => void;
-  onEditBtnClick: () => void;
-  onSaveBtnClick: () => void;
-}) => {
-  const translateCommon = useCommonTranslation();
-
-  if (isViewMode) {
-    return (
-      <CustomButton
-        data-testid="clerk-translator-overview__translator-details__edit-btn"
-        variant={Variant.Contained}
-        color={Color.Secondary}
-        startIcon={<EditIcon />}
-        onClick={onEditBtnClick}
-        disabled={!isViewMode}
-      >
-        {translateCommon('edit')}
-      </CustomButton>
-    );
-  } else {
-    return (
-      <div className="columns gapped">
-        <CustomButton
-          data-testid="clerk-translator-overview__translator-details__cancel-btn"
-          variant={Variant.Text}
-          color={Color.Secondary}
-          onClick={onCancelBtnClick}
-        >
-          {translateCommon('cancel')}
-        </CustomButton>
-        <CustomButton
-          data-testid="clerk-translator-overview__translator-details__save-btn"
-          variant={Variant.Contained}
-          color={Color.Secondary}
-          onClick={onSaveBtnClick}
-        >
-          {translateCommon('save')}
-        </CustomButton>
-      </div>
-    );
-  }
-};
 
 export const ClerkTranslatorDetails = () => {
   // Redux
@@ -127,10 +76,15 @@ export const ClerkTranslatorDetails = () => {
   const handleTranslatorDetailsChange =
     (field: keyof ClerkTranslatorBasicInformation) =>
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const fieldValue =
+        field === 'isAssuranceGiven'
+          ? (event.target as HTMLInputElement).checked
+          : event.target.value;
       const updatedTranslatorDetails = {
         ...translatorDetails,
-        [field]: event.target.value,
+        [field]: fieldValue,
       };
+
       setTranslatorDetails(updatedTranslatorDetails as ClerkTranslator);
     };
 

@@ -1,8 +1,13 @@
 import { ChangeEvent } from 'react';
 
+import { CustomSwitch } from 'components/elements/CustomSwitch';
 import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
-import { translateOutsideComponent, useAppTranslation } from 'configs/i18n';
+import {
+  translateOutsideComponent,
+  useAppTranslation,
+  useCommonTranslation,
+} from 'configs/i18n';
 import { TextFieldTypes } from 'enums/app';
 import {
   ClerkTranslator,
@@ -37,11 +42,8 @@ const getFieldError = (
   const type = getFieldType(field);
   const fieldValue = (translator && translator[field]) || '';
   const error = Utils.inspectCustomTextFieldErrors(type, fieldValue, false);
-  if (error) {
-    return t(`akt.${error}`);
-  } else {
-    return '';
-  }
+
+  return error ? t(`akt.${error}`) : '';
 };
 
 const ClerkTranslatorDetailsTextField = ({
@@ -87,6 +89,7 @@ export const ClerkTranslatorDetailsFields = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorOverview.translatorDetails',
   });
+  const translateCommon = useCommonTranslation();
 
   const getCommonTextFieldProps = (field: keyof ClerkTranslatorTextField) => ({
     field,
@@ -142,6 +145,19 @@ export const ClerkTranslatorDetailsFields = ({
         multiline
         fullWidth
       />
+      <div className="rows gapped-xs">
+        <H3>{t('header.isAssuranceGiven')}</H3>
+        <CustomSwitch
+          disabled={editDisabled}
+          onChange={onFieldChange('isAssuranceGiven')}
+          value={translator?.isAssuranceGiven}
+          leftLabel={translateCommon('no')}
+          rightLabel={translateCommon('yes')}
+          errorLabel={
+            !translator?.isAssuranceGiven && t('caveats.isNotAssuranceGiven')
+          }
+        />
+      </div>
     </>
   );
 };
