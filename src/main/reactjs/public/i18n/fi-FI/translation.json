@@ -132,7 +132,8 @@
             "personalInformation": "Henkilötiedot",
             "address": "Osoite",
             "contactInformation": "Yhteystiedot",
-            "extraInformation": "Lisätiedot"
+            "extraInformation": "Lisätiedot",
+            "isAssuranceGiven": "Vakuutus annettu"
           },
           "fields": {
             "lastName": "Sukunimi",
@@ -149,6 +150,9 @@
           "cancelUpdateDialog": {
             "title": "Haluatko poistua muokkausnäkymästä?",
             "description": "Menetät tekemäsi muutokset."
+          },
+          "caveats": {
+            "isNotAssuranceGiven": "Auktorisoinnit eivät ole näkyvissä julkisessa listauksessa!"
           }
         },
         "authorisations": {
