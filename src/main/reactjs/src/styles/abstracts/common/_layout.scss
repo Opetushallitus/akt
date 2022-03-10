@@ -60,3 +60,10 @@
     table-layout: auto;
   }
 }
+
+/* Positioning */
+.centered {
+  &#{&} {
+    text-align: center;
+  }
+}

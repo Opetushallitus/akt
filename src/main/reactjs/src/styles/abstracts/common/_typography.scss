@@ -21,3 +21,10 @@
     padding-left: map-get($spacing, 'xxs');
   }
 }
+
+// Colors
+.color-red-500 {
+  &#{&} {
+    color: $color-red-500;
+  }
+}

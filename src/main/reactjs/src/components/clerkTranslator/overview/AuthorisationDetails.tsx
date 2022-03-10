@@ -1,4 +1,7 @@
-import { Add as AddIcon, DeleteOutline } from '@mui/icons-material';
+import {
+  Add as AddIcon,
+  DeleteOutline as DeleteIcon,
+} from '@mui/icons-material';
 import {
   Switch,
   Table,
@@ -85,8 +88,8 @@ const AuthorisationsListing = ({
             <TableCell>
               <Text>{a.diaryNumber}</Text>
             </TableCell>
-            <TableCell className="clerk-translator-details__authorisations-table--centered">
-              <DeleteOutline className="clerk-translator-details__authorisations-table__delete-outline-icon" />
+            <TableCell className="centered">
+              <DeleteIcon className="color-red-500" />
             </TableCell>
           </TableRow>
         ))}
