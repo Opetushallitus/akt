@@ -1,6 +1,7 @@
 import {
   Add as AddIcon,
   DeleteOutline as DeleteIcon,
+  InfoOutlined as InfoIcon,
 } from '@mui/icons-material';
 import {
   Switch,
@@ -9,9 +10,11 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Tooltip,
 } from '@mui/material';
 
 import { CustomButton } from 'components/elements/CustomButton';
+import { CustomIconButton } from 'components/elements/CustomIconButton';
 import { H3, Text } from 'components/elements/Text';
 import {
   useAppTranslation,
@@ -20,6 +23,7 @@ import {
 } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { Color, Variant } from 'enums/app';
+import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { Authorisation } from 'interfaces/authorisation';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
 import { AuthorisationUtils } from 'utils/authorisation';
@@ -67,7 +71,22 @@ const AuthorisationsListing = ({
               </Text>
             </TableCell>
             <TableCell>
-              <Text>{a.basis}</Text>
+              <div className="columns gapped-xs">
+                <Text>{a.basis}</Text>
+                {a.basis === AuthorisationBasisEnum.AUT && (
+                  <Tooltip
+                    title={`${t(
+                      'fields.autDate'
+                    )}: ${DateUtils.formatOptionalDate(a.autDate)}`}
+                    arrow
+                    placement="bottom"
+                  >
+                    <CustomIconButton>
+                      <InfoIcon color={Color.Secondary} />
+                    </CustomIconButton>
+                  </Tooltip>
+                )}
+              </div>
             </TableCell>
             <TableCell>
               <Text>{DateUtils.formatOptionalDate(a.termBeginDate)}</Text>

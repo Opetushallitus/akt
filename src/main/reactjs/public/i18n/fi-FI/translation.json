@@ -167,7 +167,8 @@
             "basis": "Peruste",
             "isEffective": "Voimassa",
             "permissionToPublish": "Julkaisulupa",
-            "diaryNumber": "Asiatunnus"
+            "diaryNumber": "Asiatunnus",
+            "autDate": "Tutkintopäivä"
           }
         },
         "toasts": {
