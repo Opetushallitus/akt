@@ -48,8 +48,6 @@ export const AddMeetingDate = () => {
             value={value}
             setValue={setValue}
             label={t('datePicker.label')}
-            minDate={DateUtils.newDate(-365 * 100)}
-            maxDate={DateUtils.newDate(365 * 100)}
           />
           <CustomButton
             data-testid="clerk-translator-overview__authorisation-details__add-btn"

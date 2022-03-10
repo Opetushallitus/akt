@@ -48,7 +48,7 @@
         "feedback": {
           "title": "Palaute ja yhteystiedot",
           "subtitle": "Huomasitko saavutettavuuspuutteen digipalvelussamme? Kerro se meille ja teemme parhaamme puutteen korjaamiseksi.",
-          "description": "Sähköpostilla: auktoris.lautakunta@oph.fi"
+          "description": "Sähköpostilla: {{email}}"
         },
         "administrativeAgency": {
           "title": "Valvontaviranomainen",

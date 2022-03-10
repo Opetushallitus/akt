@@ -4,15 +4,17 @@ import { H3 } from 'components/elements/Text';
 import { useCommonTranslation } from 'configs/i18n';
 import { Color } from 'enums/app';
 
+interface CircularStepperProps extends CircularProgressProps {
+  value: number;
+  phaseText: string;
+  phaseDescription: string;
+}
+
 export const CircularStepper = ({
   phaseText,
   phaseDescription,
   ...rest
-}: CircularProgressProps & {
-  value: number;
-  phaseText: string;
-  phaseDescription: string;
-}) => {
+}: CircularStepperProps) => {
   const translateCommon = useCommonTranslation();
   const ariaLabel = `${translateCommon(
     'phase'

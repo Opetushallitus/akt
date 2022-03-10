@@ -48,6 +48,13 @@
       @include phone {
         margin-top: 0;
       }
+
+      &__contact-email {
+        &#{&} {
+          font-weight: normal;
+          margin-top: 0.5rem;
+        }
+      }
     }
 
     &__logo--akt {

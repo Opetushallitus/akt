@@ -35,6 +35,12 @@
   margin-top: map-get($spacing, 'xxl');
 }
 
+.margin-right-xs {
+  &#{&} {
+    margin-right: map-get($spacing, 'xs');
+  }
+}
+
 /* Gaps */
 .gapped {
   gap: map-get($spacing, 'lg');

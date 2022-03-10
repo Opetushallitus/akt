@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 html,
 body,
 #root {
@@ -9,7 +13,6 @@ body,
   font-family: Roboto;
   font-size: 62.5%;
   height: 100%;
-  width: 100vw;
 
   & h1 {
     @include phone {

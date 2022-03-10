@@ -4,8 +4,12 @@ import {
   AutoCompleteComboBox,
   ComboBoxOption,
   ComboBoxProps,
-} from 'interfaces/combobox';
-import { LanguageSelectProps } from 'interfaces/languageSelect';
+} from 'interfaces/components/combobox';
+
+export interface LanguageSelectProps {
+  excludedLanguage: string | undefined;
+  languages: Array<string>;
+}
 
 const primaryLanguages = ['FI', 'SV', 'SEIN', 'SEKO', 'SEPO'];
 

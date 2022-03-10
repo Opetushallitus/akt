@@ -1,4 +1,4 @@
-import { TextFieldProps } from '@mui/material/TextField';
+import { TextFieldProps } from '@mui/material';
 
 export type CustomTextFieldProps = {
   showHelperText?: boolean;

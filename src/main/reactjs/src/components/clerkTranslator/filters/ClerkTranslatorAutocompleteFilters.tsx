@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { PermissionToPublish, TextFieldVariant } from 'enums/app';
 import { useDebouncedValue } from 'hooks/useDebouncedValue';
 import { ClerkTranslatorFilter } from 'interfaces/clerkTranslator';
-import { AutocompleteValue } from 'interfaces/combobox';
+import { AutocompleteValue } from 'interfaces/components/combobox';
 import { setClerkTranslatorFilters } from 'redux/actions/clerkTranslator';
 import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
 

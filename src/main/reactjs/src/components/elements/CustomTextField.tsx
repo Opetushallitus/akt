@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material';
 
-import { CustomTextFieldProps } from 'interfaces/customTextField';
+import { CustomTextFieldProps } from 'interfaces/components/customTextField';
 
 export const CustomTextField = ({
   error,

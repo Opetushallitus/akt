@@ -10,10 +10,10 @@ import {
   AutocompleteValue,
   ComboBoxOption,
   ComboBoxProps,
-} from 'interfaces/combobox';
+} from 'interfaces/components/combobox';
 
 const compareOptionLabels = (a: ComboBoxOption, b: ComboBoxOption) => {
-  return a.label <= b.label ? -1 : 1;
+  return a.label.localeCompare(b.label, undefined, { sensitivity: 'base' });
 };
 
 export const sortOptionsByLabels = (options: Array<ComboBoxOption>) => {

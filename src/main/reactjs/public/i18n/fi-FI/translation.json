@@ -244,6 +244,27 @@
           "title": "Peruuta yhteydenottopyyntö",
           "description": "Haluatko peruuttaa yhteydenottopyynnön? Menetät täyttämäsi tiedot"
         }
+      },
+      "newAuthorisation": {
+        "fieldLabels": {
+          "from": "Mistä",
+          "to": "Mihin",
+          "termBeginDate": "Alkamispäivä",
+          "termEndDate": "Päättymispäivä",
+          "autDate": "Tutkintopäivä (AUT)",
+          "basis": "Peruste",
+          "diaryNumber": "Asiatunnus"
+        },
+        "languageSelect": {
+          "title": "Kielipari"
+        },
+        "switch": {
+          "inEffect": "Voimassa",
+          "canPublish": "Saa julkaista internetissä"
+        },
+        "buttons": {
+          "add": "Lisää auktorisointi"
+        }
       }
     },
     "pages": {

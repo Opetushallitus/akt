@@ -1,15 +1,28 @@
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
-import { DatePickerProps } from 'interfaces/datePicker';
+import { DateUtils } from 'utils/date';
+
+export interface DatePickerProps {
+  value?: string;
+  setValue: (value: string) => void;
+  label: string;
+  minDate?: Date;
+  maxDate?: Date;
+}
 
 export const DatePicker = ({
   value,
   setValue,
   label,
+
   minDate,
   maxDate,
 }: DatePickerProps): JSX.Element => {
+  const MIN_DATE = '1900-01-01';
+  const MAX_DATE = '2100-01-01';
+  const dayjs = DateUtils.dayjs();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
@@ -21,13 +34,16 @@ export const DatePicker = ({
         type="date"
         onChange={handleChange}
         value={value}
-        sx={{ width: 220 }}
         InputLabelProps={{
           shrink: true,
         }}
         inputProps={{
-          min: minDate.toISOString().split('T')[0],
-          max: maxDate.toISOString().split('T')[0],
+          min: DateUtils.formatOptionalDate(
+            minDate ?? dayjs(MIN_DATE).toDate()
+          ),
+          max: DateUtils.formatOptionalDate(
+            maxDate ?? dayjs(MAX_DATE).toDate()
+          ),
         }}
       />
     </Stack>

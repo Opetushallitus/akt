@@ -1,4 +1,5 @@
 import { Authorisation } from 'interfaces/authorisation';
+import koodistoLangsFI from 'public/i18n/koodisto/langs/koodisto_langs_fi-FI.json';
 import { DateUtils } from 'utils/date';
 
 export class AuthorisationUtils {
@@ -39,5 +40,9 @@ export class AuthorisationUtils {
 
   static isAuthorisationForFormerVIR({ termBeginDate }: Authorisation) {
     return !termBeginDate;
+  }
+
+  static getKoodistoLangKeys() {
+    return Object.keys(koodistoLangsFI?.akt?.koodisto?.languages);
   }
 }
