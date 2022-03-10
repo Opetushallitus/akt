@@ -13,14 +13,16 @@ interface CustomSwitchProps extends SwitchProps {
   onSwitchValueChange(newValue: boolean): void;
   leftLabel: string;
   rightLabel: string;
+  value?: boolean;
 }
 
 export const CustomSwitch = ({
   onSwitchValueChange,
   leftLabel,
   rightLabel,
+  value,
 }: CustomSwitchProps) => {
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(value ?? false);
 
   const handleSwitchChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.checked;

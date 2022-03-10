@@ -204,6 +204,7 @@ export const AddAuthorisation = ({
         <div className="rows">
           <Text>{t('switch.canPublish')}</Text>
           <CustomSwitch
+            value={authorisation.permissionToPublish}
             leftLabel={translateCommon('no')}
             rightLabel={translateCommon('yes')}
             onSwitchValueChange={handleSwitchValueChange}
