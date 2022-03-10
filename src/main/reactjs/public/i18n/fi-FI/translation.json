@@ -1,11 +1,179 @@
 {
   "akt": {
     "component": {
+      "addMeetingDate": {
+        "buttons": {
+          "add": "Lisää kokouspäivä"
+        },
+        "datePicker": {
+          "label": "Kokouspäivämäärä"
+        },
+        "header": "Lisää kokouspäivä",
+        "toasts": {
+          "error": "Kokouspäivän lisäys epäonnistui"
+        }
+      },
+      "clerkTranslatorFilters": {
+        "authorisationBasis": {
+          "placeholder": "Auktorisointi",
+          "title": "Peruste"
+        },
+        "authorisationStatus": {
+          "authorised": "Auktorisoidut",
+          "expired": "Umpeutuneet",
+          "expiring": "Umpeutuvat",
+          "formerVIR": "Ent. VIR"
+        },
+        "languagePair": {
+          "fromPlaceholder": "Mistä",
+          "title": "Haku kielittäin",
+          "toPlaceholder": "Mihin"
+        },
+        "name": {
+          "placeholder": "Nimi",
+          "title": "Haku nimellä"
+        },
+        "permissionToPublish": {
+          "placeholder": "Kaikki",
+          "title": "Julkaisulupa"
+        }
+      },
+      "clerkTranslatorListing": {
+        "detailsButton": "Lisätiedot",
+        "header": {
+          "authorisationBasis": "Peruste",
+          "authorisationBeginDate": "Alkamispäivä",
+          "authorisationEndDate": "Päättymispäivä",
+          "languagePairs": "Kieliparit",
+          "name": "Nimi",
+          "permissionToPublish": "Julkaisulupa",
+          "valid": "Voimassa"
+        }
+      },
+      "clerkTranslatorOverview": {
+        "authorisations": {
+          "buttons": {
+            "add": "Lisää auktorisointi"
+          },
+          "fields": {
+            "autDate": "Tutkintopäivä",
+            "basis": "Peruste",
+            "diaryNumber": "Asiatunnus",
+            "endDate": "Päättymispäivä",
+            "isEffective": "Voimassa",
+            "languagePair": "Kielipari",
+            "permissionToPublish": "Julkaisulupa",
+            "startDate": "Alkamispäivä"
+          },
+          "header": "Auktorisoinnit",
+          "noAuthorisations": "Kääntäjällä ei ole yhtään auktorisointia"
+        },
+        "toasts": {
+          "notFound": "Valittua kääntäjää ei löytynyt",
+          "updated": "Tiedot tallennettiin",
+          "updateFailed": "Tietojen tallennus epäonnistui"
+        },
+        "translatorDetails": {
+          "cancelUpdateDialog": {
+            "description": "Menetät tekemäsi muutokset.",
+            "title": "Haluatko poistua muokkausnäkymästä?"
+          },
+          "caveats": {
+            "isNotAssuranceGiven": "Auktorisoinnit eivät ole näkyvissä julkisessa listauksessa!"
+          },
+          "fields": {
+            "country": "Maa",
+            "email": "Sähköpostiosoite",
+            "extraInformation": "Lisätiedot",
+            "firstName": "Etunimet",
+            "identityNumber": "Henkilötunnus",
+            "lastName": "Sukunimi",
+            "phoneNumber": "Puhelinnumero",
+            "postalCode": "Postinumero",
+            "street": "Katuosoite",
+            "town": "Postitoimipaikka"
+          },
+          "header": {
+            "address": "Osoite",
+            "contactInformation": "Yhteystiedot",
+            "extraInformation": "Lisätiedot",
+            "isAssuranceGiven": "Vakuutus annettu",
+            "personalInformation": "Henkilötiedot"
+          }
+        }
+      },
+      "contactRequestForm": {
+        "cancelRequestDialog": {
+          "description": "Haluatko peruuttaa yhteydenottopyynnön? Menetät täyttämäsi tiedot",
+          "title": "Peruuta yhteydenottopyyntö"
+        },
+        "characters": "merkkiä",
+        "chosenTranslatorsForLanguagePair": "Valitut kääntäjät kielistä",
+        "description": "Tällä yhteydenottolomakkeella voit jättää valitsemillesi auktorisoiduille kääntäjille yhteydenottopyynnön. Kirjoitathan viestiin mahdollisimman tarkan kuvauksen tarvittavasta käännöstyöstä.",
+        "doneStep": {
+          "description": "Tämä sivu ohjaa sinut automaattisesti takaisin etusivulle. Jos mitään ei tapahdu voit klikata alla olevasta napista.",
+          "title": "Yhteydenottopyyntösi on lähetetty ja sinuun ollaan yhteydessä."
+        },
+        "errorDialog": {
+          "back": "Takaisin",
+          "description": "Kokeile myöhemmin uudelleen. Jos ongelma toistuu, ota yhteyttä sähköpostilla: auktoris.lautakunta@oph.fi",
+          "title": "Virhe lähetettäessä yhteydenottopyyntöä"
+        },
+        "formLabels": {
+          "contactInfo": "Yhteystiedot",
+          "email": "Sähköpostiosoite",
+          "firstName": "Etunimi",
+          "lastName": "Sukunimi",
+          "message": "Viesti",
+          "phoneNumber": "Puhelinnumero",
+          "writeMessageHere": "Viesti"
+        },
+        "steps": {
+          "active": "Aktiivinen",
+          "completed": "Suoritettu",
+          "Done": "Valmis!",
+          "FillContactDetails": "Täytä yhteystiedot",
+          "PreviewAndSend": "Esikatsele ja lähetä",
+          "VerifyTranslators": "Vahvista kääntäjät",
+          "WriteMessage": "Kirjoita viesti"
+        },
+        "title": "Yhteydenottopyynnön jättäminen",
+        "verifySelectedTranslatorsStep": {
+          "accessibility": {
+            "deselectTranslator": "Poista kääntäjä"
+          }
+        }
+      },
+      "footer": {
+        "accessibility": {
+          "continueToMain": "Jatka sisältöön",
+          "ophPhone": "Opetushallituksen puhelinnumero",
+          "waveAriaLabel": "Aaltoileva vektorikuvio"
+        },
+        "address": {
+          "name": "Opetushallitus",
+          "phone": {
+            "number": "+358 29 533 1000",
+            "title": "Puhelin"
+          },
+          "street": "Hakaniemenranta 6",
+          "zipCity": "PL 380, 00531 Helsinki"
+        },
+        "links": {
+          "accessibility": {
+            "text": "Saavutettavuusseloste"
+          },
+          "aktHomepage": {
+            "ariaLabel": "Auktorisoidun kääntäjän tutkintojärjestelmä, avaa uudessa välilehdessä",
+            "link": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/kieli-ja-kaantajatutkinnot/auktorisoidun-kaantajan-tutkinto",
+            "text": "Auktorisoidun kääntäjän tutkintojärjestelmä"
+          }
+        }
+      },
       "header": {
-        "lang": {
-          "fi": "Suomeksi",
-          "sv": "På svenska",
-          "en": "In English"
+        "accessibility": {
+          "continueToMain": "Jatka sisältöön",
+          "langSelectorAriaLabel": "Vaihda käyttöliittymän kieltä"
         },
         "clerk": {
           "backToOph": "Takaisin Opintopolkuun",
@@ -16,181 +184,10 @@
             "tabsLabel": "Virkailijan URL-osoitteet"
           }
         },
-        "accessibility": {
-          "langSelectorAriaLabel": "Vaihda käyttöliittymän kieltä",
-          "continueToMain": "Jatka sisältöön"
-        }
-      },
-      "table": {
-        "title": "Hakutulokset",
-        "pagination": {
-          "rowsPerPage": "Näytä sivulla"
-        },
-        "accessibility": {
-          "checkboxSelectedAriaLabel": "Poista valinta",
-          "checkboxUnselectedAriaLabel": "Valitse kääntäjä"
-        },
-        "selectedItems": "valittu"
-      },
-      "footer": {
-        "links": {
-          "accessibility": {
-            "text": "Saavutettavuusseloste"
-          },
-          "aktHomepage": {
-            "text": "Auktorisoidun kääntäjän tutkintojärjestelmä",
-            "ariaLabel": "Auktorisoidun kääntäjän tutkintojärjestelmä, avaa uudessa välilehdessä",
-            "link": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/kieli-ja-kaantajatutkinnot/auktorisoidun-kaantajan-tutkinto"
-          }
-        },
-        "address": {
-          "name": "Opetushallitus",
-          "street": "Hakaniemenranta 6",
-          "zipCity": "PL 380, 00531 Helsinki",
-          "phone": {
-            "title": "Puhelin",
-            "number": "+358 29 533 1000"
-          }
-        },
-        "accessibility": {
-          "waveAriaLabel": "Aaltoileva vektorikuvio",
-          "continueToMain": "Jatka sisältöön",
-          "ophPhone": "Opetushallituksen puhelinnumero"
-        }
-      },
-      "publicTranslatorFilters": {
-        "languagePair": {
-          "title": "Haku kielittäin",
-          "fromPlaceholder": "Mistä *",
-          "fromAriaLabel": "Mistä, pakollinen yhteydenottamista varten",
-          "fromHelperText": "Valitse kieli",
-          "toPlaceholder": "Mihin *",
-          "toAriaLabel": "Mihin, pakollinen yhteydenottamista varten",
-          "toHelperText": "Valitse kieli"
-        },
-        "name": {
-          "title": "Haku nimellä",
-          "placeholder": "Nimi"
-        },
-        "town": {
-          "title": "Haku asuinkunnalla",
-          "placeholder": "Asuinkunta"
-        },
-        "buttons": {
-          "empty": "Tyhjennä valinnat",
-          "search": "Hae",
-          "newSearch": "Tee uusi haku"
-        },
-        "toasts": {
-          "selectLanguagePair": "Valitse kielipari ottaaksesi yhteyttä kääntäjään",
-          "translatorsSelected": "Voit valita vain yhden kieliparin yhteydenottoon"
-        },
-        "captions": {
-          "langPair": "(* Pakollinen yhteydenottoon)"
-        }
-      },
-      "clerkTranslatorListing": {
-        "header": {
-          "name": "Nimi",
-          "languagePairs": "Kieliparit",
-          "authorisationBasis": "Peruste",
-          "valid": "Voimassa",
-          "authorisationBeginDate": "Alkamispäivä",
-          "authorisationEndDate": "Päättymispäivä",
-          "permissionToPublish": "Julkaisulupa"
-        },
-        "detailsButton": "Lisätiedot"
-      },
-      "clerkTranslatorFilters": {
-        "authorisationBasis": {
-          "title": "Peruste",
-          "placeholder": "Auktorisointi"
-        },
-        "permissionToPublish": {
-          "title": "Julkaisulupa",
-          "placeholder": "Kaikki"
-        },
-        "authorisationStatus": {
-          "authorised": "Auktorisoidut",
-          "expiring": "Umpeutuvat",
-          "expired": "Umpeutuneet",
-          "formerVIR": "Ent. VIR"
-        },
-        "languagePair": {
-          "title": "Haku kielittäin",
-          "fromPlaceholder": "Mistä",
-          "toPlaceholder": "Mihin"
-        },
-        "name": {
-          "title": "Haku nimellä",
-          "placeholder": "Nimi"
-        }
-      },
-      "clerkTranslatorOverview": {
-        "translatorDetails": {
-          "header": {
-            "personalInformation": "Henkilötiedot",
-            "address": "Osoite",
-            "contactInformation": "Yhteystiedot",
-            "extraInformation": "Lisätiedot",
-            "isAssuranceGiven": "Vakuutus annettu"
-          },
-          "fields": {
-            "lastName": "Sukunimi",
-            "firstName": "Etunimet",
-            "identityNumber": "Henkilötunnus",
-            "street": "Katuosoite",
-            "postalCode": "Postinumero",
-            "town": "Postitoimipaikka",
-            "country": "Maa",
-            "email": "Sähköpostiosoite",
-            "phoneNumber": "Puhelinnumero",
-            "extraInformation": "Lisätiedot"
-          },
-          "cancelUpdateDialog": {
-            "title": "Haluatko poistua muokkausnäkymästä?",
-            "description": "Menetät tekemäsi muutokset."
-          },
-          "caveats": {
-            "isNotAssuranceGiven": "Auktorisoinnit eivät ole näkyvissä julkisessa listauksessa!"
-          }
-        },
-        "authorisations": {
-          "header": "Auktorisoinnit",
-          "buttons": {
-            "add": "Lisää auktorisointi"
-          },
-          "fields": {
-            "languagePair": "Kielipari",
-            "startDate": "Alkamispäivä",
-            "endDate": "Päättymispäivä",
-            "basis": "Peruste",
-            "isEffective": "Voimassa",
-            "permissionToPublish": "Julkaisulupa",
-            "diaryNumber": "Asiatunnus",
-            "autDate": "Tutkintopäivä"
-          }
-        },
-        "toasts": {
-          "notFound": "Valittua kääntäjää ei löytynyt",
-          "updated": "Tiedot tallennettiin",
-          "updateFailed": "Tietojen tallennus epäonnistui"
-        }
-      },
-      "meetingDatesToggleFilters": {
-        "upcoming": "Tulevat",
-        "passed": "Menneet"
-      },
-      "addMeetingDate": {
-        "header": "Lisää kokouspäivä",
-        "datePicker": {
-          "label": "Kokouspäivämäärä"
-        },
-        "buttons": {
-          "add": "Lisää kokouspäivä"
-        },
-        "toasts": {
-          "error": "Kokouspäivän lisäys epäonnistui"
+        "lang": {
+          "en": "In English",
+          "fi": "Suomeksi",
+          "sv": "På svenska"
         }
       },
       "meetingDatesListing": {
@@ -199,8 +196,8 @@
           "removal": {
             "ariaLabel": "Poista kokouspäivä",
             "dialog": {
-              "header": "Haluatko varmasti poistaa kokouspäivän?",
-              "description": "Kokouspäivän poisto on mahdollista, jos siihen ei liity yhtään auktorisointia."
+              "description": "Kokouspäivän poisto on mahdollista, jos siihen ei liity yhtään auktorisointia.",
+              "header": "Haluatko varmasti poistaa kokouspäivän?"
             },
             "toasts": {
               "error": "Kokouspäivän poisto epäonnistui"
@@ -208,138 +205,142 @@
           }
         }
       },
-      "contactRequestForm": {
-        "title": "Yhteydenottopyynnön jättäminen",
-        "description": "Tällä yhteydenottolomakkeella voit jättää valitsemillesi auktorisoiduille kääntäjille yhteydenottopyynnön. Kirjoitathan viestiin mahdollisimman tarkan kuvauksen tarvittavasta käännöstyöstä.",
-        "steps": {
-          "VerifyTranslators": "Vahvista kääntäjät",
-          "FillContactDetails": "Täytä yhteystiedot",
-          "WriteMessage": "Kirjoita viesti",
-          "PreviewAndSend": "Esikatsele ja lähetä",
-          "Done": "Valmis!",
-          "active": "Aktiivinen",
-          "completed": "Suoritettu"
-        },
-        "verifySelectedTranslatorsStep": {
-          "accessibility": {
-            "deselectTranslator": "Poista kääntäjä"
-          }
-        },
-        "doneStep": {
-          "title": "Yhteydenottopyyntösi on lähetetty ja sinuun ollaan yhteydessä.",
-          "description": "Tämä sivu ohjaa sinut automaattisesti takaisin etusivulle. Jos mitään ei tapahdu voit klikata alla olevasta napista."
-        },
-        "chosenTranslatorsForLanguagePair": "Valitut kääntäjät kielistä",
-        "characters": "merkkiä",
-        "formLabels": {
-          "firstName": "Etunimi",
-          "lastName": "Sukunimi",
-          "email": "Sähköpostiosoite",
-          "phoneNumber": "Puhelinnumero",
-          "contactInfo": "Yhteystiedot",
-          "message": "Viesti",
-          "writeMessageHere": "Viesti"
-        },
-        "errorDialog": {
-          "title": "Virhe lähetettäessä yhteydenottopyyntöä",
-          "description": "Kokeile myöhemmin uudelleen. Jos ongelma toistuu, ota yhteyttä sähköpostilla: auktoris.lautakunta@oph.fi",
-          "back": "Takaisin"
-        },
-        "cancelRequestDialog": {
-          "title": "Peruuta yhteydenottopyyntö",
-          "description": "Haluatko peruuttaa yhteydenottopyynnön? Menetät täyttämäsi tiedot"
-        }
+      "meetingDatesToggleFilters": {
+        "passed": "Menneet",
+        "upcoming": "Tulevat"
       },
       "newAuthorisation": {
+        "buttons": {
+          "add": "Lisää auktorisointi"
+        },
         "fieldLabels": {
-          "from": "Mistä",
-          "to": "Mihin",
-          "termBeginDate": "Alkamispäivä",
-          "termEndDate": "Päättymispäivä",
           "autDate": "Tutkintopäivä (AUT)",
           "basis": "Peruste",
-          "diaryNumber": "Asiatunnus"
+          "diaryNumber": "Asiatunnus",
+          "from": "Mistä",
+          "termBeginDate": "Alkamispäivä",
+          "termEndDate": "Päättymispäivä",
+          "to": "Mihin"
         },
         "languageSelect": {
           "title": "Kielipari"
         },
         "switch": {
-          "inEffect": "Voimassa",
-          "canPublish": "Saa julkaista internetissä"
-        },
-        "buttons": {
-          "add": "Lisää auktorisointi"
+          "canPublish": "Saa julkaista internetissä",
+          "inEffect": "Voimassa"
         }
-      }
-    },
-    "pages": {
-      "homepage": {
-        "title": "Auktorisoitujen kääntäjien rekisteri",
-        "description": "Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä joko nimen tai kieliparin mukaan. Voit jättää valitsemillesi kääntäjille yhteydenottopyynnön alla olevalla hakulomakkeella.",
-        "note": "Huomaa, että kielittäin haettaessa mahdolliset hakuvaihtoehdot ovat kotimaisista kielistä (suomi, ruotsi, saamen kielet) vieraisiin kieliin tai toisinpäin sekä kotimaisten kielten välillä.",
-        "filters": {
-          "title": "Hae auktorisoitua kääntäjää"
-        },
-        "noSearchResults": "Ei hakutuloksia",
-        "requestContact": "Ota yhteyttä"
       },
-      "clerkHomepage": {
-        "title": "Auktorisoitujen kääntäjien rekisteri",
-        "sendEmail": "Lähetä sähköposti",
-        "emptyBtn": "Tyhjennä valinnat"
-      },
-      "clerkSendEmailPage": {
-        "title": "Lähetä sähköposti",
-        "selectedCount_one": "{{count}} kääntäjä valittu",
-        "selectedCount_other": "{{count}} kääntäjää valittu",
-        "sections": {
-          "recipients": "Vastaanottajat",
-          "subject": "Aihe",
-          "message": "Viesti"
+      "publicTranslatorFilters": {
+        "buttons": {
+          "empty": "Tyhjennä valinnat",
+          "newSearch": "Tee uusi haku",
+          "search": "Hae"
         },
-        "labels": {
-          "subject": "Kirjoita aihe",
-          "message": "Kirjoita viestisi tähän"
+        "captions": {
+          "langPair": "(* Pakollinen yhteydenottoon)"
+        },
+        "languagePair": {
+          "fromAriaLabel": "Mistä, pakollinen yhteydenottamista varten",
+          "fromHelperText": "Valitse kieli",
+          "fromPlaceholder": "Mistä *",
+          "title": "Haku kielittäin",
+          "toAriaLabel": "Mihin, pakollinen yhteydenottamista varten",
+          "toHelperText": "Valitse kieli",
+          "toPlaceholder": "Mihin *"
+        },
+        "name": {
+          "placeholder": "Nimi",
+          "title": "Haku nimellä"
         },
         "toasts": {
-          "success": "Sähköpostisi lähetettiin kääntäjille",
-          "error": "Sähköpostin lähetys ei onnistunut. Virhe voi olla tilapäinen, yritä uudestaan."
+          "selectLanguagePair": "Valitse kielipari ottaaksesi yhteyttä kääntäjään",
+          "translatorsSelected": "Voit valita vain yhden kieliparin yhteydenottoon"
         },
+        "town": {
+          "placeholder": "Asuinkunta",
+          "title": "Haku asuinkunnalla"
+        }
+      },
+      "table": {
+        "accessibility": {
+          "checkboxSelectedAriaLabel": "Poista valinta",
+          "checkboxUnselectedAriaLabel": "Valitse kääntäjä"
+        },
+        "pagination": {
+          "rowsPerPage": "Näytä sivulla"
+        },
+        "selectedItems": "valittu",
+        "title": "Hakutulokset"
+      }
+    },
+    "errors": {
+      "customTextField": {
+        "emailFormat": "Sähköpostiosoite on virheellinen",
+        "maxLength": "Teksti on liian pitkä",
+        "personalIdentityCodeFormat": "Henkilötunnuksen muotoa ei tunnistettu",
+        "required": "Tieto on pakollinen",
+        "telFormat": "Puhelinnumero on virheellinen"
+      },
+      "loadingFailed": "Tietojen lataus epäonnistui, yritä myöhemmin uudelleen."
+    },
+    "pages": {
+      "clerkHomepage": {
+        "emptyBtn": "Tyhjennä valinnat",
+        "sendEmail": "Lähetä sähköposti",
+        "title": "Auktorisoitujen kääntäjien rekisteri"
+      },
+      "clerkSendEmailPage": {
         "dialogs": {
           "cancel": {
-            "title": "Peruuta sähköpostin lähetys",
-            "description": "Haluatko peruuttaa sähköpostin lähetyksen? Menetät täyttämäsi tiedot."
+            "description": "Haluatko peruuttaa sähköpostin lähetyksen? Menetät täyttämäsi tiedot.",
+            "title": "Peruuta sähköpostin lähetys"
           },
           "send": {
-            "title": "Lähetä sähköposti",
-            "description": "Haluatko lähettää sähköpostin? Viesti lähetetään {{count}} kääntäjälle."
+            "description": "Haluatko lähettää sähköpostin? Viesti lähetetään {{count}} kääntäjälle.",
+            "title": "Lähetä sähköposti"
           }
+        },
+        "labels": {
+          "message": "Kirjoita viestisi tähän",
+          "subject": "Kirjoita aihe"
+        },
+        "sections": {
+          "message": "Viesti",
+          "recipients": "Vastaanottajat",
+          "subject": "Aihe"
+        },
+        "selectedCount_one": "{{count}} kääntäjä valittu",
+        "selectedCount_other": "{{count}} kääntäjää valittu",
+        "title": "Lähetä sähköposti",
+        "toasts": {
+          "error": "Sähköpostin lähetys ei onnistunut. Virhe voi olla tilapäinen, yritä uudestaan.",
+          "success": "Sähköpostisi lähetettiin kääntäjille"
         }
       },
       "clerkTranslatorOverviewPage": {
         "title": "Kääntäjän tiedot"
       },
-      "translator": {
-        "name": "Nimi",
-        "languagePairs": "Kieliparit",
-        "town": "Asuinkunta"
+      "homepage": {
+        "description": "Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä joko nimen tai kieliparin mukaan. Voit jättää valitsemillesi kääntäjille yhteydenottopyynnön alla olevalla hakulomakkeella.",
+        "filters": {
+          "title": "Hae auktorisoitua kääntäjää"
+        },
+        "noSearchResults": "Ei hakutuloksia",
+        "note": "Huomaa, että kielittäin haettaessa mahdolliset hakuvaihtoehdot ovat kotimaisista kielistä (suomi, ruotsi, saamen kielet) vieraisiin kieliin tai toisinpäin sekä kotimaisten kielten välillä.",
+        "requestContact": "Ota yhteyttä",
+        "title": "Auktorisoitujen kääntäjien rekisteri"
       },
       "meetingDatesPage": {
         "title": "Kokouspäivät"
       },
       "notFoundPage": {
-        "title": "Valitettavasti etsimääsi sivua ei löytynyt",
-        "description": "Osoite saattaa olla väärä tai vanhentunut. Voit palata etusivulle alla olevasta napista"
-      }
-    },
-    "errors": {
-      "loadingFailed": "Tietojen lataus epäonnistui, yritä myöhemmin uudelleen.",
-      "customTextField": {
-        "required": "Tieto on pakollinen",
-        "maxLength": "Teksti on liian pitkä",
-        "emailFormat": "Sähköpostiosoite on virheellinen",
-        "telFormat": "Puhelinnumero on virheellinen",
-        "personalIdentityCodeFormat": "Henkilötunnuksen muotoa ei tunnistettu"
+        "description": "Osoite saattaa olla väärä tai vanhentunut. Voit palata etusivulle alla olevasta napista",
+        "title": "Valitettavasti etsimääsi sivua ei löytynyt"
+      },
+      "translator": {
+        "languagePairs": "Kieliparit",
+        "name": "Nimi",
+        "town": "Asuinkunta"
       }
     }
   }
