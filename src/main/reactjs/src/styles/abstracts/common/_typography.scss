@@ -22,9 +22,16 @@
   }
 }
 
-// Colors
+/* Colors */
 .color-red-500 {
   &#{&} {
     color: $color-red-500;
+  }
+}
+
+/* Positioning */
+.centered {
+  &#{&} {
+    text-align: center;
   }
 }
