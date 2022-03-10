@@ -26,22 +26,24 @@ export const MeetingDatesToggleFilters = () => {
     dispatch(setMeetingDateFilters({ meetingStatus: status }));
   };
 
-  const filterData = [
+  const toggleFilters = [
     {
       status: MeetingStatus.Upcoming,
-      count: upcoming.length,
       label: t(MeetingStatus.Upcoming),
+      count: upcoming.length,
+      testId: `meeting-dates-filters__btn--${MeetingStatus.Upcoming}`,
     },
     {
       status: MeetingStatus.Passed,
-      count: passed.length,
       label: t(MeetingStatus.Passed),
+      count: passed.length,
+      testId: `meeting-dates-filters__btn--${MeetingStatus.Passed}`,
     },
   ];
 
   return (
     <ToggleFilterGroup
-      filters={filterData}
+      filters={toggleFilters}
       activeStatus={filters.meetingStatus}
       onButtonClick={filterByDate}
     />

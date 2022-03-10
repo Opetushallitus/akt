@@ -16,7 +16,6 @@ export const DatePicker = ({
   value,
   setValue,
   label,
-
   minDate,
   maxDate,
 }: DatePickerProps): JSX.Element => {

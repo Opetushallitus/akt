@@ -51,7 +51,7 @@ export const AddMeetingDate = () => {
             label={t('datePicker.label')}
           />
           <CustomButton
-            data-testid="clerk-translator-overview__authorisation-details__add-btn"
+            data-testid="meeting-dates-page__add-btn"
             variant={Variant.Outlined}
             color={Color.Secondary}
             startIcon={<AddIcon />}

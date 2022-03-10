@@ -23,12 +23,12 @@ const translatorCountsByAuthorisationStatus = {
 };
 
 describe('ClerkHomePage', () => {
-  it('should display correct number of translators in its header', () => {
+  it('should display correct number of translators in header', () => {
     onClerkHomePage.expectTotalTranslatorsCount(100);
   });
 
   it('should filter translators by authorisation status', () => {
-    // Use fixed date in tests as the as the authorisation status filters depend on it.
+    // Use fixed date in tests as the as the authorisation status filters depend on it
     onClerkHomePage.expectSelectedTranslatorsCount(
       translatorCountsByAuthorisationStatus[AuthorisationStatus.Authorised]
     );
@@ -73,7 +73,7 @@ describe('ClerkHomePage', () => {
     onClerkHomePage.filterByAuthorisationBasis('VIR');
     onClerkHomePage.expectSelectedTranslatorsCount(15);
 
-    // Authorisation with basis VIR should never expire => expect 0 matching translators.
+    // Authorisation with basis VIR should never expire => expect 0 matching translators
     onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
     onClerkHomePage.expectSelectedTranslatorsCount(0);
   });

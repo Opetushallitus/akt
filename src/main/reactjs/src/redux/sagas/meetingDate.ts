@@ -40,7 +40,7 @@ export function* removeMeetingDate(action: RemoveMeetingDateActionType) {
   try {
     yield call(
       axiosInstance.delete,
-      `${APIEndpoints.meetingDates}/${action.meetingDateId}`
+      `${APIEndpoints.MeetingDate}/${action.meetingDateId}`
     );
     yield put({ type: MEETING_DATE_REMOVE_SUCCESS });
     yield put({ type: MEETING_DATE_LOAD });
@@ -62,7 +62,7 @@ export function* addMeetingDate(action: AddMeetingDateActionType) {
   try {
     yield call(
       axiosInstance.post,
-      APIEndpoints.meetingDates,
+      APIEndpoints.MeetingDate,
       JSON.stringify({
         date: action.date,
       })
@@ -88,7 +88,7 @@ function* fetchMeetingDates() {
     yield put({ type: MEETING_DATE_LOADING });
     const apiResponse: AxiosResponse<Array<MeetingDateResponse>> = yield call(
       axiosInstance.get,
-      APIEndpoints.meetingDates
+      APIEndpoints.MeetingDate
     );
 
     const convertedResponse = convertAPIResponse(apiResponse.data);

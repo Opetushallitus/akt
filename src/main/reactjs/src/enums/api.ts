@@ -5,7 +5,7 @@ export enum APIEndpoints {
   Authorisation = '/akt/api/v1/clerk/translator/authorisation',
   InformalClerkTranslatorEmail = '/akt/api/v1/clerk/email/informal',
   ClerkUser = '/akt/api/v1/clerk/user',
-  meetingDates = '/akt/api/v1/clerk/meetingDate',
+  MeetingDate = '/akt/api/v1/clerk/meetingDate',
 }
 
 export enum APIResponseStatus {

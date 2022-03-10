@@ -1,21 +1,103 @@
 import { APIEndpoints } from 'enums/api';
+import { MeetingStatus } from 'enums/meetingDate';
+import { MeetingDateResponse } from 'interfaces/meetingDate';
+import { onDialog } from 'tests/cypress/support/page-objects/dialog';
 import { onMeetingDatesPage } from 'tests/cypress/support/page-objects/meetingDatesPage';
 import { runWithIntercept } from 'tests/cypress/support/utils/api';
 import { useFixedDate } from 'tests/cypress/support/utils/date';
 
 const fixedDateForTests = new Date('2022-01-17T12:35:00+0200');
 
+const createResponse: MeetingDateResponse = {
+  id: 14,
+  version: 0,
+  date: '2030-10-04',
+};
+
+const deleteResponse = {};
+
 beforeEach(() => {
   useFixedDate(fixedDateForTests);
   runWithIntercept(
-    APIEndpoints.meetingDates,
+    APIEndpoints.MeetingDate,
     { fixture: 'meeting_dates.json' },
     () => cy.openMeetingDatesPage()
   );
+
+  cy.intercept('POST', APIEndpoints.MeetingDate, createResponse).as(
+    'createMeetingDate'
+  );
+
+  cy.intercept('DELETE', `${APIEndpoints.MeetingDate}/5`, deleteResponse).as(
+    'deleteMeetingDate'
+  );
 });
 
-describe('ClerkHomePage', () => {
-  it('should display correct number of meeting dates in its header', () => {
-    onMeetingDatesPage.expectTotalMeetingDatesCount(7);
+describe('MeetingDatesPage', () => {
+  it('should display correct number of meeting dates in header', () => {
+    onMeetingDatesPage.expectTotalMeetingDatesCount(13);
+  });
+
+  it('should filter meeting dates by status', () => {
+    // Use fixed date in tests as the as the status filters depend on it
+    onMeetingDatesPage.expectSelectedMeetingDatesCount(7);
+
+    onMeetingDatesPage.filterByStatus(MeetingStatus.Passed);
+    onMeetingDatesPage.expectSelectedMeetingDatesCount(6);
+
+    onMeetingDatesPage.filterByStatus(MeetingStatus.Upcoming);
+    onMeetingDatesPage.expectSelectedMeetingDatesCount(7);
+  });
+
+  it('should order upcoming meeting dates by ascending date', () => {
+    onMeetingDatesPage.filterByStatus(MeetingStatus.Upcoming);
+
+    onMeetingDatesPage.expectRowToContain(0, '14.5.2022');
+    onMeetingDatesPage.expectRowToContain(1, '25.9.2022');
+  });
+
+  it('should order passed meeting dates by descending date', () => {
+    onMeetingDatesPage.filterByStatus(MeetingStatus.Passed);
+
+    onMeetingDatesPage.expectRowToContain(0, '1.1.2022');
+    onMeetingDatesPage.expectRowToContain(1, '18.11.2021');
+  });
+
+  it('should let user to add a new, unique meeting date', () => {
+    onMeetingDatesPage.expectAddButtonDisabled();
+
+    onMeetingDatesPage.setDateForNewMeetingDate('2030-10-04');
+    onMeetingDatesPage.clickAddButton();
+    cy.wait('@createMeetingDate');
+
+    // onMeetingDatesPage.expectTotalMeetingDatesCount(14);
+  });
+
+  it('should not let user to add another meeting date with the same date as an existing one', () => {
+    onMeetingDatesPage.setDateForNewMeetingDate('2022-01-01');
+    onMeetingDatesPage.expectAddButtonDisabled();
+  });
+
+  it('should open a confirmation dialog when row delete icon is clicked, and do no changes if user backs out', () => {
+    onMeetingDatesPage.clickDeleteRowIcon(1);
+
+    onDialog.expectText('Haluatko varmasti poistaa kokouspäivän?');
+    onDialog.clickButtonByText('Takaisin');
+
+    onMeetingDatesPage.expectTotalMeetingDatesCount(13);
+  });
+
+  it('should open a confirmation dialog when row delete icon is clicked, and delete the selected meeting date if user confirms', () => {
+    onMeetingDatesPage.filterByStatus(MeetingStatus.Passed);
+    onMeetingDatesPage.clickDeleteRowIcon(1);
+
+    onDialog.clickButtonByText('Kyllä');
+    cy.wait('@deleteMeetingDate');
+
+    // onMeetingDatesPage.expectRowToContain(0, '1.1.2022');
+    // onMeetingDatesPage.expectRowToContain(1, '15.8.2021');
+
+    // onMeetingDatesPage.expectTotalMeetingDatesCount(12);
+    // onMeetingDatesPage.expectSelectedMeetingDatesCount(5);
   });
 });
