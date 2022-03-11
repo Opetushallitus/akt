@@ -224,9 +224,7 @@ public class ClerkEmailServiceTest {
       "expiryDate",
       "01.12.2049",
       "nextMeetingDate",
-      "10.01.2050",
-      "contactEmail",
-      "auktoris.lautakunta@oph.fi"
+      "10.01.2050"
     );
 
     when(templateRenderer.renderAuthorisationExpiryEmailBody(expectedTemplateParams))
@@ -272,9 +270,7 @@ public class ClerkEmailServiceTest {
       "expiryDate",
       "01.12.2049",
       "nextMeetingDate",
-      "[ei tiedossa]",
-      "contactEmail",
-      "auktoris.lautakunta@oph.fi"
+      "[ei tiedossa]"
     );
 
     when(templateRenderer.renderAuthorisationExpiryEmailBody(expectedTemplateParams))

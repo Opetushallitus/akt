@@ -175,13 +175,7 @@ public class ContactRequestService {
   private void sendClerkEmail(final List<Translator> translators, ContactRequestDTO contactRequestDTO) {
     final List<Map<String, String>> translatorParams = translators
       .stream()
-      .map(t -> {
-        String id = "" + t.getId();
-        String name = t.getFullName();
-        String phone = Optional.ofNullable(t.getPhone()).orElse("-");
-
-        return Map.of("id", id, "name", name, "phone", phone);
-      })
+      .map(t -> Map.of("id", "" + t.getId(), "name", t.getFullName()))
       .toList();
 
     final String requesterPhone = getRequesterPhone(contactRequestDTO);
