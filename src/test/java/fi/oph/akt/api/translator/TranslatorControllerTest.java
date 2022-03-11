@@ -83,9 +83,17 @@ class TranslatorControllerTest {
   }
 
   @Test
-  public void testContactRequestWithInvalidEmail() throws Exception {
+  public void testContactRequestWithEmptyEmail() throws Exception {
     final JSONObject data = validContactRequestData();
-    data.put("email", "foo2bar");
+    data.put("email", "");
+
+    postContactRequest(data).andExpect(status().isBadRequest());
+  }
+
+  @Test
+  public void testContactRequestWithTooLongEmail() throws Exception {
+    final JSONObject data = validContactRequestData();
+    data.put("email", "x".repeat(256));
 
     postContactRequest(data).andExpect(status().isBadRequest());
   }

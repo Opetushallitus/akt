@@ -1,6 +1,5 @@
 package fi.oph.akt.api.dto.clerk.modify;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
@@ -12,7 +11,7 @@ public record TranslatorUpdateDTO(
   @NonNull @NotBlank String firstName,
   @NonNull @NotBlank String lastName,
   String identityNumber,
-  @Email String email,
+  String email,
   String phoneNumber,
   String street,
   String postalCode,

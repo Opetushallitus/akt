@@ -1,7 +1,6 @@
 package fi.oph.akt.api.dto.clerk.modify;
 
 import java.util.List;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import lombok.Builder;
@@ -11,7 +10,7 @@ public record TranslatorCreateDTO(
   @NonNull @NotBlank String firstName,
   @NonNull @NotBlank String lastName,
   String identityNumber,
-  @Email String email,
+  String email,
   String phoneNumber,
   String street,
   String postalCode,
