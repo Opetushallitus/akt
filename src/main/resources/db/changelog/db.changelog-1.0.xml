@@ -604,4 +604,15 @@
         <dropDefaultValue tableName="translator" columnName="is_assurance_given"/>
     </changeSet>
 
+    <changeSet id="2022-03-11-modify_authorisation_aut_date_constraint" author="mikhuttu">
+        <sql>
+            ALTER TABLE authorisation DROP CONSTRAINT ck_authorisation_aut_date
+        </sql>
+        <sql>
+            ALTER TABLE authorisation
+                ADD CONSTRAINT ck_authorisation_aut_date
+                    CHECK ((basis = 'AUT' AND aut_date IS NOT NULL) OR (basis != 'AUT' AND aut_date IS NULL))
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

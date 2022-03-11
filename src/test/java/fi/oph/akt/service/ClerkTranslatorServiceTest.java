@@ -311,6 +311,7 @@ class ClerkTranslatorServiceTest {
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
 
     authorisation.setBasis(AuthorisationBasis.KKT);
+    authorisation.setAutDate(null);
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
@@ -335,6 +336,7 @@ class ClerkTranslatorServiceTest {
     authorisation.setBasis(AuthorisationBasis.VIR);
     authorisation.setTermBeginDate(meetingDate.getDate());
     authorisation.setTermEndDate(null);
+    authorisation.setAutDate(null);
 
     entityManager.persist(meetingDate);
     entityManager.persist(translator);
@@ -385,6 +387,7 @@ class ClerkTranslatorServiceTest {
     kktAuth.setFromLang(FI);
     kktAuth.setToLang(EN);
     kktAuth.setPermissionToPublish(false);
+    kktAuth.setAutDate(null);
 
     entityManager.persist(meetingDate1);
     entityManager.persist(meetingDate2);
@@ -606,13 +609,14 @@ class ClerkTranslatorServiceTest {
 
     final AuthorisationCreateDTO createDTO = AuthorisationCreateDTO
       .builder()
-      .basis(AuthorisationBasis.KKT)
+      .basis(AuthorisationBasis.AUT)
       .from(FI)
       .to(SV)
       .permissionToPublish(true)
       .termBeginDate(meetingDate.getDate())
       .termEndDate(LocalDate.now().plusDays(1))
       .diaryNumber("012345")
+      .autDate(LocalDate.now())
       .build();
 
     final ClerkTranslatorDTO response = clerkTranslatorService.createAuthorisation(translator.getId(), createDTO);
@@ -797,6 +801,32 @@ class ClerkTranslatorServiceTest {
       () -> clerkTranslatorService.createAuthorisation(translator.getId(), createDTO)
     );
     assertEquals("Given termBeginDate: 2021-01-10 is not a meeting date", ex.getMessage());
+
+    verifyNoInteractions(auditService);
+  }
+
+  @Test
+  public void testAuthorisationCreateFailsForAUTBasisWithoutAutDate() {
+    final MeetingDate meetingDate = Factory.meetingDate(LocalDate.now().minusYears(1));
+    final Translator translator = Factory.translator();
+    final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+
+    entityManager.persist(meetingDate);
+    entityManager.persist(translator);
+    entityManager.persist(authorisation);
+
+    final AuthorisationCreateDTO createDTO = AuthorisationCreateDTO
+      .builder()
+      .basis(AuthorisationBasis.AUT)
+      .from(FI)
+      .to(SV)
+      .permissionToPublish(true)
+      .termBeginDate(meetingDate.getDate())
+      .termEndDate(LocalDate.now().plusDays(1))
+      .diaryNumber("012345")
+      .build();
+
+    assertThrows(Exception.class, () -> clerkTranslatorService.createAuthorisation(translator.getId(), createDTO));
 
     verifyNoInteractions(auditService);
   }
