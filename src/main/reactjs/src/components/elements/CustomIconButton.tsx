@@ -1,14 +1,16 @@
 import { QuestionMark } from '@mui/icons-material';
 import { IconButton, IconButtonProps } from '@mui/material';
-import { FC } from 'react';
+import { FC, forwardRef } from 'react';
 
-export const CustomIconButton: FC<IconButtonProps> = ({
-  children,
-  ...props
-}) => {
-  return (
-    <IconButton {...props} aria-disabled={props.disabled}>
-      {children ?? <QuestionMark />}
-    </IconButton>
-  );
-};
+const CustomIconButton: FC<IconButtonProps> = forwardRef(
+  (props: IconButtonProps, ref) => {
+    return (
+      <IconButton ref={ref} {...props} aria-disabled={props.disabled}>
+        {props.children ?? <QuestionMark />}
+      </IconButton>
+    );
+  }
+);
+
+CustomIconButton.displayName = 'CustomIconButton';
+export { CustomIconButton };
