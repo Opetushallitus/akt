@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ToggleFilter should render ToggleFilter correctly 1`] = `
-Array [
+<div
+  className="columns"
+>
   <button
-    className="MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-zcbmsk-MuiButtonBase-root-MuiButton-root"
+    className="MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root border-radius-unset css-zcbmsk-MuiButtonBase-root-MuiButton-root"
     disabled={false}
     onBlur={[Function]}
     onClick={[Function]}
@@ -33,9 +35,9 @@ Array [
         (10)
       </div>
     </div>
-  </button>,
+  </button>
   <button
-    className="MuiButton-root MuiButton-outlined MuiButton-outlinedSecondary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButtonBase-root  css-wnpvqa-MuiButtonBase-root-MuiButton-root"
+    className="MuiButton-root MuiButton-outlined MuiButton-outlinedSecondary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButtonBase-root border-radius-unset css-wnpvqa-MuiButtonBase-root-MuiButton-root"
     disabled={false}
     onBlur={[Function]}
     onClick={[Function]}
@@ -65,6 +67,6 @@ Array [
         (20)
       </div>
     </div>
-  </button>,
-]
+  </button>
+</div>
 `;
