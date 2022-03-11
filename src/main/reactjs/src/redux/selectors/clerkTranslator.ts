@@ -24,14 +24,12 @@ export const selectTranslatorsByAuthorisationStatus = createSelector(
     // which we currently fail to take into account properly - the selectors should
     // somehow make the dependency on time explicit!
     const currentDate = dayjs();
-    const expiringSoonDate = expiringSoonThreshold(currentDate);
+    const expiringSoonDate =
+      AuthorisationUtils.expiringSoonThreshold(currentDate);
 
-    const [authorised, expiring, expired, formerVIR] = [
-      AuthorisationStatus.Authorised,
-      AuthorisationStatus.Expiring,
-      AuthorisationStatus.Expired,
-      AuthorisationStatus.FormerVIR,
-    ].map((authorisationStatus) =>
+    const [authorised, expiring, expired, formerVIR] = Object.values(
+      AuthorisationStatus
+    ).map((authorisationStatus) =>
       translators.filter((t) =>
         filterByAuthorisationStatus(
           t,
@@ -56,7 +54,8 @@ export const selectFilteredClerkTranslators = createSelector(
   (state: RootState) => state.clerkTranslator.filters,
   (translators, filters) => {
     const currentDate = dayjs();
-    const expiringSoonDate = expiringSoonThreshold(currentDate);
+    const expiringSoonDate =
+      AuthorisationUtils.expiringSoonThreshold(currentDate);
 
     let filtered = translators;
 
@@ -94,11 +93,6 @@ export const selectFilteredSelectedTranslators = createSelector(
 );
 
 // Helpers
-
-const expiringSoonThreshold = (currentDate: Dayjs) => {
-  return currentDate.add(3, 'month');
-};
-
 const filterByAuthorisationStatus = (
   translator: ClerkTranslator,
   status: AuthorisationStatus,

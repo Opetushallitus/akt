@@ -1,9 +1,5 @@
 .custom-button-link {
   &#{&} {
     text-decoration: none;
-
-    & > button:not([disabled]) {
-      color: $color-secondary-dark;
-    }
   }
 }
