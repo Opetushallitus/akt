@@ -33,10 +33,19 @@ export const AuthorisationDetails = () => {
     return null;
   }
 
-  const groupedAuthorisations =
+  const { authorised, expiring, expired, formerVIR } =
     AuthorisationUtils.groupClerkTranslatorAuthorisationsByStatus(
       selectedTranslator as ClerkTranslator
     );
+
+  // Authorisations with status "Expiring" are shown under Authorised
+  const groupedAuthorisations = {
+    [AuthorisationStatus.Authorised]: [...authorised, ...expiring],
+    [AuthorisationStatus.Expired]: expired,
+    [AuthorisationStatus.FormerVIR]: formerVIR,
+    [AuthorisationStatus.Expiring]: [],
+  };
+
   const activeAuthorisations = groupedAuthorisations[selectedToggleFilter];
   const toggleFilters = [
     {

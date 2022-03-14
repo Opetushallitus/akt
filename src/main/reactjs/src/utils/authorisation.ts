@@ -59,8 +59,6 @@ export class AuthorisationUtils {
     return clerkTranslator.authorisations.reduce(
       (group: AuthorisationsGroupedByStatus, authorisation: Authorisation) => {
         const status = getAuthorisationStatus(authorisation);
-
-        group[status] = group[status] ?? [];
         group[status].push(authorisation);
 
         return group;
@@ -76,12 +74,21 @@ export class AuthorisationUtils {
 
 const getAuthorisationStatus = (authorisation: Authorisation) => {
   const dayjs = DateUtils.dayjs();
+  const currentDate = dayjs();
   let status!: AuthorisationStatus;
 
   if (AuthorisationUtils.isAuthorisationForFormerVIR(authorisation)) {
     status = AuthorisationStatus.FormerVIR;
   } else if (
-    AuthorisationUtils.isAuthorisationEffective(authorisation, dayjs())
+    AuthorisationUtils.isAuthorisationExpiring(
+      authorisation,
+      currentDate,
+      AuthorisationUtils.expiringSoonThreshold(currentDate)
+    )
+  ) {
+    status = AuthorisationStatus.Expiring;
+  } else if (
+    AuthorisationUtils.isAuthorisationEffective(authorisation, currentDate)
   ) {
     status = AuthorisationStatus.Authorised;
   } else {
