@@ -18,6 +18,20 @@ import { AppRoutes, Variant } from 'enums/app';
 import accessibilityFI from 'public/i18n/fi-FI/accessibility.json';
 import { Utils } from 'utils';
 
+const BackButton = () => {
+  const translateCommon = useCommonTranslation();
+
+  return (
+    <CustomButtonLink
+      to={AppRoutes.PublicHomePage}
+      variant={Variant.Text}
+      startIcon={<ArrowBackIosOutlinedIcon />}
+    >
+      {translateCommon('backToHomePage')}
+    </CustomButtonLink>
+  );
+};
+
 export const AccessibilityStatementPage = () => {
   const translateAccessibility = useAccessibilityTranslation();
   const translateCommon = useCommonTranslation();
@@ -54,13 +68,7 @@ export const AccessibilityStatementPage = () => {
           elevation={3}
         >
           <div>
-            <CustomButtonLink
-              to={AppRoutes.PublicHomePage}
-              variant={Variant.Text}
-              startIcon={<ArrowBackIosOutlinedIcon />}
-            >
-              {translateCommon('back')}
-            </CustomButtonLink>
+            <BackButton />
           </div>
           <div className="rows gapped-xxs">
             <H2>{translateAccessibility('content.status.title')}</H2>
@@ -181,6 +189,9 @@ export const AccessibilityStatementPage = () => {
                 'content.furtherImprove.extraDescription'
               )}
             </Text>
+          </div>
+          <div>
+            <BackButton />
           </div>
         </Paper>
       </Grid>

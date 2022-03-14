@@ -108,7 +108,7 @@
           "title": "Peruuta yhteydenottopyyntö"
         },
         "characters": "merkkiä",
-        "chosenTranslatorsForLanguagePair": "Valitut kääntäjät kielistä",
+        "chosenTranslatorsForLanguagePair": "Valitsemasi kääntäjät kielistä",
         "description": "Tällä yhteydenottolomakkeella voit jättää valitsemillesi auktorisoiduille kääntäjille yhteydenottopyynnön. Kirjoitathan viestiin mahdollisimman tarkan kuvauksen tarvittavasta käännöstyöstä.",
         "doneStep": {
           "description": "Tämä sivu ohjaa sinut automaattisesti takaisin etusivulle. Jos mitään ei tapahdu voit klikata alla olevasta napista.",
@@ -120,7 +120,7 @@
           "title": "Virhe lähetettäessä yhteydenottopyyntöä"
         },
         "formLabels": {
-          "contactInfo": "Yhteystiedot",
+          "contactInfo": "Yhteystietosi",
           "email": "Sähköpostiosoite",
           "firstName": "Etunimi",
           "lastName": "Sukunimi",
@@ -132,7 +132,7 @@
           "active": "Aktiivinen",
           "completed": "Suoritettu",
           "Done": "Valmis!",
-          "FillContactDetails": "Täytä yhteystiedot",
+          "FillContactDetails": "Täytä yhteystietosi",
           "PreviewAndSend": "Esikatsele ja lähetä",
           "VerifyTranslators": "Vahvista kääntäjät",
           "WriteMessage": "Kirjoita viesti"
@@ -164,9 +164,9 @@
             "text": "Saavutettavuusseloste"
           },
           "aktHomepage": {
-            "ariaLabel": "Auktorisoidun kääntäjän tutkintojärjestelmä, avaa uudessa välilehdessä",
+            "ariaLabel": "Auktorisoidun kääntäjän tutkintojärjestelmä (oph.fi), avaa uudessa välilehdessä",
             "link": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/kieli-ja-kaantajatutkinnot/auktorisoidun-kaantajan-tutkinto",
-            "text": "Auktorisoidun kääntäjän tutkintojärjestelmä"
+            "text": "Auktorisoidun kääntäjän tutkintojärjestelmä (oph.fi)"
           }
         }
       },
@@ -250,7 +250,7 @@
         },
         "name": {
           "placeholder": "Nimi",
-          "title": "Haku nimellä"
+          "title": "Haku kääntäjän nimellä"
         },
         "toasts": {
           "selectLanguagePair": "Valitse kielipari ottaaksesi yhteyttä kääntäjään",
@@ -258,7 +258,7 @@
         },
         "town": {
           "placeholder": "Asuinkunta",
-          "title": "Haku asuinkunnalla"
+          "title": "Haku kääntäjän asuinkunnalla"
         }
       },
       "table": {

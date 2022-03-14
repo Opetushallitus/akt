@@ -1,5 +1,4 @@
-import SearchIcon from '@mui/icons-material/Search';
-import { AppBar, Box, InputAdornment, TextField, Toolbar } from '@mui/material';
+import { AppBar, Box, TextField, Toolbar } from '@mui/material';
 import {
   Dispatch,
   KeyboardEvent,
@@ -265,13 +264,6 @@ export const PublicTranslatorFilters = ({
             type="search"
             value={filters.name}
             onKeyUp={handleKeyUp}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
             onChange={handleTextFieldFilterChange(SearchFilter.Name)}
           />
         </div>
