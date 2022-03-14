@@ -1,3 +1,4 @@
+import { Dayjs } from 'dayjs';
 import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
@@ -23,7 +24,7 @@ export interface MeetingDatesState {
 
 export interface AddMeetingDateState {
   status: APIResponseStatus;
-  date: Date;
+  date: Dayjs;
 }
 
 export interface MeetingDateState {
@@ -38,11 +39,11 @@ export interface MeetingDateAction
   filters?: MeetingDateFilter;
   meetingDateId?: number;
   status?: APIResponseStatus;
-  date?: Date;
+  date?: Dayjs;
 }
 
 export interface MeetingDate extends Omit<MeetingDateResponse, 'date'> {
-  date: Date;
+  date: Dayjs;
 }
 export interface MeetingDateResponse extends WithId, WithVersion {
   date: string;
@@ -57,12 +58,12 @@ export interface RemoveMeetingDateAction extends Action<string> {
 }
 
 export interface AddMeetingDateAction extends Action<string> {
-  date: Date;
+  date: Dayjs;
 }
 
 export type AddMeetingDateActionType = {
   type: typeof MEETING_DATE_ADD;
-  date: Date;
+  date: Dayjs;
 };
 
 export type RemoveMeetingDateActionType = {

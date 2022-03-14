@@ -45,13 +45,16 @@ const ListingRow = ({ translator }: { translator: ClerkTranslator }) => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorListing',
   });
+  const translateLanguage = useKoodistoLanguagesTranslation();
+  const translateCommon = useCommonTranslation();
+
   const filteredSelectedIds = useAppSelector(selectFilteredSelectedIds);
   const dispatch = useAppDispatch();
   const { firstName, lastName } = translator;
   const authorisations = translator.authorisations;
-  const translateLanguage = useKoodistoLanguagesTranslation();
-  const translateCommon = useCommonTranslation();
-  const currentDate = new Date();
+
+  const dayjs = DateUtils.dayjs();
+  const currentDate = dayjs();
   const selected = filteredSelectedIds.includes(translator.id);
 
   const translatorDetailsURL = (id: number) =>

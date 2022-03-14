@@ -1,3 +1,5 @@
+import { Dayjs } from 'dayjs';
+
 import { MeetingDateFilter } from 'interfaces/meetingDate';
 import {
   MEETING_DATE_ADD,
@@ -20,7 +22,7 @@ export const setMeetingDateFilters = (filters: MeetingDateFilter) => ({
   filters,
 });
 
-export const addMeetingDate = (date: Date) => ({
+export const addMeetingDate = (date: Dayjs) => ({
   type: MEETING_DATE_ADD,
   date,
 });

@@ -1,3 +1,5 @@
+import { Dayjs } from 'dayjs';
+
 import { Authorisation } from 'interfaces/authorisation';
 import koodistoLangsFI from 'public/i18n/koodisto/langs/koodisto_langs_fi-FI.json';
 import { DateUtils } from 'utils/date';
@@ -5,7 +7,7 @@ import { DateUtils } from 'utils/date';
 export class AuthorisationUtils {
   static isAuthorisationEffective(
     { termBeginDate, termEndDate }: Authorisation,
-    currentDate: Date
+    currentDate: Dayjs
   ) {
     if (termEndDate) {
       return DateUtils.isDatePartBeforeOrEqual(currentDate, termEndDate);
@@ -18,8 +20,8 @@ export class AuthorisationUtils {
 
   static isAuthorisationExpiring(
     { termEndDate }: Authorisation,
-    currentDate: Date,
-    expiringThreshold: Date
+    currentDate: Dayjs,
+    expiringThreshold: Dayjs
   ) {
     return (
       termEndDate &&
@@ -30,7 +32,7 @@ export class AuthorisationUtils {
 
   static isAuthorisationExpired(
     { termEndDate }: Authorisation,
-    currentDate: Date
+    currentDate: Dayjs
   ) {
     return (
       termEndDate &&

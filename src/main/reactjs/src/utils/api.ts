@@ -25,9 +25,11 @@ export class APIUtils {
   }
 
   static convertMeetingDateResponse(meetingDate: MeetingDateResponse) {
+    const dayjs = DateUtils.dayjs();
+
     return {
       ...meetingDate,
-      date: DateUtils.dateAtStartOfDay(new Date(meetingDate.date)),
+      date: dayjs(meetingDate.date),
     };
   }
 

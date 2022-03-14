@@ -1,3 +1,5 @@
+import { Dayjs } from 'dayjs';
+
 import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { LanguagePair } from 'interfaces/languagePair';
 import { WithId, WithVersion } from 'interfaces/with';
@@ -9,9 +11,9 @@ export interface Authorisation
     AuthorisationResponse,
     'termBeginDate' | 'termEndDate' | 'autDate'
   > {
-  termBeginDate?: Date;
-  termEndDate?: Date;
-  autDate?: Date;
+  termBeginDate?: Dayjs;
+  termEndDate?: Dayjs;
+  autDate?: Dayjs;
 }
 
 export interface AuthorisationResponse extends WithId, WithVersion {

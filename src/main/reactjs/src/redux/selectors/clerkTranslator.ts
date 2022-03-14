@@ -1,3 +1,4 @@
+import { Dayjs } from 'dayjs';
 import { createSelector } from 'reselect';
 
 import { RootState } from 'configs/redux';
@@ -14,13 +15,15 @@ import { DateUtils } from 'utils/date';
 export const clerkTranslatorsSelector = (state: RootState) =>
   state.clerkTranslator;
 
+const dayjs = DateUtils.dayjs();
+
 export const selectTranslatorsByAuthorisationStatus = createSelector(
   (state: RootState) => state.clerkTranslator.translators,
   (translators) => {
     // TODO Note that this has an *implicit* dependency on the current system time,
     // which we currently fail to take into account properly - the selectors should
     // somehow make the dependency on time explicit!
-    const currentDate = DateUtils.dateAtStartOfDay(new Date());
+    const currentDate = dayjs();
     const expiringSoonDate = expiringSoonThreshold(currentDate);
 
     const [authorised, expiring, expired, formerVIR] = [
@@ -52,7 +55,7 @@ export const selectFilteredClerkTranslators = createSelector(
   (state: RootState) => state.clerkTranslator.translators,
   (state: RootState) => state.clerkTranslator.filters,
   (translators, filters) => {
-    const currentDate = DateUtils.dateAtStartOfDay(new Date());
+    const currentDate = dayjs();
     const expiringSoonDate = expiringSoonThreshold(currentDate);
 
     let filtered = translators;
@@ -92,18 +95,15 @@ export const selectFilteredSelectedTranslators = createSelector(
 
 // Helpers
 
-const expiringSoonThreshold = (currentDate: Date) => {
-  const expiringSoonThreshold = DateUtils.dateAtStartOfDay(currentDate);
-  expiringSoonThreshold.setMonth(expiringSoonThreshold.getMonth() + 3);
-
-  return expiringSoonThreshold;
+const expiringSoonThreshold = (currentDate: Dayjs) => {
+  return currentDate.add(3, 'month');
 };
 
 const filterByAuthorisationStatus = (
   translator: ClerkTranslator,
   status: AuthorisationStatus,
-  currentDate: Date,
-  expiringSoonDate: Date
+  currentDate: Dayjs,
+  expiringSoonDate: Dayjs
 ) => {
   return translator.authorisations.find((a) =>
     matchesAuthorisationStatus(
@@ -118,8 +118,8 @@ const filterByAuthorisationStatus = (
 const filterByAuthorisationCriteria = (
   translator: ClerkTranslator,
   filters: ClerkTranslatorFilter,
-  currentDate: Date,
-  expiringSoonDate: Date
+  currentDate: Dayjs,
+  expiringSoonDate: Dayjs
 ) => {
   return translator.authorisations.find(
     (a) =>
@@ -162,8 +162,8 @@ const matchesPermissionToPublish = (
 
 const matchesAuthorisationStatus = (
   { authorisationStatus }: ClerkTranslatorFilter,
-  currentDate: Date,
-  expiringSoonThreshold: Date,
+  currentDate: Dayjs,
+  expiringSoonThreshold: Dayjs,
   authorisation: Authorisation
 ) => {
   switch (authorisationStatus) {

@@ -35,7 +35,8 @@ export const AuthorisationListing = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorOverview.authorisations',
   });
-  const currentDate = new Date();
+  const dayjs = DateUtils.dayjs();
+  const currentDate = dayjs();
 
   return (
     <Table

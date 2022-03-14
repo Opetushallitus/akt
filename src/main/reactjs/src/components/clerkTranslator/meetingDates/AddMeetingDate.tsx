@@ -12,6 +12,7 @@ import { meetingDatesSelector } from 'redux/selectors/meetingDate';
 import { DateUtils } from 'utils/date';
 
 export const AddMeetingDate = () => {
+  const dayjs = DateUtils.dayjs();
   const [value, setValue] = useState<string>('');
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.addMeetingDate',
@@ -24,12 +25,12 @@ export const AddMeetingDate = () => {
   const dispatch = useAppDispatch();
 
   const handleOnClick = () => {
-    value && dispatch(addMeetingDate(new Date(value)));
+    value && dispatch(addMeetingDate(dayjs(value)));
   };
 
   const isAddButtonDisabled = () => {
     if (value) {
-      const date = new Date(value);
+      const date = dayjs(value);
 
       return meetingDates.some((meetingDate) =>
         DateUtils.isDatePartEqual(meetingDate.date, date)
