@@ -18,9 +18,9 @@ public class ExpiringAuthorisationsEmailCreator {
 
   private static final Logger LOG = LoggerFactory.getLogger(ExpiringAuthorisationsEmailCreator.class);
 
-  private static final String FIXED_DELAY = "PT1M"; // TODO: change to "PT12H"
+  private static final String INITIAL_DELAY = "PT5S";
 
-  private static final String INITIAL_DELAY = "PT1S"; // TODO: change to "PT1H"
+  private static final String FIXED_DELAY = "PT6H";
 
   private static final String LOCK_AT_LEAST = "PT10S";
 
@@ -32,11 +32,11 @@ public class ExpiringAuthorisationsEmailCreator {
   @Resource
   private final ClerkEmailService clerkEmailService;
 
-  @Scheduled(fixedDelayString = FIXED_DELAY, initialDelayString = INITIAL_DELAY)
-  @SchedulerLock(name = "pollExpiringAuthorisations", lockAtLeastFor = LOCK_AT_LEAST, lockAtMostFor = LOCK_AT_MOST)
-  public void pollExpiringAuthorisations() {
+  @Scheduled(initialDelayString = INITIAL_DELAY, fixedDelayString = FIXED_DELAY)
+  @SchedulerLock(name = "checkExpiringAuthorisations", lockAtLeastFor = LOCK_AT_LEAST, lockAtMostFor = LOCK_AT_MOST)
+  public void checkExpiringAuthorisations() {
     SchedulingUtil.runWithScheduledUser(() -> {
-      LOG.debug("pollExpiringAuthorisations");
+      LOG.debug("checkExpiringAuthorisations");
       final LocalDate expiryBetweenStart = LocalDate.now();
       final LocalDate expiryBetweenEnd = expiryBetweenStart.plusMonths(3);
       final LocalDateTime previousReminderSentBefore = expiryBetweenStart.minusMonths(4).atStartOfDay();

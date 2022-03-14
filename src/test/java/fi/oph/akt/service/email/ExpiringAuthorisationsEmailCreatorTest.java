@@ -50,7 +50,7 @@ public class ExpiringAuthorisationsEmailCreatorTest {
   }
 
   @Test
-  public void testPollExpiringAuthorisations() {
+  public void testCheckExpiringAuthorisations() {
     final LocalDate date = LocalDate.now();
     final MeetingDate meetingDate = Factory.meetingDate(date.minusYears(1));
     entityManager.persist(meetingDate);
@@ -74,7 +74,7 @@ public class ExpiringAuthorisationsEmailCreatorTest {
     createAuthorisationTermReminder(remindedAuth2);
     createAuthorisationTermReminder(remindedAuth2);
 
-    emailCreator.pollExpiringAuthorisations();
+    emailCreator.checkExpiringAuthorisations();
 
     verify(clerkEmailService, times(3)).createAuthorisationExpiryEmail(longCaptor.capture());
 
@@ -88,13 +88,13 @@ public class ExpiringAuthorisationsEmailCreatorTest {
   }
 
   @Test
-  public void testPollExpiringAuthorisationsWithTranslatorWithoutEmailAddress() {
+  public void testCheckExpiringAuthorisationsWithTranslatorWithoutEmailAddress() {
     final MeetingDate meetingDate = Factory.meetingDate(LocalDate.now().minusYears(1));
     entityManager.persist(meetingDate);
 
     createAuthorisation(meetingDate, LocalDate.now().plusDays(10), null);
 
-    emailCreator.pollExpiringAuthorisations();
+    emailCreator.checkExpiringAuthorisations();
 
     verifyNoInteractions(clerkEmailService);
   }

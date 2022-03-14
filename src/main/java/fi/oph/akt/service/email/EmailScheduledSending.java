@@ -18,15 +18,15 @@ public class EmailScheduledSending {
 
   private static final Logger LOG = LoggerFactory.getLogger(EmailScheduledSending.class);
 
-  private static final String FIXED_DELAY = "PT10S";
-
   private static final String INITIAL_DELAY = "PT10S";
+
+  private static final String FIXED_DELAY = "PT10S";
 
   private static final String LOCK_AT_LEAST = "PT10S";
 
   private static final String LOCK_AT_MOST = "PT2H";
 
-  public static final int BATCH_SIZE = 10;
+  public static final int BATCH_SIZE = 10; // TODO: should this be bigger?
 
   @Resource
   private final EmailRepository emailRepository;
@@ -34,7 +34,7 @@ public class EmailScheduledSending {
   @Resource
   private final EmailService emailService;
 
-  @Scheduled(fixedDelayString = FIXED_DELAY, initialDelayString = INITIAL_DELAY)
+  @Scheduled(initialDelayString = INITIAL_DELAY, fixedDelayString = FIXED_DELAY)
   @SchedulerLock(name = "pollEmailsToSend", lockAtLeastFor = LOCK_AT_LEAST, lockAtMostFor = LOCK_AT_MOST)
   public void pollEmailsToSend() {
     SchedulingUtil.runWithScheduledUser(() -> {
