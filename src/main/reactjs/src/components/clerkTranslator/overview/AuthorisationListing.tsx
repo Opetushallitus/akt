@@ -47,13 +47,13 @@ export const AuthorisationListing = ({
   const dayjs = DateUtils.dayjs();
   const currentDate = dayjs();
 
-  const dispatchChangePermissionToPublishNotifier = (
+  const confirmAuthorisationPublishPermissionChange = (
     authorisation: Authorisation
   ) => {
     const notifier = Utils.createNotifierDialog(
-      t('row.changePermissionToPublish.dialog.header'),
+      t('actions.changePermissionToPublish.dialog.header'),
       Severity.Info,
-      t('row.changePermissionToPublish.dialog.description'),
+      t('actions.changePermissionToPublish.dialog.description'),
       [
         {
           title: translateCommon('back'),
@@ -72,11 +72,11 @@ export const AuthorisationListing = ({
     dispatch(showNotifierDialog(notifier));
   };
 
-  const dispatchConfirmRemoveNotifier = (authorisation: Authorisation) => {
+  const confirmAuthorisationRemoval = (authorisation: Authorisation) => {
     const notifier = Utils.createNotifierDialog(
-      t('row.removal.dialog.header'),
+      t('actions.removal.dialog.header'),
       Severity.Info,
-      t('row.removal.dialog.description'),
+      t('actions.removal.dialog.description'),
       [
         {
           title: translateCommon('back'),
@@ -84,7 +84,7 @@ export const AuthorisationListing = ({
           action: NOTIFIER_ACTION_DO_NOTHING,
         },
         {
-          title: t('row.removal.dialog.confirmButton'),
+          title: t('actions.removal.dialog.confirmButton'),
           variant: Variant.Contained,
           action: () => dispatch(deleteAuthorisation(authorisation.id)),
         },
@@ -160,10 +160,10 @@ export const AuthorisationListing = ({
             <TableCell>
               <CustomSwitch
                 value={a.permissionToPublish}
-                onChange={() => dispatchChangePermissionToPublishNotifier(a)}
+                onChange={() => confirmAuthorisationPublishPermissionChange(a)}
                 leftLabel={translateCommon('no')}
                 rightLabel={translateCommon('yes')}
-                aria-label={t('row.changePermissionToPublish.ariaLabel')}
+                aria-label={t('actions.changePermissionToPublish.ariaLabel')}
               />
             </TableCell>
             <TableCell>
@@ -171,9 +171,8 @@ export const AuthorisationListing = ({
             </TableCell>
             <TableCell className="centered">
               <CustomIconButton
-                data-testid="authorisations-listing__delete-icon"
-                onClick={() => dispatchConfirmRemoveNotifier(a)}
-                aria-label={t('row.removal.ariaLabel')}
+                onClick={() => confirmAuthorisationRemoval(a)}
+                aria-label={t('actions.removal.ariaLabel')}
               >
                 <DeleteIcon className="color-red-500" />
               </CustomIconButton>

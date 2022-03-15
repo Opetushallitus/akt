@@ -52,10 +52,7 @@
       },
       "clerkTranslatorOverview": {
         "authorisations": {
-          "buttons": {
-            "add": "Lisää auktorisointi"
-          },
-          "row": {
+          "actions": {
             "changePermissionToPublish": {
               "ariaLabel": "Vaihda julkaisulupaa",
               "dialog": {
@@ -74,6 +71,9 @@
                 "error": "Auktorisoinnin poisto epäonnistui"
               }
             }
+          },
+          "buttons": {
+            "add": "Lisää auktorisointi"
           },
           "fields": {
             "autDate": "Tutkintopäivä",
