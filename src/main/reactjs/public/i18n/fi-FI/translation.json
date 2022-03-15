@@ -55,6 +55,19 @@
           "buttons": {
             "add": "Lisää auktorisointi"
           },
+          "row": {
+            "removal": {
+              "ariaLabel": "Poista auktorisointi",
+              "dialog": {
+                "confirmButton": "Poista auktorisointi",
+                "description": "Tätä toimintoa ei voi peruuttaa!",
+                "header": "Haluatko varmasti poistaa auktorisoinnin?"
+              },
+              "toasts": {
+                "error": "Auktorisoinnin poisto epäonnistui"
+              }
+            }
+          },
           "fields": {
             "autDate": "Tutkintopäivä",
             "basis": "Peruste",
