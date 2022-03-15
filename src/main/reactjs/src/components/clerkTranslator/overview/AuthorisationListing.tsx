@@ -23,7 +23,10 @@ import { useAppDispatch } from 'configs/redux';
 import { Color, Severity, Variant } from 'enums/app';
 import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { Authorisation } from 'interfaces/authorisation';
-import { deleteAuthorisation } from 'redux/actions/clerkTranslatorOverview';
+import {
+  deleteAuthorisation,
+  updateAuthorisationPublishPermission,
+} from 'redux/actions/clerkTranslatorOverview';
 import { showNotifierDialog } from 'redux/actions/notifier';
 import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
 import { Utils } from 'utils';
@@ -43,6 +46,31 @@ export const AuthorisationListing = ({
   });
   const dayjs = DateUtils.dayjs();
   const currentDate = dayjs();
+
+  const dispatchChangePermissionToPublishNotifier = (
+    authorisation: Authorisation
+  ) => {
+    const notifier = Utils.createNotifierDialog(
+      t('row.changePermissionToPublish.dialog.header'),
+      Severity.Info,
+      t('row.changePermissionToPublish.dialog.description'),
+      [
+        {
+          title: translateCommon('back'),
+          variant: Variant.Outlined,
+          action: NOTIFIER_ACTION_DO_NOTHING,
+        },
+        {
+          title: translateCommon('yes'),
+          variant: Variant.Contained,
+          action: () =>
+            dispatch(updateAuthorisationPublishPermission(authorisation)),
+        },
+      ]
+    );
+
+    dispatch(showNotifierDialog(notifier));
+  };
 
   const dispatchConfirmRemoveNotifier = (authorisation: Authorisation) => {
     const notifier = Utils.createNotifierDialog(
@@ -132,8 +160,10 @@ export const AuthorisationListing = ({
             <TableCell>
               <CustomSwitch
                 value={a.permissionToPublish}
+                onChange={() => dispatchChangePermissionToPublishNotifier(a)}
                 leftLabel={translateCommon('no')}
                 rightLabel={translateCommon('yes')}
+                aria-label={t('row.changePermissionToPublish.ariaLabel')}
               />
             </TableCell>
             <TableCell>

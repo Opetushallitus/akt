@@ -13,5 +13,10 @@ export interface ClerkTranslatorOverviewState {
 export interface ClerkTranslatorOverviewAction extends Action {
   translator?: ClerkTranslator;
   id?: number;
-  authorisationId?: number;
+}
+
+export interface AuthorisationAction extends Action {
+  id?: number;
+  version?: number;
+  permissionToPublish?: boolean;
 }
