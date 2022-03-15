@@ -8,6 +8,9 @@ import {
 } from 'interfaces/clerkTranslatorOverview';
 import {
   CLERK_TRANSLATOR_OVERVIEW_CANCEL_UPDATE,
+  CLERK_TRANSLATOR_OVERVIEW_DELETE_AUTHORISATION,
+  CLERK_TRANSLATOR_OVERVIEW_DELETE_AUTHORISATION_FAIL,
+  CLERK_TRANSLATOR_OVERVIEW_DELETE_AUTHORISATION_SUCCESS,
   CLERK_TRANSLATOR_OVERVIEW_FETCH_FAIL,
   CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS,
   CLERK_TRANSLATOR_OVERVIEW_LOAD,
@@ -66,7 +69,7 @@ export const clerkTranslatorOverviewReducer: Reducer<
         },
         overviewStatus: APIResponseStatus.Success,
       };
-    case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS: {
+    case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS:
       return {
         ...state,
         selectedTranslator: {
@@ -75,18 +78,34 @@ export const clerkTranslatorOverviewReducer: Reducer<
         overviewStatus: APIResponseStatus.Success,
         translatorDetailsStatus: APIResponseStatus.Success,
       };
-    }
     case CLERK_TRANSLATOR_OVERVIEW_FETCH_FAIL:
       return {
         ...state,
         overviewStatus: APIResponseStatus.Error,
       };
-    case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_FAIL: {
+    case CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_FAIL:
       return {
         ...state,
         translatorDetailsStatus: APIResponseStatus.Error,
       };
-    }
+    case CLERK_TRANSLATOR_OVERVIEW_DELETE_AUTHORISATION:
+      return {
+        ...state,
+        authorisationDetailsStatus: APIResponseStatus.InProgress,
+      };
+    case CLERK_TRANSLATOR_OVERVIEW_DELETE_AUTHORISATION_SUCCESS:
+      return {
+        ...state,
+        selectedTranslator: {
+          ...(action.translator as ClerkTranslator),
+        },
+        authorisationDetailsStatus: APIResponseStatus.Success,
+      };
+    case CLERK_TRANSLATOR_OVERVIEW_DELETE_AUTHORISATION_FAIL:
+      return {
+        ...state,
+        authorisationDetailsStatus: APIResponseStatus.Error,
+      };
     default:
       return state;
   }

@@ -19,9 +19,14 @@ import {
   useCommonTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
-import { Color } from 'enums/app';
+import { useAppDispatch } from 'configs/redux';
+import { Color, Severity, Variant } from 'enums/app';
 import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { Authorisation } from 'interfaces/authorisation';
+import { deleteAuthorisation } from 'redux/actions/clerkTranslatorOverview';
+import { showNotifierDialog } from 'redux/actions/notifier';
+import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
+import { Utils } from 'utils';
 import { AuthorisationUtils } from 'utils/authorisation';
 import { DateUtils } from 'utils/date';
 
@@ -30,6 +35,7 @@ export const AuthorisationListing = ({
 }: {
   authorisations: Array<Authorisation>;
 }) => {
+  const dispatch = useAppDispatch();
   const translateLanguage = useKoodistoLanguagesTranslation();
   const translateCommon = useCommonTranslation();
   const { t } = useAppTranslation({
@@ -37,6 +43,28 @@ export const AuthorisationListing = ({
   });
   const dayjs = DateUtils.dayjs();
   const currentDate = dayjs();
+
+  const dispatchConfirmRemoveNotifier = (authorisation: Authorisation) => {
+    const notifier = Utils.createNotifierDialog(
+      t('row.removal.dialog.header'),
+      Severity.Info,
+      t('row.removal.dialog.description'),
+      [
+        {
+          title: translateCommon('back'),
+          variant: Variant.Outlined,
+          action: NOTIFIER_ACTION_DO_NOTHING,
+        },
+        {
+          title: t('row.removal.dialog.confirmButton'),
+          variant: Variant.Contained,
+          action: () => dispatch(deleteAuthorisation(authorisation.id)),
+        },
+      ]
+    );
+
+    dispatch(showNotifierDialog(notifier));
+  };
 
   return (
     <Table
@@ -112,7 +140,13 @@ export const AuthorisationListing = ({
               <Text>{a.diaryNumber}</Text>
             </TableCell>
             <TableCell className="centered">
-              <DeleteIcon className="color-red-500" />
+              <CustomIconButton
+                data-testid="authorisations-listing__delete-icon"
+                onClick={() => dispatchConfirmRemoveNotifier(a)}
+                aria-label={t('row.removal.ariaLabel')}
+              >
+                <DeleteIcon className="color-red-500" />
+              </CustomIconButton>
             </TableCell>
           </TableRow>
         ))}

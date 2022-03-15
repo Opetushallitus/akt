@@ -1,5 +1,6 @@
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import {
+  CLERK_TRANSLATOR_OVERVIEW_DELETE_AUTHORISATION,
   CLERK_TRANSLATOR_OVERVIEW_FETCH,
   CLERK_TRANSLATOR_OVERVIEW_LOAD,
   CLERK_TRANSLATOR_OVERVIEW_LOADING,
@@ -29,3 +30,8 @@ export const resetClerkTranslatorDetailsUpdate = {
 export const startLoadingClerkTranslatorOverview = {
   type: CLERK_TRANSLATOR_OVERVIEW_LOADING,
 };
+
+export const deleteAuthorisation = (authorisationId: number) => ({
+  type: CLERK_TRANSLATOR_OVERVIEW_DELETE_AUTHORISATION,
+  authorisationId,
+});

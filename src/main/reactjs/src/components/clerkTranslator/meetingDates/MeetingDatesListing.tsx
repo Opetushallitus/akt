@@ -9,7 +9,7 @@ import { PaginatedTable } from 'components/tables/Table';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
-import { Color, Severity, Variant } from 'enums/app';
+import { Severity, Variant } from 'enums/app';
 import { MeetingStatus } from 'enums/meetingDate';
 import { MeetingDate } from 'interfaces/meetingDate';
 import { removeMeetingDate } from 'redux/actions/meetingDate';
@@ -69,7 +69,7 @@ const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
           onClick={dispatchConfirmRemoveNotifier}
           aria-label={`${t('ariaLabel')} ${formattedDate}`}
         >
-          <DeleteIcon color={Color.Error} />
+          <DeleteIcon className="color-red-500" />
         </CustomIconButton>
       </TableCell>
     </TableRow>
