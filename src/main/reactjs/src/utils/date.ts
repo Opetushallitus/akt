@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 import { getCurrentLang } from 'configs/i18n';
 
@@ -9,7 +9,7 @@ export class DateUtils {
     return dayjs;
   }
 
-  static formatOptionalDate(date?: dayjs.Dayjs) {
+  static formatOptionalDate(date?: Dayjs) {
     if (!date) {
       return '-';
     }
@@ -25,15 +25,15 @@ export class DateUtils {
     }
   }
 
-  static isDatePartBefore(before: dayjs.Dayjs, after: dayjs.Dayjs) {
+  static isDatePartBefore(before: Dayjs, after: Dayjs) {
     return before.isBefore(after, 'day');
   }
 
-  static isDatePartEqual(before: dayjs.Dayjs, after: dayjs.Dayjs) {
+  static isDatePartEqual(before: Dayjs, after: Dayjs) {
     return before.isSame(after, 'day');
   }
 
-  static isDatePartBeforeOrEqual(before: dayjs.Dayjs, after: dayjs.Dayjs) {
+  static isDatePartBeforeOrEqual(before: Dayjs, after: Dayjs) {
     return (
       this.isDatePartBefore(before, after) ||
       this.isDatePartEqual(before, after)
