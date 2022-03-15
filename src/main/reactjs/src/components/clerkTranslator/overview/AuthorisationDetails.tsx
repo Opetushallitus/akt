@@ -51,16 +51,19 @@ export const AuthorisationDetails = () => {
     {
       status: AuthorisationStatus.Authorised,
       count: groupedAuthorisations.authorised.length,
+      testId: `clerk-translator-overview__authorisation-details__toggle-btn--${AuthorisationStatus.Authorised}`,
       label: t('toggleFilters.effectives'),
     },
     {
       status: AuthorisationStatus.Expired,
       count: groupedAuthorisations.expired.length,
+      testId: `clerk-translator-overview__authorisation-details__toggle-btn--${AuthorisationStatus.Expired}`,
       label: t('toggleFilters.expired'),
     },
     {
       status: AuthorisationStatus.FormerVIR,
       count: groupedAuthorisations.formerVIR.length,
+      testId: `clerk-translator-overview__authorisation-details__toggle-btn--${AuthorisationStatus.FormerVIR}`,
       label: t('toggleFilters.formerVIR'),
     },
   ];

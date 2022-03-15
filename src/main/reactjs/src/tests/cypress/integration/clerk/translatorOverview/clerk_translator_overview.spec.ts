@@ -1,10 +1,9 @@
 import { APIEndpoints } from 'enums/api';
 import { AppRoutes } from 'enums/app';
+import { AuthorisationStatus } from 'enums/clerkTranslator';
+import { translatorResponse } from 'tests/cypress/fixtures/ts/clerkTranslatorOverview';
 import { onClerkHomePage } from 'tests/cypress/support/page-objects/clerkHomePage';
-import {
-  onClerkTranslatorOverviewPage,
-  translatorResponse,
-} from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
+import { onClerkTranslatorOverviewPage } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
 import { useFixedDate } from 'tests/cypress/support/utils/date';
 
 const fixedDateForTests = new Date('2022-01-17T12:35:00+0200');
@@ -29,11 +28,31 @@ describe('ClerkTranslatorOverview:Page', () => {
 
     onClerkTranslatorOverviewPage.expectedEnabledAddAuthorisationButton();
     onClerkTranslatorOverviewPage.expectEnabledEditTranslatorInfoBtn();
+  });
+
+  it.only('should display correctly translator and authorisations details', () => {
+    cy.openClerkHomePage();
+    onClerkHomePage.clickTranslatorOverviewLink(translatorResponse.id);
+
     onClerkTranslatorOverviewPage.expectTranslatorDetailsFields(
       translatorResponse
     );
-    onClerkTranslatorOverviewPage.expectTranslatorAuthorisationDetails(
-      translatorResponse
+
+    onClerkTranslatorOverviewPage.expectAuthorisations(
+      translatorResponse,
+      AuthorisationStatus.Authorised
+    );
+
+    onClerkTranslatorOverviewPage.clickExpiredToggleBtn();
+    onClerkTranslatorOverviewPage.expectAuthorisations(
+      translatorResponse,
+      AuthorisationStatus.Expired
+    );
+
+    onClerkTranslatorOverviewPage.clickformerVIRToggleBtn();
+    onClerkTranslatorOverviewPage.expectAuthorisations(
+      translatorResponse,
+      AuthorisationStatus.FormerVIR
     );
   });
 

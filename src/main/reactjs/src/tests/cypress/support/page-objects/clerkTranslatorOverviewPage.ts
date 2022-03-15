@@ -1,9 +1,24 @@
 import { AppRoutes, UIMode } from 'enums/app';
+import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { ClerkTranslatorResponse } from 'interfaces/clerkTranslator';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
+import { APIUtils } from 'utils/api';
+import { AuthorisationUtils } from 'utils/authorisation';
 
 class ClerkTranslatorOverviewPage {
   elements = {
+    authorisedToggleBtn: () =>
+      cy.findByTestId(
+        'clerk-translator-overview__authorisation-details__toggle-btn--authorised'
+      ),
+    expiredToggleBtn: () =>
+      cy.findByTestId(
+        'clerk-translator-overview__authorisation-details__toggle-btn--expired'
+      ),
+    formerVIRToggleBtn: () =>
+      cy.findByTestId(
+        'clerk-translator-overview__authorisation-details__toggle-btn--formerVIR'
+      ),
     addAuthorisationBtn: () =>
       cy.findByTestId(
         'clerk-translator-overview__authorisation-details__add-btn'
@@ -62,6 +77,18 @@ class ClerkTranslatorOverviewPage {
       .clear()
       .should('have.text', '')
       .type(newValue);
+  }
+
+  clickAuthorisedToggleBtn() {
+    this.elements.authorisedToggleBtn().click();
+  }
+
+  clickExpiredToggleBtn() {
+    this.elements.expiredToggleBtn().click();
+  }
+
+  clickformerVIRToggleBtn() {
+    this.elements.formerVIRToggleBtn().click();
   }
 
   expectTranslatorDetailsFieldValue(
@@ -140,8 +167,18 @@ class ClerkTranslatorOverviewPage {
     });
   }
 
-  expectTranslatorAuthorisationDetails(translator: ClerkTranslatorResponse) {
-    translator.authorisations.forEach((a) => {
+  expectAuthorisations(
+    translator: ClerkTranslatorResponse,
+    status: AuthorisationStatus
+  ) {
+    const convertedTranslator =
+      APIUtils.convertClerkTranslatorResponse(translator);
+    const authorisations =
+      AuthorisationUtils.groupClerkTranslatorAuthorisationsByStatus(
+        convertedTranslator
+      );
+
+    authorisations[status].forEach((a) => {
       onClerkTranslatorOverviewPage.expectAuthorisationRowToHaveText(
         a.id,
         a.diaryNumber
@@ -149,54 +186,5 @@ class ClerkTranslatorOverviewPage {
     });
   }
 }
-
-// Helpers
-// clerk_translator_overview.spec expects this to match translator with id: 2 from clerk_translator_10.json
-export const translatorResponse: ClerkTranslatorResponse = {
-  id: 2,
-  version: 0,
-  firstName: 'Ilkka',
-  lastName: 'Eskola',
-  identityNumber: 'id2',
-  email: 'translator2@example.invalid',
-  phoneNumber: '+358401000002',
-  street: 'Sibeliuksenkuja 3',
-  postalCode: '06100',
-  town: 'Hämeenlinna',
-  country: 'SUOMI',
-  extraInformation:
-    'Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen',
-  isAssuranceGiven: true,
-  authorisations: [
-    {
-      id: 2,
-      version: 0,
-      languagePair: {
-        from: 'SEKO',
-        to: 'CS',
-      },
-      basis: 'AUT',
-      termBeginDate: '2022-01-01',
-      termEndDate: '2022-01-17',
-      permissionToPublish: true,
-      diaryNumber: '2',
-      autDate: '2022-03-03',
-    },
-    {
-      id: 7266,
-      version: 0,
-      languagePair: {
-        from: 'CS',
-        to: 'SEKO',
-      },
-      basis: 'AUT',
-      termBeginDate: '2022-01-01',
-      termEndDate: '2022-01-17',
-      permissionToPublish: true,
-      diaryNumber: '7266',
-      autDate: '2022-03-03',
-    },
-  ],
-};
 
 export const onClerkTranslatorOverviewPage = new ClerkTranslatorOverviewPage();
