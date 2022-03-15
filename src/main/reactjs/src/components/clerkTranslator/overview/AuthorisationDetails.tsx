@@ -1,16 +1,20 @@
 import { Add as AddIcon } from '@mui/icons-material';
 import { useState } from 'react';
 
+import { AddAuthorisation } from 'components/clerkTranslator/add/AddAuthorisation';
 import { AuthorisationListing } from 'components/clerkTranslator/overview/AuthorisationListing';
 import { CustomButton } from 'components/elements/CustomButton';
 import { H3, Text } from 'components/elements/Text';
 import { ToggleFilterGroup } from 'components/elements/ToggleFilterGroup';
 import { useAppTranslation } from 'configs/i18n';
-import { useAppSelector } from 'configs/redux';
+import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { Color, Variant } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
+import { AddAuthorisation as AddAuthorisationI } from 'interfaces/authorisation';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
+import { addAuthorisation } from 'redux/actions/authorisation';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
+import { selectMeetingDatesByMeetingStatus } from 'redux/selectors/meetingDate';
 import { AuthorisationUtils } from 'utils/authorisation';
 
 export const AuthorisationDetails = () => {
@@ -23,6 +27,18 @@ export const AuthorisationDetails = () => {
   const { selectedTranslator } = useAppSelector(
     clerkTranslatorOverviewSelector
   );
+  const { upcoming } = useAppSelector(selectMeetingDatesByMeetingStatus);
+  const dispatch = useAppDispatch();
+
+  const handleAddAuthorisation = (authorisation: AddAuthorisationI) => {
+    selectedTranslator?.id &&
+      dispatch(
+        addAuthorisation({
+          ...authorisation,
+          translatorId: selectedTranslator.id,
+        })
+      );
+  };
 
   // I18n
   const { t } = useAppTranslation({
@@ -75,6 +91,10 @@ export const AuthorisationDetails = () => {
   return (
     <>
       <div className="rows gapped-xs">
+        <AddAuthorisation
+          meetingDates={upcoming}
+          onNewAuthorisationAdd={handleAddAuthorisation}
+        />
         <div className="columns margin-top-sm">
           <H3 className="grow">{t('header')}</H3>
           <CustomButton

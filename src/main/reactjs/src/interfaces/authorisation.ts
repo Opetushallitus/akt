@@ -1,4 +1,5 @@
 import { Dayjs } from 'dayjs';
+import { Action } from 'redux';
 
 import {
   AuthorisationBasisEnum,
@@ -34,3 +35,21 @@ export interface AuthorisationResponse
 export type AuthorisationsGroupedByStatus = {
   [key in AuthorisationStatus]: Array<Authorisation>;
 };
+export interface AddAuthorisation {
+  languagePair: LanguagePair;
+  basis: AuthorisationBasis;
+  termBeginDate: string;
+  termEndDate?: string;
+  permissionToPublish: boolean;
+  diaryNumber?: string;
+  autDate?: string;
+  translatorId: number;
+}
+
+export interface AddAuthorisationState {
+  authorisation: AddAuthorisation | Record<string, never>;
+}
+
+export interface AddAuthorisationAction extends Action {
+  authorisation: AddAuthorisation;
+}
