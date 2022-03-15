@@ -37,6 +37,12 @@
   }
 }
 
+.color-secondary-dark {
+  &#{&} {
+    color: $color-secondary-dark;
+  }
+}
+
 .color-disabled {
   &#{&} {
     color: rgba(0, 0, 0, 0.38);

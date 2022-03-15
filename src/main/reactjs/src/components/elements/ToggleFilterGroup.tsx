@@ -19,9 +19,10 @@ export function ToggleFilterGroup<T>({
   onButtonClick,
 }: ToggleFilterGroupProps<T>) {
   return (
-    <>
+    <div className="columns">
       {filters.map(({ count, status, testId, label }, i) => (
         <CustomButton
+          className="border-radius-unset"
           key={i}
           data-testid={testId}
           color={Color.Secondary}
@@ -36,6 +37,6 @@ export function ToggleFilterGroup<T>({
           </div>
         </CustomButton>
       ))}
-    </>
+    </div>
   );
 }

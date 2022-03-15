@@ -170,25 +170,11 @@
       "postalCode": "06100",
       "town": "Hämeenlinna",
       "country": "SUOMI",
-      "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999. Uusi auktorisointi lisätty kääntäjälle 12.10.2000. Auktorisointi päivitetty julkiseksi 1.1.2001. Viimeisen muutoksen tekijä: Testi Testinen",
+      "extraInformation": "Osoitetietoja muokattu 1.5.1999. Osoitetietoja muutettu uudelleen 2.5.1999.",
       "isAssuranceGiven": true,
       "authorisations": [
         {
-          "id": 7266,
-          "version": 0,
-          "languagePair": {
-            "from": "CS",
-            "to": "SEKO"
-          },
-          "basis": "AUT",
-          "termBeginDate": "2022-01-01",
-          "termEndDate": "2022-07-01",
-          "permissionToPublish": true,
-          "diaryNumber": "7266",
-          "autDate": "2022-03-07"
-        },
-        {
-          "id": 2,
+          "id": 10000,
           "version": 0,
           "languagePair": {
             "from": "SEKO",
@@ -198,8 +184,47 @@
           "termBeginDate": "2021-03-09",
           "termEndDate": "2021-09-09",
           "permissionToPublish": true,
-          "diaryNumber": "2",
+          "diaryNumber": "10000",
           "autDate": "2022-03-07"
+        },
+        {
+          "id": 10001,
+          "version": 0,
+          "languagePair": {
+            "from": "CS",
+            "to": "SEKO"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2022-01-01",
+          "termEndDate": "2022-07-01",
+          "permissionToPublish": true,
+          "diaryNumber": "10001",
+          "autDate": "2022-03-03"
+        },
+        {
+          "id": 10002,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "CS"
+          },
+          "basis": "AUT",
+          "termBeginDate": "2020-01-01",
+          "termEndDate": "2022-01-01",
+          "permissionToPublish": true,
+          "diaryNumber": "10002",
+          "autDate": "2020-01-01"
+        },
+        {
+          "id": 10003,
+          "version": 0,
+          "languagePair": {
+            "from": "SEKO",
+            "to": "CS"
+          },
+          "basis": "VIR",
+          "permissionToPublish": true,
+          "diaryNumber": "10003"
         }
       ]
     },

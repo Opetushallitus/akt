@@ -66,7 +66,12 @@
             "startDate": "Alkamispäivä"
           },
           "header": "Auktorisoinnit",
-          "noAuthorisations": "Kääntäjällä ei ole yhtään auktorisointia"
+          "noAuthorisations": "Valituille kriteereille ei löytynyt auktorisointeja",
+          "toggleFilters": {
+            "effectives": "Voimassa olevat",
+            "expired": "Umpeutuneet",
+            "formerVIR": "Ent. VIR"
+          }
         },
         "toasts": {
           "notFound": "Valittua kääntäjää ei löytynyt",

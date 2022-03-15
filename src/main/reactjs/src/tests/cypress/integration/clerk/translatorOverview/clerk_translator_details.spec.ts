@@ -1,9 +1,7 @@
 import { APIEndpoints } from 'enums/api';
 import { UIMode } from 'enums/app';
-import {
-  onClerkTranslatorOverviewPage,
-  translatorResponse,
-} from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
+import { translatorResponse } from 'tests/cypress/fixtures/ts/clerkTranslatorOverview';
+import { onClerkTranslatorOverviewPage } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
 import { onDialog } from 'tests/cypress/support/page-objects/dialog';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
 

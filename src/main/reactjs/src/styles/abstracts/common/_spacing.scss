@@ -24,15 +24,21 @@
 
 /* Margins */
 .margin-top-sm {
-  margin-top: map-get($spacing, 'sm');
+  &#{&} {
+    margin-top: map-get($spacing, 'sm');
+  }
 }
 
 .margin-top-lg {
-  margin-top: map-get($spacing, 'lg');
+  &#{&} {
+    margin-top: map-get($spacing, 'lg');
+  }
 }
 
 .margin-top-xxl {
-  margin-top: map-get($spacing, 'xxl');
+  &#{&} {
+    margin-top: map-get($spacing, 'xxl');
+  }
 }
 
 .margin-right-xs {
