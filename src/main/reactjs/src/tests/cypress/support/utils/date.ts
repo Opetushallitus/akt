@@ -1,1 +1,3 @@
-export const useFixedDate = (date: Date) => cy.clock(date);
+import { Dayjs } from 'dayjs';
+
+export const useFixedDate = (date: Dayjs) => cy.clock(date.toDate());
