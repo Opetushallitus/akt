@@ -1,36 +1,34 @@
 import { APIEndpoints } from 'enums/api';
 import { MeetingStatus } from 'enums/meetingDate';
-import { MeetingDateResponse } from 'interfaces/meetingDate';
 import { onDialog } from 'tests/cypress/support/page-objects/dialog';
 import { onMeetingDatesPage } from 'tests/cypress/support/page-objects/meetingDatesPage';
-import { runWithIntercept } from 'tests/cypress/support/utils/api';
 import { useFixedDate } from 'tests/cypress/support/utils/date';
 
+let meetingDates;
 const fixedDateForTests = new Date('2022-01-17T12:35:00+0200');
-
-const createResponse: MeetingDateResponse = {
+const meetingDateToAdd = {
   id: 14,
   version: 0,
   date: '2030-10-04',
 };
 
-const deleteResponse = {};
-
 beforeEach(() => {
   useFixedDate(fixedDateForTests);
-  runWithIntercept(
-    APIEndpoints.MeetingDate,
-    { fixture: 'meeting_dates.json' },
-    () => cy.openMeetingDatesPage()
-  );
 
-  cy.intercept('POST', APIEndpoints.MeetingDate, createResponse).as(
+  cy.fixture('meeting_dates.json').then((dates) => {
+    meetingDates = dates;
+    cy.intercept('GET', '/akt/api/v1/clerk/meetingDate', meetingDates);
+  });
+
+  cy.intercept('POST', APIEndpoints.MeetingDate, meetingDateToAdd).as(
     'createMeetingDate'
   );
 
-  cy.intercept('DELETE', `${APIEndpoints.MeetingDate}/5`, deleteResponse).as(
+  cy.intercept('DELETE', `${APIEndpoints.MeetingDate}/5`, {}).as(
     'deleteMeetingDate'
   );
+
+  cy.openMeetingDatesPage();
 });
 
 describe('MeetingDatesPage', () => {
@@ -64,13 +62,19 @@ describe('MeetingDatesPage', () => {
   });
 
   it('should let user to add a new, unique meeting date', () => {
+    onMeetingDatesPage.expectTotalMeetingDatesCount(13);
     onMeetingDatesPage.expectAddButtonDisabled();
 
+    cy.intercept('GET', APIEndpoints.MeetingDate, [
+      ...meetingDates,
+      meetingDateToAdd,
+    ]);
     onMeetingDatesPage.setDateForNewMeetingDate('2030-10-04');
     onMeetingDatesPage.clickAddButton();
+
     cy.wait('@createMeetingDate');
 
-    // onMeetingDatesPage.expectTotalMeetingDatesCount(14);
+    onMeetingDatesPage.expectTotalMeetingDatesCount(14);
   });
 
   it('should not let user to add another meeting date with the same date as an existing one', () => {
@@ -87,17 +91,21 @@ describe('MeetingDatesPage', () => {
     onMeetingDatesPage.expectTotalMeetingDatesCount(13);
   });
 
-  it('should open a confirmation dialog when row delete icon is clicked, and delete the selected meeting date if user confirms', () => {
+  it.only('should open a confirmation dialog when row delete icon is clicked, and delete the selected meeting date if user confirms', () => {
+    const meetingDateToBeDeleted = 5;
+    const newMeetingDates = meetingDates.filter(
+      (m) => m.id !== meetingDateToBeDeleted
+    );
+
+    cy.intercept('GET', APIEndpoints.MeetingDate, [...newMeetingDates]);
     onMeetingDatesPage.filterByStatus(MeetingStatus.Passed);
     onMeetingDatesPage.clickDeleteRowIcon(1);
-
     onDialog.clickButtonByText('Kyllä');
     cy.wait('@deleteMeetingDate');
 
-    // onMeetingDatesPage.expectRowToContain(0, '1.1.2022');
-    // onMeetingDatesPage.expectRowToContain(1, '15.8.2021');
-
-    // onMeetingDatesPage.expectTotalMeetingDatesCount(12);
-    // onMeetingDatesPage.expectSelectedMeetingDatesCount(5);
+    onMeetingDatesPage.expectRowToContain(0, '1.1.2022');
+    onMeetingDatesPage.expectRowToContain(1, '15.8.2021');
+    onMeetingDatesPage.expectTotalMeetingDatesCount(12);
+    onMeetingDatesPage.expectSelectedMeetingDatesCount(5);
   });
 });
