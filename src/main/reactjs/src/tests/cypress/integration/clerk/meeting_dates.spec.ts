@@ -13,22 +13,25 @@ const meetingDateToAdd = {
   version: 0,
   date: '2030-10-04',
 };
+const meetingDateToBeDeleted = 5;
 
 beforeEach(() => {
   useFixedDate(fixedDateForTests);
 
   cy.fixture('meeting_dates_10.json').then((dates) => {
     meetingDates = dates;
-    cy.intercept('GET', '/akt/api/v1/clerk/meetingDate', meetingDates);
+    cy.intercept('GET', APIEndpoints.MeetingDate, meetingDates);
   });
 
   cy.intercept('POST', APIEndpoints.MeetingDate, meetingDateToAdd).as(
     'createMeetingDate'
   );
 
-  cy.intercept('DELETE', `${APIEndpoints.MeetingDate}/5`, {}).as(
-    'deleteMeetingDate'
-  );
+  cy.intercept(
+    'DELETE',
+    `${APIEndpoints.MeetingDate}/${meetingDateToBeDeleted}`,
+    {}
+  ).as('deleteMeetingDate');
 
   cy.openMeetingDatesPage();
 });
@@ -94,7 +97,6 @@ describe('MeetingDatesPage', () => {
   });
 
   it('should open a confirmation dialog when row delete icon is clicked, and delete the selected meeting date if user confirms', () => {
-    const meetingDateToBeDeleted = 5;
     const newMeetingDates = meetingDates.filter(
       (m) => m.id !== meetingDateToBeDeleted
     );
