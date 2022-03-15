@@ -37,8 +37,8 @@ export const AddAuthorisation = ({
   const dayjs = DateUtils.dayjs();
   const meetingDateValues = meetingDates.map((m) => {
     return {
-      value: m.date.toDateString(),
-      label: DateUtils.formatOptionalDate(dayjs(m.date).toDate()),
+      value: m.date.toISOString(),
+      label: DateUtils.formatOptionalDate(dayjs(m.date)),
     };
   });
 
@@ -81,19 +81,19 @@ export const AddAuthorisation = ({
 
   const handleTermBeginDateChange = ({}, value: AutocompleteValue) => {
     const PERIOD_OF_VALIDITY = 5;
+    const termBeginDate = value?.value ? dayjs(value?.value) : undefined;
+    const termEndDate = termBeginDate?.add(PERIOD_OF_VALIDITY, 'year');
     setAuthorisation({
       ...authorisation,
-      termBeginDate: value?.value ? dayjs(value?.value).toDate() : undefined,
-      termEndDate: value?.value
-        ? dayjs(value?.value).add(PERIOD_OF_VALIDITY, 'year').toDate()
-        : undefined,
+      termBeginDate,
+      termEndDate,
     });
   };
 
   const handleAutDateChange = (value: string) => {
     setAuthorisation({
       ...authorisation,
-      autDate: dayjs(value).toDate(),
+      autDate: dayjs(value),
     });
   };
 
@@ -119,7 +119,7 @@ export const AddAuthorisation = ({
   const getTermBeginDate = () => {
     return authorisation.termBeginDate
       ? {
-          value: authorisation.termBeginDate.toDateString(),
+          value: authorisation.termBeginDate.toISOString(),
           label: DateUtils.formatOptionalDate(authorisation.termBeginDate),
         }
       : null;

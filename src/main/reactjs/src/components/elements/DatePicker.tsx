@@ -1,5 +1,6 @@
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import { Dayjs } from 'dayjs';
 
 import { DateUtils } from 'utils/date';
 
@@ -7,8 +8,8 @@ export interface DatePickerProps {
   value?: string;
   setValue: (value: string) => void;
   label: string;
-  minDate?: Date;
-  maxDate?: Date;
+  minDate?: Dayjs;
+  maxDate?: Dayjs;
 }
 
 export const DatePicker = ({
@@ -38,12 +39,8 @@ export const DatePicker = ({
           shrink: true,
         }}
         inputProps={{
-          min: DateUtils.formatOptionalDate(
-            minDate ?? dayjs(MIN_DATE).toDate()
-          ),
-          max: DateUtils.formatOptionalDate(
-            maxDate ?? dayjs(MAX_DATE).toDate()
-          ),
+          min: DateUtils.formatOptionalDate(minDate ?? dayjs(MIN_DATE)),
+          max: DateUtils.formatOptionalDate(maxDate ?? dayjs(MAX_DATE)),
         }}
       />
     </Stack>

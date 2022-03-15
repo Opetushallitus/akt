@@ -1,3 +1,4 @@
+import { Dayjs } from 'dayjs';
 import { Reducer } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
@@ -20,6 +21,9 @@ import {
   MEETING_DATE_REMOVE_ERROR,
   MEETING_DATE_REMOVE_SUCCESS,
 } from 'redux/actionTypes/meetingDate';
+import { DateUtils } from 'utils/date';
+
+const dayjs = DateUtils.dayjs();
 
 const defaultState = {
   meetingDates: {
@@ -31,7 +35,7 @@ const defaultState = {
   },
   addMeetingDate: {
     status: APIResponseStatus.NotStarted,
-    date: new Date(),
+    date: dayjs(),
   },
   removeMeetingDate: {
     status: APIResponseStatus.NotStarted,
@@ -114,7 +118,7 @@ export const meetingDateReducer: Reducer<
 
     // Adding meetings
     case MEETING_DATE_ADD:
-      const date = action.date as Date;
+      const date = action.date as Dayjs;
 
       return {
         ...state,

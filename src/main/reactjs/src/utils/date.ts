@@ -1,13 +1,6 @@
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
-import { getCurrentLang, supportedLangs } from 'configs/i18n';
-import { AppLanguage } from 'enums/app';
-
-const getDateTimeFormatter = (lang: AppLanguage) => {
-  const locale = supportedLangs.includes(lang) ? lang : AppLanguage.Finnish;
-
-  return new Intl.DateTimeFormat(locale);
-};
+import { getCurrentLang } from 'configs/i18n';
 
 export class DateUtils {
   static dayjs() {
@@ -16,36 +9,31 @@ export class DateUtils {
     return dayjs;
   }
 
-  static formatOptionalDate(date?: Date) {
+  static formatOptionalDate(date?: Dayjs) {
     if (!date) {
       return '-';
     }
 
-    const lang = getCurrentLang() as AppLanguage;
-    const dateTimeFormatter = getDateTimeFormatter(lang);
-
-    return dateTimeFormatter.format(date);
+    return date.format('D.M.YYYY');
   }
 
   static optionalStringToDate(dateString?: string) {
     if (dateString) {
-      return DateUtils.dateAtStartOfDay(new Date(dateString));
+      const dayjs = DateUtils.dayjs();
+
+      return dayjs(dateString);
     }
   }
 
-  static dateAtStartOfDay(date: Date) {
-    return dayjs(date).startOf('day').toDate();
+  static isDatePartBefore(before: Dayjs, after: Dayjs) {
+    return before.isBefore(after, 'day');
   }
 
-  static isDatePartBefore(before: Date, after: Date) {
-    return dayjs(before).isBefore(after, 'day');
+  static isDatePartEqual(before: Dayjs, after: Dayjs) {
+    return before.isSame(after, 'day');
   }
 
-  static isDatePartEqual(before: Date, after: Date) {
-    return dayjs(before).isSame(after, 'day');
-  }
-
-  static isDatePartBeforeOrEqual(before: Date, after: Date) {
+  static isDatePartBeforeOrEqual(before: Dayjs, after: Dayjs) {
     return (
       this.isDatePartBefore(before, after) ||
       this.isDatePartEqual(before, after)
