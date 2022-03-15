@@ -2,17 +2,14 @@ import { ChangeEvent } from 'react';
 
 import { CustomSwitch } from 'components/elements/CustomSwitch';
 import { CustomTextField } from 'components/elements/CustomTextField';
-import { H3 } from 'components/elements/Text';
+import { H2 } from 'components/elements/Text';
 import {
   translateOutsideComponent,
   useAppTranslation,
   useCommonTranslation,
 } from 'configs/i18n';
 import { TextFieldTypes } from 'enums/app';
-import {
-  ClerkTranslator,
-  ClerkTranslatorBasicInformation,
-} from 'interfaces/clerkTranslator';
+import { ClerkTranslatorBasicInformation } from 'interfaces/clerkTranslator';
 import {
   ClerkTranslatorTextField,
   ClerkTranslatorTextFieldProps,
@@ -35,13 +32,14 @@ const getFieldType = (field: keyof ClerkTranslatorTextField) => {
 };
 
 const getFieldError = (
-  translator: ClerkTranslator | undefined,
+  translator: ClerkTranslatorBasicInformation | undefined,
   field: keyof ClerkTranslatorTextField
 ) => {
   const t = translateOutsideComponent();
   const type = getFieldType(field);
   const fieldValue = (translator && translator[field]) || '';
-  const error = Utils.inspectCustomTextFieldErrors(type, fieldValue, false);
+  const required = field == 'lastName' || field == 'firstName';
+  const error = Utils.inspectCustomTextFieldErrors(type, fieldValue, required);
 
   return error ? t(`akt.${error}`) : '';
 };
@@ -76,14 +74,14 @@ export const ClerkTranslatorDetailsFields = ({
   translator,
   onFieldChange,
   editDisabled,
-  controlButtons,
+  topControlButtons,
 }: {
-  translator?: ClerkTranslator;
+  translator?: ClerkTranslatorBasicInformation;
   onFieldChange: (
     field: keyof ClerkTranslatorBasicInformation
   ) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   editDisabled: boolean;
-  controlButtons?: JSX.Element;
+  topControlButtons?: JSX.Element;
 }) => {
   // I18n
   const { t } = useAppTranslation({
@@ -102,9 +100,9 @@ export const ClerkTranslatorDetailsFields = ({
     <>
       <div className="columns margin-top-lg">
         <div className="columns margin-top-lg grow">
-          <H3>{t('header.personalInformation')}</H3>
+          <H2>{t('header.personalInformation')}</H2>
         </div>
-        {controlButtons}
+        {topControlButtons}
       </div>
       <div className="grid-columns gapped">
         <ClerkTranslatorDetailsTextField
@@ -117,7 +115,7 @@ export const ClerkTranslatorDetailsFields = ({
           {...getCommonTextFieldProps('identityNumber')}
         />
       </div>
-      <H3>{t('header.address')}</H3>
+      <H2>{t('header.address')}</H2>
       <div className="grid-columns gapped">
         <ClerkTranslatorDetailsTextField
           {...getCommonTextFieldProps('street')}
@@ -130,7 +128,7 @@ export const ClerkTranslatorDetailsFields = ({
           {...getCommonTextFieldProps('country')}
         />
       </div>
-      <H3>{t('header.contactInformation')}</H3>
+      <H2>{t('header.contactInformation')}</H2>
       <div className="grid-columns gapped">
         <ClerkTranslatorDetailsTextField
           {...getCommonTextFieldProps('email')}
@@ -139,14 +137,14 @@ export const ClerkTranslatorDetailsFields = ({
           {...getCommonTextFieldProps('phoneNumber')}
         />
       </div>
-      <H3>{t('header.extraInformation')}</H3>
+      <H2>{t('header.extraInformation')}</H2>
       <ClerkTranslatorDetailsTextField
         {...getCommonTextFieldProps('extraInformation')}
         multiline
         fullWidth
       />
       <div className="rows gapped-xs">
-        <H3>{t('header.isAssuranceGiven')}</H3>
+        <H2>{t('header.isAssuranceGiven')}</H2>
         <CustomSwitch
           disabled={editDisabled}
           onChange={onFieldChange('isAssuranceGiven')}

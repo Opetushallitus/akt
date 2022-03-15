@@ -1,3 +1,4 @@
+import { Add as AddIcon } from '@mui/icons-material';
 import { Divider, Grid, Paper } from '@mui/material';
 import { FC, useEffect } from 'react';
 
@@ -22,7 +23,9 @@ import {
 } from 'redux/selectors/clerkTranslator';
 
 export const ClerkHomePageControlButtons = () => {
-  const { t } = useAppTranslation({ keyPrefix: 'akt.pages.clerkHomepage' });
+  const { t } = useAppTranslation({
+    keyPrefix: 'akt.pages.clerkHomepage.buttons',
+  });
   const dispatch = useAppDispatch();
   const sendEmailButtonDisabled =
     useAppSelector(selectFilteredSelectedIds).length === 0;
@@ -34,7 +37,7 @@ export const ClerkHomePageControlButtons = () => {
         variant={Variant.Outlined}
         onClick={() => dispatch(resetClerkTranslatorFilters)}
       >
-        {t('emptyBtn')}
+        {t('emptySelection')}
       </CustomButton>
       <CustomButtonLink
         data-testid="clerk-translator-registry__send-email-btn"
@@ -66,12 +69,24 @@ export const ClerkHomePage: FC = () => {
   const renderClerkHomePageGrids = () => (
     <>
       <Grid item>
-        <div
-          className="columns gapped"
-          data-testid="clerk-translator-registry__heading"
-        >
-          <H2>{translateCommon('register')}</H2>
-          <Text>{`(${translators.length})`}</Text>
+        <div className="columns">
+          <div
+            className="columns gapped grow"
+            data-testid="clerk-translator-registry__heading"
+          >
+            <H2>{translateCommon('register')}</H2>
+            <Text>{`(${translators.length})`}</Text>
+          </div>
+          <div className="flex-end">
+            <CustomButtonLink
+              startIcon={<AddIcon />}
+              color={Color.Secondary}
+              variant={Variant.Contained}
+              to={AppRoutes.ClerkNewTranslatorPage}
+            >
+              {t('buttons.newTranslator')}
+            </CustomButtonLink>
+          </div>
         </div>
       </Grid>
       <Grid item>

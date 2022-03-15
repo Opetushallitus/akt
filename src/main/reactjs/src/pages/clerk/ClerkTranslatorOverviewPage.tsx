@@ -21,9 +21,10 @@ export const ClerkTranslatorOverviewPage = () => {
   const { t } = useAppTranslation({ keyPrefix: 'akt' });
   // Redux
   const dispatch = useAppDispatch();
-  const { overviewStatus } = useAppSelector(clerkTranslatorOverviewSelector);
-  const selectedTranslatorId = useAppSelector(clerkTranslatorOverviewSelector)
-    .selectedTranslator?.id;
+  const { overviewStatus, selectedTranslator } = useAppSelector(
+    clerkTranslatorOverviewSelector
+  );
+  const selectedTranslatorId = selectedTranslator?.id;
   // React Router
   const navigate = useNavigate();
   const params = useParams();

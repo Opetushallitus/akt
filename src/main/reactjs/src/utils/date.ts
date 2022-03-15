@@ -39,4 +39,8 @@ export class DateUtils {
       this.isDatePartEqual(before, after)
     );
   }
+
+  static convertToAPIRequestDateString(date?: Dayjs) {
+    return date?.format('YYYY-MM-DD');
+  }
 }

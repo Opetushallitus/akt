@@ -11,7 +11,7 @@ export const TopControls = () => {
     <div className="columns">
       <CustomButtonLink
         to={AppRoutes.ClerkHomePage}
-        className="clerk-translator-overview-page__back-btn"
+        className="clerk-translator-overview-page__back-btn text-link"
         variant={Variant.Text}
         startIcon={<ArrowBackIosOutlined />}
       >

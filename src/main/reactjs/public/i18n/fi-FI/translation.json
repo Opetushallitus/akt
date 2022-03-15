@@ -290,9 +290,12 @@
     },
     "pages": {
       "clerkHomepage": {
-        "emptyBtn": "Tyhjennä valinnat",
-        "sendEmail": "Lähetä sähköposti",
-        "title": "Auktorisoitujen kääntäjien rekisteri"
+        "title": "Auktorisoitujen kääntäjien rekisteri",
+        "buttons": {
+          "sendEmail": "Lähetä sähköposti",
+          "emptySelection": "Tyhjennä valinnat",
+          "newTranslator": "Lisää kääntäjä"
+        }
       },
       "clerkSendEmailPage": {
         "dialogs": {
@@ -324,6 +327,13 @@
       },
       "clerkTranslatorOverviewPage": {
         "title": "Kääntäjän tiedot"
+      },
+      "clerkNewTranslatorPage": {
+        "title": "Lisää kääntäjä",
+        "toasts": {
+          "error": "Kääntäjän lisääminen ei onnistunut!",
+          "success": "Kääntäjän tiedot tallennettiin!"
+        }
       },
       "homepage": {
         "description": "Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä joko nimen tai kieliparin mukaan. Voit jättää valitsemillesi kääntäjille yhteydenottopyynnön alla olevalla hakulomakkeella.",
