@@ -2,6 +2,7 @@ import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
+import { WithId, WithVersion } from 'interfaces/with';
 
 export interface ClerkTranslatorOverviewState {
   overviewStatus: APIResponseStatus;
@@ -10,8 +11,13 @@ export interface ClerkTranslatorOverviewState {
   selectedTranslator?: ClerkTranslator;
 }
 
-export interface ClerkTranslatorOverviewAction extends Action {
+export interface ClerkTranslatorOverviewAction extends Action, Partial<WithId> {
   translator?: ClerkTranslator;
-  id?: number;
-  authorisationId?: number;
+}
+
+export interface AuthorisationAction
+  extends Action,
+    WithId,
+    Partial<WithVersion> {
+  permissionToPublish?: boolean;
 }

@@ -12,6 +12,7 @@ const secondaryHeadingColor = '#FFFFFF';
 const grey700Color = '#666666';
 const grey600Color = '#999999';
 const blue200Color = '#F2F5FD';
+const red500Color = '#db2828';
 
 const fontWeightBold = 700;
 const fontWeightMedium = 500;
@@ -125,6 +126,9 @@ export const theme = createTheme({
     },
   },
   palette: {
+    error: {
+      main: red500Color,
+    },
     primary: {
       main: primaryColor,
       light: primaryLightColor,

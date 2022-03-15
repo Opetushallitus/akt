@@ -23,7 +23,10 @@ import { useAppDispatch } from 'configs/redux';
 import { Color, Severity, Variant } from 'enums/app';
 import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { Authorisation } from 'interfaces/authorisation';
-import { deleteAuthorisation } from 'redux/actions/clerkTranslatorOverview';
+import {
+  deleteAuthorisation,
+  updateAuthorisationPublishPermission,
+} from 'redux/actions/clerkTranslatorOverview';
 import { showNotifierDialog } from 'redux/actions/notifier';
 import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
 import { Utils } from 'utils';
@@ -44,11 +47,13 @@ export const AuthorisationListing = ({
   const dayjs = DateUtils.dayjs();
   const currentDate = dayjs();
 
-  const dispatchConfirmRemoveNotifier = (authorisation: Authorisation) => {
+  const confirmAuthorisationPublishPermissionChange = (
+    authorisation: Authorisation
+  ) => {
     const notifier = Utils.createNotifierDialog(
-      t('row.removal.dialog.header'),
+      t('actions.changePermissionToPublish.dialog.header'),
       Severity.Info,
-      t('row.removal.dialog.description'),
+      t('actions.changePermissionToPublish.dialog.description'),
       [
         {
           title: translateCommon('back'),
@@ -56,7 +61,30 @@ export const AuthorisationListing = ({
           action: NOTIFIER_ACTION_DO_NOTHING,
         },
         {
-          title: t('row.removal.dialog.confirmButton'),
+          title: translateCommon('yes'),
+          variant: Variant.Contained,
+          action: () =>
+            dispatch(updateAuthorisationPublishPermission(authorisation)),
+        },
+      ]
+    );
+
+    dispatch(showNotifierDialog(notifier));
+  };
+
+  const confirmAuthorisationRemoval = (authorisation: Authorisation) => {
+    const notifier = Utils.createNotifierDialog(
+      t('actions.removal.dialog.header'),
+      Severity.Info,
+      t('actions.removal.dialog.description'),
+      [
+        {
+          title: translateCommon('back'),
+          variant: Variant.Outlined,
+          action: NOTIFIER_ACTION_DO_NOTHING,
+        },
+        {
+          title: t('actions.removal.dialog.confirmButton'),
           variant: Variant.Contained,
           action: () => dispatch(deleteAuthorisation(authorisation.id)),
         },
@@ -132,8 +160,10 @@ export const AuthorisationListing = ({
             <TableCell>
               <CustomSwitch
                 value={a.permissionToPublish}
+                onChange={() => confirmAuthorisationPublishPermissionChange(a)}
                 leftLabel={translateCommon('no')}
                 rightLabel={translateCommon('yes')}
+                aria-label={t('actions.changePermissionToPublish.ariaLabel')}
               />
             </TableCell>
             <TableCell>
@@ -141,11 +171,11 @@ export const AuthorisationListing = ({
             </TableCell>
             <TableCell className="centered">
               <CustomIconButton
-                data-testid="authorisations-listing__delete-icon"
-                onClick={() => dispatchConfirmRemoveNotifier(a)}
-                aria-label={t('row.removal.ariaLabel')}
+                onClick={() => confirmAuthorisationRemoval(a)}
+                aria-label={t('actions.removal.ariaLabel')}
+                data-testid={`authorisations-table__id-${a.id}-row__delete-btn`}
               >
-                <DeleteIcon className="color-red-500" />
+                <DeleteIcon color={Color.Error} />
               </CustomIconButton>
             </TableCell>
           </TableRow>
