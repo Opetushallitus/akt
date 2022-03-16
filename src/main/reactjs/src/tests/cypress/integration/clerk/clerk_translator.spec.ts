@@ -3,8 +3,10 @@ import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { onClerkHomePage } from 'tests/cypress/support/page-objects/clerkHomePage';
 import { runWithIntercept } from 'tests/cypress/support/utils/api';
 import { useFixedDate } from 'tests/cypress/support/utils/date';
+import { DateUtils } from 'utils/date';
 
-const fixedDateForTests = new Date('2022-01-17T12:35:00+0200');
+const dayjs = DateUtils.dayjs();
+const fixedDateForTests = dayjs('2022-01-17T12:35:00+0200');
 
 beforeEach(() => {
   useFixedDate(fixedDateForTests);
@@ -23,12 +25,12 @@ const translatorCountsByAuthorisationStatus = {
 };
 
 describe('ClerkHomePage', () => {
-  it('should display correct number of translators in its header', () => {
+  it('should display correct number of translators in header', () => {
     onClerkHomePage.expectTotalTranslatorsCount(100);
   });
 
   it('should filter translators by authorisation status', () => {
-    // Use fixed date in tests as the as the authorisation status filters depend on it.
+    // Use fixed date in tests as the as the authorisation status filters depend on it
     onClerkHomePage.expectSelectedTranslatorsCount(
       translatorCountsByAuthorisationStatus[AuthorisationStatus.Authorised]
     );
@@ -73,7 +75,7 @@ describe('ClerkHomePage', () => {
     onClerkHomePage.filterByAuthorisationBasis('VIR');
     onClerkHomePage.expectSelectedTranslatorsCount(15);
 
-    // Authorisation with basis VIR should never expire => expect 0 matching translators.
+    // Authorisation with basis VIR should never expire => expect 0 matching translators
     onClerkHomePage.filterByAuthorisationStatus(AuthorisationStatus.Expiring);
     onClerkHomePage.expectSelectedTranslatorsCount(0);
   });
