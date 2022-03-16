@@ -26,7 +26,7 @@ public class EmailScheduledSending {
 
   private static final String LOCK_AT_MOST = "PT2H";
 
-  public static final int BATCH_SIZE = 10; // TODO: should this be bigger?
+  public static final int BATCH_SIZE = 10;
 
   @Resource
   private final EmailRepository emailRepository;

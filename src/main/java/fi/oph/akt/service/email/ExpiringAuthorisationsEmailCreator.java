@@ -20,7 +20,7 @@ public class ExpiringAuthorisationsEmailCreator {
 
   private static final String INITIAL_DELAY = "PT5S";
 
-  private static final String FIXED_DELAY = "PT6H";
+  private static final String FIXED_DELAY = "PT12H";
 
   private static final String LOCK_AT_LEAST = "PT10S";
 
