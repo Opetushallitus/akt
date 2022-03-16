@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import { CustomSwitch } from 'components/elements/CustomSwitch';
 import { CustomTextField } from 'components/elements/CustomTextField';
@@ -48,6 +48,7 @@ const ClerkTranslatorDetailsTextField = ({
   translator,
   field,
   onChange,
+  displayError,
   ...rest
 }: ClerkTranslatorTextFieldProps) => {
   // I18n
@@ -63,8 +64,8 @@ const ClerkTranslatorDetailsTextField = ({
       data-testid={`clerk-translator-overview__translator-details__field-${field}`}
       onChange={onChange}
       type={getFieldType(field)}
-      error={fieldError?.length > 0}
-      helperText={fieldError}
+      error={displayError && fieldError?.length > 0}
+      helperText={displayError ? fieldError : ''}
       {...rest}
     />
   );
@@ -75,6 +76,7 @@ export const ClerkTranslatorDetailsFields = ({
   onFieldChange,
   editDisabled,
   topControlButtons,
+  displayFieldErrorBeforeChange,
 }: {
   translator?: ClerkTranslatorBasicInformation;
   onFieldChange: (
@@ -82,6 +84,7 @@ export const ClerkTranslatorDetailsFields = ({
   ) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   editDisabled: boolean;
   topControlButtons?: JSX.Element;
+  displayFieldErrorBeforeChange: boolean;
 }) => {
   // I18n
   const { t } = useAppTranslation({
@@ -89,11 +92,24 @@ export const ClerkTranslatorDetailsFields = ({
   });
   const translateCommon = useCommonTranslation();
 
+  const initialErrors = Object.values(ClerkTranslatorTextField).reduce(
+    (acc, val) => {
+      return { ...acc, [val]: displayFieldErrorBeforeChange };
+    },
+    {}
+  ) as Record<ClerkTranslatorTextField, boolean>;
+  const [displayFieldError, setDisplayFieldError] = useState(initialErrors);
+  const displayFieldErrorOnBlur = (field: ClerkTranslatorTextField) => () => {
+    setDisplayFieldError({ ...displayFieldError, [field]: true });
+  };
+
   const getCommonTextFieldProps = (field: ClerkTranslatorTextField) => ({
     field,
     translator,
     disabled: editDisabled,
     onChange: onFieldChange(field),
+    onBlur: displayFieldErrorOnBlur(field),
+    displayError: displayFieldError[field],
   });
 
   return (

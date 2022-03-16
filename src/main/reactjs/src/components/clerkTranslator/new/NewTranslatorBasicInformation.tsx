@@ -38,6 +38,7 @@ export const NewTranslatorBasicInformation = () => {
         handleTranslatorDetailsChange(field)
       }
       editDisabled={false}
+      displayFieldErrorBeforeChange={false}
     />
   );
 };
