@@ -115,6 +115,28 @@ describe('ContactRequestPage', () => {
     cy.findByText(/puhelinnumero on virheellinen/i).should('be.visible');
   });
 
+  it('should still allow proceeding if only the phone number field is filled incorrectly', () => {
+    verifyTranslatorsStep();
+    onContactRequestPage.next();
+
+    // Fill name and email fields correctly
+    onContactRequestPage.fillFieldByLabel(/etunimi/i, 'Etunimi');
+    onContactRequestPage.fillFieldByLabel(/sukunimi/i, 'Sukunimi');
+    onContactRequestPage.fillFieldByLabel(
+      /sähköpostiosoite/i,
+      'test@example.fi'
+    );
+
+    // Type an invalid number to the phone number field
+    onContactRequestPage.fillFieldByLabel(/puhelinnumero/i, 'xxx');
+    onContactRequestPage.blurFieldByLabel(/puhelinnumero/i);
+
+    // Assert error message
+    cy.findByText(/puhelinnumero on virheellinen/i).should('be.visible');
+    // Verify user can still proceed
+    onContactRequestPage.elements.nextButton().should('be.enabled');
+  });
+
   it('should show an error if the message field is empty or its length exceeds the limit', () => {
     verifyTranslatorsStep();
     fillContactDetailsStep();
