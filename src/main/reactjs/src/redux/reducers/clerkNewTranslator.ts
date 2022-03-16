@@ -51,12 +51,12 @@ export const clerkNewTranslatorReducer: Reducer<
     case CLERK_NEW_TRANSLATOR_ERROR:
       return { ...state, status: APIResponseStatus.Error };
     case CLERK_NEW_TRANSLATOR_SUCCESS:
-      const createdTranslatorId = action.createdTranslatorId;
+      const id = action.id;
 
       return {
         ...state,
         status: APIResponseStatus.Success,
-        createdTranslatorId,
+        id,
       };
   }
 

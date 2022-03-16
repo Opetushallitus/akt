@@ -61,13 +61,9 @@ function* showErrorToastOnAdd() {
 
 export function* addMeetingDate(action: AddMeetingDateActionType) {
   try {
-    yield call(
-      axiosInstance.post,
-      APIEndpoints.MeetingDate,
-      JSON.stringify({
-        date: DateUtils.convertToAPIRequestDateString(action.date),
-      })
-    );
+    yield call(axiosInstance.post, APIEndpoints.MeetingDate, {
+      date: DateUtils.convertToAPIRequestDateString(action.date),
+    });
     yield put({ type: MEETING_DATE_ADD_SUCCESS });
     yield put({ type: MEETING_DATE_LOAD });
   } catch (error) {

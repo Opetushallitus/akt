@@ -3,7 +3,6 @@ import { AxiosResponse } from 'axios';
 
 import axiosInstance from 'configs/axios';
 import { APIEndpoints } from 'enums/api';
-import { Authorisation } from 'interfaces/authorisation';
 import {
   ClerkNewTranslator,
   ClerkNewTranslatorAction,
@@ -14,46 +13,23 @@ import {
   CLERK_NEW_TRANSLATOR_SAVE,
   CLERK_NEW_TRANSLATOR_SUCCESS,
 } from 'redux/actionTypes/clerkNewTranslator';
-import { DateUtils } from 'utils/date';
-
-const toAPIRequestAuthorisation = (authorisation: Authorisation) => {
-  const { from, to } = authorisation.languagePair;
-  const {
-    basis,
-    termBeginDate,
-    termEndDate,
-    autDate,
-    permissionToPublish,
-    diaryNumber,
-  } = authorisation;
-
-  return {
-    from,
-    to,
-    basis,
-    termBeginDate: DateUtils.convertToAPIRequestDateString(termBeginDate),
-    termEndDate: DateUtils.convertToAPIRequestDateString(termEndDate),
-    autDate: DateUtils.convertToAPIRequestDateString(autDate),
-    permissionToPublish,
-    diaryNumber,
-  };
-};
+import { APIUtils } from 'utils/api';
 
 function* saveNewClerkTranslator(action: ClerkNewTranslatorAction) {
   try {
     const translator = action.translator as ClerkNewTranslator;
     const authorisations = translator.authorisations.map(
-      toAPIRequestAuthorisation
+      APIUtils.convertAuthorisationToAPIRequest
     );
     const apiResponse: AxiosResponse<ClerkTranslatorResponse> = yield call(
       axiosInstance.post,
       APIEndpoints.ClerkTranslator,
-      JSON.stringify({ ...translator, authorisations })
+      { ...translator, authorisations }
     );
-    const createdTranslatorId = apiResponse.data.id;
+    const id = apiResponse.data.id;
     yield put({
       type: CLERK_NEW_TRANSLATOR_SUCCESS,
-      createdTranslatorId,
+      id,
     });
   } catch (error) {
     yield put({

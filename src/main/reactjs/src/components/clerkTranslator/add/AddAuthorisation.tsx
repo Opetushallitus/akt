@@ -139,7 +139,7 @@ export const AddAuthorisation = ({
     return isOtherPropsNotDefined || isLangPropsNotDefined;
   };
 
-  const doAddAuthorisation = (authorisation: Authorisation) => {
+  const addAndResetAuthorisation = (authorisation: Authorisation) => {
     onAuthorisationAdd(authorisation);
     setAuthorisation(newAuthorisation);
   };
@@ -220,7 +220,7 @@ export const AddAuthorisation = ({
           color={Color.Secondary}
           variant={Variant.Outlined}
           startIcon={<AddOutlinedIcon />}
-          onClick={() => doAddAuthorisation(authorisation)}
+          onClick={() => addAndResetAuthorisation(authorisation)}
           disabled={isAddButtonDisabled()}
         >
           {t('buttons.add')}

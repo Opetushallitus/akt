@@ -1,0 +1,11 @@
+.clerk-new-translator-page {
+  flex: 1;
+
+  & &__content-container {
+    padding: 3rem;
+  }
+
+  & &__back-btn {
+    color: $color-text-primary;
+  }
+}

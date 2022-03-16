@@ -5,6 +5,7 @@ import {
   AuthorisationStatus,
 } from 'enums/clerkTranslator';
 import { LanguagePair } from 'interfaces/languagePair';
+import { WithId, WithVersion } from 'interfaces/with';
 
 export type AuthorisationBasis = keyof typeof AuthorisationBasisEnum;
 
@@ -18,7 +19,9 @@ export interface Authorisation
   autDate?: Dayjs;
 }
 
-export interface AuthorisationResponse {
+export interface AuthorisationResponse
+  extends Partial<WithId>,
+    Partial<WithVersion> {
   languagePair: LanguagePair;
   basis: AuthorisationBasis;
   termBeginDate?: string;
@@ -26,8 +29,6 @@ export interface AuthorisationResponse {
   permissionToPublish: boolean;
   diaryNumber?: string;
   autDate?: string;
-  id?: number;
-  version?: number;
 }
 
 export type AuthorisationsGroupedByStatus = {

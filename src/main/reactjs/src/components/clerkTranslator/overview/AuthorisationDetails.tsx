@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { AuthorisationListing } from 'components/clerkTranslator/overview/AuthorisationListing';
 import { CustomButton } from 'components/elements/CustomButton';
-import { H2, Text } from 'components/elements/Text';
+import { H3, Text } from 'components/elements/Text';
 import { ToggleFilterGroup } from 'components/elements/ToggleFilterGroup';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
@@ -76,7 +76,7 @@ export const AuthorisationDetails = () => {
     <>
       <div className="rows gapped-xs">
         <div className="columns margin-top-sm">
-          <H2 className="grow">{t('header')}</H2>
+          <H3 className="grow">{t('header')}</H3>
           <CustomButton
             data-testid="clerk-translator-overview__authorisation-details__add-btn"
             variant={Variant.Contained}

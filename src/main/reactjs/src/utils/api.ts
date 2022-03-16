@@ -43,4 +43,27 @@ export class APIUtils {
       ),
     };
   }
+
+  static convertAuthorisationToAPIRequest(authorisation: Authorisation) {
+    const { from, to } = authorisation.languagePair;
+    const {
+      basis,
+      termBeginDate,
+      termEndDate,
+      autDate,
+      permissionToPublish,
+      diaryNumber,
+    } = authorisation;
+
+    return {
+      from,
+      to,
+      basis,
+      termBeginDate: DateUtils.convertToAPIRequestDateString(termBeginDate),
+      termEndDate: DateUtils.convertToAPIRequestDateString(termEndDate),
+      autDate: DateUtils.convertToAPIRequestDateString(autDate),
+      permissionToPublish,
+      diaryNumber,
+    };
+  }
 }

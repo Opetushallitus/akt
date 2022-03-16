@@ -1,21 +1,16 @@
 import { Action } from 'redux';
 
 import { APIResponseStatus } from 'enums/api';
-import { Authorisation } from 'interfaces/authorisation';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
+import { WithId } from 'interfaces/with';
 
-export interface ClerkNewTranslator
-  extends Omit<ClerkTranslator, 'id' | 'version' | 'authorisations'> {
-  authorisations: Array<Authorisation>;
-}
+export type ClerkNewTranslator = Omit<ClerkTranslator, 'id' | 'version'>;
 
-export interface ClerkNewTranslatorState {
+export interface ClerkNewTranslatorState extends Partial<WithId> {
   status: APIResponseStatus;
   translator: ClerkNewTranslator;
-  createdTranslatorId?: number;
 }
 
-export interface ClerkNewTranslatorAction extends Action {
+export interface ClerkNewTranslatorAction extends Action, Partial<WithId> {
   translator?: ClerkNewTranslator;
-  createdTranslatorId?: number;
 }

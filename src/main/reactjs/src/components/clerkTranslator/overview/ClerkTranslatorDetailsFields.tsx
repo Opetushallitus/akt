@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react';
 
 import { CustomSwitch } from 'components/elements/CustomSwitch';
 import { CustomTextField } from 'components/elements/CustomTextField';
-import { H2 } from 'components/elements/Text';
+import { H3 } from 'components/elements/Text';
 import {
   translateOutsideComponent,
   useAppTranslation,
@@ -100,7 +100,7 @@ export const ClerkTranslatorDetailsFields = ({
     <>
       <div className="columns margin-top-lg">
         <div className="columns margin-top-lg grow">
-          <H2>{t('header.personalInformation')}</H2>
+          <H3>{t('header.personalInformation')}</H3>
         </div>
         {topControlButtons}
       </div>
@@ -115,7 +115,7 @@ export const ClerkTranslatorDetailsFields = ({
           {...getCommonTextFieldProps('identityNumber')}
         />
       </div>
-      <H2>{t('header.address')}</H2>
+      <H3>{t('header.address')}</H3>
       <div className="grid-columns gapped">
         <ClerkTranslatorDetailsTextField
           {...getCommonTextFieldProps('street')}
@@ -128,7 +128,7 @@ export const ClerkTranslatorDetailsFields = ({
           {...getCommonTextFieldProps('country')}
         />
       </div>
-      <H2>{t('header.contactInformation')}</H2>
+      <H3>{t('header.contactInformation')}</H3>
       <div className="grid-columns gapped">
         <ClerkTranslatorDetailsTextField
           {...getCommonTextFieldProps('email')}
@@ -137,14 +137,14 @@ export const ClerkTranslatorDetailsFields = ({
           {...getCommonTextFieldProps('phoneNumber')}
         />
       </div>
-      <H2>{t('header.extraInformation')}</H2>
+      <H3>{t('header.extraInformation')}</H3>
       <ClerkTranslatorDetailsTextField
         {...getCommonTextFieldProps('extraInformation')}
         multiline
         fullWidth
       />
       <div className="rows gapped-xs">
-        <H2>{t('header.isAssuranceGiven')}</H2>
+        <H3>{t('header.isAssuranceGiven')}</H3>
         <CustomSwitch
           disabled={editDisabled}
           onChange={onFieldChange('isAssuranceGiven')}
