@@ -43,7 +43,7 @@ CREATE TABLE public.authorisation (
     term_begin_date date,
     term_end_date date,
     diary_number character varying(255),
-    CONSTRAINT ck_authorisation_aut_date CHECK ((((basis)::text = 'AUT'::text) OR (aut_date IS NULL))),
+    CONSTRAINT ck_authorisation_aut_date CHECK (((((basis)::text = 'AUT'::text) AND (aut_date IS NOT NULL)) OR (((basis)::text <> 'AUT'::text) AND (aut_date IS NULL)))),
     CONSTRAINT ck_authorisation_from_to CHECK ((((from_lang)::text <> (to_lang)::text) AND (((from_lang)::text = ANY (ARRAY[('FI'::character varying)::text, ('SV'::character varying)::text, ('SEIN'::character varying)::text, ('SEKO'::character varying)::text, ('SEPO'::character varying)::text])) OR ((to_lang)::text = ANY (ARRAY[('FI'::character varying)::text, ('SV'::character varying)::text, ('SEIN'::character varying)::text, ('SEKO'::character varying)::text, ('SEPO'::character varying)::text]))))),
     CONSTRAINT ck_authorisation_term_end_date CHECK (((term_end_date IS NULL) OR (term_begin_date < term_end_date)))
 );

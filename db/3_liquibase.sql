@@ -93,6 +93,7 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 2022-03-03-drop_authorisation_unused_date_columns	mikhuttu	migrations.xml	2022-03-03 13:29:48.667704	28	EXECUTED	8:772ddd0214963788b04ff8a118db6c37	sql; sql; dropColumn columnName=kkt_check, tableName=authorisation; dropColumn columnName=vir_date, tableName=authorisation; dropColumn columnName=assurance_date, tableName=authorisation		\N	4.3.5	\N	\N	6314188424
 2022-03-03-nullable_authorisation_diary_number	mikhuttu	migrations.xml	2022-03-03 13:29:48.68439	29	EXECUTED	8:4b9a27fa6f1252767f46578d7ae94f32	dropColumn columnName=diary_number, tableName=authorisation; addColumn tableName=authorisation		\N	4.3.5	\N	\N	6314188424
 2022-03-04-add_translator_is_assurance_given	mikhuttu	migrations.xml	2022-03-09 07:50:59.720426	30	EXECUTED	8:9a36f41e82b79a4eadcbc5632c78de37	addColumn tableName=translator; dropDefaultValue columnName=is_assurance_given, tableName=translator		\N	4.3.5	\N	\N	6812259593
+2022-03-11-modify_authorisation_aut_date_constraint	mikhuttu	migrations.xml	2022-03-11 13:58:56.831191	31	EXECUTED	8:7102b99cd73c0a549ca2e3969f2953f9	sql; sql		\N	4.3.5	\N	\N	7007136607
 \.
 
 

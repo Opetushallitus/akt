@@ -44,6 +44,7 @@ public class Factory {
       authorisation.setBasis(AuthorisationBasis.AUT);
       authorisation.setTermBeginDate(meetingDate.getDate());
       authorisation.setTermEndDate(meetingDate.getDate().plusYears(1));
+      authorisation.setAutDate(meetingDate.getDate().minusMonths(1));
     }
     authorisation.setFromLang("FI");
     authorisation.setToLang("EN");
