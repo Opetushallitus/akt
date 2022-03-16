@@ -25,6 +25,12 @@ class ClerkTranslatorOverviewPage {
       ),
     authorisationRow: (id: number) =>
       cy.findByTestId(`authorisations-table__id-${id}-row`),
+    authorisationRowPublishSwitch: (id: number) =>
+      cy
+        .findByTestId(`authorisations-table__id-${id}-row`)
+        .get('input[type=checkbox]'),
+    authorisationRowDeleteBtn: (id: number) =>
+      cy.findByTestId(`authorisations-table__id-${id}-row__delete-btn`),
     backToRegisterBtn: () =>
       cy.findByTestId('clerk-translator-overview-page__back-btn'),
     editTranslatorInfoBtn: () =>
@@ -117,6 +123,23 @@ class ClerkTranslatorOverviewPage {
 
   expectAuthorisationRowToHaveText(id: number, text: string) {
     this.elements.authorisationRow(id).should('contain.text', text);
+  }
+
+  expectAuthorisationRowPublishPermission(
+    id: number,
+    publishPermission: boolean
+  ) {
+    this.elements
+      .authorisationRowPublishSwitch(id)
+      .should('have.value', publishPermission);
+  }
+
+  changeAuthorisationRowPublishPermission(id: number) {
+    this.elements.authorisationRowPublishSwitch(id).check();
+  }
+
+  clickAuthorisationRowDeleteButton(id: number) {
+    this.elements.authorisationRowDeleteBtn(id).click();
   }
 
   expectTranslatorNotFoundText() {
