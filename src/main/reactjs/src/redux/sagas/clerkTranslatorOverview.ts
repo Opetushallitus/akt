@@ -110,7 +110,7 @@ function* showErrorToastOnAuthorisationDelete() {
   const notifier = Utils.createNotifierToast(
     Severity.Error,
     t(
-      'akt.component.clerkTranslatorOverview.authorisations.row.removal.toasts.error'
+      'akt.component.clerkTranslatorOverview.authorisations.actions.removal.toasts.error'
     )
   );
   yield put({ type: NOTIFIER_TOAST_ADD, notifier });
