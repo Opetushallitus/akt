@@ -65,7 +65,7 @@ const ClerkTranslatorDetailsTextField = ({
       onChange={onChange}
       type={getFieldType(field)}
       error={displayError && fieldError?.length > 0}
-      helperText={displayError ? fieldError : ''}
+      helperText={fieldError}
       {...rest}
     />
   );

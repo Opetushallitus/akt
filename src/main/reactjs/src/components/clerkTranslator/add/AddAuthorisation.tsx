@@ -46,7 +46,7 @@ export const AddAuthorisation = ({
 }: AddAuthorisationProps) => {
   const dayjs = DateUtils.dayjs();
   const currentDate = dayjs();
-  const meetingDateValues = meetingDates
+  const availableMeetingDateValues = meetingDates
     .filter((m) => !m.date.isAfter(currentDate, 'day'))
     .map((m) => {
       return {
@@ -192,7 +192,7 @@ export const AddAuthorisation = ({
         <ComboBox
           autoHighlight
           label={t('fieldLabels.termBeginDate')}
-          values={meetingDateValues}
+          values={availableMeetingDateValues}
           value={getTermBeginDate()}
           variant={TextFieldVariant.Outlined}
           onChange={handleTermBeginDateChange}
