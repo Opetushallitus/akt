@@ -229,7 +229,7 @@ Koodisto service is used to fetch language translations. To update translations 
 
 ```sh
 cd scripts
-./koodisto-langs.sh
+./koodisto_langs.sh
 ```
 
 The above script fetches language codes from the Koodisto service and transforms them into localization files. The created localization files are stored in git.
