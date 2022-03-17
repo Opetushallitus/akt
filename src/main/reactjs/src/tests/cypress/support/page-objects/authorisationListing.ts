@@ -72,7 +72,7 @@ class AuthorisationDetails {
   }
 }
 
-export const changePublishPermission = (
+export const publishPermissionChangeResponse = (
   translatorResponse: ClerkTranslatorResponse,
   authorisationId: number,
   newPublishPermissionValue: boolean
@@ -81,6 +81,20 @@ export const changePublishPermission = (
     a.id === authorisationId
       ? { ...a, permissionToPublish: newPublishPermissionValue }
       : a
+  );
+
+  return {
+    ...translatorResponse,
+    authorisations: updatedAuthorisations,
+  };
+};
+
+export const authorisationDeletionResponse = (
+  translatorResponse: ClerkTranslatorResponse,
+  authorisationId: number
+) => {
+  const updatedAuthorisations = translatorResponse.authorisations.filter(
+    (a) => a.id !== authorisationId
   );
 
   return {

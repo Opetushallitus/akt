@@ -2,8 +2,9 @@ import { APIEndpoints } from 'enums/api';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { translatorResponse } from 'tests/cypress/fixtures/ts/clerkTranslatorOverview';
 import {
-  changePublishPermission,
+  authorisationDeletionResponse,
   onAuthorisationDetails,
+  publishPermissionChangeResponse,
 } from 'tests/cypress/support/page-objects/authorisationListing';
 import { onClerkTranslatorOverviewPage } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
 import { onDialog } from 'tests/cypress/support/page-objects/dialog';
@@ -53,6 +54,7 @@ describe('ClerkTranslatorOverview:AuthorisationDetails', () => {
     cy.wait('@getClerkTranslatorOverview');
 
     onAuthorisationDetails.switchPublishPermission(effectiveAuthorisationId);
+
     onDialog.expectText('Haluatko varmasti vaihtaa julkaisulupaa?');
     onDialog.clickButtonByText('Takaisin');
 
@@ -72,8 +74,7 @@ describe('ClerkTranslatorOverview:AuthorisationDetails', () => {
     );
     onAuthorisationDetails.switchPublishPermission(effectiveAuthorisationId);
 
-    // Create new response
-    const newResponse = changePublishPermission(
+    const putResponse = publishPermissionChangeResponse(
       translatorResponse,
       effectiveAuthorisationId,
       false
@@ -81,11 +82,10 @@ describe('ClerkTranslatorOverview:AuthorisationDetails', () => {
     cy.intercept(
       'PUT',
       APIEndpoints.AuthorisationPublishPermission,
-      newResponse
+      putResponse
     ).as('changePublishPermission');
 
     onDialog.clickButtonByText('Kyllä');
-
     cy.wait('@changePublishPermission');
 
     onAuthorisationDetails.expectPublishPermission(
@@ -106,28 +106,25 @@ describe('ClerkTranslatorOverview:AuthorisationDetails', () => {
     onAuthorisationDetails.assertRowExists(effectiveAuthorisationId);
   });
 
-  // it('should open a confirmation dialog when a delete icon is clicked, and delete authorisation if user confirms', () => {
-  //   onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
-  //   cy.wait('@getClerkTranslatorOverview');
+  it('should open a confirmation dialog when a delete icon is clicked, and delete authorisation if user confirms', () => {
+    onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
+    cy.wait('@getClerkTranslatorOverview');
 
-  //   onClerkTranslatorOverviewPage.clickAuthorisationRowDeleteButton(10001);
+    onAuthorisationDetails.clickDeleteButton(effectiveAuthorisationId);
 
-  //   onDialog.expectText('Haluatko varmasti poistaa auktorisoinnin?');
-  //   onDialog.clickButtonByText('Poista auktorisointi');
+    const deletionResponse = authorisationDeletionResponse(
+      translatorResponse,
+      effectiveAuthorisationId
+    );
+    cy.intercept(
+      'DELETE',
+      `${APIEndpoints.Authorisation}/${effectiveAuthorisationId}`,
+      deletionResponse
+    ).as('deleteAuthorisation');
 
-  //   // Check that the authorisation is no longer found
-  // });
+    onDialog.clickButtonByText('Poista auktorisointi');
+    cy.wait('@deleteAuthorisation');
 
-  // it('should not allow deleting the last authorisation', () => {
-  //   onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
-  //   cy.wait('@getClerkTranslatorOverview');
-
-  //   onClerkTranslatorOverviewPage.clickAuthorisationRowDeleteButton(10001);
-
-  //   onDialog.expectText('Haluatko varmasti poistaa auktorisoinnin?');
-  //   onDialog.clickButtonByText('Poista auktorisointi');
-
-  //   // Delete the rest of the authorisations under Expired-view and try deleting the last one under VIR to see that deletion not possible
-  //   // Ensure toast has some error message
-  // });
+    onAuthorisationDetails.assertRowDoesNotExist(effectiveAuthorisationId);
+  });
 });
