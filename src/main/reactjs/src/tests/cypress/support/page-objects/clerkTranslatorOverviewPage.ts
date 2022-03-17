@@ -25,10 +25,6 @@ class ClerkTranslatorOverviewPage {
       ),
     authorisationRow: (id: number) =>
       cy.findByTestId(`authorisations-table__id-${id}-row`),
-    authorisationRowPublishSwitch: (id: number) =>
-      cy
-        .findByTestId(`authorisations-table__id-${id}-row`)
-        .find('input[type=checkbox]'),
     authorisationRowDeleteBtn: (id: number) =>
       cy.findByTestId(`authorisations-table__id-${id}-row__delete-btn`),
     backToRegisterBtn: () =>
@@ -123,18 +119,6 @@ class ClerkTranslatorOverviewPage {
 
   expectAuthorisationRowToHaveText(id: number, text: string) {
     this.elements.authorisationRow(id).should('contain.text', text);
-  }
-
-  expectAuthorisationRowPublishPermission(
-    id: number,
-    publishPermission: boolean
-  ) {
-    const value = publishPermission ? 'on' : 'off';
-    this.elements.authorisationRowPublishSwitch(id).should('have.value', value);
-  }
-
-  clickAuthorisationRowPublishSwitch(id: number) {
-    this.elements.authorisationRowPublishSwitch(id).click();
   }
 
   clickAuthorisationRowDeleteButton(id: number) {
