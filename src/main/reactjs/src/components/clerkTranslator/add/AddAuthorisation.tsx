@@ -45,12 +45,15 @@ export const AddAuthorisation = ({
   onAuthorisationAdd,
 }: AddAuthorisationProps) => {
   const dayjs = DateUtils.dayjs();
-  const meetingDateValues = meetingDates.map((m) => {
-    return {
-      value: m.date.toISOString(),
-      label: DateUtils.formatOptionalDate(dayjs(m.date)),
-    };
-  });
+  const currentDate = dayjs();
+  const meetingDateValues = meetingDates
+    .filter((m) => !m.date.isAfter(currentDate, 'day'))
+    .map((m) => {
+      return {
+        value: m.date.toISOString(),
+        label: DateUtils.formatOptionalDate(dayjs(m.date)),
+      };
+    });
 
   const [authorisation, setAuthorisation] =
     useState<Authorisation>(newAuthorisation);
