@@ -72,11 +72,17 @@ function* updateClerkTranslatorDetails(action: ClerkTranslatorOverviewAction) {
 }
 
 function* updateAuthorisationPublishPermission(action: AuthorisationAction) {
+  const requestBody = {
+    id: action.id,
+    version: action.version,
+    permissionToPublish: action.permissionToPublish,
+  };
+
   try {
     const apiResponse: AxiosResponse<ClerkTranslatorResponse> = yield call(
       axiosInstance.put,
       APIEndpoints.AuthorisationPublishPermission,
-      JSON.stringify(action)
+      JSON.stringify(requestBody)
     );
     yield put({
       type: CLERK_TRANSLATOR_OVERVIEW_UPDATE_AUTHORISATION_PUBLISH_PERMISSION_SUCCESS,
