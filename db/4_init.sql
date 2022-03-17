@@ -11,7 +11,7 @@ INSERT INTO translator(identity_number, first_name, last_name, email, phone_numb
 SELECT 'id' || i::text,
        first_names[mod(i, array_length(first_names, 1)) + 1],
        last_names[mod(i, array_length(last_names, 1)) + 1],
-       CASE mod(i, 11) WHEN 0 THEN null ELSE ('translator' || i::text || '@example.invalid') END,
+       'translator' || i::text || '@example.invalid',
        '+35840' || (1000000 + i)::text,
        CASE mod(i, 7)
            WHEN 0 THEN initcap(reverse(street[mod(i, array_length(street, 1)) + 1]))
@@ -95,15 +95,19 @@ INSERT
 INTO authorisation(translator_id, basis, meeting_date_id, aut_date, from_lang, to_lang, permission_to_publish)
 SELECT translator_id,
        -- 11 KKT
-       -- 13 VIR authorized
-       -- 17 VIR not authorized
+       -- 13 VIR
+       -- 17 VIR-unauthorised
        -- else AUT
        CASE
            WHEN mod(i, 11) = 0 THEN 'KKT'
            WHEN mod(i, 13) = 0 THEN 'VIR'
            WHEN mod(i, 17) = 0 THEN 'VIR'
            ELSE 'AUT' END,
-       (SELECT meeting_date_id FROM meeting_date WHERE date = '2020-12-30'::date),
+       CASE
+           WHEN mod(i, 11) = 0 THEN (SELECT min(meeting_date_id) FROM meeting_date)
+           WHEN mod(i, 13) = 0 THEN (SELECT min(meeting_date_id) FROM meeting_date)
+           WHEN mod(i, 17) = 0 THEN NULL
+           ELSE (SELECT min(meeting_date_id) FROM meeting_date) END,
        CASE
            WHEN mod(i, 11) = 0 THEN NULL
            WHEN mod(i, 13) = 0 THEN NULL
@@ -117,7 +121,14 @@ FROM translator_ids,
      (SELECT ('{BN, CA, CS, DA, DE, EL, EN, ET, FJ, FO, FR, GA, HE, HR, HU, JA, RU, SV, TT, TY, UG, UK, VI}')::text[] AS to_langs) AS to_langs_table
 ;
 
--- add inverse language pairs
+-- translators with VIR-unauthorised authorisation should not have other types of authorisations
+DELETE FROM authorisation WHERE meeting_date_id IS NOT NULL AND translator_id IN (
+    SELECT translator_id
+    FROM authorisation
+    WHERE meeting_date_id IS NULL
+);
+
+-- add inverse language pairs related to most non VIR-unauthorised authorisations
 INSERT INTO authorisation(translator_id, basis, meeting_date_id, aut_date, from_lang, to_lang, permission_to_publish)
 SELECT translator_id,
        basis,
@@ -128,61 +139,65 @@ SELECT translator_id,
        from_lang,
        mod(translator_id, 98) <> 0
 FROM authorisation
-WHERE mod(authorisation_id, 20) <> 0
-;
+WHERE meeting_date_id IS NOT NULL AND mod(authorisation_id, 20) <> 0;
+
+-- add inverse language pairs related to some VIR-unauthorised authorisations
+INSERT INTO authorisation(translator_id, basis, from_lang, to_lang, permission_to_publish)
+SELECT translator_id,
+       basis,
+       -- note to_lang and from_lang are swapped
+       to_lang,
+       from_lang,
+       mod(translator_id, 98) <> 0
+FROM authorisation
+WHERE meeting_date_id IS NULL AND mod(authorisation_id, 29) = 0;
 
 -- set diary numbers to match the ids of authorisations
 UPDATE authorisation
 SET diary_number = authorisation_id
 WHERE 1 = 1;
 
--- set random authorisation meeting dates
+-- set random meeting dates for non VIR-unauthorised authorisations
 UPDATE authorisation
 SET meeting_date_id = (
     SELECT md.meeting_date_id FROM meeting_date md
     WHERE md.date < CURRENT_DATE
     ORDER BY random() + authorisation_id LIMIT 1
-);
+) WHERE meeting_date_id IS NOT NULL;
 
 -- set authorisation term begin dates
 UPDATE authorisation
-SET term_begin_date = (SELECT md.date FROM meeting_date md WHERE md.meeting_date_id = authorisation.meeting_date_id);
+SET term_begin_date = (
+    SELECT md.date FROM meeting_date md
+    WHERE md.meeting_date_id = authorisation.meeting_date_id
+) WHERE meeting_date_id IS NOT NULL;
 
 -- set authorisation term end dates
 UPDATE authorisation
 SET term_end_date = term_begin_date + '6 months'::interval
 WHERE basis <> 'VIR';
 
--- add unauthorised VIR
-INSERT INTO authorisation (translator_id, basis, from_lang, to_lang, permission_to_publish, diary_number)
-VALUES ((SELECT max(translator_id) FROM translator), 'VIR', 'SEPO', 'DE', false, 'old unauthorised VIR');
-
 -- set some translator fields to null
 UPDATE translator
-SET identity_number=NULL
+SET identity_number = NULL
 WHERE mod(translator_id, 50) = 0;
 
 UPDATE translator
-SET email=NULL
-WHERE mod(translator_id, 51) = 0;
+SET email = NULL
+WHERE mod(translator_id, 11) = 0;
 
 UPDATE translator
-SET phone_number=NULL
-WHERE mod(translator_id, 52) = 0;
+SET phone_number = NULL
+WHERE mod(translator_id, 12) = 0;
 
 UPDATE translator
-SET street=NULL
-WHERE mod(translator_id, 53) = 0;
-
--- NOTE mod 87 has expired term, but VIR never expires
-UPDATE translator
-SET town=NULL
-WHERE translator_id IN (SELECT t.translator_id
-                        FROM translator t
-                                 JOIN authorisation a on t.translator_id = a.translator_id
-                        WHERE mod(t.translator_id, 87) = 0
-                          and basis <> 'VIR');
+SET street = NULL
+WHERE mod(translator_id, 13) = 0;
 
 UPDATE translator
-SET postal_code=NULL
-WHERE mod(translator_id, 55) = 0;
+SET town = NULL
+WHERE mod(translator_id, 14) = 0;
+
+UPDATE translator
+SET postal_code = NULL
+WHERE mod(translator_id, 15) = 0;
