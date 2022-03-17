@@ -3,7 +3,6 @@ import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { translatorResponse } from 'tests/cypress/fixtures/ts/clerkTranslatorOverview';
 import {
   changePublishPermission,
-  expectAuthorisations,
   onAuthorisationDetails,
 } from 'tests/cypress/support/page-objects/authorisationListing';
 import { onClerkTranslatorOverviewPage } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
@@ -25,25 +24,25 @@ beforeEach(() => {
 });
 
 describe('ClerkTranslatorOverview:AuthorisationDetails', () => {
-  it('should display correct authorisations details', () => {
+  it('should display correct details for authorisations', () => {
     onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
     cy.wait('@getClerkTranslatorOverview');
 
-    onAuthorisationDetails.expectAuthorisations(
+    onAuthorisationDetails.checkAuthorisationDetails(
       translatorResponse,
       AuthorisationStatus.Authorised
     );
 
     onAuthorisationDetails.clickExpiredToggleBtn();
 
-    onAuthorisationDetails.expectAuthorisations(
+    onAuthorisationDetails.checkAuthorisationDetails(
       translatorResponse,
       AuthorisationStatus.Expired
     );
 
     onAuthorisationDetails.clickformerVIRToggleBtn();
 
-    onAuthorisationDetails.expectAuthorisations(
+    onAuthorisationDetails.checkAuthorisationDetails(
       translatorResponse,
       AuthorisationStatus.FormerVIR
     );
@@ -104,7 +103,7 @@ describe('ClerkTranslatorOverview:AuthorisationDetails', () => {
     onDialog.expectText('Haluatko varmasti poistaa auktorisoinnin?');
     onDialog.clickButtonByText('Takaisin');
 
-    // Check that the authorisation still exists
+    onAuthorisationDetails.assertRowExists(effectiveAuthorisationId);
   });
 
   // it('should open a confirmation dialog when a delete icon is clicked, and delete authorisation if user confirms', () => {

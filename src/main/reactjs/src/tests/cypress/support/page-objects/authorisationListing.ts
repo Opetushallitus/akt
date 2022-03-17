@@ -3,27 +3,19 @@ import { ClerkTranslatorResponse } from 'interfaces/clerkTranslator';
 import { APIUtils } from 'utils/api';
 import { AuthorisationUtils } from 'utils/authorisation';
 
+const rowTestId = (id: number) => `authorisations-table__id-${id}-row`;
+const toggleBtn = (name: string) =>
+  `clerk-translator-overview__authorisation-details__toggle-btn--${name}`;
+
 class AuthorisationDetails {
   elements = {
-    authorisedToggleBtn: () =>
-      cy.findByTestId(
-        'clerk-translator-overview__authorisation-details__toggle-btn--authorised'
-      ),
-    expiredToggleBtn: () =>
-      cy.findByTestId(
-        'clerk-translator-overview__authorisation-details__toggle-btn--expired'
-      ),
-    formerVIRToggleBtn: () =>
-      cy.findByTestId(
-        'clerk-translator-overview__authorisation-details__toggle-btn--formerVIR'
-      ),
-    row: (id: number) => cy.findByTestId(`authorisations-table__id-${id}-row`),
-    deleteBtn: (id: number) =>
-      cy.findByTestId(`authorisations-table__id-${id}-row__delete-btn`),
+    authorisedToggleBtn: () => cy.findByTestId(toggleBtn('authorised')),
+    expiredToggleBtn: () => cy.findByTestId(toggleBtn('expired')),
+    formerVIRToggleBtn: () => cy.findByTestId(toggleBtn('formerVIR')),
+    row: (id: number) => cy.findByTestId(rowTestId(id)),
+    deleteBtn: (id: number) => cy.findByTestId(`${rowTestId(id)}__delete-btn`),
     publishPermissionSwitch: (id: number) =>
-      cy
-        .findByTestId(`authorisations-table__id-${id}-row`)
-        .find('input[type=checkbox]'),
+      cy.findByTestId(rowTestId(id)).find('input[type=checkbox]'),
   };
 
   clickAuthorisedToggleBtn() {
@@ -36,6 +28,14 @@ class AuthorisationDetails {
 
   clickformerVIRToggleBtn() {
     this.elements.formerVIRToggleBtn().click();
+  }
+
+  assertRowExists(id: number) {
+    cy.get(`[data-testid=${rowTestId(id)}]`).should('exist');
+  }
+
+  assertRowDoesNotExist(id: number) {
+    cy.get(`[data-testid=${rowTestId(id)}]`).should('not.exist');
   }
 
   expectRowToHaveText(id: number, text: string) {
@@ -55,7 +55,7 @@ class AuthorisationDetails {
     this.elements.deleteBtn(id).click();
   }
 
-  expectAuthorisations(
+  checkAuthorisationDetails(
     translator: ClerkTranslatorResponse,
     status: AuthorisationStatus
   ) {

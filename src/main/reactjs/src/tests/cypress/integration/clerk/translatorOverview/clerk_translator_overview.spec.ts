@@ -35,7 +35,7 @@ describe('ClerkTranslatorOverview:Page', () => {
     cy.openClerkHomePage();
     onClerkHomePage.clickTranslatorOverviewLink(translatorResponse.id);
 
-    onClerkTranslatorOverviewPage.expectTranslatorDetailsFields(
+    onClerkTranslatorOverviewPage.checkTranslatorDetailsFields(
       translatorResponse
     );
   });
