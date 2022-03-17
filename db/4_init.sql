@@ -96,7 +96,7 @@ INTO authorisation(translator_id, basis, meeting_date_id, aut_date, from_lang, t
 SELECT translator_id,
        -- 11 KKT
        -- 13 VIR
-       -- 17 ENTVIR
+       -- 17 VIR-unauthorised
        -- else AUT
        CASE
            WHEN mod(i, 11) = 0 THEN 'KKT'
@@ -121,14 +121,14 @@ FROM translator_ids,
      (SELECT ('{BN, CA, CS, DA, DE, EL, EN, ET, FJ, FO, FR, GA, HE, HR, HU, JA, RU, SV, TT, TY, UG, UK, VI}')::text[] AS to_langs) AS to_langs_table
 ;
 
--- translators with ENTVIR authorisation don't generally have any other authorisations
+-- translators with VIR-unauthorised authorisation should not have other types of authorisations
 DELETE FROM authorisation WHERE meeting_date_id IS NOT NULL AND translator_id IN (
     SELECT translator_id
     FROM authorisation
     WHERE meeting_date_id IS NULL
 );
 
--- add inverse language pairs related to most non-ENTVIR authorisations
+-- add inverse language pairs related to most non VIR-unauthorised authorisations
 INSERT INTO authorisation(translator_id, basis, meeting_date_id, aut_date, from_lang, to_lang, permission_to_publish)
 SELECT translator_id,
        basis,
@@ -141,7 +141,7 @@ SELECT translator_id,
 FROM authorisation
 WHERE meeting_date_id IS NOT NULL AND mod(authorisation_id, 20) <> 0;
 
--- add inverse ENTVIR language pairs related to some ENTVIR authorisations
+-- add inverse language pairs related to some VIR-unauthorised authorisations
 INSERT INTO authorisation(translator_id, basis, from_lang, to_lang, permission_to_publish)
 SELECT translator_id,
        basis,
@@ -152,24 +152,12 @@ SELECT translator_id,
 FROM authorisation
 WHERE meeting_date_id IS NULL AND mod(authorisation_id, 29) = 0;
 
--- add inverse VIR language pairs related to some ENTVIR authorisations
-INSERT INTO authorisation(translator_id, basis, meeting_date_id, from_lang, to_lang, permission_to_publish)
-SELECT translator_id,
-       basis,
-       (SELECT min(meeting_date_id) FROM meeting_date),
-       -- note to_lang and from_lang are swapped
-       to_lang,
-       from_lang,
-       mod(translator_id, 98) <> 0
-FROM authorisation
-WHERE meeting_date_id IS NULL AND mod(authorisation_id, 31) = 0;
-
 -- set diary numbers to match the ids of authorisations
 UPDATE authorisation
 SET diary_number = authorisation_id
 WHERE 1 = 1;
 
--- set random meeting dates for non-ENTVIR authorisations
+-- set random meeting dates for non VIR-unauthorised authorisations
 UPDATE authorisation
 SET meeting_date_id = (
     SELECT md.meeting_date_id FROM meeting_date md
