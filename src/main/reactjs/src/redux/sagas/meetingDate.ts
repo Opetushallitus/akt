@@ -26,6 +26,7 @@ import {
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
 import { Utils } from 'utils';
 import { APIUtils } from 'utils/api';
+import { DateUtils } from 'utils/date';
 
 function* showErrorToastOnRemove() {
   const t = translateOutsideComponent();
@@ -60,13 +61,9 @@ function* showErrorToastOnAdd() {
 
 export function* addMeetingDate(action: AddMeetingDateActionType) {
   try {
-    yield call(
-      axiosInstance.post,
-      APIEndpoints.MeetingDate,
-      JSON.stringify({
-        date: action.date,
-      })
-    );
+    yield call(axiosInstance.post, APIEndpoints.MeetingDate, {
+      date: DateUtils.convertToAPIRequestDateString(action.date),
+    });
     yield put({ type: MEETING_DATE_ADD_SUCCESS });
     yield put({ type: MEETING_DATE_LOAD });
   } catch (error) {

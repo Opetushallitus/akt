@@ -1,5 +1,6 @@
 import { all } from 'redux-saga/effects';
 
+import { watchClerkNewTranslatorSave } from 'redux/sagas/clerkNewTranslator';
 import { watchFetchClerkTranslators } from 'redux/sagas/clerkTranslator';
 import { watchClerkTranslatorOverview } from 'redux/sagas/clerkTranslatorOverview';
 import { watchFetchClerkUser } from 'redux/sagas/clerkUser';
@@ -19,6 +20,7 @@ export default function* rootSaga() {
     watchClerkTranslatorEmailNotifier(),
     watchClerkTranslatorOverview(),
     watchClerkTranslatorDetailsNotifier(),
+    watchClerkNewTranslatorSave(),
     watchFetchClerkUser(),
     watchMeetingDates(),
   ]);

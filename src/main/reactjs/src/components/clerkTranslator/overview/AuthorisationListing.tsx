@@ -42,6 +42,7 @@ export const AuthorisationListing = ({
     <Table
       size="small"
       className="clerk-translator-details__authorisations-table"
+      data-testid="clerk-translator-details__authorisations-table"
     >
       <TableHead>
         <TableRow>
@@ -58,8 +59,10 @@ export const AuthorisationListing = ({
       <TableBody>
         {authorisations.map((a, i) => (
           <TableRow
-            key={i}
-            data-testid={`authorisations-table__id-${a.id}-row`}
+            key={a.id ?? i}
+            data-testid={`authorisations-table__id-${
+              a.id ?? `${i}-unsaved}`
+            }-row`}
           >
             <TableCell>
               <Text>

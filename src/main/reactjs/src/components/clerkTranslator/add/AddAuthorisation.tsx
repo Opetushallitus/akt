@@ -27,32 +27,36 @@ import { DateUtils } from 'utils/date';
 
 interface AddAuthorisationProps {
   meetingDates: Array<MeetingDate>;
-  onNewAuthorisationAdd(authorisation: Authorisation): void;
+  onAuthorisationAdd(authorisation: Authorisation): void;
 }
+
+const newAuthorisation: Authorisation = {
+  languagePair: { from: '', to: '' },
+  basis: null as unknown as AuthorisationBasis,
+  termBeginDate: undefined,
+  termEndDate: undefined,
+  permissionToPublish: true,
+  diaryNumber: '',
+  autDate: undefined,
+};
 
 export const AddAuthorisation = ({
   meetingDates,
-  onNewAuthorisationAdd,
+  onAuthorisationAdd,
 }: AddAuthorisationProps) => {
   const dayjs = DateUtils.dayjs();
-  const meetingDateValues = meetingDates.map((m) => {
-    return {
-      value: m.date.toISOString(),
-      label: DateUtils.formatOptionalDate(dayjs(m.date)),
-    };
-  });
+  const currentDate = dayjs();
+  const availableMeetingDateValues = meetingDates
+    .filter((m) => !m.date.isAfter(currentDate, 'day'))
+    .map((m) => {
+      return {
+        value: m.date.toISOString(),
+        label: DateUtils.formatOptionalDate(dayjs(m.date)),
+      };
+    });
 
-  const [authorisation, setAuthorisation] = useState<Authorisation>({
-    id: 0,
-    version: 0,
-    languagePair: { from: '', to: '' },
-    basis: null as unknown as AuthorisationBasis,
-    termBeginDate: undefined,
-    termEndDate: undefined,
-    permissionToPublish: true,
-    diaryNumber: '',
-    autDate: undefined,
-  });
+  const [authorisation, setAuthorisation] =
+    useState<Authorisation>(newAuthorisation);
 
   const translateCommon = useCommonTranslation();
   const translateLanguage = useKoodistoLanguagesTranslation();
@@ -138,6 +142,11 @@ export const AddAuthorisation = ({
     return isOtherPropsNotDefined || isLangPropsNotDefined;
   };
 
+  const addAndResetAuthorisation = (authorisation: Authorisation) => {
+    onAuthorisationAdd(authorisation);
+    setAuthorisation(newAuthorisation);
+  };
+
   return (
     <div className="rows gapped">
       <div className="add-authorisation__fields gapped align-items-end">
@@ -183,7 +192,7 @@ export const AddAuthorisation = ({
         <ComboBox
           autoHighlight
           label={t('fieldLabels.termBeginDate')}
-          values={meetingDateValues}
+          values={availableMeetingDateValues}
           value={getTermBeginDate()}
           variant={TextFieldVariant.Outlined}
           onChange={handleTermBeginDateChange}
@@ -214,7 +223,7 @@ export const AddAuthorisation = ({
           color={Color.Secondary}
           variant={Variant.Outlined}
           startIcon={<AddOutlinedIcon />}
-          onClick={() => onNewAuthorisationAdd(authorisation)}
+          onClick={() => addAndResetAuthorisation(authorisation)}
           disabled={isAddButtonDisabled()}
         >
           {t('buttons.add')}

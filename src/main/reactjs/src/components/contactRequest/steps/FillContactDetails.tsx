@@ -44,7 +44,11 @@ export const FillContactDetails = ({
       request?.lastName,
       request?.email,
     ];
-    const hasFieldErrors = Object.values(fieldErrors).some((v) => v);
+    const hasFieldErrors = !!(
+      fieldErrors.firstName ||
+      fieldErrors.lastName ||
+      fieldErrors.email
+    );
     const hasEmptyRequiredFields = requiredFieldValues.some((v) => !!!v);
 
     disableNext(hasFieldErrors || hasEmptyRequiredFields);

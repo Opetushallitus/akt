@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import { CustomSwitch } from 'components/elements/CustomSwitch';
 import { CustomTextField } from 'components/elements/CustomTextField';
@@ -9,25 +9,20 @@ import {
   useCommonTranslation,
 } from 'configs/i18n';
 import { TextFieldTypes } from 'enums/app';
-import {
-  ClerkTranslator,
-  ClerkTranslatorBasicInformation,
-} from 'interfaces/clerkTranslator';
-import {
-  ClerkTranslatorTextField,
-  ClerkTranslatorTextFieldProps,
-} from 'interfaces/clerkTranslatorTextField';
+import { ClerkTranslatorTextField } from 'enums/clerkTranslator';
+import { ClerkTranslatorBasicInformation } from 'interfaces/clerkTranslator';
+import { ClerkTranslatorTextFieldProps } from 'interfaces/clerkTranslatorTextField';
 import { Utils } from 'utils';
 
-const getFieldType = (field: keyof ClerkTranslatorTextField) => {
+const getFieldType = (field: ClerkTranslatorTextField) => {
   switch (field) {
-    case 'phoneNumber':
+    case ClerkTranslatorTextField.PhoneNumber:
       return TextFieldTypes.PhoneNumber;
-    case 'email':
+    case ClerkTranslatorTextField.Email:
       return TextFieldTypes.Email;
-    case 'extraInformation':
+    case ClerkTranslatorTextField.ExtraInformation:
       return TextFieldTypes.Textarea;
-    case 'identityNumber':
+    case ClerkTranslatorTextField.IdentityNumber:
       return TextFieldTypes.PersonalIdentityCode;
     default:
       return TextFieldTypes.Text;
@@ -35,13 +30,16 @@ const getFieldType = (field: keyof ClerkTranslatorTextField) => {
 };
 
 const getFieldError = (
-  translator: ClerkTranslator | undefined,
-  field: keyof ClerkTranslatorTextField
+  translator: ClerkTranslatorBasicInformation | undefined,
+  field: ClerkTranslatorTextField
 ) => {
   const t = translateOutsideComponent();
   const type = getFieldType(field);
   const fieldValue = (translator && translator[field]) || '';
-  const error = Utils.inspectCustomTextFieldErrors(type, fieldValue, false);
+  const required =
+    field == ClerkTranslatorTextField.FirstName ||
+    field == ClerkTranslatorTextField.LastName;
+  const error = Utils.inspectCustomTextFieldErrors(type, fieldValue, required);
 
   return error ? t(`akt.${error}`) : '';
 };
@@ -50,6 +48,7 @@ const ClerkTranslatorDetailsTextField = ({
   translator,
   field,
   onChange,
+  displayError,
   ...rest
 }: ClerkTranslatorTextFieldProps) => {
   // I18n
@@ -65,7 +64,7 @@ const ClerkTranslatorDetailsTextField = ({
       data-testid={`clerk-translator-overview__translator-details__field-${field}`}
       onChange={onChange}
       type={getFieldType(field)}
-      error={fieldError?.length > 0}
+      error={displayError && fieldError?.length > 0}
       helperText={fieldError}
       {...rest}
     />
@@ -76,14 +75,16 @@ export const ClerkTranslatorDetailsFields = ({
   translator,
   onFieldChange,
   editDisabled,
-  controlButtons,
+  topControlButtons,
+  displayFieldErrorBeforeChange,
 }: {
-  translator?: ClerkTranslator;
+  translator?: ClerkTranslatorBasicInformation;
   onFieldChange: (
     field: keyof ClerkTranslatorBasicInformation
   ) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   editDisabled: boolean;
-  controlButtons?: JSX.Element;
+  topControlButtons?: JSX.Element;
+  displayFieldErrorBeforeChange: boolean;
 }) => {
   // I18n
   const { t } = useAppTranslation({
@@ -91,11 +92,24 @@ export const ClerkTranslatorDetailsFields = ({
   });
   const translateCommon = useCommonTranslation();
 
-  const getCommonTextFieldProps = (field: keyof ClerkTranslatorTextField) => ({
+  const initialErrors = Object.values(ClerkTranslatorTextField).reduce(
+    (acc, val) => {
+      return { ...acc, [val]: displayFieldErrorBeforeChange };
+    },
+    {}
+  ) as Record<ClerkTranslatorTextField, boolean>;
+  const [displayFieldError, setDisplayFieldError] = useState(initialErrors);
+  const displayFieldErrorOnBlur = (field: ClerkTranslatorTextField) => () => {
+    setDisplayFieldError({ ...displayFieldError, [field]: true });
+  };
+
+  const getCommonTextFieldProps = (field: ClerkTranslatorTextField) => ({
     field,
     translator,
     disabled: editDisabled,
     onChange: onFieldChange(field),
+    onBlur: displayFieldErrorOnBlur(field),
+    displayError: displayFieldError[field],
   });
 
   return (
@@ -104,44 +118,46 @@ export const ClerkTranslatorDetailsFields = ({
         <div className="columns margin-top-lg grow">
           <H3>{t('header.personalInformation')}</H3>
         </div>
-        {controlButtons}
+        {topControlButtons}
       </div>
       <div className="grid-columns gapped">
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps('lastName')}
+          {...getCommonTextFieldProps(ClerkTranslatorTextField.LastName)}
         />
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps('firstName')}
+          {...getCommonTextFieldProps(ClerkTranslatorTextField.FirstName)}
         />
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps('identityNumber')}
+          {...getCommonTextFieldProps(ClerkTranslatorTextField.IdentityNumber)}
         />
       </div>
       <H3>{t('header.address')}</H3>
       <div className="grid-columns gapped">
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps('street')}
+          {...getCommonTextFieldProps(ClerkTranslatorTextField.Street)}
         />
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps('postalCode')}
+          {...getCommonTextFieldProps(ClerkTranslatorTextField.PostalCode)}
         />
-        <ClerkTranslatorDetailsTextField {...getCommonTextFieldProps('town')} />
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps('country')}
+          {...getCommonTextFieldProps(ClerkTranslatorTextField.Town)}
+        />
+        <ClerkTranslatorDetailsTextField
+          {...getCommonTextFieldProps(ClerkTranslatorTextField.Country)}
         />
       </div>
       <H3>{t('header.contactInformation')}</H3>
       <div className="grid-columns gapped">
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps('email')}
+          {...getCommonTextFieldProps(ClerkTranslatorTextField.Email)}
         />
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps('phoneNumber')}
+          {...getCommonTextFieldProps(ClerkTranslatorTextField.PhoneNumber)}
         />
       </div>
       <H3>{t('header.extraInformation')}</H3>
       <ClerkTranslatorDetailsTextField
-        {...getCommonTextFieldProps('extraInformation')}
+        {...getCommonTextFieldProps(ClerkTranslatorTextField.ExtraInformation)}
         multiline
         fullWidth
       />

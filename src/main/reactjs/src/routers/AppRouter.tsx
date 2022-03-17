@@ -7,6 +7,7 @@ import { Notifier } from 'components/notification/Notifier';
 import { AppRoutes } from 'enums/app';
 import { AccessibilityStatementPage } from 'pages/AccessibilityStatementPage';
 import { ClerkHomePage } from 'pages/clerk/ClerkHomePage';
+import { ClerkNewTranslatorPage } from 'pages/clerk/ClerkNewTranslatorPage';
 import { ClerkSendEmailPage } from 'pages/clerk/ClerkSendEmailPage';
 import { ClerkTranslatorOverviewPage } from 'pages/clerk/ClerkTranslatorOverviewPage';
 import { MeetingDatesPage } from 'pages/MeetingDatesPage';
@@ -41,6 +42,10 @@ export const AppRouter: FC = () => {
               <Route
                 path={AppRoutes.ClerkTranslatorOverviewPage}
                 element={<ClerkTranslatorOverviewPage />}
+              />
+              <Route
+                path={AppRoutes.ClerkNewTranslatorPage}
+                element={<ClerkNewTranslatorPage />}
               />
               <Route
                 path={AppRoutes.AccessibilityStatementPage}

@@ -13,3 +13,16 @@ export enum AuthorisationBasisEnum {
   KKT = 'KKT',
   VIR = 'VIR',
 }
+
+export enum ClerkTranslatorTextField {
+  FirstName = 'firstName',
+  LastName = 'lastName',
+  IdentityNumber = 'identityNumber',
+  Email = 'email',
+  PhoneNumber = 'phoneNumber',
+  Street = 'street',
+  PostalCode = 'postalCode',
+  Town = 'town',
+  Country = 'country',
+  ExtraInformation = 'extraInformation',
+}

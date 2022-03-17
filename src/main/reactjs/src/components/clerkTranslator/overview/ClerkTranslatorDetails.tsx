@@ -127,7 +127,7 @@ export const ClerkTranslatorDetails = () => {
         handleTranslatorDetailsChange(field)
       }
       editDisabled={isViewMode}
-      controlButtons={
+      topControlButtons={
         <ControlButtons
           onCancelBtnClick={openCancelDialog}
           onEditBtnClick={handleEditBtnClick}
@@ -135,6 +135,7 @@ export const ClerkTranslatorDetails = () => {
           isViewMode={isViewMode}
         />
       }
+      displayFieldErrorBeforeChange={true}
     />
   );
 };

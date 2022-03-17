@@ -2,6 +2,7 @@ import createSagaMiddleware from '@redux-saga/core';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import { clerkNewTranslatorReducer } from 'redux/reducers/clerkNewTranslator';
 import { clerkTranslatorReducer } from 'redux/reducers/clerkTranslator';
 import { clerkTranslatorEmailReducer } from 'redux/reducers/clerkTranslatorEmail';
 import { clerkTranslatorOverviewReducer } from 'redux/reducers/clerkTranslatorOverview';
@@ -24,6 +25,7 @@ export default () => {
       clerkTranslator: clerkTranslatorReducer,
       clerkTranslatorEmail: clerkTranslatorEmailReducer,
       clerkTranslatorOverview: clerkTranslatorOverviewReducer,
+      clerkNewTranslator: clerkNewTranslatorReducer,
       contactRequest: contactRequestReducer,
       publicUIView: publicUIViewReducer,
       clerkUser: clerkUserReducer,

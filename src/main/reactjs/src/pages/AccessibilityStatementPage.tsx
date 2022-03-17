@@ -26,6 +26,7 @@ const BackButton = () => {
       to={AppRoutes.PublicHomePage}
       variant={Variant.Text}
       startIcon={<ArrowBackIosOutlinedIcon />}
+      className="color-secondary-dark"
     >
       {translateCommon('backToHomePage')}
     </CustomButtonLink>

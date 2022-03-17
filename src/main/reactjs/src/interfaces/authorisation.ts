@@ -19,7 +19,9 @@ export interface Authorisation
   autDate?: Dayjs;
 }
 
-export interface AuthorisationResponse extends WithId, WithVersion {
+export interface AuthorisationResponse
+  extends Partial<WithId>,
+    Partial<WithVersion> {
   languagePair: LanguagePair;
   basis: AuthorisationBasis;
   termBeginDate?: string;

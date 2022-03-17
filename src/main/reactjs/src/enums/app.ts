@@ -9,6 +9,7 @@ export enum AppRoutes {
   ClerkSendEmailPage = '/akt/virkailija/laheta-sahkoposti',
   ClerkLocalLogoutPage = '/akt/cas/localLogout',
   ClerkTranslatorOverviewPage = '/akt/virkailija/kaantaja/:translatorId',
+  ClerkNewTranslatorPage = '/akt/virkailija/lisaa-kaantaja',
   AccessibilityStatementPage = '/akt/saavutettavuusseloste',
   NotFoundPage = '*',
 }
