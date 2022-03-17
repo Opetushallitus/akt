@@ -1,32 +1,13 @@
 import { AppRoutes, UIMode } from 'enums/app';
-import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { ClerkTranslatorResponse } from 'interfaces/clerkTranslator';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
-import { APIUtils } from 'utils/api';
-import { AuthorisationUtils } from 'utils/authorisation';
 
 class ClerkTranslatorOverviewPage {
   elements = {
-    authorisedToggleBtn: () =>
-      cy.findByTestId(
-        'clerk-translator-overview__authorisation-details__toggle-btn--authorised'
-      ),
-    expiredToggleBtn: () =>
-      cy.findByTestId(
-        'clerk-translator-overview__authorisation-details__toggle-btn--expired'
-      ),
-    formerVIRToggleBtn: () =>
-      cy.findByTestId(
-        'clerk-translator-overview__authorisation-details__toggle-btn--formerVIR'
-      ),
     addAuthorisationBtn: () =>
       cy.findByTestId(
         'clerk-translator-overview__authorisation-details__add-btn'
       ),
-    authorisationRow: (id: number) =>
-      cy.findByTestId(`authorisations-table__id-${id}-row`),
-    authorisationRowDeleteBtn: (id: number) =>
-      cy.findByTestId(`authorisations-table__id-${id}-row__delete-btn`),
     backToRegisterBtn: () =>
       cy.findByTestId('clerk-translator-overview-page__back-btn'),
     editTranslatorInfoBtn: () =>
@@ -81,18 +62,6 @@ class ClerkTranslatorOverviewPage {
       .type(newValue);
   }
 
-  clickAuthorisedToggleBtn() {
-    this.elements.authorisedToggleBtn().click();
-  }
-
-  clickExpiredToggleBtn() {
-    this.elements.expiredToggleBtn().click();
-  }
-
-  clickformerVIRToggleBtn() {
-    this.elements.formerVIRToggleBtn().click();
-  }
-
   expectTranslatorDetailsFieldValue(
     field: string,
     fieldType: string,
@@ -115,14 +84,6 @@ class ClerkTranslatorOverviewPage {
 
   expectedEnabledAddAuthorisationButton() {
     this.elements.addAuthorisationBtn().should('be.enabled');
-  }
-
-  expectAuthorisationRowToHaveText(id: number, text: string) {
-    this.elements.authorisationRow(id).should('contain.text', text);
-  }
-
-  clickAuthorisationRowDeleteButton(id: number) {
-    this.elements.authorisationRowDeleteBtn(id).click();
   }
 
   expectTranslatorNotFoundText() {
@@ -169,25 +130,6 @@ class ClerkTranslatorOverviewPage {
       onClerkTranslatorOverviewPage.expectDisabledTranslatorDetailsField(
         field,
         fieldType
-      );
-    });
-  }
-
-  expectAuthorisations(
-    translator: ClerkTranslatorResponse,
-    status: AuthorisationStatus
-  ) {
-    const convertedTranslator =
-      APIUtils.convertClerkTranslatorResponse(translator);
-    const authorisations =
-      AuthorisationUtils.groupClerkTranslatorAuthorisationsByStatus(
-        convertedTranslator
-      );
-
-    authorisations[status].forEach((a) => {
-      onClerkTranslatorOverviewPage.expectAuthorisationRowToHaveText(
-        a.id,
-        a.diaryNumber
       );
     });
   }
