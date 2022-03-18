@@ -175,7 +175,7 @@ export const AuthorisationListing = ({
                 aria-label={t('actions.removal.ariaLabel')}
                 data-testid={`authorisations-table__id-${a.id}-row__delete-btn`}
               >
-                <DeleteIcon className="color-red-500" />
+                <DeleteIcon color={Color.Error} />
               </CustomIconButton>
             </TableCell>
           </TableRow>
