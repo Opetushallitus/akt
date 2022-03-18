@@ -87,6 +87,10 @@ export class Utils {
       return CustomTextFieldErrors.Required;
     }
 
+    if (!required && value.length == 0) {
+      return '';
+    }
+
     switch (type) {
       case TextFieldTypes.Textarea:
         if (value.length > Utils.getMaxTextAreaLength()) {
