@@ -1,3 +1,4 @@
+import { APIError } from 'enums/api';
 import { Authorisation, AuthorisationResponse } from 'interfaces/authorisation';
 import {
   ClerkTranslator,
@@ -65,5 +66,19 @@ export class APIUtils {
       permissionToPublish,
       diaryNumber,
     };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static getAPIError(error: any): string | undefined {
+    if (
+      error &&
+      error.response &&
+      error.response.data &&
+      error.response.data.errorCode
+    ) {
+      const code = error.response.data.errorCode;
+
+      return Object.values(APIError)[code];
+    }
   }
 }

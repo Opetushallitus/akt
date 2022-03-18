@@ -28,15 +28,6 @@ import { Utils } from 'utils';
 import { APIUtils } from 'utils/api';
 import { DateUtils } from 'utils/date';
 
-function* showErrorToastOnRemove() {
-  const t = translateOutsideComponent();
-  const notifier = Utils.createNotifierToast(
-    Severity.Error,
-    t('akt.component.meetingDatesListing.row.removal.toasts.error')
-  );
-  yield put({ type: NOTIFIER_TOAST_ADD, notifier });
-}
-
 export function* removeMeetingDate(action: RemoveMeetingDateActionType) {
   try {
     yield call(
@@ -47,9 +38,19 @@ export function* removeMeetingDate(action: RemoveMeetingDateActionType) {
     yield put({ type: MEETING_DATE_LOAD });
   } catch (error) {
     yield put({ type: MEETING_DATE_REMOVE_ERROR });
-    yield call(showErrorToastOnRemove);
+
+    const apiError = APIUtils.getAPIError(error);
+    if (apiError) {
+      const t = translateOutsideComponent();
+      const notifier = Utils.createNotifierToast(
+        Severity.Error,
+        t(`akt.api.errors.${apiError}`)
+      );
+      yield put({ type: NOTIFIER_TOAST_ADD, notifier });
+    }
   }
 }
+
 function* showErrorToastOnAdd() {
   const t = translateOutsideComponent();
   const notifier = Utils.createNotifierToast(

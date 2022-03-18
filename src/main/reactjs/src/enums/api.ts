@@ -15,3 +15,10 @@ export enum APIResponseStatus {
   Error = 'ERROR',
   Cancelled = 'CANCELLED',
 }
+
+export enum APIError {
+  Code0 = 'createMeetingDateDuplicateDate',
+  Code1 = 'updateMeetingDateDuplicateDate',
+  Code2 = 'updateMeetingDateHasAuthorisations',
+  Code3 = 'deleteMeetingDateHasAuthorisations',
+}
