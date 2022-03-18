@@ -121,6 +121,12 @@
             "extraInformation": "Lisätiedot",
             "isAssuranceGiven": "Vakuutus annettu",
             "personalInformation": "Henkilötiedot"
+          },
+          "addAuthorisation": {
+            "toasts": {
+              "success": "Auktorisointi lisätty onnistuneesti",
+              "error": "Auktorisoinnin lisäys ei onnistunut, yritä myöhemmin uudelleen"
+            }
           }
         }
       },
@@ -230,17 +236,23 @@
         "buttons": {
           "add": "Lisää auktorisointi"
         },
+        "title": {
+          "autDate": "Tutkintopäivä (vain AUT)",
+          "basis": "Auktorisoinnin peruste",
+          "diaryNumber": "Auktorisoinnin asiatunnus",
+          "from": "Kielipari (mistä)",
+          "termBeginDate": "Auktorisoinnin alkamispäivä",
+          "termEndDate": "Auktorisoinnin päättymispäivä",
+          "to": "Kielipari (mihin)"
+        },
         "fieldLabels": {
-          "autDate": "Tutkintopäivä (AUT)",
+          "autDate": "Tutkintopäivä",
           "basis": "Peruste",
           "diaryNumber": "Asiatunnus",
           "from": "Mistä",
           "termBeginDate": "Alkamispäivä",
           "termEndDate": "Päättymispäivä",
           "to": "Mihin"
-        },
-        "languageSelect": {
-          "title": "Kielipari"
         },
         "switch": {
           "canPublish": "Saa julkaista internetissä",

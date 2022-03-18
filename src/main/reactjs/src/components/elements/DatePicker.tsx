@@ -8,6 +8,7 @@ export interface DatePickerProps {
   value?: string;
   setValue: (value: string) => void;
   label: string;
+  disabled?: boolean;
   minDate?: Dayjs;
   maxDate?: Dayjs;
 }
@@ -16,6 +17,7 @@ export const DatePicker = ({
   value,
   setValue,
   label,
+  disabled = false,
   minDate,
   maxDate,
 }: DatePickerProps): JSX.Element => {
@@ -30,6 +32,7 @@ export const DatePicker = ({
   return (
     <Stack spacing={3}>
       <TextField
+        disabled={disabled}
         label={label}
         type="date"
         onChange={handleChange}

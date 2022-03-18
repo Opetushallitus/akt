@@ -1,3 +1,4 @@
+import { Dayjs } from 'dayjs';
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import axiosInstance from 'configs/axios';
@@ -13,6 +14,7 @@ import {
   CLERK_TRANSLATOR_ADD_AUTHORISATION_ERROR,
   CLERK_TRANSLATOR_ADD_AUTHORISATION_SUCCESS,
 } from 'redux/actionTypes/authorisation';
+import { CLERK_TRANSLATOR_OVERVIEW_FETCH } from 'redux/actionTypes/clerkTranslatorOverview';
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
 import { Utils } from 'utils';
 
@@ -20,16 +22,25 @@ function* showErrorToastOnAdd() {
   const t = translateOutsideComponent();
   const notifier = Utils.createNotifierToast(
     Severity.Error,
-    t('akt.component.addMeetingDate.toasts.error')
+    t(
+      'akt.component.clerkTranslatorOverview.translatorDetails.addAuthorisation.toasts.error'
+    )
   );
   yield put({ type: NOTIFIER_TOAST_ADD, notifier });
 }
 
-const formatDate = (date) => {
-  console.log('date', date);
+function* showSuccessToastOnAdd() {
+  const t = translateOutsideComponent();
+  const notifier = Utils.createNotifierToast(
+    Severity.Success,
+    t(
+      'akt.component.clerkTranslatorOverview.translatorDetails.addAuthorisation.toasts.success'
+    )
+  );
+  yield put({ type: NOTIFIER_TOAST_ADD, notifier });
+}
 
-  return date.format('YYYY-MM-DD');
-};
+const formatDate = (date?: Dayjs) => date && date.format('YYYY-MM-DD');
 
 const createAuthorisationBody = ({
   basis,
@@ -55,15 +66,16 @@ const createAuthorisationBody = ({
 export function* addAuthorisation(action: AddAuthorisationAction) {
   try {
     const authorisation = createAuthorisationBody(action.authorisation);
+    const { translatorId } = action.authorisation;
     yield call(
       axiosInstance.post,
-      `${APIEndpoints.ClerkTranslator}/${action.authorisation.translatorId}/authorisation`,
+      `${APIEndpoints.ClerkTranslator}/${translatorId}/authorisation`,
       JSON.stringify(authorisation)
     );
     yield put({ type: CLERK_TRANSLATOR_ADD_AUTHORISATION_SUCCESS });
-    // yield put({ type: MEETING_DATE_LOAD });
+    yield call(showSuccessToastOnAdd);
+    yield put({ type: CLERK_TRANSLATOR_OVERVIEW_FETCH, id: translatorId });
   } catch (error) {
-    console.log('error', error);
     yield put({ type: CLERK_TRANSLATOR_ADD_AUTHORISATION_ERROR });
     yield call(showErrorToastOnAdd);
   }

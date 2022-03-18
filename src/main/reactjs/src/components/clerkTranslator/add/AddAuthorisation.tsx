@@ -1,5 +1,5 @@
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import { ComboBox, valueAsOption } from 'components/elements/ComboBox';
 import { CustomButton } from 'components/elements/CustomButton';
@@ -28,6 +28,11 @@ import { DateUtils } from 'utils/date';
 interface AddAuthorisationProps {
   meetingDates: Array<MeetingDate>;
   onAuthorisationAdd(authorisation: Authorisation): void;
+  addAuthorisationOutsideComponent?: boolean;
+  setAddAuthorisationOutsideComponent?: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+  onNewAuthorisationAdd(authorisation: Authorisation): void;
 }
 
 const newAuthorisation: Authorisation = {
@@ -43,6 +48,9 @@ const newAuthorisation: Authorisation = {
 export const AddAuthorisation = ({
   meetingDates,
   onAuthorisationAdd,
+  addAuthorisationOutsideComponent,
+  setAddAuthorisationOutsideComponent,
+  onNewAuthorisationAdd,
 }: AddAuthorisationProps) => {
   const dayjs = DateUtils.dayjs();
   const currentDate = dayjs();
@@ -63,6 +71,19 @@ export const AddAuthorisation = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.newAuthorisation',
   });
+
+  useEffect(() => {
+    if (addAuthorisationOutsideComponent) {
+      onNewAuthorisationAdd(authorisation);
+      setAddAuthorisationOutsideComponent &&
+        setAddAuthorisationOutsideComponent(false);
+    }
+  }, [
+    addAuthorisationOutsideComponent,
+    authorisation,
+    onNewAuthorisationAdd,
+    setAddAuthorisationOutsideComponent,
+  ]);
 
   const handleLanguageSelectChange =
     (fieldName: string) =>
@@ -149,68 +170,82 @@ export const AddAuthorisation = ({
 
   return (
     <div className="rows gapped">
-      <div className="add-authorisation__fields gapped align-items-end">
+      <div className="add-authorisation__fields gapped align-items-start full-max-width">
         <div className="rows gapped-xs">
-          <Text>{t('languageSelect.title')}</Text>
-          <div className="columns gapped">
-            <LanguageSelect
-              autoHighlight
-              label={t('fieldLabels.from')}
-              variant={TextFieldVariant.Outlined}
-              languages={AuthorisationUtils.getKoodistoLangKeys()}
-              excludedLanguage={authorisation.languagePair.to || undefined}
-              value={getLanguageSelectValue(authorisation.languagePair.from)}
-              onChange={handleLanguageSelectChange('from')}
-            />
-            <LanguageSelect
-              autoHighlight
-              label={t('fieldLabels.to')}
-              variant={TextFieldVariant.Outlined}
-              languages={AuthorisationUtils.getKoodistoLangKeys()}
-              excludedLanguage={authorisation.languagePair.from || undefined}
-              value={getLanguageSelectValue(authorisation.languagePair.to)}
-              onChange={handleLanguageSelectChange('to')}
-            />
-          </div>
+          <Text>{t('title.from')}</Text>
+          <LanguageSelect
+            autoHighlight
+            label={t('fieldLabels.from')}
+            variant={TextFieldVariant.Outlined}
+            languages={AuthorisationUtils.getKoodistoLangKeys()}
+            excludedLanguage={authorisation.languagePair.to || undefined}
+            value={getLanguageSelectValue(authorisation.languagePair.from)}
+            onChange={handleLanguageSelectChange('from')}
+          />
         </div>
-        <ComboBox
-          autoHighlight
-          label={t('fieldLabels.basis')}
-          values={Object.values(AuthorisationBasisEnum).map(valueAsOption)}
-          value={
-            authorisation.basis ? valueAsOption(authorisation.basis) : null
-          }
-          variant={TextFieldVariant.Outlined}
-          onChange={handleBasisChange}
-        />
-        {authorisation.basis === AuthorisationBasisEnum.AUT && (
+        <div className="rows gapped-xs">
+          <Text>{t('title.to')}</Text>
+          <LanguageSelect
+            autoHighlight
+            label={t('fieldLabels.to')}
+            variant={TextFieldVariant.Outlined}
+            languages={AuthorisationUtils.getKoodistoLangKeys()}
+            excludedLanguage={authorisation.languagePair.from || undefined}
+            value={getLanguageSelectValue(authorisation.languagePair.to)}
+            onChange={handleLanguageSelectChange('to')}
+          />
+        </div>
+        <div className="rows gapped-xs">
+          <Text>{t('title.basis')}</Text>
+          <ComboBox
+            autoHighlight
+            label={t('fieldLabels.basis')}
+            values={Object.values(AuthorisationBasisEnum).map(valueAsOption)}
+            value={
+              authorisation.basis ? valueAsOption(authorisation.basis) : null
+            }
+            variant={TextFieldVariant.Outlined}
+            onChange={handleBasisChange}
+          />
+        </div>
+        <div className="rows gapped-xs">
+          <Text>{t('title.autDate')}</Text>
           <DatePicker
             label={t('fieldLabels.autDate')}
             setValue={handleAutDateChange}
+            disabled={authorisation.basis !== AuthorisationBasisEnum.AUT}
           />
-        )}
-        <ComboBox
-          autoHighlight
-          label={t('fieldLabels.termBeginDate')}
-          values={availableMeetingDateValues}
-          value={getTermBeginDate()}
-          variant={TextFieldVariant.Outlined}
-          onChange={handleTermBeginDateChange}
-        />
-        <CustomTextField
-          label={t('fieldLabels.termEndDate')}
-          value={DateUtils.formatOptionalDate(authorisation?.termEndDate)}
-          disabled={true}
-        />
-        <CustomTextField
-          label={t('fieldLabels.diaryNumber')}
-          value={authorisation.diaryNumber}
-          onChange={handleDiaryNumberChange}
-        />
+        </div>
       </div>
-
-      <div className="columns space-between">
-        <div className="rows">
+      <div className="add-authorisation__fields gapped align-items-start">
+        <div className="rows gapped-xs">
+          <Text>{t('title.termBeginDate')}</Text>
+          <ComboBox
+            autoHighlight
+            label={t('fieldLabels.termBeginDate')}
+            values={availableMeetingDateValues}
+            value={getTermBeginDate()}
+            variant={TextFieldVariant.Outlined}
+            onChange={handleTermBeginDateChange}
+          />
+        </div>
+        <div className="rows gapped-xs">
+          <Text>{t('title.termEndDate')}</Text>
+          <CustomTextField
+            label={t('fieldLabels.termEndDate')}
+            value={DateUtils.formatOptionalDate(authorisation?.termEndDate)}
+            disabled={true}
+          />
+        </div>
+        <div className="rows gapped-xs">
+          <Text>{t('title.diaryNumber')}</Text>
+          <CustomTextField
+            label={t('fieldLabels.diaryNumber')}
+            value={authorisation.diaryNumber}
+            onChange={handleDiaryNumberChange}
+          />
+        </div>
+        <div className="rows gapped-xs">
           <Text>{t('switch.canPublish')}</Text>
           <CustomSwitch
             value={authorisation.permissionToPublish}
@@ -219,15 +254,17 @@ export const AddAuthorisation = ({
             onChange={handleSwitchValueChange}
           />
         </div>
-        <CustomButton
-          color={Color.Secondary}
-          variant={Variant.Outlined}
-          startIcon={<AddOutlinedIcon />}
-          onClick={() => addAndResetAuthorisation(authorisation)}
-          disabled={isAddButtonDisabled()}
-        >
-          {t('buttons.add')}
-        </CustomButton>
+        {addAuthorisationOutsideComponent === undefined && (
+          <CustomButton
+            color={Color.Secondary}
+            variant={Variant.Outlined}
+            startIcon={<AddOutlinedIcon />}
+            onClick={() => addAndResetAuthorisation(authorisation)}
+            disabled={isAddButtonDisabled()}
+          >
+            {t('buttons.add')}
+          </CustomButton>
+        )}
       </div>
     </div>
   );
