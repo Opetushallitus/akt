@@ -105,7 +105,7 @@ class ClerkTranslatorOverviewPage {
     }
   }
 
-  checkTranslatorDetailsFields(translator: ClerkTranslatorResponse) {
+  expectTranslatorDetailsFields(translator: ClerkTranslatorResponse) {
     const fields = [
       { field: 'firstName', fieldType: 'input' },
       { field: 'lastName', fieldType: 'input' },

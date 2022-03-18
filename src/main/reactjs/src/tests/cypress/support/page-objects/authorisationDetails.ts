@@ -55,7 +55,7 @@ class AuthorisationDetails {
     this.elements.deleteBtn(id).click();
   }
 
-  checkAuthorisationDetails(
+  expectAuthorisationDetails(
     translator: ClerkTranslatorResponse,
     status: AuthorisationStatus
   ) {

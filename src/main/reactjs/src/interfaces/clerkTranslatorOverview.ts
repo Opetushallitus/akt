@@ -17,7 +17,7 @@ export interface ClerkTranslatorOverviewAction extends Action, Partial<WithId> {
 
 export interface AuthorisationAction
   extends Action,
-    Partial<WithId>,
+    WithId,
     Partial<WithVersion> {
   permissionToPublish?: boolean;
 }

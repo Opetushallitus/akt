@@ -5,7 +5,7 @@ import {
   authorisationDeletionResponse,
   onAuthorisationDetails,
   publishPermissionChangeResponse,
-} from 'tests/cypress/support/page-objects/authorisationListing';
+} from 'tests/cypress/support/page-objects/authorisationDetails';
 import { onClerkTranslatorOverviewPage } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
 import { onDialog } from 'tests/cypress/support/page-objects/dialog';
 import { useFixedDate } from 'tests/cypress/support/utils/date';
@@ -29,21 +29,19 @@ describe('ClerkTranslatorOverview:AuthorisationDetails', () => {
     onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
     cy.wait('@getClerkTranslatorOverview');
 
-    onAuthorisationDetails.checkAuthorisationDetails(
+    onAuthorisationDetails.expectAuthorisationDetails(
       translatorResponse,
       AuthorisationStatus.Authorised
     );
 
     onAuthorisationDetails.clickExpiredToggleBtn();
-
-    onAuthorisationDetails.checkAuthorisationDetails(
+    onAuthorisationDetails.expectAuthorisationDetails(
       translatorResponse,
       AuthorisationStatus.Expired
     );
 
     onAuthorisationDetails.clickformerVIRToggleBtn();
-
-    onAuthorisationDetails.checkAuthorisationDetails(
+    onAuthorisationDetails.expectAuthorisationDetails(
       translatorResponse,
       AuthorisationStatus.FormerVIR
     );
@@ -54,7 +52,6 @@ describe('ClerkTranslatorOverview:AuthorisationDetails', () => {
     cy.wait('@getClerkTranslatorOverview');
 
     onAuthorisationDetails.switchPublishPermission(effectiveAuthorisationId);
-
     onDialog.expectText('Haluatko varmasti vaihtaa julkaisulupaa?');
     onDialog.clickButtonByText('Takaisin');
 
@@ -72,7 +69,6 @@ describe('ClerkTranslatorOverview:AuthorisationDetails', () => {
       effectiveAuthorisationId,
       true
     );
-    onAuthorisationDetails.switchPublishPermission(effectiveAuthorisationId);
 
     const putResponse = publishPermissionChangeResponse(
       translatorResponse,
@@ -85,6 +81,7 @@ describe('ClerkTranslatorOverview:AuthorisationDetails', () => {
       putResponse
     ).as('changePublishPermission');
 
+    onAuthorisationDetails.switchPublishPermission(effectiveAuthorisationId);
     onDialog.clickButtonByText('Kyllä');
     cy.wait('@changePublishPermission');
 
@@ -99,7 +96,6 @@ describe('ClerkTranslatorOverview:AuthorisationDetails', () => {
     cy.wait('@getClerkTranslatorOverview');
 
     onAuthorisationDetails.clickDeleteButton(effectiveAuthorisationId);
-
     onDialog.expectText('Haluatko varmasti poistaa auktorisoinnin?');
     onDialog.clickButtonByText('Takaisin');
 
@@ -109,8 +105,6 @@ describe('ClerkTranslatorOverview:AuthorisationDetails', () => {
   it('should open a confirmation dialog when a delete icon is clicked, and delete authorisation if user confirms', () => {
     onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
     cy.wait('@getClerkTranslatorOverview');
-
-    onAuthorisationDetails.clickDeleteButton(effectiveAuthorisationId);
 
     const deletionResponse = authorisationDeletionResponse(
       translatorResponse,
@@ -122,6 +116,7 @@ describe('ClerkTranslatorOverview:AuthorisationDetails', () => {
       deletionResponse
     ).as('deleteAuthorisation');
 
+    onAuthorisationDetails.clickDeleteButton(effectiveAuthorisationId);
     onDialog.clickButtonByText('Poista auktorisointi');
     cy.wait('@deleteAuthorisation');
 
