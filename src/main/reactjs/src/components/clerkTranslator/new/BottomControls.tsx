@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router';
+
 import { CustomButton } from 'components/elements/CustomButton';
 import { useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { Color, Variant } from 'enums/app';
+import { AppRoutes, Color, Variant } from 'enums/app';
 import {
   resetNewClerkTranslatorDetails,
   resetNewClerkTranslatorRequestStatus,
@@ -17,10 +19,14 @@ export const BottomControls = () => {
   const { translator } = useAppSelector(clerkNewTranslatorSelector);
   const dispatch = useAppDispatch();
 
+  // Navigation
+  const navigate = useNavigate();
+
   // Action handlers
   const onCancel = () => {
     dispatch(resetNewClerkTranslatorDetails);
     dispatch(resetNewClerkTranslatorRequestStatus);
+    navigate(AppRoutes.ClerkHomePage);
   };
   const onSave = () => {
     dispatch(saveNewClerkTranslator(translator));
