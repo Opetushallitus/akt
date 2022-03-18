@@ -13,6 +13,7 @@ export interface ComboBoxProps {
   getOptionLabel?: (option: AutocompleteValue) => string;
   values: Array<ComboBoxOption>;
   value: AutocompleteValue;
+  dataTestId?: string;
 }
 
 export type AutoCompleteComboBox = Omit<

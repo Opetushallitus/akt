@@ -216,7 +216,7 @@
       },
       "newAuthorisation": {
         "buttons": {
-          "add": "Lisää auktorisointi"
+          "add": "Lisää"
         },
         "fieldLabels": {
           "autDate": "Tutkintopäivä (AUT)",

@@ -148,7 +148,7 @@ export const AddAuthorisation = ({
   };
 
   return (
-    <div className="rows gapped">
+    <div className="rows gapped" data-testid="add-authorisation-root">
       <div className="add-authorisation__fields gapped align-items-end">
         <div className="rows gapped-xs">
           <Text>{t('languageSelect.title')}</Text>
@@ -191,6 +191,7 @@ export const AddAuthorisation = ({
         )}
         <ComboBox
           autoHighlight
+          dataTestId="add-authorisation__term-begin-date"
           label={t('fieldLabels.termBeginDate')}
           values={availableMeetingDateValues}
           value={getTermBeginDate()}
@@ -198,11 +199,13 @@ export const AddAuthorisation = ({
           onChange={handleTermBeginDateChange}
         />
         <CustomTextField
+          data-testid="add-authorisation__term-end-date"
           label={t('fieldLabels.termEndDate')}
           value={DateUtils.formatOptionalDate(authorisation?.termEndDate)}
           disabled={true}
         />
         <CustomTextField
+          data-testid="add-authorisation__diary-number"
           label={t('fieldLabels.diaryNumber')}
           value={authorisation.diaryNumber}
           onChange={handleDiaryNumberChange}
@@ -213,6 +216,7 @@ export const AddAuthorisation = ({
         <div className="rows">
           <Text>{t('switch.canPublish')}</Text>
           <CustomSwitch
+            dataTestId="add-authorisation__permission-to-publish-toggle"
             value={authorisation.permissionToPublish}
             leftLabel={translateCommon('no')}
             rightLabel={translateCommon('yes')}
@@ -220,6 +224,7 @@ export const AddAuthorisation = ({
           />
         </div>
         <CustomButton
+          data-testid={'add-authorisation__add-btn'}
           color={Color.Secondary}
           variant={Variant.Outlined}
           startIcon={<AddOutlinedIcon />}

@@ -12,6 +12,10 @@ Cypress.Commands.add('openMeetingDatesPage', () => {
   cy.visit(AppRoutes.MeetingDatesPage);
 });
 
+Cypress.Commands.add('openClerkNewTranslatorPage', () => {
+  cy.visit(AppRoutes.ClerkNewTranslatorPage);
+});
+
 Cypress.Commands.add('usePhoneViewport', () => {
   cy.viewport('iphone-6');
 });

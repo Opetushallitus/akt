@@ -35,6 +35,7 @@ export const BottomControls = () => {
   return (
     <div className="columns gapped flex-end">
       <CustomButton
+        data-testid="clerk-new-translator-page__cancel-btn"
         variant={Variant.Text}
         color={Color.Secondary}
         onClick={onCancel}
@@ -42,6 +43,7 @@ export const BottomControls = () => {
         {translateCommon('cancel')}
       </CustomButton>
       <CustomButton
+        data-testid="clerk-new-translator-page__save-btn"
         variant={Variant.Contained}
         color={Color.Secondary}
         onClick={onSave}

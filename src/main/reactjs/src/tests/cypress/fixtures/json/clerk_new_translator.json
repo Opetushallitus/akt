@@ -1,0 +1,27 @@
+{
+  "id": 4916,
+  "version": 0,
+  "firstName": "Essi",
+  "lastName": "Esimerkki",
+  "identityNumber": "999999-666I",
+  "email": "bad+example@test.invalid",
+  "phoneNumber": "",
+  "street": "",
+  "postalCode": "",
+  "town": "",
+  "country": "",
+  "extraInformation": "",
+  "isAssuranceGiven": false,
+  "authorisations": [
+    {
+      "id": 14176,
+      "version": 0,
+      "languagePair": { "from": "SV", "to": "TE" },
+      "basis": "KKT",
+      "termBeginDate": "2022-01-01",
+      "termEndDate": "2027-01-01",
+      "permissionToPublish": true,
+      "diaryNumber": "Testi12345"
+    }
+  ]
+}

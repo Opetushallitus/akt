@@ -48,11 +48,13 @@ export const ComboBox = ({
   variant,
   helperText,
   showError,
+  dataTestId,
   ...rest
 }: ComboBoxProps & AutoCompleteComboBox) => {
   return (
     <FormControl fullWidth error={showError}>
       <Autocomplete
+        data-testid={dataTestId}
         disablePortal
         {...rest}
         getOptionLabel={autocompleteValueToString}

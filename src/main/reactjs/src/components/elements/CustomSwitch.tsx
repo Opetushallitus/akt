@@ -13,6 +13,7 @@ interface CustomSwitchProps extends SwitchProps {
   rightLabel: string;
   errorLabel?: string;
   value?: boolean;
+  dataTestId?: string;
 }
 
 export const CustomSwitch = ({
@@ -22,6 +23,7 @@ export const CustomSwitch = ({
   value,
   disabled,
   onChange,
+  dataTestId,
 }: CustomSwitchProps) => {
   const leftLabelClassName = disabled
     ? 'color-disabled margin-right-xs'
@@ -35,6 +37,7 @@ export const CustomSwitch = ({
           disabled={disabled}
           control={
             <Switch
+              data-testid={dataTestId}
               checked={value}
               color={Color.Secondary}
               onChange={onChange}
