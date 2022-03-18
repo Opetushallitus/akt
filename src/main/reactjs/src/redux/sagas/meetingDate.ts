@@ -1,10 +1,8 @@
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import axiosInstance from 'configs/axios';
-import { translateOutsideComponent } from 'configs/i18n';
 import { APIEndpoints } from 'enums/api';
-import { Severity } from 'enums/app';
 import {
   AddMeetingDateActionType,
   MeetingDateResponse,
@@ -28,15 +26,6 @@ import { Utils } from 'utils';
 import { APIUtils } from 'utils/api';
 import { DateUtils } from 'utils/date';
 
-function* showErrorToastOnRemove() {
-  const t = translateOutsideComponent();
-  const notifier = Utils.createNotifierToast(
-    Severity.Error,
-    t('akt.component.meetingDatesListing.row.removal.toasts.error')
-  );
-  yield put({ type: NOTIFIER_TOAST_ADD, notifier });
-}
-
 export function* removeMeetingDate(action: RemoveMeetingDateActionType) {
   try {
     yield call(
@@ -47,16 +36,11 @@ export function* removeMeetingDate(action: RemoveMeetingDateActionType) {
     yield put({ type: MEETING_DATE_LOAD });
   } catch (error) {
     yield put({ type: MEETING_DATE_REMOVE_ERROR });
-    yield call(showErrorToastOnRemove);
+    yield put({
+      type: NOTIFIER_TOAST_ADD,
+      notifier: Utils.createNotifierToastForAxiosError(error as AxiosError),
+    });
   }
-}
-function* showErrorToastOnAdd() {
-  const t = translateOutsideComponent();
-  const notifier = Utils.createNotifierToast(
-    Severity.Error,
-    t('akt.component.addMeetingDate.toasts.error')
-  );
-  yield put({ type: NOTIFIER_TOAST_ADD, notifier });
 }
 
 export function* addMeetingDate(action: AddMeetingDateActionType) {
@@ -68,7 +52,10 @@ export function* addMeetingDate(action: AddMeetingDateActionType) {
     yield put({ type: MEETING_DATE_LOAD });
   } catch (error) {
     yield put({ type: MEETING_DATE_ADD_ERROR });
-    yield call(showErrorToastOnAdd);
+    yield put({
+      type: NOTIFIER_TOAST_ADD,
+      notifier: Utils.createNotifierToastForAxiosError(error as AxiosError),
+    });
   }
 }
 

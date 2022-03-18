@@ -15,3 +15,14 @@ export enum APIResponseStatus {
   Error = 'ERROR',
   Cancelled = 'CANCELLED',
 }
+
+/**
+ * Certain errors expected to be returned by the backend.
+ * The respective backend enum is `APIExceptionType`.
+ */
+export enum APIError {
+  MeetingDateCreateDuplicateDate = 'meetingDateCreateDuplicateDate',
+  MeetingDateUpdateDuplicateDate = 'meetingDateUpdateDuplicateDate',
+  MeetingDateUpdateHasAuthorisations = 'meetingDateUpdateHasAuthorisations',
+  MeetingDateDeleteHasAuthorisations = 'meetingDateDeleteHasAuthorisations',
+}

@@ -16,6 +16,8 @@ import fi.oph.akt.model.Authorisation;
 import fi.oph.akt.model.MeetingDate;
 import fi.oph.akt.model.Translator;
 import fi.oph.akt.repository.MeetingDateRepository;
+import fi.oph.akt.util.exception.APIException;
+import fi.oph.akt.util.exception.APIExceptionType;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -56,7 +58,6 @@ class MeetingDateServiceTest {
     entityManager.persist(meetingDate2);
 
     final List<MeetingDateDTO> meetingDateDTOS = meetingDateService.listMeetingDatesWithoutAudit();
-
     assertEquals(2, meetingDateDTOS.size());
 
     assertEquals(meetingDate2.getId(), meetingDateDTOS.get(0).id());
@@ -72,7 +73,6 @@ class MeetingDateServiceTest {
     final MeetingDateCreateDTO dto = MeetingDateCreateDTO.builder().date(LocalDate.now()).build();
 
     final MeetingDateDTO response = meetingDateService.createMeetingDate(dto);
-
     assertEquals(dto.date(), response.date());
 
     final List<MeetingDate> allMeetingDates = meetingDateRepository.findAll();
@@ -85,9 +85,21 @@ class MeetingDateServiceTest {
   }
 
   @Test
+  public void testMeetingDateCreateThrowsAPIExceptionForDuplicateMeetingDate() {
+    final MeetingDate meetingDate = Factory.meetingDate();
+    entityManager.persist(meetingDate);
+
+    final MeetingDateCreateDTO dto = MeetingDateCreateDTO.builder().date(meetingDate.getDate()).build();
+
+    final APIException ex = assertThrows(APIException.class, () -> meetingDateService.createMeetingDate(dto));
+
+    assertEquals(APIExceptionType.MEETING_DATE_CREATE_DUPLICATE_DATE, ex.getExceptionType());
+    verifyNoInteractions(auditService);
+  }
+
+  @Test
   public void testMeetingDateUpdate() {
     final MeetingDate meetingDate = Factory.meetingDate();
-
     entityManager.persist(meetingDate);
 
     final MeetingDateUpdateDTO updateDTO = MeetingDateUpdateDTO
@@ -105,6 +117,50 @@ class MeetingDateServiceTest {
 
     verify(auditService).logById(AktOperation.UPDATE_MEETING_DATE, response.id());
     verifyNoMoreInteractions(auditService);
+  }
+
+  @Test
+  public void testMeetingDateUpdateThrowsAPIExceptionForMeetingDateWithAuthorisations() {
+    final MeetingDate meetingDate = Factory.meetingDate();
+    final Translator translator = Factory.translator();
+    final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+
+    entityManager.persist(meetingDate);
+    entityManager.persist(translator);
+    entityManager.persist(authorisation);
+
+    final MeetingDateUpdateDTO updateDTO = MeetingDateUpdateDTO
+      .builder()
+      .id(meetingDate.getId())
+      .version(meetingDate.getVersion())
+      .date(meetingDate.getDate().plusDays(1))
+      .build();
+
+    final APIException ex = assertThrows(APIException.class, () -> meetingDateService.updateMeetingDate(updateDTO));
+
+    assertEquals(APIExceptionType.MEETING_DATE_UPDATE_HAS_AUTHORISATIONS, ex.getExceptionType());
+    verifyNoInteractions(auditService);
+  }
+
+  @Test
+  public void testMeetingDateUpdateThrowsAPIExceptionForDuplicateMeetingDate() {
+    final MeetingDate meetingDate1 = Factory.meetingDate(LocalDate.now().minusDays(1));
+    final MeetingDate meetingDate2 = Factory.meetingDate(LocalDate.now());
+
+    entityManager.persist(meetingDate1);
+    entityManager.persist(meetingDate2);
+
+    final MeetingDateUpdateDTO updateDTO = MeetingDateUpdateDTO
+      .builder()
+      .id(meetingDate1.getId())
+      .version(meetingDate1.getVersion())
+      .date(meetingDate2.getDate())
+      .build();
+
+    final APIException ex = assertThrows(APIException.class, () -> meetingDateService.updateMeetingDate(updateDTO));
+
+    assertEquals(APIExceptionType.MEETING_DATE_UPDATE_DUPLICATE_DATE, ex.getExceptionType());
+    verifyNoInteractions(auditService);
   }
 
   @Test
@@ -128,7 +184,7 @@ class MeetingDateServiceTest {
   }
 
   @Test
-  public void testMeetingDateDeleteFailsWhenMeetingDateHasAuthorisations() {
+  public void testMeetingDateDeleteThrowsAPIExceptionForMeetingDateWithAuthorisations() {
     final MeetingDate meetingDate = Factory.meetingDate();
     final Translator translator = Factory.translator();
     final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
@@ -137,38 +193,12 @@ class MeetingDateServiceTest {
     entityManager.persist(translator);
     entityManager.persist(authorisation);
 
-    final RuntimeException ex = assertThrows(
-      RuntimeException.class,
+    final APIException ex = assertThrows(
+      APIException.class,
       () -> meetingDateService.deleteMeetingDate(meetingDate.getId())
     );
-    assertEquals("Can not delete meeting date which has authorisations", ex.getMessage());
 
-    verifyNoInteractions(auditService);
-  }
-
-  @Test
-  public void testMeetingDateUpdateFailsWhenMeetingDateHasAuthorisations() {
-    final MeetingDate meetingDate = Factory.meetingDate();
-    final Translator translator = Factory.translator();
-    final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
-
-    entityManager.persist(meetingDate);
-    entityManager.persist(translator);
-    entityManager.persist(authorisation);
-
-    final MeetingDateUpdateDTO updateDTO = MeetingDateUpdateDTO
-      .builder()
-      .id(meetingDate.getId())
-      .version(meetingDate.getVersion())
-      .date(meetingDate.getDate().plusDays(1))
-      .build();
-
-    final RuntimeException ex = assertThrows(
-      RuntimeException.class,
-      () -> meetingDateService.updateMeetingDate(updateDTO)
-    );
-    assertEquals("Can not update meeting date which has authorisations", ex.getMessage());
-
+    assertEquals(APIExceptionType.MEETING_DATE_DELETE_HAS_AUTHORISATIONS, ex.getExceptionType());
     verifyNoInteractions(auditService);
   }
 }

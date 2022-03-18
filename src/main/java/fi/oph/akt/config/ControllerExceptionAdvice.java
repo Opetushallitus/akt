@@ -1,6 +1,9 @@
 package fi.oph.akt.config;
 
+import fi.oph.akt.util.exception.APIException;
+import fi.oph.akt.util.exception.APIExceptionType;
 import fi.oph.akt.util.exception.NotFoundException;
+import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -17,6 +20,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ControllerExceptionAdvice {
 
   private static final Logger LOG = LoggerFactory.getLogger(ControllerExceptionAdvice.class);
+
+  @ExceptionHandler(APIException.class)
+  public ResponseEntity<Object> handleAPIException(final APIException ex) {
+    LOG.error("APIException: " + ex.getExceptionType());
+    return badRequest(ex.getExceptionType());
+  }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<Object> handleMethodArgumentNotValidException(final MethodArgumentNotValidException ex) {
@@ -50,6 +59,13 @@ public class ControllerExceptionAdvice {
 
   private ResponseEntity<Object> badRequest() {
     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+  }
+
+  private ResponseEntity<Object> badRequest(final APIExceptionType exceptionType) {
+    final JSONObject data = new JSONObject();
+    data.put("errorCode", exceptionType.getCode());
+
+    return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
   }
 
   private ResponseEntity<Object> notFound() {

@@ -8,10 +8,7 @@
         "datePicker": {
           "label": "Kokouspäivämäärä"
         },
-        "header": "Lisää kokouspäivä",
-        "toasts": {
-          "error": "Kokouspäivän lisäys epäonnistui"
-        }
+        "header": "Lisää kokouspäivä"
       },
       "clerkTranslatorFilters": {
         "authorisationBasis": {
@@ -197,16 +194,11 @@
       },
       "meetingDatesListing": {
         "header": "Kokouspäivä",
-        "row": {
-          "removal": {
-            "ariaLabel": "Poista kokouspäivä",
-            "dialog": {
-              "description": "Kokouspäivän poisto on mahdollista, jos siihen ei liity yhtään auktorisointia.",
-              "header": "Haluatko varmasti poistaa kokouspäivän?"
-            },
-            "toasts": {
-              "error": "Kokouspäivän poisto epäonnistui"
-            }
+        "removal": {
+          "ariaLabel": "Poista kokouspäivä",
+          "dialog": {
+            "description": "Kokouspäivän poisto on mahdollista, jos siihen ei liity yhtään auktorisointia.",
+            "header": "Haluatko varmasti poistaa kokouspäivän?"
           }
         }
       },
@@ -279,6 +271,13 @@
       }
     },
     "errors": {
+      "api": {
+        "generic": "Toiminto epäonnistui, yritä myöhemmin uudelleen",
+        "meetingDateCreateDuplicateDate": "Kokouspäivän lisäys epäonnistui, koska valitulla päivämäärällä on jo kokouspäivä",
+        "meetingDateUpdateDuplicateDate": "Kokouspäivän muokkaus epäonnistui, koska valitulla päivämäärällä on jo kokouspäivä",
+        "meetingDateUpdateHasAuthorisations": "Kokouspäivän muokkaus epäonnistui, koska sille on kirjattu auktorisointeja",
+        "meetingDateDeleteHasAuthorisations": "Kokouspäivän poisto epäonnistui, koska sille on kirjattu auktorisointeja"
+      },
       "customTextField": {
         "emailFormat": "Sähköpostiosoite on virheellinen",
         "maxLength": "Teksti on liian pitkä",

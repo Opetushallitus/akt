@@ -1,6 +1,9 @@
+import { AxiosError } from 'axios';
 import { isValid as isValidFinnishPIC } from 'finnish-personal-identity-code-validator';
 import { TFunction } from 'i18next';
 
+import { translateOutsideComponent } from 'configs/i18n';
+import { APIError } from 'enums/api';
 import {
   CustomTextFieldErrors,
   Duration,
@@ -71,6 +74,25 @@ export class Utils {
     };
 
     return notifier;
+  }
+
+  static createNotifierToastForAxiosError(error: AxiosError) {
+    const t = translateOutsideComponent();
+    const apiError = Utils.getAPIError(error);
+
+    const message = apiError
+      ? t(`akt.errors.api.${apiError}`)
+      : t('akt.errors.api.generic');
+
+    return Utils.createNotifierToast(Severity.Error, message);
+  }
+
+  private static getAPIError(error: AxiosError) {
+    const errorCode = error.response?.data.errorCode;
+
+    if (errorCode && Object.values(APIError).includes(errorCode)) {
+      return errorCode;
+    }
   }
 
   static getMaxTextAreaLength = () => 6000;
