@@ -1,7 +1,10 @@
-import { APIEndpoints } from 'enums/api';
+import { APIEndpoints, APIError } from 'enums/api';
+import { HTTPStatusCode } from 'enums/app';
 import { MeetingStatus } from 'enums/meetingDate';
 import { onDialog } from 'tests/cypress/support/page-objects/dialog';
 import { onMeetingDatesPage } from 'tests/cypress/support/page-objects/meetingDatesPage';
+import { onToast } from 'tests/cypress/support/page-objects/toast';
+import { createAPIErrorResponse } from 'tests/cypress/support/utils/api';
 import { useFixedDate } from 'tests/cypress/support/utils/date';
 import { DateUtils } from 'utils/date';
 
@@ -22,16 +25,6 @@ beforeEach(() => {
     meetingDates = dates;
     cy.intercept('GET', APIEndpoints.MeetingDate, meetingDates);
   });
-
-  cy.intercept('POST', APIEndpoints.MeetingDate, meetingDateToAdd).as(
-    'createMeetingDate'
-  );
-
-  cy.intercept(
-    'DELETE',
-    `${APIEndpoints.MeetingDate}/${meetingDateToBeDeleted}`,
-    {}
-  ).as('deleteMeetingDate');
 
   cy.openMeetingDatesPage();
 });
@@ -75,16 +68,34 @@ describe('MeetingDatesPage', () => {
       meetingDateToAdd,
     ]);
     onMeetingDatesPage.setDateForNewMeetingDate('2030-10-04');
-    onMeetingDatesPage.clickAddButton();
 
-    cy.wait('@createMeetingDate');
+    cy.intercept('POST', APIEndpoints.MeetingDate, meetingDateToAdd).as(
+      'create'
+    );
+    onMeetingDatesPage.clickAddButton();
+    cy.wait('@create');
 
     onMeetingDatesPage.expectTotalMeetingDatesCount(11);
   });
 
-  it('should not let user to add another meeting date with the same date as an existing one', () => {
+  it('should not add duplicate meeting dates', () => {
     onMeetingDatesPage.setDateForNewMeetingDate('2022-01-01');
     onMeetingDatesPage.expectAddButtonDisabled();
+  });
+
+  it('should show a generic API error toast when trying to add a meeting date', () => {
+    onMeetingDatesPage.setDateForNewMeetingDate('2030-10-04');
+
+    cy.intercept('POST', APIEndpoints.MeetingDate, {
+      statusCode: HTTPStatusCode.InternalServerError,
+      body: {},
+    }).as('createWithError');
+
+    onMeetingDatesPage.clickAddButton();
+    cy.wait('@createWithError');
+
+    onMeetingDatesPage.expectTotalMeetingDatesCount(10);
+    onToast.expectText('Toiminto epäonnistui, yritä myöhemmin uudelleen');
   });
 
   it('should open a confirmation dialog when row delete icon is clicked, and do no changes if user backs out', () => {
@@ -104,12 +115,38 @@ describe('MeetingDatesPage', () => {
     cy.intercept('GET', APIEndpoints.MeetingDate, [...newMeetingDates]);
     onMeetingDatesPage.filterByStatus(MeetingStatus.Passed);
     onMeetingDatesPage.clickDeleteRowIcon(1);
+
+    cy.intercept(
+      'DELETE',
+      `${APIEndpoints.MeetingDate}/${meetingDateToBeDeleted}`,
+      {}
+    ).as('delete');
+
     onDialog.clickButtonByText('Kyllä');
-    cy.wait('@deleteMeetingDate');
+    cy.wait('@delete');
 
     onMeetingDatesPage.expectRowToContain(0, '1.1.2022');
     onMeetingDatesPage.expectRowToContain(1, '15.8.2021');
     onMeetingDatesPage.expectTotalMeetingDatesCount(9);
     onMeetingDatesPage.expectSelectedMeetingDatesCount(5);
+  });
+
+  it('should show an error toast if meeting date is chosen to be deleted, but an API error occurs', () => {
+    onMeetingDatesPage.filterByStatus(MeetingStatus.Passed);
+    onMeetingDatesPage.clickDeleteRowIcon(1);
+
+    cy.intercept(
+      'DELETE',
+      `${APIEndpoints.MeetingDate}/${meetingDateToBeDeleted}`,
+      createAPIErrorResponse(APIError.MeetingDateDeleteHasAuthorisations)
+    ).as('deleteWithError');
+
+    onDialog.clickButtonByText('Kyllä');
+    cy.wait('@deleteWithError');
+
+    onMeetingDatesPage.expectTotalMeetingDatesCount(10);
+    onToast.expectText(
+      'Kokouspäivän poisto epäonnistui, koska sille on kirjattu auktorisointeja'
+    );
   });
 });
