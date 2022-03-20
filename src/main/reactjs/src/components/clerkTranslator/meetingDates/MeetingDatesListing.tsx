@@ -30,7 +30,7 @@ const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
   const dispatch = useAppDispatch();
 
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.meetingDatesListing.row.removal',
+    keyPrefix: 'akt.component.meetingDatesListing.removal',
   });
   const translateCommon = useCommonTranslation();
 

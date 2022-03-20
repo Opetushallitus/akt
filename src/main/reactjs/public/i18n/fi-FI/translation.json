@@ -202,16 +202,11 @@
       },
       "meetingDatesListing": {
         "header": "Kokouspäivä",
-        "row": {
-          "removal": {
-            "ariaLabel": "Poista kokouspäivä",
-            "dialog": {
-              "description": "Kokouspäivän poisto on mahdollista, jos siihen ei liity yhtään auktorisointia.",
-              "header": "Haluatko varmasti poistaa kokouspäivän?"
-            },
-            "toasts": {
-              "error": "Kokouspäivän poisto epäonnistui"
-            }
+        "removal": {
+          "ariaLabel": "Poista kokouspäivä",
+          "dialog": {
+            "description": "Kokouspäivän poisto on mahdollista, jos siihen ei liity yhtään auktorisointia.",
+            "header": "Haluatko varmasti poistaa kokouspäivän?"
           }
         }
       },
