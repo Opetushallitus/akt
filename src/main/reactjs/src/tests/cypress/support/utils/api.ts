@@ -12,3 +12,12 @@ export const runWithIntercept = (
   effect();
   cy.wait(`@${alias}`);
 };
+
+export const createAPIErrorResponse = (code: number) => {
+  return {
+    statusCode: 400,
+    body: {
+      errorCode: code,
+    },
+  };
+};
