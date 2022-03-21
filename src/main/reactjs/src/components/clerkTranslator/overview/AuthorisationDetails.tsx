@@ -1,5 +1,4 @@
 import { Add as AddIcon } from '@mui/icons-material';
-import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 
 import { AddAuthorisation } from 'components/clerkTranslator/add/AddAuthorisation';
@@ -8,7 +7,7 @@ import { CustomButton } from 'components/elements/CustomButton';
 import { CustomModal } from 'components/elements/CustomModal';
 import { H3, Text } from 'components/elements/Text';
 import { ToggleFilterGroup } from 'components/elements/ToggleFilterGroup';
-import { useAppTranslation } from 'configs/i18n';
+import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { Color, Variant } from 'enums/app';
@@ -16,6 +15,7 @@ import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { AddAuthorisation as AddAuthorisationI } from 'interfaces/authorisation';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import { addAuthorisation } from 'redux/actions/authorisation';
+import { loadMeetingDates } from 'redux/actions/meetingDate';
 import { authorisationSelector } from 'redux/selectors/authorisation';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
 import { selectMeetingDatesByMeetingStatus } from 'redux/selectors/meetingDate';
@@ -32,6 +32,7 @@ export const AuthorisationDetails = () => {
     clerkTranslatorOverviewSelector
   );
   const { upcoming } = useAppSelector(selectMeetingDatesByMeetingStatus);
+
   const { status } = useAppSelector(authorisationSelector);
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
@@ -56,12 +57,17 @@ export const AuthorisationDetails = () => {
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorOverview.authorisations',
   });
+  const translateCommon = useCommonTranslation();
 
   useEffect(() => {
     if (status === APIResponseStatus.Success) {
       handleCloseModal();
     }
   }, [status]);
+
+  useEffect(() => {
+    dispatch(loadMeetingDates);
+  }, [dispatch]);
 
   if (!selectedTranslator) {
     return null;
@@ -108,7 +114,11 @@ export const AuthorisationDetails = () => {
 
   return (
     <>
-      <CustomModal open={open} handleCloseModal={handleCloseModal}>
+      <CustomModal
+        data-testid="authorisation-details__add-authorisation-modal"
+        open={open}
+        handleCloseModal={handleCloseModal}
+      >
         <>
           <AddAuthorisation
             meetingDates={upcoming}
@@ -119,19 +129,14 @@ export const AuthorisationDetails = () => {
             }
           />
 
-          <Box
-            sx={{
-              mt: '4rem',
-              display: 'flex',
-              justifyContent: 'flex-end',
-            }}
-          >
+          <div className="columns gapped margin-top-xxl flex-end">
             <CustomButton
+              className="margin-right-xs"
               onClick={handleCloseModal}
               variant={Variant.Text}
               color={Color.Secondary}
             >
-              Peruuta
+              {translateCommon('cancel')}
             </CustomButton>
             <CustomButton
               variant={Variant.Contained}
@@ -141,28 +146,31 @@ export const AuthorisationDetails = () => {
               }}
               disabled={status === APIResponseStatus.InProgress}
             >
-              Tallenna
+              {translateCommon('save')}
             </CustomButton>
-          </Box>
+          </div>
         </>
       </CustomModal>
       <div className="rows gapped-xs">
         <div className="columns margin-top-sm">
           <H3 className="grow">{t('header')}</H3>
+        </div>
+        <div className="columns margin-top-sm space-between">
+          <ToggleFilterGroup
+            filters={toggleFilters}
+            activeStatus={selectedToggleFilter}
+            onButtonClick={filterByAuthorisationStatus}
+          />
           <CustomButton
             data-testid="clerk-translator-overview__authorisation-details__add-btn"
             variant={Variant.Contained}
             color={Color.Secondary}
             startIcon={<AddIcon />}
+            onClick={handleOpenModal}
           >
             {t('buttons.add')}
           </CustomButton>
         </div>
-        <ToggleFilterGroup
-          filters={toggleFilters}
-          activeStatus={selectedToggleFilter}
-          onButtonClick={filterByAuthorisationStatus}
-        />
         {activeAuthorisations.length ? (
           <AuthorisationListing authorisations={activeAuthorisations} />
         ) : (

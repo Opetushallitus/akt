@@ -55,7 +55,7 @@ export const AddAuthorisation = ({
   const dayjs = DateUtils.dayjs();
   const currentDate = dayjs();
   const availableMeetingDateValues = meetingDates
-    .filter((m) => !m.date.isAfter(currentDate, 'day'))
+    .filter((m) => m.date.isAfter(currentDate, 'day'))
     .map((m) => {
       return {
         value: m.date.toISOString(),
@@ -172,7 +172,7 @@ export const AddAuthorisation = ({
     <div className="rows gapped">
       <div className="add-authorisation__fields gapped align-items-start full-max-width">
         <div className="rows gapped-xs">
-          <Text>{t('title.from')}</Text>
+          <Text className="bold">{t('title.from')}</Text>
           <LanguageSelect
             autoHighlight
             label={t('fieldLabels.from')}
@@ -184,7 +184,7 @@ export const AddAuthorisation = ({
           />
         </div>
         <div className="rows gapped-xs">
-          <Text>{t('title.to')}</Text>
+          <Text className="bold">{t('title.to')}</Text>
           <LanguageSelect
             autoHighlight
             label={t('fieldLabels.to')}
@@ -196,7 +196,7 @@ export const AddAuthorisation = ({
           />
         </div>
         <div className="rows gapped-xs">
-          <Text>{t('title.basis')}</Text>
+          <Text className="bold">{t('title.basis')}</Text>
           <ComboBox
             autoHighlight
             label={t('fieldLabels.basis')}
@@ -209,7 +209,7 @@ export const AddAuthorisation = ({
           />
         </div>
         <div className="rows gapped-xs">
-          <Text>{t('title.autDate')}</Text>
+          <Text className="bold">{t('title.autDate')}</Text>
           <DatePicker
             label={t('fieldLabels.autDate')}
             setValue={handleAutDateChange}
@@ -219,7 +219,7 @@ export const AddAuthorisation = ({
       </div>
       <div className="add-authorisation__fields gapped align-items-start">
         <div className="rows gapped-xs">
-          <Text>{t('title.termBeginDate')}</Text>
+          <Text className="bold">{t('title.termBeginDate')}</Text>
           <ComboBox
             autoHighlight
             label={t('fieldLabels.termBeginDate')}
@@ -230,7 +230,7 @@ export const AddAuthorisation = ({
           />
         </div>
         <div className="rows gapped-xs">
-          <Text>{t('title.termEndDate')}</Text>
+          <Text className="bold">{t('title.termEndDate')}</Text>
           <CustomTextField
             label={t('fieldLabels.termEndDate')}
             value={DateUtils.formatOptionalDate(authorisation?.termEndDate)}
@@ -238,7 +238,7 @@ export const AddAuthorisation = ({
           />
         </div>
         <div className="rows gapped-xs">
-          <Text>{t('title.diaryNumber')}</Text>
+          <Text className="bold">{t('title.diaryNumber')}</Text>
           <CustomTextField
             label={t('fieldLabels.diaryNumber')}
             value={authorisation.diaryNumber}
@@ -246,7 +246,7 @@ export const AddAuthorisation = ({
           />
         </div>
         <div className="rows gapped-xs">
-          <Text>{t('switch.canPublish')}</Text>
+          <Text className="bold">{t('switch.canPublish')}</Text>
           <CustomSwitch
             value={authorisation.permissionToPublish}
             leftLabel={translateCommon('no')}
