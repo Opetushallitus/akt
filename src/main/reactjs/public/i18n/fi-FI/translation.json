@@ -22,7 +22,7 @@
           "authorised": "Auktorisoidut",
           "expired": "Umpeutuneet",
           "expiring": "Umpeutuvat",
-          "formerVIR": "Ent. VIR"
+          "formerVIR": "VIR 2008"
         },
         "languagePair": {
           "fromPlaceholder": "Mistä",
@@ -70,7 +70,7 @@
           "toggleFilters": {
             "effectives": "Voimassa olevat",
             "expired": "Umpeutuneet",
-            "formerVIR": "Ent. VIR"
+            "formerVIR": "VIR 2008"
           }
         },
         "toasts": {
@@ -341,7 +341,7 @@
           "title": "Hae auktorisoitua kääntäjää"
         },
         "noSearchResults": "Ei hakutuloksia",
-        "note": "Huomaa, että kielittäin haettaessa mahdolliset hakuvaihtoehdot ovat kotimaisista kielistä (suomi, ruotsi, saamen kielet) vieraisiin kieliin tai toisinpäin sekä kotimaisten kielten välillä.",
+        "note": "Kielittäin haettaessa mahdolliset hakuvaihtoehdot ovat kotimaisista kielistä (suomi, ruotsi, saamen kielet) vieraisiin kieliin tai toisinpäin sekä kotimaisten kielten välillä.",
         "requestContact": "Ota yhteyttä",
         "title": "Auktorisoitujen kääntäjien rekisteri"
       },

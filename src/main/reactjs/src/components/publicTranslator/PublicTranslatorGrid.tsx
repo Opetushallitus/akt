@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@mui/material';
+import { Alert, Grid, Paper } from '@mui/material';
 import { useState } from 'react';
 
 import { HeaderSeparator } from 'components/elements/HeaderSeparator';
@@ -9,6 +9,7 @@ import { PublicTranslatorGridSkeleton } from 'components/skeletons/PublicTransla
 import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
+import { Severity } from 'enums/app';
 import {
   publicTranslatorsSelector,
   selectFilteredPublicTranslators,
@@ -45,9 +46,12 @@ export const PublicTranslatorGrid = () => {
               <H1 className="public-homepage__filters__heading-title">
                 {t('filters.title')}
               </H1>
-              <Text className="public-homepage__filters__heading-description">
+              <Alert
+                className="public-homepage__filters__heading-description"
+                severity={Severity.Info}
+              >
                 {t('note')}
-              </Text>
+              </Alert>
               <PublicTranslatorFilters
                 showTable={hasResults && showTable}
                 setShowTable={setShowTable}

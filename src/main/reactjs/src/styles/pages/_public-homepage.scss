@@ -50,9 +50,22 @@
     }
 
     &__heading-description {
-      color: $color-grey-700;
-      font-size: 1.4rem;
-      font-weight: 400;
+      background-color: $color-blue-200;
+      color: $color-text-primary;
+      position: relative;
+
+      &::after {
+        border-right: 3rem solid transparent;
+        border-top: 1.5rem solid $color-blue-200;
+        bottom: -1.5rem;
+        content: ' ';
+        left: 3rem;
+        position: absolute;
+      }
+
+      & svg {
+        color: $color-secondary;
+      }
     }
   }
 }
