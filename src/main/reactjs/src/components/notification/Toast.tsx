@@ -38,7 +38,8 @@ export const Toast = () => {
           onClose={() => handleToastClose(activeToast.id)}
         >
           <Alert
-            variant="filled"
+            data-testid="toast-notification"
+            variant={'filled'}
             onClose={() => handleToastClose(activeToast.id)}
             severity={activeToast.severity}
           >
