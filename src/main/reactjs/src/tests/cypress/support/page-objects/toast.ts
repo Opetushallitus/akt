@@ -1,12 +1,16 @@
 class Toast {
+  elements = {
+    toastNotification: () => cy.findByTestId(`toast-notification`),
+  };
+
   clickButtonByText(name: string) {
     const regExp = new RegExp(name, 'i');
 
-    cy.findByRole('alert').findByText(regExp).click();
+    this.elements.toastNotification().findByText(regExp).click();
   }
 
   expectText(text: string) {
-    cy.findByRole('alert').should('contain.text', text);
+    this.elements.toastNotification().should('contain.text', text);
   }
 }
 
