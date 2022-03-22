@@ -5,6 +5,7 @@ import axiosInstance from 'configs/axios';
 import { translateOutsideComponent } from 'configs/i18n';
 import { APIEndpoints } from 'enums/api';
 import { Severity } from 'enums/app';
+import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import {
   AddAuthorisationAction,
   Authorisation,
@@ -47,6 +48,7 @@ const createAuthorisationBody = ({
   diaryNumber,
   termBeginDate,
   termEndDate,
+  autDate,
   permissionToPublish,
   languagePair: { from, to },
 }: Authorisation) => {
@@ -58,8 +60,9 @@ const createAuthorisationBody = ({
     termEndDate: formatDate(termEndDate),
     permissionToPublish,
     diaryNumber,
-    // meetingDate: formatDate(autDate),
-    // autDate: formatDate(autDate),
+    ...(basis === AuthorisationBasisEnum.AUT && {
+      autDate: formatDate(autDate),
+    }),
   };
 };
 

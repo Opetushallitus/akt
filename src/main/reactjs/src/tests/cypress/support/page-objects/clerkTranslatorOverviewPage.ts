@@ -30,6 +30,23 @@ class ClerkTranslatorOverviewPage {
           `clerk-translator-overview__translator-details__field-${field}`
         )
         .find(`div>${fieldType}`),
+    addAuthorisationField: (
+      field: string,
+      fieldType: string,
+      isDatePicker = false
+    ) =>
+      cy
+        .findByTestId(
+          `add-authorisation-field-${field}${
+            isDatePicker ? '__date-picker' : ''
+          }`
+        )
+        .find(`div>${fieldType}`),
+
+    saveAuthorisationBtn: () =>
+      cy.findByTestId('add-authorisation-modal__save'),
+    cancelAuthorisationBtn: () =>
+      cy.findByTestId('add-authorisation-modal__cancel'),
   };
 
   navigateById(id: number) {
@@ -46,6 +63,10 @@ class ClerkTranslatorOverviewPage {
     this.elements.editTranslatorInfoBtn().should('be.visible').click();
   }
 
+  clickAddAuthorisationBtn() {
+    this.elements.addAuthorisationBtn().should('be.visible').click();
+  }
+
   clickCancelTranslatorInfoBtn() {
     this.elements.cancelTranslatorInfoBtn().should('be.visible').click();
   }
@@ -60,6 +81,45 @@ class ClerkTranslatorOverviewPage {
       .clear()
       .should('have.text', '')
       .type(newValue);
+  }
+
+  inputAddAuthorisationField(
+    fieldName: string,
+    fieldType: string,
+    newValue: string
+  ) {
+    this.elements
+      .addAuthorisationField(fieldName, fieldType)
+      .clear()
+      .type(`${newValue}{enter}`);
+  }
+
+  expectDisabledAddAuthorisationField(
+    fieldName: string,
+    fieldType: string,
+    isDatePicker = false
+  ) {
+    this.elements
+      .addAuthorisationField(fieldName, fieldType, isDatePicker)
+      .should('be.disabled');
+  }
+
+  expectEnabledAddAuthorisationField(
+    fieldName: string,
+    fieldType: string,
+    isDatePicker = false
+  ) {
+    this.elements
+      .addAuthorisationField(fieldName, fieldType, isDatePicker)
+      .should('be.enabled');
+  }
+
+  saveAuthorisation() {
+    this.elements.saveAuthorisationBtn().should('be.visible').click();
+  }
+
+  cancelAuthorisation() {
+    this.elements.cancelAuthorisationBtn().should('be.visible').click();
   }
 
   expectTranslatorDetailsFieldValue(

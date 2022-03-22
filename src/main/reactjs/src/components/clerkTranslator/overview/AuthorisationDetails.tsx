@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { APIResponseStatus } from 'enums/api';
 import { Color, Variant } from 'enums/app';
 import { AuthorisationStatus } from 'enums/clerkTranslator';
-import { AddAuthorisation as AddAuthorisationI } from 'interfaces/authorisation';
+import { Authorisation } from 'interfaces/authorisation';
 import { ClerkTranslator } from 'interfaces/clerkTranslator';
 import { addAuthorisation } from 'redux/actions/authorisation';
 import { loadMeetingDates } from 'redux/actions/meetingDate';
@@ -43,7 +43,7 @@ export const AuthorisationDetails = () => {
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
 
-  const handleAddAuthorisation = (authorisation: AddAuthorisationI) => {
+  const handleAddAuthorisation = (authorisation: Authorisation) => {
     selectedTranslator?.id &&
       dispatch(
         addAuthorisation({
@@ -122,7 +122,7 @@ export const AuthorisationDetails = () => {
         <>
           <AddAuthorisation
             meetingDates={upcoming}
-            onNewAuthorisationAdd={handleAddAuthorisation}
+            onAuthorisationAdd={handleAddAuthorisation}
             addAuthorisationOutsideComponent={addAuthorisationOutsideComponent}
             setAddAuthorisationOutsideComponent={
               setAddAuthorisationOutsideComponent
@@ -131,6 +131,7 @@ export const AuthorisationDetails = () => {
 
           <div className="columns gapped margin-top-xxl flex-end">
             <CustomButton
+              data-testid="add-authorisation-modal__cancel"
               className="margin-right-xs"
               onClick={handleCloseModal}
               variant={Variant.Text}
@@ -139,6 +140,7 @@ export const AuthorisationDetails = () => {
               {translateCommon('cancel')}
             </CustomButton>
             <CustomButton
+              data-testid="add-authorisation-modal__save"
               variant={Variant.Contained}
               color={Color.Secondary}
               onClick={() => {

@@ -32,7 +32,6 @@ interface AddAuthorisationProps {
   setAddAuthorisationOutsideComponent?: React.Dispatch<
     React.SetStateAction<boolean>
   >;
-  onNewAuthorisationAdd(authorisation: Authorisation): void;
 }
 
 const newAuthorisation: Authorisation = {
@@ -50,7 +49,6 @@ export const AddAuthorisation = ({
   onAuthorisationAdd,
   addAuthorisationOutsideComponent,
   setAddAuthorisationOutsideComponent,
-  onNewAuthorisationAdd,
 }: AddAuthorisationProps) => {
   const dayjs = DateUtils.dayjs();
   const currentDate = dayjs();
@@ -74,14 +72,14 @@ export const AddAuthorisation = ({
 
   useEffect(() => {
     if (addAuthorisationOutsideComponent) {
-      onNewAuthorisationAdd(authorisation);
+      onAuthorisationAdd(authorisation);
       setAddAuthorisationOutsideComponent &&
         setAddAuthorisationOutsideComponent(false);
     }
   }, [
     addAuthorisationOutsideComponent,
     authorisation,
-    onNewAuthorisationAdd,
+    onAuthorisationAdd,
     setAddAuthorisationOutsideComponent,
   ]);
 
@@ -168,12 +166,15 @@ export const AddAuthorisation = ({
     setAuthorisation(newAuthorisation);
   };
 
+  const testIdSuffix = 'add-authorisation-field';
+
   return (
     <div className="rows gapped">
       <div className="add-authorisation__fields gapped align-items-start full-max-width">
         <div className="rows gapped-xs">
           <Text className="bold">{t('title.from')}</Text>
           <LanguageSelect
+            data-testid={`${testIdSuffix}-from`}
             autoHighlight
             label={t('fieldLabels.from')}
             variant={TextFieldVariant.Outlined}
@@ -186,6 +187,7 @@ export const AddAuthorisation = ({
         <div className="rows gapped-xs">
           <Text className="bold">{t('title.to')}</Text>
           <LanguageSelect
+            data-testid={`${testIdSuffix}-to`}
             autoHighlight
             label={t('fieldLabels.to')}
             variant={TextFieldVariant.Outlined}
@@ -198,6 +200,7 @@ export const AddAuthorisation = ({
         <div className="rows gapped-xs">
           <Text className="bold">{t('title.basis')}</Text>
           <ComboBox
+            data-testid={`${testIdSuffix}-basis`}
             autoHighlight
             label={t('fieldLabels.basis')}
             values={Object.values(AuthorisationBasisEnum).map(valueAsOption)}
@@ -214,6 +217,7 @@ export const AddAuthorisation = ({
             label={t('fieldLabels.autDate')}
             setValue={handleAutDateChange}
             disabled={authorisation.basis !== AuthorisationBasisEnum.AUT}
+            withTestId={`${testIdSuffix}-autDate`}
           />
         </div>
       </div>
@@ -221,6 +225,7 @@ export const AddAuthorisation = ({
         <div className="rows gapped-xs">
           <Text className="bold">{t('title.termBeginDate')}</Text>
           <ComboBox
+            data-testid={`${testIdSuffix}-termBeginDate`}
             autoHighlight
             label={t('fieldLabels.termBeginDate')}
             values={availableMeetingDateValues}
@@ -232,6 +237,7 @@ export const AddAuthorisation = ({
         <div className="rows gapped-xs">
           <Text className="bold">{t('title.termEndDate')}</Text>
           <CustomTextField
+            data-testid={`${testIdSuffix}-termEndDate`}
             label={t('fieldLabels.termEndDate')}
             value={DateUtils.formatOptionalDate(authorisation?.termEndDate)}
             disabled={true}
@@ -240,6 +246,7 @@ export const AddAuthorisation = ({
         <div className="rows gapped-xs">
           <Text className="bold">{t('title.diaryNumber')}</Text>
           <CustomTextField
+            data-testid={`${testIdSuffix}-diaryNumber`}
             label={t('fieldLabels.diaryNumber')}
             value={authorisation.diaryNumber}
             onChange={handleDiaryNumberChange}
@@ -248,6 +255,7 @@ export const AddAuthorisation = ({
         <div className="rows gapped-xs">
           <Text className="bold">{t('switch.canPublish')}</Text>
           <CustomSwitch
+            data-testid={`${testIdSuffix}-canPublish`}
             value={authorisation.permissionToPublish}
             leftLabel={translateCommon('no')}
             rightLabel={translateCommon('yes')}

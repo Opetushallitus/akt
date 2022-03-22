@@ -22,11 +22,12 @@ const translatorDetails = {
   isAssuranceGiven: true,
 };
 
-const getAuthorisationDetails = (isResponse: boolean) => {
-  const dayjs = DateUtils.dayjs();
-  const getDateWithProperType = (date: string) =>
-    isResponse ? date : dayjs(date);
+const dayjs = DateUtils.dayjs();
 
+const getDateWithProperType = (date: string, isResponse = true) =>
+  isResponse ? date : dayjs(date);
+
+const getAuthorisationDetails = () => {
   return {
     authorisations: [
       {
@@ -88,5 +89,33 @@ const getAuthorisationDetails = (isResponse: boolean) => {
 
 export const translatorResponse = <ClerkTranslatorResponse>{
   ...translatorDetails,
-  ...getAuthorisationDetails(true),
+  ...getAuthorisationDetails(),
+};
+
+export const authorsationMockAfterAddAuthorsationSuccess = {
+  id: 10004,
+  version: 0,
+  languagePair: {
+    from: 'FI',
+    to: 'SV',
+  },
+  basis: AuthorisationBasisEnum.KKT,
+  permissionToPublish: true,
+  diaryNumber: '1337',
+  termBeginDate: getDateWithProperType('2022-01-01'),
+  termEndDate: getDateWithProperType('2022-07-01'),
+};
+
+export const authorsationMockAfterAddAuthorsationFail = {
+  id: 10004,
+  version: 0,
+  languagePair: {
+    from: 'FI',
+    to: 'SV',
+  },
+  basis: AuthorisationBasisEnum.KKT,
+  permissionToPublish: true,
+  diaryNumber: '1337',
+  termBeginDate: getDateWithProperType('2022-01-01'),
+  termEndDate: getDateWithProperType('2022-07-01'),
 };

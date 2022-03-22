@@ -1,6 +1,7 @@
 import { Dayjs } from 'dayjs';
 import { Action } from 'redux';
 
+import { APIResponseStatus } from 'enums/api';
 import {
   AuthorisationBasisEnum,
   AuthorisationStatus,
@@ -38,15 +39,16 @@ export type AuthorisationsGroupedByStatus = {
 export interface AddAuthorisation {
   languagePair: LanguagePair;
   basis: AuthorisationBasis;
-  termBeginDate: string;
-  termEndDate?: string;
+  termBeginDate?: Dayjs;
+  termEndDate?: Dayjs;
   permissionToPublish: boolean;
   diaryNumber?: string;
-  autDate?: string;
+  autDate?: Dayjs;
   translatorId: number;
 }
 
 export interface AddAuthorisationState {
+  status: APIResponseStatus;
   authorisation: AddAuthorisation | Record<string, never>;
 }
 
