@@ -11,21 +11,20 @@ import {
   Authorisation,
 } from 'interfaces/authorisation';
 import {
-  CLERK_TRANSLATOR_ADD_AUTHORISATION,
-  CLERK_TRANSLATOR_ADD_AUTHORISATION_ERROR,
-  CLERK_TRANSLATOR_ADD_AUTHORISATION_SUCCESS,
+  CLERK_TRANSLATOR_AUTHORISATION_ADD,
+  CLERK_TRANSLATOR_AUTHORISATION_ADD_ERROR,
+  CLERK_TRANSLATOR_AUTHORISATION_ADD_SUCCESS,
 } from 'redux/actionTypes/authorisation';
 import { CLERK_TRANSLATOR_OVERVIEW_FETCH } from 'redux/actionTypes/clerkTranslatorOverview';
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
 import { Utils } from 'utils';
+import { DateUtils } from 'utils/date';
 
 function* showErrorToastOnAdd() {
   const t = translateOutsideComponent();
   const notifier = Utils.createNotifierToast(
     Severity.Error,
-    t(
-      'akt.component.clerkTranslatorOverview.translatorDetails.addAuthorisation.toasts.error'
-    )
+    t('akt.component.newAuthorisation.toasts.error')
   );
   yield put({ type: NOTIFIER_TOAST_ADD, notifier });
 }
@@ -34,14 +33,13 @@ function* showSuccessToastOnAdd() {
   const t = translateOutsideComponent();
   const notifier = Utils.createNotifierToast(
     Severity.Success,
-    t(
-      'akt.component.clerkTranslatorOverview.translatorDetails.addAuthorisation.toasts.success'
-    )
+    t('akt.component.newAuthorisation.toasts.success')
   );
   yield put({ type: NOTIFIER_TOAST_ADD, notifier });
 }
 
-const formatDate = (date?: Dayjs) => date && date.format('YYYY-MM-DD');
+const formatDate = (date?: Dayjs) =>
+  date && DateUtils.convertToAPIRequestDateString(date);
 
 const createAuthorisationBody = ({
   basis,
@@ -75,15 +73,15 @@ export function* addAuthorisation(action: AddAuthorisationAction) {
       `${APIEndpoints.ClerkTranslator}/${translatorId}/authorisation`,
       JSON.stringify(authorisation)
     );
-    yield put({ type: CLERK_TRANSLATOR_ADD_AUTHORISATION_SUCCESS });
+    yield put({ type: CLERK_TRANSLATOR_AUTHORISATION_ADD_SUCCESS });
     yield call(showSuccessToastOnAdd);
     yield put({ type: CLERK_TRANSLATOR_OVERVIEW_FETCH, id: translatorId });
   } catch (error) {
-    yield put({ type: CLERK_TRANSLATOR_ADD_AUTHORISATION_ERROR });
+    yield put({ type: CLERK_TRANSLATOR_AUTHORISATION_ADD_ERROR });
     yield call(showErrorToastOnAdd);
   }
 }
 
 export function* watchAddAuthorisation() {
-  yield takeLatest(CLERK_TRANSLATOR_ADD_AUTHORISATION, addAuthorisation);
+  yield takeLatest(CLERK_TRANSLATOR_AUTHORISATION_ADD, addAuthorisation);
 }

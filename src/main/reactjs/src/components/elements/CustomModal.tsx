@@ -1,37 +1,37 @@
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
+import Modal, { ModalProps } from '@mui/material/Modal';
+import { FC } from 'react';
 
-const defaultStyle = {
-  position: 'absolute' as const,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '75vw',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
+import { H2 } from 'components/elements/Text';
+
+type CustomModalProps = ModalProps & {
+  ariaLabelledBy?: string;
+  screenReaderTitle?: string;
+  modalTitle?: string;
+  onCloseModal: () => void;
 };
 
-interface CustomModalProps {
-  children: JSX.Element;
-  open: boolean;
-  handleCloseModal: () => void;
-}
-
-export const CustomModal = ({
-  children,
+export const CustomModal: FC<CustomModalProps> = ({
+  ariaLabelledBy,
   open,
-  handleCloseModal,
-}: CustomModalProps): JSX.Element => {
+  children,
+  modalTitle,
+  onCloseModal,
+}) => {
+  const handleOnClose = (event: React.SyntheticEvent, reason: string) => {
+    if (event && reason === 'backdropClick') {
+      return;
+    }
+    onCloseModal();
+  };
+
   return (
-    <Modal
-      open={open}
-      onClose={handleCloseModal}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={defaultStyle}>{children}</Box>
+    <Modal open={open} onClose={handleOnClose} aria-labelledby={ariaLabelledBy}>
+      <div className="custom-modal">
+        <div className="rows gapped">
+          <H2 id={ariaLabelledBy}>{modalTitle}</H2>
+          {children}
+        </div>
+      </div>
     </Modal>
   );
 };

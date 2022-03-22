@@ -6,9 +6,9 @@ import {
   AddAuthorisationState,
 } from 'interfaces/authorisation';
 import {
-  CLERK_TRANSLATOR_ADD_AUTHORISATION,
-  CLERK_TRANSLATOR_ADD_AUTHORISATION_ERROR,
-  CLERK_TRANSLATOR_ADD_AUTHORISATION_SUCCESS,
+  CLERK_TRANSLATOR_AUTHORISATION_ADD,
+  CLERK_TRANSLATOR_AUTHORISATION_ADD_ERROR,
+  CLERK_TRANSLATOR_AUTHORISATION_ADD_SUCCESS,
 } from 'redux/actionTypes/authorisation';
 
 const defaultState = {
@@ -23,19 +23,19 @@ export const authorisationReducer: Reducer<
   const authorisation = action.authorisation;
 
   switch (action.type) {
-    case CLERK_TRANSLATOR_ADD_AUTHORISATION:
+    case CLERK_TRANSLATOR_AUTHORISATION_ADD:
       return {
         ...state,
         authorisation,
         status: APIResponseStatus.InProgress,
       };
-    case CLERK_TRANSLATOR_ADD_AUTHORISATION_SUCCESS:
+    case CLERK_TRANSLATOR_AUTHORISATION_ADD_SUCCESS:
       return {
         ...state,
         authorisation,
         status: APIResponseStatus.Success,
       };
-    case CLERK_TRANSLATOR_ADD_AUTHORISATION_ERROR:
+    case CLERK_TRANSLATOR_AUTHORISATION_ADD_ERROR:
       return {
         ...state,
         authorisation,

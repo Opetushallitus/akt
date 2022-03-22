@@ -19,6 +19,7 @@ export interface Authorisation
   termBeginDate?: Dayjs;
   termEndDate?: Dayjs;
   autDate?: Dayjs;
+  translatorId?: number;
 }
 
 export interface AuthorisationResponse
@@ -36,22 +37,11 @@ export interface AuthorisationResponse
 export type AuthorisationsGroupedByStatus = {
   [key in AuthorisationStatus]: Array<Authorisation>;
 };
-export interface AddAuthorisation {
-  languagePair: LanguagePair;
-  basis: AuthorisationBasis;
-  termBeginDate?: Dayjs;
-  termEndDate?: Dayjs;
-  permissionToPublish: boolean;
-  diaryNumber?: string;
-  autDate?: Dayjs;
-  translatorId: number;
-}
-
 export interface AddAuthorisationState {
   status: APIResponseStatus;
-  authorisation: AddAuthorisation | Record<string, never>;
+  authorisation: Authorisation | Record<string, never>;
 }
 
 export interface AddAuthorisationAction extends Action {
-  authorisation: AddAuthorisation;
+  authorisation: Authorisation;
 }

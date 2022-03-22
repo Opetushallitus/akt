@@ -11,7 +11,7 @@ export interface DatePickerProps {
   disabled?: boolean;
   minDate?: Dayjs;
   maxDate?: Dayjs;
-  withTestId?: string;
+  dataTestId?: string;
 }
 
 export const DatePicker = ({
@@ -21,7 +21,7 @@ export const DatePicker = ({
   disabled = false,
   minDate,
   maxDate,
-  withTestId,
+  dataTestId,
 }: DatePickerProps): JSX.Element => {
   const MIN_DATE = '1900-01-01';
   const MAX_DATE = '2100-01-01';
@@ -34,7 +34,7 @@ export const DatePicker = ({
   return (
     <Stack spacing={3}>
       <TextField
-        data-testid={withTestId ? `${withTestId}__date-picker` : 'date-picker'}
+        data-testid={dataTestId ? `${dataTestId}__date-picker` : 'date-picker'}
         disabled={disabled}
         label={label}
         type="date"

@@ -89,32 +89,39 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
   });
 
   it('should add authorisation succesfully', () => {
+    cy.fixture('meeting_dates_10.json')
+      .then((dates) => {
+        cy.intercept('GET', APIEndpoints.MeetingDate, dates);
+      })
+      .as('getMeetingDates');
+
     onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
     cy.wait('@getClerkTranslatorOverview');
+    cy.wait('@getMeetingDates');
 
     onClerkTranslatorOverviewPage.clickAddAuthorisationBtn();
 
-    onClerkTranslatorOverviewPage.inputAddAuthorisationField(
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
       'from',
       'input',
       'suomi'
     );
-    onClerkTranslatorOverviewPage.inputAddAuthorisationField(
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
       'to',
       'input',
       'ruotsi'
     );
-    onClerkTranslatorOverviewPage.inputAddAuthorisationField(
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
       'basis',
       'input',
       'kkt'
     );
-    onClerkTranslatorOverviewPage.inputAddAuthorisationField(
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
       'termBeginDate',
       'input',
-      '14.5.2022'
+      '1.1.2022'
     );
-    onClerkTranslatorOverviewPage.inputAddAuthorisationField(
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
       'diaryNumber',
       'input',
       '1337'
@@ -143,10 +150,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     onClerkTranslatorOverviewPage.saveAuthorisation();
 
     onToast.expectText('Auktorisointi lisätty onnistuneesti');
-    onClerkTranslatorOverviewPage.expectAuthorisationRowToHaveText(
-      10004,
-      '1337'
-    );
+    onClerkTranslatorOverviewPage.expectAuthorisationRowToExist(10004);
   });
 
   it('should show disabled fields correctly', () => {
@@ -164,7 +168,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
       'termEndDate',
       'input'
     );
-    onClerkTranslatorOverviewPage.inputAddAuthorisationField(
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
       'basis',
       'input',
       'kkt'
@@ -174,7 +178,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
       'input',
       true
     );
-    onClerkTranslatorOverviewPage.inputAddAuthorisationField(
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
       'basis',
       'input',
       'aut'
@@ -186,28 +190,55 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     );
   });
 
-  it('should show error toast when required fields have not been filled', () => {
-    cy.intercept(
-      'POST',
-      `${APIEndpoints.ClerkTranslator}/${translatorResponse.id}/authorisation`,
-      { statusCode: 400 }
-    ).as('AddAuthorisationFailure');
-
+  it('should not allow adding authorisation if required fields are not filled', () => {
+    cy.fixture('meeting_dates_10.json')
+      .then((dates) => {
+        cy.intercept('GET', APIEndpoints.MeetingDate, dates);
+      })
+      .as('getMeetingDates');
     onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
     cy.wait('@getClerkTranslatorOverview');
+    cy.wait('@getMeetingDates');
 
     onClerkTranslatorOverviewPage.clickAddAuthorisationBtn();
 
-    onClerkTranslatorOverviewPage.inputAddAuthorisationField(
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
       'from',
       'input',
       'suomi'
     );
 
-    onClerkTranslatorOverviewPage.saveAuthorisation();
+    onClerkTranslatorOverviewPage.expectSaveButtonDisabled();
 
-    cy.wait('@AddAuthorisationFailure');
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'to',
+      'input',
+      'ruotsi'
+    );
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'basis',
+      'input',
+      'kkt'
+    );
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'termBeginDate',
+      'input',
+      '1.1.2022'
+    );
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'diaryNumber',
+      'input',
+      '1337'
+    );
 
-    cy.findByTestId('ErrorOutlineIcon');
+    onClerkTranslatorOverviewPage.expectSaveButtonEnabled();
+
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'basis',
+      'input',
+      'aut'
+    );
+
+    onClerkTranslatorOverviewPage.expectSaveButtonDisabled();
   });
 });

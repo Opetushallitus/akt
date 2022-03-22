@@ -27,7 +27,7 @@ const dayjs = DateUtils.dayjs();
 const getDateWithProperType = (date: string, isResponse = true) =>
   isResponse ? date : dayjs(date);
 
-const getAuthorisationDetails = () => {
+const getAuthorisationDetails = (isReponse: boolean) => {
   return {
     authorisations: [
       {
@@ -40,9 +40,9 @@ const getAuthorisationDetails = () => {
         basis: AuthorisationBasisEnum.AUT,
         permissionToPublish: true,
         diaryNumber: '10000',
-        termBeginDate: getDateWithProperType('2021-03-09'),
-        termEndDate: getDateWithProperType('2021-09-09'),
-        autDate: getDateWithProperType('2022-03-07'),
+        termBeginDate: getDateWithProperType('2021-03-09', isReponse),
+        termEndDate: getDateWithProperType('2021-09-09', isReponse),
+        autDate: getDateWithProperType('2022-03-07', isReponse),
       },
       {
         id: 10001,
@@ -54,9 +54,9 @@ const getAuthorisationDetails = () => {
         basis: AuthorisationBasisEnum.AUT,
         permissionToPublish: true,
         diaryNumber: '10001',
-        termBeginDate: getDateWithProperType('2022-01-01'),
-        termEndDate: getDateWithProperType('2022-07-01'),
-        autDate: getDateWithProperType('2022-03-03'),
+        termBeginDate: getDateWithProperType('2022-01-01', isReponse),
+        termEndDate: getDateWithProperType('2022-07-01', isReponse),
+        autDate: getDateWithProperType('2022-03-03', isReponse),
       },
       {
         id: 10002,
@@ -68,9 +68,9 @@ const getAuthorisationDetails = () => {
         basis: AuthorisationBasisEnum.AUT,
         permissionToPublish: true,
         diaryNumber: '10002',
-        termBeginDate: getDateWithProperType('2020-01-01'),
-        termEndDate: getDateWithProperType('2022-01-01'),
-        autDate: getDateWithProperType('2020-01-01'),
+        termBeginDate: getDateWithProperType('2020-01-01', isReponse),
+        termEndDate: getDateWithProperType('2022-01-01', isReponse),
+        autDate: getDateWithProperType('2020-01-01', isReponse),
       },
       {
         id: 10003,
@@ -89,24 +89,10 @@ const getAuthorisationDetails = () => {
 
 export const translatorResponse = <ClerkTranslatorResponse>{
   ...translatorDetails,
-  ...getAuthorisationDetails(),
+  ...getAuthorisationDetails(true),
 };
 
 export const authorsationMockAfterAddAuthorsationSuccess = {
-  id: 10004,
-  version: 0,
-  languagePair: {
-    from: 'FI',
-    to: 'SV',
-  },
-  basis: AuthorisationBasisEnum.KKT,
-  permissionToPublish: true,
-  diaryNumber: '1337',
-  termBeginDate: getDateWithProperType('2022-01-01'),
-  termEndDate: getDateWithProperType('2022-07-01'),
-};
-
-export const authorsationMockAfterAddAuthorsationFail = {
   id: 10004,
   version: 0,
   languagePair: {

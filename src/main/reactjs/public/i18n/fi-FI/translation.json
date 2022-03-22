@@ -121,12 +121,6 @@
             "extraInformation": "Lisätiedot",
             "isAssuranceGiven": "Vakuutus annettu",
             "personalInformation": "Henkilötiedot"
-          },
-          "addAuthorisation": {
-            "toasts": {
-              "success": "Auktorisointi lisätty onnistuneesti",
-              "error": "Auktorisoinnin lisäys ei onnistunut, yritä myöhemmin uudelleen"
-            }
           }
         }
       },
@@ -233,10 +227,7 @@
         "upcoming": "Tulevat"
       },
       "newAuthorisation": {
-        "buttons": {
-          "add": "Lisää auktorisointi"
-        },
-        "title": {
+        "fieldLabel": {
           "autDate": "Tutkintopäivä (vain AUT)",
           "basis": "Auktorisoinnin peruste",
           "diaryNumber": "Auktorisoinnin asiatunnus",
@@ -245,7 +236,7 @@
           "termEndDate": "Auktorisoinnin päättymispäivä",
           "to": "Kielipari (mihin)"
         },
-        "fieldLabels": {
+        "fieldPlaceholders": {
           "autDate": "Tutkintopäivä",
           "basis": "Peruste",
           "diaryNumber": "Asiatunnus",
@@ -257,6 +248,10 @@
         "switch": {
           "canPublish": "Saa julkaista internetissä",
           "inEffect": "Voimassa"
+        },
+        "toasts": {
+          "success": "Auktorisointi lisätty onnistuneesti",
+          "error": "Auktorisoinnin lisäys ei onnistunut, yritä myöhemmin uudelleen"
         }
       },
       "publicTranslatorFilters": {
@@ -364,7 +359,8 @@
         "toasts": {
           "error": "Kääntäjän lisääminen ei onnistunut!",
           "success": "Kääntäjän tiedot tallennettiin!"
-        }
+        },
+        "addedAuthorisationsTitle": "Lisätyt auktorisoinnit"
       },
       "homepage": {
         "description": "Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä joko nimen tai kieliparin mukaan. Voit jättää valitsemillesi kääntäjille yhteydenottopyynnön alla olevalla hakulomakkeella.",

@@ -43,6 +43,9 @@ class ClerkTranslatorOverviewPage {
         )
         .find(`div>${fieldType}`),
 
+    getAuthorisationRow: (id: string) =>
+      cy.findByTestId(`authorisations-table__id-${id}-row`),
+
     saveAuthorisationBtn: () =>
       cy.findByTestId('add-authorisation-modal__save'),
     cancelAuthorisationBtn: () =>
@@ -83,7 +86,7 @@ class ClerkTranslatorOverviewPage {
       .type(newValue);
   }
 
-  inputAddAuthorisationField(
+  fillOutAddAuthorisationField(
     fieldName: string,
     fieldType: string,
     newValue: string
@@ -116,6 +119,18 @@ class ClerkTranslatorOverviewPage {
 
   saveAuthorisation() {
     this.elements.saveAuthorisationBtn().should('be.visible').click();
+  }
+
+  expectSaveButtonDisabled() {
+    this.elements.saveAuthorisationBtn().should('be.disabled');
+  }
+
+  expectSaveButtonEnabled() {
+    this.elements.saveAuthorisationBtn().should('be.enabled');
+  }
+
+  expectAuthorisationRowToExist(id) {
+    this.elements.getAuthorisationRow(id).should('be.visible');
   }
 
   cancelAuthorisation() {

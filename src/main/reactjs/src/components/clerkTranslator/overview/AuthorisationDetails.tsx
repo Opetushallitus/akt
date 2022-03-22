@@ -31,26 +31,16 @@ export const AuthorisationDetails = () => {
   const { selectedTranslator } = useAppSelector(
     clerkTranslatorOverviewSelector
   );
-  const { upcoming } = useAppSelector(selectMeetingDatesByMeetingStatus);
+  const { passed } = useAppSelector(selectMeetingDatesByMeetingStatus);
 
   const { status } = useAppSelector(authorisationSelector);
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
-  const [
-    addAuthorisationOutsideComponent,
-    setAddAuthorisationOutsideComponent,
-  ] = useState(false);
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
 
   const handleAddAuthorisation = (authorisation: Authorisation) => {
-    selectedTranslator?.id &&
-      dispatch(
-        addAuthorisation({
-          ...authorisation,
-          translatorId: selectedTranslator.id,
-        })
-      );
+    dispatch(addAuthorisation(authorisation));
   };
 
   // I18n
@@ -117,41 +107,17 @@ export const AuthorisationDetails = () => {
       <CustomModal
         data-testid="authorisation-details__add-authorisation-modal"
         open={open}
-        handleCloseModal={handleCloseModal}
+        onCloseModal={handleCloseModal}
+        ariaLabelledBy="modal-title"
+        modalTitle={translateCommon('addAuthorisation')}
       >
-        <>
-          <AddAuthorisation
-            meetingDates={upcoming}
-            onAuthorisationAdd={handleAddAuthorisation}
-            addAuthorisationOutsideComponent={addAuthorisationOutsideComponent}
-            setAddAuthorisationOutsideComponent={
-              setAddAuthorisationOutsideComponent
-            }
-          />
-
-          <div className="columns gapped margin-top-xxl flex-end">
-            <CustomButton
-              data-testid="add-authorisation-modal__cancel"
-              className="margin-right-xs"
-              onClick={handleCloseModal}
-              variant={Variant.Text}
-              color={Color.Secondary}
-            >
-              {translateCommon('cancel')}
-            </CustomButton>
-            <CustomButton
-              data-testid="add-authorisation-modal__save"
-              variant={Variant.Contained}
-              color={Color.Secondary}
-              onClick={() => {
-                setAddAuthorisationOutsideComponent(true);
-              }}
-              disabled={status === APIResponseStatus.InProgress}
-            >
-              {translateCommon('save')}
-            </CustomButton>
-          </div>
-        </>
+        <AddAuthorisation
+          translatorId={selectedTranslator.id}
+          meetingDates={passed}
+          onCancel={handleCloseModal}
+          onAuthorisationAdd={handleAddAuthorisation}
+          isLoading={status === APIResponseStatus.InProgress}
+        />
       </CustomModal>
       <div className="rows gapped-xs">
         <div className="columns margin-top-sm">
@@ -170,7 +136,7 @@ export const AuthorisationDetails = () => {
             startIcon={<AddIcon />}
             onClick={handleOpenModal}
           >
-            {t('buttons.add')}
+            {translateCommon('addAuthorisation')}
           </CustomButton>
         </div>
         {activeAuthorisations.length ? (
