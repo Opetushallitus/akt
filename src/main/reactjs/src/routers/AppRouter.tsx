@@ -1,9 +1,10 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { Footer } from 'components/layouts/Footer';
 import { Header } from 'components/layouts/Header';
 import { Notifier } from 'components/notification/Notifier';
+import { useCommonTranslation } from 'configs/i18n';
 import { AppRoutes } from 'enums/app';
 import { AccessibilityStatementPage } from 'pages/AccessibilityStatementPage';
 import { ClerkHomePage } from 'pages/clerk/ClerkHomePage';
@@ -15,6 +16,12 @@ import { NotFoundPage } from 'pages/NotFoundPage';
 import { PublicHomePage } from 'pages/PublicHomePage';
 
 export const AppRouter: FC = () => {
+  const translateCommon = useCommonTranslation();
+
+  useEffect(() => {
+    document.title = translateCommon('appTitle');
+  }, [translateCommon]);
+
   return (
     <BrowserRouter>
       <div className="app">
