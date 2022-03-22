@@ -1,0 +1,18 @@
+.loading-progress-indicator {
+  display: inline-flex;
+
+  &__container {
+    display: inline-flex;
+    position: relative;
+
+    &__spinner-box {
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, 10%);
+
+      & > div {
+        margin: 0;
+      }
+    }
+  }
+}

@@ -32,7 +32,7 @@ describe('ClerkTranslatorOverview:Page', () => {
     onClerkTranslatorOverviewPage.expectEnabledEditTranslatorInfoBtn();
   });
 
-  it.only('should display correctly translator and authorisations details', () => {
+  it('should display correctly translator and authorisations details', () => {
     cy.openClerkHomePage();
     onClerkHomePage.clickTranslatorOverviewLink(translatorResponse.id);
 

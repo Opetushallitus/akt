@@ -37,13 +37,13 @@ const resources = {
     [I18nNamespace.KoodistoLanguages]: koodistoLangsFI,
   },
   [langSV]: {
-    [I18nNamespace.Translation]: commonSV,
+    [I18nNamespace.Common]: commonSV,
     [I18nNamespace.Translation]: transSV,
     [I18nNamespace.Accessibility]: accessibilitySV,
     [I18nNamespace.KoodistoLanguages]: koodistoLangsSV,
   },
   [langEN]: {
-    [I18nNamespace.Translation]: commonEN,
+    [I18nNamespace.Common]: commonEN,
     [I18nNamespace.Translation]: transEN,
     [I18nNamespace.Accessibility]: accessibilityEN,
     [I18nNamespace.KoodistoLanguages]: koodistoLangsEN,

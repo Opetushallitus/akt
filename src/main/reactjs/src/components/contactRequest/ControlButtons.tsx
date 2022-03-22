@@ -5,8 +5,10 @@ import {
 import { AppBar, Toolbar } from '@mui/material';
 
 import { CustomButton } from 'components/elements/CustomButton';
+import { LoadingProgressIndicator } from 'components/elements/LoadingProgressIndicator';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { APIResponseStatus } from 'enums/api';
 import { Color, Severity, Variant } from 'enums/app';
 import { ContactRequestFormStep } from 'enums/contactRequest';
 import { useWindowProperties } from 'hooks/useWindowProperties';
@@ -31,16 +33,20 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
   });
   const translateCommon = useCommonTranslation();
 
-  const { isPhone } = useWindowProperties();
-
   // Redux
   const dispatch = useAppDispatch();
-  const { request, activeStep } = useAppSelector(contactRequestSelector) as {
+  const { request, activeStep, status } = useAppSelector(
+    contactRequestSelector
+  ) as {
     request: ContactRequest;
     activeStep: ContactRequestFormStep;
+    status: APIResponseStatus;
   };
 
-  const submit = () => {
+  const { isPhone } = useWindowProperties();
+  const isLoading = status === APIResponseStatus.InProgress;
+
+  const onContactRequestSubmit = () => {
     dispatch(sendContactRequest(request));
   };
 
@@ -81,6 +87,7 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
         color={Color.Secondary}
         onClick={dispatchCancelNotifier}
         data-testid="contact-request-page__cancel-btn"
+        disabled={isLoading}
       >
         {translateCommon('cancel')}
       </CustomButton>
@@ -92,7 +99,9 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
       variant={Variant.Outlined}
       color={Color.Secondary}
       onClick={dispatchStepDecrement}
-      disabled={activeStep == ContactRequestFormStep.VerifyTranslators}
+      disabled={
+        activeStep == ContactRequestFormStep.VerifyTranslators || isLoading
+      }
       startIcon={<ArrowBackIcon />}
       data-testid="contact-request-page__previous-btn"
     >
@@ -103,15 +112,18 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
   const renderNextAndSubmitButtons = () => (
     <>
       {activeStep == ContactRequestFormStep.PreviewAndSend ? (
-        <CustomButton
-          variant={Variant.Contained}
-          color={Color.Secondary}
-          onClick={() => submit()}
-          data-testid="contact-request-page__submit-btn"
-          endIcon={<ArrowForwardIcon />}
-        >
-          {translateCommon('send')}
-        </CustomButton>
+        <LoadingProgressIndicator isLoading={isLoading}>
+          <CustomButton
+            variant={Variant.Contained}
+            color={Color.Secondary}
+            onClick={onContactRequestSubmit}
+            data-testid="contact-request-page__submit-btn"
+            endIcon={<ArrowForwardIcon />}
+            disabled={isLoading}
+          >
+            {translateCommon('send')}
+          </CustomButton>
+        </LoadingProgressIndicator>
       ) : (
         <CustomButton
           variant={Variant.Contained}
