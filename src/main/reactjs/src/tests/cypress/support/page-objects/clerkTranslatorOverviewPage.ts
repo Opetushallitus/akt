@@ -26,7 +26,7 @@ class ClerkTranslatorOverviewPage {
     authorisationRow: (id: number) =>
       cy.findByTestId(`authorisations-table__id-${id}-row`),
     backToRegisterBtn: () =>
-      cy.get('.clerk-translator-overview-page__back-btn'),
+      cy.findByTestId('clerk-translator-overview-page__back-btn'),
     editTranslatorInfoBtn: () =>
       cy.findByTestId(
         'clerk-translator-overview__translator-details__edit-btn'
