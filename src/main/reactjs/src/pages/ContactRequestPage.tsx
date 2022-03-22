@@ -8,7 +8,6 @@ import { HeaderSeparator } from 'components/elements/HeaderSeparator';
 import { H1, Text } from 'components/elements/Text';
 import { useAppTranslation, useCommonTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
-import { APIResponseStatus } from 'enums/api';
 import { ContactRequestFormStep } from 'enums/contactRequest';
 import { useWindowProperties } from 'hooks/useWindowProperties';
 import { setContactRequest } from 'redux/actions/contactRequest';
@@ -29,7 +28,7 @@ export const ContactRequestPage = () => {
 
   // Redux
   const dispatch = useAppDispatch();
-  const { status, activeStep } = useAppSelector(contactRequestSelector);
+  const { activeStep } = useAppSelector(contactRequestSelector);
   const nextStep = (activeStep + 1) as ContactRequestFormStep;
   const { filters, selectedTranslators } = useAppSelector(
     publicTranslatorsSelector
@@ -47,8 +46,7 @@ export const ContactRequestPage = () => {
 
   const disableNextCb = (disabled: boolean) => setDisableNext(disabled);
   const showControlButtons =
-    activeStep <= ContactRequestFormStep.PreviewAndSend &&
-    status !== APIResponseStatus.InProgress;
+    activeStep <= ContactRequestFormStep.PreviewAndSend;
 
   const renderHeaderGrid = () => (
     <div className="contact-request-page__grid__heading-container">
