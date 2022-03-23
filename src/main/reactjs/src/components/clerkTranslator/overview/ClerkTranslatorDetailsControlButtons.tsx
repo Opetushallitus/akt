@@ -1,8 +1,12 @@
 import EditIcon from '@mui/icons-material/Edit';
 
 import { CustomButton } from 'components/elements/CustomButton';
+import { LoadingProgressIndicator } from 'components/elements/LoadingProgressIndicator';
 import { useCommonTranslation } from 'configs/i18n';
+import { useAppSelector } from 'configs/redux';
+import { APIResponseStatus } from 'enums/api';
 import { Color, Variant } from 'enums/app';
+import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
 
 export const ControlButtons = ({
   isViewMode,
@@ -16,6 +20,11 @@ export const ControlButtons = ({
   onSaveBtnClick: () => void;
 }) => {
   const translateCommon = useCommonTranslation();
+  const { translatorDetailsStatus } = useAppSelector(
+    clerkTranslatorOverviewSelector
+  );
+
+  const isLoading = translatorDetailsStatus === APIResponseStatus.InProgress;
 
   if (isViewMode) {
     return (
@@ -37,17 +46,21 @@ export const ControlButtons = ({
           variant={Variant.Text}
           color={Color.Secondary}
           onClick={onCancelBtnClick}
+          disabled={isLoading}
         >
           {translateCommon('cancel')}
         </CustomButton>
-        <CustomButton
-          data-testid="clerk-translator-overview__translator-details__save-btn"
-          variant={Variant.Contained}
-          color={Color.Secondary}
-          onClick={onSaveBtnClick}
-        >
-          {translateCommon('save')}
-        </CustomButton>
+        <LoadingProgressIndicator isLoading={isLoading}>
+          <CustomButton
+            data-testid="clerk-translator-overview__translator-details__save-btn"
+            variant={Variant.Contained}
+            color={Color.Secondary}
+            onClick={onSaveBtnClick}
+            disabled={isLoading}
+          >
+            {translateCommon('save')}
+          </CustomButton>
+        </LoadingProgressIndicator>
       </div>
     );
   }
