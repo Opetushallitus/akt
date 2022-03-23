@@ -3,9 +3,11 @@ import { useState } from 'react';
 
 import { CustomButton } from 'components/elements/CustomButton';
 import { DatePicker } from 'components/elements/DatePicker';
+import { LoadingProgressIndicator } from 'components/elements/LoadingProgressIndicator';
 import { H3 } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { APIResponseStatus } from 'enums/api';
 import { Color, Variant } from 'enums/app';
 import { addMeetingDate } from 'redux/actions/meetingDate';
 import { meetingDatesSelector } from 'redux/selectors/meetingDate';
@@ -19,8 +21,9 @@ export const AddMeetingDate = () => {
   });
 
   const {
-    meetingDates: { meetingDates },
+    meetingDates: { meetingDates, status },
   } = useAppSelector(meetingDatesSelector);
+  const isLoading = status === APIResponseStatus.InProgress;
 
   const dispatch = useAppDispatch();
 
@@ -50,16 +53,18 @@ export const AddMeetingDate = () => {
             setValue={setValue}
             label={t('datePicker.label')}
           />
-          <CustomButton
-            data-testid="meeting-dates-page__add-btn"
-            variant={Variant.Outlined}
-            color={Color.Secondary}
-            startIcon={<AddIcon />}
-            disabled={isAddButtonDisabled()}
-            onClick={handleOnClick}
-          >
-            {t('buttons.add')}
-          </CustomButton>
+          <LoadingProgressIndicator isLoading={isLoading}>
+            <CustomButton
+              data-testid="meeting-dates-page__add-btn"
+              variant={Variant.Outlined}
+              color={Color.Secondary}
+              startIcon={<AddIcon />}
+              disabled={isAddButtonDisabled() || isLoading}
+              onClick={handleOnClick}
+            >
+              {t('buttons.add')}
+            </CustomButton>
+          </LoadingProgressIndicator>
         </div>
       </div>
     </div>
