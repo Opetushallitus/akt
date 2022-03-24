@@ -26,4 +26,11 @@ export enum APIError {
   MeetingDateUpdateDuplicateDate = 'meetingDateUpdateDuplicateDate',
   MeetingDateUpdateHasAuthorisations = 'meetingDateUpdateHasAuthorisations',
   MeetingDateDeleteHasAuthorisations = 'meetingDateDeleteHasAuthorisations',
+  TranslatorCreateDuplicateIdentityNumber = 'translatorCreateDuplicateIdentityNumber',
+  TranslatorUpdateDuplicateIdentityNumber = 'translatorUpdateDuplicateIdentityNumber',
+  TranslatorCreateDuplicateEmail = 'translatorCreateDuplicateEmail',
+  TranslatorUpdateDuplicateEmail = 'translatorUpdateDuplicateEmail',
+  AuthorisationMissingMeetingDate = 'authorisationMissingMeetingDate',
+  AuthorisationBasisAndAutDateMismatch = 'authorisationBasisAndAutDateMismatch',
+  AuthorisationDeleteLastAuthorisation = 'authorisationDeleteLastAuthorisation',
 }

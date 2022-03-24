@@ -33,6 +33,8 @@ import fi.oph.akt.repository.AuthorisationRepository;
 import fi.oph.akt.repository.AuthorisationTermReminderRepository;
 import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
+import fi.oph.akt.util.exception.APIException;
+import fi.oph.akt.util.exception.APIExceptionType;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -495,6 +497,92 @@ class ClerkTranslatorServiceTest {
   }
 
   @Test
+  public void testTranslatorCreateFailsOnDuplicateIdentityNumber() {
+    final MeetingDate meetingDate = Factory.meetingDate(LocalDate.now().minusDays(10));
+    entityManager.persist(meetingDate);
+
+    final String identityNumber = "xxx";
+
+    final Translator existingTranslator = Factory.translator();
+    existingTranslator.setIdentityNumber(identityNumber);
+    entityManager.persist(existingTranslator);
+
+    final AuthorisationCreateDTO expectedAuth = AuthorisationCreateDTO
+      .builder()
+      .basis(AuthorisationBasis.KKT)
+      .from(FI)
+      .to(SV)
+      .permissionToPublish(true)
+      .termBeginDate(meetingDate.getDate())
+      .termEndDate(LocalDate.now().plusDays(1))
+      .diaryNumber("012345")
+      .build();
+    final TranslatorCreateDTO createDTO = TranslatorCreateDTO
+      .builder()
+      .identityNumber(identityNumber)
+      .firstName("Anne")
+      .lastName("Aardvark")
+      .email("anne@aardvark.invalid")
+      .phoneNumber("555")
+      .street("st")
+      .town("tw")
+      .postalCode("pstl")
+      .country("ct")
+      .extraInformation("extra")
+      .isAssuranceGiven(true)
+      .authorisations(List.of(expectedAuth))
+      .build();
+
+    final APIException ex = assertThrows(APIException.class, () -> clerkTranslatorService.createTranslator(createDTO));
+
+    assertEquals(APIExceptionType.TRANSLATOR_CREATE_DUPLICATE_IDENTITY_NUMBER, ex.getExceptionType());
+    verifyNoInteractions(auditService);
+  }
+
+  @Test
+  public void testTranslatorCreateFailsOnDuplicateEmail() {
+    final MeetingDate meetingDate = Factory.meetingDate(LocalDate.now().minusDays(10));
+    entityManager.persist(meetingDate);
+
+    final String email = "xxx@xxx.xxx";
+
+    final Translator existingTranslator = Factory.translator();
+    existingTranslator.setEmail(email);
+    entityManager.persist(existingTranslator);
+
+    final AuthorisationCreateDTO expectedAuth = AuthorisationCreateDTO
+      .builder()
+      .basis(AuthorisationBasis.KKT)
+      .from(FI)
+      .to(SV)
+      .permissionToPublish(true)
+      .termBeginDate(meetingDate.getDate())
+      .termEndDate(LocalDate.now().plusDays(1))
+      .diaryNumber("012345")
+      .build();
+    final TranslatorCreateDTO createDTO = TranslatorCreateDTO
+      .builder()
+      .identityNumber("aard")
+      .firstName("Anne")
+      .lastName("Aardvark")
+      .email(email)
+      .phoneNumber("555")
+      .street("st")
+      .town("tw")
+      .postalCode("pstl")
+      .country("ct")
+      .extraInformation("extra")
+      .isAssuranceGiven(true)
+      .authorisations(List.of(expectedAuth))
+      .build();
+
+    final APIException ex = assertThrows(APIException.class, () -> clerkTranslatorService.createTranslator(createDTO));
+
+    assertEquals(APIExceptionType.TRANSLATOR_CREATE_DUPLICATE_EMAIL, ex.getExceptionType());
+    verifyNoInteractions(auditService);
+  }
+
+  @Test
   public void testTranslatorGet() {
     final MeetingDate meetingDate = Factory.meetingDate();
     final Translator translator = Factory.translator();
@@ -564,6 +652,84 @@ class ClerkTranslatorServiceTest {
     assertEquals(expected.country(), dto.country());
     assertEquals(expected.extraInformation(), dto.extraInformation());
     assertEquals(expected.isAssuranceGiven(), dto.isAssuranceGiven());
+  }
+
+  @Test
+  public void testTranslatorUpdateFailsOnDuplicateIdentityNumber() {
+    final MeetingDate meetingDate = Factory.meetingDate();
+    final Translator translator = Factory.translator();
+    final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+
+    final String identityNumber = "xxx";
+
+    final Translator otherTranslator = Factory.translator();
+    otherTranslator.setIdentityNumber(identityNumber);
+
+    entityManager.persist(meetingDate);
+    entityManager.persist(translator);
+    entityManager.persist(authorisation);
+    entityManager.persist(otherTranslator);
+
+    final TranslatorUpdateDTO updateDTO = TranslatorUpdateDTO
+      .builder()
+      .id(translator.getId())
+      .version(translator.getVersion())
+      .identityNumber(identityNumber)
+      .firstName("Anne")
+      .lastName("Aardvark")
+      .email("anne@aardvark.invalid")
+      .phoneNumber("555")
+      .street("st")
+      .town("tw")
+      .postalCode("pstl")
+      .country("ct")
+      .extraInformation("extra")
+      .isAssuranceGiven(false)
+      .build();
+
+    final APIException ex = assertThrows(APIException.class, () -> clerkTranslatorService.updateTranslator(updateDTO));
+
+    assertEquals(APIExceptionType.TRANSLATOR_UPDATE_DUPLICATE_IDENTITY_NUMBER, ex.getExceptionType());
+    verifyNoInteractions(auditService);
+  }
+
+  @Test
+  public void testTranslatorUpdateFailsOnDuplicateEmail() {
+    final MeetingDate meetingDate = Factory.meetingDate();
+    final Translator translator = Factory.translator();
+    final Authorisation authorisation = Factory.authorisation(translator, meetingDate);
+
+    final String email = "xxx@xxx.xxx";
+
+    final Translator otherTranslator = Factory.translator();
+    otherTranslator.setEmail(email);
+
+    entityManager.persist(meetingDate);
+    entityManager.persist(translator);
+    entityManager.persist(authorisation);
+    entityManager.persist(otherTranslator);
+
+    final TranslatorUpdateDTO updateDTO = TranslatorUpdateDTO
+      .builder()
+      .id(translator.getId())
+      .version(translator.getVersion())
+      .identityNumber("aard")
+      .firstName("Anne")
+      .lastName("Aardvark")
+      .email(email)
+      .phoneNumber("555")
+      .street("st")
+      .town("tw")
+      .postalCode("pstl")
+      .country("ct")
+      .extraInformation("extra")
+      .isAssuranceGiven(false)
+      .build();
+
+    final APIException ex = assertThrows(APIException.class, () -> clerkTranslatorService.updateTranslator(updateDTO));
+
+    assertEquals(APIExceptionType.TRANSLATOR_UPDATE_DUPLICATE_EMAIL, ex.getExceptionType());
+    verifyNoInteractions(auditService);
   }
 
   @Test
@@ -764,12 +930,12 @@ class ClerkTranslatorServiceTest {
     entityManager.persist(translator);
     entityManager.persist(authorisation);
 
-    final RuntimeException ex = assertThrows(
-      RuntimeException.class,
+    final APIException ex = assertThrows(
+      APIException.class,
       () -> clerkTranslatorService.deleteAuthorisation(authorisation.getId())
     );
 
-    assertEquals("Can not delete last authorisation", ex.getMessage());
+    assertEquals(APIExceptionType.AUTHORISATION_DELETE_LAST_AUTHORISATION, ex.getExceptionType());
     assertEquals(1, authorisationRepository.count());
 
     verifyNoInteractions(auditService);
@@ -796,11 +962,11 @@ class ClerkTranslatorServiceTest {
       .diaryNumber("012345")
       .build();
 
-    final RuntimeException ex = assertThrows(
-      RuntimeException.class,
+    final APIException ex = assertThrows(
+      APIException.class,
       () -> clerkTranslatorService.createAuthorisation(translator.getId(), createDTO)
     );
-    assertEquals("Given termBeginDate: 2021-01-10 is not a meeting date", ex.getMessage());
+    assertEquals(APIExceptionType.AUTHORISATION_MISSING_MEETING_DATE, ex.getExceptionType());
 
     verifyNoInteractions(auditService);
   }
@@ -826,7 +992,11 @@ class ClerkTranslatorServiceTest {
       .diaryNumber("012345")
       .build();
 
-    assertThrows(Exception.class, () -> clerkTranslatorService.createAuthorisation(translator.getId(), createDTO));
+    final APIException ex = assertThrows(
+      APIException.class,
+      () -> clerkTranslatorService.createAuthorisation(translator.getId(), createDTO)
+    );
+    assertEquals(APIExceptionType.AUTHORISATION_BASIS_AND_AUT_DATE_MISMATCH, ex.getExceptionType());
 
     verifyNoInteractions(auditService);
   }
