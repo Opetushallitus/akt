@@ -1,11 +1,14 @@
 import { AxiosResponse } from 'axios';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import axiosInstance from 'configs/axios';
 import { translateOutsideComponent } from 'configs/i18n';
 import { APIEndpoints } from 'enums/api';
 import { Severity } from 'enums/app';
-import { ClerkTranslatorResponse } from 'interfaces/clerkTranslator';
+import {
+  ClerkTranslator,
+  ClerkTranslatorResponse,
+} from 'interfaces/clerkTranslator';
 import {
   AuthorisationAction,
   ClerkTranslatorOverviewAction,
@@ -26,7 +29,9 @@ import {
   CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_FAIL,
   CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS,
 } from 'redux/actionTypes/clerkTranslatorOverview';
+import { CLERK_TRANSLATOR_RECEIVED } from 'redux/actionTypes/clerkTranslators';
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
+import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
 import { Utils } from 'utils';
 import { APIUtils } from 'utils/api';
 
@@ -53,6 +58,23 @@ function* fetchClerkTranslatorOverview(action: ClerkTranslatorOverviewAction) {
   }
 }
 
+export function* updateClerkTranslatorsState(translator: ClerkTranslator) {
+  const { translators, langs, meetingDates } = yield select(
+    clerkTranslatorsSelector
+  );
+  const translatorIdx = translators.findIndex(
+    (t: ClerkTranslator) => t.id === translator.id
+  );
+  translators.splice(translatorIdx, 1, translator);
+
+  yield put({
+    type: CLERK_TRANSLATOR_RECEIVED,
+    translators,
+    langs,
+    meetingDates,
+  });
+}
+
 function* updateClerkTranslatorDetails(action: ClerkTranslatorOverviewAction) {
   try {
     const apiResponse: AxiosResponse<ClerkTranslatorResponse> = yield call(
@@ -60,9 +82,14 @@ function* updateClerkTranslatorDetails(action: ClerkTranslatorOverviewAction) {
       APIEndpoints.ClerkTranslator,
       JSON.stringify(action.translator)
     );
+    const translator = APIUtils.convertClerkTranslatorResponse(
+      apiResponse.data
+    );
+    yield updateClerkTranslatorsState(translator);
+
     yield put({
       type: CLERK_TRANSLATOR_OVERVIEW_UPDATE_TRANSLATOR_DETAILS_SUCCESS,
-      translator: APIUtils.convertClerkTranslatorResponse(apiResponse.data),
+      translator,
     });
   } catch (error) {
     yield put({
@@ -82,11 +109,17 @@ function* updateAuthorisationPublishPermission(action: AuthorisationAction) {
     const apiResponse: AxiosResponse<ClerkTranslatorResponse> = yield call(
       axiosInstance.put,
       APIEndpoints.AuthorisationPublishPermission,
-      JSON.stringify(requestBody)
+      requestBody
     );
+
+    const translator = APIUtils.convertClerkTranslatorResponse(
+      apiResponse.data
+    );
+    yield updateClerkTranslatorsState(translator);
+
     yield put({
       type: CLERK_TRANSLATOR_OVERVIEW_UPDATE_AUTHORISATION_PUBLISH_PERMISSION_SUCCESS,
-      translator: APIUtils.convertClerkTranslatorResponse(apiResponse.data),
+      translator,
     });
   } catch (error) {
     yield put({
@@ -102,9 +135,14 @@ function* deleteAuthorisation(action: AuthorisationAction) {
       axiosInstance.delete,
       `${APIEndpoints.Authorisation}/${action.id}`
     );
+    const translator = APIUtils.convertClerkTranslatorResponse(
+      apiResponse.data
+    );
+    yield updateClerkTranslatorsState(translator);
+
     yield put({
       type: CLERK_TRANSLATOR_OVERVIEW_DELETE_AUTHORISATION_SUCCESS,
-      translator: APIUtils.convertClerkTranslatorResponse(apiResponse.data),
+      translator,
     });
   } catch (error) {
     yield put({ type: CLERK_TRANSLATOR_OVERVIEW_DELETE_AUTHORISATION_FAIL });
