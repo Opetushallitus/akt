@@ -125,8 +125,8 @@ export const ClerkSendEmailPage = () => {
   const [fieldErrors, setFieldErrors] =
     useState<typeof initialFieldErrors>(initialFieldErrors);
   const submitDisabled =
-    Utils.isEmptyString(email.subject) ||
-    Utils.isEmptyString(email.body) ||
+    Utils.isBlankString(email.subject) ||
+    Utils.isBlankString(email.body) ||
     translators.length == 0;
 
   // Navigation
@@ -147,7 +147,7 @@ export const ClerkSendEmailPage = () => {
       const { value, required } = event.target;
       const error = Utils.inspectCustomTextFieldErrors(
         field == 'subject' ? TextFieldTypes.Text : TextFieldTypes.Textarea,
-        value,
+        value.trim(),
         required
       );
       const errorMessage = error ? t(error) : '';
@@ -166,6 +166,20 @@ export const ClerkSendEmailPage = () => {
   ) => {
     setEmailBody(event.target.value);
     handleFieldError('message')(event);
+  };
+
+  const handleSubjectBlur = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    handleFieldError('subject')(event);
+    setEmailSubject(event.target.value.trim());
+  };
+
+  const handleMessageBlur = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    handleFieldError('message')(event);
+    setEmailBody(event.target.value.trim());
   };
 
   return (
@@ -188,7 +202,7 @@ export const ClerkSendEmailPage = () => {
               label={t('pages.clerkSendEmailPage.labels.subject')}
               value={email.subject}
               onChange={handleSubjectChange}
-              onBlur={handleFieldError('subject')}
+              onBlur={handleSubjectBlur}
               error={fieldErrors.subject.length > 0}
               helperText={fieldErrors.subject}
               required
@@ -201,7 +215,7 @@ export const ClerkSendEmailPage = () => {
               label={t('pages.clerkSendEmailPage.labels.message')}
               value={email.body}
               onChange={handleMessageChange}
-              onBlur={handleFieldError('message')}
+              onBlur={handleMessageBlur}
               error={fieldErrors.message.length > 0}
               helperText={fieldErrors.message}
               multiline

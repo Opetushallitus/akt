@@ -5,19 +5,11 @@ import {
   AuthorisationBasis,
   AuthorisationResponse,
 } from 'interfaces/authorisation';
+import { ClerkTranslatorTextField } from 'interfaces/clerkTranslatorTextField';
 import { WithId, WithVersion } from 'interfaces/with';
 
-export interface ClerkTranslatorBasicInformation {
-  firstName: string;
-  lastName: string;
-  identityNumber?: string;
-  email?: string;
-  phoneNumber?: string;
-  street?: string;
-  postalCode?: string;
-  town?: string;
-  country?: string;
-  extraInformation?: string;
+export interface ClerkTranslatorBasicInformation
+  extends ClerkTranslatorTextField {
   isAssuranceGiven: boolean;
 }
 

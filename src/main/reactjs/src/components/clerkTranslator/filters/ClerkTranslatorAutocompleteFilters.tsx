@@ -1,5 +1,3 @@
-import SearchIcon from '@mui/icons-material/Search';
-import { InputAdornment } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import { ComboBox, valueAsOption } from 'components/elements/ComboBox';
@@ -87,13 +85,6 @@ export const ClerkTranslatorAutocompleteFilters = () => {
           data-testid="clerk-translator-filters__name"
           label={t('name.placeholder')}
           type="search"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
           value={name}
           onChange={(event) => setName(event.target.value)}
         />

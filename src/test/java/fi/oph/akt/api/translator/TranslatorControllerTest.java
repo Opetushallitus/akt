@@ -51,9 +51,9 @@ class TranslatorControllerTest {
   }
 
   @Test
-  public void testContactRequestWithEmptyFirstName() throws Exception {
+  public void testContactRequestWithBlankFirstName() throws Exception {
     final JSONObject data = validContactRequestData();
-    data.put("firstName", "");
+    data.put("firstName", " ");
 
     postContactRequest(data).andExpect(status().isBadRequest());
   }
@@ -67,9 +67,9 @@ class TranslatorControllerTest {
   }
 
   @Test
-  public void testContactRequestWithEmptyLastName() throws Exception {
+  public void testContactRequestWithBlankLastName() throws Exception {
     final JSONObject data = validContactRequestData();
-    data.put("lastName", "");
+    data.put("lastName", " ");
 
     postContactRequest(data).andExpect(status().isBadRequest());
   }
@@ -83,9 +83,9 @@ class TranslatorControllerTest {
   }
 
   @Test
-  public void testContactRequestWithEmptyEmail() throws Exception {
+  public void testContactRequestWithBlankEmail() throws Exception {
     final JSONObject data = validContactRequestData();
-    data.put("email", "");
+    data.put("email", " ");
 
     postContactRequest(data).andExpect(status().isBadRequest());
   }
@@ -107,9 +107,9 @@ class TranslatorControllerTest {
   }
 
   @Test
-  public void testContactRequestWithEmptyMessage() throws Exception {
+  public void testContactRequestWithBlankMessage() throws Exception {
     final JSONObject data = validContactRequestData();
-    data.put("message", "");
+    data.put("message", " ");
 
     postContactRequest(data).andExpect(status().isBadRequest());
   }
@@ -123,9 +123,9 @@ class TranslatorControllerTest {
   }
 
   @Test
-  public void testContactRequestWithEmptyFromLang() throws Exception {
+  public void testContactRequestWithBlankFromLang() throws Exception {
     final JSONObject data = validContactRequestData();
-    data.put("fromLang", "");
+    data.put("fromLang", " ");
 
     postContactRequest(data).andExpect(status().isBadRequest());
   }
@@ -139,9 +139,9 @@ class TranslatorControllerTest {
   }
 
   @Test
-  public void testContactRequestWithEmptyToLang() throws Exception {
+  public void testContactRequestWithBlankToLang() throws Exception {
     final JSONObject data = validContactRequestData();
-    data.put("toLang", "");
+    data.put("toLang", " ");
 
     postContactRequest(data).andExpect(status().isBadRequest());
   }

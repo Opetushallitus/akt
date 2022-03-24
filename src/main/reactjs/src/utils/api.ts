@@ -1,8 +1,10 @@
 import { Authorisation, AuthorisationResponse } from 'interfaces/authorisation';
+import { ClerkNewTranslator } from 'interfaces/clerkNewTranslator';
 import {
   ClerkTranslator,
   ClerkTranslatorResponse,
 } from 'interfaces/clerkTranslator';
+import { ClerkTranslatorTextField } from 'interfaces/clerkTranslatorTextField';
 import { MeetingDateResponse } from 'interfaces/meetingDate';
 import { DateUtils } from 'utils/date';
 
@@ -42,6 +44,51 @@ export class APIUtils {
         APIUtils.convertAuthorisationResponse
       ),
     };
+  }
+
+  static convertClerkNewTranslatorToAPIRequest(translator: ClerkNewTranslator) {
+    const { isAssuranceGiven, authorisations, ...rest } = translator;
+    const textFields = APIUtils.getNonBlankClerkTranslatorTextFields(rest);
+
+    return {
+      ...textFields,
+      isAssuranceGiven,
+      authorisations: authorisations.map(
+        APIUtils.convertAuthorisationToAPIRequest
+      ),
+    };
+  }
+
+  static convertClerkTranslatorToAPIRequest(translator: ClerkTranslator) {
+    const {
+      id,
+      version,
+      isAssuranceGiven,
+      authorisations: _ignored,
+      ...rest
+    } = translator;
+    const textFields = APIUtils.getNonBlankClerkTranslatorTextFields(rest);
+
+    return {
+      ...textFields,
+      id,
+      version,
+      isAssuranceGiven,
+    };
+  }
+
+  private static getNonBlankClerkTranslatorTextFields(
+    textFields: ClerkTranslatorTextField
+  ) {
+    Object.keys(textFields).forEach((key) => {
+      const field = key as keyof ClerkTranslatorTextField;
+
+      if (!textFields[field]) {
+        delete textFields[field];
+      }
+    });
+
+    return textFields;
   }
 
   static convertAuthorisationToAPIRequest(authorisation: Authorisation) {

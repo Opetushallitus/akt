@@ -18,6 +18,14 @@ export class Utils {
     window.scrollTo({ top: 0, left: 0 });
   }
 
+  static isBlankString(str: string) {
+    if (typeof str === 'string') {
+      return str.trim().length === 0;
+    }
+
+    return false;
+  }
+
   static isEmptyString(str: string) {
     if (typeof str === 'string') {
       return str.length === 0;

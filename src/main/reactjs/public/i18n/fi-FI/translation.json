@@ -23,12 +23,12 @@
         },
         "languagePair": {
           "fromPlaceholder": "Mistä",
-          "title": "Haku kielittäin",
+          "title": "Haku kieliparilla",
           "toPlaceholder": "Mihin"
         },
         "name": {
           "placeholder": "Nimi",
-          "title": "Haku nimellä"
+          "title": "Haku kääntäjän nimellä"
         },
         "permissionToPublish": {
           "placeholder": "Kaikki",
