@@ -1,7 +1,7 @@
 import { onPublicHomePage } from 'tests/cypress/support/page-objects/publicHomePage';
 
-describe('LangSelector', () => {
-  it('should show the Finnish language as a default language', () => {
+describe('Accessibility', () => {
+  it('should show skip to main content link when it receives keyboard focus', () => {
     cy.openPublicHomePage();
 
     onPublicHomePage.focusSkipLink();

@@ -9,6 +9,7 @@ import {
 import { Text } from 'components/elements/Text';
 import { useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
+import { Color } from 'enums/app';
 import { ContactRequestFormStep } from 'enums/contactRequest';
 import { removeSelectedTranslator } from 'redux/actions/publicTranslator';
 import { selectedPublicTranslatorsForLanguagePair } from 'redux/selectors/publicTranslator';
@@ -58,7 +59,7 @@ export const VerifySelectedTranslators = ({
                 aria-label={ariaLabel}
                 onClick={() => deselectTranslator(id)}
               >
-                <DeleteOutlineIcon className="contact-request-page__delete-outline-icon" />
+                <DeleteOutlineIcon color={Color.Error} />
               </IconButton>
             </div>
           );

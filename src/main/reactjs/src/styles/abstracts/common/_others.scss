@@ -3,3 +3,9 @@
     border-radius: unset;
   }
 }
+
+.dimmed {
+  &#{&} {
+    opacity: 0.4;
+  }
+}

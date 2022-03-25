@@ -1,6 +1,5 @@
 import { APIEndpoints } from 'enums/api';
 import { AppRoutes } from 'enums/app';
-import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { translatorResponse } from 'tests/cypress/fixtures/ts/clerkTranslatorOverview';
 import { onClerkHomePage } from 'tests/cypress/support/page-objects/clerkHomePage';
 import { onClerkTranslatorOverviewPage } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
@@ -24,7 +23,7 @@ beforeEach(() => {
 });
 
 describe('ClerkTranslatorOverview:Page', () => {
-  it("should be reachable from the ClerkTranslatorListing by a link on a translator's row", () => {
+  it('should be reachable from the ClerkTranslatorListing via overview link of a translator row', () => {
     cy.openClerkHomePage();
     onClerkHomePage.clickTranslatorOverviewLink(translatorResponse.id);
 
@@ -39,28 +38,10 @@ describe('ClerkTranslatorOverview:Page', () => {
     onClerkTranslatorOverviewPage.expectTranslatorDetailsFields(
       translatorResponse
     );
-
-    onClerkTranslatorOverviewPage.expectAuthorisations(
-      translatorResponse,
-      AuthorisationStatus.Authorised
-    );
-
-    onClerkTranslatorOverviewPage.clickExpiredToggleBtn();
-    onClerkTranslatorOverviewPage.expectAuthorisations(
-      translatorResponse,
-      AuthorisationStatus.Expired
-    );
-
-    onClerkTranslatorOverviewPage.clickformerVIRToggleBtn();
-    onClerkTranslatorOverviewPage.expectAuthorisations(
-      translatorResponse,
-      AuthorisationStatus.FormerVIR
-    );
   });
 
   it('should display a "not found" message if no translator exists with the id given as the route parameter', () => {
     onClerkTranslatorOverviewPage.navigateById(1234567890);
-
     onClerkTranslatorOverviewPage.expectTranslatorNotFoundText();
 
     onClerkHomePage.expectTotalTranslatorsCount(10);
@@ -80,7 +61,6 @@ describe('ClerkTranslatorOverview:Page', () => {
   it('should go back onto the clerk home page when the back button of the browser is clicked', () => {
     cy.openClerkHomePage();
     onClerkHomePage.clickTranslatorOverviewLink(translatorResponse.id);
-
     cy.goBack();
 
     cy.isOnPage(AppRoutes.ClerkHomePage);
