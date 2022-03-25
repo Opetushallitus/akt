@@ -227,11 +227,17 @@
         "upcoming": "Tulevat"
       },
       "newAuthorisation": {
-        "buttons": {
-          "add": "Lisää auktorisointi"
+        "fieldLabel": {
+          "autDate": "Tutkintopäivä (vain AUT)",
+          "basis": "Auktorisoinnin peruste",
+          "diaryNumber": "Auktorisoinnin asiatunnus",
+          "from": "Kielipari (mistä)",
+          "termBeginDate": "Auktorisoinnin alkamispäivä",
+          "termEndDate": "Auktorisoinnin päättymispäivä",
+          "to": "Kielipari (mihin)"
         },
-        "fieldLabels": {
-          "autDate": "Tutkintopäivä (AUT)",
+        "fieldPlaceholders": {
+          "autDate": "Tutkintopäivä",
           "basis": "Peruste",
           "diaryNumber": "Asiatunnus",
           "from": "Mistä",
@@ -239,12 +245,13 @@
           "termEndDate": "Päättymispäivä",
           "to": "Mihin"
         },
-        "languageSelect": {
-          "title": "Kielipari"
-        },
         "switch": {
           "canPublish": "Saa julkaista internetissä",
           "inEffect": "Voimassa"
+        },
+        "toasts": {
+          "success": "Auktorisointi lisätty onnistuneesti",
+          "error": "Auktorisoinnin lisäys ei onnistunut, yritä myöhemmin uudelleen"
         }
       },
       "publicTranslatorFilters": {
@@ -352,7 +359,8 @@
         "toasts": {
           "error": "Kääntäjän lisääminen ei onnistunut!",
           "success": "Kääntäjän tiedot tallennettiin!"
-        }
+        },
+        "addedAuthorisationsTitle": "Lisätyt auktorisoinnit"
       },
       "homepage": {
         "description": "Auktorisoitujen kääntäjien tutkintolautakunta ylläpitää rekisteriä auktorisoiduista kääntäjistä. Hakukoneella voit hakea kääntäjiä joko nimen tai kieliparin mukaan. Voit jättää valitsemillesi kääntäjille yhteydenottopyynnön alla olevalla hakulomakkeella.",

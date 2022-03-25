@@ -2,6 +2,7 @@ import createSagaMiddleware from '@redux-saga/core';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import { authorisationReducer } from 'redux/reducers/authorisation';
 import { clerkNewTranslatorReducer } from 'redux/reducers/clerkNewTranslator';
 import { clerkTranslatorReducer } from 'redux/reducers/clerkTranslator';
 import { clerkTranslatorEmailReducer } from 'redux/reducers/clerkTranslatorEmail';
@@ -31,6 +32,7 @@ export default () => {
       clerkUser: clerkUserReducer,
       notifier: notifierReducer,
       meetingDate: meetingDateReducer,
+      authorisation: authorisationReducer,
     }),
     composeEnhancers(middlewareEnhancer)
   );

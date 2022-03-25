@@ -20,7 +20,9 @@
       "register": "Rekisteri",
       "save": "Tallenna",
       "send": "Lähetä",
-      "yes": "Kyllä"
+      "yes": "Kyllä",
+      "add": "Lisää",
+      "addAuthorisation": "Lisää auktorisointi"
     }
   }
 }

@@ -1,6 +1,9 @@
 import { APIEndpoints } from 'enums/api';
 import { UIMode } from 'enums/app';
-import { translatorResponse } from 'tests/cypress/fixtures/ts/clerkTranslatorOverview';
+import {
+  authorsationMockAfterAddAuthorsationSuccess,
+  translatorResponse,
+} from 'tests/cypress/fixtures/ts/clerkTranslatorOverview';
 import { onClerkTranslatorOverviewPage } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
 import { onDialog } from 'tests/cypress/support/page-objects/dialog';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
@@ -83,5 +86,159 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
       newLastName
     );
     onToast.expectText('Tiedot tallennettiin');
+  });
+
+  it('should add authorisation succesfully', () => {
+    cy.fixture('meeting_dates_10.json')
+      .then((dates) => {
+        cy.intercept('GET', APIEndpoints.MeetingDate, dates);
+      })
+      .as('getMeetingDates');
+
+    onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
+    cy.wait('@getClerkTranslatorOverview');
+    cy.wait('@getMeetingDates');
+
+    onClerkTranslatorOverviewPage.clickAddAuthorisationBtn();
+
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'from',
+      'input',
+      'suomi'
+    );
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'to',
+      'input',
+      'ruotsi'
+    );
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'basis',
+      'input',
+      'kkt'
+    );
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'termBeginDate',
+      'input',
+      '1.1.2022'
+    );
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'diaryNumber',
+      'input',
+      '1337'
+    );
+
+    cy.intercept(`${APIEndpoints.ClerkTranslator}/${translatorResponse.id}`, {
+      ...translatorResponse,
+      authorisations: [
+        ...translatorResponse.authorisations,
+        authorsationMockAfterAddAuthorsationSuccess,
+      ],
+    });
+
+    cy.intercept(
+      'POST',
+      `${APIEndpoints.ClerkTranslator}/${translatorResponse.id}/authorisation`,
+      {
+        ...translatorResponse,
+        authorisations: [
+          ...translatorResponse.authorisations,
+          authorsationMockAfterAddAuthorsationSuccess,
+        ],
+      }
+    );
+
+    onClerkTranslatorOverviewPage.saveAuthorisation();
+
+    onToast.expectText('Auktorisointi lisätty onnistuneesti');
+    onClerkTranslatorOverviewPage.expectAuthorisationRowToExist(10004);
+  });
+
+  it('should show disabled fields correctly', () => {
+    onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
+    cy.wait('@getClerkTranslatorOverview');
+
+    onClerkTranslatorOverviewPage.clickAddAuthorisationBtn();
+
+    onClerkTranslatorOverviewPage.expectDisabledAddAuthorisationField(
+      'autDate',
+      'input',
+      true
+    );
+    onClerkTranslatorOverviewPage.expectDisabledAddAuthorisationField(
+      'termEndDate',
+      'input'
+    );
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'basis',
+      'input',
+      'kkt'
+    );
+    onClerkTranslatorOverviewPage.expectDisabledAddAuthorisationField(
+      'autDate',
+      'input',
+      true
+    );
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'basis',
+      'input',
+      'aut'
+    );
+    onClerkTranslatorOverviewPage.expectEnabledAddAuthorisationField(
+      'autDate',
+      'input',
+      true
+    );
+  });
+
+  it('should not allow adding authorisation if required fields are not filled', () => {
+    cy.fixture('meeting_dates_10.json')
+      .then((dates) => {
+        cy.intercept('GET', APIEndpoints.MeetingDate, dates);
+      })
+      .as('getMeetingDates');
+    onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
+    cy.wait('@getClerkTranslatorOverview');
+    cy.wait('@getMeetingDates');
+
+    onClerkTranslatorOverviewPage.clickAddAuthorisationBtn();
+
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'from',
+      'input',
+      'suomi'
+    );
+
+    onClerkTranslatorOverviewPage.expectSaveButtonDisabled();
+
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'to',
+      'input',
+      'ruotsi'
+    );
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'basis',
+      'input',
+      'kkt'
+    );
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'termBeginDate',
+      'input',
+      '1.1.2022'
+    );
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'diaryNumber',
+      'input',
+      '1337'
+    );
+
+    onClerkTranslatorOverviewPage.expectSaveButtonEnabled();
+
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+      'basis',
+      'input',
+      'aut'
+    );
+
+    onClerkTranslatorOverviewPage.expectSaveButtonDisabled();
   });
 });

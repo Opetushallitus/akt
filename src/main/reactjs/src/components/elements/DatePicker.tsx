@@ -8,16 +8,20 @@ export interface DatePickerProps {
   value?: string;
   setValue: (value: string) => void;
   label: string;
+  disabled?: boolean;
   minDate?: Dayjs;
   maxDate?: Dayjs;
+  dataTestId?: string;
 }
 
 export const DatePicker = ({
   value,
   setValue,
   label,
+  disabled = false,
   minDate,
   maxDate,
+  dataTestId,
 }: DatePickerProps): JSX.Element => {
   const MIN_DATE = '1900-01-01';
   const MAX_DATE = '2100-01-01';
@@ -30,6 +34,8 @@ export const DatePicker = ({
   return (
     <Stack spacing={3}>
       <TextField
+        data-testid={dataTestId ? `${dataTestId}__date-picker` : 'date-picker'}
+        disabled={disabled}
         label={label}
         type="date"
         onChange={handleChange}

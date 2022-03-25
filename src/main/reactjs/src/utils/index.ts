@@ -19,7 +19,15 @@ export class Utils {
   }
 
   static isEmptyString(str: string) {
-    return !str || str.length === 0;
+    if (typeof str === 'string') {
+      return str.length === 0;
+    }
+
+    return false;
+  }
+
+  static isNil(value: unknown) {
+    return value == null;
   }
 
   static createMapFromArray(
