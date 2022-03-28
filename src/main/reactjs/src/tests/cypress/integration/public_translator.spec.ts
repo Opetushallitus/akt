@@ -17,18 +17,22 @@ beforeEach(() => {
 
 describe('PublicTranslatorFilters', () => {
   it('should allow filtering results by language pair, name and town', () => {
+    onPublicTranslatorFilters.expectSeachBtnText('Näytä tulokset (50)');
     onPublicTranslatorFilters.filterByLanguagePair('suomi', 'ruotsi');
     onPublicTranslatorsListing.expectTranslatorsCount(27);
 
     onPublicTranslatorFilters.filterByTown('Helsinki');
+    onPublicTranslatorFilters.expectSeachBtnText('Näytä tulokset (2)');
     onPublicTranslatorsListing.expectTranslatorsCount(2);
 
     onPublicTranslatorFilters.filterByName('aaltonen a');
     onPublicTranslatorsListing.expectTranslatorsCount(1);
+    onPublicTranslatorFilters.expectSeachBtnText('Näytä tulokset (1)');
   });
 
   it('should clear filters and listed translators when the reset button is clicked', () => {
     onPublicTranslatorFilters.filterByLanguagePair('suomi', 'ruotsi');
+    onPublicTranslatorFilters.expectSeachBtnText('Näytä tulokset (27)');
     onPublicTranslatorsListing.expectTranslatorsCount(27);
 
     onPublicTranslatorFilters.emptySearch();
