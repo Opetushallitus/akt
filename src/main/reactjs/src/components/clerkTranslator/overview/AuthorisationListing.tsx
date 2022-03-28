@@ -131,7 +131,7 @@ export const AuthorisationListing = ({
             <TableRow
               key={a.id ?? i}
               data-testid={`authorisations-table__id-${
-                a.id ?? `${i}-unsaved}`
+                a.id ?? `${i}-unsaved`
               }-row`}
             >
               <TableCell>

@@ -113,6 +113,7 @@ export const ClerkTranslatorDetailsFields = ({
     onChange: onFieldChange(field),
     onBlur: displayFieldErrorOnBlur(field),
     displayError: displayFieldError[field],
+    'data-testid': `new-translator__basic-information__${field}`,
   });
 
   return (
@@ -171,6 +172,7 @@ export const ClerkTranslatorDetailsFields = ({
       <div className="rows gapped-xs">
         <H3>{t('header.isAssuranceGiven')}</H3>
         <CustomSwitch
+          dataTestId="new-translator__basic-information__assurance-toggle-button"
           disabled={editDisabled}
           onChange={onFieldChange('isAssuranceGiven')}
           value={translator?.isAssuranceGiven}

@@ -20,6 +20,37 @@ class ClerkHomePage {
     toLanguageSelect: () =>
       cy.findByTestId('clerk-translator-filters__to-lang'),
     nameField: () => cy.findByTestId('clerk-translator-filters__name'),
+    addNewTranslatorButton: () => cy.findByTestId('add-new-translator'),
+    newTranslatorBasicInformationField: (field: string, fieldType: string) =>
+      cy
+        .findByTestId(`new-translator__basic-information__${field}`)
+        .find(`div>${fieldType}`),
+    newTranslatorBasicInformationExtraInformation: () =>
+      cy.findByTestId(`new-translator__basic-information__extraInformation`),
+    newTranslatorAssuranceToggleButton: () =>
+      cy.get(
+        '[data-testid="new-translator__basic-information__assurance-toggle-button"] > .MuiTypography-root'
+      ),
+    addAuthorisationField: (
+      field: string,
+      fieldType: string,
+      isDatePicker = false
+    ) =>
+      cy
+        .findByTestId(
+          `add-authorisation-field-${field}${
+            isDatePicker ? '__date-picker' : ''
+          }`
+        )
+        .find(`div>${fieldType}`),
+    addAuthorisationButton: () =>
+      cy.findByTestId('clerk-new-translator-page__add-authorisation-button'),
+    addAuthorisationModalAddButton: () =>
+      cy.findByTestId('add-authorisation-modal__save'),
+    saveNewClerkButton: () =>
+      cy.findByTestId('clerk-new-translator-page__save-new-clerk-button'),
+    getAuthorisationRow: (id: number) =>
+      cy.findByTestId(`authorisations-table__id-${id}-unsaved-row`),
   };
 
   expectTotalTranslatorsCount(count: number) {
@@ -72,6 +103,62 @@ class ClerkHomePage {
       .translatorRow(`${id}`)
       .findByTestId(`clerk-translators__id-${id}-more-btn`)
       .click({ force: true });
+  }
+
+  clickAddNewTranslatorButton() {
+    this.elements.addNewTranslatorButton().click();
+  }
+
+  inputNewTranslatorBasicInformationField(
+    fieldName: string,
+    fieldType: string,
+    newValue
+  ) {
+    this.elements
+      .newTranslatorBasicInformationField(fieldName, fieldType)
+      .clear()
+      .should('have.text', '')
+      .type(newValue);
+  }
+
+  inputNewTranslatorBasicInformationExtraInformation(newValue) {
+    this.elements
+      .newTranslatorBasicInformationExtraInformation()
+      .type(newValue);
+  }
+
+  fillOutAddAuthorisationField(
+    fieldName: string,
+    fieldType: string,
+    newValue: string
+  ) {
+    this.elements
+      .addAuthorisationField(fieldName, fieldType)
+      .clear()
+      .type(`${newValue}{enter}`);
+  }
+
+  clickNewTranslatorAssuranceToggleButton() {
+    this.elements
+      .newTranslatorAssuranceToggleButton()
+      .should('be.visible')
+      .click();
+  }
+
+  clickAddAuthorisationButton() {
+    this.elements.addAuthorisationButton().click();
+  }
+
+  addAuthorisation() {
+    this.elements.addAuthorisationModalAddButton().should('be.visible').click();
+  }
+
+  clickSaveNewClerkButton() {
+    this.elements.saveNewClerkButton().should('be.visible').click();
+  }
+
+  expectAuthorisationRowToExist(id: number) {
+    this.elements.getAuthorisationRow(id).should('exist');
   }
 }
 
