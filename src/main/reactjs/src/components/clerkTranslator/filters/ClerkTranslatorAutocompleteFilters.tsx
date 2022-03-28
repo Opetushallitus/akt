@@ -15,14 +15,14 @@ import {
 } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { PermissionToPublish, TextFieldVariant } from 'enums/app';
-import { useDebouncedValue } from 'hooks/useDebouncedValue';
+import { useDebounce } from 'hooks/useDebounce';
 import { ClerkTranslatorFilter } from 'interfaces/clerkTranslator';
 import { AutocompleteValue } from 'interfaces/components/combobox';
 import { setClerkTranslatorFilters } from 'redux/actions/clerkTranslator';
 import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
 
 export const ClerkTranslatorAutocompleteFilters = () => {
-  // i18n
+  // I18n
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.clerkTranslatorFilters',
   });
@@ -30,25 +30,29 @@ export const ClerkTranslatorAutocompleteFilters = () => {
   const getLanguageSelectValue = (language?: string) =>
     language ? languageToComboBoxOption(translateLanguage, language) : null;
 
-  // redux
+  // Redux
   const dispatch = useAppDispatch();
   const { filters, langs } = useAppSelector(clerkTranslatorsSelector);
+
+  // LocalState
+  const [name, setName] = useState('');
+  const debounce = useDebounce(300);
+
+  useEffect(() => {
+    debounce(() => {
+      dispatch(
+        setClerkTranslatorFilters({
+          name,
+        })
+      );
+    });
+  }, [debounce, dispatch, name]);
+
   const handleFilterChange =
     (filter: keyof ClerkTranslatorFilter) =>
-    (event: React.SyntheticEvent<Element, Event>, value: AutocompleteValue) => {
+    ({}, value: AutocompleteValue) => {
       dispatch(setClerkTranslatorFilters({ [filter]: value?.value }));
     };
-
-  // debounce on input to name filter
-  const [name, setName] = useState('');
-  const debouncedName = useDebouncedValue(name, 300);
-  useEffect(() => {
-    dispatch(
-      setClerkTranslatorFilters({
-        name: debouncedName ? debouncedName : undefined,
-      })
-    );
-  }, [debouncedName, dispatch]);
 
   return (
     <div className="clerk-translator-autocomplete-filters columns gapped">
@@ -91,9 +95,7 @@ export const ClerkTranslatorAutocompleteFilters = () => {
             ),
           }}
           value={name}
-          onChange={(event) => {
-            setName(event.target.value);
-          }}
+          onChange={(event) => setName(event.target.value)}
         />
       </div>
       <div className="rows gapped-xs">

@@ -59,7 +59,9 @@ export const PublicTranslatorListingRow = ({
     if (!fromLang || !toLang) {
       const toast = Utils.createNotifierToast(
         Severity.Error,
-        t('component.publicTranslatorFilters.toasts.selectLanguagePair')
+        t(
+          'component.publicTranslatorFilters.toasts.contactRequestNeedsLanguagePairs'
+        )
       );
       dispatch(showNotifierToast(toast));
     } else {

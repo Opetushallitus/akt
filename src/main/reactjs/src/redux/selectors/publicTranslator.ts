@@ -45,7 +45,7 @@ export const selectedPublicTranslatorsForLanguagePair = createSelector(
 );
 
 // Helpers
-const filterPublicTranslators = (
+export const filterPublicTranslators = (
   translators: Array<PublicTranslator>,
   filters: PublicTranslatorFilter
 ) => {

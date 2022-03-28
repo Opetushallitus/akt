@@ -256,9 +256,9 @@
       },
       "publicTranslatorFilters": {
         "buttons": {
-          "empty": "Tyhjennä valinnat",
+          "empty": "Tyhjennä",
           "newSearch": "Tee uusi haku",
-          "search": "Hae"
+          "search": "Näytä tulokset"
         },
         "captions": {
           "langPair": "(* Pakollinen yhteydenottoon)"
@@ -267,7 +267,7 @@
           "fromAriaLabel": "Mistä, pakollinen yhteydenottamista varten",
           "fromHelperText": "Valitse kieli",
           "fromPlaceholder": "Mistä *",
-          "title": "Haku kielittäin",
+          "title": "Haku kieliparilla",
           "toAriaLabel": "Mihin, pakollinen yhteydenottamista varten",
           "toHelperText": "Valitse kieli",
           "toPlaceholder": "Mihin *"
@@ -277,7 +277,8 @@
           "title": "Haku kääntäjän nimellä"
         },
         "toasts": {
-          "selectLanguagePair": "Valitse kielipari ottaaksesi yhteyttä kääntäjään",
+          "selectLanguagePair": "Valitse kielipari",
+          "contactRequestNeedsLanguagePairs": "Valitse kielipari ottaaksesi yhteyttä kääntäjään",
           "translatorsSelected": "Voit valita vain yhden kieliparin yhteydenottoon"
         },
         "town": {
@@ -368,7 +369,7 @@
           "title": "Hae auktorisoitua kääntäjää"
         },
         "noSearchResults": "Ei hakutuloksia",
-        "note": "Kielittäin haettaessa mahdolliset hakuvaihtoehdot ovat kotimaisista kielistä (suomi, ruotsi, saamen kielet) vieraisiin kieliin tai toisinpäin sekä kotimaisten kielten välillä.",
+        "note": "Kieliparilla haettaessa mahdolliset hakuvaihtoehdot ovat kotimaisista kielistä (suomi, ruotsi, saamen kielet) vieraisiin kieliin tai toisinpäin sekä kotimaisten kielten välillä.",
         "requestContact": "Ota yhteyttä",
         "title": "Auktorisoitujen kääntäjien rekisteri"
       },
