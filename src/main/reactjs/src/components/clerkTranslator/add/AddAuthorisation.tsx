@@ -16,11 +16,15 @@ import {
   useCommonTranslation,
   useKoodistoLanguagesTranslation,
 } from 'configs/i18n';
-import { Color, TextFieldVariant, Variant } from 'enums/app';
+import { useAppDispatch } from 'configs/redux';
+import { Color, Severity, TextFieldVariant, Variant } from 'enums/app';
 import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { Authorisation, AuthorisationBasis } from 'interfaces/authorisation';
 import { AutocompleteValue } from 'interfaces/components/combobox';
 import { MeetingDate } from 'interfaces/meetingDate';
+import { showNotifierDialog } from 'redux/actions/notifier';
+import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
+import { Utils } from 'utils';
 import { AuthorisationUtils } from 'utils/authorisation';
 import { DateUtils } from 'utils/date';
 import { StringUtils } from 'utils/string';
@@ -69,6 +73,7 @@ export const AddAuthorisation = ({
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.newAuthorisation',
   });
+  const dispatch = useAppDispatch();
 
   const handleLanguageSelectChange =
     (fieldName: string) =>
@@ -168,6 +173,28 @@ export const AddAuthorisation = ({
       setAuthorisation(newAuthorisation);
       onCancel();
     }
+  };
+
+  const handleModalCancel = () => {
+    const notifier = Utils.createNotifierDialog(
+      t('cancelDialog.header'),
+      Severity.Info,
+      '',
+      [
+        {
+          title: translateCommon('no'),
+          variant: Variant.Outlined,
+          action: NOTIFIER_ACTION_DO_NOTHING,
+        },
+        {
+          title: translateCommon('yes'),
+          variant: Variant.Contained,
+          action: () => onCancel(),
+        },
+      ]
+    );
+
+    dispatch(showNotifierDialog(notifier));
   };
 
   const testIdSuffix = 'add-authorisation-field';
@@ -273,7 +300,7 @@ export const AddAuthorisation = ({
         <CustomButton
           data-testid="add-authorisation-modal__cancel"
           className="margin-right-xs"
-          onClick={onCancel}
+          onClick={handleModalCancel}
           variant={Variant.Text}
           color={Color.Secondary}
         >

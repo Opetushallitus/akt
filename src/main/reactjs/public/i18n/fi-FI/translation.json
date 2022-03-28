@@ -247,7 +247,11 @@
           "inEffect": "Voimassa"
         },
         "toasts": {
-          "success": "Auktorisointi lisätty onnistuneesti"
+          "success": "Auktorisointi lisätty onnistuneesti",
+          "error": "Auktorisoinnin lisäys ei onnistunut, yritä myöhemmin uudelleen"
+        },
+        "cancelDialog": {
+          "header": "Haluatko varmasti peruuttaa?"
         }
       },
       "publicTranslatorFilters": {
