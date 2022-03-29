@@ -159,11 +159,14 @@ export const PublicTranslatorFilters = ({
         | 'clear'
     ) => {
       if (reason === 'clear') {
-        setFilters({ ...filters, [filterName]: '' });
-        setValues({ ...values, [filterName]: null });
+        setFilters((prevState) => ({ ...prevState, [filterName]: '' }));
+        setValues((prevState) => ({ ...prevState, [filterName]: null }));
       } else {
-        setFilters({ ...filters, [filterName]: value?.value || '' });
-        setValues({ ...values, [filterName]: value });
+        setFilters((prevState) => ({
+          ...prevState,
+          [filterName]: value?.value || '',
+        }));
+        setValues((prevState) => ({ ...prevState, [filterName]: value }));
       }
       dispatch(removePublicTranslatorFilterError(filterName));
     };
@@ -172,8 +175,13 @@ export const PublicTranslatorFilters = ({
     (filterName: SearchFilter) =>
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const target = event.target as HTMLInputElement;
-      setValues({ ...values, [filterName]: target.value });
-      debounce(() => setFilters({ ...filters, [filterName]: target.value }));
+      setValues((prevState) => ({ ...prevState, [filterName]: target.value }));
+      debounce(() =>
+        setFilters((prevState) => ({
+          ...prevState,
+          [filterName]: target.value,
+        }))
+      );
     };
 
   const getComboBoxAttributes = (fieldName: SearchFilter) => ({
