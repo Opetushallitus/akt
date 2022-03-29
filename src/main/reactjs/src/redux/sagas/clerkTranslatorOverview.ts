@@ -2,9 +2,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import axiosInstance from 'configs/axios';
-import { translateOutsideComponent } from 'configs/i18n';
 import { APIEndpoints } from 'enums/api';
-import { Severity } from 'enums/app';
 import {
   ClerkTranslator,
   ClerkTranslatorResponse,
@@ -129,7 +127,10 @@ function* updateAuthorisationPublishPermission(action: AuthorisationAction) {
     yield put({
       type: CLERK_TRANSLATOR_OVERVIEW_UPDATE_AUTHORISATION_PUBLISH_PERMISSION_FAIL,
     });
-    yield call(showErrorToastOnAuthorisationDelete);
+    yield put({
+      type: NOTIFIER_TOAST_ADD,
+      notifier: Utils.createNotifierToastForAxiosError(error as AxiosError),
+    });
   }
 }
 
@@ -150,18 +151,11 @@ function* deleteAuthorisation(action: AuthorisationAction) {
     });
   } catch (error) {
     yield put({ type: CLERK_TRANSLATOR_OVERVIEW_DELETE_AUTHORISATION_FAIL });
-    yield call(showErrorToastOnAuthorisationDelete);
+    yield put({
+      type: NOTIFIER_TOAST_ADD,
+      notifier: Utils.createNotifierToastForAxiosError(error as AxiosError),
+    });
   }
-}
-function* showErrorToastOnAuthorisationDelete() {
-  const t = translateOutsideComponent();
-  const notifier = Utils.createNotifierToast(
-    Severity.Error,
-    t(
-      'akt.component.clerkTranslatorOverview.authorisations.actions.removal.toasts.error'
-    )
-  );
-  yield put({ type: NOTIFIER_TOAST_ADD, notifier });
 }
 
 export function* watchClerkTranslatorOverview() {
