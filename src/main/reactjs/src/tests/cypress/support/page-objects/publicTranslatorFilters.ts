@@ -34,6 +34,7 @@ class PublicTranslatorFilters {
 
   filterByName(name: string) {
     this.elements.name().type(name);
+    cy.wait(350); // Input debounce
     this.search();
   }
 
@@ -57,6 +58,10 @@ class PublicTranslatorFilters {
 
   clickToLang() {
     this.elements.toLang().click();
+  }
+
+  expectSeachBtnText(text: string) {
+    this.elements.search().should('contain.text', text);
   }
 
   expectFromLangSelectValues(values: Array<string>) {

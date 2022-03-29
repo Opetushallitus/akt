@@ -1,8 +1,10 @@
+import SearchIcon from '@mui/icons-material/Search';
 import { AppBar, Box, TextField, Toolbar } from '@mui/material';
 import {
   Dispatch,
   KeyboardEvent,
   SetStateAction,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -26,6 +28,7 @@ import {
   TextFieldVariant,
   Variant,
 } from 'enums/app';
+import { useDebounce } from 'hooks/useDebounce';
 import { useWindowProperties } from 'hooks/useWindowProperties';
 import { AutocompleteValue } from 'interfaces/components/combobox';
 import { PublicTranslatorFilterValues } from 'interfaces/publicTranslator';
@@ -37,7 +40,10 @@ import {
   emptySelectedTranslators,
   removePublicTranslatorFilterError,
 } from 'redux/actions/publicTranslator';
-import { publicTranslatorsSelector } from 'redux/selectors/publicTranslator';
+import {
+  filterPublicTranslators,
+  publicTranslatorsSelector,
+} from 'redux/selectors/publicTranslator';
 import { Utils } from 'utils/index';
 
 export const PublicTranslatorFilters = ({
@@ -67,6 +73,7 @@ export const PublicTranslatorFilters = ({
     name: '',
     town: null,
   };
+  const debounce = useDebounce(300);
 
   const [values, setValues] = useState(defaultValuesState);
   const [inputValues, setInputValues] = useState(defaultFiltersState);
@@ -80,7 +87,12 @@ export const PublicTranslatorFilters = ({
     towns,
     filters: reduxFilters,
     selectedTranslators,
+    translators,
   } = useAppSelector(publicTranslatorsSelector);
+
+  const filteredTranslatorCount = useMemo(() => {
+    return filterPublicTranslators(translators, filters).length;
+  }, [translators, filters]);
 
   const hasError = (fieldName: SearchFilter) => {
     return reduxFilters.errors.includes(fieldName);
@@ -88,11 +100,6 @@ export const PublicTranslatorFilters = ({
 
   // Handlers
   const handleSearchBtnClick = () => {
-    const toast = Utils.createNotifierToast(
-      Severity.Error,
-      t('toasts.selectLanguagePair')
-    );
-
     if (
       (filters.fromLang && !filters.toLang) ||
       (!filters.fromLang && filters.toLang)
@@ -103,6 +110,11 @@ export const PublicTranslatorFilters = ({
         if (!filters[field] && !hasError(field))
           dispatch(addPublicTranslatorFilterError(field));
       });
+
+      const toast = Utils.createNotifierToast(
+        Severity.Error,
+        t('toasts.selectLanguagePair')
+      );
       dispatch(showNotifierToast(toast));
     } else {
       dispatch(addPublicTranslatorFilter(filters));
@@ -111,7 +123,11 @@ export const PublicTranslatorFilters = ({
   };
 
   const scrollToSearch = () => {
-    filtersGridRef.current?.scrollIntoView({ behavior: 'smooth' });
+    filtersGridRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+      inline: 'nearest',
+    });
   };
 
   const handleEmptyBtnClick = () => {
@@ -124,22 +140,16 @@ export const PublicTranslatorFilters = ({
     setShowTable(false);
   };
 
-  const isEmptyBtnDisabled = () => {
-    const { fromLang, toLang, town, name } = filters;
-
-    return !(!!fromLang || !!toLang || !!name || !!town);
-  };
-
   const handleComboboxInputChange =
     (inputName: SearchFilter) =>
-    (event: React.SyntheticEvent<Element, Event>, newInputValue: string) => {
+    ({}, newInputValue: string) => {
       setInputValues({ ...inputValues, [inputName]: newInputValue });
     };
 
   const handleComboboxFilterChange =
     (filterName: SearchFilter) =>
     (
-      event: React.SyntheticEvent<Element, Event>,
+      {},
       value: AutocompleteValue,
       reason:
         | 'selectOption'
@@ -149,11 +159,14 @@ export const PublicTranslatorFilters = ({
         | 'clear'
     ) => {
       if (reason === 'clear') {
-        setFilters({ ...filters, [filterName]: '' });
-        setValues({ ...values, [filterName]: null });
+        setFilters((prevState) => ({ ...prevState, [filterName]: '' }));
+        setValues((prevState) => ({ ...prevState, [filterName]: null }));
       } else {
-        setFilters({ ...filters, [filterName]: value?.value || '' });
-        setValues({ ...values, [filterName]: value });
+        setFilters((prevState) => ({
+          ...prevState,
+          [filterName]: value?.value || '',
+        }));
+        setValues((prevState) => ({ ...prevState, [filterName]: value }));
       }
       dispatch(removePublicTranslatorFilterError(filterName));
     };
@@ -162,8 +175,13 @@ export const PublicTranslatorFilters = ({
     (filterName: SearchFilter) =>
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const target = event.target as HTMLInputElement;
-      setFilters({ ...filters, [filterName]: target.value });
-      setValues({ ...values, [filterName]: target.value });
+      setValues((prevState) => ({ ...prevState, [filterName]: target.value }));
+      debounce(() =>
+        setFilters((prevState) => ({
+          ...prevState,
+          [filterName]: target.value,
+        }))
+      );
     };
 
   const getComboBoxAttributes = (fieldName: SearchFilter) => ({
@@ -262,7 +280,7 @@ export const PublicTranslatorFilters = ({
             id="outlined-search"
             label={t('name.placeholder')}
             type="search"
-            value={filters.name}
+            value={values.name}
             onKeyUp={handleKeyUp}
             onChange={handleTextFieldFilterChange(SearchFilter.Name)}
           />
@@ -281,22 +299,24 @@ export const PublicTranslatorFilters = ({
         </div>
       </div>
       <div className="public-translator-filters__btn-box">
-        <CustomButton
-          data-testid="public-translator-filters__empty-btn"
-          color={Color.Secondary}
-          variant={Variant.Outlined}
-          onClick={handleEmptyBtnClick}
-          disabled={isEmptyBtnDisabled()}
-        >
-          {t('buttons.empty')}
-        </CustomButton>
+        {!isPhone && (
+          <CustomButton
+            data-testid="public-translator-filters__empty-btn"
+            color={Color.Secondary}
+            variant={Variant.Outlined}
+            onClick={handleEmptyBtnClick}
+          >
+            {t('buttons.empty')}
+          </CustomButton>
+        )}
         <CustomButton
           data-testid="public-translator-filters__search-btn"
           color={Color.Secondary}
           variant={Variant.Contained}
           onClick={handleSearchBtnClick}
+          startIcon={<SearchIcon />}
         >
-          {t('buttons.search')}
+          {`${t('buttons.search')} (${filteredTranslatorCount})`}
         </CustomButton>
       </div>
       {renderPhoneBottomAppBar()}
