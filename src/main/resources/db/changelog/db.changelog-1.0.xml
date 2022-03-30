@@ -615,4 +615,26 @@
         </sql>
     </changeSet>
 
+    <changeSet id="2022-03-24-translator_named_constraints_hsql" author="terova" dbms="hsqldb">
+        <dropColumn tableName="translator" columnName="identity_number"/>
+        <addColumn tableName="translator">
+            <column name="identity_number" type="VARCHAR(255)"/>
+        </addColumn>
+        <addUniqueConstraint tableName="translator" columnNames="identity_number" constraintName="uk_translator_identity_number"/>
+
+        <dropColumn tableName="translator" columnName="email"/>
+        <addColumn tableName="translator">
+            <column name="email" type="VARCHAR(255)"/>
+        </addColumn>
+        <addUniqueConstraint tableName="translator" columnNames="email" constraintName="uk_translator_email"/>
+    </changeSet>
+
+    <changeSet id="2022-03-24-translator_named_constraints_postgresql" author="terova" dbms="postgresql">
+        <dropUniqueConstraint tableName="translator" constraintName="translator_identity_number_key" />
+        <addUniqueConstraint tableName="translator" columnNames="identity_number" constraintName="uk_translator_identity_number"/>
+
+        <dropUniqueConstraint tableName="translator" constraintName="translator_email_key" />
+        <addUniqueConstraint tableName="translator" columnNames="email" constraintName="uk_translator_email"/>
+    </changeSet>
+
 </databaseChangeLog>

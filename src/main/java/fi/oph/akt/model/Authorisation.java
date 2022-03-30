@@ -68,4 +68,8 @@ public class Authorisation extends BaseEntity {
 
   @OneToMany(mappedBy = "authorisation")
   private Collection<AuthorisationTermReminder> reminders = new ArrayList<>();
+
+  public boolean isBasisAndAutDateConsistent() {
+    return (basis == AuthorisationBasis.AUT && autDate != null) || (basis != AuthorisationBasis.AUT && autDate == null);
+  }
 }

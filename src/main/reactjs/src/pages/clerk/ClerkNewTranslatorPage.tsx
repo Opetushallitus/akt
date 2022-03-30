@@ -77,12 +77,6 @@ export const ClerkNewTranslatorPage = () => {
         AppRoutes.ClerkTranslatorOverviewPage.replace(/:translatorId$/, `${id}`)
       );
     } else if (status === APIResponseStatus.Error) {
-      const errorToast = Utils.createNotifierToast(
-        Severity.Error,
-        t('toasts.error'),
-        Duration.Long
-      );
-      dispatch(showNotifierToast(errorToast));
       dispatch(resetNewClerkTranslatorRequestStatus);
     }
   }, [id, dispatch, navigate, status, t]);

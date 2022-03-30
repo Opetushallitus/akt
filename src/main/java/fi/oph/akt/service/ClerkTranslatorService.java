@@ -25,6 +25,9 @@ import fi.oph.akt.repository.AuthorisationTermReminderRepository;
 import fi.oph.akt.repository.MeetingDateRepository;
 import fi.oph.akt.repository.TranslatorRepository;
 import fi.oph.akt.util.AuthorisationProjectionComparator;
+import fi.oph.akt.util.exception.APIException;
+import fi.oph.akt.util.exception.APIExceptionType;
+import fi.oph.akt.util.exception.DataIntegrityViolationExceptionUtil;
 import fi.oph.akt.util.exception.NotFoundException;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -35,6 +38,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -171,7 +175,17 @@ public class ClerkTranslatorService {
   public ClerkTranslatorDTO createTranslator(final TranslatorCreateDTO dto) {
     final Translator translator = new Translator();
     copyDtoFieldsToTranslator(dto, translator);
-    translatorRepository.saveAndFlush(translator);
+    try {
+      translatorRepository.saveAndFlush(translator);
+    } catch (DataIntegrityViolationException ex) {
+      if (DataIntegrityViolationExceptionUtil.isTranslatorEmailUniquenessException(ex)) {
+        throw new APIException(APIExceptionType.TRANSLATOR_CREATE_DUPLICATE_EMAIL);
+      }
+      if (DataIntegrityViolationExceptionUtil.isTranslatorIdentityNumberUniquenessException(ex)) {
+        throw new APIException(APIExceptionType.TRANSLATOR_CREATE_DUPLICATE_IDENTITY_NUMBER);
+      }
+      throw ex;
+    }
 
     final Map<LocalDate, MeetingDate> meetingDates = getLocalDateMeetingDateMap();
     dto.authorisations().forEach(authDto -> createAuthorisation(translator, meetingDates, authDto));
@@ -203,7 +217,18 @@ public class ClerkTranslatorService {
     final Translator translator = translatorRepository.getById(dto.id());
     translator.assertVersion(dto.version());
     copyDtoFieldsToTranslator(dto, translator);
-    translatorRepository.flush();
+
+    try {
+      translatorRepository.flush();
+    } catch (DataIntegrityViolationException ex) {
+      if (DataIntegrityViolationExceptionUtil.isTranslatorEmailUniquenessException(ex)) {
+        throw new APIException(APIExceptionType.TRANSLATOR_UPDATE_DUPLICATE_EMAIL);
+      }
+      if (DataIntegrityViolationExceptionUtil.isTranslatorIdentityNumberUniquenessException(ex)) {
+        throw new APIException(APIExceptionType.TRANSLATOR_UPDATE_DUPLICATE_IDENTITY_NUMBER);
+      }
+      throw ex;
+    }
 
     final ClerkTranslatorDTO result = getTranslatorWithoutAudit(translator.getId());
     auditService.logById(AktOperation.UPDATE_TRANSLATOR, translator.getId());
@@ -289,7 +314,7 @@ public class ClerkTranslatorService {
   ) {
     final MeetingDate meetingDate = meetingDates.get(dto.termBeginDate());
     if (meetingDate == null) {
-      throw new RuntimeException(String.format("Given termBeginDate: %s is not a meeting date", dto.termBeginDate()));
+      throw new APIException(APIExceptionType.AUTHORISATION_MISSING_MEETING_DATE);
     }
 
     authorisation.setBasis(dto.basis());
@@ -301,6 +326,10 @@ public class ClerkTranslatorService {
     authorisation.setDiaryNumber(dto.diaryNumber());
     authorisation.setAutDate(dto.autDate());
     authorisation.setMeetingDate(meetingDate);
+
+    if (!authorisation.isBasisAndAutDateConsistent()) {
+      throw new APIException(APIExceptionType.AUTHORISATION_BASIS_AND_AUT_DATE_MISMATCH);
+    }
   }
 
   @Transactional
@@ -327,7 +356,7 @@ public class ClerkTranslatorService {
     final Authorisation authorisation = authorisationRepository.getById(authorisationId);
     final Translator translator = authorisation.getTranslator();
     if (translator.getAuthorisations().size() == 1) {
-      throw new RuntimeException("Can not delete last authorisation");
+      throw new APIException(APIExceptionType.AUTHORISATION_DELETE_LAST_AUTHORISATION);
     }
     final Collection<AuthorisationTermReminder> reminders = authorisation.getReminders();
 

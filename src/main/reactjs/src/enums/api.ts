@@ -22,8 +22,15 @@ export enum APIResponseStatus {
  * The respective backend enum is `APIExceptionType`.
  */
 export enum APIError {
+  AuthorisationBasisAndAutDateMismatch = 'authorisationBasisAndAutDateMismatch',
+  AuthorisationDeleteLastAuthorisation = 'authorisationDeleteLastAuthorisation',
+  AuthorisationMissingMeetingDate = 'authorisationMissingMeetingDate',
   MeetingDateCreateDuplicateDate = 'meetingDateCreateDuplicateDate',
+  MeetingDateDeleteHasAuthorisations = 'meetingDateDeleteHasAuthorisations',
   MeetingDateUpdateDuplicateDate = 'meetingDateUpdateDuplicateDate',
   MeetingDateUpdateHasAuthorisations = 'meetingDateUpdateHasAuthorisations',
-  MeetingDateDeleteHasAuthorisations = 'meetingDateDeleteHasAuthorisations',
+  TranslatorCreateDuplicateEmail = 'translatorCreateDuplicateEmail',
+  TranslatorCreateDuplicateIdentityNumber = 'translatorCreateDuplicateIdentityNumber',
+  TranslatorUpdateDuplicateEmail = 'translatorUpdateDuplicateEmail',
+  TranslatorUpdateDuplicateIdentityNumber = 'translatorUpdateDuplicateIdentityNumber',
 }
