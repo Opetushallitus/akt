@@ -67,6 +67,7 @@ export const AddAuthorisation = ({
 
   const [authorisation, setAuthorisation] =
     useState<Authorisation>(newAuthorisation);
+  const [autDate, setAutDate] = useState('');
 
   const translateCommon = useCommonTranslation();
   const translateLanguage = useKoodistoLanguagesTranslation();
@@ -92,6 +93,9 @@ export const AddAuthorisation = ({
       ...authorisation,
       basis: value?.value as AuthorisationBasis,
     });
+    if (value?.value !== AuthorisationBasisEnum.AUT) {
+      setAutDate('');
+    }
   };
 
   const handleTermBeginDateChange = ({}, value: AutocompleteValue) => {
@@ -106,6 +110,7 @@ export const AddAuthorisation = ({
   };
 
   const handleAutDateChange = (value: string) => {
+    setAutDate(value);
     setAuthorisation({
       ...authorisation,
       autDate: dayjs(value),
@@ -247,6 +252,7 @@ export const AddAuthorisation = ({
             <Text className="bold">{t('fieldLabel.autDate')}</Text>
             <DatePicker
               label={t('fieldPlaceholders.autDate')}
+              value={autDate}
               setValue={handleAutDateChange}
               disabled={authorisation.basis !== AuthorisationBasisEnum.AUT}
               dataTestId={`${testIdSuffix}-autDate`}
