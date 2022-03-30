@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { ComboBox, valueAsOption } from 'components/elements/ComboBox';
 import { CustomButton } from 'components/elements/CustomButton';
@@ -76,6 +77,13 @@ export const AddAuthorisation = ({
   });
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    setAuthorisation((prevState) => ({
+      ...prevState,
+      tempId: uuidv4(),
+    }));
+  }, []);
+
   const handleLanguageSelectChange =
     (fieldName: string) =>
     ({}, value: AutocompleteValue) => {
@@ -145,7 +153,7 @@ export const AddAuthorisation = ({
       : null;
   };
 
-  const isAddButtonDisabled = () => {
+  const isButtonDisabled = () => {
     const { languagePair, diaryNumber, autDate, ...otherProps } = authorisation;
 
     const isOtherPropsNotDefined = Object.values(otherProps).some((p) =>
@@ -162,6 +170,7 @@ export const AddAuthorisation = ({
       (!autDate || !dayjs(autDate).isValid());
 
     return (
+      isLoading ||
       isOtherPropsNotDefined ||
       isLangPropsNotDefined ||
       isDiaryNumberBlank ||
@@ -304,6 +313,7 @@ export const AddAuthorisation = ({
       </div>
       <div className="columns gapped margin-top-lg flex-end">
         <CustomButton
+          disabled={isLoading}
           data-testid="add-authorisation-modal__cancel"
           className="margin-right-xs"
           onClick={handleModalCancel}
@@ -319,7 +329,7 @@ export const AddAuthorisation = ({
               variant={Variant.Contained}
               color={Color.Secondary}
               onClick={() => addAndResetAuthorisation(authorisation)}
-              disabled={isAddButtonDisabled()}
+              disabled={isButtonDisabled()}
             >
               {translateCommon('add')}
             </CustomButton>
@@ -330,7 +340,7 @@ export const AddAuthorisation = ({
             variant={Variant.Contained}
             color={Color.Secondary}
             onClick={() => addAndResetAuthorisation(authorisation)}
-            disabled={isAddButtonDisabled()}
+            disabled={isButtonDisabled()}
           >
             {translateCommon('add')}
           </CustomButton>

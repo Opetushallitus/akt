@@ -20,6 +20,7 @@ export interface Authorisation
   termEndDate?: Dayjs;
   autDate?: Dayjs;
   translatorId?: number;
+  tempId?: string;
 }
 
 export interface AuthorisationResponse

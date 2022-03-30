@@ -21,7 +21,8 @@ import {
   updateNewClerkTranslator,
 } from 'redux/actions/clerkNewTranslator';
 import { loadMeetingDates } from 'redux/actions/meetingDate';
-import { showNotifierToast } from 'redux/actions/notifier';
+import { showNotifierDialog, showNotifierToast } from 'redux/actions/notifier';
+import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
 import { clerkNewTranslatorSelector } from 'redux/selectors/clerkNewTranslator';
 import { meetingDatesSelector } from 'redux/selectors/meetingDate';
 import { NotifierUtils } from 'utils/notifier';
@@ -49,6 +50,36 @@ export const ClerkNewTranslatorPage = () => {
         authorisations: [...translator.authorisations, authorisation],
       })
     );
+  };
+
+  const onAuthorisationRemove = (authorisation: Authorisation) => {
+    const notifier = Utils.createNotifierDialog(
+      t('removeAuthorisationDialog.title'),
+      Severity.Info,
+      '',
+      [
+        {
+          title: translateCommon('no'),
+          variant: Variant.Outlined,
+          action: NOTIFIER_ACTION_DO_NOTHING,
+        },
+        {
+          title: translateCommon('yes'),
+          variant: Variant.Contained,
+          action: () =>
+            dispatch(
+              updateNewClerkTranslator({
+                ...translator,
+                authorisations: translator.authorisations.filter((a) => {
+                  return a.tempId !== authorisation.tempId;
+                }),
+              })
+            ),
+        },
+      ]
+    );
+
+    dispatch(showNotifierDialog(notifier));
   };
 
   // Navigation
@@ -116,7 +147,11 @@ export const ClerkNewTranslatorPage = () => {
             </CustomButton>
           </div>
           {translator.authorisations.length ? (
-            <AuthorisationListing authorisations={translator.authorisations} />
+            <AuthorisationListing
+              authorisations={translator.authorisations}
+              permissionToPublishReadOnly={true}
+              onAuthorisationRemove={onAuthorisationRemove}
+            />
           ) : null}
           <BottomControls />
         </div>

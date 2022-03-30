@@ -38,8 +38,12 @@ import { NotifierUtils } from 'utils/notifier';
 
 export const AuthorisationListing = ({
   authorisations,
+  permissionToPublishReadOnly = false,
+  onAuthorisationRemove,
 }: {
   authorisations: Array<Authorisation>;
+  permissionToPublishReadOnly: boolean;
+  onAuthorisationRemove?: (a: Authorisation) => void;
 }) => {
   const translateLanguage = useKoodistoLanguagesTranslation();
   const translateCommon = useCommonTranslation();
@@ -84,27 +88,31 @@ export const AuthorisationListing = ({
     dispatch(showNotifierDialog(notifier));
   };
 
-  const onAuthorisationRemove = (authorisation: Authorisation) => {
-    const notifier = NotifierUtils.createNotifierDialog(
-      t('actions.removal.dialog.header'),
-      Severity.Info,
-      t('actions.removal.dialog.description'),
-      [
-        {
-          title: translateCommon('back'),
-          variant: Variant.Outlined,
-          action: NOTIFIER_ACTION_DO_NOTHING,
-        },
-        {
-          title: t('actions.removal.dialog.confirmButton'),
-          variant: Variant.Contained,
-          action: () =>
-            dispatch(deleteAuthorisation(authorisation.id as number)),
-        },
-      ]
-    );
+  const handleAuthorisationRemove = (authorisation: Authorisation) => {
+    if (onAuthorisationRemove) {
+      onAuthorisationRemove(authorisation);
+    } else {
+      const notifier = NotifierUtils.createNotifierDialog(
+        t('actions.removal.dialog.header'),
+        Severity.Info,
+        t('actions.removal.dialog.description'),
+        [
+          {
+            title: translateCommon('back'),
+            variant: Variant.Outlined,
+            action: NOTIFIER_ACTION_DO_NOTHING,
+          },
+          {
+            title: t('actions.removal.dialog.confirmButton'),
+            variant: Variant.Contained,
+            action: () =>
+              dispatch(deleteAuthorisation(authorisation.id as number)),
+          },
+        ]
+      );
 
-    dispatch(showNotifierDialog(notifier));
+      dispatch(showNotifierDialog(notifier));
+    }
   };
 
   return (
@@ -172,20 +180,30 @@ export const AuthorisationListing = ({
                 </Text>
               </TableCell>
               <TableCell>
-                <CustomSwitch
-                  value={a.permissionToPublish}
-                  onChange={() => onPublishPermissionChange(a)}
-                  leftLabel={translateCommon('no')}
-                  rightLabel={translateCommon('yes')}
-                  aria-label={t('actions.changePermissionToPublish.ariaLabel')}
-                />
+                {permissionToPublishReadOnly ? (
+                  <Text>
+                    {a.permissionToPublish
+                      ? translateCommon('yes')
+                      : translateCommon('no')}
+                  </Text>
+                ) : (
+                  <CustomSwitch
+                    value={a.permissionToPublish}
+                    onChange={() => onPublishPermissionChange(a)}
+                    leftLabel={translateCommon('no')}
+                    rightLabel={translateCommon('yes')}
+                    aria-label={t(
+                      'actions.changePermissionToPublish.ariaLabel'
+                    )}
+                  />
+                )}
               </TableCell>
               <TableCell>
                 <Text>{a.diaryNumber}</Text>
               </TableCell>
               <TableCell className="centered">
                 <CustomIconButton
-                  onClick={() => onAuthorisationRemove(a)}
+                  onClick={() => handleAuthorisationRemove(a)}
                   aria-label={t('actions.removal.ariaLabel')}
                   data-testid={`authorisations-table__id-${a.id}-row__delete-btn`}
                 >

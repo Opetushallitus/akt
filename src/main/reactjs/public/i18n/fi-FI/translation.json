@@ -367,6 +367,12 @@
         "toasts": {
           "success": "Kääntäjän tiedot tallennettiin!"
         },
+        "removeAuthorisationDialog": {
+          "title": "Haluatko varmasti poistaa auktorisoinnin?"
+        },
+        "cancelAddNewTranslatorDialog": {
+          "title": "Haluatko varmasti peruuttaa uuden kääntäjän lisäyksen?"
+        },
         "addedAuthorisationsTitle": "Lisätyt auktorisoinnit"
       },
       "homepage": {
