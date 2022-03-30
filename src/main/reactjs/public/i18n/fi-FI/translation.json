@@ -63,9 +63,6 @@
                 "confirmButton": "Poista auktorisointi",
                 "description": "Tätä toimintoa ei voi peruuttaa!",
                 "header": "Haluatko varmasti poistaa auktorisoinnin?"
-              },
-              "toasts": {
-                "error": "Auktorisoinnin poisto epäonnistui"
               }
             }
           },
