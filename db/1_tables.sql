@@ -44,7 +44,7 @@ CREATE TABLE public.authorisation (
     term_end_date date,
     diary_number character varying(255),
     CONSTRAINT ck_authorisation_aut_date CHECK (((((basis)::text = 'AUT'::text) AND (aut_date IS NOT NULL)) OR (((basis)::text <> 'AUT'::text) AND (aut_date IS NULL)))),
-    CONSTRAINT ck_authorisation_from_to CHECK ((((from_lang)::text <> (to_lang)::text) AND (((from_lang)::text = ANY (ARRAY[('FI'::character varying)::text, ('SV'::character varying)::text, ('SEIN'::character varying)::text, ('SEKO'::character varying)::text, ('SEPO'::character varying)::text])) OR ((to_lang)::text = ANY (ARRAY[('FI'::character varying)::text, ('SV'::character varying)::text, ('SEIN'::character varying)::text, ('SEKO'::character varying)::text, ('SEPO'::character varying)::text]))))),
+    CONSTRAINT ck_authorisation_from_to CHECK ((((from_lang)::text <> (to_lang)::text) AND (((from_lang)::text = ANY ((ARRAY['FI'::character varying, 'SV'::character varying, 'SEIN'::character varying, 'SEKO'::character varying, 'SEPO'::character varying])::text[])) OR ((to_lang)::text = ANY ((ARRAY['FI'::character varying, 'SV'::character varying, 'SEIN'::character varying, 'SEKO'::character varying, 'SEPO'::character varying])::text[]))))),
     CONSTRAINT ck_authorisation_term_end_date CHECK (((term_end_date IS NULL) OR (term_begin_date < term_end_date)))
 );
 
@@ -89,8 +89,8 @@ CREATE TABLE public.authorisation_term_reminder (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     modified_at timestamp with time zone DEFAULT now() NOT NULL,
     deleted_at timestamp with time zone,
-    email_id bigint NOT NULL,
-    authorisation_id bigint NOT NULL
+    authorisation_id bigint NOT NULL,
+    email_id bigint NOT NULL
 );
 
 
@@ -196,14 +196,14 @@ CREATE TABLE public.email (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     modified_at timestamp with time zone DEFAULT now() NOT NULL,
     deleted_at timestamp with time zone,
+    email_type character varying(255) NOT NULL,
     recipient_address text NOT NULL,
+    recipient_name text NOT NULL,
     subject text NOT NULL,
     body text NOT NULL,
     sent_at timestamp with time zone,
     error text,
-    email_type character varying(255) NOT NULL,
-    ext_id text,
-    recipient_name text NOT NULL
+    ext_id text
 );
 
 
@@ -381,14 +381,6 @@ ALTER TABLE ONLY public.email_type
 
 
 --
--- Name: meeting_date meeting_date_date_key; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.meeting_date
-    ADD CONSTRAINT meeting_date_date_key UNIQUE (date);
-
-
---
 -- Name: meeting_date meeting_date_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -405,27 +397,35 @@ ALTER TABLE ONLY public.shedlock
 
 
 --
--- Name: translator translator_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.translator
-    ADD CONSTRAINT translator_email_key UNIQUE (email);
-
-
---
--- Name: translator translator_identity_number_key; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.translator
-    ADD CONSTRAINT translator_identity_number_key UNIQUE (identity_number);
-
-
---
 -- Name: translator translator_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.translator
     ADD CONSTRAINT translator_pkey PRIMARY KEY (translator_id);
+
+
+--
+-- Name: meeting_date uk_meeting_date_date; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.meeting_date
+    ADD CONSTRAINT uk_meeting_date_date UNIQUE (date);
+
+
+--
+-- Name: translator uk_translator_email; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.translator
+    ADD CONSTRAINT uk_translator_email UNIQUE (email);
+
+
+--
+-- Name: translator uk_translator_identity_number; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.translator
+    ADD CONSTRAINT uk_translator_identity_number UNIQUE (identity_number);
 
 
 --
