@@ -5,10 +5,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
+import lombok.NonNull;
 
 public record TranslatorCreateDTO(
-  @NotBlank String firstName,
-  @NotBlank String lastName,
+  @NonNull @NotBlank String firstName,
+  @NonNull @NotBlank String lastName,
   String identityNumber,
   String email,
   String phoneNumber,
@@ -17,8 +18,8 @@ public record TranslatorCreateDTO(
   String town,
   String country,
   String extraInformation,
-  @NotNull Boolean isAssuranceGiven,
-  @NotEmpty List<AuthorisationCreateDTO> authorisations
+  @NonNull @NotNull Boolean isAssuranceGiven,
+  @NonNull @NotEmpty List<AuthorisationCreateDTO> authorisations
 )
   implements TranslatorDTOCommonFields {
   // Workaround for bug in IntelliJ lombok plugin

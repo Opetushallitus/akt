@@ -3,12 +3,13 @@ package fi.oph.akt.api.dto.clerk.modify;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
+import lombok.NonNull;
 
 public record TranslatorUpdateDTO(
-  @NotNull Long id,
-  @NotNull Integer version,
-  @NotBlank String firstName,
-  @NotBlank String lastName,
+  @NonNull @NotNull Long id,
+  @NonNull @NotNull Integer version,
+  @NonNull @NotBlank String firstName,
+  @NonNull @NotBlank String lastName,
   String identityNumber,
   String email,
   String phoneNumber,
@@ -17,7 +18,7 @@ public record TranslatorUpdateDTO(
   String town,
   String country,
   String extraInformation,
-  @NotNull Boolean isAssuranceGiven
+  @NonNull @NotNull Boolean isAssuranceGiven
 )
   implements TranslatorDTOCommonFields {
   // Workaround for bug in IntelliJ lombok plugin

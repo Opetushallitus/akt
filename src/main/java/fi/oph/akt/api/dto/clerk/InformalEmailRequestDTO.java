@@ -5,11 +5,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import lombok.Builder;
+import lombok.NonNull;
 
 public record InformalEmailRequestDTO(
-  @NotBlank @Size(max = 255) String subject,
-  @NotBlank @Size(max = 6000) String body,
-  @NotEmpty List<Long> translatorIds
+  @NonNull @NotBlank @Size(max = 255) String subject,
+  @NonNull @NotBlank @Size(max = 6000) String body,
+  @NonNull @NotEmpty List<Long> translatorIds
 ) {
   @Builder
   public InformalEmailRequestDTO {}
