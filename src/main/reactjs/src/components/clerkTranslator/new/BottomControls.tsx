@@ -57,6 +57,18 @@ export const BottomControls = () => {
     dispatch(saveNewClerkTranslator(translator));
   };
 
+  const isSaveButtonDisabled = () => {
+    if (
+      !translator.firstName ||
+      !translator.lastName ||
+      translator.authorisations.length < 1
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <div className="columns gapped flex-end">
       <CustomButton
@@ -71,6 +83,7 @@ export const BottomControls = () => {
         variant={Variant.Contained}
         color={Color.Secondary}
         onClick={onSave}
+        disabled={isSaveButtonDisabled()}
       >
         {translateCommon('save')}
       </CustomButton>
