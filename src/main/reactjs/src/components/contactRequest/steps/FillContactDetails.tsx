@@ -49,8 +49,8 @@ export const FillContactDetails = ({
       fieldErrors.lastName ||
       fieldErrors.email
     );
-    const hasBlankRequiredFields = requiredFieldValues.some(
-      (v) => !v || Utils.isBlankString(v)
+    const hasBlankRequiredFields = requiredFieldValues.some((v) =>
+      Utils.isBlankString(v)
     );
 
     disableNext(hasFieldErrors || hasBlankRequiredFields);
@@ -70,25 +70,13 @@ export const FillContactDetails = ({
       );
     };
 
-  const handleContactDetailsBlur =
-    (fieldName: keyof ContactDetails) =>
-    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      handleContactDetailsErrors(fieldName)(event);
-
-      dispatch(
-        setContactRequest({
-          [fieldName]: event.target.value.trim(),
-        })
-      );
-    };
-
   const handleContactDetailsErrors =
     (fieldName: keyof ContactDetails) =>
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { type, value, required } = event.target;
       const error = Utils.inspectCustomTextFieldErrors(
         type as TextFieldTypes,
-        value.trim(),
+        value,
         required
       );
 
@@ -103,7 +91,7 @@ export const FillContactDetails = ({
   const getCustomTextFieldAttributes = (fieldName: keyof ContactDetails) => ({
     id: `contact-details__${fieldName}-field`,
     label: t(`component.contactRequestForm.formLabels.${fieldName}`),
-    onBlur: handleContactDetailsBlur(fieldName),
+    onBlur: handleContactDetailsErrors(fieldName),
     onChange: handleContactDetailsChange(fieldName),
     error: showCustomTextFieldError(fieldName),
     helperText: fieldErrors[fieldName],

@@ -38,8 +38,7 @@ export const WriteMessage = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const hasBlankMessage =
-      !request?.message || Utils.isBlankString(request.message);
+    const hasBlankMessage = Utils.isBlankString(request?.message);
     const hasFieldError = fieldError.length > 0;
 
     disableNext(hasBlankMessage || hasFieldError);
@@ -54,20 +53,13 @@ export const WriteMessage = ({
     dispatch(setContactRequest({ message: event.target.value }));
   };
 
-  const handleMessageFieldBlur = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    handleMessageFieldErrors(event);
-    dispatch(setContactRequest({ message: event.target.value.trim() }));
-  };
-
   const handleMessageFieldErrors = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { type, value, required } = event.target;
     const error = Utils.inspectCustomTextFieldErrors(
       type as TextFieldTypes,
-      value.trim(),
+      value,
       required
     );
 
@@ -107,7 +99,7 @@ export const WriteMessage = ({
             )}
             value={request?.message}
             type={TextFieldTypes.Textarea}
-            onBlur={handleMessageFieldBlur}
+            onBlur={handleMessageFieldErrors}
             onChange={handleMessageFieldChange}
             showHelperText
             helperText={getHelperMessage()}

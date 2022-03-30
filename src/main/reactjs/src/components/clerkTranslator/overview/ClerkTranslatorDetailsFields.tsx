@@ -101,19 +101,17 @@ export const ClerkTranslatorDetailsFields = ({
   ) as Record<ClerkTranslatorTextFieldEnum, boolean>;
 
   const [displayFieldError, setDisplayFieldError] = useState(initialErrors);
-  const onFieldBlur = (field: ClerkTranslatorTextFieldEnum) => () => {
-    if (translator && field) {
-      translator[field] = (translator[field] as string).trim();
-    }
-    setDisplayFieldError({ ...displayFieldError, [field]: true });
-  };
+  const displayFieldErrorOnBlur =
+    (field: ClerkTranslatorTextFieldEnum) => () => {
+      setDisplayFieldError({ ...displayFieldError, [field]: true });
+    };
 
   const getCommonTextFieldProps = (field: ClerkTranslatorTextFieldEnum) => ({
     field,
     translator,
     disabled: editDisabled,
     onChange: onFieldChange(field),
-    onBlur: onFieldBlur(field),
+    onBlur: displayFieldErrorOnBlur(field),
     displayError: displayFieldError[field],
   });
 

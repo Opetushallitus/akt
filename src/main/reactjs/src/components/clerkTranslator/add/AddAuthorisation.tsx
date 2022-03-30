@@ -123,15 +123,6 @@ export const AddAuthorisation = ({
     });
   };
 
-  const handleDiaryNumberOnBlur = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setAuthorisation({
-      ...authorisation,
-      diaryNumber: event?.target.value.trim(),
-    });
-  };
-
   const getLanguageSelectValue = (language?: string) =>
     language ? languageToComboBoxOption(translateLanguage, language) : null;
 
@@ -147,18 +138,18 @@ export const AddAuthorisation = ({
   const isAddButtonDisabled = () => {
     const { languagePair, diaryNumber, autDate, ...otherProps } = authorisation;
 
-    const isOtherPropsNotDefined = Object.values(otherProps).some(
-      (p) => Utils.isNil(p) || Utils.isEmptyString(p)
+    const isOtherPropsNotDefined = Object.values(otherProps).some((p) =>
+      Utils.isEmptyString(p)
     );
     const isLangPropsNotDefined =
       Utils.isEmptyString(languagePair.from) ||
       Utils.isEmptyString(languagePair.to);
 
-    const isDiaryNumberBlank = !diaryNumber || Utils.isBlankString(diaryNumber);
+    const isDiaryNumberBlank = Utils.isBlankString(diaryNumber);
 
     const isAutDateNotDefinedOrInvalid =
       otherProps.basis === AuthorisationBasisEnum.AUT &&
-      (autDate === undefined || !dayjs(autDate).isValid());
+      (!autDate || !dayjs(autDate).isValid());
 
     return (
       isOtherPropsNotDefined ||
@@ -264,7 +255,6 @@ export const AddAuthorisation = ({
               label={t('fieldPlaceholders.diaryNumber')}
               value={authorisation.diaryNumber}
               onChange={handleDiaryNumberChange}
-              onBlur={handleDiaryNumberOnBlur}
             />
           </div>
           <div className="rows gapped-xs">
@@ -289,7 +279,7 @@ export const AddAuthorisation = ({
         >
           {translateCommon('cancel')}
         </CustomButton>
-        {isLoading !== undefined ? (
+        {isLoading ? (
           <LoadingProgressIndicator isLoading={isLoading}>
             <CustomButton
               data-testid="add-authorisation-modal__save"

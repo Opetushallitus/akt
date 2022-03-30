@@ -18,24 +18,22 @@ export class Utils {
     window.scrollTo({ top: 0, left: 0 });
   }
 
-  static isBlankString(str: string) {
-    if (typeof str === 'string') {
-      return str.trim().length === 0;
-    }
-
-    return false;
+  /**
+   * Value is an empty string if it's undefined, or its length is zero.
+   * @param value
+   * @returns
+   */
+  static isEmptyString(value?: string) {
+    return !value || value.length === 0;
   }
 
-  static isEmptyString(str: string) {
-    if (typeof str === 'string') {
-      return str.length === 0;
-    }
-
-    return false;
-  }
-
-  static isNil(value: unknown) {
-    return value == null;
+  /**
+   * Value is a blank string if it's undefined, or its trimmed length is zero.
+   * @param value
+   * @returns
+   */
+  static isBlankString(value?: string) {
+    return !value || value.trim().length === 0;
   }
 
   static createMapFromArray(
@@ -121,32 +119,34 @@ export class Utils {
     value: string,
     required = true
   ) {
-    if (required && value.length <= 0) {
+    const trimmedValue = value.trim();
+
+    if (required && trimmedValue.length <= 0) {
       return CustomTextFieldErrors.Required;
     }
 
-    if (!required && value.length == 0) {
+    if (!required && trimmedValue.length == 0) {
       return '';
     }
 
     switch (type) {
       case TextFieldTypes.Textarea:
-        if (value.length > Utils.getMaxTextAreaLength()) {
+        if (trimmedValue.length > Utils.getMaxTextAreaLength()) {
           return CustomTextFieldErrors.MaxLength;
         }
         break;
       case TextFieldTypes.Email:
-        if (!Utils.EMAIL_REG_EXR.test(value)) {
+        if (!Utils.EMAIL_REG_EXR.test(trimmedValue)) {
           return CustomTextFieldErrors.EmailFormat;
         }
         break;
       case TextFieldTypes.PhoneNumber:
-        if (!Utils.TEL_REG_EXR.test(value)) {
+        if (!Utils.TEL_REG_EXR.test(trimmedValue)) {
           return CustomTextFieldErrors.TelFormat;
         }
         break;
       case TextFieldTypes.PersonalIdentityCode:
-        if (!isValidFinnishPIC(value)) {
+        if (!isValidFinnishPIC(trimmedValue)) {
           return CustomTextFieldErrors.PersonalIdentityCodeFormat;
         }
         break;

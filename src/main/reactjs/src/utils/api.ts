@@ -83,6 +83,9 @@ export class APIUtils {
     Object.keys(textFields).forEach((key) => {
       const field = key as keyof ClerkTranslatorTextFields;
 
+      if (textFields[field]) {
+        textFields[field] = (textFields[field] as string).trim();
+      }
       if (!textFields[field]) {
         delete textFields[field];
       }
