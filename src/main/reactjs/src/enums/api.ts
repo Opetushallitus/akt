@@ -22,15 +22,15 @@ export enum APIResponseStatus {
  * The respective backend enum is `APIExceptionType`.
  */
 export enum APIError {
-  MeetingDateCreateDuplicateDate = 'meetingDateCreateDuplicateDate',
-  MeetingDateUpdateDuplicateDate = 'meetingDateUpdateDuplicateDate',
-  MeetingDateUpdateHasAuthorisations = 'meetingDateUpdateHasAuthorisations',
-  MeetingDateDeleteHasAuthorisations = 'meetingDateDeleteHasAuthorisations',
-  TranslatorCreateDuplicateIdentityNumber = 'translatorCreateDuplicateIdentityNumber',
-  TranslatorUpdateDuplicateIdentityNumber = 'translatorUpdateDuplicateIdentityNumber',
-  TranslatorCreateDuplicateEmail = 'translatorCreateDuplicateEmail',
-  TranslatorUpdateDuplicateEmail = 'translatorUpdateDuplicateEmail',
-  AuthorisationMissingMeetingDate = 'authorisationMissingMeetingDate',
   AuthorisationBasisAndAutDateMismatch = 'authorisationBasisAndAutDateMismatch',
   AuthorisationDeleteLastAuthorisation = 'authorisationDeleteLastAuthorisation',
+  AuthorisationMissingMeetingDate = 'authorisationMissingMeetingDate',
+  MeetingDateCreateDuplicateDate = 'meetingDateCreateDuplicateDate',
+  MeetingDateDeleteHasAuthorisations = 'meetingDateDeleteHasAuthorisations',
+  MeetingDateUpdateDuplicateDate = 'meetingDateUpdateDuplicateDate',
+  MeetingDateUpdateHasAuthorisations = 'meetingDateUpdateHasAuthorisations',
+  TranslatorCreateDuplicateEmail = 'translatorCreateDuplicateEmail',
+  TranslatorCreateDuplicateIdentityNumber = 'translatorCreateDuplicateIdentityNumber',
+  TranslatorUpdateDuplicateEmail = 'translatorUpdateDuplicateEmail',
+  TranslatorUpdateDuplicateIdentityNumber = 'translatorUpdateDuplicateIdentityNumber',
 }
