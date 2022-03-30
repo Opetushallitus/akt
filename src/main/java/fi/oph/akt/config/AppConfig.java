@@ -28,10 +28,13 @@ public class AppConfig {
 
   @Bean
   @ConditionalOnProperty(name = "akt.email.sending-enabled", havingValue = "true")
-  public EmailSender emailSender(@Value("${akt.email.ryhmasahkoposti-service-url}") String emailServiceUrl) {
+  public EmailSender emailSender(
+    @Value("${akt.email.ryhmasahkoposti-service-url}") String emailServiceUrl,
+    @Value("${akt.email.sender-name}") String senderName
+  ) {
     LOG.info("emailServiceUrl:{}", emailServiceUrl);
     final WebClient webClient = webClientBuilderWithCallerId().baseUrl(emailServiceUrl).build();
-    return new EmailSenderViestintapalvelu(webClient);
+    return new EmailSenderViestintapalvelu(webClient, senderName);
   }
 
   @Bean

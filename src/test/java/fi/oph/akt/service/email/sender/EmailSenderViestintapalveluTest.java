@@ -28,7 +28,7 @@ class EmailSenderViestintapalveluTest {
   public void setup() {
     mockWebServer = new MockWebServer();
     final String mockWebServerBaseUrl = mockWebServer.url("/").url().toString();
-    sender = new EmailSenderViestintapalvelu(WebClient.builder().baseUrl(mockWebServerBaseUrl).build());
+    sender = new EmailSenderViestintapalvelu(WebClient.builder().baseUrl(mockWebServerBaseUrl).build(), "Sender App");
   }
 
   @Test
@@ -59,7 +59,7 @@ class EmailSenderViestintapalveluTest {
     assertThat(body).extractingJsonPathBooleanValue("$.email.html").isEqualTo(true);
     assertThat(body).extractingJsonPathStringValue("$.email.charset").isEqualTo("UTF-8");
     assertThat(body).extractingJsonPathStringValue("$.email.callingProcess").isEqualTo("akt");
-    assertThat(body).extractingJsonPathStringValue("$.email.sender").isEqualTo("AKT");
+    assertThat(body).extractingJsonPathStringValue("$.email.sender").isEqualTo("Sender App");
     assertThat(body).extractingJsonPathStringValue("$.email.subject").isEqualTo("testiotsikko");
     assertThat(body).extractingJsonPathStringValue("$.email.body").isEqualTo("testiviesti");
 

@@ -45,6 +45,7 @@ springdoc:
     path: /api/api-docs
 akt:
   email:
+    sender-name: "AKT"
     sending-enabled: ${email.sending-enabled:false}
     ryhmasahkoposti-service-url: ${ryhmasahkoposti-service-url:null}
 cas:

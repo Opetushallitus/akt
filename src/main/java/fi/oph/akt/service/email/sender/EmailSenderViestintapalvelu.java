@@ -22,6 +22,7 @@ public class EmailSenderViestintapalvelu implements EmailSender {
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
   private final WebClient webClient;
+  private final String senderName;
 
   @Override
   public String sendEmail(final EmailData emailData) throws JsonProcessingException {
@@ -49,7 +50,7 @@ public class EmailSenderViestintapalvelu implements EmailSender {
       "callingProcess",
       ConfigEnums.SERVICENAME.value(),
       "sender",
-      "AKT",
+      senderName,
       "subject",
       emailData.subject(),
       "body",
