@@ -247,8 +247,7 @@
           "inEffect": "Voimassa"
         },
         "toasts": {
-          "success": "Auktorisointi lisätty onnistuneesti",
-          "error": "Auktorisoinnin lisäys ei onnistunut, yritä myöhemmin uudelleen"
+          "success": "Auktorisointi lisätty onnistuneesti"
         }
       },
       "publicTranslatorFilters": {
@@ -362,7 +361,6 @@
       "clerkNewTranslatorPage": {
         "title": "Lisää kääntäjä",
         "toasts": {
-          "error": "Kääntäjän lisääminen ei onnistunut!",
           "success": "Kääntäjän tiedot tallennettiin!"
         },
         "addedAuthorisationsTitle": "Lisätyt auktorisoinnit"

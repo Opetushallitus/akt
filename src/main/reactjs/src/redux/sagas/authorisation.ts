@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { Dayjs } from 'dayjs';
 import { call, put, takeLatest } from 'redux-saga/effects';
 
@@ -20,15 +21,6 @@ import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
 import { Utils } from 'utils';
 import { DateUtils } from 'utils/date';
 
-function* showErrorToastOnAdd() {
-  const t = translateOutsideComponent();
-  const notifier = Utils.createNotifierToast(
-    Severity.Error,
-    t('akt.component.newAuthorisation.toasts.error')
-  );
-  yield put({ type: NOTIFIER_TOAST_ADD, notifier });
-}
-
 function* showSuccessToastOnAdd() {
   const t = translateOutsideComponent();
   const notifier = Utils.createNotifierToast(
@@ -41,6 +33,7 @@ function* showSuccessToastOnAdd() {
 const formatDate = (date?: Dayjs) =>
   date && DateUtils.convertToAPIRequestDateString(date);
 
+// TODO: duplicate with APIUtils.convertAuthorisationToAPIRequest logic
 const createAuthorisationBody = ({
   basis,
   diaryNumber,
@@ -64,6 +57,7 @@ const createAuthorisationBody = ({
   };
 };
 
+// TODO: other authorisation actions currently under clerkTranslatorOverview
 export function* addAuthorisation(action: AddAuthorisationAction) {
   try {
     const authorisation = createAuthorisationBody(action.authorisation);
@@ -78,7 +72,10 @@ export function* addAuthorisation(action: AddAuthorisationAction) {
     yield put({ type: CLERK_TRANSLATOR_OVERVIEW_FETCH, id: translatorId });
   } catch (error) {
     yield put({ type: CLERK_TRANSLATOR_AUTHORISATION_ADD_ERROR });
-    yield call(showErrorToastOnAdd);
+    yield put({
+      type: NOTIFIER_TOAST_ADD,
+      notifier: Utils.createNotifierToastForAxiosError(error as AxiosError),
+    });
   }
 }
 
