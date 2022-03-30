@@ -43,7 +43,7 @@ springdoc:
     path: /api/swagger-ui.html
   api-docs:
     path: /api/api-docs
-akt:
+avoy:
   email:
     sender-name: "AKT"
     sending-enabled: ${email.sending-enabled:false}

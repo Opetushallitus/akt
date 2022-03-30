@@ -20,17 +20,17 @@ public class AppConfig {
   private static final Logger LOG = LoggerFactory.getLogger(AppConfig.class);
 
   @Bean
-  @ConditionalOnProperty(name = "akt.email.sending-enabled", havingValue = "false")
+  @ConditionalOnProperty(name = "avoy.email.sending-enabled", havingValue = "false")
   public EmailSender emailSenderNoOp() {
     LOG.warn("EmailSenderNoOp in use");
     return new EmailSenderNoOp();
   }
 
   @Bean
-  @ConditionalOnProperty(name = "akt.email.sending-enabled", havingValue = "true")
+  @ConditionalOnProperty(name = "avoy.email.sending-enabled", havingValue = "true")
   public EmailSender emailSender(
-    @Value("${akt.email.ryhmasahkoposti-service-url}") String emailServiceUrl,
-    @Value("${akt.email.sender-name}") String senderName
+    @Value("${avoy.email.ryhmasahkoposti-service-url}") String emailServiceUrl,
+    @Value("${avoy.email.sender-name}") String senderName
   ) {
     LOG.info("emailServiceUrl:{}", emailServiceUrl);
     final WebClient webClient = webClientBuilderWithCallerId().baseUrl(emailServiceUrl).build();
