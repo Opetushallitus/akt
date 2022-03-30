@@ -153,7 +153,7 @@ export const AddAuthorisation = ({
       : null;
   };
 
-  const isButtonDisabled = () => {
+  const isAddButtonDisabled = () => {
     const { languagePair, diaryNumber, autDate, ...otherProps } = authorisation;
 
     const isOtherPropsNotDefined = Object.values(otherProps).some((p) =>
@@ -329,7 +329,7 @@ export const AddAuthorisation = ({
               variant={Variant.Contained}
               color={Color.Secondary}
               onClick={() => addAndResetAuthorisation(authorisation)}
-              disabled={isButtonDisabled()}
+              disabled={isAddButtonDisabled()}
             >
               {translateCommon('add')}
             </CustomButton>
@@ -340,7 +340,7 @@ export const AddAuthorisation = ({
             variant={Variant.Contained}
             color={Color.Secondary}
             onClick={() => addAndResetAuthorisation(authorisation)}
-            disabled={isButtonDisabled()}
+            disabled={isAddButtonDisabled()}
           >
             {translateCommon('add')}
           </CustomButton>

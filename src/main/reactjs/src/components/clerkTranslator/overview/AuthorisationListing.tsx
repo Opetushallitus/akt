@@ -42,7 +42,7 @@ export const AuthorisationListing = ({
   onAuthorisationRemove,
 }: {
   authorisations: Array<Authorisation>;
-  permissionToPublishReadOnly: boolean;
+  permissionToPublishReadOnly?: boolean;
   onAuthorisationRemove?: (a: Authorisation) => void;
 }) => {
   const translateLanguage = useKoodistoLanguagesTranslation();
