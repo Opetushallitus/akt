@@ -3,8 +3,8 @@ import { ClerkNewTranslator } from 'interfaces/clerkNewTranslator';
 import {
   ClerkTranslator,
   ClerkTranslatorResponse,
+  ClerkTranslatorTextFields,
 } from 'interfaces/clerkTranslator';
-import { ClerkTranslatorTextField } from 'interfaces/clerkTranslatorTextField';
 import { MeetingDateResponse } from 'interfaces/meetingDate';
 import { DateUtils } from 'utils/date';
 
@@ -78,10 +78,10 @@ export class APIUtils {
   }
 
   private static getNonBlankClerkTranslatorTextFields(
-    textFields: ClerkTranslatorTextField
+    textFields: ClerkTranslatorTextFields
   ) {
     Object.keys(textFields).forEach((key) => {
-      const field = key as keyof ClerkTranslatorTextField;
+      const field = key as keyof ClerkTranslatorTextFields;
 
       if (!textFields[field]) {
         delete textFields[field];

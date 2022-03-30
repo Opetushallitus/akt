@@ -14,7 +14,7 @@ export enum AuthorisationBasisEnum {
   VIR = 'VIR',
 }
 
-export enum ClerkTranslatorTextFieldType {
+export enum ClerkTranslatorTextFieldEnum {
   FirstName = 'firstName',
   LastName = 'lastName',
   IdentityNumber = 'identityNumber',
