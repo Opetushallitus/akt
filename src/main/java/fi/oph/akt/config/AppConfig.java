@@ -46,6 +46,6 @@ public class AppConfig {
   }
 
   private static WebClient.Builder webClientBuilderWithCallerId() {
-    return WebClient.builder().defaultHeader("Caller-Id", "1.2.246.562.10.00000000001.akt");
+    return WebClient.builder().defaultHeader("Caller-Id", ConfigEnums.CALLER_ID.value());
   }
 }

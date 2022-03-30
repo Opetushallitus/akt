@@ -3,6 +3,7 @@ package fi.oph.akt.service.email.sender;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fi.oph.akt.config.ConfigEnums;
 import fi.oph.akt.service.email.EmailData;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,7 @@ public class EmailSenderViestintapalvelu implements EmailSender {
       "charset",
       "UTF-8",
       "callingProcess",
-      "akt",
+      ConfigEnums.SERVICENAME.value(),
       "sender",
       "AKT",
       "subject",
