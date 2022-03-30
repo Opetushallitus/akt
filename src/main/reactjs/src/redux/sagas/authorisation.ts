@@ -50,7 +50,7 @@ const createAuthorisationBody = ({
     termBeginDate: formatDate(termBeginDate),
     termEndDate: formatDate(termEndDate),
     permissionToPublish,
-    diaryNumber,
+    diaryNumber: diaryNumber ? diaryNumber.trim() : undefined,
     ...(basis === AuthorisationBasisEnum.AUT && {
       autDate: formatDate(autDate),
     }),

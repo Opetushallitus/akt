@@ -113,7 +113,7 @@ export class APIUtils {
       termEndDate: DateUtils.convertToAPIRequestDateString(termEndDate),
       autDate: DateUtils.convertToAPIRequestDateString(autDate),
       permissionToPublish,
-      diaryNumber,
+      diaryNumber: diaryNumber ? diaryNumber.trim() : undefined,
     };
   }
 }
