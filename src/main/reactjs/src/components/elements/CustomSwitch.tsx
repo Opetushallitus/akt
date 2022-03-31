@@ -34,7 +34,7 @@ export const CustomSwitch = ({
       <div className="columns margin-top-sm">
         <Text className={leftLabelClassName}>{leftLabel}</Text>
         <FormControlLabel
-          data-testid={dataTestId ?? ''}
+          data-testid={dataTestId}
           disabled={disabled}
           control={
             <Switch
