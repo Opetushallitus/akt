@@ -1,3 +1,4 @@
+import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { Authorisation, AuthorisationResponse } from 'interfaces/authorisation';
 import { ClerkNewTranslator } from 'interfaces/clerkNewTranslator';
 import {
@@ -111,9 +112,11 @@ export class APIUtils {
       basis,
       termBeginDate: DateUtils.convertToAPIRequestDateString(termBeginDate),
       termEndDate: DateUtils.convertToAPIRequestDateString(termEndDate),
-      autDate: DateUtils.convertToAPIRequestDateString(autDate),
       permissionToPublish,
       diaryNumber: diaryNumber ? diaryNumber.trim() : undefined,
+      ...(basis === AuthorisationBasisEnum.AUT && {
+        autDate: DateUtils.convertToAPIRequestDateString(autDate),
+      }),
     };
   }
 }
