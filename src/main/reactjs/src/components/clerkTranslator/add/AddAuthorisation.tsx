@@ -136,22 +136,25 @@ export const AddAuthorisation = ({
   };
 
   const isAddButtonDisabled = () => {
-    const { languagePair, autDate, ...otherProps } = authorisation;
+    const { languagePair, diaryNumber, autDate, ...otherProps } = authorisation;
 
-    const isOtherPropsNotDefined = Object.values(otherProps).some(
-      (p) => Utils.isNil(p) || Utils.isEmptyString(p)
+    const isOtherPropsNotDefined = Object.values(otherProps).some((p) =>
+      Utils.isEmptyString(p)
     );
     const isLangPropsNotDefined =
       Utils.isEmptyString(languagePair.from) ||
       Utils.isEmptyString(languagePair.to);
 
+    const isDiaryNumberBlank = Utils.isBlankString(diaryNumber);
+
     const isAutDateNotDefinedOrInvalid =
       otherProps.basis === AuthorisationBasisEnum.AUT &&
-      (autDate === undefined || !dayjs(autDate).isValid());
+      (!autDate || !dayjs(autDate).isValid());
 
     return (
       isOtherPropsNotDefined ||
       isLangPropsNotDefined ||
+      isDiaryNumberBlank ||
       isAutDateNotDefinedOrInvalid
     );
   };
@@ -276,7 +279,7 @@ export const AddAuthorisation = ({
         >
           {translateCommon('cancel')}
         </CustomButton>
-        {isLoading !== undefined ? (
+        {isLoading ? (
           <LoadingProgressIndicator isLoading={isLoading}>
             <CustomButton
               data-testid="add-authorisation-modal__save"

@@ -78,7 +78,9 @@ function* updateClerkTranslatorDetails(action: ClerkTranslatorOverviewAction) {
     const apiResponse: AxiosResponse<ClerkTranslatorResponse> = yield call(
       axiosInstance.put,
       APIEndpoints.ClerkTranslator,
-      JSON.stringify(action.translator)
+      APIUtils.convertClerkTranslatorToAPIRequest(
+        action.translator as ClerkTranslator
+      )
     );
     const translator = APIUtils.convertClerkTranslatorResponse(
       apiResponse.data
@@ -113,7 +115,6 @@ function* updateAuthorisationPublishPermission(action: AuthorisationAction) {
       APIEndpoints.AuthorisationPublishPermission,
       requestBody
     );
-
     const translator = APIUtils.convertClerkTranslatorResponse(
       apiResponse.data
     );

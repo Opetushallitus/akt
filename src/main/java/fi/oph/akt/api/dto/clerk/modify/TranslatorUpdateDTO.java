@@ -18,7 +18,7 @@ public record TranslatorUpdateDTO(
   String town,
   String country,
   String extraInformation,
-  @NonNull Boolean isAssuranceGiven
+  @NonNull @NotNull Boolean isAssuranceGiven
 )
   implements TranslatorDTOCommonFields {
   // Workaround for bug in IntelliJ lombok plugin

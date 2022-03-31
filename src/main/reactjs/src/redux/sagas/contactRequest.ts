@@ -35,12 +35,12 @@ export function* sendContactRequest(action: Action) {
         axiosInstance.post,
         APIEndpoints.ContactRequest,
         JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email: email.trim(),
+          phoneNumber: phoneNumber ? phoneNumber.trim() : undefined,
           translatorIds,
-          message,
+          message: message.trim(),
           fromLang: languagePair.from,
           toLang: languagePair.to,
         })

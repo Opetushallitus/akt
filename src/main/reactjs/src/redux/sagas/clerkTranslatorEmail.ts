@@ -45,8 +45,8 @@ export function* sendEmail() {
       axiosInstance.post,
       APIEndpoints.InformalClerkTranslatorEmail,
       JSON.stringify({
-        subject: email.subject,
-        body: email.body,
+        subject: email.subject.trim(),
+        body: email.body.trim(),
         translatorIds: recipients,
       })
     );

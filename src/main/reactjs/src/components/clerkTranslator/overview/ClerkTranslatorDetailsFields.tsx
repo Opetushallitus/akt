@@ -9,20 +9,20 @@ import {
   useCommonTranslation,
 } from 'configs/i18n';
 import { TextFieldTypes } from 'enums/app';
-import { ClerkTranslatorTextField } from 'enums/clerkTranslator';
+import { ClerkTranslatorTextFieldEnum } from 'enums/clerkTranslator';
 import { ClerkTranslatorBasicInformation } from 'interfaces/clerkTranslator';
 import { ClerkTranslatorTextFieldProps } from 'interfaces/clerkTranslatorTextField';
 import { Utils } from 'utils';
 
-const getFieldType = (field: ClerkTranslatorTextField) => {
+const getTextFieldType = (field: ClerkTranslatorTextFieldEnum) => {
   switch (field) {
-    case ClerkTranslatorTextField.PhoneNumber:
+    case ClerkTranslatorTextFieldEnum.PhoneNumber:
       return TextFieldTypes.PhoneNumber;
-    case ClerkTranslatorTextField.Email:
+    case ClerkTranslatorTextFieldEnum.Email:
       return TextFieldTypes.Email;
-    case ClerkTranslatorTextField.ExtraInformation:
+    case ClerkTranslatorTextFieldEnum.ExtraInformation:
       return TextFieldTypes.Textarea;
-    case ClerkTranslatorTextField.IdentityNumber:
+    case ClerkTranslatorTextFieldEnum.IdentityNumber:
       return TextFieldTypes.PersonalIdentityCode;
     default:
       return TextFieldTypes.Text;
@@ -31,15 +31,16 @@ const getFieldType = (field: ClerkTranslatorTextField) => {
 
 const getFieldError = (
   translator: ClerkTranslatorBasicInformation | undefined,
-  field: ClerkTranslatorTextField
+  field: ClerkTranslatorTextFieldEnum
 ) => {
   const t = translateOutsideComponent();
-  const type = getFieldType(field);
-  const fieldValue = (translator && translator[field]) || '';
+  const type = getTextFieldType(field);
+  const value = (translator && translator[field]) || '';
   const required =
-    field == ClerkTranslatorTextField.FirstName ||
-    field == ClerkTranslatorTextField.LastName;
-  const error = Utils.inspectCustomTextFieldErrors(type, fieldValue, required);
+    field == ClerkTranslatorTextFieldEnum.FirstName ||
+    field == ClerkTranslatorTextFieldEnum.LastName;
+
+  const error = Utils.inspectCustomTextFieldErrors(type, value, required);
 
   return error ? t(`akt.${error}`) : '';
 };
@@ -63,7 +64,7 @@ const ClerkTranslatorDetailsTextField = ({
       label={t(field)}
       data-testid={`clerk-translator-overview__translator-details__field-${field}`}
       onChange={onChange}
-      type={getFieldType(field)}
+      type={getTextFieldType(field)}
       error={displayError && fieldError?.length > 0}
       helperText={fieldError}
       {...rest}
@@ -92,18 +93,20 @@ export const ClerkTranslatorDetailsFields = ({
   });
   const translateCommon = useCommonTranslation();
 
-  const initialErrors = Object.values(ClerkTranslatorTextField).reduce(
+  const initialErrors = Object.values(ClerkTranslatorTextFieldEnum).reduce(
     (acc, val) => {
       return { ...acc, [val]: displayFieldErrorBeforeChange };
     },
     {}
-  ) as Record<ClerkTranslatorTextField, boolean>;
-  const [displayFieldError, setDisplayFieldError] = useState(initialErrors);
-  const displayFieldErrorOnBlur = (field: ClerkTranslatorTextField) => () => {
-    setDisplayFieldError({ ...displayFieldError, [field]: true });
-  };
+  ) as Record<ClerkTranslatorTextFieldEnum, boolean>;
 
-  const getCommonTextFieldProps = (field: ClerkTranslatorTextField) => ({
+  const [displayFieldError, setDisplayFieldError] = useState(initialErrors);
+  const displayFieldErrorOnBlur =
+    (field: ClerkTranslatorTextFieldEnum) => () => {
+      setDisplayFieldError({ ...displayFieldError, [field]: true });
+    };
+
+  const getCommonTextFieldProps = (field: ClerkTranslatorTextFieldEnum) => ({
     field,
     translator,
     disabled: editDisabled,
@@ -122,42 +125,46 @@ export const ClerkTranslatorDetailsFields = ({
       </div>
       <div className="grid-columns gapped">
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps(ClerkTranslatorTextField.LastName)}
+          {...getCommonTextFieldProps(ClerkTranslatorTextFieldEnum.LastName)}
         />
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps(ClerkTranslatorTextField.FirstName)}
+          {...getCommonTextFieldProps(ClerkTranslatorTextFieldEnum.FirstName)}
         />
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps(ClerkTranslatorTextField.IdentityNumber)}
+          {...getCommonTextFieldProps(
+            ClerkTranslatorTextFieldEnum.IdentityNumber
+          )}
         />
       </div>
       <H3>{t('header.address')}</H3>
       <div className="grid-columns gapped">
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps(ClerkTranslatorTextField.Street)}
+          {...getCommonTextFieldProps(ClerkTranslatorTextFieldEnum.Street)}
         />
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps(ClerkTranslatorTextField.PostalCode)}
+          {...getCommonTextFieldProps(ClerkTranslatorTextFieldEnum.PostalCode)}
         />
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps(ClerkTranslatorTextField.Town)}
+          {...getCommonTextFieldProps(ClerkTranslatorTextFieldEnum.Town)}
         />
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps(ClerkTranslatorTextField.Country)}
+          {...getCommonTextFieldProps(ClerkTranslatorTextFieldEnum.Country)}
         />
       </div>
       <H3>{t('header.contactInformation')}</H3>
       <div className="grid-columns gapped">
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps(ClerkTranslatorTextField.Email)}
+          {...getCommonTextFieldProps(ClerkTranslatorTextFieldEnum.Email)}
         />
         <ClerkTranslatorDetailsTextField
-          {...getCommonTextFieldProps(ClerkTranslatorTextField.PhoneNumber)}
+          {...getCommonTextFieldProps(ClerkTranslatorTextFieldEnum.PhoneNumber)}
         />
       </div>
       <H3>{t('header.extraInformation')}</H3>
       <ClerkTranslatorDetailsTextField
-        {...getCommonTextFieldProps(ClerkTranslatorTextField.ExtraInformation)}
+        {...getCommonTextFieldProps(
+          ClerkTranslatorTextFieldEnum.ExtraInformation
+        )}
         multiline
         fullWidth
       />

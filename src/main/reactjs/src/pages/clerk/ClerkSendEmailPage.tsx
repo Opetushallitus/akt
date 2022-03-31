@@ -125,8 +125,8 @@ export const ClerkSendEmailPage = () => {
   const [fieldErrors, setFieldErrors] =
     useState<typeof initialFieldErrors>(initialFieldErrors);
   const submitDisabled =
-    Utils.isEmptyString(email.subject) ||
-    Utils.isEmptyString(email.body) ||
+    Utils.isBlankString(email.subject) ||
+    Utils.isBlankString(email.body) ||
     translators.length == 0;
 
   // Navigation

@@ -49,9 +49,11 @@ export const FillContactDetails = ({
       fieldErrors.lastName ||
       fieldErrors.email
     );
-    const hasEmptyRequiredFields = requiredFieldValues.some((v) => !!!v);
+    const hasBlankRequiredFields = requiredFieldValues.some((v) =>
+      Utils.isBlankString(v)
+    );
 
-    disableNext(hasFieldErrors || hasEmptyRequiredFields);
+    disableNext(hasFieldErrors || hasBlankRequiredFields);
   }, [fieldErrors, disableNext, request]);
 
   const handleContactDetailsChange =

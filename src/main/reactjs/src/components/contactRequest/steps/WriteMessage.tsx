@@ -38,10 +38,10 @@ export const WriteMessage = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const hasEmptyMessage = !!!request?.message;
+    const hasBlankMessage = Utils.isBlankString(request?.message);
     const hasFieldError = fieldError.length > 0;
 
-    disableNext(hasEmptyMessage || hasFieldError);
+    disableNext(hasBlankMessage || hasFieldError);
   }, [disableNext, fieldError, request]);
 
   const handleMessageFieldChange = (

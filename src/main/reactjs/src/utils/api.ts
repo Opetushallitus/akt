@@ -1,7 +1,10 @@
+import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { Authorisation, AuthorisationResponse } from 'interfaces/authorisation';
+import { ClerkNewTranslator } from 'interfaces/clerkNewTranslator';
 import {
   ClerkTranslator,
   ClerkTranslatorResponse,
+  ClerkTranslatorTextFields,
 } from 'interfaces/clerkTranslator';
 import { MeetingDateResponse } from 'interfaces/meetingDate';
 import { DateUtils } from 'utils/date';
@@ -44,6 +47,54 @@ export class APIUtils {
     };
   }
 
+  static convertClerkNewTranslatorToAPIRequest(translator: ClerkNewTranslator) {
+    const { isAssuranceGiven, authorisations, ...rest } = translator;
+    const textFields = APIUtils.getNonBlankClerkTranslatorTextFields(rest);
+
+    return {
+      ...textFields,
+      isAssuranceGiven,
+      authorisations: authorisations.map(
+        APIUtils.convertAuthorisationToAPIRequest
+      ),
+    };
+  }
+
+  static convertClerkTranslatorToAPIRequest(translator: ClerkTranslator) {
+    const {
+      id,
+      version,
+      isAssuranceGiven,
+      authorisations: _ignored,
+      ...rest
+    } = translator;
+    const textFields = APIUtils.getNonBlankClerkTranslatorTextFields(rest);
+
+    return {
+      ...textFields,
+      id,
+      version,
+      isAssuranceGiven,
+    };
+  }
+
+  private static getNonBlankClerkTranslatorTextFields(
+    textFields: ClerkTranslatorTextFields
+  ) {
+    Object.keys(textFields).forEach((key) => {
+      const field = key as keyof ClerkTranslatorTextFields;
+
+      if (textFields[field]) {
+        textFields[field] = (textFields[field] as string).trim();
+      }
+      if (!textFields[field]) {
+        delete textFields[field];
+      }
+    });
+
+    return textFields;
+  }
+
   static convertAuthorisationToAPIRequest(authorisation: Authorisation) {
     const { from, to } = authorisation.languagePair;
     const {
@@ -61,9 +112,11 @@ export class APIUtils {
       basis,
       termBeginDate: DateUtils.convertToAPIRequestDateString(termBeginDate),
       termEndDate: DateUtils.convertToAPIRequestDateString(termEndDate),
-      autDate: DateUtils.convertToAPIRequestDateString(autDate),
       permissionToPublish,
-      diaryNumber,
+      diaryNumber: diaryNumber ? diaryNumber.trim() : undefined,
+      ...(basis === AuthorisationBasisEnum.AUT && {
+        autDate: DateUtils.convertToAPIRequestDateString(autDate),
+      }),
     };
   }
 }
