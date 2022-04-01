@@ -7,6 +7,7 @@ import { AddAuthorisation } from 'components/clerkTranslator/add/AddAuthorisatio
 import { BottomControls } from 'components/clerkTranslator/new/BottomControls';
 import { NewTranslatorBasicInformation } from 'components/clerkTranslator/new/NewTranslatorBasicInformation';
 import { AuthorisationListing } from 'components/clerkTranslator/overview/AuthorisationListing';
+import { TopControls } from 'components/clerkTranslator/overview/TopControls';
 import { CustomButton } from 'components/elements/CustomButton';
 import { CustomModal } from 'components/elements/CustomModal';
 import { H1, H2 } from 'components/elements/Text';
@@ -120,6 +121,7 @@ export const ClerkNewTranslatorPage = () => {
         className="clerk-new-translator-page__content-container rows"
       >
         <div className="rows gapped">
+          <TopControls />
           <NewTranslatorBasicInformation />
           <CustomModal
             data-testid="authorisation-details__add-authorisation-modal"

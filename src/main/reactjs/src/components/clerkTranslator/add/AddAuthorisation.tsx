@@ -1,5 +1,4 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import { ComboBox, valueAsOption } from 'components/elements/ComboBox';
 import { CustomButton } from 'components/elements/CustomButton';
@@ -80,7 +79,7 @@ export const AddAuthorisation = ({
   useEffect(() => {
     setAuthorisation((prevState) => ({
       ...prevState,
-      tempId: uuidv4(),
+      tempId: Utils.createUniqueId(),
     }));
   }, []);
 
