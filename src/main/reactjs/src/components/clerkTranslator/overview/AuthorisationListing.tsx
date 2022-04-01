@@ -107,6 +107,7 @@ export const AuthorisationListing = ({
             variant: Variant.Contained,
             action: () =>
               dispatch(deleteAuthorisation(authorisation.id as number)),
+            buttonColor: Color.Error,
           },
         ]
       );
