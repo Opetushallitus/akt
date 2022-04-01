@@ -24,7 +24,7 @@ import { loadMeetingDates } from 'redux/actions/meetingDate';
 import { showNotifierToast } from 'redux/actions/notifier';
 import { clerkNewTranslatorSelector } from 'redux/selectors/clerkNewTranslator';
 import { meetingDatesSelector } from 'redux/selectors/meetingDate';
-import { Utils } from 'utils';
+import { NotifierUtils } from 'utils/notifier';
 
 export const ClerkNewTranslatorPage = () => {
   const [open, setOpen] = useState(false);
@@ -65,7 +65,7 @@ export const ClerkNewTranslatorPage = () => {
 
   useEffect(() => {
     if (status === APIResponseStatus.Success) {
-      const successToast = Utils.createNotifierToast(
+      const successToast = NotifierUtils.createNotifierToast(
         Severity.Success,
         t('toasts.success'),
         Duration.Medium

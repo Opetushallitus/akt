@@ -15,6 +15,7 @@ import { ContactDetails } from 'interfaces/contactRequest';
 import { setContactRequest } from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import { Utils } from 'utils';
+import { StringUtils } from 'utils/string';
 
 export const FillContactDetails = ({
   disableNext,
@@ -50,7 +51,7 @@ export const FillContactDetails = ({
       fieldErrors.email
     );
     const hasBlankRequiredFields = requiredFieldValues.some((v) =>
-      Utils.isBlankString(v)
+      StringUtils.isBlankString(v)
     );
 
     disableNext(hasFieldErrors || hasBlankRequiredFields);

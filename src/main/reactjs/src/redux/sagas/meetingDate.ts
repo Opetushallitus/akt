@@ -22,9 +22,9 @@ import {
   MEETING_DATE_REMOVE_SUCCESS,
 } from 'redux/actionTypes/meetingDate';
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
-import { Utils } from 'utils';
 import { APIUtils } from 'utils/api';
 import { DateUtils } from 'utils/date';
+import { NotifierUtils } from 'utils/notifier';
 
 export function* removeMeetingDate(action: RemoveMeetingDateActionType) {
   try {
@@ -38,7 +38,9 @@ export function* removeMeetingDate(action: RemoveMeetingDateActionType) {
     yield put({ type: MEETING_DATE_REMOVE_ERROR });
     yield put({
       type: NOTIFIER_TOAST_ADD,
-      notifier: Utils.createNotifierToastForAxiosError(error as AxiosError),
+      notifier: NotifierUtils.createAxiosErrorNotifierToast(
+        error as AxiosError
+      ),
     });
   }
 }
@@ -46,7 +48,7 @@ export function* removeMeetingDate(action: RemoveMeetingDateActionType) {
 export function* addMeetingDate(action: AddMeetingDateActionType) {
   try {
     yield call(axiosInstance.post, APIEndpoints.MeetingDate, {
-      date: DateUtils.convertToAPIRequestDateString(action.date),
+      date: DateUtils.serializeDate(action.date),
     });
     yield put({ type: MEETING_DATE_ADD_SUCCESS });
     yield put({ type: MEETING_DATE_LOAD });
@@ -54,18 +56,12 @@ export function* addMeetingDate(action: AddMeetingDateActionType) {
     yield put({ type: MEETING_DATE_ADD_ERROR });
     yield put({
       type: NOTIFIER_TOAST_ADD,
-      notifier: Utils.createNotifierToastForAxiosError(error as AxiosError),
+      notifier: NotifierUtils.createAxiosErrorNotifierToast(
+        error as AxiosError
+      ),
     });
   }
 }
-
-export const convertAPIResponse = (
-  response: MeetingDateResponse[]
-): MeetingDates => {
-  const meetingDates = response.map(APIUtils.convertMeetingDateResponse);
-
-  return { meetingDates };
-};
 
 function* fetchMeetingDates() {
   try {
@@ -75,9 +71,10 @@ function* fetchMeetingDates() {
       APIEndpoints.MeetingDate
     );
 
-    const convertedResponse = convertAPIResponse(apiResponse.data);
-
-    yield call(storeApiResults, convertedResponse);
+    const deserializedResponse = APIUtils.deserializeMeetingDates(
+      apiResponse.data
+    );
+    yield call(storeApiResults, deserializedResponse);
   } catch (error) {
     yield put({ type: MEETING_DATE_ERROR, error });
   }

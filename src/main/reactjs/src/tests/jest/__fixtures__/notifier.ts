@@ -1,15 +1,15 @@
 import { Severity, Variant } from 'enums/app';
 import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
-import { Utils } from 'utils';
+import { NotifierUtils } from 'utils/notifier';
 
 export const toastsArray = [
-  Utils.createNotifierToast(Severity.Error, 'Test Message 1'),
-  Utils.createNotifierToast(Severity.Info, 'Test Message 2'),
-  Utils.createNotifierToast(Severity.Success, 'Test Message 3'),
+  NotifierUtils.createNotifierToast(Severity.Error, 'Test Message 1'),
+  NotifierUtils.createNotifierToast(Severity.Info, 'Test Message 2'),
+  NotifierUtils.createNotifierToast(Severity.Success, 'Test Message 3'),
 ];
 
 export const dialogsArray = [
-  Utils.createNotifierDialog(
+  NotifierUtils.createNotifierDialog(
     'Test Title 1',
     Severity.Info,
     'Test Description 1',

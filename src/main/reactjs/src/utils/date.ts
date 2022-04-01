@@ -40,7 +40,7 @@ export class DateUtils {
     );
   }
 
-  static convertToAPIRequestDateString(date?: Dayjs) {
+  static serializeDate(date?: Dayjs) {
     return date?.format('YYYY-MM-DD');
   }
 }

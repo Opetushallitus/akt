@@ -59,11 +59,11 @@ class AuthorisationDetails {
     translator: ClerkTranslatorResponse,
     status: AuthorisationStatus
   ) {
-    const convertedTranslator =
-      APIUtils.convertClerkTranslatorResponse(translator);
+    const deserializedTranslator =
+      APIUtils.deserializeClerkTranslator(translator);
     const authorisations =
       AuthorisationUtils.groupClerkTranslatorAuthorisationsByStatus(
-        convertedTranslator
+        deserializedTranslator
       );
 
     authorisations[status].forEach((a) => {

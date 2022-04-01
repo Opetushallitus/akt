@@ -26,6 +26,8 @@ import {
 } from 'redux/selectors/clerkTranslator';
 import { selectClerkTranslatorEmail } from 'redux/selectors/clerkTranslatorEmail';
 import { Utils } from 'utils/index';
+import { NotifierUtils } from 'utils/notifier';
+import { StringUtils } from 'utils/string';
 
 const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
   // i18n
@@ -40,7 +42,7 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
 
   // Dialogs
   const dispatchCancelNotifier = () => {
-    const notifier = Utils.createNotifierDialog(
+    const notifier = NotifierUtils.createNotifierDialog(
       t('dialogs.cancel.title'),
       Severity.Info,
       t('dialogs.cancel.description'),
@@ -62,7 +64,7 @@ const ControlButtons = ({ submitDisabled }: { submitDisabled: boolean }) => {
 
   const dispatchSendEmailNotifier = () => {
     dispatch(setClerkTranslatorEmailRecipients(translatorIds));
-    const notifier = Utils.createNotifierDialog(
+    const notifier = NotifierUtils.createNotifierDialog(
       t('dialogs.send.title'),
       Severity.Info,
       t('dialogs.send.description', { count: translatorIds.length }),
@@ -125,8 +127,8 @@ export const ClerkSendEmailPage = () => {
   const [fieldErrors, setFieldErrors] =
     useState<typeof initialFieldErrors>(initialFieldErrors);
   const submitDisabled =
-    Utils.isBlankString(email.subject) ||
-    Utils.isBlankString(email.body) ||
+    StringUtils.isBlankString(email.subject) ||
+    StringUtils.isBlankString(email.body) ||
     translators.length == 0;
 
   // Navigation

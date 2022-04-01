@@ -14,7 +14,7 @@ import { AppRoutes, Severity } from 'enums/app';
 import { fetchClerkTranslatorOverview } from 'redux/actions/clerkTranslatorOverview';
 import { showNotifierToast } from 'redux/actions/notifier';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
-import { Utils } from 'utils';
+import { NotifierUtils } from 'utils/notifier';
 
 export const ClerkTranslatorOverviewPage = () => {
   // i18n
@@ -45,7 +45,7 @@ export const ClerkTranslatorOverviewPage = () => {
       !Number(params.translatorId)
     ) {
       // Show an error
-      const toast = Utils.createNotifierToast(
+      const toast = NotifierUtils.createNotifierToast(
         Severity.Error,
         t('component.clerkTranslatorOverview.toasts.notFound')
       );

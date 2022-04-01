@@ -5,7 +5,7 @@ import {
   PublicTranslator,
   PublicTranslatorFilter,
 } from 'interfaces/publicTranslator';
-import { Utils } from 'utils';
+import { StringUtils } from 'utils/string';
 
 export const publicTranslatorsSelector = (state: RootState) =>
   state.publicTranslator;
@@ -49,7 +49,7 @@ export const filterPublicTranslators = (
   translators: Array<PublicTranslator>,
   filters: PublicTranslatorFilter
 ) => {
-  const isNotEmpty = (v: string) => !Utils.isEmptyString(v);
+  const isNotEmpty = (v: string) => !StringUtils.isEmptyString(v);
   let filteredData = translators;
   // SearchFilter data only if the criteria are defined
   if (isNotEmpty(filters.fromLang) && isNotEmpty(filters.toLang)) {
