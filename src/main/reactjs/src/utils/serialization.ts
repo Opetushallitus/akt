@@ -10,7 +10,7 @@ import {
 import { MeetingDateResponse } from 'interfaces/meetingDate';
 import { DateUtils } from 'utils/date';
 
-export class APIUtils {
+export class SerializationUtils {
   static deserializeAuthorisation(
     authorisation: AuthorisationResponse
   ): Authorisation {
@@ -54,7 +54,9 @@ export class APIUtils {
   }
 
   static deserializeMeetingDates(response: MeetingDateResponse[]) {
-    const meetingDates = response.map(APIUtils.deserializeMeetingDate);
+    const meetingDates = response.map(
+      SerializationUtils.deserializeMeetingDate
+    );
 
     return { meetingDates };
   }
@@ -71,10 +73,10 @@ export class APIUtils {
   static deserializeClerkTranslators(response: ClerkStateResponse) {
     const { langs } = response;
     const translators = response.translators.map(
-      APIUtils.deserializeClerkTranslator
+      SerializationUtils.deserializeClerkTranslator
     );
     const meetingDates = response.meetingDates.map(
-      APIUtils.deserializeMeetingDate
+      SerializationUtils.deserializeMeetingDate
     );
 
     return { translators, langs, meetingDates };
@@ -86,19 +88,22 @@ export class APIUtils {
     return {
       ...translator,
       authorisations: translator.authorisations.map(
-        APIUtils.deserializeAuthorisation
+        SerializationUtils.deserializeAuthorisation
       ),
     };
   }
 
   static serializeClerkNewTranslator(translator: ClerkNewTranslator) {
     const { isAssuranceGiven, authorisations, ...rest } = translator;
-    const textFields = APIUtils.getNonBlankClerkTranslatorTextFields(rest);
+    const textFields =
+      SerializationUtils.getNonBlankClerkTranslatorTextFields(rest);
 
     return {
       ...textFields,
       isAssuranceGiven,
-      authorisations: authorisations.map(APIUtils.serializeAuthorisation),
+      authorisations: authorisations.map(
+        SerializationUtils.serializeAuthorisation
+      ),
     };
   }
 
@@ -110,7 +115,8 @@ export class APIUtils {
       authorisations: _ignored,
       ...rest
     } = translator;
-    const textFields = APIUtils.getNonBlankClerkTranslatorTextFields(rest);
+    const textFields =
+      SerializationUtils.getNonBlankClerkTranslatorTextFields(rest);
 
     return {
       ...textFields,

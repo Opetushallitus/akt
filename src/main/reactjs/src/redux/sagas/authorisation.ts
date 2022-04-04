@@ -13,8 +13,8 @@ import {
 } from 'redux/actionTypes/authorisation';
 import { CLERK_TRANSLATOR_OVERVIEW_FETCH } from 'redux/actionTypes/clerkTranslatorOverview';
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
-import { APIUtils } from 'utils/api';
 import { NotifierUtils } from 'utils/notifier';
+import { SerializationUtils } from 'utils/serialization';
 
 function* showSuccessToastOnAdd() {
   const t = translateOutsideComponent();
@@ -32,7 +32,7 @@ export function* addAuthorisation(action: AddAuthorisationAction) {
     yield call(
       axiosInstance.post,
       `${APIEndpoints.ClerkTranslator}/${translatorId}/authorisation`,
-      APIUtils.serializeAuthorisation(action.authorisation)
+      SerializationUtils.serializeAuthorisation(action.authorisation)
     );
     yield put({ type: CLERK_TRANSLATOR_AUTHORISATION_ADD_SUCCESS });
     yield call(showSuccessToastOnAdd);

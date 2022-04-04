@@ -19,8 +19,8 @@ import {
 import { CLERK_TRANSLATOR_RECEIVED } from 'redux/actionTypes/clerkTranslators';
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
 import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
-import { APIUtils } from 'utils/api';
 import { NotifierUtils } from 'utils/notifier';
+import { SerializationUtils } from 'utils/serialization';
 
 export function* updateClerkTranslatorsState(translator: ClerkTranslator) {
   const { translators, langs, meetingDates } = yield select(
@@ -41,11 +41,13 @@ function* saveNewClerkTranslator(action: ClerkNewTranslatorAction) {
     const apiResponse: AxiosResponse<ClerkTranslatorResponse> = yield call(
       axiosInstance.post,
       APIEndpoints.ClerkTranslator,
-      APIUtils.serializeClerkNewTranslator(
+      SerializationUtils.serializeClerkNewTranslator(
         action.translator as ClerkNewTranslator
       )
     );
-    const translator = APIUtils.deserializeClerkTranslator(apiResponse.data);
+    const translator = SerializationUtils.deserializeClerkTranslator(
+      apiResponse.data
+    );
     yield updateClerkTranslatorsState(translator);
 
     yield put({

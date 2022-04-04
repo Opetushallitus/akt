@@ -1,7 +1,7 @@
 import { AuthorisationStatus } from 'enums/clerkTranslator';
 import { ClerkTranslatorResponse } from 'interfaces/clerkTranslator';
-import { APIUtils } from 'utils/api';
 import { AuthorisationUtils } from 'utils/authorisation';
+import { SerializationUtils } from 'utils/serialization';
 
 const rowTestId = (id: number) => `authorisations-table__id-${id}-row`;
 const toggleBtn = (name: string) =>
@@ -60,7 +60,7 @@ class AuthorisationDetails {
     status: AuthorisationStatus
   ) {
     const deserializedTranslator =
-      APIUtils.deserializeClerkTranslator(translator);
+      SerializationUtils.deserializeClerkTranslator(translator);
     const authorisations =
       AuthorisationUtils.groupClerkTranslatorAuthorisationsByStatus(
         deserializedTranslator

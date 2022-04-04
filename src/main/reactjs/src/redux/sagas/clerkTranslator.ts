@@ -10,7 +10,7 @@ import {
   CLERK_TRANSLATOR_LOADING,
   CLERK_TRANSLATOR_RECEIVED,
 } from 'redux/actionTypes/clerkTranslators';
-import { APIUtils } from 'utils/api';
+import { SerializationUtils } from 'utils/serialization';
 
 export function* fetchClerkTranslators() {
   try {
@@ -19,7 +19,7 @@ export function* fetchClerkTranslators() {
       axiosInstance.get,
       APIEndpoints.ClerkTranslator
     );
-    const deserializedResponse = APIUtils.deserializeClerkTranslators(
+    const deserializedResponse = SerializationUtils.deserializeClerkTranslators(
       apiResponse.data
     );
     yield call(storeApiResults, deserializedResponse);

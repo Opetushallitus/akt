@@ -30,8 +30,8 @@ import {
 import { CLERK_TRANSLATOR_RECEIVED } from 'redux/actionTypes/clerkTranslators';
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
 import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
-import { APIUtils } from 'utils/api';
 import { NotifierUtils } from 'utils/notifier';
+import { SerializationUtils } from 'utils/serialization';
 
 export function* cancel() {
   yield put({ type: CLERK_TRANSLATOR_OVERVIEW_CANCEL_UPDATE });
@@ -47,7 +47,9 @@ function* fetchClerkTranslatorOverview(action: ClerkTranslatorOverviewAction) {
 
     yield put({
       type: CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS,
-      translator: APIUtils.deserializeClerkTranslator(apiResponse.data),
+      translator: SerializationUtils.deserializeClerkTranslator(
+        apiResponse.data
+      ),
     });
   } catch (error) {
     yield put({
@@ -78,9 +80,13 @@ function* updateClerkTranslatorDetails(action: ClerkTranslatorOverviewAction) {
     const apiResponse: AxiosResponse<ClerkTranslatorResponse> = yield call(
       axiosInstance.put,
       APIEndpoints.ClerkTranslator,
-      APIUtils.serializeClerkTranslator(action.translator as ClerkTranslator)
+      SerializationUtils.serializeClerkTranslator(
+        action.translator as ClerkTranslator
+      )
     );
-    const translator = APIUtils.deserializeClerkTranslator(apiResponse.data);
+    const translator = SerializationUtils.deserializeClerkTranslator(
+      apiResponse.data
+    );
     yield updateClerkTranslatorsState(translator);
 
     yield put({
@@ -113,7 +119,9 @@ function* updateAuthorisationPublishPermission(action: AuthorisationAction) {
       APIEndpoints.AuthorisationPublishPermission,
       requestBody
     );
-    const translator = APIUtils.deserializeClerkTranslator(apiResponse.data);
+    const translator = SerializationUtils.deserializeClerkTranslator(
+      apiResponse.data
+    );
     yield updateClerkTranslatorsState(translator);
 
     yield put({
@@ -139,7 +147,9 @@ function* deleteAuthorisation(action: AuthorisationAction) {
       axiosInstance.delete,
       `${APIEndpoints.Authorisation}/${action.id}`
     );
-    const translator = APIUtils.deserializeClerkTranslator(apiResponse.data);
+    const translator = SerializationUtils.deserializeClerkTranslator(
+      apiResponse.data
+    );
     yield updateClerkTranslatorsState(translator);
 
     yield put({

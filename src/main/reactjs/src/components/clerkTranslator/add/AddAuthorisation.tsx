@@ -139,11 +139,11 @@ export const AddAuthorisation = ({
     const { languagePair, diaryNumber, autDate, ...otherProps } = authorisation;
 
     const isOtherPropsNotDefined = Object.values(otherProps).some((p) =>
-      StringUtils.isEmptyString(p)
+      StringUtils.isBlankString(p)
     );
     const isLangPropsNotDefined =
-      StringUtils.isEmptyString(languagePair.from) ||
-      StringUtils.isEmptyString(languagePair.to);
+      StringUtils.isBlankString(languagePair.from) ||
+      StringUtils.isBlankString(languagePair.to);
 
     const isDiaryNumberBlank = StringUtils.isBlankString(diaryNumber);
 

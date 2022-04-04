@@ -22,9 +22,9 @@ import {
   MEETING_DATE_REMOVE_SUCCESS,
 } from 'redux/actionTypes/meetingDate';
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
-import { APIUtils } from 'utils/api';
 import { DateUtils } from 'utils/date';
 import { NotifierUtils } from 'utils/notifier';
+import { SerializationUtils } from 'utils/serialization';
 
 export function* removeMeetingDate(action: RemoveMeetingDateActionType) {
   try {
@@ -71,7 +71,7 @@ function* fetchMeetingDates() {
       APIEndpoints.MeetingDate
     );
 
-    const deserializedResponse = APIUtils.deserializeMeetingDates(
+    const deserializedResponse = SerializationUtils.deserializeMeetingDates(
       apiResponse.data
     );
     yield call(storeApiResults, deserializedResponse);
