@@ -14,9 +14,22 @@ public class IndexController {
     return new ModelAndView("index.html");
   }
 
-  // Map to everything which has no suffix, i.e. matches to "/foo/bar" but not to
-  // "/foo/bar.js"
-  @GetMapping("/**/{path:[^.]*}")
+  // Map to everything which has no suffix, i.e. matches to "/foo/bar" but not to "/foo/bar.js"
+  @GetMapping(
+    path = {
+      "/*/{path:[^.]*}",
+      "/*/*/{path:[^.]*}",
+      "/*/*/*/{path:[^.]*}",
+      "/*/*/*/*/{path:[^.]*}",
+      "/*/*/*/*/*/{path:[^.]*}",
+      "/*/*/*/*/*/*/{path:[^.]*}",
+      "/*/*/*/*/*/*/*/{path:[^.]*}",
+      "/*/*/*/*/*/*/*/*/{path:[^.]*}",
+      "/*/*/*/*/*/*/*/*/*/{path:[^.]*}",
+      "/*/*/*/*/*/*/*/*/*/*/{path:[^.]*}",
+      "/*/*/*/*/*/*/*/*/*/*/*/{path:[^.]*}",
+    }
+  )
   public ModelAndView indexAllOtherPaths() {
     return new ModelAndView("index.html");
   }
