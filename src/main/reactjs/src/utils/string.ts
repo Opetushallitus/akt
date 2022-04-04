@@ -6,7 +6,7 @@ export class StringUtils {
     return StringUtils.isString(value) && value?.trim().length === 0;
   }
 
-  static isString(value: unknown) {
+  static isString(value: unknown): value is string {
     return typeof value === 'string' || value instanceof String;
   }
 }
