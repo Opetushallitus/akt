@@ -1,9 +1,12 @@
 export class StringUtils {
   /**
-   * Value is a blank string if it's undefined, or its trimmed length is zero.
-   *
+   * Value is a blank string  if its trimmed length is zero.
    */
   static isBlankString(value?: string) {
-    return !value || value.trim().length === 0;
+    return StringUtils.isString(value) && value?.trim().length === 0;
+  }
+
+  static isString(value: unknown) {
+    return typeof value === 'string' || value instanceof String;
   }
 }
