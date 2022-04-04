@@ -92,7 +92,7 @@ export const translatorResponse = <ClerkTranslatorResponse>{
   ...getAuthorisationDetails(true),
 };
 
-export const authorsationMockAfterAddAuthorsationSuccess = {
+export const authorisation = {
   id: 10004,
   version: 0,
   languagePair: {

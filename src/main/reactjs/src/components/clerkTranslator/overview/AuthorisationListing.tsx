@@ -32,9 +32,9 @@ import {
 import { showNotifierDialog } from 'redux/actions/notifier';
 import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
-import { Utils } from 'utils';
 import { AuthorisationUtils } from 'utils/authorisation';
 import { DateUtils } from 'utils/date';
+import { NotifierUtils } from 'utils/notifier';
 
 export const AuthorisationListing = ({
   authorisations,
@@ -62,7 +62,7 @@ export const AuthorisationListing = ({
     : defaultClassName;
 
   const onPublishPermissionChange = (authorisation: Authorisation) => {
-    const notifier = Utils.createNotifierDialog(
+    const notifier = NotifierUtils.createNotifierDialog(
       t('actions.changePermissionToPublish.dialog.header'),
       Severity.Info,
       t('actions.changePermissionToPublish.dialog.description'),
@@ -85,7 +85,7 @@ export const AuthorisationListing = ({
   };
 
   const onAuthorisationRemove = (authorisation: Authorisation) => {
-    const notifier = Utils.createNotifierDialog(
+    const notifier = NotifierUtils.createNotifierDialog(
       t('actions.removal.dialog.header'),
       Severity.Info,
       t('actions.removal.dialog.description'),

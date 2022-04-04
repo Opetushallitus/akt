@@ -1,6 +1,7 @@
 import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { Authorisation, AuthorisationResponse } from 'interfaces/authorisation';
 import { ClerkNewTranslator } from 'interfaces/clerkNewTranslator';
+import { ClerkStateResponse } from 'interfaces/clerkState';
 import {
   ClerkTranslator,
   ClerkTranslatorResponse,
@@ -9,8 +10,8 @@ import {
 import { MeetingDateResponse } from 'interfaces/meetingDate';
 import { DateUtils } from 'utils/date';
 
-export class APIUtils {
-  static convertAuthorisationResponse(
+export class SerializationUtils {
+  static deserializeAuthorisation(
     authorisation: AuthorisationResponse
   ): Authorisation {
     const stringToDate = DateUtils.optionalStringToDate;
@@ -27,7 +28,40 @@ export class APIUtils {
     };
   }
 
-  static convertMeetingDateResponse(meetingDate: MeetingDateResponse) {
+  static serializeAuthorisation(authorisation: Authorisation) {
+    const { from, to } = authorisation.languagePair;
+    const {
+      basis,
+      termBeginDate,
+      termEndDate,
+      autDate,
+      permissionToPublish,
+      diaryNumber,
+    } = authorisation;
+
+    return {
+      from,
+      to,
+      basis,
+      termBeginDate: DateUtils.serializeDate(termBeginDate),
+      termEndDate: DateUtils.serializeDate(termEndDate),
+      permissionToPublish,
+      diaryNumber: diaryNumber ? diaryNumber.trim() : undefined,
+      ...(basis === AuthorisationBasisEnum.AUT && {
+        autDate: DateUtils.serializeDate(autDate),
+      }),
+    };
+  }
+
+  static deserializeMeetingDates(response: MeetingDateResponse[]) {
+    const meetingDates = response.map(
+      SerializationUtils.deserializeMeetingDate
+    );
+
+    return { meetingDates };
+  }
+
+  static deserializeMeetingDate(meetingDate: MeetingDateResponse) {
     const dayjs = DateUtils.dayjs();
 
     return {
@@ -36,31 +70,44 @@ export class APIUtils {
     };
   }
 
-  static convertClerkTranslatorResponse(
+  static deserializeClerkTranslators(response: ClerkStateResponse) {
+    const { langs } = response;
+    const translators = response.translators.map(
+      SerializationUtils.deserializeClerkTranslator
+    );
+    const meetingDates = response.meetingDates.map(
+      SerializationUtils.deserializeMeetingDate
+    );
+
+    return { translators, langs, meetingDates };
+  }
+
+  static deserializeClerkTranslator(
     translator: ClerkTranslatorResponse
   ): ClerkTranslator {
     return {
       ...translator,
       authorisations: translator.authorisations.map(
-        APIUtils.convertAuthorisationResponse
+        SerializationUtils.deserializeAuthorisation
       ),
     };
   }
 
-  static convertClerkNewTranslatorToAPIRequest(translator: ClerkNewTranslator) {
+  static serializeClerkNewTranslator(translator: ClerkNewTranslator) {
     const { isAssuranceGiven, authorisations, ...rest } = translator;
-    const textFields = APIUtils.getNonBlankClerkTranslatorTextFields(rest);
+    const textFields =
+      SerializationUtils.getNonBlankClerkTranslatorTextFields(rest);
 
     return {
       ...textFields,
       isAssuranceGiven,
       authorisations: authorisations.map(
-        APIUtils.convertAuthorisationToAPIRequest
+        SerializationUtils.serializeAuthorisation
       ),
     };
   }
 
-  static convertClerkTranslatorToAPIRequest(translator: ClerkTranslator) {
+  static serializeClerkTranslator(translator: ClerkTranslator) {
     const {
       id,
       version,
@@ -68,7 +115,8 @@ export class APIUtils {
       authorisations: _ignored,
       ...rest
     } = translator;
-    const textFields = APIUtils.getNonBlankClerkTranslatorTextFields(rest);
+    const textFields =
+      SerializationUtils.getNonBlankClerkTranslatorTextFields(rest);
 
     return {
       ...textFields,
@@ -93,30 +141,5 @@ export class APIUtils {
     });
 
     return textFields;
-  }
-
-  static convertAuthorisationToAPIRequest(authorisation: Authorisation) {
-    const { from, to } = authorisation.languagePair;
-    const {
-      basis,
-      termBeginDate,
-      termEndDate,
-      autDate,
-      permissionToPublish,
-      diaryNumber,
-    } = authorisation;
-
-    return {
-      from,
-      to,
-      basis,
-      termBeginDate: DateUtils.convertToAPIRequestDateString(termBeginDate),
-      termEndDate: DateUtils.convertToAPIRequestDateString(termEndDate),
-      permissionToPublish,
-      diaryNumber: diaryNumber ? diaryNumber.trim() : undefined,
-      ...(basis === AuthorisationBasisEnum.AUT && {
-        autDate: DateUtils.convertToAPIRequestDateString(autDate),
-      }),
-    };
   }
 }

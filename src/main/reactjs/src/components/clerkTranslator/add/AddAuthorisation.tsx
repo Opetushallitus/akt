@@ -21,9 +21,9 @@ import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { Authorisation, AuthorisationBasis } from 'interfaces/authorisation';
 import { AutocompleteValue } from 'interfaces/components/combobox';
 import { MeetingDate } from 'interfaces/meetingDate';
-import { Utils } from 'utils';
 import { AuthorisationUtils } from 'utils/authorisation';
 import { DateUtils } from 'utils/date';
+import { StringUtils } from 'utils/string';
 
 interface AddAuthorisationProps {
   translatorId?: number;
@@ -139,13 +139,13 @@ export const AddAuthorisation = ({
     const { languagePair, diaryNumber, autDate, ...otherProps } = authorisation;
 
     const isOtherPropsNotDefined = Object.values(otherProps).some((p) =>
-      Utils.isEmptyString(p)
+      StringUtils.isBlankString(p)
     );
     const isLangPropsNotDefined =
-      Utils.isEmptyString(languagePair.from) ||
-      Utils.isEmptyString(languagePair.to);
+      StringUtils.isBlankString(languagePair.from) ||
+      StringUtils.isBlankString(languagePair.to);
 
-    const isDiaryNumberBlank = Utils.isBlankString(diaryNumber);
+    const isDiaryNumberBlank = StringUtils.isBlankString(diaryNumber);
 
     const isAutDateNotDefinedOrInvalid =
       otherProps.basis === AuthorisationBasisEnum.AUT &&

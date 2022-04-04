@@ -16,6 +16,7 @@ import { useWindowProperties } from 'hooks/useWindowProperties';
 import { setContactRequest } from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import { Utils } from 'utils';
+import { StringUtils } from 'utils/string';
 
 export const WriteMessage = ({
   disableNext,
@@ -38,7 +39,7 @@ export const WriteMessage = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const hasBlankMessage = Utils.isBlankString(request?.message);
+    const hasBlankMessage = StringUtils.isBlankString(request?.message);
     const hasFieldError = fieldError.length > 0;
 
     disableNext(hasBlankMessage || hasFieldError);

@@ -13,12 +13,12 @@ import {
 } from 'redux/actionTypes/authorisation';
 import { CLERK_TRANSLATOR_OVERVIEW_FETCH } from 'redux/actionTypes/clerkTranslatorOverview';
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
-import { Utils } from 'utils';
-import { APIUtils } from 'utils/api';
+import { NotifierUtils } from 'utils/notifier';
+import { SerializationUtils } from 'utils/serialization';
 
 function* showSuccessToastOnAdd() {
   const t = translateOutsideComponent();
-  const notifier = Utils.createNotifierToast(
+  const notifier = NotifierUtils.createNotifierToast(
     Severity.Success,
     t('akt.component.newAuthorisation.toasts.success')
   );
@@ -32,7 +32,7 @@ export function* addAuthorisation(action: AddAuthorisationAction) {
     yield call(
       axiosInstance.post,
       `${APIEndpoints.ClerkTranslator}/${translatorId}/authorisation`,
-      APIUtils.convertAuthorisationToAPIRequest(action.authorisation)
+      SerializationUtils.serializeAuthorisation(action.authorisation)
     );
     yield put({ type: CLERK_TRANSLATOR_AUTHORISATION_ADD_SUCCESS });
     yield call(showSuccessToastOnAdd);
@@ -41,7 +41,9 @@ export function* addAuthorisation(action: AddAuthorisationAction) {
     yield put({ type: CLERK_TRANSLATOR_AUTHORISATION_ADD_ERROR });
     yield put({
       type: NOTIFIER_TOAST_ADD,
-      notifier: Utils.createNotifierToastForAxiosError(error as AxiosError),
+      notifier: NotifierUtils.createAxiosErrorNotifierToast(
+        error as AxiosError
+      ),
     });
   }
 }

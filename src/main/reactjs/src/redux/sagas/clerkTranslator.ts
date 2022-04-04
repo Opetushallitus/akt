@@ -10,21 +10,7 @@ import {
   CLERK_TRANSLATOR_LOADING,
   CLERK_TRANSLATOR_RECEIVED,
 } from 'redux/actionTypes/clerkTranslators';
-import { APIUtils } from 'utils/api';
-
-export const convertAPIResponse = (
-  response: ClerkStateResponse
-): ClerkState => {
-  const { langs } = response;
-  const translators = response.translators.map(
-    APIUtils.convertClerkTranslatorResponse
-  );
-  const meetingDates = response.meetingDates.map(
-    APIUtils.convertMeetingDateResponse
-  );
-
-  return { translators, langs, meetingDates };
-};
+import { SerializationUtils } from 'utils/serialization';
 
 export function* fetchClerkTranslators() {
   try {
@@ -33,8 +19,10 @@ export function* fetchClerkTranslators() {
       axiosInstance.get,
       APIEndpoints.ClerkTranslator
     );
-    const convertedResponse = convertAPIResponse(apiResponse.data);
-    yield call(storeApiResults, convertedResponse);
+    const deserializedResponse = SerializationUtils.deserializeClerkTranslators(
+      apiResponse.data
+    );
+    yield call(storeApiResults, deserializedResponse);
   } catch (error) {
     yield put({ type: CLERK_TRANSLATOR_ERROR, error });
   }

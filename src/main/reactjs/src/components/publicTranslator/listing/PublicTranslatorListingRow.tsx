@@ -19,7 +19,7 @@ import {
   publicTranslatorsSelector,
   selectFilteredPublicSelectedIds,
 } from 'redux/selectors/publicTranslator';
-import { Utils } from 'utils/index';
+import { NotifierUtils } from 'utils/notifier';
 
 export const PublicTranslatorListingRow = ({
   translator,
@@ -57,7 +57,7 @@ export const PublicTranslatorListingRow = ({
     });
 
     if (!fromLang || !toLang) {
-      const toast = Utils.createNotifierToast(
+      const toast = NotifierUtils.createNotifierToast(
         Severity.Error,
         t(
           'component.publicTranslatorFilters.toasts.contactRequestNeedsLanguagePairs'

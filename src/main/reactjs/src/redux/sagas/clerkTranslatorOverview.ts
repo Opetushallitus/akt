@@ -30,8 +30,8 @@ import {
 import { CLERK_TRANSLATOR_RECEIVED } from 'redux/actionTypes/clerkTranslators';
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
 import { clerkTranslatorsSelector } from 'redux/selectors/clerkTranslator';
-import { Utils } from 'utils';
-import { APIUtils } from 'utils/api';
+import { NotifierUtils } from 'utils/notifier';
+import { SerializationUtils } from 'utils/serialization';
 
 export function* cancel() {
   yield put({ type: CLERK_TRANSLATOR_OVERVIEW_CANCEL_UPDATE });
@@ -47,7 +47,9 @@ function* fetchClerkTranslatorOverview(action: ClerkTranslatorOverviewAction) {
 
     yield put({
       type: CLERK_TRANSLATOR_OVERVIEW_FETCH_SUCCESS,
-      translator: APIUtils.convertClerkTranslatorResponse(apiResponse.data),
+      translator: SerializationUtils.deserializeClerkTranslator(
+        apiResponse.data
+      ),
     });
   } catch (error) {
     yield put({
@@ -78,11 +80,11 @@ function* updateClerkTranslatorDetails(action: ClerkTranslatorOverviewAction) {
     const apiResponse: AxiosResponse<ClerkTranslatorResponse> = yield call(
       axiosInstance.put,
       APIEndpoints.ClerkTranslator,
-      APIUtils.convertClerkTranslatorToAPIRequest(
+      SerializationUtils.serializeClerkTranslator(
         action.translator as ClerkTranslator
       )
     );
-    const translator = APIUtils.convertClerkTranslatorResponse(
+    const translator = SerializationUtils.deserializeClerkTranslator(
       apiResponse.data
     );
     yield updateClerkTranslatorsState(translator);
@@ -97,7 +99,9 @@ function* updateClerkTranslatorDetails(action: ClerkTranslatorOverviewAction) {
     });
     yield put({
       type: NOTIFIER_TOAST_ADD,
-      notifier: Utils.createNotifierToastForAxiosError(error as AxiosError),
+      notifier: NotifierUtils.createAxiosErrorNotifierToast(
+        error as AxiosError
+      ),
     });
   }
 }
@@ -115,7 +119,7 @@ function* updateAuthorisationPublishPermission(action: AuthorisationAction) {
       APIEndpoints.AuthorisationPublishPermission,
       requestBody
     );
-    const translator = APIUtils.convertClerkTranslatorResponse(
+    const translator = SerializationUtils.deserializeClerkTranslator(
       apiResponse.data
     );
     yield updateClerkTranslatorsState(translator);
@@ -130,7 +134,9 @@ function* updateAuthorisationPublishPermission(action: AuthorisationAction) {
     });
     yield put({
       type: NOTIFIER_TOAST_ADD,
-      notifier: Utils.createNotifierToastForAxiosError(error as AxiosError),
+      notifier: NotifierUtils.createAxiosErrorNotifierToast(
+        error as AxiosError
+      ),
     });
   }
 }
@@ -141,7 +147,7 @@ function* deleteAuthorisation(action: AuthorisationAction) {
       axiosInstance.delete,
       `${APIEndpoints.Authorisation}/${action.id}`
     );
-    const translator = APIUtils.convertClerkTranslatorResponse(
+    const translator = SerializationUtils.deserializeClerkTranslator(
       apiResponse.data
     );
     yield updateClerkTranslatorsState(translator);
@@ -154,7 +160,9 @@ function* deleteAuthorisation(action: AuthorisationAction) {
     yield put({ type: CLERK_TRANSLATOR_OVERVIEW_DELETE_AUTHORISATION_FAIL });
     yield put({
       type: NOTIFIER_TOAST_ADD,
-      notifier: Utils.createNotifierToastForAxiosError(error as AxiosError),
+      notifier: NotifierUtils.createAxiosErrorNotifierToast(
+        error as AxiosError
+      ),
     });
   }
 }

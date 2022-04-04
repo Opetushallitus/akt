@@ -44,7 +44,7 @@ import {
   filterPublicTranslators,
   publicTranslatorsSelector,
 } from 'redux/selectors/publicTranslator';
-import { Utils } from 'utils/index';
+import { NotifierUtils } from 'utils/notifier';
 
 export const PublicTranslatorFilters = ({
   showTable,
@@ -111,7 +111,7 @@ export const PublicTranslatorFilters = ({
           dispatch(addPublicTranslatorFilterError(field));
       });
 
-      const toast = Utils.createNotifierToast(
+      const toast = NotifierUtils.createNotifierToast(
         Severity.Error,
         t('toasts.selectLanguagePair')
       );
@@ -201,7 +201,7 @@ export const PublicTranslatorFilters = ({
 
   const showTranslatorsAlreadySelectedToast = () => {
     if (isLangFilterDisabled) {
-      const toast = Utils.createNotifierToast(
+      const toast = NotifierUtils.createNotifierToast(
         Severity.Error,
         t('toasts.translatorsSelected')
       );

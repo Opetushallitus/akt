@@ -1,7 +1,7 @@
 import { APIEndpoints } from 'enums/api';
 import { UIMode } from 'enums/app';
 import {
-  authorsationMockAfterAddAuthorsationSuccess,
+  authorisation,
   translatorResponse,
 } from 'tests/cypress/fixtures/ts/clerkTranslatorOverview';
 import { onClerkTranslatorOverviewPage } from 'tests/cypress/support/page-objects/clerkTranslatorOverviewPage';
@@ -100,7 +100,6 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     cy.wait('@getMeetingDates');
 
     onClerkTranslatorOverviewPage.clickAddAuthorisationBtn();
-
     onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
       'from',
       'input',
@@ -129,10 +128,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
 
     cy.intercept(`${APIEndpoints.ClerkTranslator}/${translatorResponse.id}`, {
       ...translatorResponse,
-      authorisations: [
-        ...translatorResponse.authorisations,
-        authorsationMockAfterAddAuthorsationSuccess,
-      ],
+      authorisations: [...translatorResponse.authorisations, authorisation],
     });
 
     cy.intercept(
@@ -140,10 +136,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
       `${APIEndpoints.ClerkTranslator}/${translatorResponse.id}/authorisation`,
       {
         ...translatorResponse,
-        authorisations: [
-          ...translatorResponse.authorisations,
-          authorsationMockAfterAddAuthorsationSuccess,
-        ],
+        authorisations: [...translatorResponse.authorisations, authorisation],
       }
     );
 

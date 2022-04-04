@@ -11,7 +11,7 @@ import {
 } from 'redux/actionTypes/clerkTranslatorEmail';
 import { NOTIFIER_TOAST_ADD } from 'redux/actionTypes/notifier';
 import { selectClerkTranslatorEmail } from 'redux/selectors/clerkTranslatorEmail';
-import { Utils } from 'utils/index';
+import { NotifierUtils } from 'utils/notifier';
 
 export function* cancel() {
   yield put({
@@ -21,7 +21,7 @@ export function* cancel() {
 
 function* showSuccessToast() {
   const t = translateOutsideComponent();
-  const notifier = Utils.createNotifierToast(
+  const notifier = NotifierUtils.createNotifierToast(
     Severity.Success,
     t('akt.pages.clerkSendEmailPage.toasts.success')
   );
@@ -30,7 +30,7 @@ function* showSuccessToast() {
 
 function* showErrorToast() {
   const t = translateOutsideComponent();
-  const notifier = Utils.createNotifierToast(
+  const notifier = NotifierUtils.createNotifierToast(
     Severity.Error,
     t('akt.pages.clerkSendEmailPage.toasts.error')
   );

@@ -17,7 +17,7 @@ import {
   NOTIFIER_DIALOG_ADD,
 } from 'redux/actionTypes/notifier';
 import { PUBLIC_TRANSLATOR_EMPTY_SELECTIONS } from 'redux/actionTypes/publicTranslator';
-import { Utils } from 'utils';
+import { NotifierUtils } from 'utils/notifier';
 
 export function* sendContactRequest(action: Action) {
   if (isContactRequestSendAction(action)) {
@@ -51,7 +51,7 @@ export function* sendContactRequest(action: Action) {
     } catch (error) {
       const t = translateOutsideComponent();
       const tPrefix = 'akt.component.contactRequestForm.errorDialog';
-      const notifier = Utils.createNotifierDialog(
+      const notifier = NotifierUtils.createNotifierDialog(
         t(`${tPrefix}.title`),
         Severity.Error,
         t(`${tPrefix}.description`),

@@ -20,7 +20,7 @@ import {
   NOTIFIER_ACTION_DO_NOTHING,
 } from 'redux/actionTypes/notifier';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
-import { Utils } from 'utils';
+import { NotifierUtils } from 'utils/notifier';
 
 export const ClerkTranslatorDetails = () => {
   // Redux
@@ -49,7 +49,7 @@ export const ClerkTranslatorDetails = () => {
       translatorDetailsStatus === APIResponseStatus.Success &&
       currentUIMode === UIMode.EditTranslatorDetails
     ) {
-      const toast = Utils.createNotifierToast(
+      const toast = NotifierUtils.createNotifierToast(
         Severity.Success,
         t('toasts.updated')
       );
@@ -100,7 +100,7 @@ export const ClerkTranslatorDetails = () => {
   };
 
   const openCancelDialog = () => {
-    const dialog = Utils.createNotifierDialog(
+    const dialog = NotifierUtils.createNotifierDialog(
       t('translatorDetails.cancelUpdateDialog.title'),
       Severity.Info,
       t('translatorDetails.cancelUpdateDialog.description'),

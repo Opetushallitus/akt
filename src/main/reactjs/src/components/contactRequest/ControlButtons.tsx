@@ -24,7 +24,7 @@ import {
   NOTIFIER_ACTION_DO_NOTHING,
 } from 'redux/actionTypes/notifier';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
-import { Utils } from 'utils';
+import { NotifierUtils } from 'utils/notifier';
 
 export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
   // I18n
@@ -51,7 +51,7 @@ export const ControlButtons = ({ disableNext }: { disableNext: boolean }) => {
   };
 
   const dispatchCancelNotifier = () => {
-    const notifier = Utils.createNotifierDialog(
+    const notifier = NotifierUtils.createNotifierDialog(
       t('cancelRequestDialog.title'),
       Severity.Info,
       t('cancelRequestDialog.description'),

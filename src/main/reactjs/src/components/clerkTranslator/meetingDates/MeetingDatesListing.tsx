@@ -19,8 +19,8 @@ import {
   meetingDatesSelector,
   selectMeetingDatesByMeetingStatus,
 } from 'redux/selectors/meetingDate';
-import { Utils } from 'utils';
 import { DateUtils } from 'utils/date';
+import { NotifierUtils } from 'utils/notifier';
 
 const getRowDetails = (meetingDate: MeetingDate) => {
   return <ListingRow meetingDate={meetingDate} />;
@@ -35,7 +35,7 @@ const ListingRow = ({ meetingDate }: { meetingDate: MeetingDate }) => {
   const translateCommon = useCommonTranslation();
 
   const dispatchConfirmRemoveNotifier = () => {
-    const notifier = Utils.createNotifierDialog(
+    const notifier = NotifierUtils.createNotifierDialog(
       t('dialog.header'),
       Severity.Info,
       t('dialog.description'),
