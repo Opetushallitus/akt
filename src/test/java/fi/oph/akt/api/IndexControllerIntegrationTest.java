@@ -35,6 +35,21 @@ class IndexControllerIntegrationTest {
   }
 
   @Test
+  public void testIndexHtmlIsReturnedFromAkt() throws Exception {
+    assertIndexHtml("/akt");
+  }
+
+  @Test
+  public void testIndexHtmlIsReturnedFromAktEtusivu() throws Exception {
+    assertIndexHtml("/akt/etusivu");
+  }
+
+  @Test
+  public void testIndexHtmlIsReturnedFromAktVirkailija() throws Exception {
+    assertIndexHtml("/akt/virkailija");
+  }
+
+  @Test
   public void testIndexHtmlIsReturnedFromRandomPathWithoutExtension() throws Exception {
     assertIndexHtml("/foo/bar/a");
   }
