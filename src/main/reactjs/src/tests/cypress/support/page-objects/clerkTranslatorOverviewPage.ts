@@ -26,9 +26,7 @@ class ClerkTranslatorOverviewPage {
       cy.get('.clerk-translator-overview-page__content-container'),
     translatorDetailsField: (field: string, fieldType: string) =>
       cy
-        .findByTestId(
-          `clerk-translator-overview__translator-details__field-${field}`
-        )
+        .findByTestId(`clerk-translator__basic-information__${field}`)
         .find(`div>${fieldType}`),
     addAuthorisationField: (
       field: string,

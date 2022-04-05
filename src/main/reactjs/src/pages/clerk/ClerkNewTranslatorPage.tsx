@@ -106,7 +106,7 @@ export const ClerkNewTranslatorPage = () => {
           <div className="columns margin-top-sm space-between">
             <H2>{t('addedAuthorisationsTitle')}</H2>
             <CustomButton
-              data-testid="clerk-translator-overview__authorisation-details__add-btn"
+              data-testid="clerk-new-translator-page__add-authorisation-button"
               variant={Variant.Contained}
               color={Color.Secondary}
               startIcon={<AddIcon />}

@@ -9,6 +9,7 @@ import { Caption, Text } from 'components/elements/Text';
 import { Color } from 'enums/app';
 
 interface CustomSwitchProps extends SwitchProps {
+  dataTestId?: string;
   leftLabel: string;
   rightLabel: string;
   errorLabel?: string;
@@ -16,6 +17,7 @@ interface CustomSwitchProps extends SwitchProps {
 }
 
 export const CustomSwitch = ({
+  dataTestId,
   leftLabel,
   rightLabel,
   errorLabel,
@@ -32,6 +34,7 @@ export const CustomSwitch = ({
       <div className="columns margin-top-sm">
         <Text className={leftLabelClassName}>{leftLabel}</Text>
         <FormControlLabel
+          data-testid={dataTestId}
           disabled={disabled}
           control={
             <Switch

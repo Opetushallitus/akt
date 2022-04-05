@@ -36,6 +36,7 @@ export const BottomControls = () => {
         {translateCommon('cancel')}
       </CustomButton>
       <CustomButton
+        data-testid="clerk-new-translator-page__save-button"
         variant={Variant.Contained}
         color={Color.Secondary}
         onClick={onSave}

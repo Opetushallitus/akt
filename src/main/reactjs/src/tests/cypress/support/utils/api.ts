@@ -14,7 +14,7 @@ export const runWithIntercept = (
   cy.wait(`@${alias}`);
 };
 
-export const createAPIErrorResponse = (error: APIError) => {
+export const createAPIErrorResponse = (error?: APIError) => {
   return {
     statusCode: HTTPStatusCode.BadRequest,
     body: {

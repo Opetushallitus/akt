@@ -43,6 +43,7 @@ export const ClerkHomePage: FC = () => {
           </div>
           <div className="flex-end">
             <CustomButtonLink
+              data-testid="clerk-translator-registry__add-new-translator"
               startIcon={<AddIcon />}
               color={Color.Secondary}
               variant={Variant.Contained}

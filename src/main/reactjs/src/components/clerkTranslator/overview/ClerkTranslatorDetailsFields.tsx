@@ -62,7 +62,6 @@ const ClerkTranslatorDetailsTextField = ({
     <CustomTextField
       value={translator ? translator[field] : undefined}
       label={t(field)}
-      data-testid={`clerk-translator-overview__translator-details__field-${field}`}
       onChange={onChange}
       type={getTextFieldType(field)}
       error={displayError && fieldError?.length > 0}
@@ -113,6 +112,7 @@ export const ClerkTranslatorDetailsFields = ({
     onChange: onFieldChange(field),
     onBlur: displayFieldErrorOnBlur(field),
     displayError: displayFieldError[field],
+    'data-testid': `clerk-translator__basic-information__${field}`,
   });
 
   return (
@@ -171,6 +171,7 @@ export const ClerkTranslatorDetailsFields = ({
       <div className="rows gapped-xs">
         <H3>{t('header.isAssuranceGiven')}</H3>
         <CustomSwitch
+          dataTestId="clerk-translator__basic-information__assurance-toggle-button"
           disabled={editDisabled}
           onChange={onFieldChange('isAssuranceGiven')}
           value={translator?.isAssuranceGiven}
