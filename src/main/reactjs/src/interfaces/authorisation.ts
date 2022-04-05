@@ -7,20 +7,17 @@ import {
   AuthorisationStatus,
 } from 'enums/clerkTranslator';
 import { LanguagePair } from 'interfaces/languagePair';
-import { WithId, WithVersion } from 'interfaces/with';
+import { WithId, WithTempId, WithVersion } from 'interfaces/with';
 
 export type AuthorisationBasis = keyof typeof AuthorisationBasisEnum;
 
 export interface Authorisation
-  extends Omit<
-    AuthorisationResponse,
-    'termBeginDate' | 'termEndDate' | 'autDate'
-  > {
+  extends Partial<WithTempId>,
+    Omit<AuthorisationResponse, 'termBeginDate' | 'termEndDate' | 'autDate'> {
   termBeginDate?: Dayjs;
   termEndDate?: Dayjs;
   autDate?: Dayjs;
   translatorId?: number;
-  tempId?: string;
 }
 
 export interface AuthorisationResponse

@@ -54,7 +54,7 @@ export const ClerkNewTranslatorPage = () => {
   };
 
   const onAuthorisationRemove = (authorisation: Authorisation) => {
-    const notifier = Utils.createNotifierDialog(
+    const notifier = NotifierUtils.createNotifierDialog(
       t('removeAuthorisationDialog.title'),
       Severity.Info,
       '',

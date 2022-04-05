@@ -25,10 +25,7 @@ import { APIResponseStatus } from 'enums/api';
 import { Color, Severity, Variant } from 'enums/app';
 import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { Authorisation } from 'interfaces/authorisation';
-import {
-  deleteAuthorisation,
-  updateAuthorisationPublishPermission,
-} from 'redux/actions/clerkTranslatorOverview';
+import { updateAuthorisationPublishPermission } from 'redux/actions/clerkTranslatorOverview';
 import { showNotifierDialog } from 'redux/actions/notifier';
 import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
@@ -38,12 +35,12 @@ import { NotifierUtils } from 'utils/notifier';
 
 export const AuthorisationListing = ({
   authorisations,
-  permissionToPublishReadOnly = false,
+  permissionToPublishReadOnly,
   onAuthorisationRemove,
 }: {
   authorisations: Array<Authorisation>;
-  permissionToPublishReadOnly?: boolean;
-  onAuthorisationRemove?: (a: Authorisation) => void;
+  permissionToPublishReadOnly: boolean;
+  onAuthorisationRemove: (a: Authorisation) => void;
 }) => {
   const translateLanguage = useKoodistoLanguagesTranslation();
   const translateCommon = useCommonTranslation();
@@ -86,34 +83,6 @@ export const AuthorisationListing = ({
     );
 
     dispatch(showNotifierDialog(notifier));
-  };
-
-  const handleAuthorisationRemove = (authorisation: Authorisation) => {
-    if (onAuthorisationRemove) {
-      onAuthorisationRemove(authorisation);
-    } else {
-      const notifier = NotifierUtils.createNotifierDialog(
-        t('actions.removal.dialog.header'),
-        Severity.Info,
-        t('actions.removal.dialog.description'),
-        [
-          {
-            title: translateCommon('back'),
-            variant: Variant.Outlined,
-            action: NOTIFIER_ACTION_DO_NOTHING,
-          },
-          {
-            title: t('actions.removal.dialog.confirmButton'),
-            variant: Variant.Contained,
-            action: () =>
-              dispatch(deleteAuthorisation(authorisation.id as number)),
-            buttonColor: Color.Error,
-          },
-        ]
-      );
-
-      dispatch(showNotifierDialog(notifier));
-    }
   };
 
   return (
@@ -204,7 +173,7 @@ export const AuthorisationListing = ({
               </TableCell>
               <TableCell className="centered">
                 <CustomIconButton
-                  onClick={() => handleAuthorisationRemove(a)}
+                  onClick={() => onAuthorisationRemove(a)}
                   aria-label={t('actions.removal.ariaLabel')}
                   data-testid={`authorisations-table__id-${a.id}-row__delete-btn`}
                 >

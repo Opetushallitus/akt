@@ -95,6 +95,14 @@ class ClerkNewTranslatorPage {
     this.elements.saveNewClerkButton().should('be.visible').click();
   }
 
+  expectSaveNewClerkButtonDisabled() {
+    this.elements.saveNewClerkButton().should('be.disabled');
+  }
+
+  expectSaveNewClerkButtonEnabled() {
+    this.elements.saveNewClerkButton().should('be.enabled');
+  }
+
   expectAuthorisationRowToExist(id: number) {
     this.elements.getAuthorisationRow(id).should('exist');
   }

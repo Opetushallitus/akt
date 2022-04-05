@@ -55,10 +55,20 @@ describe('ClerkAddNewTranslator', () => {
         value: 'Doeline',
       },
     ]);
+    onClerkNewTranslatorPage.clickAddAuthorisationButton();
+    onClerkNewTranslatorPage.fillOutAddAuthorisationFields();
+    onClerkNewTranslatorPage.addAuthorisation();
+    onClerkNewTranslatorPage.expectAuthorisationRowToExist(0);
 
-    onClerkNewTranslatorPage.clickSaveNewClerkButton();
-    cy.wait('@createTranslatorResponse');
+    onClerkNewTranslatorPage.expectSaveNewClerkButtonDisabled();
 
-    onToast.expectText('Toiminto epäonnistui, yritä myöhemmin uudelleen');
+    onClerkNewTranslatorPage.fillOutNewTranslatorBasicInformationFields([
+      {
+        fieldName: 'firstName',
+        fieldType: 'input',
+        value: 'John',
+      },
+    ]);
+    onClerkNewTranslatorPage.expectSaveNewClerkButtonEnabled();
   });
 });
