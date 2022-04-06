@@ -4,6 +4,7 @@ import {
   CONTACT_REQUEST_RESET_REDIRECT,
   CONTACT_REQUEST_SEND,
   CONTACT_REQUEST_SET,
+  CONTACT_REQUEST_SET_MESSAGE_ERROR,
   CONTACT_REQUEST_STEP_DECREASE,
   CONTACT_REQUEST_STEP_INCREASE,
 } from 'redux/actionTypes/contactRequest';
@@ -31,3 +32,8 @@ export const increaseFormStep = {
 export const decreaseFormStep = {
   type: CONTACT_REQUEST_STEP_DECREASE,
 };
+
+export const setMessageError = (error?: string) => ({
+  type: CONTACT_REQUEST_SET_MESSAGE_ERROR,
+  messageError: error,
+});

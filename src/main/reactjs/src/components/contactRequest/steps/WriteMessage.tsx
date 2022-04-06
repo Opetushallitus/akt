@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 
 import {
   ChosenTranslators,
@@ -13,16 +13,19 @@ import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { TextFieldTypes } from 'enums/app';
 import { ContactRequestFormStep } from 'enums/contactRequest';
 import { useWindowProperties } from 'hooks/useWindowProperties';
-import { setContactRequest } from 'redux/actions/contactRequest';
+import {
+  setContactRequest,
+  setMessageError,
+} from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import { Utils } from 'utils';
 import { StringUtils } from 'utils/string';
 
-const getErrorForMessage = (message: string) => {
+const getErrorForMessage = (message?: string) => {
   const t = translateOutsideComponent();
   const error = Utils.inspectCustomTextFieldErrors(
     TextFieldTypes.Textarea,
-    message,
+    message || '',
     true
   );
 
@@ -42,43 +45,31 @@ export const WriteMessage = ({
   //Windows properties
   const { isPhone } = useWindowProperties();
 
-  // State
-  const [fieldError, setFieldError] = useState('');
-
   // Redux
-  const { request } = useAppSelector(contactRequestSelector);
+  const { request, messageError } = useAppSelector(contactRequestSelector);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const hasBlankMessage = StringUtils.isBlankString(request?.message);
-    // Instead of relying on fieldError in local state, compute the error text
-    // separately to ensure that we can disable the next button independently of
-    // showing the error labels. The error label is to be shown only
-    // after an onBlur event has occurred.
-    const hasFieldError = getErrorForMessage(request?.message || '').length > 0;
-
+    const hasFieldError = messageError ? messageError.length > 0 : false;
     disableNext(hasBlankMessage || hasFieldError);
-  }, [disableNext, fieldError, request]);
+  }, [disableNext, messageError, request]);
 
   const handleMessageFieldChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    if (fieldError) {
-      handleMessageFieldErrors(event);
-    }
-    dispatch(setContactRequest({ message: event.target.value }));
+    const message = e.target.value;
+    dispatch(setContactRequest({ message }));
+    dispatch(setMessageError(getErrorForMessage(message)));
   };
 
-  const handleMessageFieldErrors = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { value } = event.target;
-    setFieldError(getErrorForMessage(value));
+  const handleMessageFieldErrors = () => {
+    dispatch(setMessageError(getErrorForMessage(request?.message)));
   };
 
   const getHelperMessage = () => {
     const value = request?.message;
-    const errorToShow = fieldError ? `${fieldError}.` : '';
+    const errorToShow = messageError ? `${messageError}.` : '';
     const maxLength = Utils.getMaxTextAreaLength();
 
     return `${errorToShow} ${value?.length} / ${maxLength} ${t('characters')}`;
@@ -104,11 +95,11 @@ export const WriteMessage = ({
             label={t('formLabels.writeMessageHere')}
             value={request?.message}
             type={TextFieldTypes.Textarea}
-            onBlur={handleMessageFieldErrors}
             onChange={handleMessageFieldChange}
+            onBlur={handleMessageFieldErrors}
             showHelperText
             helperText={getHelperMessage()}
-            error={fieldError.length > 0}
+            error={messageError.length > 0}
             multiline
             fullWidth
             required
