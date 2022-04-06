@@ -33,7 +33,7 @@ export const ClerkTranslatorAutocompleteFilters = () => {
   const { filters, langs } = useAppSelector(clerkTranslatorsSelector);
 
   // LocalState
-  const [name, setName] = useState('');
+  const [name, setName] = useState(() => filters.name ?? '');
   const debounce = useDebounce(300);
 
   useEffect(() => {

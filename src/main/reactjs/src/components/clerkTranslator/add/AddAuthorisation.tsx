@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import { ComboBox, valueAsOption } from 'components/elements/ComboBox';
 import { CustomButton } from 'components/elements/CustomButton';
@@ -21,6 +21,7 @@ import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { Authorisation, AuthorisationBasis } from 'interfaces/authorisation';
 import { AutocompleteValue } from 'interfaces/components/combobox';
 import { MeetingDate } from 'interfaces/meetingDate';
+import { Utils } from 'utils';
 import { AuthorisationUtils } from 'utils/authorisation';
 import { DateUtils } from 'utils/date';
 import { StringUtils } from 'utils/string';
@@ -63,12 +64,20 @@ export const AddAuthorisation = ({
 
   const [authorisation, setAuthorisation] =
     useState<Authorisation>(newAuthorisation);
+  const [autDate, setAutDate] = useState('');
 
   const translateCommon = useCommonTranslation();
   const translateLanguage = useKoodistoLanguagesTranslation();
   const { t } = useAppTranslation({
     keyPrefix: 'akt.component.newAuthorisation',
   });
+
+  useEffect(() => {
+    setAuthorisation((prevState) => ({
+      ...prevState,
+      tempId: Utils.createUniqueId(),
+    }));
+  }, []);
 
   const handleLanguageSelectChange =
     (fieldName: string) =>
@@ -87,6 +96,9 @@ export const AddAuthorisation = ({
       ...authorisation,
       basis: value?.value as AuthorisationBasis,
     });
+    if (value?.value !== AuthorisationBasisEnum.AUT) {
+      setAutDate('');
+    }
   };
 
   const handleTermBeginDateChange = ({}, value: AutocompleteValue) => {
@@ -101,6 +113,7 @@ export const AddAuthorisation = ({
   };
 
   const handleAutDateChange = (value: string) => {
+    setAutDate(value);
     setAuthorisation({
       ...authorisation,
       autDate: dayjs(value),
@@ -152,6 +165,7 @@ export const AddAuthorisation = ({
       (!autDate || !dayjs(autDate).isValid());
 
     return (
+      isLoading ||
       isOtherPropsNotDefined ||
       isLangPropsNotDefined ||
       isDiaryNumberBlank ||
@@ -220,6 +234,7 @@ export const AddAuthorisation = ({
             <Text className="bold">{t('fieldLabel.autDate')}</Text>
             <DatePicker
               label={t('fieldPlaceholders.autDate')}
+              value={autDate}
               setValue={handleAutDateChange}
               disabled={authorisation.basis !== AuthorisationBasisEnum.AUT}
               dataTestId={`${testIdSuffix}-autDate`}
@@ -271,6 +286,7 @@ export const AddAuthorisation = ({
       </div>
       <div className="columns gapped margin-top-lg flex-end">
         <CustomButton
+          disabled={isLoading}
           data-testid="add-authorisation-modal__cancel"
           className="margin-right-xs"
           onClick={onCancel}

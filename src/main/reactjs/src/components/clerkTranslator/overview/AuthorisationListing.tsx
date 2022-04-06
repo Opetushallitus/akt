@@ -25,10 +25,7 @@ import { APIResponseStatus } from 'enums/api';
 import { Color, Severity, Variant } from 'enums/app';
 import { AuthorisationBasisEnum } from 'enums/clerkTranslator';
 import { Authorisation } from 'interfaces/authorisation';
-import {
-  deleteAuthorisation,
-  updateAuthorisationPublishPermission,
-} from 'redux/actions/clerkTranslatorOverview';
+import { updateAuthorisationPublishPermission } from 'redux/actions/clerkTranslatorOverview';
 import { showNotifierDialog } from 'redux/actions/notifier';
 import { NOTIFIER_ACTION_DO_NOTHING } from 'redux/actionTypes/notifier';
 import { clerkTranslatorOverviewSelector } from 'redux/selectors/clerkTranslatorOverview';
@@ -38,8 +35,12 @@ import { NotifierUtils } from 'utils/notifier';
 
 export const AuthorisationListing = ({
   authorisations,
+  permissionToPublishReadOnly,
+  onAuthorisationRemove,
 }: {
   authorisations: Array<Authorisation>;
+  permissionToPublishReadOnly: boolean;
+  onAuthorisationRemove: (a: Authorisation) => void;
 }) => {
   const translateLanguage = useKoodistoLanguagesTranslation();
   const translateCommon = useCommonTranslation();
@@ -77,29 +78,6 @@ export const AuthorisationListing = ({
           variant: Variant.Contained,
           action: () =>
             dispatch(updateAuthorisationPublishPermission(authorisation)),
-        },
-      ]
-    );
-
-    dispatch(showNotifierDialog(notifier));
-  };
-
-  const onAuthorisationRemove = (authorisation: Authorisation) => {
-    const notifier = NotifierUtils.createNotifierDialog(
-      t('actions.removal.dialog.header'),
-      Severity.Info,
-      t('actions.removal.dialog.description'),
-      [
-        {
-          title: translateCommon('back'),
-          variant: Variant.Outlined,
-          action: NOTIFIER_ACTION_DO_NOTHING,
-        },
-        {
-          title: t('actions.removal.dialog.confirmButton'),
-          variant: Variant.Contained,
-          action: () =>
-            dispatch(deleteAuthorisation(authorisation.id as number)),
         },
       ]
     );
@@ -172,13 +150,23 @@ export const AuthorisationListing = ({
                 </Text>
               </TableCell>
               <TableCell>
-                <CustomSwitch
-                  value={a.permissionToPublish}
-                  onChange={() => onPublishPermissionChange(a)}
-                  leftLabel={translateCommon('no')}
-                  rightLabel={translateCommon('yes')}
-                  aria-label={t('actions.changePermissionToPublish.ariaLabel')}
-                />
+                {permissionToPublishReadOnly ? (
+                  <Text>
+                    {a.permissionToPublish
+                      ? translateCommon('yes')
+                      : translateCommon('no')}
+                  </Text>
+                ) : (
+                  <CustomSwitch
+                    value={a.permissionToPublish}
+                    onChange={() => onPublishPermissionChange(a)}
+                    leftLabel={translateCommon('no')}
+                    rightLabel={translateCommon('yes')}
+                    aria-label={t(
+                      'actions.changePermissionToPublish.ariaLabel'
+                    )}
+                  />
+                )}
               </TableCell>
               <TableCell>
                 <Text>{a.diaryNumber}</Text>
