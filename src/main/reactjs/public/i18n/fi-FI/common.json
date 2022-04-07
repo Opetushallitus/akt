@@ -22,7 +22,11 @@
       "send": "Lähetä",
       "yes": "Kyllä",
       "add": "Lisää",
-      "addAuthorisation": "Lisää auktorisointi"
+      "addAuthorisation": "Lisää auktorisointi",
+      "navigation": {
+        "areYouSure": "Haluatko varmasti poistua sivulta?",
+        "changesAreLost": "Menetät tekemäsi muutokset."
+      }
     }
   }
 }
