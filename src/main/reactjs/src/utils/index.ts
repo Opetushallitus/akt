@@ -29,10 +29,10 @@ export class Utils {
 
   static inspectCustomTextFieldErrors(
     type: TextFieldTypes,
-    value: string,
+    value?: string,
     required = true
   ) {
-    const trimmedValue = value.trim();
+    const trimmedValue = value?.trim() || '';
 
     if (required && trimmedValue.length <= 0) {
       return CustomTextFieldErrors.Required;

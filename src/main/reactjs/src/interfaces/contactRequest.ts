@@ -21,8 +21,10 @@ export interface ContactRequestState {
   status: APIResponseStatus;
   activeStep: ContactRequestFormStep;
   request?: Partial<ContactRequest>;
+  messageError: string;
 }
 
 export interface ContactRequestAction extends Action {
   request?: ContactRequest;
+  messageError?: string;
 }

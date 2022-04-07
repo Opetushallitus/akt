@@ -147,7 +147,7 @@ describe('ContactRequestPage', () => {
     onContactRequestPage.elements.nextButton().should('be.disabled');
 
     onContactRequestPage.pasteToFieldByLabel(/^viesti/i, LONG_TEST_MESSAGE);
-    onContactRequestPage.blurFieldByLabel(/^viesti/i);
+    onContactRequestPage.elements.byLabel(/^viesti/i).type('{enter}');
 
     cy.findByText(/teksti on liian pitkä/i).should('be.visible');
     onContactRequestPage.elements.nextButton().should('be.disabled');

@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 
 import {
   ChosenTranslators,
@@ -8,15 +8,29 @@ import {
 } from 'components/contactRequest/ContactRequestFormUtils';
 import { CustomTextField } from 'components/elements/CustomTextField';
 import { H3 } from 'components/elements/Text';
-import { useAppTranslation } from 'configs/i18n';
+import { translateOutsideComponent, useAppTranslation } from 'configs/i18n';
 import { useAppDispatch, useAppSelector } from 'configs/redux';
 import { TextFieldTypes } from 'enums/app';
 import { ContactRequestFormStep } from 'enums/contactRequest';
 import { useWindowProperties } from 'hooks/useWindowProperties';
-import { setContactRequest } from 'redux/actions/contactRequest';
+import {
+  setContactRequest,
+  setMessageError,
+} from 'redux/actions/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
 import { Utils } from 'utils';
 import { StringUtils } from 'utils/string';
+
+const getErrorForMessage = (message?: string) => {
+  const t = translateOutsideComponent();
+  const error = Utils.inspectCustomTextFieldErrors(
+    TextFieldTypes.Textarea,
+    message,
+    true
+  );
+
+  return error ? t(`akt.${error}`) : '';
+};
 
 export const WriteMessage = ({
   disableNext,
@@ -25,57 +39,40 @@ export const WriteMessage = ({
 }) => {
   // I18n
   const { t } = useAppTranslation({
-    keyPrefix: 'akt',
+    keyPrefix: 'akt.component.contactRequestForm',
   });
 
   //Windows properties
   const { isPhone } = useWindowProperties();
 
-  // State
-  const [fieldError, setFieldError] = useState('');
-
   // Redux
-  const { request } = useAppSelector(contactRequestSelector);
+  const { request, messageError } = useAppSelector(contactRequestSelector);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const hasBlankMessage = StringUtils.isBlankString(request?.message);
-    const hasFieldError = fieldError.length > 0;
-
+    const hasFieldError = messageError ? messageError.length > 0 : false;
     disableNext(hasBlankMessage || hasFieldError);
-  }, [disableNext, fieldError, request]);
+  }, [disableNext, messageError, request]);
 
   const handleMessageFieldChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    if (fieldError) {
-      handleMessageFieldErrors(event);
-    }
-    dispatch(setContactRequest({ message: event.target.value }));
+    const message = e.target.value;
+    dispatch(setContactRequest({ message }));
+    dispatch(setMessageError(getErrorForMessage(message)));
   };
 
-  const handleMessageFieldErrors = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { type, value, required } = event.target;
-    const error = Utils.inspectCustomTextFieldErrors(
-      type as TextFieldTypes,
-      value,
-      required
-    );
-
-    const errorMessage = error ? t(error) : '';
-    setFieldError(errorMessage);
+  const handleMessageFieldErrors = () => {
+    dispatch(setMessageError(getErrorForMessage(request?.message)));
   };
 
   const getHelperMessage = () => {
     const value = request?.message;
-    const errorToShow = fieldError ? `${fieldError}.` : '';
+    const errorToShow = messageError ? `${messageError}.` : '';
     const maxLength = Utils.getMaxTextAreaLength();
 
-    return `${errorToShow} ${value?.length} / ${maxLength} ${t(
-      'component.contactRequestForm.characters'
-    )}`;
+    return `${errorToShow} ${value?.length} / ${maxLength} ${t('characters')}`;
   };
 
   return (
@@ -88,23 +85,21 @@ export const WriteMessage = ({
         <div className="rows gapped">
           <H3>
             {t(
-              `component.contactRequestForm.steps.${
+              `steps.${
                 ContactRequestFormStep[ContactRequestFormStep.WriteMessage]
               }`
             )}
           </H3>
           <CustomTextField
             id="contact-request-page__message-field"
-            label={t(
-              'component.contactRequestForm.formLabels.writeMessageHere'
-            )}
+            label={t('formLabels.writeMessageHere')}
             value={request?.message}
             type={TextFieldTypes.Textarea}
-            onBlur={handleMessageFieldErrors}
             onChange={handleMessageFieldChange}
+            onBlur={handleMessageFieldErrors}
             showHelperText
             helperText={getHelperMessage()}
-            error={fieldError.length > 0}
+            error={messageError.length > 0}
             multiline
             fullWidth
             required

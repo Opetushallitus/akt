@@ -10,12 +10,19 @@ import { useAppTranslation } from 'configs/i18n';
 import { useAppSelector } from 'configs/redux';
 import { ContactRequestFormStep } from 'enums/contactRequest';
 import { contactRequestSelector } from 'redux/selectors/contactRequest';
+import { Utils } from 'utils';
 
 export const PreviewAndSend = () => {
   const { t } = useAppTranslation({
-    keyPrefix: 'akt.component.contactRequestForm.formLabels',
+    keyPrefix: 'akt.component.contactRequestForm',
   });
   const { request } = useAppSelector(contactRequestSelector);
+
+  const getMessageHelperText = () => {
+    return `${request?.message?.length} / ${Utils.getMaxTextAreaLength()} ${t(
+      'characters'
+    )}`;
+  };
 
   return (
     <div className="rows">
@@ -24,7 +31,7 @@ export const PreviewAndSend = () => {
         <ChosenTranslatorsHeading />
         <ChosenTranslators />
         <DisplayContactInfo />
-        <H3>{t('message')}</H3>
+        <H3>{t('formLabels.message')}</H3>
         <CustomTextField
           disabled
           data-testid="contact-request-page__message-text"
@@ -32,6 +39,8 @@ export const PreviewAndSend = () => {
           InputProps={{
             readOnly: true,
           }}
+          showHelperText
+          helperText={getMessageHelperText()}
           multiline
           fullWidth
         />

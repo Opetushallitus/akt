@@ -11,6 +11,7 @@ import {
   CONTACT_REQUEST_RESET,
   CONTACT_REQUEST_SEND,
   CONTACT_REQUEST_SET,
+  CONTACT_REQUEST_SET_MESSAGE_ERROR,
   CONTACT_REQUEST_STEP_DECREASE,
   CONTACT_REQUEST_STEP_INCREASE,
   CONTACT_REQUEST_SUCCESS,
@@ -28,6 +29,7 @@ const defaultState = {
     message: '',
     phoneNumber: '',
   },
+  messageError: '',
 };
 
 export const contactRequestReducer: Reducer<
@@ -46,6 +48,8 @@ export const contactRequestReducer: Reducer<
       return { ...state, status: APIResponseStatus.Error };
     case CONTACT_REQUEST_SUCCESS:
       return { ...state, status: APIResponseStatus.Success };
+    case CONTACT_REQUEST_SET_MESSAGE_ERROR:
+      return { ...state, messageError: action.messageError ?? '' };
     case CONTACT_REQUEST_STEP_DECREASE:
       return { ...state, activeStep: --state.activeStep };
     case CONTACT_REQUEST_STEP_INCREASE:
