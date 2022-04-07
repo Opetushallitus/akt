@@ -13,10 +13,9 @@ class ClerkNewTranslatorPage {
         .find(`div>${fieldType}`),
     newTranslatorBasicInformationExtraInformation: () =>
       cy.findByTestId(`clerk-translator__basic-information__extraInformation`),
+
     newTranslatorAssuranceSwitch: () =>
-      cy.get(
-        '[data-testid="clerk-translator__basic-information__assurance-switch"] > .MuiTypography-root'
-      ),
+      cy.findByTestId('clerk-translator__basic-information__assurance-switch'),
     addAuthorisationField: (
       field: string,
       fieldType: string,
