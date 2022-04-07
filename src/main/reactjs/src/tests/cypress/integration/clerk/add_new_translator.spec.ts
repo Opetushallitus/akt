@@ -33,7 +33,7 @@ describe('ClerkAddNewTranslator', () => {
     onClerkNewTranslatorPage.clickAddAuthorisationButton();
     onClerkNewTranslatorPage.fillOutAddAuthorisationFields();
     onClerkNewTranslatorPage.addAuthorisation();
-    onClerkNewTranslatorPage.expectAuthorisationRowToExist(0);
+    onClerkNewTranslatorPage.expectUnsavedAuthorisationRowToExist(0);
     onClerkNewTranslatorPage.clickSaveNewClerkButton();
     cy.wait('@createTranslatorResponse');
     onToast.expectText('Kääntäjän tiedot tallennettiin!');
@@ -44,10 +44,10 @@ describe('ClerkAddNewTranslator', () => {
     onClerkNewTranslatorPage.clickAddAuthorisationButton();
     onClerkNewTranslatorPage.fillOutAddAuthorisationFields();
     onClerkNewTranslatorPage.addAuthorisation();
-    onClerkNewTranslatorPage.expectAuthorisationRowToExist(0);
-    onClerkNewTranslatorPage.clickDeleteAuthorisationButton(0);
-    onClerkNewTranslatorPage.expectAuthorisationRowToNotExist(0);
-    onClerkNewTranslatorPage.clickSaveNewClerkButton();
+    onClerkNewTranslatorPage.expectUnsavedAuthorisationRowToExist(0);
+    onClerkNewTranslatorPage.clickDeleteUnsavedAuthorisationButton(0);
+    onClerkNewTranslatorPage.clickDeleteAuthorisationDialogConfirmButton();
+    onClerkNewTranslatorPage.expectAuthorisationsTableToNotExist();
   });
 
   it('should not add new translator with missing fields', () => {
@@ -69,7 +69,7 @@ describe('ClerkAddNewTranslator', () => {
     onClerkNewTranslatorPage.clickAddAuthorisationButton();
     onClerkNewTranslatorPage.fillOutAddAuthorisationFields();
     onClerkNewTranslatorPage.addAuthorisation();
-    onClerkNewTranslatorPage.expectAuthorisationRowToExist(0);
+    onClerkNewTranslatorPage.expectUnsavedAuthorisationRowToExist(0);
 
     onClerkNewTranslatorPage.expectSaveNewClerkButtonDisabled();
 

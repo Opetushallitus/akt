@@ -64,6 +64,7 @@ export const DialogBox = () => {
           <DialogActions>
             {activeDialog.actions?.map((a, i) => (
               <CustomButton
+                data-testid={a.dataTestId}
                 key={i}
                 variant={a.variant}
                 color={a.buttonColor ?? Color.Secondary}
