@@ -44,6 +44,18 @@ class PublicTranslatorFilters {
     this.search();
   }
 
+  fillOutName(name: string) {
+    this.elements.name().type(name);
+  }
+
+  fillOutTown(town: string) {
+    this.elements.town().type(town);
+  }
+
+  enterKeyOnTown() {
+    this.elements.town().type('{enter}');
+  }
+
   emptySearch() {
     this.elements.empty().click();
   }
@@ -58,6 +70,10 @@ class PublicTranslatorFilters {
 
   clickToLang() {
     this.elements.toLang().click();
+  }
+
+  expectSearchButtonTo(assert: string) {
+    this.elements.search().should(assert);
   }
 
   expectSeachBtnText(text: string) {

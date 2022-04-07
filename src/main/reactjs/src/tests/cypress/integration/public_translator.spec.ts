@@ -71,4 +71,28 @@ describe('PublicTranslatorFilters', () => {
 
     onToast.expectText('Voit valita vain yhden kieliparin yhteydenottoon');
   });
+
+  it('it should show a toast notification when language pair is defined, a translator is selected, and user tries to change to lang', () => {
+    onPublicTranslatorFilters.filterByLanguagePair('suomi', 'ruotsi');
+    onPublicTranslatorsListing.clickTranslatorRow('1940');
+    onPublicTranslatorFilters.clickToLang();
+
+    onToast.expectText('Voit valita vain yhden kieliparin yhteydenottoon');
+  });
+
+  it.only('it should enable / disable search button correctly', () => {
+    onPublicTranslatorFilters.expectSearchButtonTo('be.disabled');
+    onPublicTranslatorFilters.selectFromLangByName('suomi');
+    onPublicTranslatorFilters.expectSearchButtonTo('be.enabled');
+    onPublicTranslatorFilters.emptySearch();
+    onPublicTranslatorFilters.expectSearchButtonTo('be.disabled');
+    onPublicTranslatorFilters.fillOutName('aaltonen a');
+    onPublicTranslatorFilters.expectSearchButtonTo('be.enabled');
+    onPublicTranslatorFilters.search();
+    onPublicTranslatorFilters.expectSearchButtonTo('be.disabled');
+    onPublicTranslatorFilters.fillOutTown('Helsinki');
+    onPublicTranslatorFilters.expectSearchButtonTo('be.enabled');
+    onPublicTranslatorFilters.enterKeyOnTown();
+    onPublicTranslatorFilters.expectSearchButtonTo('be.disabled');
+  });
 });
