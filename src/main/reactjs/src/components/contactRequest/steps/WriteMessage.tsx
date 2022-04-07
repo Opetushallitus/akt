@@ -25,7 +25,7 @@ const getErrorForMessage = (message?: string) => {
   const t = translateOutsideComponent();
   const error = Utils.inspectCustomTextFieldErrors(
     TextFieldTypes.Textarea,
-    message || '',
+    message,
     true
   );
 
