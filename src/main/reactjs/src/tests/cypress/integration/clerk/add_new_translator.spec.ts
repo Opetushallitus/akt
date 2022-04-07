@@ -39,6 +39,17 @@ describe('ClerkAddNewTranslator', () => {
     onToast.expectText('Kääntäjän tiedot tallennettiin!');
   });
 
+  it('should allow removing added authorisations', () => {
+    onClerkNewTranslatorPage.clickAddNewTranslatorButton();
+    onClerkNewTranslatorPage.clickAddAuthorisationButton();
+    onClerkNewTranslatorPage.fillOutAddAuthorisationFields();
+    onClerkNewTranslatorPage.addAuthorisation();
+    onClerkNewTranslatorPage.expectAuthorisationRowToExist(0);
+    onClerkNewTranslatorPage.clickDeleteAuthorisationButton(0);
+    onClerkNewTranslatorPage.expectAuthorisationRowToNotExist(0);
+    onClerkNewTranslatorPage.clickSaveNewClerkButton();
+  });
+
   it('should not add new translator with missing fields', () => {
     cy.intercept(
       'POST',

@@ -175,7 +175,9 @@ export const AuthorisationListing = ({
                 <CustomIconButton
                   onClick={() => onAuthorisationRemove(a)}
                   aria-label={t('actions.removal.ariaLabel')}
-                  data-testid={`authorisations-table__id-${a.id}-row__delete-btn`}
+                  data-testid={`authorisations-table__id-${
+                    a.id || a.tempId
+                  }-row__delete-btn`}
                 >
                   <DeleteIcon color={Color.Error} />
                 </CustomIconButton>

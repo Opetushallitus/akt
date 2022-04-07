@@ -76,6 +76,9 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
       fieldType,
       newLastName
     );
+    onClerkTranslatorOverviewPage.expectAssuranceErrorLabel('not.exist');
+    onClerkTranslatorOverviewPage.toggleAssuranceSwitch();
+    onClerkTranslatorOverviewPage.expectAssuranceErrorLabel('be.visible');
     onClerkTranslatorOverviewPage.clickSaveTranslatorInfoBtn();
     cy.wait('@updateClerkTranslatorOverview');
 
@@ -88,7 +91,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     onToast.expectText('Tiedot tallennettiin');
   });
 
-  it('should add authorisation succesfully', () => {
+  it.only('should add authorisation succesfully', () => {
     cy.fixture('meeting_dates_10.json')
       .then((dates) => {
         cy.intercept('GET', APIEndpoints.MeetingDate, dates);
@@ -100,31 +103,8 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     cy.wait('@getMeetingDates');
 
     onClerkTranslatorOverviewPage.clickAddAuthorisationBtn();
-    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
-      'from',
-      'input',
-      'suomi'
-    );
-    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
-      'to',
-      'input',
-      'ruotsi'
-    );
-    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
-      'basis',
-      'input',
-      'kkt'
-    );
-    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
-      'termBeginDate',
-      'input',
-      '1.1.2022'
-    );
-    onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
-      'diaryNumber',
-      'input',
-      '1337'
-    );
+    onClerkTranslatorOverviewPage.fillOutAddAuthorisationFields();
+    onClerkTranslatorOverviewPage.toggleAddAuthorisationCanPublishSwitch();
 
     cy.intercept(`${APIEndpoints.ClerkTranslator}/${translatorResponse.id}`, {
       ...translatorResponse,

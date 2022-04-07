@@ -33,6 +33,8 @@ class ClerkNewTranslatorPage {
       cy.findByTestId('clerk-new-translator-page__add-authorisation-button'),
     addAuthorisationModalAddButton: () =>
       cy.findByTestId('add-authorisation-modal__save'),
+    deleteAuthorisationButton: (id: number) =>
+      cy.findByTestId(`authorisations-table__id-${id}-row__delete-btn`),
     saveNewClerkButton: () =>
       cy.findByTestId('clerk-new-translator-page__save-button'),
     getAuthorisationRow: (id: number) =>
@@ -95,6 +97,10 @@ class ClerkNewTranslatorPage {
     this.elements.saveNewClerkButton().should('be.visible').click();
   }
 
+  clickDeleteAuthorisationButton(id: number) {
+    this.elements.deleteAuthorisationButton(id).should('be.visible').click();
+  }
+
   expectSaveNewClerkButtonDisabled() {
     this.elements.saveNewClerkButton().should('be.disabled');
   }
@@ -105,6 +111,10 @@ class ClerkNewTranslatorPage {
 
   expectAuthorisationRowToExist(id: number) {
     this.elements.getAuthorisationRow(id).should('exist');
+  }
+
+  expectAuthorisationRowToNotExist(id: number) {
+    this.elements.getAuthorisationRow(id).should('not.exist');
   }
 
   fillOutNewTranslatorBasicInformationFields(
