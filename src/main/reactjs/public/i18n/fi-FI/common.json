@@ -23,7 +23,7 @@
       "yes": "Kyllä",
       "add": "Lisää",
       "addAuthorisation": "Lisää auktorisointi",
-      "navigation": {
+      "navigationProtection": {
         "areYouSure": "Haluatko varmasti poistua sivulta?",
         "changesAreLost": "Menetät tekemäsi muutokset."
       }
