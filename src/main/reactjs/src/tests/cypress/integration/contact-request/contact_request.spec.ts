@@ -35,7 +35,16 @@ describe('ContactRequestPage', () => {
     onContactRequestPage.elements.nextButton().should('be.disabled');
   });
 
-  it('should open a confirmation dialog when cancel button is clicked', () => {
+  it('should bring user back to home page if cancel button is clicked', () => {
+    onContactRequestPage.cancel();
+    onPublicHomePage.isVisible();
+  });
+
+  it('should open a confirmation dialog when cancel button is clicked if user has filled in data', () => {
+    // First fill some data
+    verifyTranslatorsStep();
+    fillContactDetailsStep();
+
     // Click on cancel, then back out => return to contact request form
     onContactRequestPage.cancel();
     onDialog.expectText('Peruuta yhteydenottopyyntö');
