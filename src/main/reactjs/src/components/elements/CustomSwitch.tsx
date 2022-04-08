@@ -46,7 +46,11 @@ export const CustomSwitch = ({
           label={rightLabel}
         />
       </div>
-      {errorLabel && <Caption color={Color.Error}>{errorLabel}</Caption>}
+      {errorLabel && (
+        <Caption data-testid={`${dataTestId}__error-label`} color={Color.Error}>
+          {errorLabel}
+        </Caption>
+      )}
     </FormGroup>
   );
 };

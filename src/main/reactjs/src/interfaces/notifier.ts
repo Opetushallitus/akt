@@ -7,6 +7,7 @@ export interface NotifierButtonAction {
   action: string | (() => void);
   payload?: unknown;
   buttonColor?: Color;
+  dataTestId?: string;
 }
 
 export interface Notifier {

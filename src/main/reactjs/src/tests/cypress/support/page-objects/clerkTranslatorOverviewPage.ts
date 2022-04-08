@@ -1,5 +1,6 @@
 import { AppRoutes, UIMode } from 'enums/app';
 import { ClerkTranslatorResponse } from 'interfaces/clerkTranslator';
+import { addAuthorisationFields } from 'tests/cypress/fixtures/utils/clerkTranslatorOverview';
 import { onToast } from 'tests/cypress/support/page-objects/toast';
 
 class ClerkTranslatorOverviewPage {
@@ -41,13 +42,24 @@ class ClerkTranslatorOverviewPage {
         )
         .find(`div>${fieldType}`),
 
-    getAuthorisationRow: (id: string) =>
+    addAuthorisationCanPublishSwitch: () =>
+      cy.findByTestId('add-authorisation-field-canPublish'),
+
+    authorisationRow: (id: number) =>
       cy.findByTestId(`authorisations-table__id-${id}-row`),
 
     saveAuthorisationBtn: () =>
       cy.findByTestId('add-authorisation-modal__save'),
     cancelAuthorisationBtn: () =>
       cy.findByTestId('add-authorisation-modal__cancel'),
+
+    assuranceSwitch: () =>
+      cy.findByTestId('clerk-translator__basic-information__assurance-switch'),
+
+    assuranceSwitchErrorLabel: () =>
+      cy.findByTestId(
+        'clerk-translator__basic-information__assurance-switch__error-label'
+      ),
   };
 
   navigateById(id: number) {
@@ -84,6 +96,14 @@ class ClerkTranslatorOverviewPage {
       .type(newValue);
   }
 
+  toggleAssuranceSwitch() {
+    this.elements.assuranceSwitch().should('be.visible').click();
+  }
+
+  expectAssuranceErrorLabel(assert: string) {
+    this.elements.assuranceSwitchErrorLabel().should(assert);
+  }
+
   fillOutAddAuthorisationField(
     fieldName: string,
     fieldType: string,
@@ -93,6 +113,20 @@ class ClerkTranslatorOverviewPage {
       .addAuthorisationField(fieldName, fieldType)
       .clear()
       .type(`${newValue}{enter}`);
+  }
+
+  fillOutAddAuthorisationFields(fields = addAuthorisationFields) {
+    fields.forEach(({ fieldName, fieldType, value }) => {
+      onClerkTranslatorOverviewPage.fillOutAddAuthorisationField(
+        fieldName,
+        fieldType,
+        value
+      );
+    });
+  }
+
+  toggleAddAuthorisationCanPublishSwitch() {
+    this.elements.addAuthorisationCanPublishSwitch().click();
   }
 
   expectDisabledAddAuthorisationField(
@@ -127,8 +161,8 @@ class ClerkTranslatorOverviewPage {
     this.elements.saveAuthorisationBtn().should('be.enabled');
   }
 
-  expectAuthorisationRowToExist(id) {
-    this.elements.getAuthorisationRow(id).should('be.visible');
+  expectAuthorisationRowToExist(id: number) {
+    this.elements.authorisationRow(id).should('be.visible');
   }
 
   cancelAuthorisation() {

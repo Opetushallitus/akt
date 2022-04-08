@@ -29,14 +29,25 @@ describe('ClerkAddNewTranslator', () => {
     onClerkNewTranslatorPage.fillOutNewTranslatorBasicInformationExtraInformation(
       'Lisätiedot'
     );
-    onClerkNewTranslatorPage.clickNewTranslatorAssuranceToggleButton();
+    onClerkNewTranslatorPage.clickNewTranslatorAssuranceSwitch();
     onClerkNewTranslatorPage.clickAddAuthorisationButton();
     onClerkNewTranslatorPage.fillOutAddAuthorisationFields();
     onClerkNewTranslatorPage.addAuthorisation();
-    onClerkNewTranslatorPage.expectAuthorisationRowToExist(0);
+    onClerkNewTranslatorPage.expectUnsavedAuthorisationRowToExist(0);
     onClerkNewTranslatorPage.clickSaveNewClerkButton();
     cy.wait('@createTranslatorResponse');
     onToast.expectText('Kääntäjän tiedot tallennettiin!');
+  });
+
+  it('should allow removing added authorisations', () => {
+    onClerkNewTranslatorPage.clickAddNewTranslatorButton();
+    onClerkNewTranslatorPage.clickAddAuthorisationButton();
+    onClerkNewTranslatorPage.fillOutAddAuthorisationFields();
+    onClerkNewTranslatorPage.addAuthorisation();
+    onClerkNewTranslatorPage.expectUnsavedAuthorisationRowToExist(0);
+    onClerkNewTranslatorPage.clickDeleteUnsavedAuthorisationButton(0);
+    onClerkNewTranslatorPage.clickDeleteAuthorisationDialogConfirmButton();
+    onClerkNewTranslatorPage.expectAuthorisationsTableToNotExist();
   });
 
   it('should not add new translator with missing fields', () => {
@@ -58,7 +69,7 @@ describe('ClerkAddNewTranslator', () => {
     onClerkNewTranslatorPage.clickAddAuthorisationButton();
     onClerkNewTranslatorPage.fillOutAddAuthorisationFields();
     onClerkNewTranslatorPage.addAuthorisation();
-    onClerkNewTranslatorPage.expectAuthorisationRowToExist(0);
+    onClerkNewTranslatorPage.expectUnsavedAuthorisationRowToExist(0);
 
     onClerkNewTranslatorPage.expectSaveNewClerkButtonDisabled();
 

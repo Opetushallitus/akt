@@ -107,7 +107,7 @@ export const AuthorisationListing = ({
         <TableBody>
           {authorisations.map((a, i) => (
             <TableRow
-              key={a.id ?? i}
+              key={a.id ?? a.tempId}
               data-testid={`authorisations-table__id-${
                 a.id ?? `${i}-unsaved`
               }-row`}
@@ -175,7 +175,9 @@ export const AuthorisationListing = ({
                 <CustomIconButton
                   onClick={() => onAuthorisationRemove(a)}
                   aria-label={t('actions.removal.ariaLabel')}
-                  data-testid={`authorisations-table__id-${a.id}-row__delete-btn`}
+                  data-testid={`authorisations-table__id-${
+                    a.id || i
+                  }-row__delete-btn`}
                 >
                   <DeleteIcon color={Color.Error} />
                 </CustomIconButton>

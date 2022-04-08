@@ -13,9 +13,9 @@ class ClerkNewTranslatorPage {
         .find(`div>${fieldType}`),
     newTranslatorBasicInformationExtraInformation: () =>
       cy.findByTestId(`clerk-translator__basic-information__extraInformation`),
-    newTranslatorAssuranceToggleButton: () =>
+    newTranslatorAssuranceSwitch: () =>
       cy.get(
-        '[data-testid="clerk-translator__basic-information__assurance-toggle-button"] > .MuiTypography-root'
+        '[data-testid="clerk-translator__basic-information__assurance-switch"] > .MuiTypography-root'
       ),
     addAuthorisationField: (
       field: string,
@@ -33,10 +33,18 @@ class ClerkNewTranslatorPage {
       cy.findByTestId('clerk-new-translator-page__add-authorisation-button'),
     addAuthorisationModalAddButton: () =>
       cy.findByTestId('add-authorisation-modal__save'),
+    deleteAuthorisationButton: (id: number) =>
+      cy.findByTestId(`authorisations-table__id-${id}-row__delete-btn`),
+    deleteAuthorisationDialogConfirmButton: () =>
+      cy.findByTestId(
+        'clerk-new-translator-page__dialog-confirm-remove-button'
+      ),
     saveNewClerkButton: () =>
       cy.findByTestId('clerk-new-translator-page__save-button'),
-    getAuthorisationRow: (id: number) =>
+    authorisationRow: (id: number) =>
       cy.findByTestId(`authorisations-table__id-${id}-unsaved-row`),
+    authorisationsTable: () =>
+      cy.findByTestId('clerk-translator-details__authorisations-table'),
   };
 
   expectSelectedTranslatorsCount(count: number) {
@@ -76,11 +84,8 @@ class ClerkNewTranslatorPage {
       .type(`${value}{enter}`);
   }
 
-  clickNewTranslatorAssuranceToggleButton() {
-    this.elements
-      .newTranslatorAssuranceToggleButton()
-      .should('be.visible')
-      .click();
+  clickNewTranslatorAssuranceSwitch() {
+    this.elements.newTranslatorAssuranceSwitch().should('be.visible').click();
   }
 
   clickAddAuthorisationButton() {
@@ -95,6 +100,21 @@ class ClerkNewTranslatorPage {
     this.elements.saveNewClerkButton().should('be.visible').click();
   }
 
+  clickDeleteAuthorisationButton(id: number) {
+    this.elements.deleteAuthorisationButton(id).should('be.visible').click();
+  }
+
+  clickDeleteAuthorisationDialogConfirmButton() {
+    this.elements
+      .deleteAuthorisationDialogConfirmButton()
+      .should('be.visible')
+      .click();
+  }
+
+  clickDeleteUnsavedAuthorisationButton(id: number) {
+    this.elements.deleteAuthorisationButton(id).should('be.visible').click();
+  }
+
   expectSaveNewClerkButtonDisabled() {
     this.elements.saveNewClerkButton().should('be.disabled');
   }
@@ -103,8 +123,16 @@ class ClerkNewTranslatorPage {
     this.elements.saveNewClerkButton().should('be.enabled');
   }
 
-  expectAuthorisationRowToExist(id: number) {
-    this.elements.getAuthorisationRow(id).should('exist');
+  expectUnsavedAuthorisationRowToExist(id: number) {
+    this.elements.authorisationRow(id).should('exist');
+  }
+
+  expectUnsavedAuthorisationRowToNotExist(id: number) {
+    this.elements.authorisationRow(id).should('not.exist');
+  }
+
+  expectAuthorisationsTableToNotExist() {
+    this.elements.authorisationsTable().should('not.exist');
   }
 
   fillOutNewTranslatorBasicInformationFields(

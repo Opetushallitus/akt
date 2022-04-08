@@ -184,7 +184,7 @@ export const AddAuthorisation = ({
     }
   };
 
-  const testIdSuffix = 'add-authorisation-field';
+  const testIdPrefix = 'add-authorisation-field';
 
   return (
     <>
@@ -193,7 +193,7 @@ export const AddAuthorisation = ({
           <div className="rows gapped-xs">
             <Text className="bold">{t('fieldLabel.from')}</Text>
             <LanguageSelect
-              data-testid={`${testIdSuffix}-from`}
+              data-testid={`${testIdPrefix}-from`}
               autoHighlight
               label={t('fieldPlaceholders.from')}
               variant={TextFieldVariant.Outlined}
@@ -206,7 +206,7 @@ export const AddAuthorisation = ({
           <div className="rows gapped-xs">
             <Text className="bold">{t('fieldLabel.to')}</Text>
             <LanguageSelect
-              data-testid={`${testIdSuffix}-to`}
+              data-testid={`${testIdPrefix}-to`}
               autoHighlight
               label={t('fieldPlaceholders.to')}
               variant={TextFieldVariant.Outlined}
@@ -219,7 +219,7 @@ export const AddAuthorisation = ({
           <div className="rows gapped-xs">
             <Text className="bold">{t('fieldLabel.basis')}</Text>
             <ComboBox
-              data-testid={`${testIdSuffix}-basis`}
+              data-testid={`${testIdPrefix}-basis`}
               autoHighlight
               label={t('fieldPlaceholders.basis')}
               values={Object.values(AuthorisationBasisEnum).map(valueAsOption)}
@@ -237,7 +237,7 @@ export const AddAuthorisation = ({
               value={autDate}
               setValue={handleAutDateChange}
               disabled={authorisation.basis !== AuthorisationBasisEnum.AUT}
-              dataTestId={`${testIdSuffix}-autDate`}
+              dataTestId={`${testIdPrefix}-autDate`}
             />
           </div>
         </div>
@@ -245,7 +245,7 @@ export const AddAuthorisation = ({
           <div className="rows gapped-xs">
             <Text className="bold">{t('fieldLabel.termBeginDate')}</Text>
             <ComboBox
-              data-testid={`${testIdSuffix}-termBeginDate`}
+              data-testid={`${testIdPrefix}-termBeginDate`}
               autoHighlight
               label={t('fieldPlaceholders.termBeginDate')}
               values={availableMeetingDateValues}
@@ -257,7 +257,7 @@ export const AddAuthorisation = ({
           <div className="rows gapped-xs">
             <Text className="bold">{t('fieldLabel.termEndDate')}</Text>
             <CustomTextField
-              data-testid={`${testIdSuffix}-termEndDate`}
+              data-testid={`${testIdPrefix}-termEndDate`}
               label={t('fieldPlaceholders.termEndDate')}
               value={DateUtils.formatOptionalDate(authorisation?.termEndDate)}
               disabled={true}
@@ -266,7 +266,7 @@ export const AddAuthorisation = ({
           <div className="rows gapped-xs">
             <Text className="bold">{t('fieldLabel.diaryNumber')}</Text>
             <CustomTextField
-              data-testid={`${testIdSuffix}-diaryNumber`}
+              data-testid={`${testIdPrefix}-diaryNumber`}
               label={t('fieldPlaceholders.diaryNumber')}
               value={authorisation.diaryNumber}
               onChange={handleDiaryNumberChange}
@@ -275,7 +275,7 @@ export const AddAuthorisation = ({
           <div className="rows gapped-xs">
             <Text className="bold">{t('switch.canPublish')}</Text>
             <CustomSwitch
-              data-testid={`${testIdSuffix}-canPublish`}
+              dataTestId={`${testIdPrefix}-canPublish`}
               value={authorisation.permissionToPublish}
               leftLabel={translateCommon('no')}
               rightLabel={translateCommon('yes')}

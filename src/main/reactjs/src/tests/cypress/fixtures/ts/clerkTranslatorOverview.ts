@@ -100,7 +100,7 @@ export const authorisation = {
     to: 'SV',
   },
   basis: AuthorisationBasisEnum.KKT,
-  permissionToPublish: true,
+  permissionToPublish: false,
   diaryNumber: '1337',
   termBeginDate: getDateWithProperType('2022-01-01'),
   termEndDate: getDateWithProperType('2022-07-01'),

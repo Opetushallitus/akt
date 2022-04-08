@@ -65,6 +65,7 @@ export const ClerkNewTranslatorPage = () => {
           action: NOTIFIER_ACTION_DO_NOTHING,
         },
         {
+          dataTestId: 'clerk-new-translator-page__dialog-confirm-remove-button',
           title: translateCommon('yes'),
           variant: Variant.Contained,
           action: () =>
