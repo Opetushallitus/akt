@@ -54,13 +54,11 @@ class ClerkTranslatorOverviewPage {
       cy.findByTestId('add-authorisation-modal__cancel'),
 
     assuranceSwitch: () =>
-      cy.findByTestId(
-        'clerk-translator__basic-information__assurance-toggle-button'
-      ),
+      cy.findByTestId('clerk-translator__basic-information__assurance-switch'),
 
     assuranceSwitchErrorLabel: () =>
       cy.findByTestId(
-        'clerk-translator__basic-information__assurance-toggle-button__error-label'
+        'clerk-translator__basic-information__assurance-switch__error-label'
       ),
   };
 

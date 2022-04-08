@@ -29,7 +29,7 @@ describe('ClerkAddNewTranslator', () => {
     onClerkNewTranslatorPage.fillOutNewTranslatorBasicInformationExtraInformation(
       'Lisätiedot'
     );
-    onClerkNewTranslatorPage.clickNewTranslatorAssuranceToggleButton();
+    onClerkNewTranslatorPage.clickNewTranslatorAssuranceSwitch();
     onClerkNewTranslatorPage.clickAddAuthorisationButton();
     onClerkNewTranslatorPage.fillOutAddAuthorisationFields();
     onClerkNewTranslatorPage.addAuthorisation();

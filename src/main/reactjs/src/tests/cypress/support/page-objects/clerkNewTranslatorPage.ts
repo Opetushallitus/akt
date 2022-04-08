@@ -13,9 +13,9 @@ class ClerkNewTranslatorPage {
         .find(`div>${fieldType}`),
     newTranslatorBasicInformationExtraInformation: () =>
       cy.findByTestId(`clerk-translator__basic-information__extraInformation`),
-    newTranslatorAssuranceToggleButton: () =>
+    newTranslatorAssuranceSwitch: () =>
       cy.get(
-        '[data-testid="clerk-translator__basic-information__assurance-toggle-button"] > .MuiTypography-root'
+        '[data-testid="clerk-translator__basic-information__assurance-switch"] > .MuiTypography-root'
       ),
     addAuthorisationField: (
       field: string,
@@ -84,11 +84,8 @@ class ClerkNewTranslatorPage {
       .type(`${value}{enter}`);
   }
 
-  clickNewTranslatorAssuranceToggleButton() {
-    this.elements
-      .newTranslatorAssuranceToggleButton()
-      .should('be.visible')
-      .click();
+  clickNewTranslatorAssuranceSwitch() {
+    this.elements.newTranslatorAssuranceSwitch().should('be.visible').click();
   }
 
   clickAddAuthorisationButton() {

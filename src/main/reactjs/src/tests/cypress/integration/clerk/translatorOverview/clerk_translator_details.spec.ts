@@ -91,7 +91,7 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     onToast.expectText('Tiedot tallennettiin');
   });
 
-  it.only('should add authorisation succesfully', () => {
+  it('should add authorisation succesfully', () => {
     cy.fixture('meeting_dates_10.json')
       .then((dates) => {
         cy.intercept('GET', APIEndpoints.MeetingDate, dates);

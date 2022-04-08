@@ -171,7 +171,7 @@ export const ClerkTranslatorDetailsFields = ({
       <div className="rows gapped-xs">
         <H3>{t('header.isAssuranceGiven')}</H3>
         <CustomSwitch
-          dataTestId="clerk-translator__basic-information__assurance-toggle-button"
+          dataTestId="clerk-translator__basic-information__assurance-switch"
           disabled={editDisabled}
           onChange={onFieldChange('isAssuranceGiven')}
           value={translator?.isAssuranceGiven}
