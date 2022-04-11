@@ -34,10 +34,10 @@ export const CustomSwitch = ({
       <div className="columns">
         <Text className={leftLabelClassName}>{leftLabel}</Text>
         <FormControlLabel
-          data-testid={dataTestId}
           disabled={disabled}
           control={
             <Switch
+              data-testid={dataTestId}
               checked={value}
               color={Color.Secondary}
               onChange={onChange}
