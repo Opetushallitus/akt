@@ -24,8 +24,8 @@
       "add": "Lisää",
       "addAuthorisation": "Lisää auktorisointi",
       "navigationProtection": {
-        "areYouSure": "Haluatko varmasti poistua sivulta?",
-        "changesAreLost": "Menetät tekemäsi muutokset."
+        "header": "Haluatko varmasti poistua sivulta?",
+        "description": "Menetät tekemäsi muutokset."
       }
     }
   }

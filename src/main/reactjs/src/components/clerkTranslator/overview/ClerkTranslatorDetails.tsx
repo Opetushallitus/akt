@@ -36,7 +36,7 @@ export const ClerkTranslatorDetails = () => {
   const [hasLocalChanges, setHasLocalChanges] = useState(false);
   const [currentUIMode, setCurrentUIMode] = useState(UIMode.View);
   const isViewMode = currentUIMode !== UIMode.EditTranslatorDetails;
-  const resetLocalStateFromRedux = useCallback(() => {
+  const resetLocalTranslatorDetails = useCallback(() => {
     setTranslatorDetails(selectedTranslator);
   }, [selectedTranslator]);
 
@@ -48,10 +48,10 @@ export const ClerkTranslatorDetails = () => {
 
   const resetToInitialState = useCallback(() => {
     dispatch(resetClerkTranslatorDetailsUpdate);
-    resetLocalStateFromRedux();
+    resetLocalTranslatorDetails();
     setHasLocalChanges(false);
     setCurrentUIMode(UIMode.View);
-  }, [dispatch, resetLocalStateFromRedux]);
+  }, [dispatch, resetLocalTranslatorDetails]);
 
   useEffect(() => {
     if (
@@ -75,7 +75,6 @@ export const ClerkTranslatorDetails = () => {
   }, [
     currentUIMode,
     dispatch,
-    resetLocalStateFromRedux,
     resetToInitialState,
     t,
     translatorDetailsStatus,
@@ -96,14 +95,14 @@ export const ClerkTranslatorDetails = () => {
       setTranslatorDetails(updatedTranslatorDetails as ClerkTranslator);
     };
 
-  const handleSaveBtnClick = () => {
+  const onSave = () => {
     dispatch(
       updateClerkTranslatorDetails(translatorDetails as ClerkTranslator)
     );
   };
 
-  const handleEditBtnClick = () => {
-    resetLocalStateFromRedux();
+  const onEdit = () => {
+    resetLocalTranslatorDetails();
     setCurrentUIMode(UIMode.EditTranslatorDetails);
   };
 
@@ -128,7 +127,7 @@ export const ClerkTranslatorDetails = () => {
     dispatch(showNotifierDialog(dialog));
   };
 
-  const handleCancelBtnClick = () => {
+  const onCancel = () => {
     if (!hasLocalChanges) {
       resetToInitialState();
     } else {
@@ -146,9 +145,9 @@ export const ClerkTranslatorDetails = () => {
       editDisabled={isViewMode}
       topControlButtons={
         <ControlButtons
-          onCancelBtnClick={handleCancelBtnClick}
-          onEditBtnClick={handleEditBtnClick}
-          onSaveBtnClick={handleSaveBtnClick}
+          onCancel={onCancel}
+          onEdit={onEdit}
+          onSave={onSave}
           isViewMode={isViewMode}
         />
       }

@@ -17,9 +17,9 @@ export const useNavigationProtection = (when: boolean) => {
   useEffect(() => {
     if (showPrompt) {
       const confirmNavigationDialog = NotifierUtils.createNotifierDialog(
-        translateCommon('navigationProtection.areYouSure'),
+        translateCommon('navigationProtection.header'),
         Severity.Info,
-        translateCommon('navigationProtection.changesAreLost'),
+        translateCommon('navigationProtection.description'),
         [
           {
             title: translateCommon('back'),

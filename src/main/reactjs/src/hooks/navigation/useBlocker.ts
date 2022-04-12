@@ -3,8 +3,7 @@ import { useContext, useEffect } from 'react';
 import { UNSAFE_NavigationContext } from 'react-router';
 
 export const useBlocker = (blocker: Blocker, when: boolean) => {
-  const navigator = useContext(UNSAFE_NavigationContext)
-    .navigator as unknown as History;
+  const navigator = useContext(UNSAFE_NavigationContext).navigator as History;
 
   useEffect(() => {
     if (when) {
@@ -16,7 +15,6 @@ export const useBlocker = (blocker: Blocker, when: boolean) => {
             tx.retry();
           },
         };
-
         blocker(autoUnblockingTx);
       });
 
