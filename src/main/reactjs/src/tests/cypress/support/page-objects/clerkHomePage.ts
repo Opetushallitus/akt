@@ -20,6 +20,8 @@ class ClerkHomePage {
     toLanguageSelect: () =>
       cy.findByTestId('clerk-translator-filters__to-lang'),
     nameField: () => cy.findByTestId('clerk-translator-filters__name'),
+    resetFiltersButton: () =>
+      cy.findByTestId('clerk-translator-registry__reset-filters-btn'),
   };
 
   expectTotalTranslatorsCount(count: number) {
@@ -63,6 +65,10 @@ class ClerkHomePage {
     this.elements.sendEmailButton().click();
   }
 
+  resetFilters() {
+    this.elements.resetFiltersButton().click();
+  }
+
   selectTranslatorById(id: string) {
     this.elements.translatorRow(id).click();
   }
@@ -72,6 +78,18 @@ class ClerkHomePage {
       .translatorRow(`${id}`)
       .findByTestId(`clerk-translators__id-${id}-more-btn`)
       .click({ force: true });
+  }
+
+  expectFiltersReset() {
+    this.elements.fromLanguageSelect().should('have.text', 'MistäMistä');
+    this.elements.toLanguageSelect().should('have.text', 'MihinMihin');
+    this.elements.nameField().should('have.text', 'NimiNimi');
+    this.elements
+      .authorisationBasisSelect()
+      .should('have.text', 'AuktorisointiAuktorisointi');
+    this.elements
+      .permissionToPublishBasisSelect()
+      .should('have.text', 'KaikkiKaikki');
   }
 }
 

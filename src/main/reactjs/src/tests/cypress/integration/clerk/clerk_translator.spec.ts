@@ -101,4 +101,25 @@ describe('ClerkHomePage', () => {
     onClerkHomePage.filterByPermissionToPublishBasis(false);
     onClerkHomePage.expectSelectedTranslatorsCount(0);
   });
+
+  it('should reset all filters when "Tyhjennä valinnat" button is clicked ', () => {
+    onClerkHomePage.filterByFromLang('pohjoissaame');
+    onClerkHomePage.expectSelectedTranslatorsCount(1); // Anna Lehtonen
+
+    onClerkHomePage.filterByToLang('fääri');
+    onClerkHomePage.expectSelectedTranslatorsCount(1);
+
+    onClerkHomePage.filterByName('Anna');
+    onClerkHomePage.expectSelectedTranslatorsCount(1);
+
+    onClerkHomePage.filterByPermissionToPublishBasis(true);
+    onClerkHomePage.expectSelectedTranslatorsCount(1);
+
+    onClerkHomePage.filterByAuthorisationBasis('KKT');
+    onClerkHomePage.expectSelectedTranslatorsCount(1);
+
+    onClerkHomePage.resetFilters();
+    onClerkHomePage.expectSelectedTranslatorsCount(88);
+    onClerkHomePage.expectFiltersReset();
+  });
 });
