@@ -25,6 +25,7 @@ export interface Toast extends Notifier {
 export interface Dialog extends Notifier {
   type: NotifierTypes.Dialog;
   title: string;
+  onClose?: () => void;
 }
 
 export interface NotifierState {

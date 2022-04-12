@@ -12,7 +12,8 @@ export class NotifierUtils {
     severity: Severity,
     description: string,
     actions: NotifierButtonAction[],
-    timeOut: number | undefined = undefined
+    timeOut: number | undefined = undefined,
+    onClose?: () => void
   ) {
     const notifier: Dialog = {
       id: Utils.createUniqueId(),
@@ -22,6 +23,7 @@ export class NotifierUtils {
       description,
       actions,
       timeOut,
+      onClose,
     };
 
     return notifier;

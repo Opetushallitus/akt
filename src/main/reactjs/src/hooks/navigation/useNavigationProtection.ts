@@ -31,7 +31,9 @@ export const useNavigationProtection = (when: boolean) => {
             variant: Variant.Contained,
             action: confirmNavigation,
           },
-        ]
+        ],
+        undefined,
+        cancelNavigation
       );
       dispatch(showNotifierDialog(confirmNavigationDialog));
     }
