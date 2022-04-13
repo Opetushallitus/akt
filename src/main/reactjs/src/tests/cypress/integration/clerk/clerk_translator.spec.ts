@@ -120,6 +120,6 @@ describe('ClerkHomePage', () => {
 
     onClerkHomePage.resetFilters();
     onClerkHomePage.expectSelectedTranslatorsCount(88);
-    onClerkHomePage.expectFiltersReset();
+    onClerkHomePage.expectEmptyFilters();
   });
 });

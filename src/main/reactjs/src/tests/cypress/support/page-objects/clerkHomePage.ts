@@ -80,16 +80,21 @@ class ClerkHomePage {
       .click({ force: true });
   }
 
-  expectFiltersReset() {
-    this.elements.fromLanguageSelect().should('have.text', 'MistäMistä');
-    this.elements.toLanguageSelect().should('have.text', 'MihinMihin');
-    this.elements.nameField().should('have.text', 'NimiNimi');
+  expectEmptyFilters() {
+    this.elements
+      .fromLanguageSelect()
+      .find('div>input')
+      .should('have.value', '');
+    this.elements.toLanguageSelect().find('div>input').should('have.value', '');
+    this.elements.nameField().find('div>input').should('have.value', '');
     this.elements
       .authorisationBasisSelect()
-      .should('have.text', 'AuktorisointiAuktorisointi');
+      .find('div>input')
+      .should('have.value', '');
     this.elements
       .permissionToPublishBasisSelect()
-      .should('have.text', 'KaikkiKaikki');
+      .find('div>input')
+      .should('have.value', '');
   }
 }
 
