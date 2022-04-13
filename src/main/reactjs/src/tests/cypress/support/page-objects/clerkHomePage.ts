@@ -20,6 +20,8 @@ class ClerkHomePage {
     toLanguageSelect: () =>
       cy.findByTestId('clerk-translator-filters__to-lang'),
     nameField: () => cy.findByTestId('clerk-translator-filters__name'),
+    resetFiltersButton: () =>
+      cy.findByTestId('clerk-translator-registry__reset-filters-btn'),
   };
 
   expectTotalTranslatorsCount(count: number) {
@@ -63,6 +65,10 @@ class ClerkHomePage {
     this.elements.sendEmailButton().click();
   }
 
+  resetFilters() {
+    this.elements.resetFiltersButton().click();
+  }
+
   selectTranslatorById(id: string) {
     this.elements.translatorRow(id).click();
   }
@@ -72,6 +78,23 @@ class ClerkHomePage {
       .translatorRow(`${id}`)
       .findByTestId(`clerk-translators__id-${id}-more-btn`)
       .click({ force: true });
+  }
+
+  expectEmptyFilters() {
+    this.elements
+      .fromLanguageSelect()
+      .find('div>input')
+      .should('have.value', '');
+    this.elements.toLanguageSelect().find('div>input').should('have.value', '');
+    this.elements.nameField().find('div>input').should('have.value', '');
+    this.elements
+      .authorisationBasisSelect()
+      .find('div>input')
+      .should('have.value', '');
+    this.elements
+      .permissionToPublishBasisSelect()
+      .find('div>input')
+      .should('have.value', '');
   }
 }
 
