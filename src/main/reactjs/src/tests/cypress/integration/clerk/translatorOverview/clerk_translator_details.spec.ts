@@ -1,5 +1,5 @@
 import { APIEndpoints } from 'enums/api';
-import { UIMode } from 'enums/app';
+import { AppRoutes, UIMode } from 'enums/app';
 import {
   authorisation,
   translatorResponse,
@@ -36,11 +36,24 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     onClerkTranslatorOverviewPage.expectMode(UIMode.EditTranslatorDetails);
   });
 
-  it('should open a confirmation dialog when cancel is clicked and stay in edit mode if user backs out', () => {
+  it('should return from edit mode when cancel is clicked and no changes were made', () => {
     onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
     cy.wait('@getClerkTranslatorOverview');
     onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();
 
+    onClerkTranslatorOverviewPage.clickCancelTranslatorInfoBtn();
+    onClerkTranslatorOverviewPage.expectMode(UIMode.View);
+  });
+
+  it('should open a confirmation dialog when cancel is clicked if changes were made and stay in edit mode if user backs out', () => {
+    onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
+    cy.wait('@getClerkTranslatorOverview');
+    onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();
+    onClerkTranslatorOverviewPage.editTranslatorField(
+      'lastName',
+      'input',
+      'testiTesti123'
+    );
     onClerkTranslatorOverviewPage.clickCancelTranslatorInfoBtn();
 
     onDialog.expectText('Haluatko poistua muokkausnäkymästä?');
@@ -49,11 +62,15 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     onClerkTranslatorOverviewPage.expectMode(UIMode.EditTranslatorDetails);
   });
 
-  it('should open a confirmation dialog when cancel is clicked and return to view mode if user confirms', () => {
+  it('should open a confirmation dialog when cancel is clicked if changes were made and return to view mode if user confirms', () => {
     onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
     cy.wait('@getClerkTranslatorOverview');
     onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();
-
+    onClerkTranslatorOverviewPage.editTranslatorField(
+      'lastName',
+      'input',
+      'testiTesti123'
+    );
     onClerkTranslatorOverviewPage.clickCancelTranslatorInfoBtn();
 
     onDialog.expectText('Haluatko poistua muokkausnäkymästä?');
@@ -213,5 +230,21 @@ describe('ClerkTranslatorOverview:ClerkTranslatorDetails', () => {
     );
 
     onClerkTranslatorOverviewPage.expectSaveButtonDisabled();
+  });
+
+  it('should display a confirmation dialog if the back button is clicked and there are unsaved changes', () => {
+    onClerkTranslatorOverviewPage.navigateById(translatorResponse.id);
+    cy.wait('@getClerkTranslatorOverview');
+    onClerkTranslatorOverviewPage.clickEditTranslatorInfoBtn();
+    onClerkTranslatorOverviewPage.editTranslatorField(
+      'lastName',
+      'input',
+      'testiTesti123'
+    );
+    onClerkTranslatorOverviewPage.navigateBackToRegister();
+
+    onDialog.expectText('Haluatko varmasti poistua sivulta?');
+    onDialog.clickButtonByText('Kyllä');
+    cy.isOnPage(AppRoutes.ClerkHomePage);
   });
 });
