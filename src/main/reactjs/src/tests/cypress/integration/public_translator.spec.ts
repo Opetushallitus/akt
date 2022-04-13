@@ -64,23 +64,7 @@ describe('PublicTranslatorFilters', () => {
     onToast.expectText('Voit valita vain yhden kieliparin yhteydenottoon');
   });
 
-  it('it should show a toast notification when language pair is defined, a translator is selected, and user tries to change to lang', () => {
-    onPublicTranslatorFilters.filterByLanguagePair('suomi', 'ruotsi');
-    onPublicTranslatorsListing.clickTranslatorRow('1940');
-    onPublicTranslatorFilters.clickToLang();
-
-    onToast.expectText('Voit valita vain yhden kieliparin yhteydenottoon');
-  });
-
-  it('it should show a toast notification when language pair is defined, a translator is selected, and user tries to change to lang', () => {
-    onPublicTranslatorFilters.filterByLanguagePair('suomi', 'ruotsi');
-    onPublicTranslatorsListing.clickTranslatorRow('1940');
-    onPublicTranslatorFilters.clickToLang();
-
-    onToast.expectText('Voit valita vain yhden kieliparin yhteydenottoon');
-  });
-
-  it.only('it should enable / disable search button correctly', () => {
+  it('it should enable / disable search button correctly', () => {
     onPublicTranslatorFilters.expectSearchButtonTo('be.disabled');
     onPublicTranslatorFilters.selectFromLangByName('suomi');
     onPublicTranslatorFilters.expectSearchButtonTo('be.enabled');
