@@ -202,7 +202,6 @@ export const PublicTranslatorFilters = ({
   const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key == KeyboardKey.Enter && !searchButtonDisabled) {
       handleSearchBtnClick();
-      setSearchButtonDisabled(true);
     }
   };
 
